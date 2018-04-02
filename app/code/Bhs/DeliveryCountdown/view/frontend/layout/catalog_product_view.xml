@@ -1,0 +1,10 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_layout.xsd">
+   <head>
+	  <css src="Bhs_DeliveryCountdown::css/dcstyles.css" />
+   </head> 
+   <body>
+	 <referenceContainer name="product.info.main">
+		  <block class="Bhs\DeliveryCountdown\Block\DeliveryCountdown"  name="DeliveryCountdown" template="Bhs_DeliveryCountdown::countdowntimer.phtml" after="-" />
+	 </referenceContainer>  
+ </body> 
+</page>
