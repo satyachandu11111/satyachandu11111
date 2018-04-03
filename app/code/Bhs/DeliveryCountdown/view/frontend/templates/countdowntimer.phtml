@@ -1,37 +1,14 @@
 <?php
 
-$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-
-// @var \Magento\Catalog\Model\ResourceModel\Product\Collection $productCollection
-$productCollection = $objectManager->create('Magento\Catalog\Model\ResourceModel\Product\Collection');
-
-//$collection = $productCollection->addAttributeToSelect('is_show_countdown')->addAttributeToFilter('is_show_countdown', 1, 'eq')->load();
-//$collection = $productCollection->addAttributeToSelect('countdown')->load();
-
-
-//var_dump($collection);
-/*
-foreach ($collection as $product) {
-     $ProdID[] =  $product->getID();
-      //echo "k2";
-}
-
-print_r($ProdID);
-*/
-
-// GET CURRENT PRODUCT-ID
-$product = $objectManager->get('Magento\Framework\Registry')->registry('current_product'); //get current product
- //echo $FinalPid= $product->getSku(); //$product->getName();
-   $CountDown_Value = $product->getCountdowntimer();
-   $Psid= $product->getID();
-
-
+$checkEnable = $block->isEnable();
+	if($checkEnable){
+		$product = $block->getCurrentProduct();
+		$attrCode = $block->getAttrCode();
+			if($attrCode){
 ?>
 
-
-
-<?php  if($CountDown_Value == 479)  {  ?>
   <div  id="countDown" name="countDown"  class="countdown"><?php echo $block->buildString(); ?></div>
-<?php  }  ?>
+		<?php      }
+		}  ?>
 
 

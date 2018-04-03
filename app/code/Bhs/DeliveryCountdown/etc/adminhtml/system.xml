@@ -28,6 +28,10 @@
                     <label>Delivery Time (Days)</label>
 					<comment>Delivery Time in Days.</comment>
                 </field>
+                <field id="weekdays" translate="label" type="multiselect" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                      <label>Days in the week</label>
+                      <source_model>Bhs\DeliveryCountdown\Block\Adminhtml\System\Config\Form\Field\Weekdays</source_model>
+                 </field>
 				<field id="mapping" translate="label comment tooltip" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="0">
                         <label>Exclude Days</label>
                         <frontend_model>Bhs\DeliveryCountdown\Block\Adminhtml\System\Config\Form\Field\excludeDays</frontend_model>
