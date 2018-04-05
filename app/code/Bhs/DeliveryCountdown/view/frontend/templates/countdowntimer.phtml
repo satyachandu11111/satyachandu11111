@@ -3,12 +3,28 @@
 $checkEnable = $block->isEnable();
 	if($checkEnable){
 		$product = $block->getCurrentProduct();
-		$attrCode = $block->getAttrCode();
-			if($attrCode){
+		$attrCode = $block->getAttrCode();    
+			if($product->getData($attrCode) || $attrCode == ''){
 ?>
 
-  <div  id="countDown" name="countDown"  class="countdown"><?php echo $block->buildString(); ?></div>
-		<?php      }
-		}  ?>
+  <div  id="countDown" name="countDown"  class="countdown"><?php // echo $block->buildString(); ?></div>
+		
+<script type="text/javascript">
+    require(["jquery"],function($) {
+        $(document).ready(function() {
+            var customurl = "<?php echo $block->getCustomUrl()?>";
+             $.ajax({
+            url: customurl,
+            dataType: 'html',
+            showLoader: false,            
+        }).done(function (data) {
+            console.log(data);
+             $('#countDown').html(data);
+			});
+        });
+    });
+</script>
 
+<?php      }
+    }  ?>
 

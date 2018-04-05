@@ -48,6 +48,7 @@
 				<field id="cutofftimemon" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Cut Off Time</label>
                     <source_model>Magento\Config\Model\Config\Source\Date\Short</source_model>
+                    <comment>Enter Hours and Minutes ex: 15:00</comment>
                 </field>
 			<!--	<field id="cutofftimetue" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Tuesday</label>

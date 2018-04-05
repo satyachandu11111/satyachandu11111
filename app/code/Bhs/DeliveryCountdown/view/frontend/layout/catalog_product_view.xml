@@ -4,7 +4,7 @@
    </head> 
    <body>
 	 <referenceContainer name="product.info.main">
-		  <block class="Bhs\DeliveryCountdown\Block\DeliveryCountdown"  name="DeliveryCountdown" template="Bhs_DeliveryCountdown::countdowntimer.phtml" after="-" />
-	 </referenceContainer>  
+		  <block class="Bhs\DeliveryCountdown\Block\DeliveryCountdown"  name="DeliveryCountdown" template="Bhs_DeliveryCountdown::countdowntimer.phtml" after="-"  />
+	 </referenceContainer>  	 
  </body> 
 </page>
