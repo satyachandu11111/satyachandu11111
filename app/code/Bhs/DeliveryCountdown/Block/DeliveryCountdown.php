@@ -94,24 +94,24 @@ class DeliveryCountdown extends \Magento\Framework\View\Element\Template
         //$todayDate = $this->_timezone->date()->format('Y-m-d H:i:s');
         
         $currentdate = $this->_timezone->date()->format('Y-m-d');
-        $currentDateHour = $this->_timezone->date()->format('G:i');        
+        $currentDateHour = $this->_timezone->date()->format('G.i');        
         
         $calclateDate = $currentdate;
         $closeWeekDays = $this->setWeekdays();
-        $cuttOffTime = $this->scopeConfig->getValue('deliverycountdown/delivery/cutofftimemon',\Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        $cuttOffTime = $this->scopeConfig->getValue('deliverycountdown/general/cutofftimemon',\Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+
         $x = 0;
         $d = 1;
         $flag = false;
 
+        $cuttOffTime = str_replace(":",".",$cuttOffTime);
         // check cut of time
-        if($currentDateHour > $cuttOffTime){
+        if($currentDateHour >= $cuttOffTime){
             //$flag = true;   
             $addDays = $addDays + 1;            
         }
         
-
-        
-
+       
         do {
 
             $calclateDate = date('Y-m-d', strtotime($calclateDate . ' + '.$d.' days'));  // problem seems to be here
@@ -151,7 +151,7 @@ class DeliveryCountdown extends \Magento\Framework\View\Element\Template
    }
 
 	public function getCutOffTime() {
-		$cuttoffadmin = $this->scopeConfig->getValue('deliverycountdown/delivery/cutofftimemon', \Magento\Store\Model\ScopeInterface::SCOPE_STORE); // Monday Cut off time
+		$cuttoffadmin = $this->scopeConfig->getValue('deliverycountdown/general/cutofftimemon', \Magento\Store\Model\ScopeInterface::SCOPE_STORE); // Monday Cut off time
 		$currenttime = $this->getCurrentTime();
 
 		$cutofftime = strtotime(date('h:i:s A', strtotime(date('d-m-Y') . ' + ' . $cuttoffadmin . ' hours - 0 minutes')));
@@ -160,7 +160,7 @@ class DeliveryCountdown extends \Magento\Framework\View\Element\Template
 
 
     public function getCutOffTimeReal() {
-        $cuttoffadmin = $this->scopeConfig->getValue('deliverycountdown/delivery/cutofftimemon', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        $cuttoffadmin = $this->scopeConfig->getValue('deliverycountdown/general/cutofftimemon', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
        // $cutoff = strtotime(date('d-m-Y') . ' + ' . $cuttoffadmin . ' hours - 0 minutes');
         $cuttoffadmin = strtotime($cuttoffadmin);
         return  $cuttoffadmin;
