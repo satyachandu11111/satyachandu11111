@@ -24,7 +24,7 @@ class excludeDays extends \Magento\Config\Block\System\Config\Form\Field\FieldAr
     }
     protected function _construct() {
         $this->addColumn('field1', ['label' => __('Name')]);
-        $this->addColumn('field2', ['label' => __('Date')]);
+        $this->addColumn('field2', ['label' => __('Date(YYYY-MM-DD)')]);
         $this->_addAfter = false;
         $this->_addButtonLabel = __('Add');
         parent::_construct();

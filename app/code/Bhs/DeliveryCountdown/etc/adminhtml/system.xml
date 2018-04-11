@@ -20,7 +20,7 @@
 					<comment>Set text to be shown on frontend. e.g. For delivery on {{delivery_date}} order within the next {{time_remaining}} seconds!</comment>
                 </field>
                 <field id="weekend_string" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>weekend Delivery Text</label>
+                    <label>Weekend Delivery Text</label>
                     <comment>Set text to be shown on frontend. e.g. For delivery on {{delivery_date}} order within the next {{time_remaining}} seconds!</comment>
                 </field>
                 <field id="cutofftimemon" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
