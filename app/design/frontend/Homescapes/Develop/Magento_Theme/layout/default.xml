@@ -26,4 +26,14 @@
         <referenceBlock name="report.bugs" remove="true"/>
         <move element="copyright" destination="before.body.end"/>
     </body>
+	
+	
+	<!--custom layout changes-->
+	
+	<referenceBlock name="catalog.topnav" remove="true" />       <!-- Top menu-->
+	
+	 <move element="minicart" before="-" destination="header.panel"/>  <!--minicart to top-->
+	
+	
+	
 </page>
