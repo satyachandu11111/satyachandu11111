@@ -19,6 +19,10 @@
                     <label>Delivery Text</label>
 					<comment>Set text to be shown on frontend. e.g. For delivery on {{delivery_date}} order within the next {{time_remaining}} seconds!</comment>
                 </field>
+                <field id="weekend_string" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>weekend Delivery Text</label>
+                    <comment>Set text to be shown on frontend. e.g. For delivery on {{delivery_date}} order within the next {{time_remaining}} seconds!</comment>
+                </field>
                 <field id="cutofftimemon" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Delivery Cut Off Time</label>
                     <source_model>Magento\Config\Model\Config\Source\Date\Short</source_model>
@@ -38,7 +42,7 @@
                       <source_model>Bhs\DeliveryCountdown\Block\Adminhtml\System\Config\Form\Field\Weekdays</source_model>
                       <comment>Days on which your carrier wil not deliver. Hold CTRL key to select multiple values</comment>
                  </field>
-				<field id="mapping" translate="label comment tooltip" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="0">
+				<field id="mapping" translate="label comment tooltip" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
                         <label>Excluded Occassional Days</label>
                         <frontend_model>Bhs\DeliveryCountdown\Block\Adminhtml\System\Config\Form\Field\excludeDays</frontend_model>
                         <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>

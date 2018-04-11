@@ -91,6 +91,7 @@ class DeliveryCountdown extends \Magento\Framework\View\Element\Template
 
         $addDays = $this->scopeConfig->getValue('deliverycountdown/general/deliverytime', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
         $holidays = $this->getOffDates();
+        $shippingDeliveryToday =  true;
         //$todayDate = $this->_timezone->date()->format('Y-m-d H:i:s');
         
         $currentdate = $this->_timezone->date()->format('Y-m-d');
@@ -102,42 +103,122 @@ class DeliveryCountdown extends \Magento\Framework\View\Element\Template
 
         $x = 0;
         $d = 1;
+        $totalAddDays = 0;
         $flag = false;
 
         $cuttOffTime = str_replace(":",".",$cuttOffTime);
         // check cut of time
         if($currentDateHour >= $cuttOffTime){
             //$flag = true;   
-            $addDays = $addDays + 1;            
-        }
-        
-       
-        do {
+            $addDays = $addDays;  
+            $shippingDeliveryToday = false;          
+            //$calclateDate = date('Y-m-d', strtotime($calclateDate . ' + 1 days'));
 
-            $calclateDate = date('Y-m-d', strtotime($calclateDate . ' + '.$d.' days'));  // problem seems to be here
-            
-            //$flag = true;
-            // check holidays 
-            if(in_array($calclateDate, $holidays)){
-                continue;                
-            }
+        }else{
 
-            // check weekdays
+            //check current day holiday and cut of time
             $weekDaynumber = date('N', strtotime($calclateDate));
             
-            if(in_array($weekDaynumber, $closeWeekDays)){
-                continue;
-            }
-            
-            $x++;
-            
-            
-        } while ($x < $addDays);
+            if(in_array($calclateDate, $holidays) ||  in_array($weekDaynumber, $closeWeekDays)){
+                $shippingDeliveryToday = false;                
+                $addDays = $addDays;
+                //$calclateDate = date('Y-m-d', strtotime($calclateDate . ' + 1 days'));
+            }else{
+                $shippingDeliveryToday = true;                
+            }          
+
+        }
 
         
-        /* exclude holidays and week off days */
+        if(!$shippingDeliveryToday){
+            do {
 
-        return $calclateDate;
+                
+                $calclateDate = date('Y-m-d', strtotime($calclateDate . ' + '.$d.' days'));  // problem seems to be here
+                $totalAddDays++;
+                /*echo "<pre/>";
+                echo $calclateDate;*/
+                
+                if(in_array($calclateDate, $holidays)){
+                    continue;                
+                }
+
+                // check weekdays
+                $weekDaynumber = date('N', strtotime($calclateDate));
+                
+                
+                if(in_array($weekDaynumber, $closeWeekDays)){                    
+                    continue;
+                }
+                
+                break;
+                $x++;
+                
+                
+            } while ($x < $addDays);
+        }
+
+        $finalDate = date('Y-m-d', strtotime($calclateDate . ' + '.$addDays.' days'));
+        $calclateDate = $finalDate;
+        
+        
+        // start check scenario diffrent text
+        $checkString = '';
+        
+        $from_date = date_create($currentdate);
+        $to_date = date_create($calclateDate);
+        $datediff = date_diff($from_date,$to_date);
+        $datediff = $datediff->format("%a");        
+
+
+        if($datediff==1){
+            $calclateDate = __('Tomorrow, ').date('d F', strtotime($calclateDate));
+            $checkString = 'string';
+        }else{
+
+            //var_dump($currentdate);
+            $weekDaynumber = date('N', strtotime($currentdate));
+            
+            if(in_array($weekDaynumber, $closeWeekDays)){  // sat and sunday
+                //continue;
+                $calclateDate= date('l, d F', strtotime($calclateDate));
+                $checkString = 'weekend_string';                
+            }else{
+
+                if($currentDateHour >= $cuttOffTime){  
+                    // check next day weekdays
+                    if(in_array(($weekDaynumber+1), $closeWeekDays)){
+                        //var_dump($calclateDate);
+                        
+                        $calclateDate= date('l, d F', strtotime($calclateDate));
+                        $checkString = 'weekend_string';                        
+                    }else{
+                        
+                        $calclateDate= date('l, d F', strtotime($calclateDate));
+                        $checkString = 'string';                        
+                    }
+                }else{
+                    
+                    $calclateDate= date('l, d F', strtotime($calclateDate));
+                    $checkString = 'string';                           
+                }
+
+            }
+           
+        }
+        $tringField = 'deliverycountdown/general/'.$checkString;
+        $string = $this->scopeConfig->getValue($tringField, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+
+        $string = str_replace("{{delivery_date}}",'<span id="date">' . $calclateDate . "</span>",$string);
+        //$string = str_replace("{{delivery_date}}",'<span id="date">' . $this->getDeliveryDate() . "</span>",$string);
+        $string = str_replace("{{time_remaining}}",'<span id="time">' . $this->getTimeRemainingSeconds() . "</span>",$string);
+
+       
+
+        // end check scenario diffrent text
+       
+
+        return $string;
    }
 
 
@@ -198,14 +279,8 @@ class DeliveryCountdown extends \Magento\Framework\View\Element\Template
 	}
 	
 	public function buildString() {
-        /*$todayDate = $this->_timezone->date()->format('Y-m-d H:i:s');
-        var_dump($todayDate); die('rrrr');*/
-		$string = $this->scopeConfig->getValue('deliverycountdown/general/string', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
-
-        $string = str_replace("{{delivery_date}}",'<span id="date">' . $this->excludeDays() . "</span>",$string);
-		//$string = str_replace("{{delivery_date}}",'<span id="date">' . $this->getDeliveryDate() . "</span>",$string);
-		$string = str_replace("{{time_remaining}}",'<span id="time">' . $this->getTimeRemainingSeconds() . "</span>",$string);
-		return $string;
+        
+        return $this->excludeDays();
 	}
 
 
