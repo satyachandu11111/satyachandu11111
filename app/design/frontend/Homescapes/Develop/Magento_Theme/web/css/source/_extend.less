@@ -1,0 +1,1017 @@
+/* LESS Document */
+
+/*--------------------------------------------------------------------------
+/ Theme Colors
+--------------------------------------------------------------------------*/
+
+@black:#444444;
+@light-black:#626166;
+@white:#ffffff;
+@f2light:#F2F2F2;
+@f9light:#F9F9F9;
+@green:#0B8643;
+@border-color:#CCCCCC;
+@light-border:#eeeeee;
+@blue:#025CBD;
+@primary: #025CBD;
+@secondary: #6c757d;
+@success: #28a745;
+@info: #17a2b8;
+@warning: #ffc107;
+@danger: #F94747;
+@light: #f8f9fa;
+@dark: #343a40;
+@border:1px solid #ccc;
+@light-border:1px solid #eee;
+
+/*--------------------------------------------------------------------------
+|  Font-size
+--------------------------------------------------------------------------*/
+
+
+@font10:1rem;
+@font12:1.2rem;
+
+@base:1.4rem;
+
+@font15:1.5rem;
+@font16:1.6rem;
+@font18:1.8rem;
+
+@font20:2rem;
+
+@font22:2.2rem;
+@font24:2.4rem;
+@font26:2.6rem;
+@font28:2.8rem;
+
+@font30:3rem;
+
+@font32:3.2rem;
+
+@font34:3.4rem;
+@font36:3.6rem;
+@font38:3.8rem;
+
+@font40:4rem;
+
+@font50:5rem;
+@font60:6rem;
+@font70:7rem;
+@font80:8rem;
+
+/*--------------------------------------------------------------------------
+|  Responsive Break points
+--------------------------------------------------------------------------*/
+@359: ~"only screen and (max-width:359px)";
+
+@479: ~"only screen and (max-width:479px)";
+
+@480: ~"only screen and (min-width:480px)";
+
+@639: ~"only screen and (max-width:639px)";
+
+@640: ~"only screen and (min-width:640px)";
+
+@360-767: ~"only screen and (min-width:360px) and(max-width:767px)";
+
+@767: ~"only screen and (max-width:767px)";
+
+@768: ~"only screen and (min-width:768px)";
+
+@768-991: ~"only screen and (min-width:768px) and(max-width:991px)";
+
+@991: ~"only screen and (max-width:991px)";
+
+@992: ~"only screen and (min-width:992px)";
+
+@1190: ~"only screen and (min-width:1190px)";
+
+@768-1279: ~"only screen and (min-width:768px) and(max-width:1279px)";
+
+@1279: ~"only screen and (max-width:1279px)";
+
+@1280: ~"only screen and (min-width:1280px)";
+
+
+
+/*--------------------------------------------------------------------------
+|  Reset CSS
+--------------------------------------------------------------------------*/
+
+#maincontent, .header.content {
+max-width : 1240px;
+}
+.header.content {
+    padding: 10px 30px;
+}
+.page-header .header.panel{
+	max-width: 1240px;
+	padding: 8px 20px;
+}
+.cms-home .widget:first-child{
+	margin-bottom: 5px;
+}
+ul, ol{
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+/*--------------------------------------------------------------------------
+|  heading  CSS
+--------------------------------------------------------------------------*/
+
+h1, .h1 {
+  font-size: 3.6rem;
+}
+
+h2, .h2 {
+  font-size: 3rem;
+}
+
+h3, .h3 {
+  font-size: 2.6rem;
+}
+
+h4, .h4 {
+  font-size: 2.2rem;
+}
+
+h5, .h5 {
+  font-size: 2rem;
+}
+
+h6, .h6 {
+  font-size: 1.6rem;
+}
+
+
+/*--------------------------------------------------------------------------
+|  Grid CSS
+--------------------------------------------------------------------------*/
+
+
+/*--------------------------------------------------------------------------
+|  Navigation CSS
+--------------------------------------------------------------------------*/
+
+
+.wsmenu html, .wsmenu body, .wsmenu iframe, .wsmenu h1, .wsmenu h2, .wsmenu h3, .wsmenu h4, .wsmenu h5, .wsmenu h6 {
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  font: inherit;
+  vertical-align: baseline;
+  font-weight: normal;
+  font-size:@base;
+  line-height: 18px;
+  font-family: Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: subpixel-antialiased;
+  font-smoothing: antialiased;
+  font-smooth: antialiased;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -webkit-font-smoothing: subpixel-antialiased !important;
+  font-smoothing: subpixel-antialiased !important;
+  font-smooth: subpixel-antialiased;
+}
+
+.wsmenu .cl {
+  clear: both;
+}
+
+.wsmenu img, object, embed, video {
+  border: 0 none;
+  max-width: 100%;
+}
+
+.wsmenu a:focus {
+  outline: none !important;
+}
+
+.wsmenu:before, .wsmenu:after {
+  content: "";
+  display: table;
+}
+
+.wsmenu:after {
+  clear: both;
+}
+
+
+
+/*--------------------------------------------------------------------------
+|  Navigation Desktop CSS
+--------------------------------------------------------------------------*/
+
+.wsmobileheader {
+  display: none;
+}
+
+#overlapblackbg {
+  display: none;
+}
+
+.wsmenu {
+  color:@white;
+  position: relative;
+  font-size:@base;
+  padding: 0px;
+  margin: 0px auto;
+  width: 100%;
+  max-width: 1200px;
+  background-color:@white;
+}
+
+.wsmenu-list {
+  text-align: left;
+  margin: 0 auto 0 auto;
+  width: 100%;
+  display: table;
+  padding: 0px;
+}
+
+.wsmenu-list>li {
+  text-align: center;
+  display: table-cell;
+}
+
+
+
+
+
+.wsmenu-list>li>a .fa {
+  display: inline-block;
+  font-size: 14px;
+  line-height: inherit;
+  margin-right: 0px;
+}
+
+.wsmenu-list li ul li a .fa.fa-angle-double-right {
+  font-size: @base;
+  margin: 0 3px 0 -4px;
+}
+
+.wsmenu-list li a .arrow:after {
+  border-left: 4px solid rgba(0, 0, 0, 0);
+  border-right: 4px solid rgba(0, 0, 0, 0);
+  border-top: 4px solid @border-color;
+  content: "";
+  float: right;
+  height: 0;
+  margin: 0 0 0 9px;
+  position: absolute;
+  text-align: right;
+  top: 15px;
+  width: 0;
+}
+
+.wsmenu-list>li>a {
+  display: block;
+  background-color: @f9light;
+  color:@black;
+  font-weight: 600;
+  padding: 0px 14px;
+  line-height: 35px;
+  text-decoration: none;
+  position: relative;
+}
+
+.wsmenu-list li a:hover .arrow:after {
+  border-top-color: @border;
+}
+
+.wsmenu-list li a.active .arrow:after {
+  border-top-color: @border;
+}
+
+.wsmenu-list li:hover>a .arrow:after {
+  border-top-color: @border;
+}
+
+
+
+.wsmenu-list li:hover .megamenu {
+  opacity: 1;
+}
+
+.megamenu {
+  width: 100%;
+  left: 0px;
+  position: absolute;
+  top: 35px;
+  color: @black;
+  z-index: 1000;
+  margin: 0px;
+  text-align: left;
+  padding: 14px 0px;
+  font-size: 15px;
+  border:@light-border;
+  background-color: @white;
+  opacity: 0;
+  -o-transform-origin: 0% 0%;
+  -ms-transform-origin: 0% 0%;
+  -moz-transform-origin: 0% 0%;
+  -webkit-transform-origin: 0% 0%;
+  -o-transition: -o-transform 0.3s, opacity 0.3s;
+  -ms-transition: -ms-transform 0.3s, opacity 0.3s;
+  -moz-transition: -moz-transform 0.3s, opacity 0.3s;
+  -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+}
+
+.megamenu .title {
+  border-bottom:@border;
+  font-size: 14px;
+  padding: 9px 5px 9px 0px;
+  font-size: @font18;
+  color: @black;
+  margin: 0px 0px 7px 0px;
+  text-align: left;
+  height: 39px;
+  margin: 0px 0px 10px 0px;
+}
+ .link-list li a.title-link {
+  border-bottom:@border;
+  font-size:@font18;
+	 line-height: 17px;
+  color: @black;
+  text-align: left;
+  margin: 0px 0px 9px 0px;
+  }
+.link-list li a.title-link:hover{
+	text-decoration: none !important;
+  border-bottom: 0px solid @border-color;
+}
+.wsmenu-list > li > a.menu-special{
+	background: @danger;
+	color:@white;
+	border-right: 0 solid;
+}
+.wsmenu-list > li > a.menu-special:hover{
+	background: @danger !important;
+	color: @white;
+}
+
+.link-list li {
+  display: block;
+  text-align: center;
+  white-space: nowrap;
+  text-align: left;
+	margin-bottom: 0;
+}
+.link-list li a {
+  line-height: 18px;
+  border-right: none;
+  text-align: left;
+  padding: 6px 0px;
+  background: @white !important;
+  display: block;
+  color: @black;
+}
+
+.link-list .fa {
+  font-size: @font10;
+}
+.mainmapdiv {
+  width: 100%;
+  display: block;
+  margin: 0% 0%;
+}
+
+
+
+.wsmenu-list .megamenu li:hover>a {
+  background: transparent !important;
+}
+
+.wsmenu-list .megamenu li a:hover {
+  background: transparent !important;
+  text-decoration: underline;
+}
+
+.wsmenu-list .megamenu li .fa {
+  margin-right: 5px;
+  text-align: center;
+  width: 18px;
+}
+
+.mrgtop {
+  margin-top: 15px;
+}
+
+.show-grid div {
+  padding-bottom: 4px;
+  padding-top: 4px;
+  background-color: @f2light;
+  border:@light-border;
+  color: #6a6a6a;
+  margin: 2px 0px;
+}
+
+.halfmenu {
+  width: 40%;
+  right: auto !important;
+  left: auto !important;
+}
+.menu75L {
+  width: 70%;
+  right: auto !important;
+  left: 0 !important;
+}
+.menu75R {
+  width: 75%;
+  right: 0 !important;
+  left: auto !important;
+}
+.menu55R {
+  width: 55%;
+  right: 0 !important;
+  left: auto !important;
+}
+
+.halfmenu .megacollink {
+  width: 48%;
+  float: left;
+  margin: 0% 1%;
+}
+
+.halfdiv {
+  width: 35%;
+  right: 0px !important;
+  left: auto;
+}
+.wsmenu-list li>.megamenu {
+  transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transform: rotateX(-75deg);
+  -o-transform: rotateX(-75deg);
+  -moz-transform: rotateX(-75deg);
+  -webkit-transform: rotateX(-75deg);
+  visibility: hidden;
+}
+
+.wsmenu-list li:hover>.megamenu {
+  transform: rotateX(0deg);
+  -o-transform: rotateX(0deg);
+  -moz-transform: rotateX(0deg);
+  -webkit-transform: rotateX(0deg);
+  opacity: 1;
+  visibility: visible;
+}
+.wsmenuexpandermain {
+  display: none;
+}
+.wsmenu-submenu li {
+  position: relative;
+  padding: 0px;
+  margin: 0px;
+  display: block;
+}
+
+.wsmenu-click {
+  display: none;
+}
+.wsmenu-list li:hover>a {
+  background-color: rgba(0, 0, 0, 0.08) !important;
+  text-decoration: none;
+}
+
+.wsmenu-list>li>a:hover {
+  background-color: rgba(0, 0, 0, 0.08) !important;
+  text-decoration: none;
+}
+
+.wsmenu-list>li>a.active {
+  background-color: rgba(0, 0, 0, 0.08) !important;
+  text-decoration: none;
+}
+
+.wsmenu-submenu>li>a:hover {
+  background-color: rgba(0, 0, 0, 0.08) !important;
+  border-radius: 0px !important;
+  text-decoration: none;
+  text-decoration: none;
+}
+
+
+
+.hometext {
+  display: none;
+}
+
+
+
+
+
+/*--------------------------------------------------------------------------
+| Navigation Tab 
+--------------------------------------------------------------------------*/
+
+@media only screen and (min-width:980px) and (max-width:1023px) {
+  .wsmenu-list>li>a>.fa {
+    display: none !important;
+  }
+  .hometext {
+    display: block !important;
+  }
+  .wsmenu {
+    font-size: @font12 !important;
+  }
+  .wsmenu-list li a {
+    white-space: nowrap !important;
+    padding-left: 4px !important;
+    padding-right: 4px !important;
+  }
+
+}
+
+@media only screen and (min-width: 980px) and (max-width:1200px) {
+  .wsmenu-list li a .arrow:after {
+    display: none !important;
+  }
+}
+
+@media only screen and (min-width: 980px) {
+  .wsmenu-list li:hover>.megamenu {
+    display: block !important;
+  }
+}
+
+/*--------------------------------------------------------------------------
+|  Navigation  Mobile 
+--------------------------------------------------------------------------*/
+
+@media only screen and (max-width: 979px) {
+  .wsoffcanvasopener .wsmenu {
+    left: 0px;
+    -webkit-transition: all 0.4s ease-in-out;
+    -moz-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+    -ms-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+  }
+  .wsmenucontainer.wsoffcanvasopener {
+    display: block;
+    margin-left: 280px;
+  }
+  .wsmobileheader {
+    display: block !important;
+    position: relative;
+    top: 0;
+    right: 0;
+    left: 0;
+    -webkit-transition: all 0.4s ease-in-out;
+    -moz-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+    -ms-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+  }
+  .wsmenu-list>li:hover>a {
+    background-color: rgba(0, 0, 0, 0.08) !important;
+    text-decoration: none;
+  }
+  .hometext {
+    display: inline-block !important;
+  }
+
+  .mainmapdiv {
+    width: 90% !important;
+    margin: 0% 5% !important;
+  }
+  #overlapblackbg {
+    left: 0;
+    z-index: 102;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.45);
+    cursor: pointer;
+  }
+  .wsoffcanvasopener #overlapblackbg {
+    display: block !important;
+  }
+  .wsmenu-submenu>li:hover>a {
+    background-color: @light-black;
+
+    color: @black;
+  }
+  .wsmenu>.wsmenu-list>li>a.active {
+    color: @light-black;
+    background-color: rgba(0, 0, 0, 0.08);
+  }
+  .wsmenu>.wsmenu-list>li>a:hover {
+    color:@light-black;
+    background-color: rgba(0, 0, 0, 0.08);
+  }
+  .wsmenu-list li:last-child a {
+    border-right: 0px solid;
+  }
+  .innerpnd {
+    padding: 0px !important;
+  }
+  .typography-text {
+    padding: 10px 0px;
+  }
+  .wsmenucontainer {
+    overflow: hidden;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    -webkit-transition: all 0.4s ease-in-out;
+    -moz-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+    -ms-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+  }
+  .wsmenu-click {
+    height: 43px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+    cursor: pointer;
+    width: 100%;
+  }
+  .wsmenu-click i {
+    display: block;
+    height: 23px;
+    width: 25px;
+    margin-top: 11px;
+    margin-right: 8px;
+    background-size: 25px;
+    font-size: @font22;
+    color: rgba(0, 0, 0, 0.25);
+    float: right;
+  }
+  .wsmenu-click02 {
+    height: 43px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+    cursor: pointer;
+    width: 100%;
+  }
+  .wsmenu-click02 i {
+    display: block;
+    height: 23px;
+    width: 25px;
+    margin-top: 11px;
+    margin-right: 8px;
+    background-size: 25px;
+    font-size: @font22;
+    color: rgba(0, 0, 0, 0.25);
+    float: right;
+  }
+  .ws-activearrow>i {
+    transform: rotate(180deg);
+  }
+  .wsmenu-rotate {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+
+
+  .wsmenu-list>li>a .fa {
+    margin-right: 6px;
+  }
+
+
+
+  .wsmenu {
+    position: relative;
+  }
+  .wsmenu .wsmenu-list {
+    height: 100%;
+    overflow-y: auto;
+    display: block !important;
+  }
+  .wsmenu .wsmenu-list>li {
+    width: 100%;
+    display: block;
+    float: none;
+    border-right: none;
+    background-color: transparent;
+    position: relative;
+    white-space: inherit;
+  }
+  .wsmenu>.wsmenu-list>li>a {
+    padding: 9px 32px 9px 17px;
+    font-size: 14px;
+    text-align: left;
+    border-right: solid 0px;
+    background-color: transparent;
+    color:@light-black;
+    line-height: 25px;
+    border-bottom: 1px solid;
+    border-bottom-color: rgba(0, 0, 0, 0.13);
+    position: static;
+  }
+  .wsmenu>.wsmenu-list>li>a>.fa {
+    font-size:@base;
+    color: @f2light;
+  }
+  .wsmenu .wsmenu-list li a .arrow:after {
+    display: none !important;
+  }
+  .wsmenu .wsmenu-list li ul li a .fa.fa-caret-right {
+    font-size:@font12 !important;
+    color:@light-black;
+  }
+
+
+  .wsmenu-list .megamenu {
+    background-color:@white;
+    color: @light-black;
+    display: none;
+    position: relative !important;
+    top: 0px;
+    padding: 0px;
+    border: solid 0px;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  .wsmenu-list li:hover .megamenu {
+    display: none;
+    position: relative !important;
+    top: 0px;
+  }
+  .megamenu .title {
+
+    color: @light-black;
+    font-size: 15px !important;
+    padding: 10px 8px 10px 0px;
+  }
+  .halfdiv .title {
+    padding-left: 15px;
+  }
+  .megamenu>ul {
+    width: 100% !important;
+    margin: 0px;
+    padding: 0px;
+    font-size: 13px !important;
+  }
+  .megamenu>ul>li>a {
+    padding: 9px 14px !important;
+    line-height: normal !important;
+    font-size:@base !important;
+    background-color: @f9light !important;
+    color: @light-black;
+  }
+  .megamenu>ul>li>a:hover {
+    background-color: @black!important;
+  }
+
+  .megamenu ul li.title {
+    line-height: 26px;
+    color: @light-black;
+    margin: 0px;
+    font-size: 15px;
+    padding: 7px 0px !important;
+    border-bottom: @border;
+    background-color: transparent !important;
+  }
+ .megamenu ul li.title a {
+    line-height: 26px;
+    color:@light-black;
+    margin: 0px;
+    font-size:@font15;
+    padding: 7px 0px !important;
+    border-bottom:@border;
+    background-color: transparent !important;
+  }
+	
+  .halfdiv {
+    width: 100%;
+    display: block;
+  }
+  .halfmenu {
+    width: 100%;
+    display: block;
+  }
+
+  .wsmenu {
+    width: 280px;
+    left: -280px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    margin: 0;
+    background-color:@white;
+    border-radius: 0px;
+    z-index: 103;
+    -webkit-transition: all 0.4s ease-in-out;
+    -moz-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+    -ms-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+    border: none !important;
+    background-color: @white !important;
+  }
+  .animated-arrow {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 102;
+    -webkit-transition: all 0.4s ease-in-out;
+    -moz-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+    -ms-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+  }
+ 
+
+
+  .wsoffcanvasopener .animated-arrow {
+    left: 280px;
+  }
+  .animated-arrow {
+    cursor: pointer;
+    padding: 13px 35px 16px 0px;
+    margin: 10px 0 0 15px;
+  }
+  .animated-arrow span, .animated-arrow span:before, .animated-arrow span:after {
+    cursor: pointer;
+    height: 3px;
+    width: 23px;
+    background: @border-color;
+    position: absolute;
+    display: block;
+    content: '';
+  }
+  .animated-arrow span:before {
+    top: -7px;
+  }
+  .animated-arrow span:after {
+    bottom: -7px;
+  }
+  .animated-arrow span, .animated-arrow span:before, .animated-arrow span:after {
+    transition: all 500ms ease-in-out;
+  }
+  .wsoffcanvasopener .animated-arrow span {
+    background-color: transparent;
+  }
+  .wsoffcanvasopener .animated-arrow span:before, .animated-arrow.active span:after {
+    top: 7px;
+  }
+  .wsoffcanvasopener .animated-arrow span:before {
+    transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    bottom: 0px;
+  }
+  .wsoffcanvasopener .animated-arrow span:after {
+    transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+  }
+
+
+  .wsmenu-list li>.megamenu {
+    transform: none !important;
+    -o-transform: none !important;
+    -moz-transform: none !important;
+    -webkit-transform: none !important;
+    transform: none !important;
+    -o-transform: none !important;
+    -moz-transform: none !important;
+    -webkit-transform: none !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  .wsmenu-list li:hover>.megamenu {
+    transform: none !important;
+    -o-transform: none !important;
+    -moz-transform: none !important;
+    -webkit-transform: none !important;
+    transform: none !important;
+    -o-transform: none !important;
+    -moz-transform: none !important;
+    -webkit-transform: none !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+}
+
+
+/*--------------------------------------------------------------------------
+|  Key points 
+--------------------------------------------------------------------------*/
+
+.homescapes-key-points{
+	
+	ul {
+    margin: 4px -15px 0 -10px;
+    overflow: hidden;
+    padding-left: 5px;
+		
+		li {
+			border:@light-border;
+			float: left;
+			list-style: outside none none;
+			margin: 0 5px;
+			padding: 18px 10px;
+			width: 24%;
+			min-height: 110px;
+			
+			.border-keyimg-pad {
+				text-align: center;
+				padding: 12px 10px 6px;
+			}
+			img{
+					width: 202px;
+					height: auto;
+			}
+			.key-quality {
+				background-position: 6px -210px;
+				float: left;
+				height: 64px;
+				margin-right: 5px;
+				width: 64px;
+			}	
+			
+			.key-security {
+				background-position: 6px -342px;
+				float: left;
+				height: 64px;
+				margin-right: 5px;
+				width: 64px;
+			}
+			.key-prices {
+				background-position: 6px -455px;
+				float: left;
+				height: 64px;
+				margin-right: 5px;
+				width: 64px;
+			}
+			
+			h3{
+				font-size: @base;
+				font-weight: bold;
+				margin: 0 0 4px;
+			}
+			p{
+				font-size: @base;
+				margin: 0;
+			}
+		}	
+		
+		.border-keyimg-pad {
+			text-align: center;
+			padding: 12px 10px 6px;
+			height: auto;
+		}
+		.icon-set {
+			display: inline-block;
+			overflow: hidden;
+			position: relative;
+			text-indent: -9999px;
+			vertical-align: middle;
+			white-space: nowrap;
+			width: 34px;
+			height: 34px;
+			background-image: url(../images/icon_sprite_new.png);
+			background-repeat: no-repeat;
+			background-position: 0px 0px;
+			background-size: 300px 1300px;
+		}
+		
+	}
+
+}
+
+/*--------------------------------------------------------------------------
+|  Home Bedding Block 
+--------------------------------------------------------------------------*/
+.mb-50{
+	margin-bottom: 48px;
+	
+	@media @991{
+		margin-bottom: 30px;
+	}
+}
+.mb-mobile-20{
+	
+	@media @767{
+		margin-bottom: 25px;
+	}
+}
+.bedding img{
+	
+	@media @767{
+		width: 100%;
+	}
+}
