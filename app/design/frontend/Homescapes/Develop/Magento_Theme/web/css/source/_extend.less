@@ -7,11 +7,15 @@
 @black:#444444;
 @light-black:#626166;
 @white:#ffffff;
+
 @f2light:#F2F2F2;
 @f9light:#F9F9F9;
+
 @green:#0B8643;
+
 @border-color:#CCCCCC;
 @light-border:#eeeeee;
+
 @blue:#025CBD;
 @primary: #025CBD;
 @secondary: #6c757d;
@@ -21,6 +25,7 @@
 @danger: #F94747;
 @light: #f8f9fa;
 @dark: #343a40;
+
 @border:1px solid #ccc;
 @light-border:1px solid #eee;
 
@@ -98,25 +103,46 @@
 /*--------------------------------------------------------------------------
 |  Reset CSS
 --------------------------------------------------------------------------*/
-
-#maincontent, .header.content {
+input:not([disabled]):focus{
+	box-shadow: none;
+}
+#maincontent, .header.content, .breadcrumbs {
 max-width : 1240px;
 }
 .header.content {
-    padding: 10px 30px;
+    padding: 15px 20px;
 }
 .page-header .header.panel{
 	max-width: 1240px;
 	padding: 8px 20px;
 }
-.cms-home .widget:first-child{
-	margin-bottom: 5px;
-}
+
 ul, ol{
 	margin: 0;
 	padding: 0;
 	list-style-type: none;
 }
+.nav-sections{
+	margin-bottom: 0;
+}
+.compare.wrapper{
+	display: none;
+}
+
+.top-container .block-static-block.widget{
+	margin-bottom: 15px;
+}
+/*--------------------------------------------------------------------------
+|  Header CSS
+--------------------------------------------------------------------------*/
+.minicart-wrapper .action.showcart::before{
+	line-height: 20px;
+	font-size: @font18;
+}
+.block-search .action.search::before{
+	color:@white;
+}
+
 
 /*--------------------------------------------------------------------------
 |  heading  CSS
@@ -124,6 +150,7 @@ ul, ol{
 
 h1, .h1 {
   font-size: 3.6rem;
+	margin-bottom: @font20;
 }
 
 h2, .h2 {
@@ -155,7 +182,9 @@ h6, .h6 {
 /*--------------------------------------------------------------------------
 |  Navigation CSS
 --------------------------------------------------------------------------*/
-
+.cms-home .widget:first-child{
+	margin-bottom: -5px;
+}
 
 .wsmenu html, .wsmenu body, .wsmenu iframe, .wsmenu h1, .wsmenu h2, .wsmenu h3, .wsmenu h4, .wsmenu h5, .wsmenu h6 {
   margin: 0px;
@@ -388,6 +417,8 @@ h6, .h6 {
 .wsmenu-list .megamenu li a:hover {
   background: transparent !important;
   text-decoration: underline;
+
+
 }
 
 .wsmenu-list .megamenu li .fa {

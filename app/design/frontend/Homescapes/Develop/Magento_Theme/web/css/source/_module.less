@@ -9,6 +9,8 @@
 //  Theme variables
 //  _____________________________________________
 
+@f9light:#F9F9F9;
+@black:#444444;
 //  Messages
 @message-global-note__color: @text__color;
 @message-global-note__background: @color-yellow-light2;
@@ -85,8 +87,8 @@
         margin-bottom: @indent__base;
 
         .panel.wrapper {
-            .lib-css(background-color, @header-panel__background-color);
-            .lib-css(color, @header-panel__text-color);
+            background: @f9light;
+			color: @black;
         }
     }
 
@@ -100,18 +102,18 @@
 
             > li {
                 font-size: @font-size__base;
-                margin: 0 0 0 15px;
+                margin: 0 0 0 25px;
 
                 > a {
                     .lib-link(
-                    @_link-color: @header-panel__text-color,
+                    @_link-color: @black,
                     @_link-text-decoration: none,
-                    @_link-color-visited: @header-panel__text-color,
+                    @_link-color-visited: @black,
                     @_link-text-decoration-visited: none,
-                    @_link-color-hover: @header-panel__text-color,
-                    @_link-text-decoration-hover: underline,
-                    @_link-color-active: @header-panel__text-color,
-                    @_link-text-decoration-active: underline
+                    @_link-color-hover: @black,
+                    @_link-text-decoration-hover: none,
+                    @_link-color-active: @black,
+                    @_link-text-decoration-active: none
                     );
                 }
             }
@@ -126,14 +128,15 @@
     }
 
     .logo {
-        float: left;
-        margin: 0 0 @indent__s @indent__xl;
-        max-width: 50%;
+        float: none;
+        margin: auto;
+        max-width:280px;
         position: relative;
         z-index: 5;
 
         img {
             display: block;
+			margin: auto;
         }
 
         .page-print & {
@@ -449,8 +452,8 @@
         margin-bottom: 0;
 
         .panel.wrapper {
-            border-bottom: 1px solid @secondary__color;
-            .lib-css(background-color, @header-panel__background-color);
+            background: @f9light;
+			color: @black;
         }
 
         .header.panel:extend(.abs-add-clearfix-desktop all) {
@@ -566,7 +569,6 @@
 
                     &.welcome {
                         a {
-                            .lib-css(color, @color-white);
                             .lib-css(padding-left, @indent__xs);
                         }
                     }
@@ -598,7 +600,7 @@
     }
 
     .logo {
-        margin: -8px auto @indent__m 0;
+        margin:auto;
 
         img {
             max-height: inherit;

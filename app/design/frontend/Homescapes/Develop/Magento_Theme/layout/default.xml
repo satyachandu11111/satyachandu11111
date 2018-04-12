@@ -30,9 +30,9 @@
 	
 	<!--custom layout changes-->
 	
-	<referenceBlock name="catalog.topnav" remove="true" />       <!-- Top menu-->
+	<referenceBlock name="catalog.topnav" remove="true" />       		<!-- Top menu-->
 	
-	 <move element="minicart" before="-" destination="header.panel"/>  <!--minicart to top-->
+	<move element="minicart" before="-" destination="header.panel"/>    <!--minicart to top-->
 	
 	
 	
