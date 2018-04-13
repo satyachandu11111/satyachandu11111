@@ -122,6 +122,9 @@ ul, ol{
 	padding: 0;
 	list-style-type: none;
 }
+ul > li, ol > li{
+	margin: 0;
+}
 .nav-sections{
 	margin-bottom: 0;
 }
@@ -132,29 +135,28 @@ ul, ol{
 .top-container .block-static-block.widget{
 	margin-bottom: 15px;
 }
-/*--------------------------------------------------------------------------
-|  Header CSS
---------------------------------------------------------------------------*/
-.minicart-wrapper .action.showcart::before{
-	line-height: 20px;
-	font-size: @font18;
+.cms-home .top-container .block-static-block.widget:last-child{
+	margin-bottom: -5px;
 }
-.block-search .action.search::before{
-	color:@white;
-}
-
-
 /*--------------------------------------------------------------------------
 |  heading  CSS
 --------------------------------------------------------------------------*/
 
 h1, .h1 {
   font-size: 3.6rem;
-	margin-bottom: @font20;
+  margin-bottom: @font20;
+	
+	@media @767{
+		font-size: @font30;
+	}
 }
 
 h2, .h2 {
   font-size: 3rem;
+	
+	@media @767{
+		font-size: @font24;
+	}
 }
 
 h3, .h3 {
@@ -175,15 +177,24 @@ h6, .h6 {
 
 
 /*--------------------------------------------------------------------------
-|  Grid CSS
+|  Header CSS
 --------------------------------------------------------------------------*/
+.minicart-wrapper .action.showcart::before{
+	line-height: 20px;
+	font-size: @font18;
+}
+.block-search .action.search::before{
+	color:@white;
+}
+
+
 
 
 /*--------------------------------------------------------------------------
 |  Navigation CSS
 --------------------------------------------------------------------------*/
-.cms-home .widget:first-child{
-	margin-bottom: -5px;
+.top-container .widget:first-child{
+	margin-bottom: 0px;
 }
 
 .wsmenu html, .wsmenu body, .wsmenu iframe, .wsmenu h1, .wsmenu h2, .wsmenu h3, .wsmenu h4, .wsmenu h5, .wsmenu h6 {
@@ -195,6 +206,7 @@ h6, .h6 {
   font-weight: normal;
   font-size:@base;
   line-height: 18px;
+
   font-family: Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: subpixel-antialiased;
   font-smoothing: antialiased;
@@ -261,12 +273,17 @@ h6, .h6 {
   padding: 0px;
 }
 
-.wsmenu-list>li {
+.wsmenu-list > li {
   text-align: center;
   display: table-cell;
+  border-bottom: 2px solid @black;
 }
 
-
+.wsmenu-list > li:last-child {
+  text-align: center;
+  display: table-cell;
+  border-bottom: 2px solid @danger;
+}
 
 
 
@@ -298,7 +315,6 @@ h6, .h6 {
 
 .wsmenu-list>li>a {
   display: block;
-  background-color: @f9light;
   color:@black;
   font-weight: 600;
   padding: 0px 14px;
@@ -329,7 +345,7 @@ h6, .h6 {
   width: 100%;
   left: 0px;
   position: absolute;
-  top: 35px;
+  top: 37px;
   color: @black;
   z-index: 1000;
   margin: 0px;
@@ -938,6 +954,34 @@ h6, .h6 {
 }
 
 
+
+/*--------------------------------------------------------------------------
+|  Header offer
+--------------------------------------------------------------------------*/
+
+.header-offer{
+	background: @f9light;
+	line-height: @font36;
+	text-align: center;
+	
+	@media @991{
+		line-height: @font20;
+		padding: 5px 0px;
+	}
+	@media @767{
+		display: none;
+	}
+	span{
+		@media @991{
+			display: none;
+		}
+	}
+}
+
+
+
+
+
 /*--------------------------------------------------------------------------
 |  Key points 
 --------------------------------------------------------------------------*/
@@ -1040,9 +1084,62 @@ h6, .h6 {
 		margin-bottom: 25px;
 	}
 }
-.bedding img{
+.mb-30{
+	margin-bottom: @font30;
+}
+.bedding{
+
+	img{
 	
-	@media @767{
-		width: 100%;
+		@media @767 {
+			width: 100%;
+		}
+	}
+	.home-heading-title{
+		border-bottom: 2px solid @black;
+		width: 60%;
+		margin: 8px auto 35px auto;
+		
+		@media @991{
+			width: 70%;
+		}
+		@media @767{
+			width: 100%;
+			margin-bottom: 25px;
+		}
+		
+		span{
+			background:@white;
+			position: relative;
+			top: 16px;
+			padding: 0px 20px;
+			
+			@media @767{
+				top:14px;
+			}
+		}
+	}
+
+}
+
+/*--------------------------------------------------------------------------
+|  Home About Text 
+--------------------------------------------------------------------------*/
+
+.be-smart{
+	h2{
+		font-size: @font18;
+		font-weight: bold;
+		margin-bottom: 5px;
+	}
+	h3{
+		font-size:@font16;
+		font-weight: bold;
+		margin-bottom: 10px;
+	}
+	p{
+		font-size: @font16;
+		line-height: @font20;
+		color: @light-black;
 	}
 }
