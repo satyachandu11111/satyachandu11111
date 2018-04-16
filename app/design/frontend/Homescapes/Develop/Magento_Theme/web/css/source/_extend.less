@@ -29,6 +29,15 @@
 @border:1px solid #ccc;
 @light-border:1px solid #eee;
 
+/* brand colors */
+
+@facebook:#444e92;
+@twitter:#44a2e9;
+@google:#d54a40;
+@instagram:#d02c73;
+@pinterest:#c51825;
+@blog:#e78838;
+
 /*--------------------------------------------------------------------------
 |  Font-size
 --------------------------------------------------------------------------*/
@@ -106,7 +115,7 @@
 input:not([disabled]):focus{
 	box-shadow: none;
 }
-#maincontent, .header.content, .breadcrumbs {
+#maincontent, .header.content, .breadcrumbs, .footer.content {
 max-width : 1240px;
 }
 .header.content {
@@ -137,6 +146,9 @@ ul > li, ol > li{
 }
 .cms-home .top-container .block-static-block.widget:last-child{
 	margin-bottom: -5px;
+}
+.columns .column.main{
+	padding-bottom:@font15;
 }
 /*--------------------------------------------------------------------------
 |  heading  CSS
@@ -187,9 +199,32 @@ h6, .h6 {
 	color:@white;
 }
 
-
-
-
+.page-header .fa-phone{
+	transform: rotate(110deg);
+	font-size:@base;
+}
+.call-our{
+	
+	display: none;
+	
+	@media @992{
+		display: block;
+	}
+}
+.logo img{
+	
+	@media @991{
+		max-width: 220px;
+	}
+	@media @767{
+		max-width: 192px;
+	}
+}
+.block-search{
+	@media @991{
+		top:19px;
+	}
+}
 /*--------------------------------------------------------------------------
 |  Navigation CSS
 --------------------------------------------------------------------------*/
@@ -1135,6 +1170,9 @@ h6, .h6 {
 --------------------------------------------------------------------------*/
 
 .be-smart{
+	
+	margin-top:@font30;
+	
 	h2{
 		font-size: @font18;
 		font-weight: bold;
@@ -1151,3 +1189,188 @@ h6, .h6 {
 		color: @light-black;
 	}
 }
+
+/*--------------------------------------------------------------------------
+|  Footer
+--------------------------------------------------------------------------*/
+.page-footer .widget.block {
+    margin: 20px 0;
+    border-top: 4px solid @white;
+    padding-top:@font24;
+}
+
+.footer{
+	
+	#accordion{
+		width: 100%;
+	}
+	
+	.card{
+		border: none;
+		width: 23%;
+		float: left;
+		margin: 0px 1%;
+		
+		@media @991{
+			width: 46%;
+			margin: 0 2%;
+			float: left;
+		}
+		@media @768{
+			min-height: 230px;
+		}
+		@media @767{
+			width:100%;
+			margin: 0;
+			float: none;
+		}
+		
+		h5,h6{
+			font-size:@font16;
+			font-weight: 600;
+			
+			@media @767{
+				font-size: @base;
+			}
+		}
+		h6{
+			margin-left: 10px;
+		}
+		.collapse{
+			display: block;
+			
+			@media @767{
+				display: none;
+			}
+			
+		}
+		.collapse.show{
+			display: block;
+		}
+		.card-header{
+
+			border-bottom: 1px dashed @border-color;
+			padding:@font10;
+			
+			@media @768{
+				background: none;
+				border: none;
+			}
+			
+			a{
+				color: @black;
+				
+				@media @768{
+					pointer-events: none;
+				}
+			}
+		}
+		.card-body{
+			
+			@media @768{
+				padding: 0;
+			}
+			
+			ul li{
+				padding: 5px 10px;
+				
+				a{
+					color: @black;
+				}
+			}
+		}
+	}
+	
+	address{
+		line-height: @font22;
+	}
+	
+	@media @767{
+		
+		.mb-0 > a:before {
+		float: right !important;
+		content:"\f146";
+		padding-right: 5px;
+		font-family: "Font Awesome 5 Free";
+		}
+		.mb-0 > a.collapsed:before {
+			float: right !important;
+			content:"\f0fe";
+		}
+		.mb-0 > a:hover, 
+		.mb-0 > a:active, 
+		.mb-0 > a:focus  {
+			text-decoration:none;
+		}
+	}
+	.fab{
+		font-size:@font26;
+		margin-right: 5px;
+		color:@light-black;
+	}
+	.fa-facebook-square:hover{
+		color:@facebook;
+	}
+	.fa-twitter-square:hover{
+		color: @twitter;
+	}
+	.fa-instagram:hover{
+		color: @instagram;
+	}
+	.fa-google-plus-square:hover{
+		color: @google;
+	}
+	.fa-pinterest-square:hover{
+		color: @pinterest;
+	}
+	.fa-blogger:hover{
+		color: @blog;
+	}
+
+}
+
+/*--------------------------------------------------------------------------
+|  Back to Top
+--------------------------------------------------------------------------*/
+#return-to-top {
+    position: fixed;
+    bottom:@font20;
+    right:@font20;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.7);
+    width: 50px;
+    height: 50px;
+    display: block;
+    text-decoration: none;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    display: none;
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+	
+	i {
+		color: @white;
+		margin: 0;
+		position: relative;
+		left: 18px;
+		top: 13px;
+		font-size:@font26;
+		-webkit-transition: all 0.3s ease;
+		-moz-transition: all 0.3s ease;
+		-ms-transition: all 0.3s ease;
+		-o-transition: all 0.3s ease;
+		transition: all 0.3s ease;
+	}
+	:hover {
+		background: rgba(0, 0, 0, 0.9);
+	}
+	:hover i {
+		color: @white;
+		top: 5px;
+	}
+}
+
