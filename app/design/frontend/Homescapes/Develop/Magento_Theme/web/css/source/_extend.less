@@ -239,7 +239,6 @@ h6, .h6 {
   font: inherit;
   vertical-align: baseline;
   font-weight: normal;
-  font-size:@base;
   line-height: 18px;
 
   font-family: Helvetica, Arial, sans-serif;
@@ -292,7 +291,7 @@ h6, .h6 {
 .wsmenu {
   color:@white;
   position: relative;
-  font-size:@base;
+  font-size:@font16;
   padding: 0px;
   margin: 0px auto;
   width: 100%;
@@ -354,6 +353,7 @@ h6, .h6 {
   text-align: right;
   top: 15px;
   width: 0;
+	display: none;
 }
 
 .wsmenu-list>li>a {
@@ -393,8 +393,8 @@ h6, .h6 {
   z-index: 1000;
   margin: 0px;
   text-align: left;
-  padding: 14px 0px;
-  font-size: 15px;
+  padding: 10px 0px;
+  font-size:@font15;
   border:@light-border;
   background-color: @white;
   opacity: 0;
@@ -412,8 +412,9 @@ h6, .h6 {
   border-bottom:@border;
   font-size: 14px;
   padding: 9px 5px 9px 0px;
-  font-size: @font18;
+  font-size: @font15;
   color: @black;
+  font-weight: bold;
   margin: 0px 0px 7px 0px;
   text-align: left;
   height: 39px;
@@ -421,8 +422,8 @@ h6, .h6 {
 }
  .link-list li a.title-link {
   border-bottom:@border;
-  font-size:@font18;
-	 line-height: 17px;
+  font-size:@font15;
+  line-height: 17px;
   color: @black;
   text-align: left;
   margin: 0px 0px 9px 0px;
@@ -919,8 +920,6 @@ h6, .h6 {
     transition: all 0.4s ease-in-out;
   }
  
-
-
   .wsoffcanvasopener .animated-arrow {
     left: 280px;
   }
@@ -1191,14 +1190,79 @@ h6, .h6 {
 }
 
 /*--------------------------------------------------------------------------
-|  Footer
+|  Footer & Copyright
+
 --------------------------------------------------------------------------*/
-.page-footer .widget.block {
-    margin: 20px 0;
-    border-top: 4px solid @white;
-    padding-top:@font24;
+.page-footer {
+	
+	padding-bottom: 0;
+	
+	.footer.content .block{
+		float: none;
+	}
+	
+	.footer, .copyright-section{
+		margin: 5px auto;
+		max-width: 1200px;
+	}
+	.widget.block{
+		margin:0;
+		padding-top:@font10;
+	}
+	.footer.content{
+
+		max-width: 100%;
+		height: auto;
+		position: relative;
+		float: left;
+		width: 100%;
+		border-bottom: 10px solid @white;
+		
+		
+		.bottom-icon{
+			float: left;
+			width: 150px;
+		}
+		.news-content, .blog-post{
+			float: right;
+			width: 96%;
+			position: absolute;
+			padding-left: 160px;
+			padding-top: 15px;
+		}
+		.fa-chevron-right{
+			font-size: @font18;
+		}
+
+	}
 }
 
+
+.copyright-section{
+	line-height: @font30;
+	border-top: 1px solid @border-color;
+	
+	.copyright-text{
+		color: @light-black;
+	}
+	
+	.flags{
+		display: flex;
+		width: 100px;
+		margin: 30px auto 0px auto;
+		
+		li{
+			margin-right: 5px;
+			
+			img{
+				max-width: 30px;
+			}
+		}
+	}
+	.secure-seal{
+		margin-top: 20px;
+	}
+}
 .footer{
 	
 	#accordion{
@@ -1272,7 +1336,7 @@ h6, .h6 {
 			}
 			
 			ul li{
-				padding: 5px 10px;
+				padding: 3px 10px;
 				
 				a{
 					color: @black;
@@ -1340,6 +1404,7 @@ h6, .h6 {
     background: rgba(0, 0, 0, 0.7);
     width: 50px;
     height: 50px;
+	z-index: 999;
     display: block;
     text-decoration: none;
     -webkit-border-radius: 5px;
@@ -1365,9 +1430,7 @@ h6, .h6 {
 		-o-transition: all 0.3s ease;
 		transition: all 0.3s ease;
 	}
-	:hover {
-		background: rgba(0, 0, 0, 0.9);
-	}
+
 	:hover i {
 		color: @white;
 		top: 5px;
