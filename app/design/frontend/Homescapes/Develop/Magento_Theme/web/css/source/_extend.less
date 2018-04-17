@@ -454,10 +454,24 @@ h6, .h6 {
   border-right: none;
   text-align: left;
   padding: 6px 0px;
-  background: @white !important;
+  background: @white;
   display: block;
   color: @black;
 }
+.link-list li a.full-image{
+	background: @green;
+	color: @white;
+	text-align: center;
+	padding: 10px 0px;
+	margin-to: 10px;;
+}
+.wsmenu-list .megamenu .menu-banner li a:hover{
+	background: @green !important;
+}
+.menu-banner{
+	margin-top: 20px;
+}
+
 
 .link-list .fa {
   font-size: @font10;
@@ -512,6 +526,11 @@ h6, .h6 {
 }
 .menu75R {
   width: 75%;
+  right: 0 !important;
+  left: auto !important;
+}
+.menu85R {
+  width: 85%;
   right: 0 !important;
   left: auto !important;
 }
@@ -594,8 +613,25 @@ h6, .h6 {
 }
 
 
-
-
+.cate-img{
+	float: left;
+	width: 120px;
+	margin-right: 10px;
+	
+	img{
+		border:@light-border;
+	}
+}
+.cate-price{
+	float: left;
+	width: 100%;
+	
+	a{
+		font-weight: bold;
+		font-size: @font16;
+		color: @danger !important;
+	}
+}
 
 /*--------------------------------------------------------------------------
 | Navigation Tab 
@@ -1129,7 +1165,7 @@ h6, .h6 {
 .mb-30{
 	margin-bottom: @font30;
 }
-.bedding{
+.bedding, .cms-page-heading{
 
 	img{
 	
@@ -1190,6 +1226,7 @@ h6, .h6 {
 }
 
 /*--------------------------------------------------------------------------
+
 |  Footer & Copyright
 
 --------------------------------------------------------------------------*/
@@ -1392,6 +1429,113 @@ h6, .h6 {
 	}
 
 }
+
+/*--------------------------------------------------------------------------
+|  product image carosel
+--------------------------------------------------------------------------*/
+
+
+
+
+@media (min-width: 768px) {
+	
+	#ProductCarousel{
+
+    /* show 3 items */
+    .carousel-inner .active,
+    .carousel-inner .active + .carousel-item,
+    .carousel-inner .active + .carousel-item + .carousel-item,
+    .carousel-inner .active + .carousel-item + .carousel-item + .carousel-item  {
+        display: block;
+    }
+    
+    .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left),
+    .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item,
+    .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item + .carousel-item,
+    .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item + .carousel-item + .carousel-item {
+        transition: none;
+    }
+    
+    .carousel-inner .carousel-item-next,
+    .carousel-inner .carousel-item-prev {
+      position: relative;
+      transform: translate3d(0, 0, 0);
+    }
+    
+    .carousel-inner .active.carousel-item + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
+        position: absolute;
+        top: 0;
+        right: -25%;
+        z-index: -1;
+        display: block;
+        visibility: visible;
+    }
+    
+    /* left or forward direction */
+    .active.carousel-item-left + .carousel-item-next.carousel-item-left,
+    .carousel-item-next.carousel-item-left + .carousel-item,
+    .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item,
+    .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item + .carousel-item,
+    .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
+        position: relative;
+        transform: translate3d(-100%, 0, 0);
+        visibility: visible;
+    }
+    
+    /* farthest right hidden item must be abso position for animations */
+    .carousel-inner .carousel-item-prev.carousel-item-right {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        display: block;
+        visibility: visible;
+    }
+    
+    /* right or prev direction */
+    .active.carousel-item-right + .carousel-item-prev.carousel-item-right,
+    .carousel-item-prev.carousel-item-right + .carousel-item,
+    .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item,
+    .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item + .carousel-item,
+    .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
+        position: relative;
+        transform: translate3d(100%, 0, 0);
+        visibility: visible;
+        display: block;
+        visibility: visible;
+    }
+	}
+}
+
+
+.product-caption{
+	width: 100%;
+	font-weight: bold;
+	font-size: @font16;
+	color: @black;
+	line-height: @font30;
+}
+#ProductCarousel{
+	
+	.carousel-control-prev, .carousel-control-next{
+		width: 3%;
+		opacity: 1;
+	}
+	.fas {
+
+		font-weight: 900;
+		padding: 5px 8px;
+		border: 1px solid @border-color;
+		background: @white;
+		opacity: 1;
+		color:@black;
+
+	}
+	img{
+		border-radius: 4px;
+	}
+}
+
 
 /*--------------------------------------------------------------------------
 |  Back to Top

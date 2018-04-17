@@ -542,6 +542,7 @@ var Carousel = function ($$$1) {
   var NAME = 'carousel';
   var VERSION = '4.0.0';
   var DATA_KEY = 'bs.carousel';
+
   var EVENT_KEY = "." + DATA_KEY;
   var DATA_API_KEY = '.data-api';
   var JQUERY_NO_CONFLICT = $$$1.fn[NAME];
@@ -2131,6 +2132,7 @@ function getPopperOffsets(popper, referenceOffsets, placement) {
 
   // Get popper node sizes
   var popperRect = getOuterSizes(popper);
+
 
   // Add position, width and height to our offsets object
   var popperOffsets = {
@@ -6310,7 +6312,7 @@ var Tab = function ($$$1) {
   }
 })($);
 
-							   
+// ------------------------------------ custom js 	starts here ------------------------------------						   
 //megamenu js
 							   
 (function() {
@@ -6346,6 +6348,7 @@ var Tab = function ($$$1) {
 }())
 							   
 // mega-menu js ends here
+	
 							   
 // back to top js 
 							   
@@ -6364,7 +6367,61 @@ $('#return-to-top').click(function() {      // When arrow is clicked
 });
 							   
 // back to tops ends here
+							   
 
+// ---- carsel starts here
+							   				   
+	
+$('#ProductCarousel').on('slide.bs.carousel', function (e) {
+
+  
+    var $e = $(e.relatedTarget);
+    var idx = $e.index();
+    var itemsPerSlide = 4;
+    var totalItems = $('.car-item').length;
+    
+    if (idx >= totalItems-(itemsPerSlide-1)) {
+        var it = itemsPerSlide - (totalItems - idx);
+        for (var i=0; i<it; i++) {
+            // append slides to end
+            if (e.direction=="left") {
+                $('.car-item').eq(i).appendTo('.w-100');
+            }
+            else {
+                $('.car-item').eq(0).appendTo('.w-100');
+            }
+        }
+    }
+});
+
+
+							   
+
+
+  $(document).ready(function() {
+/* show lightbox when clicking a thumbnail */
+    $('a.thumb').click(function(event){
+      event.preventDefault();
+      var content = $('.modal-body');
+      content.empty();
+        var title = $(this).attr("title");
+        $('.modal-title').html(title);        
+        content.html($(this).html());
+        $(".modal-profile").modal({show:true});
+    });
+
+  });					   
+							   
+							   
+// --- carosel ends here
+
+							   
+							   
+							   
+							   
+							   
+//------------------------------------------------custom js ends here ------------------
+							   
 exports.Util = Util;
 exports.Alert = Alert;
 exports.Button = Button;
