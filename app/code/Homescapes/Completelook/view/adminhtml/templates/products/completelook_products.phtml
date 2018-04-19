@@ -1,0 +1,18 @@
+<?php
+    $blockGrid = $block->getBlockGrid();
+    /* @noEscape */ echo $blockGrid->toHtml();
+?>
+<input type="hidden" name="product[complete_look]" data-form-part="product_form" id="complete_look" value="" />
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Homescapes_Completelook/js/products/complete-look": {
+                "selectedProducts": <?php /* @noEscape */ echo $blockGrid->getSelectedProductPosition(); ?>,
+                "gridJsObjectName": <?php /* @noEscape */ echo '"' . $blockGrid->getJsObjectName() . '"' ?: '{}'; ?>
+            }
+        }
+    }
+</script> 
+<script>
+    require('mage/apply/main').apply();
+</script>
