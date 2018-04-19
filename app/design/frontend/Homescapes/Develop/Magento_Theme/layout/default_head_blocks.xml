@@ -12,7 +12,5 @@
 		<css src="css/bootstrap.css" />
 		<css src="css/fontawesome-all.min.css" />
 		
-		<!--Lato font google api-->
-		<link src="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet"/> 
     </head>
 </page>
