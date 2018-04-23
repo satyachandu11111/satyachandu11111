@@ -79,6 +79,8 @@
 --------------------------------------------------------------------------*/
 @359: ~"only screen and (max-width:359px)";
 
+@360: ~"only screen and (min-width:360px)";
+
 @479: ~"only screen and (max-width:479px)";
 
 @480: ~"only screen and (min-width:480px)";
@@ -87,19 +89,15 @@
 
 @640: ~"only screen and (min-width:640px)";
 
-@360-767: ~"only screen and (min-width:360px) and(max-width:767px)";
-
 @767: ~"only screen and (max-width:767px)";
 
 @768: ~"only screen and (min-width:768px)";
-
-@768-991: ~"only screen and (min-width:768px) and(max-width:991px)";
 
 @991: ~"only screen and (max-width:991px)";
 
 @992: ~"only screen and (min-width:992px)";
 
-@1190: ~"only screen and (min-width:1190px)";
+@1200: ~"only screen and (min-width:1200px)";
 
 @768-1279: ~"only screen and (min-width:768px) and(max-width:1279px)";
 
@@ -207,7 +205,7 @@ h6, .h6 {
 	
 	display: none;
 	
-	@media @992{
+	@media @768{
 		display: block;
 	}
 }
@@ -382,6 +380,13 @@ h6, .h6 {
 
 .wsmenu-list li:hover .megamenu {
   opacity: 1;
+	box-shadow: 0px 0px 6px @border-color;
+	transform: scale(1,0);
+-webkit-transform-origin: top;
+-ms-transform-origin: top;
+transform-origin: top;
+-webkit-transition: all 300ms ease-in-out 0s;
+transition: all 400ms ease-in-out 0s;
 }
 
 .megamenu {
@@ -394,7 +399,7 @@ h6, .h6 {
   margin: 0px;
   text-align: left;
   padding: 10px 0px;
-  font-size:@font15;
+  font-size:@base;
   border:@light-border;
   background-color: @white;
   opacity: 0;
@@ -439,7 +444,7 @@ h6, .h6 {
 }
 .wsmenu-list > li > a.menu-special:hover{
 	background: @danger !important;
-	color: @white;
+	color: @white !important;
 }
 
 .link-list li {
@@ -539,6 +544,19 @@ h6, .h6 {
   right: 0 !important;
   left: auto !important;
 }
+.menu55R, .menu85R, .menu75R, .menu75L{
+	@media @991{
+		width: 100%;
+	}
+}
+
+.laptop-visible{
+	display: block;
+	
+	@media @991{
+		display: none;
+	}
+}
 
 .halfmenu .megacollink {
   width: 48%;
@@ -637,31 +655,44 @@ h6, .h6 {
 | Navigation Tab 
 --------------------------------------------------------------------------*/
 
-@media only screen and (min-width:980px) and (max-width:1023px) {
+.furniture-menu{
+	@media @991{
+		display: flex;
+	}
+	.col-md:first-child{
+		order: 4;
+	}
+	.col-md:last-child{
+		order: 5;
+	}
+}
+.bedding-menu{
+	@media @991{
+		display: flex;
+	}
+	.col-md:last-child{
+		order: 4;
+	}
+	.col-md:nth-child(4){
+		order: 5;
+	}
+}
+
+@media only screen and (min-width:992px) and (max-width:1023px) {
   .wsmenu-list>li>a>.fa {
     display: none !important;
   }
-  .hometext {
-    display: block !important;
-  }
-  .wsmenu {
-    font-size: @font12 !important;
-  }
-  .wsmenu-list li a {
-    white-space: nowrap !important;
-    padding-left: 4px !important;
-    padding-right: 4px !important;
-  }
+
 
 }
 
-@media only screen and (min-width: 980px) and (max-width:1200px) {
+@media only screen and (min-width: 992px) and (max-width:1200px) {
   .wsmenu-list li a .arrow:after {
     display: none !important;
   }
 }
 
-@media only screen and (min-width: 980px) {
+@media only screen and (min-width: 992px) {
   .wsmenu-list li:hover>.megamenu {
     display: block !important;
   }
@@ -670,8 +701,66 @@ h6, .h6 {
 /*--------------------------------------------------------------------------
 |  Navigation  Mobile 
 --------------------------------------------------------------------------*/
+.wsmenucontainer{
+	.labelm, .labelt{
+		display: none;
+		cursor: pointer;
+	}
+	.labelm{
+		@media @767{
+			display: block;
+		}
+	}
+	.labelt{
+		@media @991{
+			display: block;
+			float: right;
+			width: 58px;
+			text-align: center;
+			margin-top: -16px;
+		}
+		@media @767{
+			display: none;
+		}
+	}
+	  .animated-arrow { 
+		  
+		  @media @767{
+			  
+			margin: 30px 0px 0px 13px;
+		  }
+	  }
+}
+	
+ .wsmenucontainer.wsoffcanvasopener {
+	 @media @991{
+		 display: block;
+		 margin-left: 700px;
+	 }
+	 @media @767{ 
+		margin-left: 280px;
+	 }
+  }
+  .wsmenu {
+	  @media @991{
+		 width: 700px;
+		 left: -700px; 
+	  }
+	  @media @767{
+		 width: 280px;
+		 left: -280px; 
+	  }
+  }
+  .wsoffcanvasopener .animated-arrow {
+	  @media @991{
+		 left: 700px; 
+	  }
+	  @media @767{
+		 left: 280px;
+	  }
+ }
 
-@media only screen and (max-width: 979px) {
+@media only screen and (max-width: 991px) {
   .wsoffcanvasopener .wsmenu {
     left: 0px;
     -webkit-transition: all 0.4s ease-in-out;
@@ -682,7 +771,6 @@ h6, .h6 {
   }
   .wsmenucontainer.wsoffcanvasopener {
     display: block;
-    margin-left: 280px;
   }
   .wsmobileheader {
     display: block !important;
@@ -866,6 +954,8 @@ h6, .h6 {
     transform: none !important;
     opacity: 1 !important;
     visibility: visible !important;
+	box-shadow: 0px 0px 6px @border-color;
+	  padding-bottom: 5px;
   }
   .wsmenu-list li:hover .megamenu {
     display: none;
@@ -927,8 +1017,6 @@ h6, .h6 {
   }
 
   .wsmenu {
-    width: 280px;
-    left: -280px;
     height: 100%;
     position: fixed;
     top: 0;
@@ -956,19 +1044,17 @@ h6, .h6 {
     transition: all 0.4s ease-in-out;
   }
  
-  .wsoffcanvasopener .animated-arrow {
-    left: 280px;
-  }
-  .animated-arrow {
-    cursor: pointer;
-    padding: 13px 35px 16px 0px;
-    margin: 10px 0 0 15px;
+ 
+  .animated-arrow { 
+	cursor: pointer;
+	padding: 14px 30px 19px 10px;
+	margin: 56px 0px 0px 13px;
   }
   .animated-arrow span, .animated-arrow span:before, .animated-arrow span:after {
     cursor: pointer;
     height: 3px;
     width: 23px;
-    background: @border-color;
+    background: @black;
     position: absolute;
     display: block;
     content: '';
@@ -1050,6 +1136,11 @@ h6, .h6 {
 		display: none;
 	}
 	span{
+		@media @991{
+			display: none;
+		}
+	}
+	.col-md:last-child{
 		@media @991{
 			display: none;
 		}
@@ -1577,7 +1668,172 @@ h6, .h6 {
 
 	:hover i {
 		color: @white;
-		top: 5px;
+		top: .5rem;
 	}
 }
+
+/*--------------------------------------------------------------------------
+|  Category CMS pages.
+--------------------------------------------------------------------------*/
+
+.popular-category{
+	background: @f9light;
+	padding: @font20 @font30;
+	
+	h2{
+		margin-bottom: @font10;
+	}
+	
+	.category{
+		padding: 0;
+		width: auto;
+		margin: auto;
+		
+		img{
+			margin-bottom: @font20;
+			max-width: 17.2rem;
+			
+			
+			@media @360{
+				max-width: 14.5rem;
+				margin-bottom: @font15;
+			}
+			
+			@media @480{
+				max-width: 14rem;
+				margin-bottom: @font10;
+			}
+			@media @640{
+				max-width: 13.5rem;
+				margin-bottom: 13px;
+			}
+			
+			@media @768{
+				max-width: 16rem;
+				margin-bottom: @font15;
+			}
+			
+			@media @992{
+				max-width: 15rem;
+				margin-bottom: @font10;
+			}
+			
+			@media @1200{
+				
+				margin-bottom: @font20;
+				max-width: 17.2rem;
+			}
+		}
+	}
+	
+}
+.category-details{
+	
+	margin-bottom: @font30;
+	
+	@media @991{
+		text-align: center;
+	}
+	
+	h3, h5{
+		margin-bottom:@font10;
+	}
+	p{
+		font-size: @font15;
+		line-height: @font24;
+		margin-bottom:@font20;
+
+		@media @992{
+			margin-bottom:0;
+		}
+		
+		@media @1200{
+			margin-bottom:@font20;
+		}
+	}
+	.details{
+		margin-top: @font30;
+		
+
+		@media @991{
+			margin-bottom: @font20;
+			margin-top: @font20;
+		}
+		
+		@media @992{
+			margin-top: @font10;
+		}
+		
+		@media @1200{
+			margin-top: @font30;
+		}
+		
+		img{
+			max-width: 13rem;
+			margin: 1rem 0;
+			
+			@media @360{
+				max-width: 9rem;
+			}
+			
+			@media @640{
+				max-width: 14rem;
+			}
+			
+			@media @768{
+				max-width: 9rem;
+			}
+			
+			@media @992{
+				max-width: 10.5rem;
+			}
+			
+			@media @1200{
+				
+			max-width: 13rem;
+			}
+		
+		}
+		a{
+			color: @black;
+		}
+	}
+	.icon{
+		width: auto;
+		
+		@media @991{
+			margin: auto;
+		}
+		
+	}
+	
+}
+
+.select-by-range{
+	
+	.product{
+		background: @f2light;
+		padding-bottom:@font10;
+	}
+	
+	label{
+		width: 100%;
+		color: @danger;
+		font-weight: bold;
+		margin-top:@font10;
+	}
+	.product-name{
+		font-size: @font20;
+		
+		@media @991{
+			font-size: @font16;
+		}
+	}
+}
+
+/*--------------------------------------------------------------------------
+|  Accordian
+--------------------------------------------------------------------------*/
+
+
 
