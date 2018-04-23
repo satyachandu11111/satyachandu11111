@@ -543,6 +543,7 @@ var Carousel = function ($$$1) {
   var VERSION = '4.0.0';
   var DATA_KEY = 'bs.carousel';
 
+
   var EVENT_KEY = "." + DATA_KEY;
   var DATA_API_KEY = '.data-api';
   var JQUERY_NO_CONFLICT = $$$1.fn[NAME];
@@ -3995,6 +3996,7 @@ var Dropdown = function ($$$1) {
         $$$1('body').children().on('mouseover', null, $$$1.noop);
       }
 
+
       this._element.focus();
 
       this._element.setAttribute('aria-expanded', true);
@@ -4391,6 +4393,7 @@ var Modal = function ($$$1) {
 
     _proto.show = function show(relatedTarget) {
       var _this = this;
+
 
       if (this._isTransitioning || this._isShown) {
         return;
@@ -6394,7 +6397,6 @@ $('#ProductCarousel').on('slide.bs.carousel', function (e) {
     }
 });
 
-
 							   
 
 
@@ -6414,10 +6416,28 @@ $('#ProductCarousel').on('slide.bs.carousel', function (e) {
 							   
 							   
 // --- carosel ends here
+					   
+$('#ShopbyColor').on('slide.bs.carousel', function (e) {
 
-							   
-							   
-							   
+  
+    var $e = $(e.relatedTarget);
+    var idx = $e.index();
+    var itemsPerSlide = 6;
+    var totalItems = $('.car-item').length;
+    
+    if (idx >= totalItems-(itemsPerSlide-1)) {
+        var it = itemsPerSlide - (totalItems - idx);
+        for (var i=0; i<it; i++) {
+            // append slides to end
+            if (e.direction=="left") {
+                $('.car-item').eq(i).appendTo('.w-100');
+            }
+            else {
+                $('.car-item').eq(0).appendTo('.w-100');
+            }
+        }
+    }
+});							   
 							   
 							   
 //------------------------------------------------custom js ends here ------------------
