@@ -8,6 +8,10 @@
 <view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Config/etc/view.xsd">
     <media>
         <images module="Magento_Catalog">
+<<<<<<< HEAD
+=======
+
+>>>>>>> design
             <image id="product_page_image_medium" type="image">
                 <width>600</width>
                 <height>750</height>
@@ -17,6 +21,10 @@
                 <height>750</height>
                 <frame>false</frame>
             </image>
+<<<<<<< HEAD
+=======
+
+>>>>>>> design
             <image id="product_page_main_image" type="image">
                 <width>600</width>
                 <height>750</height>
@@ -25,6 +33,10 @@
                 <width>600</width>
                 <height>750</height>
             </image>
+<<<<<<< HEAD
+=======
+
+>>>>>>> design
         </images>
     </media>
 </view>

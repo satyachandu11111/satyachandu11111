@@ -1598,7 +1598,84 @@ transition: all 400ms ease-in-out 0s;
 	}
 }
 
+@media (min-width: 768px) {
+	
+	#ShopbyColor{
 
+    /* show 3 items */
+    .carousel-inner .active,
+    .carousel-inner .active + .carousel-item,
+    .carousel-inner .active + .carousel-item + .carousel-item,
+    .carousel-inner .active + .carousel-item + .carousel-item + .carousel-item,
+    .carousel-inner .active + .carousel-item + .carousel-item + .carousel-item + .carousel-item,
+    .carousel-inner .active + .carousel-item + .carousel-item + .carousel-item + .carousel-item + .carousel-item  {
+        display: block;
+
+    }
+    
+    .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left),
+    .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item,
+    .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item + .carousel-item,
+    .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item + .carousel-item + .carousel-item ,
+    .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item + .carousel-item + .carousel-item  + .carousel-item ,
+    .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item + .carousel-item + .carousel-item + .carousel-item  + .carousel-item   {
+        transition: none;
+    }
+    
+    .carousel-inner .carousel-item-next,
+    .carousel-inner .carousel-item-prev {
+      position: relative;
+      transform: translate3d(0, 0, 0);
+    }
+    
+    .carousel-inner .active.carousel-item + .carousel-item + .carousel-item + .carousel-item + .carousel-item + .carousel-item + .carousel-item  {
+        position: absolute;
+        top: 0;
+        right: -80%;
+        z-index: -1;
+        display: block;
+        visibility: visible;
+    }
+    
+    /* left or forward direction */
+    .active.carousel-item-left + .carousel-item-next.carousel-item-left,
+    .carousel-item-next.carousel-item-left + .carousel-item,
+    .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item,
+    .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item + .carousel-item,
+    .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item + .carousel-item + .carousel-item,
+    .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item + .carousel-item + .carousel-item + .carousel-item,
+    .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
+        position: relative;
+        transform: translate3d(-100%, 0, 0);
+        visibility: visible;
+    }
+    
+    /* farthest right hidden item must be abso position for animations */
+    .carousel-inner .carousel-item-prev.carousel-item-right {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        display: block;
+        visibility: visible;
+    }
+    
+    /* right or prev direction */
+    .active.carousel-item-right + .carousel-item-prev.carousel-item-right,
+    .carousel-item-prev.carousel-item-right + .carousel-item,
+    .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item,
+    .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item + .carousel-item,
+    .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item + .carousel-item + .carousel-item,
+    .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item + .carousel-item + .carousel-item + .carousel-item,
+    .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
+        position: relative;
+        transform: translate3d(100%, 0, 0);
+        visibility: visible;
+        display: block;
+        visibility: visible;
+    }
+	}
+}
 .product-caption{
 	width: 100%;
 	font-weight: bold;
@@ -1606,7 +1683,7 @@ transition: all 400ms ease-in-out 0s;
 	color: @black;
 	line-height: @font30;
 }
-#ProductCarousel{
+#ProductCarousel, #ShopbyColor{
 	
 	.carousel-control-prev, .carousel-control-next{
 		width: 3%;
@@ -1692,6 +1769,10 @@ transition: all 400ms ease-in-out 0s;
 		img{
 			margin-bottom: @font20;
 			max-width: 17.2rem;
+<<<<<<< HEAD
+=======
+			box-shadow: .2rem .2rem .8rem @border-color;
+>>>>>>> design
 			
 			
 			@media @360{
@@ -1750,6 +1831,7 @@ transition: all 400ms ease-in-out 0s;
 		@media @1200{
 			margin-bottom:@font20;
 		}
+<<<<<<< HEAD
 	}
 	.details{
 		margin-top: @font30;
@@ -1798,6 +1880,56 @@ transition: all 400ms ease-in-out 0s;
 			color: @black;
 		}
 	}
+=======
+	}
+	.details{
+		margin-top: @font30;
+		
+
+		@media @991{
+			margin-bottom: @font20;
+			margin-top: @font20;
+		}
+		
+		@media @992{
+			margin-top: @font10;
+		}
+		
+		@media @1200{
+			margin-top: @font30;
+		}
+		
+		img{
+			max-width: 13rem;
+			margin: 1rem 0;
+			
+			@media @360{
+				max-width: 9rem;
+			}
+			
+			@media @640{
+				max-width: 14rem;
+			}
+			
+			@media @768{
+				max-width: 9rem;
+			}
+			
+			@media @992{
+				max-width: 10.5rem;
+			}
+			
+			@media @1200{
+				
+			max-width: 13rem;
+			}
+		
+		}
+		a{
+			color: @black;
+		}
+	}
+>>>>>>> design
 	.icon{
 		width: auto;
 		
@@ -1813,14 +1945,29 @@ transition: all 400ms ease-in-out 0s;
 	
 	.product{
 		background: @f2light;
+<<<<<<< HEAD
 		padding-bottom:@font10;
+=======
+		padding-bottom:0.5rem;
+		box-shadow: 2px 2px 2px @border-color;
+		
+		img{
+			margin-bottom:@font10;
+		}
+		a{
+			color: @black;
+		}
+>>>>>>> design
 	}
 	
 	label{
 		width: 100%;
 		color: @danger;
 		font-weight: bold;
+<<<<<<< HEAD
 		margin-top:@font10;
+=======
+>>>>>>> design
 	}
 	.product-name{
 		font-size: @font20;
