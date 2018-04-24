@@ -13,6 +13,11 @@ class Completelook extends \Magento\Framework\View\Element\Template
     protected $imageHelper;
     
     protected $abstractProduct;
+    
+   /**
+   * @var \Magento\Framework\App\Config\ScopeConfigInterface
+   */
+   protected $scopeConfig;
 
 
     public function __construct(
@@ -22,6 +27,7 @@ class Completelook extends \Magento\Framework\View\Element\Template
             \Magento\Catalog\Model\ProductFactory $_productloader,
             \Magento\Catalog\Helper\Image $imageHelper,
             \Magento\Catalog\Block\Product\AbstractProduct $abstractProduct,
+            \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
             array $data = array()
             ) {            
             $this->resourceConnection = $resourceConnection;
@@ -29,6 +35,7 @@ class Completelook extends \Magento\Framework\View\Element\Template
             $this->productloader = $_productloader;
             $this->imageHelper = $imageHelper;
             $this->abstractProduct = $abstractProduct;
+            $this->scopeConfig = $scopeConfig;
             parent::__construct($context, $data);
         }
     
@@ -54,16 +61,18 @@ class Completelook extends \Magento\Framework\View\Element\Template
         $connection = $this->resourceConnection->getConnection();
         $tableName = $this->resourceConnection->getTableName(\Homescapes\Completelook\Model\Completelook::COMPLETE_LOOK_PRODUCT);
         $sql = $connection->select()
-                  ->from($tableName,array('ids' => new \Zend_Db_Expr('GROUP_CONCAT(look_product_id)')))                  
-                  ->where('product_id = ?', $currentProductId);
-        $results = $connection->fetchCol($sql); 
-        $results = reset($results);
-            if($results){
-                $products = explode(',', $results);        
-            }else{
-                $products = '';
-            }
+                  ->from($tableName,array('look_product_id'))                  
+                  ->where('product_id = ?', $currentProductId)
+                  ->order("position ASC");       
+        $results = $connection->fetchAll($sql); 
         
+        if(count($results)){
+            foreach($results as $result){
+                $products[] = $result['look_product_id'];
+            }    
+        }else{
+            $products = '';
+        }           
         return $products;
     }
     
@@ -91,6 +100,11 @@ class Completelook extends \Magento\Framework\View\Element\Template
     
     public function getSubmitUrl($product){
         return $this->abstractProduct->getSubmitUrl($product);
+    }
+    
+    public function getDisplayText() {
+
+        return $this->scopeConfig->getValue('completelook/general/display_text',\Magento\Store\Model\ScopeInterface::SCOPE_STORE);
     }
     
 }

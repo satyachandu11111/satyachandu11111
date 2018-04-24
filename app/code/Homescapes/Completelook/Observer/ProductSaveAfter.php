@@ -42,7 +42,7 @@ class ProductSaveAfter implements ObserverInterface
         }
         
         
-        $params = $this->_request->getParam('product');
+        $params = $this->_request->getParam('product');        
         if(!array_key_exists("complete_look",$params)){ return $this;  }
         $model = $this->_completelook;
         $this->saveProducts($product, $params);
@@ -60,25 +60,19 @@ class ProductSaveAfter implements ObserverInterface
     {
         $currentProductId = $product->getId();        
         $completelookProducts = $params['complete_look'];
-        $completelookProducts = json_decode($completelookProducts, true);
+        $completelookProducts = json_decode($completelookProducts, true);        
         unset($completelookProducts['on']);
-        $completelookProducts = array_keys($completelookProducts);
+        //$completelookProducts = array_keys($completelookProducts);        
         
         try {
         $oldProducts = (array) $this->getProducts($currentProductId);
         $newProducts = (array) $completelookProducts;
         
-        $insert = array_diff($newProducts, $oldProducts);
-        $delete = array_diff($oldProducts, $newProducts);
+        $insert = $completelookProducts;
+        $delete = $oldProducts;
         
         $connection = $this->_resourceCollection->getConnection();
         $tableName = $this->_resourceCollection->getTableName(\Homescapes\Completelook\Model\Completelook::COMPLETE_LOOK_PRODUCT);
-        
-        echo "<pre/>";
-        print_r($insert);
-        echo "<pre/>";
-        print_r($delete);
-        
         
         if(count($delete)){
             $where = ['product_id = ?' => (int)$currentProductId, 'look_product_id IN (?)' => $delete];                    
@@ -88,8 +82,8 @@ class ProductSaveAfter implements ObserverInterface
         
         if(count($insert)){
             $data = [];
-                    foreach ($insert as $product_id) {
-                        $data[] = ['product_id' => (int)$currentProductId, 'look_product_id' => (int)$product_id];
+                    foreach ($insert as $product_id => $position) {                        
+                        $data[] = ['product_id' => (int)$currentProductId, 'look_product_id' => (int)$product_id,'position' => (int)$position];
                     }
                     $connection->insertMultiple($tableName, $data);
         }

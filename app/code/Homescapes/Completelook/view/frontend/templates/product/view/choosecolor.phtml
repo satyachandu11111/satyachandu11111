@@ -1,0 +1,20 @@
+<?php
+$currentProduct = $block->getCurrentProduct();
+$relatedProducts = $block->getItems();
+if(count($relatedProducts)){
+?>
+<div>
+    <ul>
+    <li>    
+        <a class="active" href="#"  ><img src="<?php echo $block->getthumbnailImg($currentProduct); ?>" /></a>
+    </li>    
+    <?php  foreach($relatedProducts as $relatedProduct){ 
+           $_product = $block->getLoadProduct($relatedProduct->getId()); 
+        ?>         
+    <li>    
+        <a href="<?php echo $_product->getProductUrl(); ?>"  ><img src="<?php echo $block->getthumbnailImg($_product); ?>" /></a>
+    </li>
+    <?php  } ?>
+    </ul>
+</div>
+<?php } ?>

@@ -20,16 +20,16 @@ define([
         function registerCustomer(grid, element, checked) {
             
             if (checked) {
-                //if (element.positionElement) {
-                   // element.positionElement.disabled = false;
-                    console.log('element val :'+element.value);
+                if (element.positionElement) {
+                    element.positionElement.disabled = false;
+                    //console.log('element val :'+element.value);
                     //console.log('element posi :'+element.positionElement.value);
-                    products.set(element.value,0);
-               // }
+                    products.set(element.value,element.positionElement.value);
+                }
             } else {
-                /*if (element.positionElement) {
+                if (element.positionElement) {
                     element.positionElement.disabled = true;
-                }*/
+                }
                 console.log('unchecked....');
                 products.unset(element.value);
             }
@@ -63,6 +63,7 @@ define([
                     checked=checkbox[0].checked;
                     gridJsObject.setCheckboxChecked(checkbox[0], checked);
                 }
+                //$('complete_look').value = Object.toJSON(products);
             }
         }
 
@@ -90,22 +91,23 @@ define([
         function productRowInit(grid, row) {
             var checkbox = $(row).getElementsByClassName('checkbox')[0],
                 position = $(row).getElementsByClassName('input-text')[0];
-
+                
             if (checkbox && position) {
                 checkbox.positionElement = position;
                 position.checkboxElement = checkbox;
                 position.disabled = !checkbox.checked;
                 position.tabIndex = tabIndex++;
                 Event.observe(position, 'keyup', positionChange);
+                Event.observe(position, 'click', positionChange);
             }
         }
 
         gridJsObject.rowClickCallback = productRowClick;
-        //gridJsObject.initRowCallback = productRowInit;
+        gridJsObject.initRowCallback = productRowInit;
         gridJsObject.checkboxCheckCallback = registerCustomer;
 
-        if (gridJsObject.rows) {
-            gridJsObject.rows.each(function (row) {
+        if (gridJsObject.rows) {            
+            gridJsObject.rows.each(function (row) {                
                 productRowInit(gridJsObject, row);
             });
         }

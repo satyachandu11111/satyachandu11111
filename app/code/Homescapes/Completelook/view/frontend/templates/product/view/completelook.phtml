@@ -1,6 +1,9 @@
 <?php 
 $completeLookProducts = $block->getCompletelookProducts();
     if(is_array($completeLookProducts)){  ?>  
+    <div class="complete-look">
+        <?php $displayText = ($block->getDisplayText() ? $block->getDisplayText() : __('Complete Look')); ?>
+        <span><?php echo  $displayText; ?></span>
         <div class="complete-look">
     <?php  foreach($completeLookProducts as $completeLookProduct)
         {        
@@ -139,6 +142,7 @@ $completeLookProducts = $block->getCompletelookProducts();
                 </script>
                 </form>
         <?php } ?>
+                </div>
         </div>
     <?php }  
     

@@ -14,6 +14,7 @@ use Magento\Framework\DataObject\Factory as DataObjectFactory;
 use Magento\Catalog\Model\Product\AttributeSet\Options;
 use \Magento\Eav\Model\ResourceModel\Entity\Attribute\Set\CollectionFactory as AttributeSetCollectionFactory;
 use \Magento\Framework\App\ResourceConnection;
+use \Magento\Catalog\Model\Product\Type as productType;
 
 class Product extends GridExtended
 {
@@ -50,6 +51,8 @@ class Product extends GridExtended
     
     
     protected $_resourceCollection;
+    
+    protected $_productType;
 
     /**
      * @param Context $context
@@ -69,6 +72,7 @@ class Product extends GridExtended
         DataObjectFactory $dataObjectFactory,
         Options $attributeSetOpt,        
         ResourceConnection $resourceCollection,
+        productType $productType,
         array $data = []
     ) {
         parent::__construct($context, $backendHelper, $data);
@@ -78,6 +82,7 @@ class Product extends GridExtended
         $this->dataObjectFactory = $dataObjectFactory;
         $this->attributeSetOpt = $attributeSetOpt;
         $this->_resourceCollection = $resourceCollection;
+        $this->_productType = $productType;
     }
 
     /**
@@ -109,16 +114,15 @@ class Product extends GridExtended
         $connection = $this->_resourceCollection->getConnection();
         $tableName = $this->_resourceCollection->getTableName(\Homescapes\Completelook\Model\Completelook::COMPLETE_LOOK_PRODUCT);
         $sql = $connection->select()
-                  ->from($tableName,array('ids' => new \Zend_Db_Expr('GROUP_CONCAT(look_product_id)')))                  
+                  ->from($tableName,array('look_product_id','position' ))                  
                   ->where('product_id = ?', $productId);
-        $results = $connection->fetchCol($sql); 
-        $results = reset($results);
-        
-        $products = explode(',', $results);
-        $products=array_fill_keys($products,"0");
+        $results = $connection->fetchAll($sql); 
+        $products = array();
+        foreach($results as $result){
+            $products[$result['look_product_id']] = $result['position'];
+        }
         
         $selectedProducts = json_encode($products);
-        
         
         return $selectedProducts;
     }
@@ -185,6 +189,19 @@ class Product extends GridExtended
         $collection = $this->productCollection->create();
         $collection->addAttributeToSelect('name');        
         $collection->addFieldToFilter('entity_id', array('nin' => $pId));
+        
+        $joinTable = $this->_resourceCollection->getTableName(\Homescapes\Completelook\Model\Completelook::COMPLETE_LOOK_PRODUCT);
+        //$collection->getSelect()->joinLeft($joinTable.' as completelook','e.entity_id = completelook.look_product_id', array('completelook.position'));
+        //$collection->getSelect()->where('completelook.product_id = ?', $pId);
+        //echo $collection->getSelect(); die('dddd');
+        
+        $query = "select t.position,t.look_product_id from  completelook_product t where t.product_id =$pId";
+        $collection->getSelect()->joinLeft(
+            new \Zend_Db_Expr('('.$query.')'),
+            'e.entity_id = t.look_product_id',
+            array('position')    
+        );
+        //echo  $collection->getSelect(); die('dddd'); 
 
         $this->setCollection($collection);
         return parent::_prepareCollection();
@@ -206,6 +223,16 @@ class Product extends GridExtended
                 'index' => 'entity_id',
                 'header_css_class' => 'col-select col-massaction',
                 'column_css_class' => 'col-select col-massaction'
+            ]
+        );
+        
+        
+           $this->addColumn(
+            'entity_id',
+            [
+                'header' => __('ID'),
+                'index' => 'entity_id',
+                
             ]
         );
        
@@ -246,6 +273,35 @@ class Product extends GridExtended
                 'column_css_class' => 'col-attr-name'
             ]
         );
+         
+        $optionsTypes = array();         
+        $optionsTypes = $this->_productType->getOptionArray(); 
+         
+        $this->addColumn(
+            'type_id',
+            [
+                'header' => __('Type'),
+                'index' => 'type_id',
+                'type' => 'options',
+                'options' => $optionsTypes,
+                'header_css_class' => 'col-attr-name',
+                'column_css_class' => 'col-attr-name'
+            ]
+        ); 
+        
+        
+
+        $this->addColumn(
+                'position', [
+            'header' => __('Position'),            
+            'index' => 'position',
+            'type' => 'input',             
+            'filter' => false
+            //'renderer' => 'Homescapes\Completelook\Block\Adminhtml\Completelook\Edit\Tab\Grid\Position'
+                ]
+        );
+
+
               
       
         return parent::_prepareColumns();
