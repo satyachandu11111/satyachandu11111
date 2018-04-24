@@ -44,6 +44,8 @@
 	</referenceContainer>
 	<!-- CUSTOM BLOCK ENDS HERE -->
 	
+	<referenceBlock name="catalog.compare.sidebar" remove="true"/> <!--add to compare-->
+	
 	
 	
 </page>
