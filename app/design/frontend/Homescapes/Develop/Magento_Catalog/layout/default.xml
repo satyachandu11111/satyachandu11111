@@ -10,6 +10,6 @@
 			<referenceBlock name="catalog.compare.sidebar" remove="true"/> <!--add to compare-->
 			<referenceBlock name="view.addto.compare" remove="true" /> <!--add to compare sidebar-->
 		 	<referenceBlock name="product.info.mailto" remove="true" />  <!--email-->
-			<move element="product.info.addto" destination="product.info.addtocart.additional" />
+			<move element="product.info.addto" destination="product.info.form.content" after="product.info.addtocart"/>
     </body>
 </page>
