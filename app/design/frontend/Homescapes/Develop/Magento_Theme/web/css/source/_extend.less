@@ -1922,6 +1922,39 @@ transition: all 400ms ease-in-out 0s;
 /*--------------------------------------------------------------------------
 |  Product Page 
 --------------------------------------------------------------------------*/
+
+.catalog-product-view{
+
+	.section-title{
+		border-bottom: 2px solid @black;
+		width: 60%;
+		margin: 0px auto 30px auto;
+		font-size: 2rem;
+		
+		@media @991{
+			width: 70%;
+		}
+		@media @767{
+			width: 100%;
+			margin-bottom: 25px;
+		}
+		
+		span{
+			background:@white;
+			position: relative;
+			top: 11px;
+			padding: 0px 20px;
+			
+			@media @767{
+				top:9px;
+			}
+		}
+	}
+
+}
+
+
+
 .catalog-product-view{
 	
 	h1{
@@ -2002,9 +2035,32 @@ transition: all 400ms ease-in-out 0s;
 		text-align: center;
 	}
 }
-/*--------------------------------------------------------------------------
+/*----------------------
+|  Product swatch
+-----------------------*/
+.product-info-main{
+	ul{
+		display: flex;
+		
+		li:first-child{
+			border: 2px solid @light-black;
+		}
+		li{
+			border: 2px solid @border-color;
+			margin-right: .5rem;
+			border-radius: .4rem;
+			
+			img{
+				border-radius: .4rem;
+			}
+		}
+	}
+}
+
+
+/*----------------------------------
 |  Product details
---------------------------------------------------------------------------*/
+---------------------------------------*/
 .product.info.detailed{
 	width: 50%;
 	float: left;
@@ -2040,8 +2096,23 @@ transition: all 400ms ease-in-out 0s;
 	
 }
 
+/*----------------------------------
+|  complete the look
+---------------------------------------*/
 
-
+.complete-look{
+	float: right;
+	width: 48%;
+	display: grid;
+	
+	.product-img{
+		max-width: 125px;
+	}
+}
+.related, .upsell{
+	float: left;
+	width: 100%;
+}
 /*--------------------------------------------------------------------------
 | cart Page 
 --------------------------------------------------------------------------*/
@@ -2052,10 +2123,15 @@ transition: all 400ms ease-in-out 0s;
 		width: 100%;
 	}
 	.cart.table-wrapper .actions-toolbar{
-		float: left;
-		margin-top: 0;
-		width: 50%;
-		left: 0;
+		
+		
+		@media @767{
+			float: left;
+			margin-top: 0;
+			width: 50%;
+			left: 0;
+		}
+		
 			
 	}
 	.product-image-container{
