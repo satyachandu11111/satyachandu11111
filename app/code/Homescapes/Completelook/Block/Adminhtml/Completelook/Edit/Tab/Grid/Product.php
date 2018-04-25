@@ -111,6 +111,7 @@ class Product extends GridExtended
     {
         $selectedProducts = array();
         $productId = $this->getRequest()->getParam('id');
+        if($productId){
         $connection = $this->_resourceCollection->getConnection();
         $tableName = $this->_resourceCollection->getTableName(\Homescapes\Completelook\Model\Completelook::COMPLETE_LOOK_PRODUCT);
         $sql = $connection->select()
@@ -123,6 +124,9 @@ class Product extends GridExtended
         }
         
         $selectedProducts = json_encode($products);
+        }else{
+            $selectedProducts = json_encode($selectedProducts);
+        }
         
         return $selectedProducts;
     }
@@ -131,6 +135,7 @@ class Product extends GridExtended
     {
         $selectedProducts = array();
         $productId = $this->getRequest()->getParam('id');
+        if($productId){
         $connection = $this->_resourceCollection->getConnection();
         $tableName = $this->_resourceCollection->getTableName(\Homescapes\Completelook\Model\Completelook::COMPLETE_LOOK_PRODUCT);
         $sql = $connection->select()
@@ -139,10 +144,10 @@ class Product extends GridExtended
         $results = $connection->fetchCol($sql); 
         $results = reset($results);
         
-        $products = explode(',', $results);
+        $selectedProducts = explode(',', $results);
+        }
         
-        
-        return $products;
+        return $selectedProducts;
     }
 
     /**
@@ -189,7 +194,7 @@ class Product extends GridExtended
         $collection = $this->productCollection->create();
         $collection->addAttributeToSelect('name');        
         $collection->addFieldToFilter('entity_id', array('nin' => $pId));
-        
+        if($pId){
         $joinTable = $this->_resourceCollection->getTableName(\Homescapes\Completelook\Model\Completelook::COMPLETE_LOOK_PRODUCT);
         //$collection->getSelect()->joinLeft($joinTable.' as completelook','e.entity_id = completelook.look_product_id', array('completelook.position'));
         //$collection->getSelect()->where('completelook.product_id = ?', $pId);
@@ -201,6 +206,7 @@ class Product extends GridExtended
             'e.entity_id = t.look_product_id',
             array('position')    
         );
+        }
         //echo  $collection->getSelect(); die('dddd'); 
 
         $this->setCollection($collection);
