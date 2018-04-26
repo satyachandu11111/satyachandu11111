@@ -7,9 +7,12 @@
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
-			<referenceBlock name="catalog.compare.sidebar" remove="true"/> <!--add to compare-->
-			<referenceBlock name="view.addto.compare" remove="true" /> <!--add to compare sidebar-->
+			<referenceBlock name="catalog.compare.sidebar" remove="true"/> <!--add to compare sidebar-->
+			<referenceBlock name="view.addto.compare" remove="true" /> <!--add to compare-->
 		 	<referenceBlock name="product.info.mailto" remove="true" />  <!--email-->
-			<move element="product.info.addto" destination="product.info.form.content" after="product.info.addtocart"/>
+		
+		
+			<move element="product.info.addto" destination="product.info.form.content" after="product.info.addtocart"/> <!--wishlist-->
+		
     </body>
 </page>
