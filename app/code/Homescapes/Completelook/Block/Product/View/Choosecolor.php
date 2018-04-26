@@ -9,7 +9,9 @@ class Choosecolor extends \Magento\Catalog\Block\Product\ProductList\Related
     
     protected $imageHelper;
     
-    protected $productloader;  
+    protected $productloader;      
+    
+    protected $scopeConfig;
     
     public function __construct(
             \Magento\Catalog\Block\Product\Context $context, 
@@ -20,12 +22,14 @@ class Choosecolor extends \Magento\Catalog\Block\Product\ProductList\Related
             \Magento\Framework\Registry $registry,
             \Magento\Catalog\Helper\Image $imageHelper,
             \Magento\Catalog\Model\ProductFactory $_productloader,
+            \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
             array $data = array()) {
         
         parent::__construct($context, $checkoutCart, $catalogProductVisibility, $checkoutSession, $moduleManager, $data);
         $this->registry = $registry;
         $this->imageHelper = $imageHelper;
         $this->productloader = $_productloader;
+        $this->scopeConfig = $scopeConfig;
     }
 
     
@@ -45,4 +49,8 @@ class Choosecolor extends \Magento\Catalog\Block\Product\ProductList\Related
         return $this->productloader->create()->load($id);
     }
     
+    public function getDisplayText() {
+        
+        return $this->scopeConfig->getValue('completelook/general/display_text',\Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+    }
 }
