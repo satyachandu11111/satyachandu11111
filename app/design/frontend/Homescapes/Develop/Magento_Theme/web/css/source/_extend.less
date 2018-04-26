@@ -121,7 +121,7 @@ max-width : 1240px;
 }
 .page-header .header.panel{
 	max-width: 1240px;
-	padding: 8px 20px;
+	padding: 8px 20px 4px 20px;
 }
 
 ul, ol{
@@ -189,17 +189,35 @@ h6, .h6 {
 /*--------------------------------------------------------------------------
 |  Header CSS
 --------------------------------------------------------------------------*/
-.minicart-wrapper .action.showcart::before{
-	line-height: 20px;
-	font-size: @font18;
+.minicart-wrapper .action.showcart::before, .minicart-wrapper .action.showcart.active::before{
+	content: none;
 }
 .block-search .action.search::before{
 	color:@white;
 }
-.minicart-wrapper .action.showcart.active::before{
-	font-size: @font18;
-	line-height: @font20;
+.block-search .search .action.search[disabled]{
+	opacity:1;
 }
+.minicart-wrapper .action.showcart .fas{
+	color: @black;
+	line-height: 1rem;
+	vertical-align: top;
+	margin-top: .5rem;
+}
+
+.minicart-wrapper .basket-lable{
+
+    clip: unset;
+    height: auto;
+    width: auto;
+    position: relative;
+    vertical-align: top;
+    margin-left: .2rem;
+    line-height: 2.1rem;
+    color: @black;
+
+}
+
 .page-header .fa-phone{
 	transform: rotate(110deg);
 	font-size:@base;
@@ -2053,6 +2071,23 @@ transition: all 400ms ease-in-out 0s;
 			img{
 				border-radius: .4rem;
 			}
+		}
+	}
+	.stock-label{
+		margin-left: 1rem;
+		font-weight: bold;
+	}
+	.reviews-actions .add{
+		color: @black;
+		font-weight: bold;
+		
+		&:before{
+		content: '\f044';
+		font-size:1.3rem;
+		font-family: "Font Awesome 5 Free";
+		margin: -3px 3px 0 0;
+		vertical-align: middle;
+		display: inline-block;
 		}
 	}
 }

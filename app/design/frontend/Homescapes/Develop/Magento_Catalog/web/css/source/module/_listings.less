@@ -49,9 +49,7 @@
 
             &-name {
                 &:extend(.abs-product-link all);
-                -moz-hyphens: auto;
-                -ms-hyphens: auto;
-                -webkit-hyphens: auto;
+       
                 display: block;
                 margin: @indent__xs 0;
                 word-wrap: break-word;
@@ -104,7 +102,7 @@
             }
 
             .price-box {
-                margin: @indent__s 0 @indent__m;
+                margin:.5rem 0;;
 
                 .price {
                     font-weight: @font-weight__bold;
@@ -118,13 +116,21 @@
             }
 
             .old-price {
-                margin: @indent__xs 0;
+                margin: 0;
+				float: left;
+				text-decoration: line-through;
+				margin-right: 5px;
+				font-weight: bold;
 
                 .price {
-                    font-weight: normal;
                 }
             }
-
+			.special-price{
+				.price {
+					font-size: 2rem;
+					line-height: 1.6rem;
+                }
+			}
             .regular-price {
                 .price-label {
                     display: none;
@@ -281,6 +287,9 @@
                     }
                 }
             }
+			.product-reviews-summary{
+				margin-bottom: 1rem;
+			}
         }
     }
 
@@ -300,7 +309,7 @@
     }
 
     .product-item-actions {
-        display: block;
+        display: none;
 
         .products-grid & {
             margin: -@indent__s 0 @indent__s;

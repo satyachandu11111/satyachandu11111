@@ -5,7 +5,10 @@
 
 @import 'module/_listings.less';
 @import 'module/_toolbar.less';
+@green:#0B8643;
+@danger: #F94747;
 
+@white:#ffffff;
 //
 //  Variables
 //  _____________________________________________
@@ -168,10 +171,9 @@
     .product-info-main {
         .product-info-price {
             .lib-css(color, @product-info-price);
-            border-bottom: 1px solid @color-gray-light5;
             display: table;
-            margin-bottom: @indent__s + @indent__xs;
             width: 100%;
+			max-width: 21rem;
 
             .price-box {
                 display: table-cell;
@@ -210,11 +212,16 @@
             .old-price {
                 .price-wrapper .price {
                     .lib-font-size(20);
-                    font-weight: @font-weight__light;
+					font-weight: bold;
+					color: #8A8A8A;
+					text-decoration: line-through;
                 }
             }
 
             .special-price {
+				
+				float: right;
+				
                 .price-label {
                     &:after {
                         content: ': ';
@@ -229,40 +236,61 @@
 
         .product-info-stock-sku {
             display: table-cell;
-            padding-bottom: @indent__s;
-            padding-left: 10%;
-            text-align: right;
+            padding-right: 2%;
+            text-align: left;
             vertical-align: top;
+			float: left;
         }
 
         .stock {
-            margin: 0 0 3px;
+            margin-left: 5px;
+			float: right;
 
             &.available,
             &.unavailable {
                 font-weight: @font-weight__bold;
                 text-transform: uppercase;
+				border-radius: .3rem;
+				font-size: 1rem;
+				padding: .2rem .8rem .1rem .8rem;
+				color:@white;
+				margin-top: .1rem;
             }
+			&.available{
+				background:@green;
+			}
+			&.unavailable{
+				background:@danger;
+			}
         }
 
         .product.attribute.sku {
             word-break: break-all;
             word-wrap: break-word;
+			float: left;
+			
+			.fa-th-large{
+				margin-top: -3px;
+				vertical-align: middle;
+				font-size: 12px;
+				margin-right: 2px;
+			}
         }
 
         .product {
             &.attribute {
                 &.sku {
                     .type {
-                        font-weight: normal;
-                        margin-right: @indent__xs;
+                        font-weight:bold;
+                        margin-right:.2rem;
 
                         &:after {
-                            content: '#:';
+                            content: ':';
                         }
                     }
 
                     .value {
+                        font-weight:bold;
                         display: inline-block;
                     }
                 }
@@ -284,6 +312,7 @@
 
         .product-reviews-summary {
             float: left;
+			line-height: 1.4rem;
         }
 
         .product-options-bottom {
@@ -623,7 +652,7 @@
         }
 
         .product-add-form {
-            padding-top: @indent__base;
+            padding-top: 1rem;
         }
     }
 
@@ -648,8 +677,8 @@
                 font-size: @font-size__xl;
 
                 .price {
-                    font-size: 36px;
-                    line-height: 36px;
+                    font-size: 4rem;
+                    line-height: 1.6rem;
                 }
             }
 
