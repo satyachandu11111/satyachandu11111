@@ -25,7 +25,14 @@
 //
 //  Common
 //  _____________________________________________
-
+.catalog-product-view .owl-item .products-grid .product-item-info:hover{
+	box-shadow:none;
+	padding:0;
+	border:none;
+}
+.rlb .column.main .product-items{
+	margin: 0;
+}
 & when (@media-common = true) {
     //  Product Lists
     .products {
@@ -57,7 +64,7 @@
 
             &-info {
                 max-width: 100%;
-                width: 152px;
+                width: 100%;
 
                 .page-products & {
                     width: 240px;
@@ -176,7 +183,8 @@
             }
 
             &-item {
-                padding-left: @indent__base;
+                padding-left: 1rem;
+                padding-right: 1rem;
             }
         }
     }

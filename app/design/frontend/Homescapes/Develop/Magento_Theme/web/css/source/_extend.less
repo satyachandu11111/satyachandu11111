@@ -1081,7 +1081,7 @@ transition: all 400ms ease-in-out 0s;
   .animated-arrow { 
 	cursor: pointer;
 	padding: 14px 30px 16px 7px;
-	margin: 56px 0px 0px 13px;
+	margin: 52px 0px 0px 13px;
   }
   .animated-arrow span, .animated-arrow span:before, .animated-arrow span:after {
     cursor: pointer;
@@ -2072,8 +2072,18 @@ transition: all 400ms ease-in-out 0s;
 |  Product swatch
 -----------------------*/
 .product-info-main{
+	
+	.choose-color-related-items{
+		span{
+			font-size: @font16;
+			font-weight: bold;
+			line-height: @font24;
+		}
+	}
+	
 	ul{
 		display: flex;
+		flex-flow: row wrap;
 		
 		li:first-child{
 			border: 2px solid @light-black;
@@ -2082,6 +2092,9 @@ transition: all 400ms ease-in-out 0s;
 			border: 2px solid @border-color;
 			margin-right: .5rem;
 			border-radius: .4rem;
+			width: 4rem;
+			height: 4rem;
+			margin: .4rem;
 			
 			img{
 				border-radius: .4rem;
@@ -2091,6 +2104,10 @@ transition: all 400ms ease-in-out 0s;
 	.stock-label{
 		margin-left: 1rem;
 		font-weight: bold;
+		
+		@media @991{
+			display: none;
+		}
 	}
 	.reviews-actions .add{
 		color: @black;
@@ -2115,6 +2132,10 @@ transition: all 400ms ease-in-out 0s;
 	width: 50%;
 	float: left;
 	clear: both;
+	
+	@media @991{
+		width: 100%;
+	}
 	
 	.item.content{
 		border: none;
@@ -2163,6 +2184,14 @@ transition: all 400ms ease-in-out 0s;
 	float: left;
 	width: 100%;
 }
+.rlb{
+	clear: both;
+	
+	.products{
+		margin: 10px 0;
+	}
+}
+
 /*--------------------------------------------------------------------------
 | cart Page 
 --------------------------------------------------------------------------*/
