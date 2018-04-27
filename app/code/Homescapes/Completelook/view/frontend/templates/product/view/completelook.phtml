@@ -1,8 +1,10 @@
 <?php 
+$currentProduct = $block->getCurrentProduct();
+$displayText = $currentProduct->getAttributeText('complete_look_title');
 $completeLookProducts = $block->getCompletelookProducts();
     if(is_array($completeLookProducts)){  ?>  
     <div class="complete-look">
-        <?php $displayText = ($block->getDisplayText() ? $block->getDisplayText() : __('Complete Look')); ?>
+        <?php $displayText = ($displayText ? $displayText : __('Complete Look')); ?>
         <span><?php echo  $displayText; ?></span>
         <div class="complete-look">
     <?php  foreach($completeLookProducts as $completeLookProduct)
@@ -34,6 +36,7 @@ $completeLookProducts = $block->getCompletelookProducts();
                         <thead>
                         <tr>
                             <th class="col item" scope="col"><?= /* @escapeNotVerified */ __('Product Name') ?></th>
+                            <th class="col item" scope="col"><?= /* @escapeNotVerified */ __('Price') ?></th>
                             <?php if ($_product->isSaleable()): ?>
                                 <th class="col qty" scope="col"><?= /* @escapeNotVerified */ __('Qty') ?></th>
                             <?php endif; ?>
@@ -44,7 +47,9 @@ $completeLookProducts = $block->getCompletelookProducts();
                             <tbody>
                                 <tr>
                                     <td data-th="<?= $block->escapeHtml(__('Product Name')) ?>" class="col item">
-                                        <strong class="product-item-name"><?= $block->escapeHtml($_item->getName()) ?></strong>                                        
+                                        <strong class="product-item-name"><?= $block->escapeHtml($_item->getAttributeText('size')) ?></strong>                                                                                
+                                    </td>
+                                    <td data-th="<?= $block->escapeHtml(__('Price')) ?>" class="col item">
                                         <?php if ($block->getCanShowProductPrice($_product)): ?>
                                             <?php if ($block->getCanShowProductPrice($_item)): ?>
                                                 <?= /* @escapeNotVerified */ $block->getProductPrice($_item) ?>
@@ -54,15 +59,24 @@ $completeLookProducts = $block->getCompletelookProducts();
                                     <?php if ($_product->isSaleable()): ?>
                                     <td data-th="<?= $block->escapeHtml(__('Qty')) ?>" class="col qty">
                                     <?php if ($_item->isSaleable()) : ?>
-                                        <div class="control qty">
+                                        
+                                        <div class="control qty" data-mage-init='{
+                                        "qtyInput":{"qtyInputSelector": "#qty-<?php /* @escapeNotVerified */ echo $_item->getId() ?>",
+                                        "qtyIncrementSelector":"#inc-qty-<?php /* @escapeNotVerified */ echo $_item->getId() ?>",
+                                        "qtyDecrementSelector":"#dec-qty-<?php /* @escapeNotVerified */ echo $_item->getId() ?>"
+                                        }
+                                    }'>     
+                                            <div class="decreaseQty" id="dec-qty-<?php /* @escapeNotVerified */ echo $_item->getId() ?>" >-</div>
                                             <input type="number"
                                                    name="super_group[<?= /* @escapeNotVerified */ $_item->getId() ?>]"
                                                    data-selector="super_group[<?= /* @escapeNotVerified */ $_item->getId() ?>]"
                                                    value="<?= /* @escapeNotVerified */ $_item->getQty() * 1 ?>"
                                                    title="<?= /* @escapeNotVerified */ __('Qty') ?>"
                                                    class="input-text qty"
+                                                   id="qty-<?php /* @escapeNotVerified */ echo $_item->getId() ?>"
                                                    data-validate="{'validate-grouped-qty':'#super-product-table-<?php echo $_product->getSku(); ?>'}"
-                                                   data-errors-message-box="#validation-message-box-<?php echo $_product->getSku(); ?>"/>
+                                                   data-errors-message-box="#validation-message-box-<?php echo $_product->getSku(); ?>"/>                                            
+                                            <div class="increaseQty" id="inc-qty-<?php /* @escapeNotVerified */ echo $_item->getId() ?>">+</div>
                                         </div>
                                     <?php else: ?>
                                         <div class="stock unavailable" title="<?= /* @escapeNotVerified */ __('Availability') ?>">
@@ -107,15 +121,22 @@ $completeLookProducts = $block->getCompletelookProducts();
                     <div class="fieldset">
                         <div class="field qty">
                             <label class="label" for="qty"><span><?= /* @escapeNotVerified */ __('Qty') ?></span></label>
-                            <div class="control">
+                            <div class="control" data-mage-init='{
+                                        "qtyInput":{"qtyInputSelector": "#qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>",
+                                        "qtyIncrementSelector":"#inc-qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>",
+                                        "qtyDecrementSelector":"#dec-qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>"
+                                        }
+                                    }'>
+                                <div class="decreaseQty" id="dec-qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>" >-</div>
                                 <input type="number"
-                                       name="qty"
-                                       id="qty"
+                                       name="qty"                                       
                                        value="<?= /* @escapeNotVerified */ $block->getProductDefaultQty() * 1 ?>"
                                        title="<?= /* @escapeNotVerified */ __('Qty') ?>"
                                        class="input-text qty"
+                                       id="qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>"
                                        data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
                                        />
+                                <div class="increaseQty" id="inc-qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>">+</div>   
                             </div>
                         </div>
                     </div>

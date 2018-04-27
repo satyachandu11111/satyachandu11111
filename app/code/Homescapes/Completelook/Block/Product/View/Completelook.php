@@ -14,9 +14,7 @@ class Completelook extends \Magento\Framework\View\Element\Template
     
     protected $abstractProduct;
     
-   /**
-   * @var \Magento\Framework\App\Config\ScopeConfigInterface
-   */
+   
    protected $scopeConfig;
 
 
@@ -100,11 +98,7 @@ class Completelook extends \Magento\Framework\View\Element\Template
     
     public function getSubmitUrl($product){
         return $this->abstractProduct->getSubmitUrl($product);
-    }
+    }   
     
-    public function getDisplayText() {
-
-        return $this->scopeConfig->getValue('completelook/general/display_text',\Magento\Store\Model\ScopeInterface::SCOPE_STORE);
-    }
     
 }

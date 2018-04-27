@@ -6,4 +6,5 @@
     <referenceContainer name="product.info.main">
         <block class="Homescapes\Completelook\Block\Product\View\Choosecolor"  name="choosecolor" after="product.info.price" template="Homescapes_Completelook::product/view/choosecolor.phtml" />
     </referenceContainer>
+    <referenceBlock name="catalog.product.related" remove="true" />     
 </page>
