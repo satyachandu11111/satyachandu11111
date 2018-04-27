@@ -9,7 +9,8 @@ $completeLookProducts = $block->getCompletelookProducts();
         <div class="complete-look">
     <?php  foreach($completeLookProducts as $completeLookProduct)
         {        
-            $_product = $block->getLoadProduct($completeLookProduct);
+            $_product = $block->getLoadProduct($completeLookProduct);            
+            $priceRange = array();
             ?>
 
                 <form data-product-sku="<?= $block->escapeHtml($_product->getSku()) ?>"
@@ -22,7 +23,7 @@ $completeLookProducts = $block->getCompletelookProducts();
                     <div class="product-img"><img src="<?php echo $block->getImageUrl($_product); ?>" title="<?php echo $_product->getName() ?>" /></div>
                     <div class="product-name-price">
                         <span class="name"><?php echo $_product->getName(); ?></span>
-                        <span class="price"><?php echo $_product->getPrice(); ?></span>
+                        <span class="price"><?php echo $block->getProductPrice($_product); ?></span>
                         <a href="<?php echo $_product->getProductUrl(); ?>" title="<?php echo __('Description'); ?>"><?php echo __('Description'); ?></a>
                     </div>
                 </div>
@@ -49,10 +50,14 @@ $completeLookProducts = $block->getCompletelookProducts();
                                     <td data-th="<?= $block->escapeHtml(__('Product Name')) ?>" class="col item">
                                         <strong class="product-item-name"><?= $block->escapeHtml($_item->getAttributeText('size')) ?></strong>                                                                                
                                     </td>
+                                    <?php   // code for price range 
+                                            $finalPrice = $_item->getPriceInfo()->getPrice('final_price')->getAmount()->getBaseAmount();
+                                            $priceRange[]=$finalPrice; ?>             
                                     <td data-th="<?= $block->escapeHtml(__('Price')) ?>" class="col item">
                                         <?php if ($block->getCanShowProductPrice($_product)): ?>
                                             <?php if ($block->getCanShowProductPrice($_item)): ?>
                                                 <?= /* @escapeNotVerified */ $block->getProductPrice($_item) ?>
+                                                <?php echo  $percentage = $this->helper('Homescapes\Completelook\Helper\Data')->DisplayDiscount($_item); ?>
                                             <?php endif; ?>
                                          <?php endif; ?>
                                     </td>
@@ -106,6 +111,24 @@ $completeLookProducts = $block->getCompletelookProducts();
                         <?php  } ?>
                     </table>
                 </div>
+                <?php  
+                        // calculate maxprice and min price for group products
+                        arsort($priceRange);
+                        $maxprice = reset($priceRange);
+                        $minprice = end($priceRange);
+                        $currencyHelper = $this->helper('Magento\Framework\Pricing\Helper\Data');
+                     ?>
+                    <?php if($maxprice != $minprice){  ?>
+                        <div id="group_product_price_<?php echo $_product->getId();  ?>" style="display:none;"><div id="product-price-<?php echo $_product->getId();?>" class="group-prod-price"><?php echo $currencyHelper->currency($minprice,true,false); ?> - <?php echo $currencyHelper->currency($maxprice,true,false);?></div></div>
+                    <?php }else{ ?>
+                        <div id="group_product_price_<?php echo $_product->getId();  ?>" style="display:none;"><div id="product-price-<?php echo $_product->getId();?>" class="group-prod-price"><?php echo $currencyHelper->currency($minprice,true,false); ?> </div></div>
+                    <?php  } ?>
+                        <script type="text/javascript">
+                            require(["jquery","domReady!"], function ($) {
+                             var productId = "<?php echo $_product->getId();  ?>";
+                            $(".price-box[data-product-id='"+productId+"'] .price-box").html(jQuery("#group_product_price_"+productId).html());
+                            });
+                        </script>
                 <div id="validation-message-box-<?php echo $_product->getSku(); ?>"></div>
                 <div class="actions">
                     <button type="submit"
@@ -116,7 +139,8 @@ $completeLookProducts = $block->getCompletelookProducts();
                     </button>
                     <?= $block->getChildHtml('', true) ?>
                 </div>
-            <?php }elseif ($_product->getTypeId() == 'simple') { ?>
+            <?php  // end grouped product code             
+                }elseif ($_product->getTypeId() == 'simple') {  //start simple product code  ?>
                 <div class="box-tocart">
                     <div class="fieldset">
                         <div class="field qty">
