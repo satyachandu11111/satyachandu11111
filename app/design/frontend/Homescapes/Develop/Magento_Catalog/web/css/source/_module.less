@@ -173,12 +173,13 @@
             .lib-css(color, @product-info-price);
             display: table;
             width: 100%;
-			max-width: 21rem;
 
             .price-box {
                 display: table-cell;
                 vertical-align: top;
-                width: 1px;
+                width:100%;
+				max-width: 21rem;
+				float: left;
 
                 .price-container {
                     > span {
@@ -252,7 +253,7 @@
                 text-transform: uppercase;
 				border-radius: .3rem;
 				font-size: 1rem;
-				padding: .2rem .8rem .1rem .8rem;
+				padding: .2rem .8rem .2rem .8rem;
 				color:@white;
 				margin-top: .1rem;
             }
