@@ -17,6 +17,7 @@
 <?php $_product = $block->getProduct(); ?>
 <?php $_associatedProducts = $block->getAssociatedProducts(); ?>
 <?php $_hasAssociatedProducts = count($_associatedProducts) > 0; ?>
+<?php $newprice = array();?>
 
 <div class="table-wrapper grouped">
     <table class="table data grouped" id="super-product-table">
@@ -35,17 +36,18 @@
         <?php foreach ($_associatedProducts as $_item): ?>
         <tbody>
             <tr>
-                <td data-th="<?= $block->escapeHtml(__('Product Name')) ?>" class="col item">
-                    <?php //  echo "<pre/>";
-                        //print_r($_item->getData());
-                        //die('sfdsdfsdf');
-                    ?>
+                <td data-th="<?= $block->escapeHtml(__('Product Name')) ?>" class="col item">                    
                     <strong class="product-item-name"><?= $block->escapeHtml($_item->getAttributeText('size')) ?></strong>                    
                 </td>
+                <?php 
+                    $finalPrice = $_item->getPriceInfo()->getPrice('final_price')->getAmount()->getBaseAmount();
+                    $newprice[]=$finalPrice;
+                    ?>                    
                 <td data-th="<?= $block->escapeHtml(__('Price')) ?>" class="col item">
                     <?php if ($block->getCanShowProductPrice($_product)): ?>
                         <?php if ($block->getCanShowProductPrice($_item)): ?>
                             <?= /* @escapeNotVerified */ $block->getProductPrice($_item) ?>
+                            <?php echo  $percentage = $this->helper('Homescapes\Completelook\Helper\Data')->DisplayDiscount($_item); ?>
                         <?php endif; ?>
                      <?php endif; ?>
                 </td>
@@ -107,4 +109,22 @@
         <?php endif; ?>
     </table>
 </div>
+<?php  
+    // calculate maxprice and min price for group products
+    arsort($newprice);
+    $maxprice = reset($newprice);
+    $minprice = end($newprice);
+    $currencyHelper = $this->helper('Magento\Framework\Pricing\Helper\Data');
+ ?>
+<?php if($maxprice != $minprice){  ?>
+    <div id="group_product_price_<?php echo $_product->getId();  ?>" style="display:none;"><div id="product-price-<?php echo $_product->getId();?>" class="group-prod-price"><?php echo $currencyHelper->currency($minprice,true,false); ?> - <?php echo $currencyHelper->currency($maxprice,true,false);?></div></div>
+<?php }else{ ?>
+    <div id="group_product_price_<?php echo $_product->getId();  ?>" style="display:none;"><div id="product-price-<?php echo $_product->getId();?>" class="group-prod-price"><?php echo $currencyHelper->currency($minprice,true,false); ?> </div></div>
+<?php  } ?>
+    <script type="text/javascript">
+        require(["jquery","domReady!"], function ($) {
+         var productId = "<?php echo $_product->getId();  ?>";
+        $(".price-box[data-product-id='"+productId+"'] .price-box").html(jQuery("#group_product_price_"+productId).html());
+        });
+    </script>
 <div id="validation-message-box"></div>

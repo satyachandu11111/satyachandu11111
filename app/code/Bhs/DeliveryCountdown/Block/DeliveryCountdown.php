@@ -273,7 +273,7 @@ class DeliveryCountdown extends \Magento\Framework\View\Element\Template
         $diffINHours = gmdate("H:i:s", $interval);
 
        $explodeDiff = explode(':', $diffINHours);
-       $leftTime = $explodeDiff[0]. " Hours ". $explodeDiff[1]." minutes  ". $explodeDiff[2]. " secounds ";
+       $leftTime = $explodeDiff[0]. " Hours ". $explodeDiff[1]." minutes  ". $explodeDiff[2]. " seconds ";
        return $leftTime ;
 
 	}
