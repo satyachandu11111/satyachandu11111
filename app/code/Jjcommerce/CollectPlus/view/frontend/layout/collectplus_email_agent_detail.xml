@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * CollectPlus
+ *
+ * @category    CollectPlus
+ * @package     Jjcommerce_CollectPlus
+ * @version     2.0.0
+ * @author      Jjcommerce Team
+ *
+ */
+
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" label="Email Order Items List" design_abstraction="custom">
+    <body>
+        <block class="Jjcommerce\CollectPlus\Block\Info" name="collectplus.order.infoemail" template="infoemail.phtml" cacheable="false" after="-"/>
+    </body>
+</page>

@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!--
+
+/**
+ * CollectPlus
+ *
+ * @category    CollectPlus
+ * @package     Jjcommerce_CollectPlus
+ * @version     2.0.0
+ * @author      Jjcommerce Team
+ *
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <carriers>
+            <collect>
+                <active>1</active>
+                <model>Jjcommerce\CollectPlus\Model\Carrier\Collect</model>
+                <title>CollectPlus</title>
+                <next_day_title>Next Day (24hr)</next_day_title>
+                <three_day_title>Three Day (72hr)</three_day_title>
+                <two_day_title>Two Day (48hr)</two_day_title>
+                <sort_methods>24,48,72</sort_methods>
+                <errormsg>This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.</errormsg>
+                <default_map_list>1</default_map_list>
+                <sms_alert>1</sms_alert>
+                <cron_schedule>*/5 * * * *</cron_schedule>
+                <showmethod>1</showmethod>
+                <collect_cms_info>CollectPlus CMS Page variables</collect_cms_info>
+                <collect_cms_cost>2</collect_cms_cost>
+                <collect_cms_collection_points>554</collect_cms_collection_points>
+                <collect_cms_arrival_days>2</collect_cms_arrival_days>
+                <collect_cms_arrival_text>as per</collect_cms_arrival_text>
+                <collect_cms_track_text>the facility</collect_cms_track_text>
+                <collect_cms_cancel_order_text>The order can only be cancelled</collect_cms_cancel_order_text>
+                <collection_instruction>CollectPlus will send an email to {email} and a text message to {number} once your parcel has been delivered to your chosen location.</collection_instruction>
+                <collection_instruction2>CollectPlus will send an email to {email} once your parcel has been delivered to your chosen location.</collection_instruction2>
+                <sallowspecific>0</sallowspecific>
+                <condition_name>package_weight</condition_name>
+                <include_virtual_price>1</include_virtual_price>
+                <name>CollectPlus</name>
+                <specificerrmsg>This shipping method is not available. To use this shipping method, please contact us.</specificerrmsg>
+                <handling_type>F</handling_type>
+            </collect>
+        </carriers>
+    </default>
+</config>

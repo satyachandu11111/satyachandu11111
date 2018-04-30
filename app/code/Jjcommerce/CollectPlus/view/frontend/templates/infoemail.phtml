@@ -1,0 +1,115 @@
+<?php /** @var $block \Jjcommerce\CollectPlus\Block\Info */ ?>
+
+<?php if ($block->isModuleEnabled() && is_object($block->getOrder()) && $block->getOrder()->getId()): ?>
+<div class="checkout-collectplus-success">
+        <?php
+            $_order = $block->getOrder();
+            $shipmethod = $_order->getShippingMethod();
+            $pos = strpos($shipmethod, 'collect_collect');
+        ?>
+        <!-- Collect+ logic Start -->
+        <?php if ($pos !== false): ?>
+            <?php $api_key = $block->getGoogleApiKey();
+                if ($_order->getSmsAlert()) {
+                    $collectionInstruction = $block->getCollectionInstruction();
+                    $collectionInstruction = str_replace(array('{email}', '{number}'), array("<b>" . $_order->getCustomerEmail() . "</b>", "<b>" . $_order->getSmsAlert() . "</b>"), $collectionInstruction);
+                } else {
+                    $collectionInstruction = str_replace('{email}', "<b>" . $_order->getCustomerEmail() . "</b>", $block->getCollectionInstruction2());
+                }
+            ?>
+            <style type="text/css">
+                #map-canvas {
+                    height: 300px;
+                    width: 400px;
+                }
+            </style>
+            <?php
+                $agentData = unserialize($_order->getAgentData());
+                $GridX = $agentData['GridX'];
+                $GridY = $agentData['GridY'];
+                $latlng = $block->getLatLong($GridX, $GridY);
+                $siteName = $agentData['SiteName'];
+                $address = $agentData['Address'] . ', ' . $agentData['City'] . ', ' . $agentData['Postcode'];
+                $disableAccess = $agentData['DisabledAccessCode'];
+                $map_url = "https://maps.google.com/maps?q=" . $latlng;
+            ?>
+
+            <table cellspacing="0" cellpadding="0" border="0" width="100%" style="border:1px solid #EAEAEA;">
+                <thead>
+                <tr>
+                    <td align="center" colspan="5" width="100%" style="font-size:13px; padding:3px 9px">
+                        <img height="40px" width="100px"
+                             src="<?php echo $block->getViewFileUrl('Jjcommerce_CollectPlus::images/collect_logo.png'); ?>"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" colspan="4" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px">
+                        <strong><?php echo __('CollectPlus Pickup site address') ?></strong></td>
+                    <td bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px">
+                        <strong><?php echo __('CollectPlus Pickup site map location') ?></strong></td>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr>
+                    <td colspan="4" align="left" style="padding:3px 9px">
+                        <strong><?php echo __('Pickup Site Name: ') ?></strong><?php echo $siteName ?>
+                        <br/><strong><?php echo __('Pickup Site Address: ') ?></strong><?php echo $address ?>
+                        <br/><strong><?php echo __('Disabled Access: ') ?></strong><?php echo $disableAccess ?>
+                        <br/><strong><?php echo __('Collection Instruction: ') ?></strong><?php echo $collectionInstruction ?>
+                        <table>
+                            <tr>
+                                <td><strong><?php echo __('Opening Times:') ?></strong></td>
+                            </tr>
+                            <?php if ($agentData['MondayOpen'] != '0000' && $agentData['MondayClose'] != '0000'): ?>
+                                <tr>
+                                    <td><?php echo __('Monday: ') ?><?php echo $agentData['MondayOpen'] . '-' . $agentData['MondayClose'] ?></td>
+                                </tr>
+                            <?php endif; ?>
+                            <?php if ($agentData['TuesdayOpen'] != '0000' && $agentData['TuesdayClose'] != '0000'): ?>
+                                <tr>
+                                    <td><?php echo __('Tuesday: ') ?><?php echo $agentData['TuesdayOpen'] . '-' . $agentData['TuesdayClose'] ?></td>
+                                </tr>
+                            <?php endif; ?>
+                            <?php if ($agentData['WednesdayOpen'] != '0000' && $agentData['WednesdayClose'] != '0000'): ?>
+                                <tr>
+                                    <td><?php echo __('Wednesday: ') ?><?php echo $agentData['WednesdayOpen'] . '-' . $agentData['WednesdayClose'] ?></td>
+                                </tr>
+                            <?php endif; ?>
+                            <?php if ($agentData['ThursdayOpen'] != '0000' && $agentData['ThursdayClose'] != '0000'): ?>
+                                <tr>
+                                    <td><?php echo __('Thursday: ') ?><?php echo $agentData['ThursdayOpen'] . '-' . $agentData['ThursdayClose'] ?></td>
+                                </tr>
+                            <?php endif; ?>
+                            <?php if ($agentData['FridayOpen'] != '0000' && $agentData['FridayClose'] != '0000'): ?>
+                                <tr>
+                                    <td><?php echo __('Friday: ') ?><?php echo $agentData['FridayOpen'] . '-' . $agentData['FridayClose'] ?></td>
+                                </tr>
+                            <?php endif; ?>
+                            <?php if ($agentData['SaturdayOpen'] != '0000' && $agentData['SaturdayClose'] != '0000'): ?>
+                                <tr>
+                                    <td><?php echo __('Saturday: ') ?><?php echo $agentData['SaturdayOpen'] . '-' . $agentData['SaturdayClose'] ?></td>
+                                </tr>
+                            <?php endif; ?>
+                            <?php if ($agentData['SundayOpen'] != '0000' && $agentData['SundayClose'] != '0000'): ?>
+                                <tr>
+                                    <td><?php echo __('Sunday: ') ?><?php echo $agentData['SundayOpen'] . '-' . $agentData['SundayClose'] ?></td>
+                                </tr>
+                            <?php endif; ?>
+                        </table>
+                    </td>
+                    <td style="padding:3px 9px">
+                        <a href="<?php echo $map_url ?>" target="_blank">
+                            <?php $icon = $block->getViewFileUrl('Jjcommerce_CollectPlus::images/location2.png'); ?>
+                            <img src='<?php echo "https://maps.googleapis.com/maps/api/staticmap?center=" . $address . "&zoom=15&size=300x250&maptype=roadmap
+    &markers=icon:" . $icon . "|" . $latlng ?>'/>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        <?php endif; ?>
+        <!-- Collect+ logic End -->
+    <?php endif; ?>
+</div>

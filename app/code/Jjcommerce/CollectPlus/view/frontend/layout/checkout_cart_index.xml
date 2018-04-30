@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * CollectPlus
+ *
+ * @category    CollectPlus
+ * @package     Jjcommerce_CollectPlus
+ * @version     2.0.0
+ * @author      Jjcommerce Team
+ *
+ */
+
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="checkout.cart.shipping">
+            <referenceContainer name="content">
+                <block class="Jjcommerce\CollectPlus\Block\Collect" name="collectplus.checkout.store" template="js2.phtml" cacheable="false" after="block-summary"/>
+            </referenceContainer>
+            <arguments>
+                <argument name="jsLayout" xsi:type="array">
+                    <item name="components" xsi:type="array">
+                        <item name="block-summary" xsi:type="array">
+                            <item name="children" xsi:type="array">
+                                <item name="collect" xsi:type="array">
+                                    <item name="component" xsi:type="string">Jjcommerce_CollectPlus/js/view/cart/shipping/collectplus</item>
+                                    <item name="sortOrder" xsi:type="string">3</item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>
