@@ -97,7 +97,7 @@
 
 @992: ~"only screen and (min-width:992px)";
 
-@1200: ~"only screen and (min-width:1200px)";
+@1200: ~"only screen and (max-width:1200px)";
 
 @768-1279: ~"only screen and (min-width:768px) and(max-width:1279px)";
 
@@ -114,7 +114,10 @@ input:not([disabled]):focus{
 	box-shadow: none;
 }
 #maincontent, .header.content, .breadcrumbs, .footer.content {
-max-width : 1240px;
+	max-width : 1240px;
+}
+.breadcrumbs{
+	margin-bottom: 10px;
 }
 .header.content {
     padding: 15px 20px;
@@ -1954,7 +1957,9 @@ transition: all 400ms ease-in-out 0s;
 /*--------------------------------------------------------------------------
 |  Product Page 
 --------------------------------------------------------------------------*/
-
+.countdown{
+	margin-bottom:1.5rem;
+}
 .catalog-product-view{
 
 	.section-title{
@@ -2031,6 +2036,26 @@ transition: all 400ms ease-in-out 0s;
 			float: left;
 			margin: 0;
 			
+			@media @1200{
+				width: 68%;
+			}
+			@media @991{
+				width: 86%;
+			}
+			.action.tocart{
+				@media @1200{
+					width: 52%;
+				}
+				
+				@media @991{
+					width: 50%;
+				}
+				@media @767{
+					padding: .9rem 1.5rem;
+					border-radius: .4rem;
+				}
+			}
+			
 			.field{
 				width: 16rem;
 				float: left;
@@ -2046,9 +2071,18 @@ transition: all 400ms ease-in-out 0s;
 		text-align: center;
 		cursor: pointer;
 		
+		@media @991{
+			width: 5rem;
+		}
+		
 		.action{
 			color: @black;
 			text-decoration: none;
+		}
+		span{
+			@media @991{
+				display: none;
+			}
 		}
 	}
 	
@@ -2066,6 +2100,10 @@ transition: all 400ms ease-in-out 0s;
 		overflow: hidden;
 		speak: none;
 		text-align: center;
+		
+		@media @991{
+			margin: 0;
+		}
 	}
 }
 /*----------------------
@@ -2135,8 +2173,11 @@ transition: all 400ms ease-in-out 0s;
 	
 	@media @991{
 		width: 100%;
+		margin: auto;
 	}
-	
+	@media @767{
+		width: 98%;
+	}
 	.item.content{
 		border: none;
 		padding: @font20 0;
@@ -2176,6 +2217,10 @@ transition: all 400ms ease-in-out 0s;
 	width: 48%;
 	display: grid;
 	
+	@media @991{
+		width: 100%;
+	}
+	
 	.product-img{
 		max-width: 125px;
 	}
@@ -2190,6 +2235,159 @@ transition: all 400ms ease-in-out 0s;
 	.products{
 		margin: 10px 0;
 	}
+}
+
+
+/*--------------------------------------------------------------------------
+|  Grouped product  Page 
+--------------------------------------------------------------------------*/
+
+.page-product-grouped{
+	
+	.table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody > tr{
+		@media @639{
+			display: flex;
+		}
+	}
+	.table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) tbody > tr > td:last-child{
+		padding-top: 1rem;
+	}
+	.table.grouped{
+
+		.col.item{
+
+			@media @1200{
+				width: 22%;
+			}
+		}
+		.col.price{
+			@media @1200{
+				width: 36%;
+			}
+			@media @991{
+				width: 23%;
+			}
+		}
+		.col.qty{
+			@media @991{
+				width: 23%;
+			}
+		}
+	}
+	.product-info-main .product-reviews-summary{
+		margin-bottom: 1.5rem;
+	}
+	
+	.product-info-price .price-box{
+		
+		max-width: 30rem;
+		padding-bottom: .5rem;
+		
+		.group-prod-price{
+			font-size: @font40;
+		}
+	}
+	
+	.product-add-form{
+
+	float: left;
+	width: 100%;
+	margin-bottom: 1.5rem;
+		
+	
+		
+	.table.grouped th, td{
+		padding: .8rem 1.5rem;
+		border: 0;
+		
+		@media @991{
+			padding: .7rem;
+		}
+	}
+
+	.control{
+		width:100%;
+		text-align: center;
+		max-width: 13rem;
+		margin: auto;
+
+		.decreaseQty{
+			float: left;
+			padding: .6rem 1.2rem;
+			font-size:@font24;
+		}
+		.increaseQty{
+			float: right;
+			padding: .6rem 1rem;
+			font-size:@font22;
+		}
+		.increaseQty, .decreaseQty{
+			
+			border: none;
+			margin-right: 0;
+			border-radius: .4rem;
+			cursor: pointer;
+			line-height: 2rem;
+			background: @f2light;
+		}
+		.input-text{
+			height:3.2rem;
+			border-radius: .4rem;
+			width: 4.5rem !important;
+			background: @f2light;
+			border: none;
+		}
+	}
+	.g-head{
+		background: @f2light;
+	}
+	.g-price{
+		max-width: 18.5rem;
+		margin: auto;
+		
+		.price-box{
+			width: auto;
+			float: left;
+		}
+		.special-price .price{
+			font-size: @font16;
+			line-height: 1.9rem;
+		}
+		
+		.old-price{
+			float: left;
+			text-decoration: line-through;
+			margin-right: 1rem;
+		}
+		.g-discount{
+			color: @danger;
+			font-weight: bold;
+		}
+	}
+		
+	.box-tocart{
+		width: 57%;
+		float: left;
+		margin: 0;
+		
+		@media @639{
+			width: 75%;
+		}
+		.action.tocart{
+			width: 98%;
+			
+			@media @767{
+				padding: .9rem 1.5rem;
+				border-radius: .4rem;
+			}
+		}
+
+		.field{
+			width: 16rem;
+			float: left;
+		}
+	}	
+	}	
 }
 
 /*--------------------------------------------------------------------------

@@ -23,9 +23,9 @@
     <table class="table data grouped" id="super-product-table">
         <caption class="table-caption"><?= /* @escapeNotVerified */ __('Grouped product items') ?></caption>
         <thead>
-        <tr>
+        <tr  class="g-head">
             <th class="col item" scope="col"><?= /* @escapeNotVerified */ __('Product Name') ?></th>
-            <th class="col item" scope="col"><?= /* @escapeNotVerified */ __('Price') ?></th>
+            <th class="col price" scope="col"><?= /* @escapeNotVerified */ __('Price') ?></th>
             <?php if ($_product->isSaleable()): ?>
                 <th class="col qty" scope="col"><?= /* @escapeNotVerified */ __('Qty') ?></th>
             <?php endif; ?>
@@ -43,13 +43,16 @@
                     $finalPrice = $_item->getPriceInfo()->getPrice('final_price')->getAmount()->getBaseAmount();
                     $newprice[]=$finalPrice;
                     ?>                    
-                <td data-th="<?= $block->escapeHtml(__('Price')) ?>" class="col item">
+                <td data-th="<?= $block->escapeHtml(__('Price')) ?>" class="col price">
+					<div class="g-price">
                     <?php if ($block->getCanShowProductPrice($_product)): ?>
                         <?php if ($block->getCanShowProductPrice($_item)): ?>
                             <?= /* @escapeNotVerified */ $block->getProductPrice($_item) ?>
-                            <?php echo  $percentage = $this->helper('Homescapes\Completelook\Helper\Data')->DisplayDiscount($_item); ?>
+                            <span class="g-discount"><?php echo  $percentage = $this->helper('Homescapes\Completelook\Helper\Data')->DisplayDiscount($_item); ?></span>
                         <?php endif; ?>
                      <?php endif; ?>
+					</div>
+					
                 </td>
                 <?php if ($_product->isSaleable()): ?>
                 <td data-th="<?= $block->escapeHtml(__('Qty')) ?>" class="col qty">
