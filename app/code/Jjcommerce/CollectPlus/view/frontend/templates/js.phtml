@@ -1,0 +1,578 @@
+<?php if($block->isModuleEnabled()) : ?>
+    <div id="collectplus_popup_information" class="collectplus_popup_information" style="display: none;">
+        <?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('collectplus-information')->toHtml();?>
+        <script type="text/javascript">
+            function showInfoCollectPopup() {
+                jQuery("#collectplus_popup_information").show();
+            }
+            function hideInfoCollectPopup() {
+                jQuery("#collectplus_popup_information").hide();
+            }
+        </script>
+    </div>
+
+    <script type="text/javascript">
+        function checkBilling(i) {
+            if(i.checked) {
+                jQuery("#findyournearestbutton").show();
+            } else {
+                jQuery("#findyournearestbutton").hide();
+                clearCollectStore();
+            }
+            logo = '<?php /* @escapeNotVerified */ echo $block->getViewFileUrl('Jjcommerce_CollectPlus::images/collect_logo.png');?>';
+
+        }
+
+        function openCollectPopup()
+        {
+            jQuery('.loading-mask-collect').show();
+
+            jQuery.ajax({
+                url: "<?php echo $this->getUrl("collect/index/index"); ?>",
+                type: 'POST',
+                dataType: "json",
+                //data: 'id='+id+'&email='+email,
+                success: function(result) {
+
+                    jQuery('#collect_popup').html(result.html);
+
+                    if(defaultMapList) {
+
+                        postcode = getGeoPostcode();
+                        ajaxurl = '<?php echo $this->getUrl("collect/index/pickuplist").'criteria/'; ?>'+postcode;
+                        getnearPickuplist();
+
+                    } else {
+
+                            ajaxurl = '<?php echo $this->getUrl("collect/index/pickuplist") ?>';
+
+                        jQuery.ajax({
+                                url: ajaxurl,
+                                type: 'POST',
+                                dataType: "json",
+                                //data: 'id='+id+'&email='+email,
+                                success: function(result) {
+                                    jQuery('#agent-list').html(result.html);
+                                    jQuery('#agent-list').show();
+                                    jQuery('.loading-mask-collect').hide();
+                                    jQuery('#collect_popup').show();
+                                    initialize();
+
+                                },
+                                error: function (request, status, error) {
+                                return false;
+                                }
+                        });
+
+                    }
+
+
+                },
+                error: function (request, status, error) {
+                    return false;
+                }
+            });
+        }
+
+        function close()
+        {
+            jQuery('#collect_popup').hide();
+        }
+
+        function closesmspopup()
+        {
+            jQuery('#collect_popup_sms_add').hide();
+            if(jQuery('#smsnumberselected')) {
+                var _quoteSms = jQuery('#smsnumberselected').val();
+                if (!_quoteSms) {
+                    //return;
+                } else {
+                    jQuery('#co-shipping-form').find('input[name=telephone]').val(_quoteSms).change();
+                    jQuery('#co-shipping-form').find('input[name=telephone]').attr("readonly",true);
+                }
+            }
+            if(document.getElementById('opc-new-shipping-address')) {
+                jQuery('#shipping').find('.action-show-popup').click();
+                jQuery('#shipping-save-in-address-book').attr('checked', false).change();
+                jQuery('#shipping-save-in-address-book').closest('.field').hide();
+                if(jQuery('div.shipping-address-item.not-selected-item')) {
+                    //jQuery('div.shipping-address-item.not-selected-item').hide();
+                    jQuery('div.shipping-address-item').hide();
+                    jQuery('div.shipping-address-item.selected-item').show();
+                }
+            }
+        }
+
+        function getPickuplist(criteria, type)
+        {
+            console.log(158);
+            jQuery.ajax({
+                url: '<?php echo $this->getUrl("collect/index/pickuplist/").'criteria/'; ?>'+criteria,
+                type: 'POST',
+                dataType: "json",
+                //data: 'id='+id+'&email='+email,
+                success: function(result) {
+                    //alert(result.html);
+
+                    jQuery('#agent-list').html(result.html);
+                    jQuery('#agent-list').show();
+                    jQuery('.loading-mask-collect').hide();
+                    jQuery('#collect_popup').show();
+                    initialize(type);
+
+                },
+                error: function (request, status, error) {
+                    console.log(173);console.log(error);console.log(status);
+                    return false;
+                }
+            });
+        }
+        function getnearPickuplist() {
+            //alert(geoPostcode);
+            getPickuplist(geoPostcode, 'near');
+        }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=<?php echo $block->getGoogleApiKey(); ?>&callback=initMap"
+            type="text/javascript"></script>
+    <script type="text/javascript">
+        function initMap() {
+            if (navigator.geolocation) {
+                try {
+                    navigator.geolocation.getCurrentPosition(function(position) {
+                    }, error);
+                } catch (err) {
+                }
+            }
+        }
+    </script>
+    <script type="text/javascript">
+        window.addEventListener("load", clearCollectStore, false);
+        var defaultMapList = <?php echo (int)$block->canUseCurrentLocation() ?>;
+        var showsmsbox = <?php echo (int)$block->canShowSmsBox() ?>;
+        var collect_logo = '<?php /* @escapeNotVerified */ echo $block->getViewFileUrl('Jjcommerce_CollectPlus::images/collect_logo.png');?>';
+        var latgeo;
+        var longeo;
+        geolocation = navigator.geolocation;
+        if (geolocation && defaultMapList) {
+            geolocation.getCurrentPosition(function(position) {
+                var pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                latgeo = position.coords.latitude;
+                longeo = position.coords.longitude;
+                getGeoPostcode();
+            }, function() {
+                //handleLocationError(true, infoWindow);
+                handleLocationError(true);
+            });
+        } else {
+            // Browser doesn't support Geolocation
+            //handleLocationError(false, infoWindow);
+            handleLocationError(false);
+        }
+        //alert(latgeo);
+        var geoPostcode = null;
+
+        function getGeoPostcode() {//alert(latgeo);//return;
+            jQuery.ajax({
+                url: "<?php echo $this->getUrl("collect/index/getPostcode"); ?>",
+                type: 'POST',
+                dataType: "json",
+                data: 'lattitude='+latgeo+'&longitude='+longeo,
+                success: function(result) {
+                    geoPostcode = result.postcode;//JSON.parse(result.responseText).postcode;
+                    //alert(geoPostcode);
+                },
+                error: function (request, status, error) {
+                    return false;
+                }
+            });
+        }
+
+        function initialize(type)
+        {
+            if(!document.getElementById("pickup_locations_count_check")) {
+                return;
+            }
+
+            var gmarkers = [];
+            //apply location marker to centre on
+
+            var icon = "<?php echo $block->getViewFileUrl('Jjcommerce_CollectPlus::images/location.png') ?>";
+            var highlighterImage = "<?php echo $block->getViewFileUrl('Jjcommerce_CollectPlus::images/map_marker_highlight.png'); ?>";
+            var icon_home = "<?php echo $block->getViewFileUrl('Jjcommerce_CollectPlus::images/location_home.png'); ?>";
+            if(jQuery("#shipping_agent_id"))
+            {
+                jQuery("#shipping_agent_id").remove();
+            }
+
+            //var latlong = $$('div.agent_latlong')[0].innerHTML;
+            var latlong = jQuery('.agent_latlong').first().html();
+            var latlongDefault = jQuery('#agent_latlong_default_location').html();
+            if(latlongDefault) {
+                var myArr = latlongDefault.split(',');
+            } else {
+                if(latlong) {
+                    var myArr = latlong.split(',');
+                }
+                else {
+                    var splitter = '0,0';
+                    var myArr = splitter.split(',');
+                }
+
+            }
+            //var myArr = latlong.split(',');
+
+            var address;
+            var latitude;
+            var longitude;
+            address = '';
+            var geocoder = new google.maps.Geocoder();
+            var infowindow = new google.maps.InfoWindow();
+            defaultMapListModf = defaultMapList;console.log(297);
+            if(jQuery('#criteria').val()) {
+                address = jQuery('#criteria').val();
+                defaultMapListModf = 0;
+            } else {
+            }
+
+            geocoder.geocode( { 'address': address}, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    latitude = results[0].geometry.location.lat();
+                    longitude = results[0].geometry.location.lng();
+                }
+            });
+            yourpostcode  = geoPostcode;
+            yourlattitude = '';
+            yourlongitude = '';
+            if(type == 'near' || defaultMapListModf) {
+                //getPickuplist(yourpostcode);
+                yourlattitude = latgeo;
+                yourlongitude = longeo;
+            }
+
+            if(yourlattitude && yourlongitude) {
+                var myCenter=new google.maps.LatLng(yourlattitude,yourlongitude);
+            } else if(latitude && longitude) {
+                var myCenter=new google.maps.LatLng(latitude,longitude);
+            } else {
+
+                var myCenter=new google.maps.LatLng(myArr[0],myArr[1]);
+            }
+
+
+            var mapProp = {
+                center:myCenter,
+                zoom:14,
+                mapTypeId:google.maps.MapTypeId.ROADMAP
+            };
+
+            var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+            //var map=new google.maps.Map(jQuery("#googleMap"),mapProp);
+
+            var marker=new google.maps.Marker({
+                position:myCenter,
+                title: myArr[2],
+                icon: icon_home
+            });
+
+            marker.setMap(map);
+
+
+            jQuery('div.agent_item').each(function( element, item  ){
+
+                item2= document.getElementById(item.id);console.log(item2);
+                item = jQuery(item);
+                //var subitem = item.down('div.agent_latlong');
+                var latlong = item.find('.agent_latlong').html();
+
+
+                var myArr = latlong.split(',');
+
+
+                var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(myArr[0], myArr[1]),
+                    map: map,
+                    title: myArr[2],
+                    icon: icon
+                });
+
+                google.maps.event.addListener(marker, 'click',
+                    function(){
+                        infowindow.close();//hide the infowindow
+                        var content = '<b>'+item.find('.agent_name').html()+'</b><br/>'
+                            +item.find('.agent_address').html()+', '+item.find('.agent_postcode').html()+', '+item.find('.agent_city').html()+'<br/>'
+                            + item.find('.agent_timing').html()+'<br/>';
+                        var smscontent = '';
+                        content += '<div id="sms_box">'+
+                            smscontent +
+                            '<button onclick="updateShippingAddress()" title="<?php echo 'Select Location' ?>" class="button collectplus_popup_action_button" type="button"><span><span><?php echo 'Select Location' ?></span></span></button>' + '</div>' +
+                            '<div id="loader_image" style="display: none">Please wait...</div>';
+
+                        for (var i = 0; i < gmarkers.length; i++) {
+                            gmarkers[i].setIcon(icon);
+                        }
+                        infowindow.setContent(content);//update the content for this marker
+                        infowindow.open(map, marker);//"move" the info window to the clicked marker and open it
+                        marker.setIcon(highlighterImage);
+                        //item.find('input[type="radio"]').prop("checked", true);
+                        item.find('.agent_checkbox').prop('checked', true);
+
+                    }
+                );
+                gmarkers.push(marker);
+                google.maps.event.addDomListener(item2, 'click', function () {
+                    google.maps.event.trigger(marker, 'click');
+
+                });
+            });
+
+
+        }
+
+        function handleLocationError(browserHasGeolocation, infoWindow = false) {
+            //infoWindow.setPosition(pos);
+            if(infoWindow) {
+                infoWindow.setContent(browserHasGeolocation ?
+                    'Error: The Geolocation service failed.' :
+                    'Error: Your browser doesn\'t support geolocation.');
+            }
+        }
+
+
+        function updateShippingAddress()
+        {
+            var parent = jQuery('input:checked[type=radio][name=agent_checkbox]').parent();
+
+            if(jQuery('#co-shipping-form').find('input[name=company]')) {
+                var agentname = jQuery(parent.find('.agent_name')).html();
+                jQuery('#co-shipping-form').find('input[name=company]').val(agentname).change();
+                jQuery('#co-shipping-form').find('input[name=company]').attr("readonly",true);
+            }
+
+            jQuery('#co-shipping-form').find('input[name="street[0]"]').val(jQuery(parent.find('.agent_address')).html()).change();
+            jQuery('#co-shipping-form').find('input[name="street[0]"]').attr("readonly",true);
+            jQuery('#co-shipping-form').find('input[name="street[1]"]').val('');
+            jQuery('#co-shipping-form').find('input[name="street[1]"]').attr("readonly",true);
+
+            jQuery('#co-shipping-form').find('input[name=city]').val(jQuery(parent.find('.agent_city')).html()).change();
+            jQuery('#co-shipping-form').find('input[name=city]').attr("readonly",true);
+
+            jQuery('#co-shipping-form').find('input[name=postcode]').val(jQuery(parent.find('.agent_postcode')).html()).change();
+            jQuery('#co-shipping-form').find('input[name=postcode]').attr("readonly",true);
+
+
+            if(document.getElementById('smsnumberselected')) {
+                var _quoteSms = jQuery('#smsnumberselected').val();
+                if (!_quoteSms) {
+                    jQuery('#co-shipping-form').find('input[name=telephone]').attr("readonly",false);
+                } else {
+                    jQuery('#co-shipping-form').find('input[name=telephone]').val(_quoteSms).change();
+                    jQuery('#co-shipping-form').find('input[name=telephone]').attr("readonly",true);
+                }
+
+            }
+
+            jQuery('#co-shipping-form').find('select[name=region_id]').closest('.field').hide();
+            jQuery('#co-shipping-form').find('input[name=region]').show();
+            jQuery('#co-shipping-form').find('input[name=region]').val(jQuery(parent.find('.agent_county')).html()).change();
+            jQuery('#co-shipping-form').find('input[name=region]').attr("readonly",true);
+
+            jQuery('#co-shipping-form').find('select[name=country_id] option[value!="GB"]').prop('disabled', true);
+            jQuery('#co-shipping-form').find('select[name=country_id]').val('GB').change();
+
+            var agent_id = parent.find('.agent_id').html();
+            if(document.getElementById("shipping_agent_id"))
+            {
+                jQuery("#shipping_agent_id").remove();
+            }
+            //alert(agent_id);
+            updateAgent(agent_id);
+            jQuery('#shipping-new-address-form').append('<input type="hidden" id="shipping_agent_id" value="'+agent_id+'" name="agent_id">');
+
+            jQuery('#nearestbuttontext').html('CHOOSE A DIFFERENT COLLECTPLUS STORE');
+            if(document.getElementById('clearcollectstore')) {
+                //jQuery('#clearcollectstore').show();
+            }
+
+
+            //jQuery('#billing-address-same-as-shipping-checkmo').attr('checked', false).change();
+            //jQuery('#billing-address-same-as-shipping-checkmo').attr('disabled', true);
+            close();
+            if(showsmsbox) {
+                jQuery('#collect_popup_sms_add').show();
+            } else {
+                if(document.getElementById('opc-new-shipping-address')) {
+                    jQuery('#shipping').find('.action-show-popup').click();
+                    jQuery('#shipping-save-in-address-book').attr('checked', false).change();
+                    jQuery('#shipping-save-in-address-book').closest('.field').hide();
+                }
+            }
+
+            if(jQuery('div.shipping-address-item.not-selected-item')) {
+                //jQuery('div.shipping-address-item.not-selected-item').hide();
+                jQuery('div.shipping-address-item').hide();
+                jQuery('div.shipping-address-item.selected-item').show();
+            }
+            window.collectaddressused = 1;
+        }
+
+        function clearCollectStore() {
+            jQuery('#clearcollectstore').hide();
+            jQuery("#shipping_agent_id").remove();
+
+            if(jQuery('#co-shipping-form').find('input[name=company]')) {
+                jQuery('#co-shipping-form').find('input[name=company]').val('').change();
+                jQuery('#co-shipping-form').find('input[name=company]').attr("readonly",false);
+            }
+
+            jQuery('#co-shipping-form').find('input[name="street[0]"]').val('').change();
+            jQuery('#co-shipping-form').find('input[name="street[0]"]').attr("readonly",false);
+            jQuery('#co-shipping-form').find('input[name="street[1]"]').val('').change();
+            jQuery('#co-shipping-form').find('input[name="street[1]"]').attr("readonly",false);
+
+            jQuery('#co-shipping-form').find('input[name=city]').val('').change();
+            jQuery('#co-shipping-form').find('input[name=city]').attr("readonly",false);
+
+            jQuery('#co-shipping-form').find('input[name=postcode]').val('').change();
+            jQuery('#co-shipping-form').find('input[name=postcode]').attr("readonly",false);
+
+            jQuery('#co-shipping-form').find('select[name=region_id]').closest('.field').hide();
+            jQuery('#co-shipping-form').find('input[name=region]').show();
+            jQuery('#co-shipping-form').find('input[name=region]').val('').change();
+            jQuery('#co-shipping-form').find('input[name=region]').attr("readonly",false);
+
+            jQuery('#co-shipping-form').find('select[name=country_id] option[value!="GB"]').prop('disabled', false);
+            jQuery('#co-shipping-form').find('select[name=country_id]').val('GB').change();
+
+            jQuery('#co-shipping-form').find('input[name=telephone]').attr("readonly",false);
+
+            //jQuery('#billing-address-same-as-shipping-checkmo').attr('checked', false).change();
+            //jQuery('#billing-address-same-as-shipping-checkmo').attr('disabled', false);
+
+            updateAgent(0);
+
+            if(document.getElementById('opc-new-shipping-address')) {
+                jQuery('#shipping').find('.action-show-popup').click();
+                jQuery('#shipping-save-in-address-book').attr('checked', false).change();
+                jQuery('#shipping-save-in-address-book').closest('.field').show();
+            }
+            if(jQuery('div.shipping-address-item.not-selected-item')) {
+                //jQuery('div.shipping-address-item.not-selected-item').show();
+                jQuery('div.shipping-address-item').show();
+            }
+            window.collectaddressused = 0;
+        }
+
+        function updateAgent(id) {
+            jQuery('.loading-mask-collect').show();
+            jQuery.ajax({
+                url: '<?php echo $this->getUrl("collect/index/UpdateAgent/"); ?>',
+                type: 'POST',
+                dataType: "json",
+                data: 'agent_id='+id,
+                success: function(result) {
+                    console.log(164);
+                    jQuery('.loading-mask-collect').hide();
+                },
+                error: function (request, status, error) {
+                    console.log(173);console.log(error);console.log(status);
+                    jQuery('.loading-mask-collect').hide();
+                    return false;
+                }
+            });
+
+        }
+
+        function hasClassFunction(el, className) {
+            if (el.classList)
+                return el.classList.contains(className);
+            else
+                return !!el.className.match(new RegExp('(\\s|^)' + className + '(\\s|$)'));
+        }
+
+        function addClassFunction(el, className) {
+            if (el.classList)
+                el.classList.add(className);
+            else if (!hasClassFunction(el, className))
+                el.className += " " + className;
+        }
+
+        function removeClassFunction(el, className) {
+            if (el.classList)
+                el.classList.remove(className);
+            else if (hasClassFunction(el, className)) {
+                var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
+                el.className=el.className.replace(reg, ' ');
+            }
+        }
+
+        function saveSmsAlertPopUp()
+        {
+            var mobilenum = jQuery('#sms_alert_popup').val();
+            var pattern = /07\d{9}/;
+
+            countLength = false;mobilenum.length;
+            if(mobilenum.length == 11) {
+                var result = (mobilenum == '' || (mobilenum == null) || (mobilenum.length == 0) || /^\s+$/.test(mobilenum)) ||  !/[^\d]/.test(mobilenum);
+                countLength = result;
+            }
+
+            if(pattern.test(mobilenum.replace(/\s/g,'')) && countLength)
+            {
+                jQuery('#sms_box').hide();
+
+                jQuery.ajax({
+                    url: '<?php echo $this->getUrl("collect/index/smsalert/"); ?>',
+                    type: 'POST',
+                    dataType: "json",
+                    data: 'mob='+mobilenum,
+                    beforeSend: function() {
+                        jQuery('.loading-mask-collect').show();
+                    },
+                    success: function(result) {
+                        if(result['success'] == 'OK')
+                        {
+                            jQuery('#sms_box').show();
+                            jQuery('#loader_image').hide();
+                            jQuery('#sms_message').html('<b style="color:green">A text message will be sent to '+mobilenum+', once your parcel is ready to collect.</b>');
+                            jQuery('#smsnumberselected').val(mobilenum);
+                            jQuery('#sms_alert_popup').val('');
+                            jQuery('#collectplus_popup_action_button_save').attr('title', "CHANGE NUMBER");
+                            jQuery('#collectplus_popup_action_save_text').html("CHANGE NUMBER");
+                            jQuery('#sms_message').show();
+                            closesmspopup();
+                            jQuery('.loading-mask-collect').hide();
+                        }
+                        else
+                        {
+                            jQuery('#sms_box').show();
+                            jQuery('#loader_image').hide();
+                            jQuery('.loading-mask-collect').hide();
+                            alert('Something went wrong');
+                        }
+                    },
+                    error: function (request, status, error) {console.log(173);console.log(error);console.log(status);
+                        jQuery('#loader_image').hide();
+                        jQuery('.loading-mask-collect').hide();
+                        alert('Failure: Something went wrong');
+                        return false;
+                    }
+                });
+            }
+            else
+            {
+                alert('Mobile numbers must be 11 digits long without spaces/hyphens and must start 07');
+            }
+        }
+
+    </script>
+    <div class="loading-mask-collect" style="display: none;"><div class="loader"><img alt="Loading..." src="<?php /* @escapeNotVerified */ echo $block->getViewFileUrl('images/loader-2.gif');?>"><p>Please wait...</p></div></div>
+    <script>
+        window.collectlogo = '<?php /* @escapeNotVerified */ echo $block->getViewFileUrl('Jjcommerce_CollectPlus::images/collect_logo.png');?>';
+        window.collectaddressused = 0;
+    </script>
+
+<?php endif; ?>
+

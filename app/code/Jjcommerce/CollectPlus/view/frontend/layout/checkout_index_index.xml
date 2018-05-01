@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * CollectPlus
+ *
+ * @category    CollectPlus
+ * @package     Jjcommerce_CollectPlus
+ * @version     2.0.0
+ * @author      Jjcommerce Team
+ *
+ */
+
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Jjcommerce_CollectPlus::css/collect.css"/>
+    </head>
+    <body>
+        <referenceBlock name="checkout.root">
+            <referenceContainer name="content">
+                <block class="Jjcommerce\CollectPlus\Block\Collect" name="collectplus.checkout.store" template="js.phtml" cacheable="false" before="-"/>
+            </referenceContainer>
+            <arguments>
+                <argument name="jsLayout" xsi:type="array">
+                    <item name="components" xsi:type="array">
+                        <item name="checkout" xsi:type="array">
+                            <item name="children" xsi:type="array">
+                                <item name="steps" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                        <item name="shipping-step" xsi:type="array">
+                                            <item name="children" xsi:type="array">
+                                                <item name="shippingAddress" xsi:type="array">
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="before-form" xsi:type="array">
+                                                            <item name="children" xsi:type="array">
+                                                                <item name="collect_stores" xsi:type="array">
+                                                                    <item name="component" xsi:type="string">Jjcommerce_CollectPlus/js/view/checkout/shipping/collectplus</item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+            </arguments>
+            <referenceContainer name="content">
+                <block class="Jjcommerce\CollectPlus\Block\Collect" name="collectplus.checkout.store2" template="js2.phtml" cacheable="false" before="-"/>
+            </referenceContainer>
+        </referenceBlock>
+    </body>
+</page>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * CollectPlus
+ *
+ * @category    CollectPlus
+ * @package     Jjcommerce_CollectPlus
+ * @version     2.0.0
+ * @author      Jjcommerce Team
+ *
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Quote\Model\Quote\Address" type="Jjcommerce\CollectPlus\Model\Quote\Address" />
+    <preference for="Magento\Customer\Model\ResourceModel\CustomerRepository" type="Jjcommerce\CollectPlus\Model\Customer\CustomerRepositoryrewrite" />
+    <preference for="Magento\Customer\Model\CustomerFactory" type="Jjcommerce\CollectPlus\Model\Customer\CustomerFactoryrewrite" />
+    <preference for="Magento\Sales\Model\Order\Pdf\Invoice" type="Jjcommerce\CollectPlus\Model\Sales\Order\Pdf\Invoice" />
+    <preference for="Magento\Sales\Model\Order\Pdf\Shipment" type="Jjcommerce\CollectPlus\Model\Sales\Order\Pdf\Shipment" />
+    <preference for="Magento\Sales\Model\Order\Pdf\Creditmemo" type="Jjcommerce\CollectPlus\Model\Sales\Order\Pdf\Creditmemo" />
+</config>

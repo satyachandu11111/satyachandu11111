@@ -1,0 +1,146 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * CollectPlus
+ *
+ * @category    CollectPlus
+ * @package     Jjcommerce_CollectPlus
+ * @version     2.0.0
+ * @author      Jjcommerce Team
+ *
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="carriers" translate="label" type="text" sortOrder="320" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="collect" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>CollectPlus</label>
+                <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable CollectPlus</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title</label>
+                    <comment></comment>
+                </field>
+                <field id="errormsg" translate="label" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Displayed Error Message</label>
+                    <comment>The text to display the customer if any error is detected during communication with the Collect+ API</comment>
+                </field>
+                <field id="google_map_key" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Google Maps API key</label>
+                    <comment></comment>
+                </field>
+                <field id="default_map_list" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default Map List by</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[<b>Yes.</b> Geolocation <br /> <b>No.]]></comment>
+                </field>
+                <field id="max_result" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Maximum results</label>
+                    <comment>This is a number 1-20 which will limit the maximum number of matching locations to display.</comment>
+                </field>
+                <field id="cron_schedule" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Cron schedule</label>
+                    <comment>The frequency at which to check for Collect+ orders (this is in standard Cron format - http://en.wikipedia.org/wiki/Cron)</comment>
+                </field>
+                <field id="min_order_value" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Minimum order value</label>
+                    <comment>The Collect+ options are not shown if the order value is below this value.</comment>
+                </field>
+                <field id="max_order_value" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Maximum order value</label>
+                    <comment>The Collect+ options are not shown if the order value is above this value.</comment>
+                </field>
+                <field id="min_order_weight" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Minimum order weight</label>
+                    <comment>The Collect+ options are not shown if the order weight is below this value.</comment>
+                </field>
+                <field id="max_order_weight" translate="label" type="text" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Maximum order weight</label>
+                    <comment>The Collect+ options are not shown if the order weight is above this value.</comment>
+                </field>
+                <field id="sms_alert" translate="label" type="select" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Optional SMS alerts</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="next_day" translate="label" type="select" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Next Day (24hr)</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="next_day_title" translate="label" type="text" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title (Next Day)</label>
+                    <comment></comment>
+                </field>
+                <field id="next_day_account" translate="label" type="text" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Account number (Next Day)</label>
+                    <comment>Account number is required for this shipping method</comment>
+                </field>
+                <field id="next_day_price" translate="label" type="text" sortOrder="160" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Next Day (24hr) Cost</label>
+                    <comment></comment>
+                </field>
+                <field id="two_day" translate="label" type="select" sortOrder="170" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>48 hr</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="two_day_title" translate="label" type="text" sortOrder="180" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title (48 Hour)</label>
+                    <comment></comment>
+                </field>
+                <field id="two_day_account" translate="label" type="text" sortOrder="190" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Account number (48 Hour)</label>
+                    <comment>Account number is required for this shipping method</comment>
+                </field>
+                <field id="two_day_price" translate="label" type="text" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>48 Hour Cost</label>
+                    <comment></comment>
+                </field>
+                <field id="three_day" translate="label" type="select" sortOrder="210" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>72 hr</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="three_day_title" translate="label" type="text" sortOrder="220" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title (72 Hour)</label>
+                    <comment></comment>
+                </field>
+                <field id="three_day_account" translate="label" type="text" sortOrder="230" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Account number (72 Hour)</label>
+                    <comment>Account number is required for this shipping method</comment>
+                </field>
+                <field id="three_day_price" translate="label" type="text" sortOrder="240" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>72 Hour Cost</label>
+                    <comment></comment>
+                </field>
+                <field id="sort_methods" translate="label" type="text" sortOrder="250" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Sort order for CollectPlus shipping methods</label>
+                    <comment><![CDATA[Enter (,) separated code for shipping sort order. <br/><b>Eg. 24,48,72</b> <br /> 24 - Next Day <br /> 48 - 48 Hour <br /> 72 - 72 Hour]]></comment>
+                </field>
+                <field id="collection_instruction" translate="label" type="textarea" sortOrder="290" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Collection Information for Email/Mobile</label>
+                    <comment>Text can be changed but do not remove {email} and {number} from default text above otherwise it will display blank email/number.</comment>
+                </field>
+                <field id="collection_instruction2" translate="label" type="textarea" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Collection Information for Email Only</label>
+                    <comment>Text can be changed but do not remove {email} from default text above otherwise it will display blank email.</comment>
+                </field>
+                <field id="pdf_shipment" translate="label" type="select" sortOrder="310" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display Agent info block in Shipment PDF</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[This will print CollectPlus agent's information along with other information in Shipment PDF]]></comment>
+                </field>
+                <field id="pdf_invoice" translate="label" type="select" sortOrder="320" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display Agent info block in Invoice PDF</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[This will print CollectPlus agent's information along with other information in Invoice PDF]]></comment>
+                </field>
+                <field id="pdf_creditmemo" translate="label" type="select" sortOrder="320" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display Agent info block in Creditmemo PDF</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[This will print CollectPlus agent's information along with other information in Creditmemo PDF]]></comment>
+                </field>
+
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,44 @@
+<!--
+/**
+ * CollectPlus
+ *
+ * @category    CollectPlus
+ * @package     Jjcommerce_CollectPlus
+ * @version     2.0.0
+ * @author      Jjcommerce Team
+ *
+ */
+-->
+<div class="collectplus-select"
+     data-bind="visible: collectavailable">
+
+
+    <div class="control">
+        <input type="checkbox" class="radio" onclick="checkBilling(this);" title="Ship to CollectPlus Store"
+               value="collect" id="billing:collect_use_for_shipping_no" name="billing[use_for_shipping]" >
+        <label for="billing:collect_use_for_shipping_no">
+            <ul class="collectplus-billing-logo-text">
+                <li class="collectplus-billing-logo-text1">
+                    <img id="collect_small_logo" data-bind="attr: {src: collectlogo}"></li>
+                <li class="collectplus-billing-logo-text2">Select this option for delivery to a CollectPlus store. With thousands of stores, there will be a CollectPlus Store near you, open early 'til late, 7 days a week. <a href="#" class="collectplus_popup_link" onclick="showInfoCollectPopup()">Click here for more info</a>.</li>
+                    <button id="findyournearestbutton" type="button" class="button" title="FIND YOUR NEAREST COLLECTPLUS STORE" style="display: none;" onclick="openCollectPopup()"><span><span id="nearestbuttontext">FIND YOUR NEAREST COLLECTPLUS STORE</span></span></button>
+                    <button type="button" class="button" title="UNSELECT COLLECTPLUS STORE" style="display: none;" onclick="clearCollectStore()" id="clearcollectstore">UNSELECT COLLECTPLUS STORE</button>
+            </ul>
+        </label>
+        <input type="hidden" value="" name="smsnumberselected" id="smsnumberselected">
+    </div>
+    <div style="display: none;" id="collect_popup"></div>
+    <div style="display:none;" id="collect_popup_sms_add">
+        <div id="sms_message"></div> <br>
+        <label>You will receive an email when your parcel is ready for collection, if you also want to receive a text message, please enter your mobile number here</label>
+        <input type="text" placeholder="Eg. 07XXXXXXXXX" id="sms_alert_popup" name="sms_alert" class="validate-digits">
+        &nbsp;
+        <button type="button" class="button collectplus_popup_action_button" title="Save Number" onclick="saveSmsAlertPopUp()" id="collectplus_popup_action_button_save">
+            <span><span id="collectplus_popup_action_save_text">Save Number</span></span>
+        </button>
+        &nbsp;
+        <button type="button" class="button collectplus_popup_action_button" title="No Thanks" onclick="closesmspopup()">
+            <span><span>No Thanks</span></span>
+        </button>
+    </div>
+</div>

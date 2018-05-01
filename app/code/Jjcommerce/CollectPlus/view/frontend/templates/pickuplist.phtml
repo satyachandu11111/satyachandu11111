@@ -1,0 +1,91 @@
+<?php
+
+$response = $this->getResponse();
+$locations = $response['agent_lists'];
+$statusCode = $response['return_code'];
+$message = $response['return_message'];
+$count = 1;
+?>
+<div style="float: left">
+    <ul class="pickup_locations">
+        <?php if (count($locations) > 0): ?>
+            <span id="pickup_locations_count_check" style="display: none;"></span>
+            <?php foreach ($locations as $location): ?>
+                <li>
+                    <div class="agent_item" id="<?php echo 'agent_' . $location['SiteNumber'] ?>">
+                        <input type="radio" name="agent_checkbox" class="agent_checkbox"
+                               value="<?php echo 'agent_' . $location['SiteNumber'] ?>">&nbsp;<strong><?php echo $count++ . '. ' ?><?php echo $location['SiteName'] ?></strong>
+                        <?php if ($location['Miles']): ?>
+                            <div class="miles"><?php echo sprintf('%0.2f', $location['Miles']) . ' Miles' ?></div>
+                        <?php endif; ?>
+                        <div class="address"><?php echo $location['Address'] ?></div>
+                        <?php
+                        $address = trim($location['Address']) . ',' . $location['City'] . ' ' . $location['Postcode'] . ', United Kingdom';
+                        ?>
+                        <?php
+                        $GridX = $location['GridX'];
+                        $GridY = $location['GridY'];
+                        $latlong = $block->getLatLong($GridX, $GridY);
+                        ?>
+                        <div class="agent_address" style="display: none"><?php echo $location['Address'] ?></div>
+                        <div class="agent_name" style="display: none"><?php echo $location['SiteName'] ?></div>
+                        <div class="agent_city" style="display: none"><?php echo $location['City'] ?></div>
+                        <div class="agent_county" style="display: none"><?php echo $location['County'] ?></div>
+                        <div class="agent_postcode" style="display: none"><?php echo $location['Postcode'] ?></div>
+                        <div class="agent_latlong"
+                             style="display: none"><?php echo $latlong . ',' . $location['SiteName'] ?></div>
+                        <div class="agent_id" style="display: none"><?php echo $location['SiteNumber'] ?></div>
+                        <div class="agent_timing" style="display: none">
+                            <div class="agent_timing_content">
+                                <?php if ($location['MondayOpen'] != '0000') : ?>
+                                    <ul>
+                                        <?php if ($location['MondayOpen'] != '0000' && $location['MondayClose'] != '0000'): ?>
+                                            <li>
+                                                <?php echo __('Monday: ') ?><?php echo $location['MondayOpen'] . '-' . $location['MondayClose'] ?>
+                                            </li>
+                                        <?php endif; ?>
+                                        <?php if ($location['TuesdayOpen'] != '0000' && $location['TuesdayClose'] != '0000'): ?>
+                                            <li><?php echo __('Tuesday: ') ?><?php echo $location['TuesdayOpen'] . '-' . $location['TuesdayClose'] ?>
+                                            </li>
+                                        <?php endif; ?>
+                                        <?php if ($location['WednesdayOpen'] != '0000' && $location['WednesdayClose'] != '0000'): ?>
+                                            <li><?php echo __('Wednesday: ') ?><?php echo $location['WednesdayOpen'] . '-' . $location['WednesdayClose'] ?>
+                                            </li>
+                                        <?php endif; ?>
+                                        <?php if ($location['ThursdayOpen'] != '0000' && $location['ThursdayClose'] != '0000'): ?>
+                                            <li><?php echo __('Thursday: ') ?><?php echo $location['ThursdayOpen'] . '-' . $location['ThursdayClose'] ?>
+                                            </li>
+                                        <?php endif; ?>
+                                    </ul>
+                                <?php endif; ?>
+                                <ul>
+                                    <?php if ($location['FridayOpen'] != '0000' && $location['FridayClose'] != '0000'): ?>
+                                        <li><?php echo __('Friday: ') ?><?php echo $location['FridayOpen'] . '-' . $location['FridayClose'] ?>
+                                        </li>
+                                    <?php endif; ?>
+                                    <?php if ($location['SaturdayOpen'] != '0000' && $location['SaturdayClose'] != '0000'): ?>
+                                        <li><?php echo __('Saturday: ') ?><?php echo $location['SaturdayOpen'] . '-' . $location['SaturdayClose'] ?>
+                                        </li>
+                                    <?php endif; ?>
+                                    <?php if ($location['SundayOpen'] != '0000' && $location['SundayClose'] != '0000'): ?>
+                                        <li><?php echo __('Sunday: ') ?><?php echo $location['SundayOpen'] . '-' . $location['SundayClose'] ?>
+                                        </li>
+                                    <?php endif; ?>
+                                    <li><?php echo __('Disabled Access:') ?><?php echo $location['DisabledAccessCode'] ?></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            <?php endforeach; ?>
+            <?php $_defaultPostcode = $this->getRequest()->getParam('criteria', false) ? $this->getRequest()->getParam('criteria', false) : '';//$this->helper('collect')->getBillingPostcode() ?>
+            <div id="agent_latlong_default_location"
+                 style="display: none"><?php echo $block->getDefaultLocation($_defaultPostcode) ?></div>
+        <?php elseif (count($locations) == 0 && $statusCode == 0): ?>
+            <li><?php echo __("No CollectPlus stores found in this area, please make sure your 'location service' is enabled on your device to use your current location or enter another postcode.") ?></li>
+        <?php else: ?>
+            <li><?php echo $message ?></li>
+        <?php endif; ?>
+    </ul>
+</div>
+<div id="googleMap" style="width:600px;height:350px;left:5px;"></div>

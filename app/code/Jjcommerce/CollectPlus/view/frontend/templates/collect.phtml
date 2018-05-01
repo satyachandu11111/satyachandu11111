@@ -1,0 +1,35 @@
+<span style="float:right;"><a href="javascript:close()">X</a> </span>
+
+
+<img id="collect_small_logo" src="<?php echo $block->getViewFileUrl('Jjcommerce_CollectPlus::images/collect_logo.png') ?>"/>
+<div class="search-location">
+    <label><?php echo __("Select a store or enter a postcode to search:") ?></label>
+    <div class="input-location">
+        <input type="text" name="collect_postcode" id="criteria"/>
+
+            <img class="geolocation-image" title="Your Location" src="<?php echo $block->getViewFileUrl('Jjcommerce_CollectPlus::images/geolocation.png') ?>" onclick="getnearPickuplist()"/>
+
+        <button onclick="getPickuplist(document.getElementById('criteria').value)" title="<?php echo __('Search') ?>" class="button" type="button"><span><span><?php echo __('Search') ?></span></span></button>
+    </div>
+</div>
+<?php
+//$response = $this->getResponse();
+//$locations = $response['agent_lists'];
+//$statusCode = $response['return_code'];
+//$message = $response['return_message'];
+//$count = 1;
+?>
+<div class="locations">
+    <span><h4><?php echo __('Nearest pick-up stores:') ?></h4></span>
+    <div class="popup_button_mobile" style="display: none;">
+        <button onclick="document.getElementById('collect_popup').style.display='none'" title="<?php echo __('Cancel') ?>" class="button" type="button"><span><span><?php echo __('Cancel') ?></span></span></button>
+        <button onclick="updateShippingAddress()" title="<?php echo __('Select Location') ?>" class="button select_location_mobile" type="button"><span><span><?php echo __('Select Location') ?></span></span></button>
+    </div>
+    <div class="agent-list" id="agent-list">
+
+    </div>
+</div>
+<div class="popup_button">
+    <button onclick="document.getElementById('collect_popup').style.display='none'" title="<?php echo __('Cancel') ?>" class="button" type="button"><span><span><?php echo __('Cancel') ?></span></span></button>
+    <button onclick="updateShippingAddress()" title="<?php echo __('Select Location') ?>" class="button select_location_mobile" type="button"><span><span><?php echo __('Select Location') ?></span></span></button>
+</div>
