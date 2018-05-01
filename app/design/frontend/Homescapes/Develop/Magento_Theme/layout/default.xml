@@ -6,6 +6,7 @@
  */
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+
     <body>
         <referenceContainer name="header.panel">
             <block class="Magento\Framework\View\Element\Html\Links" name="header.links">
@@ -25,27 +26,27 @@
         </referenceContainer>
         <referenceBlock name="report.bugs" remove="true"/>
         <move element="copyright" destination="before.body.end"/>
-    </body>
+
+
+	 <referenceBlock name="catalog.topnav" remove="true" /> 
 	
-	
-	<!--custom layout changes-->
-	
-	<referenceBlock name="catalog.topnav" remove="true" />       		<!-- Top menu-->
-	
-	<move element="minicart" before="-" destination="header.panel"/>    <!--minicart to top-->
-	
-	<referenceBlock name="footer_links" remove="true"/>					<!--footer links-->
-	
-	<referenceBlock name="copyright" remove="true"/>					<!--copyright-->
-	
-    <!-- Custom block header contact -->
+	<move element="minicart" before="-" destination="header.panel"/> 
+
+	<referenceBlock name="footer_links" remove="true"/>	
+
+	<referenceBlock name="copyright" remove="true"/>	
+
 	<referenceContainer name="header.panel">
 		  <block class="Magento\Framework\View\Element\Template" name="header.contact" template="Magento_Theme::header_contact.phtml"/>
-	</referenceContainer>
-	<!-- CUSTOM BLOCK ENDS HERE -->
-	
-	<referenceBlock name="catalog.compare.sidebar" remove="true"/> <!--add to compare-->
-	
-	
+	</referenceContainer> 
+
+	<referenceBlock name="catalog.compare.sidebar" remove="true"/> 
+
+	<referenceBlock name="header.links">
+            <block class="Magento\Customer\Block\Account\Customer" name="customer" template="account/customer.phtml" before="-"/>
+            <block class="Magento\Customer\Block\Account\AuthorizationLink" name="authorization-link-login" template="account/link/authorization.phtml"/>
+	</referenceBlock>
+
+    </body>	
 	
 </page>
