@@ -26,6 +26,7 @@ if ($enableSlider) {
         $imageCreationOptions['weltpixel_lazyLoad'] = true;
     }
 }
+
 ?>
 <?php
 switch ($type = $block->getType()) {
@@ -44,7 +45,7 @@ switch ($type = $block->getType()) {
 
             $showWishlist = $displaySocial['display_wishlist'];
             $showCompare = $displaySocial['display_compare'];
-            $showCart = false;
+            $showCart = true;
             $templateType = null;
             $description = false;
         }
@@ -63,9 +64,9 @@ switch ($type = $block->getType()) {
             $shuffle = 0;
             $canItemsAddToCart = $block->canItemsAddToCart();
 
-            $showWishlist = $displaySocial['display_wishlist'];
+            $showWishlist = true; 
             $showCompare = $displaySocial['display_compare'];
-            $showCart = false;
+            $showCart = true;
             $templateType = null;
             $description = false;
         }
@@ -180,7 +181,7 @@ switch ($type = $block->getType()) {
 
 <?php if ($type == 'related' || $type == 'upsell'): ?>
 <?php if ($type == 'related'): ?>
-<div class="block-margin rlb block <?php /* @escapeNotVerified */ echo $class . !$enableSlider ? '' : ''; ?>" data-mage-init='{"relatedProducts":{"relatedCheckbox":".related.checkbox"}}' data-limit="<?php /* @escapeNotVerified */ echo $limit; ?>" data-shuffle="<?php /* @escapeNotVerified */ echo $shuffle; ?>">
+<div class=" <?php /* @escapeNotVerified */ echo $class . !$enableSlider ? ' ' : ''; ?>" data-mage-init='{"relatedProducts":{"relatedCheckbox":".related.checkbox"}}' data-limit="<?php /* @escapeNotVerified */ echo $limit; ?>" data-shuffle="<?php /* @escapeNotVerified */ echo $shuffle; ?>">
     <?php else: ?>
     <div class="block-margin rlb block <?php /* @escapeNotVerified */ echo $class . !$enableSlider ? '' : ''; ?>" data-mage-init='{"upsellProducts":{}}' data-limit="<?php /* @escapeNotVerified */ echo $limit; ?>" data-shuffle="<?php /* @escapeNotVerified */ echo $shuffle; ?>">
         <?php endif; ?>
@@ -191,12 +192,6 @@ switch ($type = $block->getType()) {
                 <span id="block-<?php /* @escapeNotVerified */ echo $class?>-heading" role="heading" aria-level="2"><?php /* @escapeNotVerified */ echo $title; ?></span>
             </h3>
             <div class="block-content content" aria-labelledby="block-<?php /* @escapeNotVerified */ echo $class?>-heading">
-                <?php if ($type == 'related' && $canItemsAddToCart): ?>
-                    <div class="block-actions">
-                        <?php /* @escapeNotVerified */ echo __('Check items to add to the cart or') ?>
-                        <button type="button" class="action select" role="select-all"><span><?php /* @escapeNotVerified */ echo __('select all') ?></span></button>
-                    </div>
-                <?php endif; ?>
                 <div class="products wrapper grid products-grid products-<?php /* @escapeNotVerified */ echo $type; ?>">
                     <ol class="products list items product-items<?php echo $enableSlider ? ' owl-carousel-products-' . $type : ''; ?>">
                         <?php $product_item = $enableSlider ? '' : ' product-item'; ?>
@@ -233,14 +228,7 @@ switch ($type = $block->getType()) {
                                     <?php echo $block->getReviewsSummaryHtml($_item, $templateType) ?>
                                 <?php endif; ?>
 
-                                <?php if (!$_item->isComposite() && $_item->isSaleable() && $type == 'related'): ?>
-                                    <?php if (!$_item->getRequiredOptions()): ?>
-                                        <div class="field choice related">
-                                            <input type="checkbox" class="checkbox related" id="related-checkbox<?php /* @escapeNotVerified */ echo $_item->getId() ?>" name="related_products[]" value="<?php /* @escapeNotVerified */ echo $_item->getId() ?>" />
-                                            <label class="label" for="related-checkbox<?php /* @escapeNotVerified */ echo $_item->getId() ?>"><span><?php /* @escapeNotVerified */ echo __('Add to Cart') ?></span></label>
-                                        </div>
-                                    <?php endif; ?>
-                                <?php endif; ?>
+                              
 
                                 <?php if ($showWishlist || $showCompare || $showCart): ?>
                                     <div class="product actions product-item-actions">
@@ -273,6 +261,10 @@ switch ($type = $block->getType()) {
 
                                             <?php if ($showWishlist || $showCompare): ?>
                                                 <div class="secondary-addto-links actions-secondary" data-role="add-to-links">
+                                                    <a href="<?php echo $block->getProductUrl($_item);?>" class="action quick-view" data-action="add-to-wishlist" >
+                                                        <span><?= /* @escapeNotVerified */ __('Quick View') ?></span>
+                                                    </a>
+
                                                     <?php if ($this->helper('Magento\Wishlist\Helper\Data')->isAllow() && $showWishlist): ?>
                                                         <a href="#" data-post='<?php /* @escapeNotVerified */ echo $block->getAddToWishlistParams($_item); ?>'  class="action towishlist" data-action="add-to-wishlist" title="<?php /* @escapeNotVerified */ echo __('Add to Wish List') ?>">
                                                             <span><?php /* @escapeNotVerified */ echo __('Add to Wish List') ?></span>

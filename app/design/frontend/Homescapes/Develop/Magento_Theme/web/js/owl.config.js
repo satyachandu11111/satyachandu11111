@@ -21,22 +21,14 @@ var OWL = {
 			carouselContainer = carouselWidth + 120,
 			carouselControls = carouselElement.find('.owl-nav');
 
-		var rowParent = jQuery('.owl-prev').parents().find('.row').get(0);
-		var leftPosition = 0,
-			rightPosition = 0;
-		if (rowParent) {
-            leftPosition = Math.abs(parseInt(jQuery(rowParent).css('margin-left')));
-            rightPosition = Math.abs(parseInt(jQuery(rowParent).css('margin-right')));
-		}
-
 		if (carouselContainer >= windowWidth) {
 			carouselControls.addClass('fullscreen').find('.owl-prev').css({
-				'left': leftPosition,
-				'top': 0
+				'left': 0,
+				'top': -15
 			});
 			carouselControls.addClass('fullscreen').find('.owl-next').css({
-				'right': rightPosition,
-				'top': 0
+				'right': 0,
+				'top': -15
 			});
 		} else {
 			carouselControls.find('.owl-prev').removeClass('fullscreen').removeAttr('style');
