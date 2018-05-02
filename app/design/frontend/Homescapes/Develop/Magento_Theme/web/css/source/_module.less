@@ -83,8 +83,8 @@
 
     .page-header {
         .lib-css(background-color, @header__background-color);
-        border-bottom: 1px solid @border-color__base;
-        margin-bottom: @indent__base;
+        border-bottom: 0;
+        margin-bottom: 0;
 
         .panel.wrapper {
             background: @f9light;
@@ -422,8 +422,7 @@
 
 .media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__s) {
     .logo {
-        margin-bottom: 13px;
-        margin-top: 4px;
+        
     }
 }
 
