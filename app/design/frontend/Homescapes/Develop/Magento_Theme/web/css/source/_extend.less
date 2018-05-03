@@ -268,6 +268,13 @@ h6, .h6 {
 		display: flex;
 		flex-direction: column;
 	}
+	.laptop-visible{
+		display: inline-block;
+		
+		@media @991{
+			display: none;
+		}
+	}
 	.panel.wrapper{
 		
 		@media @767{
@@ -576,7 +583,7 @@ h6, .h6 {
 -ms-transform-origin: top;
 transform-origin: top;
 -webkit-transition: all 300ms ease-in-out 0s;
-transition: all 400ms ease-in-out 0s;
+transition: all 200ms ease-in-out 0s;
 }
 
 .megamenu {
@@ -1231,7 +1238,7 @@ transition: all 400ms ease-in-out 0s;
     margin: 0;
     background-color:@white;
     border-radius: 0px;
-    z-index: 103;
+    z-index: 9998;
     -webkit-transition: all 0.4s ease-in-out;
     -moz-transition: all 0.4s ease-in-out;
     -o-transition: all 0.4s ease-in-out;
@@ -1244,7 +1251,7 @@ transition: all 400ms ease-in-out 0s;
     position: fixed;
     left: 0;
     top: 0;
-    z-index: 102;
+    z-index: 9999;
     -webkit-transition: all 0.4s ease-in-out;
     -moz-transition: all 0.4s ease-in-out;
     -o-transition: all 0.4s ease-in-out;
@@ -1360,9 +1367,6 @@ transition: all 400ms ease-in-out 0s;
 	@media @991{
 		line-height: @font20;
 		padding: 5px 0px;
-	}
-	@media @767{
-		display: none;
 	}
 	span{
 		@media @991{
@@ -1505,8 +1509,9 @@ transition: all 400ms ease-in-out 0s;
 		@media @767{
 			width: 100%;
 			margin-bottom: 25px;
-			font-size:@font16;
+			font-size:@font20;
 			font-weight: bold;
+			border-bottom: 0;
 		}
 		
 		span{
@@ -1998,8 +2003,8 @@ transition: all 400ms ease-in-out 0s;
     right:@font20;
     background: rgb(0, 0, 0);
     background: rgba(0, 0, 0, 0.7);
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
 	z-index: 999;
     display: block;
     text-decoration: none;
@@ -2017,9 +2022,9 @@ transition: all 400ms ease-in-out 0s;
 		color: @white;
 		margin: 0;
 		position: relative;
-		left: 18px;
-		top: 13px;
-		font-size:@font26;
+		left: 13px;
+		top: 10px;
+		font-size:@font22;
 		-webkit-transition: all 0.3s ease;
 		-moz-transition: all 0.3s ease;
 		-ms-transition: all 0.3s ease;
@@ -2247,6 +2252,10 @@ transition: all 400ms ease-in-out 0s;
 	
 	h1{
 		font-size: @font28;
+		
+		@media @991{
+			font-size: @font22;
+		}
 	}
 	.product-add-form{
 		
@@ -2361,6 +2370,12 @@ transition: all 400ms ease-in-out 0s;
 |  Product swatch
 -----------------------*/
 .product-info-main{
+	
+	.page-title-wrapper h1{
+		@media @991{
+			margin-bottom: 1rem;
+		}
+	}
 	
 	.choose-color-related-items{
 		span{
@@ -2534,12 +2549,20 @@ transition: all 400ms ease-in-out 0s;
 	}
 	.product-info-main .product-reviews-summary{
 		margin-bottom: 1.5rem;
+		
+		@media @991{
+			margin-bottom: @base;
+		}
 	}
 	
 	.product-info-price .price-box{
 		
-		max-width: 30rem;
+		max-width: 31rem;
 		padding-bottom: .5rem;
+		
+		@media @991{
+			padding-bottom: .5rem;
+		}
 		
 		.group-prod-price{
 			font-size: @font40;
@@ -2693,6 +2716,9 @@ transition: all 400ms ease-in-out 0s;
 		}
 		@media @639{
 			width: 68%;
+		}
+		@media @359{
+			width: 66%;
 		}
 	}
 	
