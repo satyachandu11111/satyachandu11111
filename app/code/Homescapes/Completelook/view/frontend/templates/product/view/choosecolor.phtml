@@ -4,7 +4,7 @@ $relatedProducts = $block->getItems();
 $displayText = $block->getDisplayText();
 if(count($relatedProducts)){
 ?>
-<div>
+<div class="choose-color-related-items">
     <?php $displayText = ($displayText ? $displayText : __('Choose Color')); ?>
     <span><?php echo $displayText; ?></span>
     <ul>

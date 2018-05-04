@@ -1,0 +1,30 @@
+#map-canvas {
+    height: 300px;
+    width: 400px;
+}
+.collect_success_header_title span { float: left; margin-right: 4%;}
+.checkout-collectplus-success { padding-top: 2%;}
+.checkout-collectplus-success .title_store { font-weight: bold;}
+.checkout-collectplus-success .title_store_info li { /*float: left;*/ margin-left: 2%}
+/*.map-info div {*/
+    /*float: left;*/
+    /*padding-right: 5%;*/
+    /*margin-bottom: 2%;*/
+/*}*/
+.checkout-collectplus-success .title_store_info { margin-top: 8%; }
+.checkout-collectplus-success .title_store_info ul { list-style-type: none; display: block; /* margin-top: 0%; */ padding: 0px; }
+
+/*.map-info div {*/
+    /*/!* float: left; *!/*/
+    /*padding-right: 5%;*/
+    /*margin-bottom: 2%;*/
+/*}*/
+#googleMap { width:500px; height:300px; float: left; margin: 0 3% 1% 0; }
+.map-info-div { height: 20%; padding-top: 10px; }
+.opening-times {list-style-type: none !important; }
+
+@media only screen and (min-width: 300px) and (max-width: 481px) {
+    ul.title-store-site-name {
+        padding-top: 10% !important;
+    }
+}

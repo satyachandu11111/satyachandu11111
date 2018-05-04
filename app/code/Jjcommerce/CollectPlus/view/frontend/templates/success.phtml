@@ -1,0 +1,112 @@
+
+<?php /** @var $block \Jjcommerce\CollectPlus\Block\Onepage\Success */ ?>
+
+<div class="checkout-collectplus-success">
+<?php if (is_object($block->getOrderObject()) && $block->getOrderObject()->getId()): ?>
+    <?php
+    $_order = $block->getOrderObject();
+    $shipmethod = $_order->getShippingMethod();
+    $pos = strpos($shipmethod, 'collect_collect');
+    ?>
+    <!-- Collect+ logic Start -->
+    <?php if ($pos !== false): ?>
+        <?php $api_key = $block->getGoogleApiKey();
+        if ($_order->getSmsAlert()) {
+            $collectionInstruction = $block->getCollectionInstruction();
+            $collectionInstruction = str_replace(array('{email}', '{number}'), array("<b>" . $_order->getCustomerEmail() . "</b>", "<b>" . $_order->getSmsAlert() . "</b>"), $collectionInstruction);
+        } else {
+            $collectionInstruction = str_replace('{email}', "<b>" . $_order->getCustomerEmail() . "</b>", $block->getCollectionInstruction2());
+        }
+        ?>
+        <script type="text/javascript"
+                src="https://maps.googleapis.com/maps/api/js?key=<?php echo $api_key ?>">
+        </script>
+        <?php
+        $agentData = unserialize($_order->getAgentData());
+        $GridX = $agentData['GridX'];
+        $GridY = $agentData['GridY'];
+        $latlng = $block->getLatLong($GridX, $GridY);
+        $siteName = $agentData['SiteName'];
+        $address = $agentData['Address'] . ', ' . $agentData['City'] . ', ' . $agentData['Postcode'];
+        $disableAccess = $agentData['DisabledAccessCode'];
+        ?>
+        <div class="collect_success_header_title">
+            <span><img id="collect_success_logo" src="<?php echo $block->getViewFileUrl('Jjcommerce_CollectPlus::images/collect_logo.png'); ?>"/></span>
+            <span><h2 class="sub-title"><?php echo __('Pickup Location Details') ?></h2></span>
+        </div>
+        <div class="title_store_info">
+            <ul class="title-store-site-name"><li class="title_store"><?php echo __('Pickup Site Name ') ?></li><li><?php echo $siteName ?></li></ul>
+            <ul><li class="title_store"><?php echo __('Pickup Site Address ') ?></li><li><?php echo $address ?></li></ul>
+            <ul><li class="title_store"><?php echo __('Collection Information ') ?></li><li><?php echo $collectionInstruction ?></li></ul>
+        </div>
+        <div class="map-info">
+
+            <div id="googleMap" class="map-info-div"></div>
+            <!--            <div style="height: 310px;">-->
+            <div class="map-info-div"">
+                <ul>
+                    <li class="opening-times"><span class="opening-times"><strong><?php echo __('Opening Times:') ?></strong></span></li>
+                    <?php if ($agentData['MondayOpen'] != '0000' && $agentData['MondayClose'] != '0000'): ?>
+                        <li><?php echo __('Monday: ') ?><?php echo $agentData['MondayOpen'] . '-' . $agentData['MondayClose'] ?></li>
+                    <?php endif; ?>
+                    <?php if ($agentData['TuesdayOpen'] != '0000' && $agentData['TuesdayClose'] != '0000'): ?>
+                        <li><?php echo __('Tuesday: ') ?><?php echo $agentData['TuesdayOpen'] . '-' . $agentData['TuesdayClose'] ?></li>
+                    <?php endif; ?>
+                    <?php if ($agentData['WednesdayOpen'] != '0000' && $agentData['WednesdayClose'] != '0000'): ?>
+                        <li><?php echo __('Wednesday: ') ?><?php echo $agentData['WednesdayOpen'] . '-' . $agentData['WednesdayClose'] ?></li>
+                    <?php endif; ?>
+                    <?php if ($agentData['ThursdayOpen'] != '0000' && $agentData['ThursdayClose'] != '0000'): ?>
+                        <li><?php echo __('Thursday: ') ?><?php echo $agentData['ThursdayOpen'] . '-' . $agentData['ThursdayClose'] ?></li>
+                    <?php endif; ?>
+                    <?php if ($agentData['FridayOpen'] != '0000' && $agentData['FridayClose'] != '0000'): ?>
+                        <li><?php echo __('Friday: ') ?><?php echo $agentData['FridayOpen'] . '-' . $agentData['FridayClose'] ?></li>
+                    <?php endif; ?>
+                    <?php if ($agentData['SaturdayOpen'] != '0000' && $agentData['SaturdayClose'] != '0000'): ?>
+                        <li><?php echo __('Saturday: ') ?><?php echo $agentData['SaturdayOpen'] . '-' . $agentData['SaturdayClose'] ?></li>
+                    <?php endif; ?>
+                    <?php if ($agentData['SundayOpen'] != '0000' && $agentData['SundayClose'] != '0000'): ?>
+                        <li><?php echo __('Sunday: ') ?><?php echo $agentData['SundayOpen'] . '-' . $agentData['SundayClose'] ?></li>
+                    <?php endif; ?>
+                    <li><strong><?php echo __('Disabled Access: ') ?></strong><?php echo $disableAccess ?></li>
+                </ul>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            function initialize() {
+
+                var latlong = '<?php echo $latlng ?>';
+                var icon = "<?php echo $block->getViewFileUrl('Jjcommerce_CollectPlus::images/location2.png'); ?>";
+                var myCenter = new google.maps.LatLng(<?php echo $latlng ?>);
+
+                var mapProp = {
+                    center: myCenter,
+                    zoom: 14,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+
+                var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+
+                var marker = new google.maps.Marker({
+                    position: myCenter,
+                    title: '<?php echo $siteName ?>',
+                    icon: icon
+                });
+
+                marker.setMap(map);
+                var infowindow = new google.maps.InfoWindow();
+
+
+                var content = '<b>' + '<?php echo $siteName ?>' + '</b><br/>'
+                    + '<?php echo $address ?>';
+                infowindow.setContent(content);//update the content for this marker
+                infowindow.open(map, marker);//"move" the info window to the clicked marker and open it
+            }
+
+            google.maps.event.addDomListener(window, 'load', initialize);
+        </script>
+    <?php endif; ?>
+    <!-- Collect+ logic End -->
+
+<?php endif; ?>
+</div>

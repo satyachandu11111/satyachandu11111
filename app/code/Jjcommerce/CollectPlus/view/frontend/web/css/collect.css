@@ -1,0 +1,549 @@
+.collectplus-select li {
+    list-style: outside none none !important;
+}
+
+.collectplus_popup_information li {
+    list-style: outside none none !important;
+}
+
+.collectplus-select .button {
+    background: #000 none repeat scroll 0 0 !important;
+}
+
+.shipping_collectplus_msg {
+    background-color: #fff;
+    padding: 10px; /*border: 1px solid #000;*/
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.shipping_collectplus_msg #collect_small_logo {
+    height: 30px;
+    margin-top: -25px;
+}
+
+.popup_button {
+    padding-top: 20px;
+    text-align: right
+}
+
+.pickup_locations li {
+    margin-bottom: 10px;
+}
+
+#collect_popup #collect_small_logo {
+    height: 40px;
+}
+
+#collect_popup22 {
+    background: #fff none repeat scroll 0 0;
+    border: 2px solid;
+    /*height: 616px;*/
+    height: 89%;
+    left: 20%;
+    padding: 15px;
+    position: fixed;
+    top: 3%;
+    /*width: 860px;*/
+    width: 65%;
+    z-index: 999;
+    overflow: scroll;
+}
+
+#sms_box {
+    width: 100%;
+    float: left;
+}
+
+#collect_popup {
+    background: #fff none repeat scroll 0 0;
+    border: 2px solid;
+    overflow: scroll;
+    padding: 15px;
+    position: fixed;
+    width: 76%;
+    z-index: 999;
+    left: 50%;
+    top: 50%;
+    -ms-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.input-location .button {
+    float: left;
+}
+
+.search-location {
+    overflow: hidden;
+}
+
+.search-location > label {
+    float: left;
+    margin: 4px 0 0;
+}
+
+.input-location > input#criteria {
+    float: left;
+    margin: 0 0 0 7px;
+}
+
+.geolocation-image {
+    margin: 5px 5px 5px 5px;
+}
+
+#collect_popup .button {
+    color: #fff;
+}
+
+#collect_popup_sms_add .button {
+    color: #fff;
+}
+
+#collect_loader {
+    /*background: url("") no-repeat scroll center center #FBFAF6;*/
+    background: url("") no-repeat scroll center center;
+    /*border: 1px solid #000000;*/
+    font-weight: bold;
+    height: 45px;
+    left: 45%;
+    opacity: 0.7;
+    padding: 15px;
+    position: fixed;
+    top: 29%;
+    width: 100px;
+    z-index: 99999;
+}
+
+#collect_loader .v-middle {
+    visibility: visible;
+}
+
+.loading-mask-collect {
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.loading-mask-collect .loader > img {
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 100;
+}
+
+.loading-mask-collect .loader > p {
+    display: none;
+}
+
+body > .loading-mask-collect {
+    z-index: 9999;
+}
+
+#nearestbuttontext, #clearcollectstore {
+    color: #fff;
+}
+
+.pickup_locations {
+    font-size: 11px;
+    font-weight: normal;
+    height: 360px;
+    overflow: auto;
+    width: 200px;
+}
+
+.pickup_locations .title {
+    font-weight: bold
+}
+
+.locations {
+    border-top: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+    padding: 10px 0 10px;
+    margin-top: 10px;
+}
+
+.agent_item {
+    cursor: pointer
+}
+
+#map-canvas {
+    height: 300px;
+    width: 400px;
+}
+
+#collect_small_logo {
+    height: 40px;
+    margin-top: -5px;
+}
+
+.shipping_collectplus_msg #sms_box {
+    padding-top: 10px;
+}
+
+.collectplus-billing-logo-text2 > a {
+    display: inline-block;
+}
+
+.collectplus-billing-logo-text1 > span > a {
+    display: inline-block;
+}
+
+#co-shipping-form input[readonly=""] {
+    color: #B0B0B0;
+}
+
+#co-shipping-form select[readonly=""] {
+    color: #B0B0B0;
+}
+
+#collectplus_popup_information1 {
+    background: #fff none repeat scroll 0 0;
+    border: 2px solid;
+    height: 559px;
+    left: 20%;
+    padding: 15px;
+    position: fixed;
+    top: 5%;
+    width: 832px;
+    z-index: 999;
+}
+
+#collectplus_popup_information {
+    background: #fff0e5 none repeat scroll 0 0;
+    border: 1px solid #d6d6d6;
+    left: 50%;
+    position: fixed;
+    top: 50%;
+    width: 50%;
+    z-index: 999;
+    height: 76%;
+    overflow: scroll;
+    padding: 20px;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+}
+
+input[readonly] {
+    background-color: #efefef !important;
+    opacity: 0.6;
+}
+
+#collect_success_logo {
+    height: 60px;
+    margin-top: -5px;
+}
+
+.collectplus_information_question_answers {
+    padding-top: 4px;
+}
+
+.collectplus_information_question {
+    font-weight: bold;
+    padding-top: 4px;
+}
+
+.collectplus_information_answer {
+    padding-left: 4%;
+}
+
+.collectplus_information_image span {
+    float: right;
+    cursor: pointer;
+}
+
+.collectplus_information_footer_close {
+    border-top: 1px solid;
+    padding-bottom: 10px;
+    padding-top: 5px;
+}
+
+.collectplus_information_footer_close span {
+    margin-left: 45%;
+    cursor: pointer;
+}
+
+.sp-methods dd li {
+    margin: 5px 0;
+    width: 100% !important;
+}
+
+#collect_popup #googleMap {
+    background-color: rgb(229, 227, 223);
+    left: 5px;
+    overflow: hidden;
+    position: relative;
+    width: 72% !important;
+    margin: 0 auto;
+}
+
+.agent_timing_content ul {
+    float: left;
+    width: 214px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.collectplus_popup_action_button {
+    /*height: 20px;*/
+}
+
+#sms_alert_popup {
+    /*width: 200px*/
+    width: 30%
+}
+
+#collect_popup_sms_add {
+    background: #fff none repeat scroll 0 0;
+    border: 2px solid;
+    left: 50%;
+    overflow: scroll;
+    padding: 1%;
+    position: fixed;
+    top: 50%;
+    width: 50%;
+    z-index: 999;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+}
+
+#collect_popup_sms_add #sms_message {
+    display: block;
+    /*float: left;*/
+    /*padding: 1%;*/
+}
+
+#collect_popup_sms_add > label {
+    display: block;
+    float: left;
+    /*padding: 1%;*/
+    margin-bottom: 1%;
+}
+
+.collectplus_information_identification_types {
+    display: block;
+    list-style-type: disc;
+    margin-left: 6%;
+}
+
+.gm-style-iw > div {
+    display: block !important;
+}
+
+#checkout-shipping-method-load > div:first-child {
+    margin-left: 5px;
+    margin-top: 5px;
+    width: 50%;
+}
+
+#checkout-shipping-method-load .sp-method-collect-info {
+    float: right;
+    width: 50%;
+}
+
+#checkout-shipping-method-load .sp-methods {
+    float: left;
+    width: 50%;
+}
+
+#onepage-checkout-shipping-method-additional-load {
+    position: relative;
+}
+
+#onepage-checkout-shipping-method-additional-load .add-gift-message {
+
+    float: left;
+}
+
+.geolocation-image {
+    cursor: pointer;
+    display: block;
+    float: left;
+    /*padding-right: 1%;
+    padding-top: 4px;*/
+}
+
+.select_location_mobile {
+    display: none !important;
+}
+
+/*.billing-address-same-as-shipping-block label span {*/
+    /*font-size: larger;*/
+    /*font-weight: bold;*/
+/*}*/
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+    #collect_popup #googleMap {
+        width: 68% !important;
+    }
+
+    #collect_popup {
+        width: 90%;
+    }
+
+    #collect_popup_sms_add {
+        width: 65%;
+    }
+
+    #collectplus_popup_information {
+        width: 73%;
+    }
+
+    .agent_timing_content ul {
+        width: 170px;
+    }
+
+    .popup_button_mobile {
+        display: none;
+    }
+
+}
+
+@media only screen and (min-width: 300px) and (max-width: 767px) {
+    #checkout-step-shipping_method #checkout-shipping-method-load .sp-method-collect-info > div {
+        float: none !important;
+    }
+
+    #checkout-shipping-method-load .sp-method-collect-info {
+        float: left;
+        width: 100% !important;
+    }
+
+    .select_location_mobile {
+        display: block !important;
+        float: right;
+    }
+
+    .checkout-right {
+        width: 100% !important;
+    }
+
+    .checkout-left {
+        width: 100% !important;
+    }
+
+    .collectplus-billing-logo-text .button {
+        white-space: normal;
+        margin: 10px 0 0;
+    }
+
+    #co-billing-form ul.form-list > .control {
+        float: left;
+        margin: 0 0 5px;
+        width: 92%;
+    }
+
+    #criteria {
+        width: 33%;
+    }
+
+    .input-location {
+        float: none;
+    }
+
+    /*#collect_popup { background: #fff none repeat scroll 0 0; border: 2px solid; height: 80%; left: 9%; overflow: scroll; padding: 15px; position: fixed; top: 3%; width: 80%; z-index: 999; }*/
+    #collect_popup {
+        background: #fff none repeat scroll 0 0;
+        border: 2px solid;
+        height: 80%;
+        left: 50%;
+        overflow: scroll;
+        padding: 9px;
+        position: fixed;
+        top: 50%;
+        width: 80%;
+        z-index: 999;
+    }
+
+    #collectplus_popup_information {
+        width: 82%;
+    }
+
+    #checkout-shipping-method-load > div:first-child {
+        margin-left: 0px;
+        margin-top: 0px;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    #agent-list > div {
+        width: 100%;
+    }
+
+    .pickup_locations {
+        width: 100%;
+    }
+
+    #collect_popup #googleMap {
+        float: left;
+        height: 250px !important;
+        margin: 20px 0;
+        width: 95% !important;
+    }
+
+    /*#collect_popup_sms_add { background: #fff none repeat scroll 0 0; border: 2px solid; height: auto; left: 7%; overflow: scroll; padding: 1%; position: fixed; top: 25%; width: 85%; z-index: 999; }*/
+    #collect_popup_sms_add {
+        background: #fff none repeat scroll 0 0;
+        border: 2px solid;
+        height: auto;
+        overflow: scroll;
+        padding: 1%;
+        position: fixed;
+        width: 85%;
+        z-index: 999;
+    }
+
+    #sms_alert_popup {
+        width: 100%;
+        margin: 15px 0 15px 0;
+    }
+
+    .collectplus_popup_action_button {
+        margin: 15px 0;
+    }
+
+    .sp-methods li {
+        clear: both;
+    }
+
+    .locations {
+        border-bottom: medium none;
+    }
+
+    .popup_button_mobile {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 300px) and (max-width: 481px) {
+    .input-location #criteria {
+        width: 95%;
+    }
+
+    .geolocation-image {
+        margin: 10px;
+    }
+
+    .input-location .button {
+        margin: 6px 0 0;
+    }
+
+    .popup_button_mobile {
+        display: block !important;
+    }
+
+    .popup_button_mobile .button {
+        float: left;
+        padding-bottom: 2px;
+    }
+}
+

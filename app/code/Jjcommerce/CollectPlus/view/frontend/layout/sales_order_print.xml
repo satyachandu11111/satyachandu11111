@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * CollectPlus
+ *
+ * @category    CollectPlus
+ * @package     Jjcommerce_CollectPlus
+ * @version     2.0.0
+ * @author      Jjcommerce Team
+ *
+ */
+
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+
+    <body>
+        <referenceBlock name="sales.order.print">
+            <referenceContainer name="content">
+                <!--<block class="Magento\Sales\Block\Order\Info" name="collectplus.order.info" template="info.phtml" cacheable="false" after="-"/>-->
+                <block class="Jjcommerce\CollectPlus\Block\Info" name="collectplus.order.info" template="infoprint.phtml" cacheable="false" after="-"/>
+            </referenceContainer>
+        </referenceBlock>
+    </body>
+</page>

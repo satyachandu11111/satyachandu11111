@@ -26,6 +26,9 @@
 //  Common
 //  _____________________________________________
 
+.rlb .column.main .product-items{
+	margin: 0;
+}
 & when (@media-common = true) {
     //  Product Lists
     .products {
@@ -57,7 +60,7 @@
 
             &-info {
                 max-width: 100%;
-                width: 152px;
+                width: 100%;
 
                 .page-products & {
                     width: 240px;
@@ -127,8 +130,8 @@
             }
 			.special-price{
 				.price {
-					font-size: 2rem;
-					line-height: 1.6rem;
+					font-size: 1.6rem;
+					line-height: 2.2rem;
                 }
 			}
             .regular-price {
@@ -176,14 +179,15 @@
             }
 
             &-item {
-                padding-left: @indent__base;
+                padding-left: 1rem;
+                padding-right: 1rem;
             }
         }
     }
 
     .price-container {
         .price {
-            .lib-font-size(14);
+            .lib-font-size(16);
         }
 
         .price-including-tax + .price-excluding-tax,
