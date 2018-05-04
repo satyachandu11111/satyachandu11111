@@ -20,18 +20,5 @@
                 <frontend_model>WeltPixel\Backend\Block\Adminhtml\System\Config\Extensions</frontend_model>
             </group>
         </section>
-        <section id="weltpixel_backend_developer" translate="label" type="text" sortOrder="1000" showInDefault="1" showInWebsite="1" showInStore="1">
-            <label>Developer</label>
-            <tab>weltpixel</tab>
-            <resource>WeltPixel_Backend::DeveloperSettings</resource>
-            <group id="logging" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Logging</label>
-                <field id="disable_broken_reference" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Disable Broken Reference logs</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Enable/Disable Broken reference warning and info logs from system.log file.</comment>
-                </field>
-            </group>
-        </section>
     </system>
 </config>

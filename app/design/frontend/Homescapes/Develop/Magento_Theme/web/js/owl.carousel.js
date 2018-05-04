@@ -1863,9 +1863,7 @@ define(["jquery"], // Require jquery
 								clones = this._core.clones().length,
 								load = $.proxy(function(i, v) { this.load(v) }, this);
 
-                            /** while (i++ < n) { */
-                            /** quick fix for stagePadding > 0 */
-                            while (i++ <= n) {
+							while (i++ < n) {
 								this.load(clones / 2 + this._core.relative(position));
 								clones && $.each(this._core.clones(this._core.relative(position++)), load);
 							}

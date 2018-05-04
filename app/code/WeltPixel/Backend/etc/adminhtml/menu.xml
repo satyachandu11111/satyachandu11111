@@ -53,15 +53,6 @@
                 resource="WeltPixel_Backend::WeltPixel_Debugger_Modules"
         />
         <add
-                id="WeltPixel_Backend::WeltPixel_Debugger_Developer"
-                title="Developer"
-                module="WeltPixel_Backend"
-                action="adminhtml/system_config/edit/section/weltpixel_backend_developer/"
-                sortOrder="25"
-                parent="WeltPixel_Backend::WeltPixel_Debugger"
-                resource="WeltPixel_Backend::WeltPixel_Debugger_Developer"
-        />
-        <add
                 id="WeltPixel_Backend::Pearl_Theme_Options"
                 title="Pearl Theme Options"
                 module="WeltPixel_Backend"

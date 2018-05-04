@@ -8,8 +8,4 @@
             <argument name="resourceModel" xsi:type="string">Magento\Framework\DataObject </argument>
         </arguments>
     </type>
-    <type name="Psr\Log\LoggerInterface">
-        <plugin name="weltpixel-backend-logger"
-                type="WeltPixel\Backend\Plugin\Logger" sortOrder="15"/>
-    </type>
 </config>
