@@ -192,7 +192,7 @@ $buttonTitle = __('Add to Cart');
                                         <span><?= $block->escapeHtml($_attribute->getProductAttribute()->getStoreLabel()) ?></span>
                                     </label>
                                     <div class="control">
-                                        <select name="super_attribute[<?php echo $_product->getId() ?>][<?= /* @escapeNotVerified */ $_attribute->getAttributeId() ?>]"
+                                        <select name="super_attribute[<?= /* @escapeNotVerified */ $_attribute->getAttributeId() ?>]"
                                                 data-selector="super_attribute[<?= /* @escapeNotVerified */ $_attribute->getAttributeId() ?>]"
                                                 data-validate="{required:true}"
                                                 id="attribute<?php /* @escapeNotVerified */ echo $_attribute->getAttributeId() ?>"
