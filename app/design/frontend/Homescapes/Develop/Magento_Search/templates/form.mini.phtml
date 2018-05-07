@@ -11,6 +11,8 @@
 /** @var $helper \Magento\Search\Helper\Data */
 $helper = $this->helper(\Magento\Search\Helper\Data::class);
 ?>
+
+<div class="mobile-bar">
 <div class="block block-search">
 	
 	
@@ -55,6 +57,8 @@ $helper = $this->helper(\Magento\Search\Helper\Data::class);
 			</form>
 		</div>
 		
+		<span class="mobile-visible">|</span>
+	
 		<div class="custom-links">
 			<ul class="mobile-visible">
 
@@ -63,7 +67,7 @@ $helper = $this->helper(\Magento\Search\Helper\Data::class);
 						<i class="fa fa-book"></i> Read Our Blog
 					</a>
 				</li>
-
+				<span class="mobile-visible">|</span>
 				<li>
 					<a href="{{store url=''}}track-your-order">
 						<i class="fas fa-map-marker-alt"></i> Track Order
@@ -72,6 +76,9 @@ $helper = $this->helper(\Magento\Search\Helper\Data::class);
 
 			</ul>
 		</div>
+	
+		<span class="mobile-visible">|</span>
+	
 		<div class="user-account">	
 			<ul class="mobile-visible">
 
@@ -85,4 +92,5 @@ $helper = $this->helper(\Magento\Search\Helper\Data::class);
 	
 		</div>
 	
+</div>
 </div>
