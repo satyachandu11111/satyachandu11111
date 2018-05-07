@@ -4,10 +4,18 @@ $displayText = $currentProduct->getAttributeText('complete_look_title');
 $completeLookProducts = $block->getCompletelookProducts();
 $buttonTitle = __('Add to Cart'); 
     if(is_array($completeLookProducts)){  ?>  
+
+
     <div class="complete-look">
         <?php $displayText = ($displayText ? $displayText : __('Complete Look')); ?>
-        <span><?php echo  $displayText; ?></span>
-        <div class="complete-look">
+		
+		<h3 class="section-title text-center">
+		
+        	<span><?php echo  $displayText; ?></span>
+			
+		</h3>
+		
+        <div class="conf-products">
     <?php  foreach($completeLookProducts as $completeLookProduct)
         {        
             $_product = $block->getLoadProduct($completeLookProduct);            
@@ -17,32 +25,39 @@ $buttonTitle = __('Add to Cart');
                 <form data-product-sku="<?= $block->escapeHtml($_product->getSku()) ?>"
           action="<?= /* @NoEscape */ $block->getAddToCartUrlForProduct($_product) ?>" method="post"
           id="product_addtocart_form_<?= $block->escapeHtml($_product->getSku()) ?>"<?php if ($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+					
+					
                 <input type="hidden" name="product" value="<?= /* @escapeNotVerified */ $_product->getId() ?>" />
                 <input type="hidden" name="selected_configurable_option" value="" />
+					
                 <?= $block->getBlockHtml('formkey') ?>
                 <div class="selection-product-price-<?php echo $_product->getId(); ?>" >
-                <div class="product-info">
-                    <div class="product-img"><img src="<?php echo $block->getImageUrl($_product); ?>" title="<?php echo $_product->getName() ?>" /></div>
-                    <div class="product-name-price">
-                        <span class="name"><?php echo $_product->getName(); ?></span>
-                        <div class="product-info-price">
-                        <?php echo $block->getProductPrice($_product); ?>
-                        </div>
-                        <a href="<?php echo $_product->getProductUrl(); ?>" title="<?php echo __('Description'); ?>"><?php echo __('Description'); ?></a>
-                    </div>
-                </div>
+					
+					<div class="product-info">
+						<div class="product-img"><img src="<?php echo $block->getImageUrl($_product); ?>" title="<?php echo $_product->getName() ?>" /></div>
+						
+						
+						<div class="product-name-price">
+							<span class="name"><?php echo $_product->getName(); ?></span>
+							<div class="product-info-price">
+								<?php echo $block->getProductPrice($_product); ?>
+							</div>
+							<a href="<?php echo $_product->getProductUrl(); ?>" title="<?php echo __('Description'); ?>"><?php echo __('Description'); ?></a>
+						</div>
+					</div>
+					
                 </div>    
             
             <?php if($_product->getTypeId()=='grouped'){ // check product type is group 
                      $_associatedProducts = $block->getAssociatedProducts($_product);                      
                      $_hasAssociatedProducts = count($_associatedProducts) > 0; ?> 
-                <div class="table-wrapper grouped">
+                <div class="table-wrapper group-pro grouped">
                     <table class="table data grouped" id="super-product-table-<?php echo $_product->getSku(); ?>">
                         <caption class="table-caption"><?= /* @escapeNotVerified */ __('Grouped product items') ?></caption>
                         <thead>
-                        <tr>
+                        <tr class="g-head">
                             <th class="col item" scope="col"><?= /* @escapeNotVerified */ __('Product Name') ?></th>
-                            <th class="col item" scope="col"><?= /* @escapeNotVerified */ __('Price') ?></th>
+                            <th class="col price" scope="col"><?= /* @escapeNotVerified */ __('Price') ?></th>
                             <?php if ($_product->isSaleable()): ?>
                                 <th class="col qty" scope="col"><?= /* @escapeNotVerified */ __('Qty') ?></th>
                             <?php endif; ?>
@@ -51,18 +66,22 @@ $buttonTitle = __('Add to Cart');
                         <?php if ($_hasAssociatedProducts){ ?>
                             <?php foreach ($_associatedProducts as $_item){ ?>
                             <tbody>
-                                <tr>
+                                <tr class="g-price">
                                     <td data-th="<?= $block->escapeHtml(__('Product Name')) ?>" class="col item">
                                         <strong class="product-item-name"><?= $block->escapeHtml($_item->getAttributeText('size')) ?></strong>                                                                                
                                     </td>
                                     <?php   // code for price range 
                                             $finalPrice = $_item->getPriceInfo()->getPrice('final_price')->getAmount()->getBaseAmount();
                                             $priceRange[]=$finalPrice; ?>             
-                                    <td data-th="<?= $block->escapeHtml(__('Price')) ?>" class="col item">
+                                    <td data-th="<?= $block->escapeHtml(__('Price')) ?>" class="col price">
                                         <?php if ($block->getCanShowProductPrice($_product)): ?>
                                             <?php if ($block->getCanShowProductPrice($_item)): ?>
                                                 <?= /* @escapeNotVerified */ $block->getProductPrice($_item) ?>
-                                                <?php echo  $percentage = $this->helper('Homescapes\Completelook\Helper\Data')->DisplayDiscount($_item); ?>
+                                          
+											<span class="g-discount">
+												<?php echo  $percentage = $this->helper('Homescapes\Completelook\Helper\Data')->DisplayDiscount($_item); ?>
+										    </span>
+										
                                             <?php endif; ?>
                                          <?php endif; ?>
                                     </td>
@@ -144,43 +163,55 @@ $buttonTitle = __('Add to Cart');
                     </button>
                     <?= $block->getChildHtml('', true) ?>
                 </div>
-            <?php  // end grouped product code             
+            <?php  // end grouped product code 
+						 
+						 
+						 
                 }elseif ($_product->getTypeId() == 'simple') {  //start simple product code  ?>
-                <div class="box-tocart">
-                    <div class="fieldset">
-                        <div class="field qty">
-                            <label class="label" for="qty"><span><?= /* @escapeNotVerified */ __('Qty') ?></span></label>
-                            <div class="control" data-mage-init='{
-                                        "qtyInput":{"qtyInputSelector": "#qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>",
-                                        "qtyIncrementSelector":"#inc-qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>",
-                                        "qtyDecrementSelector":"#dec-qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>"
-                                        }
-                                    }'>
-                                <div class="decreaseQty" id="dec-qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>" >-</div>
-                                <input type="number"
-                                       name="qty"                                       
-                                       value="<?= /* @escapeNotVerified */ $block->getProductDefaultQty() * 1 ?>"
-                                       title="<?= /* @escapeNotVerified */ __('Qty') ?>"
-                                       class="input-text qty"
-                                       id="qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>"
-                                       data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
-                                       />
-                                <div class="increaseQty" id="inc-qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>">+</div>   
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="actions">
-                    <button type="submit"
-                            title="<?= /* @escapeNotVerified */ __('Add to Cart'); ?>"
-                            class="action primary tocart"
-                            id="product-addtocart-button-<?php echo $_product->getSku() ?>">
-                        <span><?= /* @escapeNotVerified */ __('Add to Cart'); ?></span>
-                    </button>
-                    <?= $block->getChildHtml('', true) ?>
-                </div>
+				
+				<div class="simple-cart">
+					
+					<div class="box-tocart">
+						<div class="fieldset">
+							<div class="field qty">
+								<label class="label" for="qty"><span><?= /* @escapeNotVerified */ __('Qty') ?></span></label>
+								<div class="control" data-mage-init='{
+											"qtyInput":{"qtyInputSelector": "#qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>",
+											"qtyIncrementSelector":"#inc-qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>",
+											"qtyDecrementSelector":"#dec-qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>"
+											}
+										}'>
+									<div class="decreaseQty" id="dec-qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>" >-</div>
+									<input type="number"
+										   name="qty"                                       
+										   value="<?= /* @escapeNotVerified */ $block->getProductDefaultQty() * 1 ?>"
+										   title="<?= /* @escapeNotVerified */ __('Qty') ?>"
+										   class="input-text qty"
+										   id="qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>"
+										   data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
+										   />
+									<div class="increaseQty" id="inc-qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>">+</div>   
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="actions">
+						<button type="submit"
+								title="<?= /* @escapeNotVerified */ __('Add to Cart'); ?>"
+								class="action primary tocart"
+								id="product-addtocart-button-<?php echo $_product->getSku() ?>">
+							<span><?= /* @escapeNotVerified */ __('Add to Cart'); ?></span>
+						</button>
+						<?= $block->getChildHtml('', true) ?>
+					</div>
+					
+				</div>
                 
-            <?php // end simple  product type                    
+            <?php // end simple  product type  
+				
+				
+				
             }elseif($_product->getTypeId() == 'configurable') {  // start configurable product type  
                     
                     $_attributes = $block->decorateArray($block->getAllowAttributes($_product));                    
@@ -233,41 +264,44 @@ $buttonTitle = __('Add to Cart');
                 <?php }
                 
                         if ($_product->isSaleable()){ ?>
-                        <div class="box-tocart">
-                            <div class="fieldset">
-                                <?php if ($block->shouldRenderQuantity($_product)): ?>
-                                <div class="field qty">
-                                    <label class="label" for="qty"><span><?= /* @escapeNotVerified */ __('Qty') ?></span></label>
-                                    <div class="control" data-mage-init='{
-                                                                "qtyInput":{"qtyInputSelector": "#qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>",
-                                                                "qtyIncrementSelector":"#inc-qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>",
-                                                                "qtyDecrementSelector":"#dec-qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>"
-                                                                }
-                                                            }'>
-                                        <div class="decreaseQty" id="dec-qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>" >-</div>
-                                        <input type="number"
-                                               name="qty"
-                                               id="qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>"
-                                               value="<?= /* @escapeNotVerified */ $block->getProductDefaultQty() * 1 ?>"
-                                               title="<?= /* @escapeNotVerified */ __('Qty') ?>"
-                                               class="input-text qty"
-                                               data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
-                                               />
-                                        <div class="increaseQty" id="inc-qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>">+</div>
-                                    </div>
-                                </div>
-                                <?php endif; ?>
-                                <div class="actions">
-                                    <button type="submit"
-                                            title="<?= /* @escapeNotVerified */ $buttonTitle ?>"
-                                            class="action primary tocart"
-                                            id="product-addtocart-button">
-                                        <span><?= /* @escapeNotVerified */ $buttonTitle ?></span>
-                                    </button>
-                                    <?= $block->getChildHtml('', true) ?>
-                                </div>
-                            </div>
-                        </div>
+					
+						<div class="config-cart">
+							<div class="box-tocart">
+								<div class="fieldset">
+									<?php if ($block->shouldRenderQuantity($_product)): ?>
+									<div class="field qty">
+										<label class="label" for="qty"><span><?= /* @escapeNotVerified */ __('Qty') ?></span></label>
+										<div class="control" data-mage-init='{
+																	"qtyInput":{"qtyInputSelector": "#qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>",
+																	"qtyIncrementSelector":"#inc-qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>",
+																	"qtyDecrementSelector":"#dec-qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>"
+																	}
+																}'>
+											<div class="decreaseQty" id="dec-qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>" >-</div>
+											<input type="number"
+												   name="qty"
+												   id="qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>"
+												   value="<?= /* @escapeNotVerified */ $block->getProductDefaultQty() * 1 ?>"
+												   title="<?= /* @escapeNotVerified */ __('Qty') ?>"
+												   class="input-text qty"
+												   data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
+												   />
+											<div class="increaseQty" id="inc-qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>">+</div>
+										</div>
+									</div>
+									<?php endif; ?>
+									<div class="actions">
+										<button type="submit"
+												title="<?= /* @escapeNotVerified */ $buttonTitle ?>"
+												class="action primary tocart"
+												id="product-addtocart-button">
+											<span><?= /* @escapeNotVerified */ $buttonTitle ?></span>
+										</button>
+										<?= $block->getChildHtml('', true) ?>
+									</div>
+								</div>
+							</div>
+						</div>
                     <?php } ?>
                        
                 
@@ -285,6 +319,9 @@ $buttonTitle = __('Add to Cart');
         <?php } ?>
                 </div>
         </div>
+
+
+
     <?php }  
     
 ?>
