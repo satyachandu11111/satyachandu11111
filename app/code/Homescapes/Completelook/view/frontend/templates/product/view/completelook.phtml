@@ -2,6 +2,7 @@
 $currentProduct = $block->getCurrentProduct();
 $displayText = $currentProduct->getAttributeText('complete_look_title');
 $completeLookProducts = $block->getCompletelookProducts();
+$buttonTitle = __('Add to Cart'); 
     if(is_array($completeLookProducts)){  ?>  
     <div class="complete-look">
         <?php $displayText = ($displayText ? $displayText : __('Complete Look')); ?>
@@ -11,22 +12,26 @@ $completeLookProducts = $block->getCompletelookProducts();
         {        
             $_product = $block->getLoadProduct($completeLookProduct);            
             $priceRange = array();
-            ?>
-
+            ?>                
+            
                 <form data-product-sku="<?= $block->escapeHtml($_product->getSku()) ?>"
-          action="<?= /* @NoEscape */ $block->getSubmitUrl($_product) ?>" method="post"
+          action="<?= /* @NoEscape */ $block->getAddToCartUrlForProduct($_product) ?>" method="post"
           id="product_addtocart_form_<?= $block->escapeHtml($_product->getSku()) ?>"<?php if ($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
                 <input type="hidden" name="product" value="<?= /* @escapeNotVerified */ $_product->getId() ?>" />
                 <input type="hidden" name="selected_configurable_option" value="" />
                 <?= $block->getBlockHtml('formkey') ?>
+                <div class="selection-product-price-<?php echo $_product->getId(); ?>" >
                 <div class="product-info">
                     <div class="product-img"><img src="<?php echo $block->getImageUrl($_product); ?>" title="<?php echo $_product->getName() ?>" /></div>
                     <div class="product-name-price">
                         <span class="name"><?php echo $_product->getName(); ?></span>
-                        <span class="price"><?php echo $block->getProductPrice($_product); ?></span>
+                        <div class="product-info-price">
+                        <?php echo $block->getProductPrice($_product); ?>
+                        </div>
                         <a href="<?php echo $_product->getProductUrl(); ?>" title="<?php echo __('Description'); ?>"><?php echo __('Description'); ?></a>
                     </div>
                 </div>
+                </div>    
             
             <?php if($_product->getTypeId()=='grouped'){ // check product type is group 
                      $_associatedProducts = $block->getAssociatedProducts($_product);                      
@@ -175,8 +180,99 @@ $completeLookProducts = $block->getCompletelookProducts();
                     <?= $block->getChildHtml('', true) ?>
                 </div>
                 
-            <?php } // end check product type 
-            ?>
+            <?php // end simple  product type                    
+            }elseif($_product->getTypeId() == 'configurable') {  // start configurable product type  
+                    
+                    $_attributes = $block->decorateArray($block->getAllowAttributes($_product));                    
+                    ?>
+                    <?php if ($_product->isSaleable() && count($_attributes)){?>
+                         <?php foreach ($_attributes as $_attribute): ?>
+                                <div class="field configurable required configurable-container-<?php echo $_product->getId() ?>">
+                                    <label class="label" for="attribute<?= /* @escapeNotVerified */ $_attribute->getAttributeId() ?>">
+                                        <span><?= $block->escapeHtml($_attribute->getProductAttribute()->getStoreLabel()) ?></span>
+                                    </label>
+                                    <div class="control">
+                                        <select name="super_attribute[<?= /* @escapeNotVerified */ $_attribute->getAttributeId() ?>]"
+                                                data-selector="super_attribute[<?= /* @escapeNotVerified */ $_attribute->getAttributeId() ?>]"
+                                                data-validate="{required:true}"
+                                                id="attribute<?php /* @escapeNotVerified */ echo $_attribute->getAttributeId() ?>"
+                                                class="super-attribute-select-completelook">
+                                            <option value=""><?= /* @escapeNotVerified */ __('Choose an Option...') ?></option>
+                                        </select>
+                                    </div>
+                                </div>                                
+                            <?php endforeach; ?>
+                            <script>
+                                require([
+                                    'jquery',
+                                    'jquery/ui',
+                                    'custompriceBox',
+                                    'mdConfigurable'
+
+
+                                ], function($){
+                                    var priceBoxes = $('[data-role=priceBox]');
+
+                                    priceBoxes = priceBoxes.filter(function(index, elem){
+                                        return !$(elem).find('.price-from').length;
+                                    });
+
+                                    priceBoxes.custompriceBox({'priceConfig': <?php /* @escapeNotVerified */ echo $block->getPriceJsonConfig($_product) ?>});
+                                });
+                            </script>                          
+                            
+                                <script>
+                        require(["jquery", "jquery/ui", "custompriceBox","mdConfigurable"], function ($) {
+                            $('#product_addtocart_form_<?= $block->escapeHtml($_product->getSku()) ?>').configurable({
+                                spConfig: <?php /* @escapeNotVerified */ echo $block->getJsonConfigCompletelook($_product) ?>,
+                                priceHolderSelector: '.selection-product-price-<?php echo $_product->getId() ?> .price-box'
+                            });
+                        });
+                    </script>
+                    
+                <?php }
+                
+                        if ($_product->isSaleable()){ ?>
+                        <div class="box-tocart">
+                            <div class="fieldset">
+                                <?php if ($block->shouldRenderQuantity($_product)): ?>
+                                <div class="field qty">
+                                    <label class="label" for="qty"><span><?= /* @escapeNotVerified */ __('Qty') ?></span></label>
+                                    <div class="control" data-mage-init='{
+                                                                "qtyInput":{"qtyInputSelector": "#qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>",
+                                                                "qtyIncrementSelector":"#inc-qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>",
+                                                                "qtyDecrementSelector":"#dec-qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>"
+                                                                }
+                                                            }'>
+                                        <div class="decreaseQty" id="dec-qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>" >-</div>
+                                        <input type="number"
+                                               name="qty"
+                                               id="qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>"
+                                               value="<?= /* @escapeNotVerified */ $block->getProductDefaultQty() * 1 ?>"
+                                               title="<?= /* @escapeNotVerified */ __('Qty') ?>"
+                                               class="input-text qty"
+                                               data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
+                                               />
+                                        <div class="increaseQty" id="inc-qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>">+</div>
+                                    </div>
+                                </div>
+                                <?php endif; ?>
+                                <div class="actions">
+                                    <button type="submit"
+                                            title="<?= /* @escapeNotVerified */ $buttonTitle ?>"
+                                            class="action primary tocart"
+                                            id="product-addtocart-button">
+                                        <span><?= /* @escapeNotVerified */ $buttonTitle ?></span>
+                                    </button>
+                                    <?= $block->getChildHtml('', true) ?>
+                                </div>
+                            </div>
+                        </div>
+                    <?php } ?>
+                       
+                
+                <?php  }  ?>
+            
             
                     <script type="text/x-magento-init">
                     {
