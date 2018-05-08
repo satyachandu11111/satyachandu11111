@@ -76,8 +76,8 @@
                         <div class="increaseQty" id="inc-qty-<?php /* @escapeNotVerified */ echo $_item->getId() ?>">+</div>
                     </div>
                 <?php else: ?>
-                    <div class="stock unavailable" title="<?= /* @escapeNotVerified */ __('Availability') ?>">
-                        <span><?= /* @escapeNotVerified */ __('Out of stock') ?></span>
+                    <div class="stock" title="<?= /* @escapeNotVerified */ __('Availability') ?>">
+                        <span class="unavailable"><?= /* @escapeNotVerified */ __('Out of stock') ?></span>
                     </div>
                 <?php endif; ?>
                 </td>

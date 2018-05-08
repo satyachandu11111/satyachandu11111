@@ -114,6 +114,13 @@
 input:not([disabled]):focus{
 	box-shadow: none;
 }
+body{
+	color: @black;
+}
+
+._keyfocus :focus, input:not([disabled]):focus, textarea:not([disabled]):focus, select:not([disabled]):focus{
+	box-shadow: none;
+}
 #maincontent, .header.content, .breadcrumbs, .footer.content {
 	max-width : 124rem;
 }
@@ -500,7 +507,7 @@ h6, .h6 {
 .wsmenu {
   color:@white;
   position: relative;
-  font-size:@font16;
+  font-size:1.5rem;
   padding: 0px;
   margin: 0px auto;
   width: 100%;
@@ -2266,8 +2273,85 @@ transition: all 5ms ease-in-out 0s;
 /*--------------------------------------------------------------------------
 |  Product Page 
 --------------------------------------------------------------------------*/
+
+
+/*---------------------------
+|  Product Delivery & offers Block
+------------------------------*/
+.product-delivery{
+	
+	background: @f9light;
+	padding: 1.5rem;
+	float: left;
+	margin-bottom: 4rem;
+	
+	.head span{
+		font-weight: bold;
+		
+		.fas{
+			color: @blue;
+			margin-right: .5rem;
+			font-size: @font16;
+			width: 2.1rem;
+			text-align: center;
+		}
+		.pl{
+			 -webkit-transform: rotate(-90deg);
+			-moz-transform: rotate(-90deg);
+			-ms-transform: rotate(-90deg);
+			-o-transform: rotate(-90deg);
+			transform: rotate(-90deg);
+		}
+	}
+	.info{
+		margin:1rem 0 0 2.9rem ;
+		font-size: 1.3rem;
+		
+	}
+	
+	
+}
+
+.product-offers{
+
+	background: @f9light;
+	padding: 1rem 1.5rem;
+	float: left;
+	margin-bottom: 1rem;
+}
+/*---------------------------
+|  Product Delivery Block ends
+------------------------------*/
+
+
 .countdown{
-	margin-bottom:1.5rem;
+	margin-bottom: 0.5rem;
+    float: right;
+    width: 72%;
+    background: #f9f9f9;
+    padding: 0.5rem 1rem;
+    border-radius: .4rem;
+	
+	#date, #time{
+		color: @blue;
+	}
+}
+.countdown:before{
+	content: '\f017';
+	width: 30px;
+	font-size: 2.6rem;
+	line-height: 40px;
+	color: inherit;
+	font-family: "Font Awesome 5 Free";
+	margin: 0 5px 0 0;
+	vertical-align: middle;
+	display: inline-block;
+	font-weight: normal;
+	overflow: hidden;
+	speak: none;
+	text-align: center;
+	height: 40px;
+	float: left;
 }
 .catalog-product-view{
 
@@ -2320,30 +2404,35 @@ transition: all 5ms ease-in-out 0s;
 		float: left;
 		width: 100%;
 		
+		@media @767{
+			padding-top: 0;
+		}
+		
 		.control{
 			width:100%;
 			text-align: center;
 			
-			.decreaseQty{
-				float: left;
-				padding: 3px 1.6rem;
-				border: 1px solid @border-color;
+			
+			.decreaseQty, .increaseQty{
 				border-radius: .4rem;
 				font-size:@font24;
 				cursor: pointer;
+				background-color: @f2light;
+			}
+			
+			.decreaseQty{
+				float: left;
+				padding: .4rem 1.8rem;
 			}
 			.increaseQty{
 				float: right;
-				padding: 3px 1.4rem;
-				border: 1px solid @border-color;
-				margin-right: .5rem;
-				border-radius: .4rem;
-				font-size:@font24;
-				cursor: pointer;
+				padding: .4rem 1.4rem;
 			}
 			.input-text{
-				height:4.2rem;
+				height:4.3rem;
 				border-radius: .4rem;
+				background-color: @f2light;
+				border: none;
 			}
 		}
 		.label{
@@ -2360,6 +2449,10 @@ transition: all 5ms ease-in-out 0s;
 			@media @991{
 				width: 86%;
 			}
+			
+			@media @639{
+				width: 100%;
+			}
 			.action.tocart{
 				@media @1200{
 					width: 52%;
@@ -2375,8 +2468,9 @@ transition: all 5ms ease-in-out 0s;
 			}
 			
 			.field{
-				width: 16rem;
+				width: 15rem;
 				float: left;
+				margin-right: 1rem;
 			}
 		}
 	}
@@ -2388,9 +2482,13 @@ transition: all 5ms ease-in-out 0s;
 		background: @flight;
 		text-align: center;
 		cursor: pointer;
+		margin-bottom: 1rem;
 		
 		@media @991{
 			width: 5rem;
+		}
+		@media @767{
+			display: none;
 		}
 		
 		.action{
@@ -2423,6 +2521,12 @@ transition: all 5ms ease-in-out 0s;
 			margin: 0;
 		}
 	}
+	
+	
+	select{
+		border-radius: .4rem;
+		height: @font40;
+	}
 }
 /*----------------------
 |  Product swatch
@@ -2436,6 +2540,9 @@ transition: all 5ms ease-in-out 0s;
 	}
 	
 	.choose-color-related-items{
+		
+		float: left;
+		
 		span{
 			font-size: @font16;
 			font-weight: bold;
@@ -2450,6 +2557,7 @@ transition: all 5ms ease-in-out 0s;
 		li:first-child{
 			border: 2px solid @light-black;
 		}
+
 		li{
 			border: 2px solid @border-color;
 			margin-right: .5rem;
@@ -2463,8 +2571,10 @@ transition: all 5ms ease-in-out 0s;
 			}
 		}
 	}
+	.qty .stock{
+		width: 100%;
+	}
 	.stock-label{
-		margin-left: 1rem;
 		font-weight: bold;
 		
 		@media @991{
@@ -2517,6 +2627,10 @@ transition: all 5ms ease-in-out 0s;
 		font-weight: bold;
 		color: @light-black;
 		border-right: 0;
+		
+		@media @767{
+			font-size: @base;
+		}
 	}
 	.item.title.active > .switch, .item.title.active > .switch:hover{
 		background: @f2light;
@@ -2524,6 +2638,10 @@ transition: all 5ms ease-in-out 0s;
 		font-size: @font16;
 		border-top: 2px solid #8A8A8A;
 		border-left: 2px solid #8A8A8A;
+		
+		@media @767{
+			font-size: @base;
+		}
 	}
 	.item.title:not(.disabled) > .switch:hover, .item.title:not(.disabled) > .switch:active, .item.title.active > .switch:hover{
 		background: @f2light;
@@ -2694,6 +2812,7 @@ transition: all 5ms ease-in-out 0s;
 		.fieldset > .field{
 			max-width: 15rem;
 			float: left;
+			margin: 0;
 		}
 		.actions .tocart{
 			margin-right: 0;
@@ -2974,7 +3093,7 @@ transition: all 5ms ease-in-out 0s;
 		}
 	}
 	.product-info-main .product-reviews-summary{
-		margin-bottom: 1.5rem;
+		margin-bottom: 1rem;
 		
 		@media @991{
 			margin-bottom: @base;
@@ -2993,6 +3112,7 @@ transition: all 5ms ease-in-out 0s;
 		.group-prod-price{
 			font-size: @font40;
 		}
+
 	}
 	
 	.product-add-form{
@@ -3082,7 +3202,7 @@ transition: all 5ms ease-in-out 0s;
 		margin: 0;
 		
 		@media @639{
-			width: 75%;
+			width: 100%;
 		}
 		.action.tocart{
 			width: 98%;
@@ -3090,6 +3210,7 @@ transition: all 5ms ease-in-out 0s;
 			@media @767{
 				padding: .9rem 1.5rem;
 				border-radius: .4rem;
+				width: 100%;
 			}
 		}
 

@@ -28,19 +28,19 @@
         <move element="copyright" destination="before.body.end"/>
 
 
-	 <referenceBlock name="catalog.topnav" remove="true" /> 
+	 <referenceBlock name="catalog.topnav" remove="true" />   <!--defualt navigation removed-->
 	
-	<move element="minicart" before="-" destination="header.panel"/> 
+	<move element="minicart" before="-" destination="header.panel"/> <!--minicart moved to top bar-->
 
-	<referenceBlock name="footer_links" remove="true"/>	
+	<referenceBlock name="footer_links" remove="true"/>	<!--default footer links removed-->
 
-	<referenceBlock name="copyright" remove="true"/>	
+	<referenceBlock name="copyright" remove="true"/>	<!--default copyright removed-->
 
-	<referenceContainer name="header.panel">
+	<referenceContainer name="header.panel">		<!--contact block added-->
 		  <block class="Magento\Framework\View\Element\Template" name="header.contact" template="Magento_Theme::header_contact.phtml"/>
 	</referenceContainer> 
 
-	<referenceBlock name="catalog.compare.sidebar" remove="true"/> 
+	<referenceBlock name="catalog.compare.sidebar" remove="true"/> <!--removed compare section from sidebar-->
 
 	<referenceBlock name="header.links">
             <block class="Magento\Customer\Block\Account\Customer" name="customer" template="account/customer.phtml" before="-"/>

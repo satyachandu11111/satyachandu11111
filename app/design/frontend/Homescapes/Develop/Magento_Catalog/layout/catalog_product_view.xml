@@ -8,7 +8,22 @@
 <page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <move element="page.main.title" destination="product.info.main" before="-"/>
-        <move element="product.info.stock.sku" destination="product.info.main" after="page.main.title"/>
+        <move element="product.info.sku" destination="product.info.main" after="page.main.title"/>
         <move element="product.info.review" destination="product.info.main" before="product.info.price"/>
+		
+		
+		<referenceContainer name="product.info.main">		<!--delivery block added-->
+		  <block class="Magento\Framework\View\Element\Template" name="product.delivery" template="Magento_Catalog::product_delivery.phtml" after="-"/>
+		</referenceContainer>
+		
+		<referenceContainer name="product.info.main">		<!--offers block added-->
+		  <block class="Magento\Framework\View\Element\Template" name="product.offers" template="Magento_Catalog::product_offers.phtml" before="product.delivery"/>
+		</referenceContainer>
+		
+		
+		
+        <move element="product.info.type" destination="product.info.main" before="DeliveryCountdown"/>
+        <move element="DeliveryCountdown" destination="product.info.main" after="product.info.price"/>
+		
     </body>
 </page>

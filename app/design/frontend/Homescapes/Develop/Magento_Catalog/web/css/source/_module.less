@@ -179,10 +179,10 @@
             width: 100%;
 
             .price-box {
-                display: table-cell;
+                display: flex;
                 vertical-align: top;
                 width:100%;
-				max-width: 21rem;
+				max-width: 30rem;
 				float: left;
 
                 .price-container {
@@ -226,6 +226,7 @@
             .special-price {
 				
 				float: right;
+				order: 2;
 				
                 .price-label {
                     &:after {
@@ -248,11 +249,12 @@
         }
 
         .stock {
-            margin-left: 5px;
-			float: right;
+            margin-left:0;
+			float: left;
+			width: 27%;
 
-            &.available,
-            &.unavailable {
+            .available,
+            .unavailable {
                 font-weight: @font-weight__bold;
                 text-transform: uppercase;
 				border-radius: .3rem;
@@ -261,10 +263,10 @@
 				color:@white;
 				margin-top: .1rem;
             }
-			&.available{
+			.available{
 				background:@green;
 			}
-			&.unavailable{
+			.unavailable{
 				background:@danger;
 			}
         }
@@ -273,6 +275,9 @@
             word-break: break-all;
             word-wrap: break-word;
 			float: left;
+			margin-right: 1rem;
+			padding-right: 1rem;
+			border-right: 1px solid #ccc;
 			
 			.fa-th-large{
 				margin-top: -3px;
@@ -382,6 +387,8 @@
         .old-price {
             font-size: 20px;
             font-weight: @font-weight__light;
+			float: left;
+			margin-right: 1.5rem;
 
             .price-container > span {
                 display: inline-block;
@@ -735,7 +742,7 @@
         .product-options-wrapper {
             .field {
                 .control {
-                    width: 80%;
+                    width: 66%;
                 }
             }
         }
