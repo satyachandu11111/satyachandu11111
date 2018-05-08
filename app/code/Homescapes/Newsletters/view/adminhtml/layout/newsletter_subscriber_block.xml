@@ -86,20 +86,20 @@
                             <argument name="column_css_class" xsi:type="string">col-type</argument>
                         </arguments>
                     </block>
-                    <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.newslettrer.subscriber.grid.columnSet.firstname" as="firstname">
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.newslettrer.subscriber.grid.columnSet.c_first" as="c_first">
                         <arguments>
                             <argument name="header" xsi:type="string" translate="true">Customer First Name</argument>
-                            <argument name="index" xsi:type="string">firstname</argument>
+                            <argument name="index" xsi:type="string">c_first</argument>
                              <argument name="renderer" xsi:type="string">Homescapes\Newsletters\Block\Adminhtml\Template\Grid\Renderer\Customerfirstname</argument>
                             <argument name="default" xsi:type="string">----</argument>
                             <argument name="header_css_class" xsi:type="string">col-first-name</argument>
                             <argument name="column_css_class" xsi:type="string">col-first-name</argument>
                         </arguments>
                     </block>
-                    <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.newslettrer.subscriber.grid.columnSet.lastname" as="lastname">
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.newslettrer.subscriber.grid.columnSet.c_last" as="c_last">
                         <arguments>
                             <argument name="header" xsi:type="string" translate="true">Customer Last Name</argument>
-                            <argument name="index" xsi:type="string">lastname</argument>
+                            <argument name="index" xsi:type="string">c_last</argument>
                             <argument name="renderer" xsi:type="string">Homescapes\Newsletters\Block\Adminhtml\Template\Grid\Renderer\Customerlastname</argument>
                             <argument name="default" xsi:type="string">----</argument>
                             <argument name="header_css_class" xsi:type="string">col-last-name</argument>
