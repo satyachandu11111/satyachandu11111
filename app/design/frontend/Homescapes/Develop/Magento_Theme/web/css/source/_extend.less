@@ -2332,6 +2332,11 @@ transition: all 5ms ease-in-out 0s;
     padding: 0.5rem 1rem;
     border-radius: .4rem;
 	
+	@media @991{
+		width: 100%;
+		margin-top: 1rem;
+	}
+	
 	#date, #time{
 		color: @blue;
 	}
@@ -2542,6 +2547,7 @@ transition: all 5ms ease-in-out 0s;
 	.choose-color-related-items{
 		
 		float: left;
+		width: 100%;
 		
 		span{
 			font-size: @font16;
@@ -2573,6 +2579,18 @@ transition: all 5ms ease-in-out 0s;
 	}
 	.qty .stock{
 		width: 100%;
+		text-align: center;
+		
+		@media @479{
+			background: @danger;
+			border-radius: .3rem;
+			padding: .2rem .8rem .2rem .8rem;
+		}
+		.unavailable{
+			@media @479{
+				padding: 0;
+			}
+		}
 	}
 	.stock-label{
 		font-weight: bold;
@@ -2601,7 +2619,7 @@ transition: all 5ms ease-in-out 0s;
 |  Product details
 ---------------------------------------*/
 .product.info.detailed{
-	width: 50%;
+	width: 100%;
 	float: left;
 	clear: both;
 	
@@ -2653,7 +2671,6 @@ transition: all 5ms ease-in-out 0s;
 /*----------------------------------
 |  complete the look
 ---------------------------------------*/
-
 .complete-look{
 	float: right;
 	width: 48%;
@@ -3096,7 +3113,7 @@ transition: all 5ms ease-in-out 0s;
 		margin-bottom: 1rem;
 		
 		@media @991{
-			margin-bottom: @base;
+			margin-bottom: .5rem;;
 		}
 	}
 	
@@ -3446,3 +3463,138 @@ transition: all 5ms ease-in-out 0s;
 
 }
 
+/*--------------------------------------------------------------------------
+|  Login page
+--------------------------------------------------------------------------*/
+.customer-account-login {
+	.login-container{
+		.block{
+			float: none;
+			margin: auto;
+		}
+		.fieldset::after{
+			margin-top: 1rem;
+			display: none;
+		}
+		.actions-toolbar > .primary, .actions-toolbar > .secondary{
+			width: 100%;
+				
+			.action{
+				width:100%;
+			}
+		}
+		input[type="password"], input[type="email"]{
+			height: 4rem;
+			border-radius: .4rem;
+			font-family: inherit;
+		}
+		.action.primary{
+			height: 4rem;
+			border-radius: .4rem;
+		}
+		.block-new-customer {
+			
+			margin-top:@font30;
+			margin-bottom:@font20;
+			
+			.actions-toolbar .primary{
+				background: @white;
+				color: @black;
+				height:@font40;
+				border-radius: .4rem;
+				border-color:@light-black;
+			}
+			.actions-toolbar{
+				margin-top: 0;
+			}
+		}
+		.privacy-notice{
+			margin-top: 3rem;
+			padding-bottom: 1rem;
+			border-bottom: 1px solid @border-color;
+			text-align: center;
+		}
+	}
+	
+}
+.form.create.account{
+	
+	input[type="password"], input[type="text"], input[type="email"]{
+		height: 4rem;
+		border-radius: .4rem;
+		font-family: inherit;
+	}
+	.fieldset{
+		margin-bottom: 1.5rem;
+	}
+	.secondary{
+		width: 100%;
+		
+		.action{
+			
+			background: @white;
+			border:1px solid @light-black;
+			color: @black;
+			border-radius: .4rem;
+		}
+	}
+	.block-title{
+		font-size: @font18;
+		margin-bottom: 1rem;
+	}
+	.actions-toolbar .primary{
+		
+		height:@font40;
+		border-radius: .4rem;
+		width: 100%;
+		margin-bottom: 2rem;
+	}
+	.terms-conditions{
+		margin-bottom: 2rem;
+	}
+}
+/*--------------------------------------------------------------------------
+|  Newsletter landing page
+--------------------------------------------------------------------------*/
+.newsletter-landing{
+	
+	h3{
+		margin-top: 2rem;
+	}
+	
+	.form{
+		padding: 1.5rem;
+	}
+	.newsletter-icons{
+		margin-top: 2rem;
+		margin-bottom:2rem;
+	}
+	.terms-conditions{
+		ul{
+			margin:1.5rem 1.8rem;
+			list-style-type: disc;
+			line-height: @font24;
+				
+		}
+	}
+	.newsletter-banner{
+		margin: 0 -1.5rem;
+		overflow: hidden;
+		max-height: 36rem;
+	}
+	input[type="text"], input[type="email"]{
+		height: 4rem;
+		border-radius: .4rem;
+	}
+	.fieldset{
+		margin-bottom: 3rem;
+	}
+	.actions-toolbar > .primary .action{
+		width: 20rem;
+		border-radius: .4rem;
+		height: 4rem;
+	}
+	.form-section{
+		background: @f9light;
+	}
+}
