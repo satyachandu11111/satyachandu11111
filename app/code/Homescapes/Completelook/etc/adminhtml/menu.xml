@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Homescapes_Completelook::homescapes" title="Homescapes" module="Homescapes_Completelook" sortOrder="51" resource="Homescapes_Completelook::homescapes"/>
+        <add id="Homescapes_Completelook::importcompletelook" title="Import Completelook Products" module="Homescapes_Completelook" sortOrder="10" action="completelook/import" resource="Homescapes_Completelook::importcompletelook" parent="Homescapes_Completelook::homescapes"/>        
+    </menu>
+</config>
+

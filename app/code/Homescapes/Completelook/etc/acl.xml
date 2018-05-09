@@ -3,6 +3,9 @@
     <acl>
         <resources>
             <resource id="Magento_Backend::admin">
+                 <resource id="Homescapes_Completelook::helloworld" title="Homescapes" sortOrder="51">
+                    <resource id="Homescapes_Completelook::importcompletelook" title="Import Completelook Products" sortOrder="10"/>                    
+                </resource>
                 <resource id="Magento_Backend::stores">
                     <resource id="Magento_Backend::stores_settings">
                         <resource id="Magento_Config::config">
