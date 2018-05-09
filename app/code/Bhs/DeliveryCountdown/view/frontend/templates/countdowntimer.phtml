@@ -5,6 +5,7 @@ $checkEnable = $block->isEnable();
 		$product = $block->getCurrentProduct();
 		$attrCode = $block->getAttrCode();    
 			if($product->getData($attrCode) || $attrCode == ''){
+                            if($product->isSaleable()){
 ?>
 
   <div  id="countDown" name="countDown"  class="countdown"><?php // echo $block->buildString(); ?></div>
@@ -25,6 +26,7 @@ $checkEnable = $block->isEnable();
     });
 </script>
 
-<?php      }
+                            <?php     }
+                }   
     }  ?>
 
