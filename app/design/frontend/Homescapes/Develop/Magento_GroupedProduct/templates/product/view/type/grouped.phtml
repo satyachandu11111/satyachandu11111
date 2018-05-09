@@ -26,9 +26,9 @@
         <tr  class="g-head">
             <th class="col item" scope="col"><?= /* @escapeNotVerified */ __('Product Name') ?></th>
             <th class="col price" scope="col"><?= /* @escapeNotVerified */ __('Price') ?></th>
-            <?php if ($_product->isSaleable()): ?>
+            <?php // if ($_product->isSaleable()): ?>
                 <th class="col qty" scope="col"><?= /* @escapeNotVerified */ __('Qty') ?></th>
-            <?php endif; ?>
+            <?php // endif; ?>
         </tr>
         </thead>
 
@@ -54,7 +54,7 @@
 					</div>
 					
                 </td>
-                <?php if ($_product->isSaleable()): ?>
+                <?php // if ($_product->isSaleable()): ?>
                 <td data-th="<?= $block->escapeHtml(__('Qty')) ?>" class="col qty">
                 <?php if ($_item->isSaleable()) : ?>
                     <div class="control qty" data-mage-init='{
@@ -81,7 +81,7 @@
                     </div>
                 <?php endif; ?>
                 </td>
-                <?php endif; ?>
+                <?php // endif; ?>
             </tr>
             <?php if ($block->getCanShowProductPrice($_product)
                 && $block->getCanShowProductPrice($_item)

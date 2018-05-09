@@ -58,9 +58,9 @@ $buttonTitle = __('Add to Cart');
                         <tr class="g-head">
                             <th class="col item" scope="col"><?= /* @escapeNotVerified */ __('Product Name') ?></th>
                             <th class="col price" scope="col"><?= /* @escapeNotVerified */ __('Price') ?></th>
-                            <?php if ($_product->isSaleable()): ?>
+                            <?php // if ($_product->isSaleable()): ?>
                                 <th class="col qty" scope="col"><?= /* @escapeNotVerified */ __('Qty') ?></th>
-                            <?php endif; ?>
+                            <?php // endif; ?>
                         </tr>
                         </thead>
                         <?php if ($_hasAssociatedProducts){ ?>
@@ -85,7 +85,7 @@ $buttonTitle = __('Add to Cart');
                                             <?php endif; ?>
                                          <?php endif; ?>
                                     </td>
-                                    <?php if ($_product->isSaleable()): ?>
+                                    <?php // if ($_product->isSaleable()): ?>
                                     <td data-th="<?= $block->escapeHtml(__('Qty')) ?>" class="col qty">
                                     <?php if ($_item->isSaleable()) : ?>
                                         
@@ -113,7 +113,7 @@ $buttonTitle = __('Add to Cart');
                                         </div>
                                     <?php endif; ?>
                                     </td>
-                                    <?php endif; ?>
+                                    <?php // endif; ?>
                                 </tr>
                                 <?php if ($block->getCanShowProductPrice($_product)
                                     && $block->getCanShowProductPrice($_item)
@@ -153,16 +153,18 @@ $buttonTitle = __('Add to Cart');
                             $(".price-box[data-product-id='"+productId+"'] .price-box").html(jQuery("#group_product_price_"+productId).html());
                             });
                         </script>
-                <div id="validation-message-box-<?php echo $_product->getSku(); ?>"></div>
-                <div class="actions">
-                    <button type="submit"
-                            title="<?=   __('Add to Cart'); ?>"
-                            class="action primary tocart"
-                            id="product-addtocart-button-<?php echo $_product->getSku() ?>">
-                        <span><?= /* @escapeNotVerified */  __('Add to Cart'); ?></span>
-                    </button>
-                    <?= $block->getChildHtml('', true) ?>
-                </div>
+                        <?php if ($_product->isSaleable()){ ?>
+                        <div id="validation-message-box-<?php echo $_product->getSku(); ?>"></div>
+                        <div class="actions">
+                            <button type="submit"
+                                    title="<?=   __('Add to Cart'); ?>"
+                                    class="action primary tocart"
+                                    id="product-addtocart-button-<?php echo $_product->getSku() ?>">
+                                <span><?= /* @escapeNotVerified */  __('Add to Cart'); ?></span>
+                            </button>
+                            <?= $block->getChildHtml('', true) ?>
+                        </div>
+                        <?php  } ?>
             <?php  // end grouped product code 
 						 
 						 
@@ -170,7 +172,7 @@ $buttonTitle = __('Add to Cart');
                 }elseif ($_product->getTypeId() == 'simple') {  //start simple product code  ?>
 				
 				<div class="simple-cart">
-					
+                                    <?php if ($_product->isSaleable()){ ?>
 					<div class="box-tocart">
 						<div class="fieldset">
 							<div class="field qty">
@@ -205,6 +207,17 @@ $buttonTitle = __('Add to Cart');
 						</button>
 						<?= $block->getChildHtml('', true) ?>
 					</div>
+                                    <?php }else{ ?>    
+                                    
+                                    <div class="product-info-stock-sku">
+                                        <div class="stock" title="Availability">
+                                                <span class="stock-label">Availability: </span>
+                                                <span class="unavailable"><?php echo __('Out of stock'); ?></span>
+                                        </div>                                           
+                                    </div>
+                                    
+                                    
+                                    <?php } ?>
 					
 				</div>
                 
@@ -302,8 +315,14 @@ $buttonTitle = __('Add to Cart');
 								</div>
 							</div>
 						</div>
-                    <?php } ?>
-                       
+                    <?php }else{ ?>
+                            <div class="product-info-stock-sku">
+                                <div class="stock" title="Availability">
+                                        <span class="stock-label">Availability: </span>
+                                        <span class="unavailable"><?php echo __('Out of stock'); ?></span>
+                                </div>                                           
+                            </div>
+                    <?php } ?>   
                 
                 <?php  }  ?>
             
