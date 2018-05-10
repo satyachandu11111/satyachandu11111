@@ -6418,9 +6418,9 @@ $('#ProductCarousel').on('slide.bs.carousel', function (e) {
 							  
 	
 
-if ($('.complete-look').length > 0) {
-    $('.product.info.detailed').css('width', '50%');
-}
+//if ($('.complete-look').length > 0) {
+//    $('.product.info.detailed').css('width', '50%');
+//}
 
 					   
 							   

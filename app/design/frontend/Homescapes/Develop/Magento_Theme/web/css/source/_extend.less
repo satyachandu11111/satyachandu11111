@@ -245,8 +245,10 @@ h6, .h6 {
 }
 
 .page-header .fa-phone{
-	transform: rotate(110deg);
-	font-size:@base;
+	transform: rotate(91deg);
+	font-size: @base;
+	margin-right: 7px;
+	padding-bottom: 3px;
 }
 .call-our{
 	
@@ -2619,7 +2621,7 @@ transition: all 5ms ease-in-out 0s;
 |  Product details
 ---------------------------------------*/
 .product.info.detailed{
-	width: 100%;
+	width: 50%;
 	float: left;
 	clear: both;
 	
@@ -2712,7 +2714,10 @@ transition: all 5ms ease-in-out 0s;
 		a{
 			font-weight:bold;
 		}
-		
+		div.mage-error[generated]{
+			position: absolute;
+			margin-top: 1px;
+		}
 		.price-wrapper .price{
 			font-size: @font18;
 			font-weight: bold;
@@ -2767,7 +2772,7 @@ transition: all 5ms ease-in-out 0s;
 		border: 1px solid @f2light;
 	}
 	.simple-cart, .config-cart{
-		margin-top: 1rem;
+		margin-top: 2rem;
 		
 		.box-tocart{
 			float: left;
@@ -2811,6 +2816,17 @@ transition: all 5ms ease-in-out 0s;
 			@media @767{
 				width: 14rem;
 			}
+		}
+		
+		.unavailable{
+			font-weight: 700;
+			text-transform: uppercase;
+			border-radius: .3rem;
+			font-size: 1rem;
+			padding: .2rem .8rem .2rem .8rem;
+			color:@white;
+			margin-top: .1rem;
+			background: @danger
 		}
 	}
 	
@@ -2958,6 +2974,17 @@ transition: all 5ms ease-in-out 0s;
 			.g-discount{
 				color: @danger;
 				font-weight: bold;
+			}
+			
+			.unavailable{
+				font-weight: 700;
+				text-transform: uppercase;
+				border-radius: .3rem;
+				font-size: 1rem;
+				padding: .2rem .8rem .2rem .8rem;
+				color:@white;
+				margin-top: .1rem;
+				background: @danger
 			}
 		}
 
