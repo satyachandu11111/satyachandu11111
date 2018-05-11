@@ -41,6 +41,9 @@ $buttonTitle = __('Add to Cart');
 							<span class="name"><?php echo $_product->getName(); ?></span>
 							<div class="product-info-price">
 								<?php echo $block->getProductPrice($_product); ?>
+                                                                <span class="g-discount">
+                                                                    <?php echo  $percentage = $this->helper('Homescapes\Completelook\Helper\Data')->DisplayDiscount($_product); ?>
+								</span>
 							</div>
 							<a href="<?php echo $_product->getProductUrl(); ?>" title="<?php echo __('Description'); ?>"><?php echo __('Description'); ?></a>
 						</div>
