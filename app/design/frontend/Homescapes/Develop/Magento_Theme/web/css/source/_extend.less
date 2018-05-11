@@ -98,6 +98,10 @@
 
 @992: ~"only screen and (min-width:992px)";
 
+@1024: ~"only screen and (min-width:1024px)";
+
+@1199: ~"only screen and (min-width:1200px)";
+
 @1200: ~"only screen and (max-width:1200px)";
 
 @768-1279: ~"only screen and (min-width:768px) and(max-width:1279px)";
@@ -1492,6 +1496,7 @@ transition: all 5ms ease-in-out 0s;
 				margin-right: 5px;
 				width: 64px;
 			}
+
 
 
 			.key-prices {
@@ -3643,10 +3648,23 @@ transition: all 5ms ease-in-out 0s;
 	}
 	h1 + p{
 		margin-bottom: 2rem;
+		
+		@media @359{
+			margin-bottom: 0;
+		}
+	}
+	.card-body{
+		@media @767{
+			padding:1.5rem 0;
+		}
 	}
 	.top-menu{
 		background: @f9light;
 		border-radius: .4rem;
+		
+		@media @359{
+			display: none;
+		}
 		
 		ul{
 			font-size: @font16;
@@ -3666,6 +3684,9 @@ transition: all 5ms ease-in-out 0s;
 					background: @f2light;
 					border-top: 2px solid @light-black;
 				}
+				@media @479{
+					padding: 1rem;
+				}
 			}
 		}
 		.fas{
@@ -3673,6 +3694,10 @@ transition: all 5ms ease-in-out 0s;
 			line-height: @font20;
 			font-size: @base;
 			margin-right: 1rem;
+			
+			@media @479{
+				display: none;
+			}
 		}
 		
 		.active{
@@ -3683,7 +3708,18 @@ transition: all 5ms ease-in-out 0s;
 	}
 	
 	.content{
-		margin: 2rem 0;
+		margin: 2rem -1.5rem;
+		
+		
+		&:first-child{
+			margin-bottom: 0;
+			@media @767{
+				margin-top: 1rem;
+			}
+		}
+		&:last-child{
+			margin-top: 0;
+		}
 		
 		ul{
 			list-style-type: disc;
@@ -3711,7 +3747,7 @@ transition: all 5ms ease-in-out 0s;
 			}
 		}
 		strong{
-			font-size: @font18;
+			font-size: @font16;
 		}
 		#accordion h5 > .fas{
 			margin-right: 1rem;
@@ -3731,5 +3767,184 @@ transition: all 5ms ease-in-out 0s;
 				padding: .75rem 1.5rem;
 			}
 		}
+		
+		.mobile-pad .col-md-12{
+			@media @991{
+				padding: 0;
+			}
+		}
 	}
+	.mobile-pad .col-md-12{
+		@media @991{
+			padding: 0;
+		}
+	}
+	h5{
+		@media @767{
+			font-size: @font16;
+			font-weight: bold;
+		}
+	}
+	.fas{
+		@media @767{
+			margin-right: .5rem;
+		}
+	}
+}
+.open-cmspage{
+	
+	line-height: @font24;
+	font-size: 1.5rem;
+	
+	@media @767{
+		padding: 0;
+	}
+	
+	p{
+		padding: 0 1rem;
+		
+		@media @767{
+			padding: 0 3rem;
+			font-size: @base;
+			line-height: @font10;
+			font-weight: normal;
+		}
+	}
+	.fas{
+		@media @768{
+			position: absolute;
+			top: 3rem;
+			font-size: 4rem;
+			width: 5rem;
+			height: 5rem;
+		}
+	}
+	.title{
+		@media @768{
+			padding-left: 10rem;
+		}
+	}
+	.pricing{
+		
+		pointer-events: auto;
+		
+		.fas{
+			font-size: @base;
+			position: relative;
+			top: 0;
+			width: auto;
+			height: auto;
+			margin-right: 5px;
+		}
+		
+		@media @768{
+			float: right;
+			width: 20rem;
+			line-height: 2.4rem;
+			font-size: 1.4rem;
+			position: absolute;
+			right: 0;
+			top: 16px;
+		}
+	
+		br{
+			@media @767{
+				display: none;
+			}
+		}
+		strong{
+			@media @767{
+				margin-right: 1rem;
+				font-size:@base;
+			}
+		}
+	}
+	
+	#accordion{
+		width: 100%;
+	}
+	a{
+		color:@black;
+		
+		@media @768{
+			pointer-events: none;
+		}
+	}
+	.card{
+		border: none;
+		width: 100%;
+		float: left;
+	}
+	.table-bordered td, .card-body {
+		vertical-align: middle;
+		
+		a{
+			color: @blue;
+		}
+	}
+	h5{
+		margin: 0;
+		line-height: 5rem;
+	}
+	.card-header{
+		border: none;
+		padding: 0rem 1.2rem;
+		margin: .3rem 0;
+		line-height: 5rem;
+		
+		@media @768{
+			background: none;
+		}
+	}
+	.card-body{
+		@media @768{
+			padding-left: 11.2rem;
+			max-width: 50rem;
+			margin-top: -28px;
+		}
+		@media @992{
+			max-width: 50rem;
+		}
+		@media @1024{
+			max-width: 50rem;
+		}
+		
+		@media @1199{
+			max-width: 60rem;
+		}
+	}
+	.collapse.show, .collapse{
+		@media @768{
+			display: block;
+		}
+	}
+	.card-header > a:before {
+	float: right !important;
+	content:"\f146";
+	padding-right: 5px;
+	font-size: @font20;
+	font-family: "Font Awesome 5 Free";
+		
+		@media @767{
+			padding-top:@base;
+		}
+		
+		@media @768{
+			display: none;
+		}
+	}
+	.card-header > a.collapsed:before {
+		float: right !important;
+		content:"\f0fe";
+		
+		@media @768{
+			display: none;
+		}
+	}
+	.card-header > a:hover, 
+	.card-header > a:active, 
+	.card-header > a:focus  {
+		text-decoration:none;
+	}
+
 }
