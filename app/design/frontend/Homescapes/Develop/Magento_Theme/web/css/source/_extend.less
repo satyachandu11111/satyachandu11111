@@ -1492,6 +1492,8 @@ transition: all 5ms ease-in-out 0s;
 				margin-right: 5px;
 				width: 64px;
 			}
+
+
 			.key-prices {
 				background-position: 6px -455px;
 				float: left;
@@ -2511,6 +2513,7 @@ transition: all 5ms ease-in-out 0s;
 	
 	.product-addto-links .action:before{
 		content: '\f004';
+
 		width:18px;
 		font-size:@font16;
 		line-height: @font16;
@@ -3273,6 +3276,7 @@ transition: all 5ms ease-in-out 0s;
 	
 	@media @991{
 		display: inline-grid;
+
 		width: 100%;
 	}
 	.cart.table-wrapper .actions-toolbar{
@@ -3623,5 +3627,109 @@ transition: all 5ms ease-in-out 0s;
 	}
 	.form-section{
 		background: @f9light;
+	}
+}
+/*--------------------------------------------------------------------------
+|  CMS Pages
+--------------------------------------------------------------------------*/
+
+.cms-pages{
+	
+	line-height: @font24;
+	
+	h1{
+		font-size: @font28;
+		margin-bottom: .5rem;
+	}
+	h1 + p{
+		margin-bottom: 2rem;
+	}
+	.top-menu{
+		background: @f9light;
+		border-radius: .4rem;
+		
+		ul{
+			font-size: @font16;
+			display: flex;
+			max-width: 45rem;
+			margin: auto;
+			
+			a{
+				color: @black;
+				padding: 1rem 2rem;
+				display: block;
+				margin: 0 .5rem;
+				border-top: 2px solid @f9light;
+				
+				&:hover{
+					
+					background: @f2light;
+					border-top: 2px solid @light-black;
+				}
+			}
+		}
+		.fas{
+			float: left;
+			line-height: @font20;
+			font-size: @base;
+			margin-right: 1rem;
+		}
+		
+		.active{
+			background: @f2light;
+			border-top: 2px solid @blue;
+		}
+		
+	}
+	
+	.content{
+		margin: 2rem 0;
+		
+		ul{
+			list-style-type: disc;
+			margin-left: 1.5rem;
+		}
+		
+		h4 + span{
+			font-weight: bold;
+		}
+		ul ~ strong{
+			font-size: @font16;
+		}
+		h2{
+			font-size: @font30;
+			width: 100%;
+			margin: 0;
+			
+			img{
+				max-width: 6rem;
+			}
+			
+			.fas{
+				padding: 1.5rem;
+				font-size: 5rem;
+			}
+		}
+		strong{
+			font-size: @font18;
+		}
+		#accordion h5 > .fas{
+			margin-right: 1rem;
+			width: 2.5rem;
+		}
+		.head{
+			font-weight: bold;
+			font-size: @font16;
+		}
+		#accordion p + ul{
+			margin-left: 2.5rem;
+		}
+		.table{
+			td{
+				background: @f9light;
+				border: 4px solid @white;
+				padding: .75rem 1.5rem;
+			}
+		}
 	}
 }

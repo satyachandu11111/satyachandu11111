@@ -328,7 +328,7 @@
             }
 
             .product-item-name + .item-options {
-                margin-top: @indent__base;
+                margin-top: 0;
             }
 
             .cart-tax-total {
@@ -586,7 +586,7 @@
             }
 
             .content {
-                &:extend(.abs-revert-side-paddings all);
+                padding: 5px 15px;
             }
 
             .fieldset {
@@ -691,7 +691,10 @@
 		width: 100%;
         border: 0;
         box-sizing: border-box;
-		margin-top: 1rem;
+		margin: 1rem 0;
+		float: left;
+		padding-bottom: 1rem;
+		border-bottom: 1px solid #ccc;
 
         .block {
             .title {
