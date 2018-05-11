@@ -1,10 +1,15 @@
 <?xml version="1.0"?>
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <referenceContainer name="content">
-        <block class="Homescapes\Completelook\Block\Product\View\Completelook" name="complete.look" template="Homescapes_Completelook::product/view/completelook.phtml" after="product.info.details"></block>        
+        <block class="Homescapes\Completelook\Block\Product\View\Completelook" name="complete.look" template="Homescapes_Completelook::product/view/completelook.phtml" after="product.info.details"></block>                
     </referenceContainer>
     <referenceContainer name="product.info.main">
         <block class="Homescapes\Completelook\Block\Product\View\Choosecolor"  name="choosecolor" after="product.info.price" template="Homescapes_Completelook::product/view/choosecolor.phtml" />
     </referenceContainer>
-    <referenceBlock name="catalog.product.related" remove="true" />     
+    <referenceBlock name="catalog.product.related" remove="true" />      
+    <referenceBlock name="reviews.tab" remove="true" />	    
+    <referenceContainer name="content.aside">
+            <block class="Magento\Review\Block\Product\View\ListView" name="custom.reviews"  template="Magento_Review::product/view/list.phtml" after="product.info.upsell" />
+            <block class="Magento\Review\Block\Form" name="custom.product.review.form" as="custom_review_form" after="custom.reviews" />                    
+    </referenceContainer>	
 </page>
