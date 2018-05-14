@@ -2279,6 +2279,39 @@ transition: all 5ms ease-in-out 0s;
 	}
 }
 
+.product-label{
+	left: 0;
+	position: absolute;
+	top: 0;
+	z-index: 9;
+	
+	.new{
+		background: @blue;
+		color: @white;
+		box-shadow: 10px 10px 48px -13px rgba(0, 0, 0, 0.75);
+		clear: both;
+		float: left;
+		font-size: 15px;
+		font-weight: bold;
+		padding: 0px 5px !important;
+		text-transform: uppercase;
+		z-index: 99;
+		
+		&:after{
+			border-left: 0 solid transparent;
+			border-right: 6px solid transparent;
+			border-top: 6px solid #005dbd;
+			content: "";
+			display: inline-block;
+			height: 0;
+			left: 0;
+			position: absolute;
+			top: 21px;
+			width: 0;
+		}
+	}
+}
+
 /*--------------------------------------------------------------------------
 |  Product Page 
 --------------------------------------------------------------------------*/
@@ -2402,7 +2435,10 @@ transition: all 5ms ease-in-out 0s;
 	}
 }
 
-
+.page-main .column .review-add{
+	float: left;
+	width: 100%;
+}
 
 .catalog-product-view{
 	
@@ -2466,6 +2502,7 @@ transition: all 5ms ease-in-out 0s;
 			
 			@media @639{
 				width: 100%;
+
 			}
 			.action.tocart{
 				@media @1200{
@@ -2732,8 +2769,9 @@ transition: all 5ms ease-in-out 0s;
 			line-height:@base;
 		}
 		.product-info-price{
-			width: 100%;
+			width: auto;
 			padding-top: .5rem;
+			display: flex;
 			.special-price{
 				float: right;
 			}
@@ -2764,6 +2802,22 @@ transition: all 5ms ease-in-out 0s;
 				display: none;
 			}
 		}
+		.unavailable{
+			font-weight: 700;
+			text-transform: uppercase;
+			border-radius: .3rem;
+			font-size: 1rem;
+			padding: .2rem .8rem .2rem .8rem;
+			color:@white;
+			margin-top: .1rem;
+			background: @danger
+		}
+		.g-discount{
+				color: @danger;
+				font-weight: bold;
+				margin-left: 1rem;
+				line-height: 3rem;
+			}
 	}
 	
 	.simple-cart{
@@ -2779,7 +2833,7 @@ transition: all 5ms ease-in-out 0s;
 		margin-right: 1.5rem;
 		border: 1px solid @f2light;
 	}
-	.simple-cart, .config-cart{
+	.simple-cart, .config-cart, {
 		margin-top: 2rem;
 		
 		.box-tocart{
@@ -3797,7 +3851,7 @@ transition: all 5ms ease-in-out 0s;
 	font-size: 1.5rem;
 	
 	@media @767{
-		padding: 0;
+		padding: 0 !important;
 	}
 	
 	p{
