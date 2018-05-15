@@ -138,8 +138,8 @@ class Index extends \Magento\Newsletter\Controller\Subscriber
 				/* start */
                 
                 $model = $this->_subscriberFactory->create()->loadByEmail($email);
-                $model->setData('c_firstname',$this->getRequest()->getPost('firstname'));
-				$model->setData('c_lastname',$this->getRequest()->getPost('lastname'));
+                $model->setData('subscriber_firstname',$this->getRequest()->getPost('firstname'));
+				$model->setData('subscriber_lastname',$this->getRequest()->getPost('lastname'));
 				$model->save();	
 
 				/* end */ 

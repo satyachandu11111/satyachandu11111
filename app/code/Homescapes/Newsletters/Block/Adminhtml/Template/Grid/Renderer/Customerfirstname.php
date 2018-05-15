@@ -9,7 +9,7 @@ class Customerfirstname extends \Magento\Backend\Block\Widget\Grid\Column\Render
     {
     	
     	if($row->getData('type')==1){
-            return ($row->getData('c_firstname')!=''?$row->getData('c_firstname'):'----');
+            return ($row->getData('subscriber_firstname')!=''?$row->getData('subscriber_firstname'):'----');
         }else{
             return ($row->getData('firstname')!=''?$row->getData('firstname'):'----');
         }
