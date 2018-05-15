@@ -2435,10 +2435,40 @@ transition: all 5ms ease-in-out 0s;
 		border:none;
 	}
 }
-
-.page-main .column .review-add{
-	float: left;
-	width: 100%;
+/*----------------------
+|  Product reviews
+-----------------------*/
+.page-main .column {
+	.review-add, .review-list {
+		width: 100%;
+		clear: both;
+		max-width: 90rem;
+		margin: auto;
+		
+		.rating-summary{
+			margin-right: 4rem;
+			display: flex;
+		}
+		.review-ratings{
+			margin: 1rem 0;
+			display: flex;
+			max-width: 100%;
+			
+			.rating-label{
+				display: flex;
+				padding: 0 1rem 0 0;
+				line-height: @font16;
+			}
+		}
+		h5{
+			margin-bottom: 1rem !important;
+		}
+		.review-body{
+			float: left;
+			width: 100%;
+		}
+		
+	}
 }
 
 .catalog-product-view{
