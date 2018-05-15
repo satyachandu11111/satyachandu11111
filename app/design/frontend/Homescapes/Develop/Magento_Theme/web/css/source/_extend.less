@@ -178,36 +178,36 @@ ul > li, ol > li{
 --------------------------------------------------------------------------*/
 
 h1, .h1 {
-  font-size: 3.6rem;
+  font-size:@font30;
   margin-bottom: @font20;
 	
 	@media @767{
-		font-size: @font30;
+		font-size: @font26;
 	}
 }
 
 h2, .h2 {
-  font-size: 3rem;
+  font-size:@font26;
 	
 	@media @767{
-		font-size: @font24;
+		font-size: @font22;
 	}
 }
 
 h3, .h3 {
-  font-size: 2.6rem;
+  font-size: @font24;
 }
 
 h4, .h4 {
-  font-size: 2.2rem;
+  font-size:@font22;
 }
 
 h5, .h5 {
-  font-size: 2rem;
+  font-size: @font20;
 }
 
 h6, .h6 {
-  font-size: 1.6rem;
+  font-size: @font16;;
 }
 
 
@@ -1747,6 +1747,7 @@ transition: all 5ms ease-in-out 0s;
 	.secure-seal{
 		margin-top: 20px;
 		
+
 		@media @767{
 			margin-top: 0;
 		}
@@ -2502,6 +2503,7 @@ transition: all 5ms ease-in-out 0s;
 			
 			@media @639{
 				width: 100%;
+
 
 			}
 			.action.tocart{
@@ -3263,6 +3265,7 @@ transition: all 5ms ease-in-out 0s;
 			line-height: 2rem;
 			background: @f2light;
 			
+
 			@media @479{
 				display: none;
 			}
@@ -3844,6 +3847,199 @@ transition: all 5ms ease-in-out 0s;
 			margin-right: .5rem;
 		}
 	}
+	
+	/*----------------------
+|      BUying guides style
+     -------------------------*/
+	
+	.left-menu{
+		background: @f9light;
+		padding: 1rem 0;
+		border-radius: .4rem;
+		
+		display: none;
+		
+		@media @992{
+			display: block;
+		}
+		
+		ul li{
+			border-bottom: 1px dashed #ccc;
+			
+			&:last-child{
+				border-bottom: none;
+			}
+			a{
+				color: @black;
+				padding: .7rem 1.5rem;
+				display: block;
+				
+				&:hover{
+					background: @f2light;
+				}
+				
+			}
+			.active{
+				background:@f2light;
+			}
+			.fa{
+				float: right;
+				margin-top: .5rem;
+				
+				&:hover{
+					margin-right: 1rem;
+				}
+			}
+		}
+		h4{
+			padding: 0 1.5rem 1rem 1.5rem;
+			border-bottom: 1px solid @border-color;
+			margin-bottom: 0;
+		}
+	}
+	
+	.guide-content{
+		
+		ul{
+			list-style-type: disc;
+			margin-left: 2rem;
+		}
+		ol{
+			width: 98%;
+			float: left;
+			list-style-type: decimal;
+			margin-left: 2.5rem;
+			margin-bottom: 1rem;
+		}
+		.choose-pillow{
+			width: 23%;
+			margin-left: 1.5rem;
+			
+			@media @991{
+				width: 100%;
+				margin-bottom: 2rem;
+			}
+		}
+		.choose-p{
+			max-width: 63rem;
+		}
+		.guide-grid{
+			
+			list-style-type: none;
+			margin-left: 0;
+			display: flex;
+			
+			@media @767{
+				display: block;
+			}
+			
+			li{
+				width: 23%;
+				margin: 1rem;
+				
+				@media @767{
+					float: left;
+					width: 46%;
+					margin: 1rem;
+				}
+				@media @639{
+					width: 85%;
+					margin: 1rem auto;
+					float: none;
+				}
+				
+				img{
+					margin-bottom: 1rem;
+				}
+			}
+			
+			.grey-box{
+				background:@f9light;
+				padding: 10px;
+				min-height: 30.8rem;
+				
+				@media @767{
+					min-height: 22rem;
+				}
+				@media @639{
+					min-height: auto;
+				}
+			}
+		}
+		.button{
+			background: @white;
+			border: 1px solid @light-black;
+			color: @black;
+			padding: .8rem 2rem;
+			font-size: @font16;
+			margin: 1rem auto;
+			
+			&:hover{
+				background: @light-black;
+				color: @white;
+			}
+		}
+		
+		.natural, .synthetic {
+			width: 100%;
+			float: left;
+			
+			img{
+				margin-bottom: 2rem;
+			}
+			.grey-box-50{
+				background:@f9light;
+				padding: 10px;
+				margin-bottom: 20px;
+				float: inherit;
+				width: 49%;
+				border-radius: 5px;
+				-webkit-border-radius: 5px;
+				
+				@media @767{
+					width:100%;
+				}
+				
+				&:nth-child(2n) {
+					margin-right: 2%;
+				}
+			}
+			
+		}
+		
+		.guide-rating{
+			.grey-box-50:nth-child(2n+1) {
+				margin: 0 2% 0 0;
+				
+				@media @639{
+					margin: 0 0 2% 0;
+				}
+			}
+			.grey-box-50 {
+				float: left;
+				width: 49%;
+				background: @f9light;
+				padding: 10px;
+				margin-bottom: 20px;
+				
+				@media @639{
+					width:100%;
+				}
+			}
+		}
+		.table{
+			td{
+				background: @f9light;
+				border: 4px solid @white;
+				padding: .75rem 1.5rem;
+			}
+		}
+	}
+	
+	.guide-banner{
+		margin-bottom: 2rem;
+	}
+	
 }
 .open-cmspage{
 	
