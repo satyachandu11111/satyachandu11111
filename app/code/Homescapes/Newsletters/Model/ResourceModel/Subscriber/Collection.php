@@ -26,11 +26,11 @@ class Collection extends \Magento\Newsletter\Model\ResourceModel\Subscriber\Grid
         
         $this->getSelect()->columns(
          array(
-             'c_first' => new \Zend_Db_Expr('IFNULL(`customer`.`firstname`, `main_table`.c_firstname)')
+             'subscriber_firstname' => new \Zend_Db_Expr('IFNULL(`customer`.`firstname`, `main_table`.subscriber_firstname)')
          ));
         $this->getSelect()->columns(
          array(
-             'c_last' => new \Zend_Db_Expr('IFNULL(`customer`.`lastname`, `main_table`.c_lastname)')
+             'subscriber_lastname' => new \Zend_Db_Expr('IFNULL(`customer`.`lastname`, `main_table`.subscriber_lastname)')
          ));
         return $this;
     }
@@ -38,18 +38,18 @@ class Collection extends \Magento\Newsletter\Model\ResourceModel\Subscriber\Grid
 
 	public function addFieldToFilter($field, $condition = null)
     {
-       	if ($field === 'c_first') {
+       	if ($field === 'subscriber_firstname') {
        
             $keyFilter = key($condition);
             $searchTerm = $condition[$keyFilter]->__toString();
-            $this->getSelect()->where("`c_firstname` LIKE $searchTerm or `firstname` LIKE $searchTerm");
+            $this->getSelect()->where("`subscriber_firstname` LIKE $searchTerm or `firstname` LIKE $searchTerm");
              return;
          }
-         if ($field === 'c_last') {
+         if ($field === 'subscriber_lastname') {
        
             $keyFilter = key($condition);
             $searchTerm = $condition[$keyFilter]->__toString();
-            $this->getSelect()->where("`c_lastname` LIKE $searchTerm or `lastname` LIKE $searchTerm");
+            $this->getSelect()->where("`subscriber_lastname` LIKE $searchTerm or `lastname` LIKE $searchTerm");
              return;
          }
 

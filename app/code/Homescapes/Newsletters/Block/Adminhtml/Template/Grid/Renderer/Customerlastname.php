@@ -6,7 +6,7 @@ class Customerlastname extends \Magento\Backend\Block\Widget\Grid\Column\Rendere
     public function render(\Magento\Framework\DataObject $row)
     {
         if($row->getData('type')==1){
-            return ($row->getData('c_lastname')!=''?$row->getData('c_lastname'):'----');
+            return ($row->getData('subscriber_lastname')!=''?$row->getData('subscriber_lastname'):'----');
         }else{
             return ($row->getData('lastname')!=''?$row->getData('lastname'):'----');
         }
