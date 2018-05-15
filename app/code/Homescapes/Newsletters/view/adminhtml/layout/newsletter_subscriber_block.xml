@@ -86,24 +86,33 @@
                             <argument name="column_css_class" xsi:type="string">col-type</argument>
                         </arguments>
                     </block>
-                    <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.newslettrer.subscriber.grid.columnSet.c_first" as="c_first">
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.newslettrer.subscriber.grid.columnSet.subscriber_firstname" as="subscriber_firstname">
                         <arguments>
                             <argument name="header" xsi:type="string" translate="true">Customer First Name</argument>
-                            <argument name="index" xsi:type="string">c_first</argument>
+                            <argument name="index" xsi:type="string">subscriber_firstname</argument>
                              <argument name="renderer" xsi:type="string">Homescapes\Newsletters\Block\Adminhtml\Template\Grid\Renderer\Customerfirstname</argument>
                             <argument name="default" xsi:type="string">----</argument>
                             <argument name="header_css_class" xsi:type="string">col-first-name</argument>
                             <argument name="column_css_class" xsi:type="string">col-first-name</argument>
                         </arguments>
                     </block>
-                    <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.newslettrer.subscriber.grid.columnSet.c_last" as="c_last">
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.newslettrer.subscriber.grid.columnSet.subscriber_lastname" as="subscriber_lastname">
                         <arguments>
                             <argument name="header" xsi:type="string" translate="true">Customer Last Name</argument>
-                            <argument name="index" xsi:type="string">c_last</argument>
+                            <argument name="index" xsi:type="string">subscriber_lastname</argument>
                             <argument name="renderer" xsi:type="string">Homescapes\Newsletters\Block\Adminhtml\Template\Grid\Renderer\Customerlastname</argument>
                             <argument name="default" xsi:type="string">----</argument>
                             <argument name="header_css_class" xsi:type="string">col-last-name</argument>
                             <argument name="column_css_class" xsi:type="string">col-last-name</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.newslettrer.subscriber.grid.columnSet.subscriber_date" as="subscriber_date">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Subscription Date</argument>
+                            <argument name="index" xsi:type="string">subscriber_date</argument>
+                            <argument name="default" xsi:type="string">----</argument>
+                            <argument name="header_css_class" xsi:type="string">col-subscriber-date</argument>
+                            <argument name="column_css_class" xsi:type="string">col-subscriber-date</argument>
                         </arguments>
                     </block>
                     <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.newslettrer.subscriber.grid.columnSet.status" as="status">
