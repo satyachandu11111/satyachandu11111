@@ -16,9 +16,11 @@
          style="display: none;">
         <div role="document" class="content" tabindex="0">
             <p>
-                <strong><?= $block->escapeHtml(__('We use cookies to make your experience better.')) ?></strong>
-                <span><?= $block->escapeHtml(__('To comply with the new e-Privacy directive, we need to ask for your consent to set the cookies.')) ?></span>
-                <?= $block->escapeHtml(__('<a href="%1">Learn more</a>.', $block->getPrivacyPolicyLink()), ['a']) ?>
+                <strong><?= $block->escapeHtml(__('We use cookies to provide you with a better service.')) ?></strong>
+                <span><?= $block->escapeHtml(__(' Carry on browsing if you are happy with this, or ')) ?></span>
+               
+				
+				<span><a href="info/website-privacy-and-cookies">find out how to - manage cookies</a></span>
 
             <a class="close-overlay close-overlay--cookie" href="javascript:void(0);" title="Close overlay" id="btn-cookie-allow">x</a>
 

@@ -175,52 +175,62 @@ $buttonTitle = __('Add to Cart');
                 }elseif ($_product->getTypeId() == 'simple') {  //start simple product code  ?>
 				
 				<div class="simple-cart">
+					
                                     <?php if ($_product->isSaleable()){ ?>
-					<div class="box-tocart">
-						<div class="fieldset">
-							<div class="field qty">
-								<label class="label" for="qty"><span><?= /* @escapeNotVerified */ __('Qty') ?></span></label>
-								<div class="control" data-mage-init='{
-											"qtyInput":{"qtyInputSelector": "#qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>",
-											"qtyIncrementSelector":"#inc-qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>",
-											"qtyDecrementSelector":"#dec-qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>"
-											}
-										}'>
-									<div class="decreaseQty" id="dec-qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>" >-</div>
-									<input type="number"
-										   name="qty"                                       
-										   value="<?= /* @escapeNotVerified */ $block->getProductDefaultQty() * 1 ?>"
-										   title="<?= /* @escapeNotVerified */ __('Qty') ?>"
-										   class="input-text qty"
-										   id="qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>"
-										   data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
-										   />
-									<div class="increaseQty" id="inc-qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>">+</div>   
+					
+					
+					
+					<div class="add-cart-box">
+					
+						<div class="box-tocart">
+							<div class="fieldset">
+								<div class="field qty">
+									<label class="label" for="qty"><span><?= /* @escapeNotVerified */ __('Qty') ?></span></label>
+									<div class="control" data-mage-init='{
+												"qtyInput":{"qtyInputSelector": "#qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>",
+												"qtyIncrementSelector":"#inc-qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>",
+												"qtyDecrementSelector":"#dec-qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>"
+												}
+											}'>
+										<div class="decreaseQty" id="dec-qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>" >-</div>
+										<input type="number"
+											   name="qty"                                       
+											   value="<?= /* @escapeNotVerified */ $block->getProductDefaultQty() * 1 ?>"
+											   title="<?= /* @escapeNotVerified */ __('Qty') ?>"
+											   class="input-text qty"
+											   id="qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>"
+											   data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
+											   />
+										<div class="increaseQty" id="inc-qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>">+</div>   
+									</div>
 								</div>
 							</div>
 						</div>
+
+						<div class="actions">
+							<button type="submit"
+									title="<?= /* @escapeNotVerified */ __('Add to Cart'); ?>"
+									class="action primary tocart"
+									id="product-addtocart-button-<?php echo $_product->getSku() ?>">
+								<span><?= /* @escapeNotVerified */ __('Add to Cart'); ?></span>
+							</button>
+							<?= $block->getChildHtml('', true) ?>
+						</div>
+					
+					</div>
+					
+					<?php }else{ ?>    
+					<div class="out-stock">
+						<div class="product-info-stock-sku">
+							<div class="stock" title="Availability">
+									<span class="stock-label">Availability: </span>
+									<span class="unavailable"><?php echo __('Out of stock'); ?></span>
+							</div>                                           
+						</div>
 					</div>
 
-					<div class="actions">
-						<button type="submit"
-								title="<?= /* @escapeNotVerified */ __('Add to Cart'); ?>"
-								class="action primary tocart"
-								id="product-addtocart-button-<?php echo $_product->getSku() ?>">
-							<span><?= /* @escapeNotVerified */ __('Add to Cart'); ?></span>
-						</button>
-						<?= $block->getChildHtml('', true) ?>
-					</div>
-                                    <?php }else{ ?>    
-                                    
-                                    <div class="product-info-stock-sku">
-                                        <div class="stock" title="Availability">
-                                                <span class="stock-label">Availability: </span>
-                                                <span class="unavailable"><?php echo __('Out of stock'); ?></span>
-                                        </div>                                           
-                                    </div>
-                                    
-                                    
-                                    <?php } ?>
+					<?php } ?>
+					
 					
 				</div>
                 
@@ -238,7 +248,7 @@ $buttonTitle = __('Add to Cart');
                                     <label class="label" for="attribute<?= /* @escapeNotVerified */ $_attribute->getAttributeId() ?>">
                                         <span><?= $block->escapeHtml($_attribute->getProductAttribute()->getStoreLabel()) ?></span>
                                     </label>
-                                    <div class="control">
+                                    <div class="control config-select">
                                         <select name="super_attribute[<?= /* @escapeNotVerified */ $_attribute->getAttributeId() ?>]"
                                                 data-selector="super_attribute[<?= /* @escapeNotVerified */ $_attribute->getAttributeId() ?>]"
                                                 data-validate="{required:true}"

@@ -118,6 +118,7 @@
 input:not([disabled]):focus{
 	box-shadow: none;
 }
+
 body{
 	color: @black;
 }
@@ -2327,6 +2328,11 @@ transition: all 5ms ease-in-out 0s;
 	padding: 1.5rem;
 	float: left;
 	margin-bottom: 4rem;
+	display: none;
+	
+	@media @992{
+		display: block;
+	}
 	
 	.head span{
 		font-weight: bold;
@@ -2477,7 +2483,10 @@ transition: all 5ms ease-in-out 0s;
 		font-size: @font28;
 		
 		@media @991{
-			font-size: @font22;
+			font-size: @font20;
+		}
+		@media @767{
+			font-size: @font16;
 		}
 	}
 	.product-add-form{
@@ -2651,6 +2660,11 @@ transition: all 5ms ease-in-out 0s;
 			height: 4rem;
 			margin: .4rem;
 			
+			@media @991{
+				width: 3.5rem;
+				height: 3.5rem;
+			}
+			
 			img{
 				border-radius: .4rem;
 			}
@@ -2787,6 +2801,11 @@ transition: all 5ms ease-in-out 0s;
 			font-size: @font16;
 			line-height: @font24;
 			font-weight: bold;
+			
+			@media @767{
+				font-size: @base;
+				font-weight: normal;
+			}
 		}
 		a{
 			font-weight:bold;
@@ -2799,11 +2818,22 @@ transition: all 5ms ease-in-out 0s;
 			font-size: @font18;
 			font-weight: bold;
 			line-height:@base;
+			
+			@media @767{
+				line-height:3.4rem;
+			}
 		}
 		.product-info-price{
 			width: auto;
 			padding-top: .5rem;
 			display: flex;
+			
+			@media @767{
+				display: block;
+				margin: 0;
+				padding: 0;
+			}
+			
 			.special-price{
 				float: right;
 			}
@@ -2834,6 +2864,16 @@ transition: all 5ms ease-in-out 0s;
 				display: none;
 			}
 		}
+		
+		.config-select{
+			@media @991{
+				width: 70%;
+			}
+			@media @767{
+				width: auto;
+			}
+		}
+		
 		.unavailable{
 			font-weight: 700;
 			text-transform: uppercase;
@@ -2849,14 +2889,31 @@ transition: all 5ms ease-in-out 0s;
 				font-weight: bold;
 				margin-left: 1rem;
 				line-height: 3rem;
+			
+			@media @767{
+				display: block;
 			}
+		}
 	}
 	
 	.simple-cart{
 		width: 100%;
 		
+		@media @991{
+			width: 75%;
+		}
+		@media @767{
+			width: 100%;
+		}
 		@media @479{
-			float: left;
+			float: none;
+		}
+		.add-cart-box{
+			@media @479{
+				float: left;
+				width: 100%;
+				margin-top: 1rem;
+			}
 		}
 	}
 	.product-img{
@@ -2866,7 +2923,7 @@ transition: all 5ms ease-in-out 0s;
 		border: 1px solid @f2light;
 	}
 	.simple-cart, .config-cart, {
-		margin-top: 2rem;
+		margin-top: 1rem;
 		
 		.box-tocart{
 			float: left;
@@ -2931,6 +2988,10 @@ transition: all 5ms ease-in-out 0s;
 	.config-cart{
 		display:grid;
 		width: auto;
+		
+		@media @991{
+			width: 56%;
+		}
 		
 		@media @479{
 			width: 100%;
@@ -3055,6 +3116,13 @@ transition: all 5ms ease-in-out 0s;
 				width: auto;
 				float: left;
 			}
+			
+			.special-price{
+				@media @479{
+					line-height: 3.4rem;
+				}
+			}
+			
 			.special-price .price{
 				font-size: @font16;
 				line-height: 1.9rem;
@@ -3068,6 +3136,11 @@ transition: all 5ms ease-in-out 0s;
 			.g-discount{
 				color: @danger;
 				font-weight: bold;
+				
+				@media @479{
+					line-height: 2rem;
+					float: left;
+				}
 			}
 			
 			.unavailable{
@@ -3133,7 +3206,7 @@ transition: all 5ms ease-in-out 0s;
 					width: 23%;
 				}
 				@media @479{
-					width:50%;
+					width:45%;
 					float: left;
 				}
 			}
@@ -3141,9 +3214,26 @@ transition: all 5ms ease-in-out 0s;
 				@media @991{
 					width: 23%;
 				}
+				
+				@media @767{
+					text-align: center !important;
+				}
 				@media @479{
-					width:20%;
+					width:25%;
 					float: left;
+				}
+				
+				.stock{
+					@media @479{
+						background:@danger;
+						border-radius: .4rem;
+					}
+					
+					.unavailable{
+						@media @479{
+							padding: 0;
+						}
+					}
 				}
 			}
 		}
@@ -3193,6 +3283,10 @@ transition: all 5ms ease-in-out 0s;
 	}
 	.table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) tbody > tr > td:last-child{
 		padding-top: 1rem;
+		
+		@media @479{
+			padding-bottom: 1rem;
+		}
 	}
 	.table.grouped{
 
@@ -3244,11 +3338,19 @@ transition: all 5ms ease-in-out 0s;
 		padding-bottom: .5rem;
 		
 		@media @991{
-			padding-bottom: .5rem;
+			padding:0;
 		}
 		
 		.group-prod-price{
 			font-size: @font40;
+			
+			@media @991{
+				font-size: @font30;
+			}
+			
+			@media @767{
+				font-size: @font26;
+			}
 		}
 
 	}
@@ -4227,4 +4329,32 @@ transition: all 5ms ease-in-out 0s;
 		text-decoration:none;
 	}
 
+}
+
+/*--------------------------------------------------------------------------
+| cookie message
+--------------------------------------------------------------------------*/
+.message.global.cookie {
+    bottom: 1.5rem;
+    left: 0;
+    position: fixed;
+    right: 0;
+    z-index: 3;
+    max-width: 120rem;
+    margin: auto;
+    border-radius:.4rem;
+    text-align: left;
+    background:@border-color;
+    color: @black;
+    opacity: .8;
+	font-size: @base;
+	
+	a{
+		color: @blue;
+	}
+	.close-overlay{
+		float: right;
+		color: @black;
+		font-size: @font16;
+	}
 }
