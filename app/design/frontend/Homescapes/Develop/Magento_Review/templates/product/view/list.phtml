@@ -239,82 +239,82 @@ require(["jquery","Magento_Ui/js/modal/modal"], function ($,modal) {
                 $(".block.review-add").modal("openModal");
             });
 
-jQuery( ".star_ratings" ).click(function() {
+$( ".star_ratings" ).click(function() {
 
     var rating = this.dataset.star;
-    jQuery('#temp_var').val(rating);
+    $('#temp_var').val(rating);
     if(rating != 'all'){
-        jQuery('.review_filter').show();
-        jQuery('.value_filter').html(rating+' Star');
+        $('.review_filter').show();
+        $('.value_filter').html(rating+' Star');
     }else{
-        jQuery('.review_filter').hide();
+        $('.review_filter').hide();
     }
     
      
 
-var review_count= jQuery('#review_count').html(jQuery('#value_'+rating).html()+' item(s)');
+var review_count= $('#review_count').html($('#value_'+rating).html()+' item(s)');
     var cnt =0;
-    jQuery('#dl_review').children('dt,dd').each(function () {  
+    $('#dl_review').children('dt,dd').each(function () {  
 
         if(this.dataset.rating !=rating && rating != 'all'){
-            jQuery( this ).hide();
-            jQuery( this ).removeClass( "active" );
-            jQuery( this ).addClass( "inactive" );
+            $( this ).hide();
+            $( this ).removeClass( "active" );
+            $( this ).addClass( "inactive" );
         }else if(rating == 'all'){
-            jQuery( this ).show();
-            jQuery( this ).removeClass( "active" );            
-            jQuery( this ).removeClass( "inactive" );
+            $( this ).show();
+            $( this ).removeClass( "active" );            
+            $( this ).removeClass( "inactive" );
              cnt = parseInt(cnt)+1;
                 if(cnt >8){
-                    jQuery( this ).addClass( "inactive" );
-                    jQuery( "#showallreview").show();
+                    $( this ).addClass( "inactive" );
+                    $( "#showallreview").show();
                 }else{
-                    jQuery( "#showallreview").hide();
+                    $( "#showallreview").hide();
                 }
         }
         else{
             cnt = parseInt(cnt)+1;
-            jQuery( this ).show();
-            jQuery( this ).removeClass( "inactive" );
+            $( this ).show();
+            $( this ).removeClass( "inactive" );
             if(cnt >8){
-                jQuery( this ).addClass( "active" );
-                jQuery( "#showallreview").show();
+                $( this ).addClass( "active" );
+                $( "#showallreview").show();
             }else{
-                    jQuery( "#showallreview").hide();
+                    $( "#showallreview").hide();
                 }
         }
 
     });
-     jQuery('.inactive').hide();
-     jQuery('.active').hide();
+     $('.inactive').hide();
+     $('.active').hide();
     });
 
     jQuery.noConflict();
-        jQuery(document).ready(function() {
+        $(document).ready(function() {
             
-            //jQuery('.fancybox').fancybox();
-            jQuery('.inactive').hide();
-            jQuery('#value_all').hide();
-            jQuery('.review_filter').hide();
+            //$('.fancybox').fancybox();
+            $('.inactive').hide();
+            $('#value_all').hide();
+            $('.review_filter').hide();
             
         });
         
-        jQuery( "#showallreview" ).click(function() {
+        $( "#showallreview" ).click(function() {
             
             
-            if(jQuery('#temp_var').val() !='all')
-                jQuery('.active').slideToggle('slow');    
+            if($('#temp_var').val() !='all')
+                $('.active').slideToggle('slow');    
             else
-               jQuery('.inactive').slideToggle('slow');    
+               $('.inactive').slideToggle('slow');    
 
-            jQuery( this ).toggleClass( "reviewhide" );
+            $( this ).toggleClass( "reviewhide" );
 
-            if(jQuery(this).hasClass("reviewhide")){
-                jQuery('#showallreview span').html('COLLAPSE');
-                jQuery("html, body").animate({scrollTop: jQuery('.inactive').position().top}, 'slow');
+            if($(this).hasClass("reviewhide")){
+                $('#showallreview span').html('COLLAPSE');
+                $("html, body").animate({scrollTop: $('.inactive').position().top}, 'slow');
             }else{                
-                jQuery('#showallreview span').html('Load More'); 
-                 jQuery("html, body").animate({scrollTop: jQuery('#dl_review').position().top}, 'slow');
+                $('#showallreview span').html('Load More'); 
+                 $("html, body").animate({scrollTop: $('#dl_review').position().top}, 'slow');
             }
         
            
