@@ -1,88 +1,1198 @@
-<?php
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
+<?php $_items = $block->getReviewsCollection()->getItems();
+$_product = $block->getProduct();
+$helper = $this->helper('Homescapes\Ratings\Helper\Data');
 
-// @codingStandardsIgnoreFile
 
-/** @var Magento\Review\Block\Product\View\ListView $block */
+$average_ratings_count = array(1=>0,2=>0,3=>0,4=>0,5=>0);
+$votes = array();
+$review = array();
+$rating_code = array('price'=>0,'quality'=>0,'value'=>0);
 
-$_items = $block->getReviewsCollection()->getItems();
-$format = $block->getDateFormat() ?: \IntlDateFormatter::SHORT;
-?>
-<?php if (count($_items)):?>
-<div class="block review-list" id="customer-reviews">
-    <div class="block-title">
-        <strong><?= $block->escapeHtml(__('Customer Reviews')) ?></strong>
-    </div>
-    <div class="block-content">
-        <div class="toolbar review-toolbar">
-            <?= $block->getChildHtml('toolbar') ?>
-        </div>
-        <ol class="items review-items">
-        <?php foreach ($_items as $_review):?>
-            <li class="item review-item" itemscope itemprop="review" itemtype="http://schema.org/Review">
-               
-				
-				
-                <div class="review-content" itemprop="description">
-					
-					
-                	
-					
-					<div class="review-details">
-						
-						<h5 class="review-title" itemprop="name"><?= $block->escapeHtml($_review->getTitle()) ?></h5>
-						
-						<p class="review-author">
-							<span class="review-details-label"><?= $block->escapeHtml(__('Review by')) ?></span>
-							<strong class="review-details-value" itemprop="author"><?= $block->escapeHtml($_review->getNickname()) ?></strong>
-						</p>
-						<p class="review-date">
-							<span class="review-details-label"><?= $block->escapeHtml(__('Posted on')) ?></span>
-							<time class="review-details-value" itemprop="datePublished" datetime="<?= $block->escapeHtmlAttr($block->formatDate($_review->getCreatedAt(), $format)) ?>"><?= $block->escapeHtml($block->formatDate($_review->getCreatedAt(), $format)) ?></time>
-						</p>
-						
-					</div>
-					
+$based_recommendation = 0;
+foreach ($_items as $rating_review){
+
+	$review_votes = $rating_review->getRatingVotes(); 
+
+                 $rdata = $review_votes->getData();
+                  
+                 if($helper->getRecommend($rating_review->getReviewId())==1){
+                     $based_recommendation= ++$based_recommendation;
+                 }
+
+                 $cnt = count($rdata);
+                 for($i=0;$i<$cnt;$i++){
+                    if($rdata[$i]['rating_code'] == 'Price'){
+                        $rating_code['price']=$rating_code['price']+$rdata[$i]['percent'];
+                    }elseif($rdata[$i]['rating_code'] == 'Value'){
+                        $rating_code['value']=$rating_code['value']+$rdata[$i]['percent'];
+                    }elseif($rdata[$i]['rating_code'] == 'Quality'){
+                        $rating_code['quality']=$rating_code['quality']+$rdata[$i]['percent'];
+                    }
                     
-					
-					
-					
-					<?php if (count($_review->getRatingVotes())): ?>
-				
-						<div class="review-ratings">
+                 }
+                
+                $average_ratings = ($rdata[0]['percent']+$rdata[1]['percent']+$rdata[2]['percent'])/3;               
+                if($average_ratings >0 && $average_ratings<=39){
+                    $average_ratings_count[1]=++$average_ratings_count[1];
+                }elseif($average_ratings >=40 && $average_ratings<=59){
+                    $average_ratings_count[2]=++$average_ratings_count[2];
+                }elseif($average_ratings >=60 && $average_ratings<=79){
+                    $average_ratings_count[3]=++$average_ratings_count[3];
+                }elseif($average_ratings >=80 && $average_ratings<=99){
+                    $average_ratings_count[4]=++$average_ratings_count[4];
+                }else{
+                     $average_ratings_count[5]=++$average_ratings_count[5];
+                }
+}
 
-							<?php foreach ($_review->getRatingVotes() as $_vote): ?>
+  krsort($average_ratings_count);
+ 
+?>
 
-							<div class="rating-summary item" itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
-								<span class="label rating-label"><span><?= $block->escapeHtml($_vote->getRatingCode()) ?></span></span>
-
-								<div class="rating-result" title="<?= $block->escapeHtmlAttr($_vote->getPercent()) ?>%">
-									<meta itemprop="worstRating" content = "1"/>
-									<meta itemprop="bestRating" content = "100"/>
-									<span style="width:<?= $block->escapeHtmlAttr($_vote->getPercent()) ?>%">
-										<span itemprop="ratingValue"><?= $block->escapeHtml($_vote->getPercent()) ?>%</span>
-									</span>
-								</div>
-
+<div class="box-collateral box-reviews" id="customer-reviews">
+    <?php if (count($_items)):$totalreivew = count($_items);?>
+        <div class="rating-review">
+        <h3><?php echo __('Rating & Reviews') ?></h3>
+        <div class="rating-section">
+            <ul>
+                <li class="average-ratings">
+                    <div class="dyn-rating">	
+						<label><?php echo __('Overall') ?></label>
+						<div class="ratings">
+							<div class="rating-box">
+								<div class="rating" style="width:<?php echo round($_product->getRatingSummary()->getRatingSummary()) ?>%;"></div>
 							</div>
-
-						<?php endforeach; ?>
-						</div>
-					
-                	<?php endif; ?>
-					
-					<span class="review-body"><?= nl2br($block->escapeHtml($_review->getDetail())) ?></span>
-					
-                </div>
-            </li>
-        <?php endforeach; ?>
-        </ol>
-        <div class="toolbar review-toolbar">
-            <?= $block->getChildHtml('toolbar') ?>
+                        </div>
+                        <p><?php echo round(($_product->getRatingSummary()->getRatingSummary())/20, 1) ?></p>
+                        <span><?php echo __('Out of 5') ?></span>
+                    </div>
+                   
+                    <span><?php echo __('Based on '.$totalreivew.' ratings') ?></span>
+                    <div class="overall-ratings">
+					<ul>
+                   <?php  foreach($rating_code as $label => $sumofratings){?>
+                        <li>
+                            <span class="title"><?php echo __($label); ?></span>
+                            <div class="filter-box">
+                                <div class="filter" style="width: <?php echo round($sumofratings/$totalreivew,2); ?>%;"></div>
+                            </div>                            
+                        </li> 
+                    <?php }?>
+						
+                    </ul>
+                   
+                    </div>
+                </li>
+                
+                <li class="filter-review">
+                    <p class="title"><?php echo __('Select a row below to filter reviews.') ?></p>
+                    <ul>
+                    <?php foreach($average_ratings_count as $key => $val){?>
+                        <li data-star="<?php echo $key?>" class="star_ratings">
+                            <span class="count"><?php echo $key?></span>
+                            <div class="filter-box">
+                            <?php $star_rating = ($val*100)/$totalreivew;?>
+                                <div class="filter" style="width: <?php echo round($star_rating,2); ?>%;"></div>
+                            </div>
+                            <span class="value" id="value_<?php echo $key;?>"><?php echo $val?></span>
+                        </li> 
+                    <?php }?>  
+                                            
+                    </ul>
+                </li>
+                
+                <li class="recommends-items">
+                    <div class="dyn-rating">
+                    <?php $br = ($based_recommendation*100)/$totalreivew;?>
+                        <p><?php echo round($br, 2)."%"?></p>
+                        <span><?php echo __('recommend') ?></span>
+                    </div>
+                    <p><?php echo __('Based on '.$totalreivew.' recommendations') ?></p>
+                    <span><?php echo __('Would you recommend this item?') ?></span>
+                    <div class="action">
+                        <a class="yes fancybox review-popup" href="#inline1"><?php echo __('Yes')?></a>
+                        <a class="No fancybox review-popup" href="#inline1" ><?php echo __('No')?></a>
+                    </div>
+                </li>
+                
+                <li class="write-review">
+                    <div class="img-box">
+			<?php
+				$imageType = 'product_thumbnail_image';
+				$image = $block->getImage($_product, $imageType); 
+			?>
+	   <img src="<?php echo $image->getImageUrl(); ?>" alt="test"/>                       
+                    </div>
+                    <p><?php echo __('Have you purchased this item?') ?></p>
+                    <a href="#inline1" class="write-review fancybox review-popup"><?php echo __('write a review') ?></a>
+                </li>
+            </ul>
         </div>
+    </div>
+        <div class="review-heading">
+            <h2>
+                <?php echo __('Customer Reviews') ?>
+                <span id="review_count">[<?php echo count($_items); ?>]</span>
+            </h2>
+
+            <div class="review_filter">
+				<div data-star="all" class="star_ratings star-value"> 
+					<span class="value_filter" ></span>
+				</div>
+				<div data-star="all" class="star_ratings clear-all"> <?php echo __('Clear all') ?>
+					<span class="icon"></span>
+					<span class="value" id="value_all"><?php echo $totalreivew ?></span>
+				</div>
+			</div>		
+        </div>
+        <dl id="dl_review">
+        <?php $it=0;foreach ($_items as $_review):$it++;?>
+        <?php 
+                $_votes = $_review->getRatingVotes(); 
+                $rowdata = $_votes->getData();               
+                $average_ratings = ($rowdata[0]['percent']+$rowdata[1]['percent']+$rowdata[2]['percent'])/3;               
+                ?> 
+            <dt data-rating="<?php echo round($average_ratings/20)?>" <?php if($it >4){?>class="inactive"<?php }?>>
+				              
+				<?php if (count($_votes)): ?>
+                <table class="ratings-table">
+                    <colgroup>
+                        <col class="review-label" />
+                        <col class="review-value" />
+                    </colgroup>
+                    <tbody>                    
+						<tr>
+                           
+                            <td colspan="2">
+                                <div class="rating-box">
+									<div class="rating" style="width:<?php echo $average_ratings ?>%;"></div>
+								</div>
+                            </td>
+                        </tr>
+						<tr>
+                            
+                            <td colspan="2">
+                                <span class="review-meta">
+									<?php echo __('Review by '.($_review->getNickname())) ?>
+									<br> 
+								   <label><?php echo __('Posted on '.date('d/m/Y', strtotime($_review->getCreatedAt()))); ?></label>
+								</span>
+								
+                            </td>
+                        </tr>
+                        <?php foreach ($_votes as $_vote): ?>
+                        <tr>
+                            <th><?php echo ($_vote->getRatingCode()) ?></th>
+                            <td>
+                                <div class="rating-box">
+                                    <div class="rating" style="width:<?php echo $_vote->getPercent() ?>%;"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+                <?php endif; ?>                
+            </dt>
+            <dd data-rating="<?php echo round($average_ratings/20)?>" <?php if($it >4){?>class="inactive"<?php }?>>
+				
+                <p class="title"><?php echo (__($_review->getTitle()))?></p>
+
+                <?php if($helper->getRecommend($_review->getReviewId()) == 1){?>     
+				<label class="check-recommend"><?php echo __('Yes'); ?>, <?php echo __('I recommend this product'); ?></label>
+                <?php }else{?>
+                <label class="nocheck-recommend"><?php echo __('No'); ?>, <?php echo __('I do not recommend this product'); ?></label>
+                <?php }?>
+				<p class="desc"><?php echo nl2br(($_review->getDetail())) ?>    </p>
+            </dd>
+        <?php endforeach; ?>
+        
+        </dl>
+
+        <?php if($it >4){?>
+        <div id="showallreview"><?php echo __('<span>Load More</span> Reviews')?></div>
+        
+        <?php }?>
+    <?php elseif($block->getParentBlock()): ?>
+        <?php echo $block->getParentBlock()->getReviewsSummaryHtml($block->getProduct(), 'short', true)?>
+    <?php endif;?>
+    <div id="inline1" style="">
+    <?php //echo $block->getChildHtml('review_form') ?>
     </div>
 </div>
-<?php endif;?>
+<input type="hidden" id="temp_var" name="temp_var" value="all">
+
+
+
+<script type="text/javascript">
+require(["jquery","Magento_Ui/js/modal/modal"], function ($,modal) {
+	var options = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: true,
+                title: 'Write Your Own Review',
+                
+            };
+
+            var popup = modal(options, $('.block.review-add'));
+            $(".review-popup").on('click',function(){ 
+                $(".block.review-add").modal("openModal");
+            });
+
+jQuery( ".star_ratings" ).click(function() {
+
+    var rating = this.dataset.star;
+    jQuery('#temp_var').val(rating);
+    if(rating != 'all'){
+        jQuery('.review_filter').show();
+        jQuery('.value_filter').html(rating+' Star');
+    }else{
+        jQuery('.review_filter').hide();
+    }
+    
+     
+
+var review_count= jQuery('#review_count').html(jQuery('#value_'+rating).html()+' item(s)');
+    var cnt =0;
+    jQuery('#dl_review').children('dt,dd').each(function () {  
+
+        if(this.dataset.rating !=rating && rating != 'all'){
+            jQuery( this ).hide();
+            jQuery( this ).removeClass( "active" );
+            jQuery( this ).addClass( "inactive" );
+        }else if(rating == 'all'){
+            jQuery( this ).show();
+            jQuery( this ).removeClass( "active" );            
+            jQuery( this ).removeClass( "inactive" );
+             cnt = parseInt(cnt)+1;
+                if(cnt >8){
+                    jQuery( this ).addClass( "inactive" );
+                    jQuery( "#showallreview").show();
+                }else{
+                    jQuery( "#showallreview").hide();
+                }
+        }
+        else{
+            cnt = parseInt(cnt)+1;
+            jQuery( this ).show();
+            jQuery( this ).removeClass( "inactive" );
+            if(cnt >8){
+                jQuery( this ).addClass( "active" );
+                jQuery( "#showallreview").show();
+            }else{
+                    jQuery( "#showallreview").hide();
+                }
+        }
+
+    });
+     jQuery('.inactive').hide();
+     jQuery('.active').hide();
+    });
+
+    jQuery.noConflict();
+        jQuery(document).ready(function() {
+            
+            //jQuery('.fancybox').fancybox();
+            jQuery('.inactive').hide();
+            jQuery('#value_all').hide();
+            jQuery('.review_filter').hide();
+            
+        });
+        
+        jQuery( "#showallreview" ).click(function() {
+            
+            
+            if(jQuery('#temp_var').val() !='all')
+                jQuery('.active').slideToggle('slow');    
+            else
+               jQuery('.inactive').slideToggle('slow');    
+
+            jQuery( this ).toggleClass( "reviewhide" );
+
+            if(jQuery(this).hasClass("reviewhide")){
+                jQuery('#showallreview span').html('COLLAPSE');
+                jQuery("html, body").animate({scrollTop: jQuery('.inactive').position().top}, 'slow');
+            }else{                
+                jQuery('#showallreview span').html('Load More'); 
+                 jQuery("html, body").animate({scrollTop: jQuery('#dl_review').position().top}, 'slow');
+            }
+        
+           
+        });
+       
+    });    
+    </script>
+
+
+
+<style type="text/css">
+    .rating-review {
+  background: #f2f2f2;
+  padding: 10px;
+  float: left;
+  width: 100%;
+}
+.rating-review h3 {
+  color: #404040;
+  font-family: lato;
+  font-size: 24px;
+  margin-bottom: 15px;
+  text-transform: capitalize;
+}
+.rating-review .rating-section {
+  float: left;
+  width: 100%;
+  background: #fff;
+  padding: 10px 20px;
+  font-family: lato;
+  font-size: 16px;
+}
+.rating-review .rating-section ul li {
+  float: left;
+  padding: 10px 0;
+}
+.rating-review .rating-section ul li:nth-child(1) {
+  margin-right: 70px;
+  width: 20%;
+}
+.rating-review .rating-section ul li:nth-child(2) {
+  padding-top: 40px;
+  width: 31%;
+}
+.rating-review .rating-section ul li:nth-child(3) {
+  width: 24%;
+}
+.rating-review .rating-section ul li:nth-child(4) {
+  width: 18%;
+}
+.rating-review li.average-ratings {
+  text-align: center;
+}
+.rating-review li.average-ratings .dyn-rating {
+  height: 90px;
+  margin: 0 auto;
+  width: 120px;
+  padding: 0;
+  text-align: center;
+}
+.rating-review li.average-ratings .dyn-rating label {
+  text-transform: uppercase;
+  font-size: 13px;
+  color: #1c1c1c;
+  font-weight: bold;
+  margin-bottom: 0px;
+}
+.rating-review li.average-ratings .dyn-rating .ratings {
+  margin-top: 0;
+}
+.rating-review li.average-ratings .dyn-rating .ratings .rating-box {
+  margin: 0 auto;
+}
+.rating-review li.average-ratings .dyn-rating p {
+  color: #2f2f2f;
+  font-weight: bold;
+  font-size: 34px;
+  line-height: 26px;
+}
+.rating-review li.average-ratings .dyn-rating span {
+  color: #1c1c1c;
+  font-size: 13px;
+}
+.rating-review li.average-ratings p {
+  color: #1c1c1c;
+}
+.rating-review li.average-ratings span {
+  color: #404040;
+  font-size: 13px;
+}
+.rating-review .filter-review p {
+  color: #1c1c1c;
+  font-size: 14px;
+}
+.rating-review .filter-review ul li {
+  float: left;
+  margin: 0 !important;
+  padding: 8px 0 !important;
+  width: 100% !important;
+}
+.rating-review .filter-review .count {
+  float: left;
+  margin-right: 5px;
+  font-size: 14px;
+  line-height: 10px;
+  color: #1c1c1c;
+}
+.rating-review .filter-review .count:after {
+  content: "\f005";
+  font-family: FontAwesome;
+  font-size: 23px;
+  color: #f5ba00;
+  font-size: 14px;
+  margin-left: 3px;
+}
+.rating-review .filter-review .value {
+  float: left;
+  margin-left: 5px;
+  font-size: 14px;
+  line-height: 10px;
+}
+.rating-review .filter-review .filter-box {
+  background: #f2f2f2;
+  border-radius: 2px;
+  float: left;
+  height: 10px;
+  position: relative;
+  width: 250px;
+  cursor: pointer;
+}
+.rating-review .filter-review .filter-box .filter {
+  background: #0b8643;
+  border-radius: 2px;
+  height: 10px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 10%;
+}
+.rating-review .overall-ratings {
+  width: 212px;
+  margin: 10px auto 0;
+}
+.rating-review .overall-ratings li {
+  width: 100% !important;
+  padding: 5px 10px !important;
+}
+.rating-review .overall-ratings .title {
+  color: #404040;
+  float: left;
+  font-size: 12px;
+  line-height: 10px;
+  margin-right: 8px;
+  width: 60px;
+  text-align: left;
+  text-transform: capitalize;
+}
+.rating-review .overall-ratings .title:after {
+  content: "\f005";
+  font-family: FontAwesome;
+  font-size: 23px;
+  color: #f5ba00;
+  font-size: 14px;
+  margin-left: 3px;
+  float: right;
+}
+.rating-review .overall-ratings .filter-box {
+  background-position: 0px -991px;
+  float: left;
+  height: 10px;
+  position: relative;
+  width: 123px;
+}
+.rating-review .overall-ratings .filter-box .filter {
+  background-position: 0px -980px;
+  border-radius: 2px;
+  height: 10px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 10%;
+}
+.rating-review .recommends-items {
+  text-align: center;
+}
+.rating-review .recommends-items .dyn-rating {
+  height: 117px;
+  margin: 0 auto;
+  width: 117px;
+  padding: 52px 0 0 0;
+  text-align: center;
+  border: #2f2f2f solid 3px;
+  border-radius: 100px;
+  background-color: #fff;
+  background-position: center -1037px;
+  background-size: 300px 1300px;
+}
+.rating-review .recommends-items .dyn-rating p {
+  color: #2f2f2f;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 18px;
+}
+.rating-review .recommends-items .dyn-rating span {
+  color: #404040;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+.rating-review .recommends-items p {
+  color: #1c1c1c;
+  font-size: 14px;
+}
+.rating-review .recommends-items span {
+  color: #404040;
+  font-family: lato;
+  font-size: 14px;
+}
+.rating-review .recommends-items .action {
+  margin-top: 10px;
+}
+.rating-review .recommends-items .yes, .rating-review .recommends-items .No {
+  border-radius: 3px;
+  font-size: 12px;
+  padding: 6px 11px;
+  text-transform: uppercase;
+  margin: 0 4px;
+}
+.rating-review .recommends-items .yes {
+  border: 1px solid #005dbd;
+  text-decoration: none;
+  color: #404040;
+}
+.rating-review .recommends-items .yes:hover {
+  background: #005dbd;
+  color: #fff;
+}
+.rating-review .recommends-items .No {
+  text-decoration: none;
+  border: 1px solid #c4201d;
+  color: #c4201d;
+}
+.rating-review .recommends-items .No:hover {
+  background: #c4201d;
+  color: #fff;
+}
+.rating-review .write-review {
+  text-align: center;
+}
+.rating-review .write-review .img-box {
+  margin: 0 auto;
+  width: 140px;
+}
+.rating-review .write-review .img-box img {
+  width: 100%;
+}
+.rating-review .write-review p {
+  color: #404040;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+.rating-review .write-review .write-review {
+  background: #fff;
+  border: 1px solid #2f2f2f;
+  border-radius: 3px;
+  color: #2f2f2f;
+  font-size: 12px;
+  margin-top: 10px;
+  padding: 6px 15px;
+  text-decoration: none;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.rating-review .write-review .write-review:hover {
+  background: #2f2f2f;
+  color: #fff;
+}
+
+/* ============================================ *
+ * Review - Customer
+ * ============================================ */
+#customer-reviews {
+  width: auto;
+  float: none;
+}
+#customer-reviews .review-heading {
+  border-bottom: 1px solid #e3e3e3;
+  padding: 15px 0 8px;
+  clear: both;
+}
+#customer-reviews .review-heading:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+#customer-reviews .review-heading h2 {
+  float: left;
+  font-size: 20px;
+  font-weight: bold;
+  display: block;
+}
+#customer-reviews .review-heading .pager {
+  clear: none;
+  float: right;
+  width: auto;
+}
+#customer-reviews .review-heading .pager .count-container .limiter {
+  margin-bottom: 0;
+}
+#customer-reviews .review-heading .pager .count-container .limiter label {
+  font-family: "lato", "Helvetica Neue", Verdana, Arial, sans-serif;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+#customer-reviews .review-heading .pager .amount {
+  display: none;
+}
+#customer-reviews .review-heading .review_filter {
+  float: left;
+  margin-left: 20px;
+}
+#customer-reviews .review-heading .review_filter .star_ratings {
+  background-image: -moz-linear-gradient(center top, rgba(255, 255, 255, 0.1) 0px, rgba(255, 255, 255, 0) 100%);
+  border-radius: 4px;
+  color: #fff;
+  font-size: 14px;
+  line-height: 18px;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  margin-right: 5px;
+  float: left;
+}
+#customer-reviews .review-heading .review_filter .star_ratings.clear-all {
+  background-color: #ededed;
+  color: #1c1c1c;
+}
+#customer-reviews .review-heading .review_filter .star_ratings.clear-all .icon:after {
+  content: "\f057";
+  color: #1c1c1c;
+  font-size: 14px;
+  font-family: FontAwesome;
+  margin-left: 2px;
+}
+#customer-reviews .review-heading .review_filter .star_ratings.star-value {
+  background-color: #005dbd;
+}
+#customer-reviews .review-heading .review_filter .star_ratings.star-value .value_filter:after {
+  content: "\f057";
+  color: #fff;
+  font-size: 14px;
+  font-family: FontAwesome;
+  margin-left: 2px;
+}
+#customer-reviews h2 {
+  color: #404040;
+  font-size: 12px;
+  text-transform: capitalize;
+  font-family: lato;
+}
+#customer-reviews h2 span {
+  color: #404040;
+}
+#customer-reviews h3 {
+  /*font-family: $f-stack-special;
+  font-size: $f-size-xs;
+  font-weight: normal;
+  text-transform: uppercase;*/
+}
+#customer-reviews h3 span {
+  color: #666;
+}
+#customer-reviews .fieldset {
+  padding-top: 25px;
+  width: 470px;
+}
+#customer-reviews .fieldset h4 {
+  border-bottom: 1px solid #e3e3e3;
+  font-family: "lato", "Helvetica Neue", Verdana, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: normal;
+  padding-bottom: 5px;
+  text-transform: uppercase;
+}
+#customer-reviews .fieldset h4 em {
+  display: none;
+}
+#customer-reviews .fieldset .form-list {
+  font-family: "lato", "Helvetica Neue", Verdana, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: normal;
+  margin: 10px 0;
+  text-transform: uppercase;
+  width: 470px;
+}
+#customer-reviews .fieldset .form-list .inline-label:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+#customer-reviews .fieldset .form-list label {
+  font-size: 12px;
+  font-weight: normal;
+}
+#customer-reviews .fieldset .form-list textarea {
+  border: 1px solid #e3e3e3;
+  border-radius: 0;
+  min-width: 100%;
+  -webkit-appearance: none;
+}
+#customer-reviews .fieldset .form-list input {
+  border: 1px solid #e3e3e3;
+  border-radius: 0;
+}
+#customer-reviews .fieldset .form-list input[type="text"] {
+  width: 100%;
+}
+#customer-reviews .buttons-set {
+  border: none;
+  margin: 0;
+  width: 470px;
+}
+#customer-reviews dl {
+  font-family: 'lato', Verdana;
+  font-size: 12px;
+  font-weight: normal;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+#customer-reviews dl dt {
+  clear: left;
+  float: left;
+  margin: 10px 0;
+  width: 15%;
+  font-family: 'lato', Verdana;
+}
+#customer-reviews dl dt .review-meta {
+  color: #404040;
+  font-size: 12px;
+  font-weight: normal;
+  text-transform: capitalize;
+  font-family: 'lato', Verdana;
+}
+#customer-reviews dl dt .review-meta label {
+  color: #959595;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+#customer-reviews dl dd {
+  font-family: 'lato', Verdana;
+  font-size: 14px;
+  margin: 10px 0;
+  float: left;
+  width: 85%;
+}
+#customer-reviews dl dd p.title {
+  color: #404040;
+  float: left;
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 2px;
+  width: 70%;
+  text-decoration: none;
+}
+#customer-reviews dl dd .desc {
+  line-height: 24px;
+  clear: both;
+  width: 70%;
+}
+#customer-reviews dl dd .check-recommend {
+  float: right;
+  background-position: 0 -912px;
+  background-size: 300px 1300px;
+  padding-left: 20px;
+  margin-right: 40px;
+}
+#customer-reviews dl dd .nocheck-recommend {
+  float: right;
+  background-position: 0px -877px;
+  background-size: 300px 1300px;
+  padding-left: 20px;
+}
+#customer-reviews dl dd .ratings-table {
+  font-family: 'lato', Verdana;
+  font-size: 12px;
+  width: 100%;
+}
+#customer-reviews dl dd .ratings-table tr {
+  margin-right: 15px;
+}
+#customer-reviews dl dd .ratings-table .review-label {
+  width: 300px;
+  max-width: 70%;
+}
+#customer-reviews dl dd table {
+  margin: 15px 0;
+}
+#customer-reviews dl dd .helpful-section {
+  margin-top: 10px;
+}
+#customer-reviews dl dd .helpful-section a {
+  color: #959595;
+  font-size: 12px;
+  margin-left: 5px;
+  text-decoration: none;
+}
+#customer-reviews dl dd .helpful-section a.yes:before {
+  content: "\f164";
+  color: #adadad;
+  font-size: 14px;
+  font-family: FontAwesome;
+  margin-right: 2px;
+}
+#customer-reviews dl dd .helpful-section a.No:before {
+  content: "\f165";
+  color: #adadad;
+  font-size: 14px;
+  font-family: FontAwesome;
+  margin-right: 2px;
+}
+#customer-reviews #showallreview {
+  border: 1px solid #2f2f2f;
+  border-radius: 3px;
+  color: #2f2f2f;
+  float: left;
+  font-weight: bold;
+  font-size: 15px;
+  padding: 6px 24px 6px 15px;
+  text-transform: uppercase;
+  cursor: pointer;
+  position: relative;
+}
+#customer-reviews #showallreview:before {
+  content: "\f078";
+  font-size: 12px;
+  font-family: FontAwesome;
+  color: #2b3959;
+  margin-right: 8px;
+}
+#customer-reviews #showallreview.reviewhide:before {
+  content: "\f077";
+  font-size: 12px;
+  font-family: FontAwesome;
+  color: #2b3959;
+  margin-right: 8px;
+}
+
+.review-summary-table {
+  margin: 0;
+  padding: 10px 0 20px;
+  overflow: hidden;
+  width: 300px;
+  margin: 0 auto;
+}
+.review-summary-table ul {
+  float: left;
+  width: 25%;
+  text-align: center;
+}
+.review-summary-table ul li {
+  padding: 2px 0;
+}
+.review-summary-table ul li:nth-child(1) {
+  color: #404040;
+  font-weight: bold;
+  font-size: 12px;
+  text-transform: uppercase;
+  padding: 2px 0 10px;
+}
+.review-summary-table ul.star-box li {
+  width: 90px;
+  text-align: left;
+  padding: 1px 0;
+}
+.review-summary-table ul.star-box li:nth-child(1) {
+  padding: 2px 0 7px;
+  text-align: left;
+}
+.review-summary-table ul.star-box li .rating_nobr {
+  display: inline-block;
+  padding: 0 0 0 2px;
+  vertical-align: top;
+}
+.review-summary-table ul.star-box li .rating-box {
+  display: inline-block;
+  vertical-align: top;
+}
+.review-summary-table .rating-box .rating-number {
+  display: none;
+}
+.review-summary-table .rating-box .rating-number:after {
+  content: "";
+  display: inline-block;
+  background-position: 0px -599px;
+  width: 13px;
+  height: 14px;
+  margin-left: 5px;
+  position: relative;
+  top: 2px;
+}
+
+/* ============================================ *
+ * Ratings - Global
+ * ============================================ */
+.ratings-table {
+  font-family: "lato", "Helvetica Neue", Verdana, Arial, sans-serif;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+.ratings-table th {
+  color: #404040;
+  font-family: lato;
+  font-size: 12px;
+  padding-right: 10px;
+  text-transform: capitalize;
+}
+.ratings-table .rating-box {
+  background-repeat: repeat-x;
+  background-position: 0 -298px;
+  background-size: 300px 1300px;
+  height: 13px;
+  overflow: hidden;
+  text-indent: -9999px;
+  width: 65px;
+  margin: 0 0 4px;
+}
+.ratings-table .rating-box .rating {
+  background-repeat: repeat-x;
+  background-position: 0 -283px;
+  background-size: 300px 1300px;
+  float: left;
+  height: 13px;
+  text-indent: -9999px;
+}
+
+@media only screen and (max-width: 770px) {
+  body.review-product-list .product-view .product-shop .price-info {
+    padding-left: 0;
+  }
+  body.review-product-list .product-view .product-shop .extra-info {
+    padding: 0;
+    min-width: 84%;
+  }
+  body.review-product-list .product-view .product-shop .extra-info .ratings-table {
+    margin: 10px 0;
+    width: 100%;
+  }
+  body.review-product-list .product-view .product-shop .extra-info .ratings-table tr {
+    margin-right: 15px;
+  }
+}
+@media only screen and (max-width: 535px) {
+  body.review-product-list .product-view .product-shop .extra-info {
+    min-width: 0;
+  }
+  body.review-product-list .product-view .product-shop .extra-info .ratings-table tr {
+    float: none;
+    margin-right: 0;
+  }
+}
+@media only screen and (max-width: 520px) {
+  #customer-reviews .fieldset {
+    width: 100%;
+  }
+  #customer-reviews .fieldset .form-list {
+    width: 100%;
+  }
+  #customer-reviews .fieldset .form-list .inline-label label,
+  #customer-reviews .fieldset .form-list .inline-label .input-box {
+    float: none;
+  }
+  #customer-reviews .buttons-set {
+    width: 100%;
+  }
+  #customer-reviews .review-summary-table thead th {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+  #customer-reviews .review-summary-table tbody th {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+  #customer-reviews .review-summary-table tbody td {
+    width: 20%;
+    padding: 0px;
+  }
+  #customer-reviews .review-summary-table .rating-box {
+    text-indent: 0px;
+    text-align: center;
+    background: none;
+    height: 19.6px;
+    width: 100%;
+  }
+  #customer-reviews .review-summary-table .rating-box .rating {
+    display: none;
+  }
+  #customer-reviews .review-summary-table .rating-box .rating-number {
+    display: inline-block;
+  }
+}
+@media only screen and (max-width: 450px) {
+  #customer-reviews dl dd .ratings-table tr {
+    float: none;
+  }
+}
+/* ============================================ *
+ * Review View Page
+ * ============================================ */
+.review-product-view .product-review .product-details h2 {
+  border-bottom: none;
+}
+.review-product-view .product-review .product-img-box {
+  width: auto;
+  max-width: 50%;
+}
+.review-product-view .product-review .product-img-box > a {
+  width: 100%;
+}
+.review-product-view .product-review .product-img-box .product-image {
+  width: 100%;
+}
+
+@media only screen and (max-width: 770px) {
+  .review-product-view .product-review .product-img-box {
+    max-width: 100%;
+  }
+}
+#inline1 {
+  width: 520px;
+  padding: 10px 15px;
+}
+
+.form-add h2 {
+  color: #686868;
+  font-weight: bold;
+  font-size: 34px;
+  margin-bottom: 20px;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+#review-form h3 {
+  color: #1c1c1c;
+  font-weight: bold;
+  font-size: 21px;
+  text-align: center;
+  text-transform: capitalize;
+  line-height: 26px;
+}
+#review-form h4 {
+  color: #404040;
+  font-size: 16px;
+  font-weight: normal;
+  text-align: center;
+  text-transform: none;
+  border-bottom: 1px solid #e3e3e3;
+  padding: 0 0 20px 0;
+}
+#review-form .req-fields {
+  color: #d42809;
+  font-size: 12px;
+}
+#review-form .buttons-set button.button {
+  float: left;
+  border-radius: 3px;
+  font-weight: bold;
+  font-size: 15px;
+  padding: 10px 15px;
+}
+#review-form .form-list {
+  clear: both;
+}
+#review-form ul.form-list .inline-label .custom-select select {
+  margin: 0;
+}
+#review-form .recommend_radio {
+  padding-top: 5px;
+}
+#review-form .recommend_radio label {
+  background: #e2e2e2;
+  border-radius: 3px;
+  margin-right: 5px;
+  padding: 5px 15px 5px 10px;
+}
+#review-form .recommend_radio label input {
+  margin-right: 3px;
+}
+#review-form textarea:focus {
+  border: 1px solid #f68026;
+}
+
+@media only screen and (max-width: 1099px) {
+  #customer-reviews .review-heading {
+    padding: 15px 6px 8px;
+  }
+  #customer-reviews dl {
+    padding: 0 8px;
+  }
+}
+@media only screen and (max-width: 979px) {
+  #customer-reviews dl dt {
+    width: 17%;
+    margin: 10px 10px 0 0;
+  }
+  #customer-reviews dl dd {
+    width: 80%;
+  }
+  #customer-reviews dl dd .nocheck-recommend,
+  #customer-reviews dl dd .check-recommend {
+    float: right;
+    margin-bottom: 2px;
+    margin-top: 4px;
+  }
+  #customer-reviews dl dd .desc {
+    width: 56%;
+  }
+  #customer-reviews #dl_review .title {
+    width: auto;
+  }
+  #customer-reviews #dl_review .nocheck-recommend {
+    float: right;
+  }
+}
+@media only screen and (max-width: 770px) {
+  #customer-reviews dl dd .nocheck-recommend,
+  #customer-reviews dl dd .check-recommend {
+    float: left;
+    clear: both;
+  }
+}
+@media only screen and (max-width: 767px) {
+  #customer-reviews dl dt {
+    width: 24%;
+  }
+  #customer-reviews dl dd {
+    width: 100%;
+  }
+  #customer-reviews dl dd .desc {
+    width: 100%;
+  }
+  #customer-reviews #dl_review .title {
+    width: 100%;
+  }
+  #customer-reviews #dl_review .nocheck-recommend {
+    float: left;
+  }
+
+  .form-add h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+  .form-add h3 {
+    font-size: 18px;
+  }
+}
+@media only screen and (max-width: 599px) {
+  #inline1 {
+    width: 250px;
+    padding: 0;
+  }
+  #inline1 h2 {
+    font-size: 20px;
+    margin: 0 0 6px 0;
+  }
+  #inline1 h3 {
+    font-size: 16px;
+    line-height: 18px;
+    margin: 0 0 8px 0;
+  }
+
+  .review-summary-table {
+    width: 260px;
+  }
+}
+@media only screen and (max-width: 480px) {
+  #customer-reviews dl dt {
+    width: 100%;
+  }
+  #customer-reviews dl dd {
+    width: 100%;
+  }
+}
+</style>
