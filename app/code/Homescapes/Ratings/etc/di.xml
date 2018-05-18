@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <type name="Magento\Review\Block\Adminhtml\Edit\Form">
+        <plugin name="modify_review_edit_form" type="Homescapes\Ratings\Plugin\Magento\Review\Block\Adminhtml\Edit\Form" />
+    </type>    
+    <preference for="Magento\Review\Block\Adminhtml\Grid" type="Homescapes\Ratings\Block\Adminhtml\Grid" />
+    <preference for="Magento\Review\Model\ResourceModel\Review\Product\Collection" type="Homescapes\Ratings\Model\ResourceModel\Review\Product\Collection" />
+
+    
+</config>
