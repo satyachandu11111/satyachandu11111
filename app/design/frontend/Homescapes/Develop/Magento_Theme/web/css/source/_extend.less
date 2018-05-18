@@ -2814,6 +2814,11 @@ transition: all 5ms ease-in-out 0s;
 			position: absolute;
 			margin-top: 1px;
 		}
+		
+		.grouped ~ div.mage-error[generated]{
+			position: relative;
+		}
+		
 		.price-wrapper .price{
 			font-size: @font18;
 			font-weight: bold;
@@ -3136,9 +3141,9 @@ transition: all 5ms ease-in-out 0s;
 			.g-discount{
 				color: @danger;
 				font-weight: bold;
+				ine-height: 2rem;
 				
 				@media @479{
-					line-height: 2rem;
 					float: left;
 				}
 			}
@@ -4355,6 +4360,27 @@ transition: all 5ms ease-in-out 0s;
 	.close-overlay{
 		float: right;
 		color: @black;
-		font-size: @font16;
+		font-size: 2rem;
+		line-height: 9px;
+		border: 1px solid @black;
+		border-radius: 2rem;
+		padding: .4rem .6rem .8rem .6rem;
 	}
+}
+/*--------------------------------------------------------------------------
+| product-delete-message
+--------------------------------------------------------------------------*/
+.modal-popup, .confirm{
+	z-index: 999;
+	max-width: 700px;
+	left: 0;
+	margin: auto;
+	
+	.modal-content{
+		border: 0;
+	}
+	.modal-footer, .modal-header{
+		border: 0;
+	}
+	
 }
