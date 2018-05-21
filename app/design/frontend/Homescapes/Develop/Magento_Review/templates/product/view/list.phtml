@@ -51,6 +51,7 @@ foreach ($_items as $rating_review){
 
 <div class="box-collateral box-reviews" id="customer-reviews">
     <?php if (count($_items)):$totalreivew = count($_items);?>
+	
         <div class="rating-review">
 			<h3><?php echo __('Rating & Reviews') ?></h3>
 			<div class="rating-section">
@@ -130,111 +131,106 @@ foreach ($_items as $rating_review){
 			</div>
     	</div>
 	
-        <div class="review-heading">
-            <h2>
-                <?php echo __('Customer Reviews') ?>
-                <span id="review_count">[<?php echo count($_items); ?>]</span>
-            </h2>
-
-            <div class="review_filter">
-				<div data-star="all" class="star_ratings star-value"> 
-					<span class="value_filter" ></span>
-				</div>
-				<div data-star="all" class="star_ratings clear-all"> <?php echo __('Clear all') ?>
-					<span class="icon"></span>
-					<span class="value" id="value_all"><?php echo $totalreivew ?></span>
-				</div>
-			</div>		
-        </div>
+		<div class="reviews-list-box">
 	
-	
-        <dl id="dl_review">
-        <?php $it=0;foreach ($_items as $_review):$it++;?>
-        <?php 
-                $_votes = $_review->getRatingVotes(); 
-                $rowdata = $_votes->getData();               
-                $average_ratings = ($rowdata[0]['percent']+$rowdata[1]['percent']+$rowdata[2]['percent'])/3;               
-                ?> 
-			
-            <dt data-rating="<?php echo round($average_ratings/20)?>" <?php if($it >4){?>class="inactive"<?php }?>>
-				              
-				<?php if (count($_votes)): ?>
-				
-                <table class="ratings-table">
-                    <colgroup>
-                        <col class="review-label" />
-                        <col class="review-value" />
-                    </colgroup>
-                    <tbody>                    
-						<tr>
-                           
-                            <td colspan="2">
-                                <div class="rating-box">
-									<div class="rating" style="width:<?php echo $average_ratings ?>%;"></div>
-								</div>
-                            </td>
-                        </tr>
-						<tr>
-                            
-                            <td colspan="2">
-                                <span class="review-meta">
-									<?php echo __('Review by '.($_review->getNickname())) ?>
-									<br> 
-								   <label><?php echo __('Posted on '.date('d/m/Y', strtotime($_review->getCreatedAt()))); ?></label>
-								</span>
-								
-                            </td>
-                        </tr>
-                        <?php foreach ($_votes as $_vote): ?>
-                        <tr>
-                            <th><?php echo ($_vote->getRatingCode()) ?></th>
-                            <td>
-                                <div class="rating-box">
-                                    <div class="rating" style="width:<?php echo $_vote->getPercent() ?>%;"></div>
-                                </div>
-                            </td>
-                        </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-				
-				
-                <?php endif; ?>     
-				
-				
-            </dt>
-			
-			
-            <dd data-rating="<?php echo round($average_ratings/20)?>" <?php if($it >4){?>class="inactive"<?php }?>>
-				
-                <p class="title"><?php echo (__($_review->getTitle()))?></p>
-				
-				
-				
-				
+			<div class="review-heading">
+				<h2>
+					<?php echo __('Customer Reviews') ?>
+					<span id="review_count">[<?php echo count($_items); ?>]</span>
+				</h2>
 
-                <?php if($helper->getRecommend($_review->getReviewId()) == 1){?>     
-				<label class="check-recommend"><?php echo __('Yes'); ?>, <?php echo __('I recommend this product'); ?></label>
-                <?php }else{?>
-                <label class="nocheck-recommend"><?php echo __('No'); ?>, <?php echo __('I do not recommend this product'); ?></label>
-                <?php }?>
-				
-				
-				
-				
-				<p class="desc"><?php echo nl2br(($_review->getDetail())) ?>    </p>
-				
-				
-				
-				
-            </dd>
-        <?php endforeach; ?>
-        
-        </dl>
+				<div class="review_filter">
+					<div data-star="all" class="star_ratings star-value"> 
+						<span class="value_filter" ></span>
+					</div>
+					<div data-star="all" class="star_ratings clear-all"> <?php echo __('Clear all') ?>
+						<span class="icon"></span>
+						<span class="value" id="value_all"><?php echo $totalreivew ?></span>
+					</div>
+				</div>		
+			</div>
 
-        <?php if($it >4){?>
-        <div id="showallreview"><?php echo __('<span>Load More</span> Reviews')?></div>
+
+			<dl id="dl_review">
+			<?php $it=0;foreach ($_items as $_review):$it++;?>
+			<?php 
+					$_votes = $_review->getRatingVotes(); 
+					$rowdata = $_votes->getData();               
+					$average_ratings = ($rowdata[0]['percent']+$rowdata[1]['percent']+$rowdata[2]['percent'])/3;               
+					?> 
+
+
+
+				<dd class="reviews-bg" data-rating="<?php echo round($average_ratings/20)?>" <?php if($it >4){?>class="inactive"<?php }?>>
+
+					<?php if (count($_votes)): ?>
+
+					<table class="ratings-table title-box">
+
+						<tbody>                    
+							<tr>
+
+								<td>
+									<div class="rating-box">
+										<div class="rating" style="width:<?php echo $average_ratings ?>%;"></div>
+									</div>
+								</td>
+
+								<td><p class="title"><?php echo (__($_review->getTitle()))?></p></td>
+							</tr>
+
+
+						</tbody>
+					</table>
+
+
+					<?php endif; ?>   
+
+
+
+					<span class="review-meta">
+						<?php echo __('Review by '.($_review->getNickname())) ?>
+						, 
+					   <label class="date"><?php echo __('Posted on '.date('d/m/Y', strtotime($_review->getCreatedAt()))); ?></label>
+					</span>
+
+
+					<div class="ratings-table">
+					<?php foreach ($_votes as $_vote): ?>
+
+
+						<label><?php echo ($_vote->getRatingCode()) ?></label>
+
+						<div class="rating-box">
+							<div class="rating" style="width:<?php echo $_vote->getPercent() ?>%;"></div>
+						</div>
+
+
+					<?php endforeach; ?>
+					</div>
+
+					<p class="desc"><?php echo nl2br(($_review->getDetail())) ?>    </p>
+
+
+					<?php if($helper->getRecommend($_review->getReviewId()) == 1){?>     
+
+					<label class="check-recommend"><?php echo __('Yes'); ?>, <?php echo __('I recommend this product'); ?></label>
+					<?php }else{?>
+					<label class="nocheck-recommend"><?php echo __('No'); ?>, <?php echo __('I do not recommend this product'); ?></label>
+					<?php }?>
+
+
+				</dd>
+			<?php endforeach; ?>
+
+			</dl>
+
+			<?php if($it >4){?>
+			<div id="showallreview text-center"><?php echo __('<span>Load More</span> Reviews')?></div>
         
+		</div>	
+			
+			
         <?php }?>
     <?php elseif($block->getParentBlock()): ?>
         <?php echo $block->getParentBlock()->getReviewsSummaryHtml($block->getProduct(), 'short', true)?>

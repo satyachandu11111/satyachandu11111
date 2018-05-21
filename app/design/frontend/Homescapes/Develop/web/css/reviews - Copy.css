@@ -289,30 +289,13 @@ background-size: 300px 1300px;
   background: #2f2f2f;
   color: #fff;
 }
-.review-meta {
-	float: left;
-	width: 100%;
-	margin-bottom: .5rem;
-}
 
-.reviews-list-box{
-	width: 100%;
-	max-width: 960px;
-	margin: auto;
-	clear: both;
-	padding: 1rem;
-	border-radius: .4rem;
-}
-.reviews-bg:nth-child(2n+1){
-	background: #f9f9f9;
-}
 /* ============================================ *
  * Review - Customer
  * ============================================ */
 #customer-reviews {
   width: auto;
   float: none;
-	margin-bottom: 2rem;
 }
 #customer-reviews .review-heading {
   border-bottom: 1px solid #e3e3e3;
@@ -481,8 +464,7 @@ background-size: 300px 1300px;
   font-size: 14px;
   margin: 10px 0;
   float: left;
-  width: 100%;
-	padding: 1rem;
+  width: 85%;
 }
 #customer-reviews dl dd p.title {
   color: #444444;
@@ -490,17 +472,16 @@ background-size: 300px 1300px;
   font-weight: bold;
   font-size: 16px;
   margin-bottom: 2px;
-  width: 100%;
+  width: 70%;
   text-decoration: none;
-	line-height: 1.4rem;
 }
 #customer-reviews dl dd .desc {
   line-height: 24px;
   clear: both;
-  width: 100%;
+  width: 70%;
 }
 #customer-reviews dl dd .check-recommend {
-  float: left;
+  float: right;
   background-position: 0 -912px;
   background-size: 300px 1300px;
   padding-left: 20px;
@@ -516,8 +497,6 @@ background-size: 300px 1300px;
   font-family: 'lato', Verdana;
   font-size: 12px;
   width: 100%;
-	float: left;
-	display: flex;
 }
 #customer-reviews dl dd .ratings-table tr {
   margin-right: 15px;
@@ -527,7 +506,7 @@ background-size: 300px 1300px;
   max-width: 70%;
 }
 #customer-reviews dl dd table {
-  margin: 3px 0;
+  margin: 15px 0;
 }
 #customer-reviews dl dd .helpful-section {
   margin-top: 10px;
@@ -661,14 +640,8 @@ table > thead > tr > th, table > tbody > tr > th, table > tfoot > tr > th, table
   height: 13px;
   overflow: hidden;
   text-indent: -9999px;
-  width: 6.5rem;
-  margin: 0 1rem;
-}
-.title-box .rating-box{
-	margin: 0 1rem 0 0;
-}
-.title-box td{
-	padding: 3px 0;
+  width: 65px;
+  margin: 0 0 4px;
 }
 .ratings-table .rating-box .rating {
   background-repeat: repeat-x;
