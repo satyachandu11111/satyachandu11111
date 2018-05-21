@@ -59,7 +59,7 @@ foreach ($_items as $rating_review){
 					<li class="average-ratings">
 						<div class="dyn-rating">	
 							<label><?php echo __('Overall') ?></label>
-							<div class="ratings">
+							<div class="overall-box">
 								<div class="rating-box">
 									<div class="rating" style="width:<?php echo round($_product->getRatingSummary()->getRatingSummary()) ?>%;"></div>
 								</div>
@@ -125,7 +125,7 @@ foreach ($_items as $rating_review){
 		   <img src="<?php echo $image->getImageUrl(); ?>" alt="test"/>                       
 						</div>
 						<p><?php echo __('Have you purchased this item?') ?></p>
-						<a href="#inline1" class="write-review fancybox review-popup"><?php echo __('write a review') ?></a>
+						<a href="#inline1" class="write-review fancybox review-popup"><?php echo __('Write a Review') ?></a>
 					</li>
 				</ul>
 			</div>
@@ -165,7 +165,7 @@ foreach ($_items as $rating_review){
 
 					<?php if (count($_votes)): ?>
 
-					<table class="ratings-table title-box">
+					<table class="title-box">
 
 						<tbody>                    
 							<tr>

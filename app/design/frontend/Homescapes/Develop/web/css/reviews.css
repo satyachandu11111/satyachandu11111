@@ -1,7 +1,20 @@
 @charset "utf-8";
 /* CSS Document */
 
- .close-btn, .ratings .rating-box, .ratings .rating-box .rating, .rating-review .overall-ratings .filter-box, .rating-review .overall-ratings .filter-box .filter, .rating-review .recommends-items .dyn-rating, #customer-reviews dl dd .check-recommend, #customer-reviews dl dd .nocheck-recommend, .ratings-table .rating-box, .ratings-table .rating-box .rating{
+.close-btn,
+.ratings .rating-box,
+.ratings .rating-box .rating,
+.rating-review .overall-ratings .filter-box,
+.rating-review .overall-ratings .filter-box .filter,
+.rating-review .recommends-items .dyn-rating,
+#customer-reviews dl dd .check-recommend,
+#customer-reviews dl dd .nocheck-recommend,
+.ratings-table .rating-box,
+.ratings-table .rating-box .rating,
+.title-box .rating-box,
+.title-box .rating-box .rating,
+.overall-box .rating-box,
+.overall-box .rating-box .rating{
 	 background-image: url(../images/icon_sprite_new.png);
 background-repeat: no-repeat;
 background-position: 0px 0px;
@@ -31,16 +44,16 @@ background-size: 300px 1300px;
 }
 .ratings .rating-box .rating{
 	float: left;
-	height: 13px;
+	height: 17px;
 	background-repeat: repeat-x;
 	background-position: 0 -283px;
 	background-size: 300px 1300px;
 }
 .ratings .rating-box{
-	width: 65px;
-height: 15px;
+	width: 8.5rem;
+height: 17px;
 background-repeat: repeat-x;
-background-position: 0 -298px;
+background-position: 0 -302px;
 overflow: hidden;
 background-size: 300px 1300px;
 }
@@ -67,7 +80,7 @@ background-size: 300px 1300px;
 }
 .rating-review li.average-ratings .dyn-rating {
   height: 90px;
-  margin: 0 auto;
+  margin: 0 auto 15px auto;
   width: 120px;
   padding: 0;
   text-align: center;
@@ -274,16 +287,15 @@ background-size: 300px 1300px;
   margin-bottom: 10px;
 }
 .rating-review .write-review .write-review {
-  background: #fff;
-  border: 1px solid #2f2f2f;
+  background:#626166;
+  border: 1px solid #626166;
   border-radius: 3px;
-  color: #2f2f2f;
+  color: #fff;
   font-size: 12px;
   margin-top: 10px;
   padding: 6px 15px;
   text-decoration: none;
   font-weight: bold;
-  text-transform: capitalize;
 }
 .rating-review .write-review .write-review:hover {
   background: #2f2f2f;
@@ -492,7 +504,7 @@ background-size: 300px 1300px;
   margin-bottom: 2px;
   width: 100%;
   text-decoration: none;
-	line-height: 1.4rem;
+	line-height: 1.8rem;
 }
 #customer-reviews dl dd .desc {
   line-height: 24px;
@@ -507,7 +519,7 @@ background-size: 300px 1300px;
   margin-right: 40px;
 }
 #customer-reviews dl dd .nocheck-recommend {
-  float: right;
+  float: left;
   background-position: 0px -877px;
   background-size: 300px 1300px;
   padding-left: 20px;
@@ -654,14 +666,44 @@ background-size: 300px 1300px;
 table > thead > tr > th, table > tbody > tr > th, table > tfoot > tr > th, table > thead > tr > td, table > tbody > tr > td, table > tfoot > tr > td{
 	padding:3px 10px;
 }
-.ratings-table .rating-box {
-  background-repeat: repeat-x;
-  background-position: 0 -298px;
+
+
+
+.title-box{
+	display: grid;
+}
+.overall-box{
+	margin-bottom: .8rem;
+}
+
+.title-box .rating-box, .overall-box .rating-box {
+    background-repeat: repeat-x;
+  background-position: 204px -302px;
   background-size: 300px 1300px;
-  height: 13px;
+  height: 18px;
   overflow: hidden;
   text-indent: -9999px;
-  width: 6.5rem;
+  width: 9.3rem;
+  margin: auto;
+}
+
+.title-box .rating-box .rating, .overall-box  .rating-box .rating {
+  background-repeat: repeat-x;
+  background-position: 204px -280px;
+  background-size: 300px 1300px;
+  float: left;
+  height: 18px;
+  text-indent: -9999px;
+}
+
+.ratings-table .rating-box {
+  background-repeat: repeat-x;
+  background-position: 0 -302px;
+  background-size: 300px 1300px;
+  height: 17px;
+  overflow: hidden;
+  text-indent: -9999px;
+  width: 8.5rem;
   margin: 0 1rem;
 }
 .title-box .rating-box{
@@ -675,7 +717,7 @@ table > thead > tr > th, table > tbody > tr > th, table > tfoot > tr > th, table
   background-position: 0 -283px;
   background-size: 300px 1300px;
   float: left;
-  height: 13px;
+  height: 17px;
   text-indent: -9999px;
 }
 
