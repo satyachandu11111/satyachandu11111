@@ -16,9 +16,18 @@
     <?= $block->getBlockHtml('formkey') ?>
     <?= $block->getChildHtml('form_fields_before') ?>
     <fieldset class="fieldset review-fieldset" data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>">
-        <legend class="legend review-legend"><span><?= $block->escapeHtml(__("You're reviewing:")) ?></span><strong><?= $block->escapeHtml($block->getProductInfo()->getName()) ?></strong></legend><br />
+        <legend class="legend review-legend">
+			
+			<span><?= $block->escapeHtml(__("You're reviewing:")) ?></span>
+			
+			<strong><?= $block->escapeHtml($block->getProductInfo()->getName()) ?></strong>
+			
+			<span>How do you rate this product? *</span>
+		
+		</legend><br />
         <?php if ($block->getRatings() && $block->getRatings()->getSize()): ?>
         <span id="input-message-box"></span>
+		
         <fieldset class="field required review-field-ratings">
             <legend class="label"><span><?= $block->escapeHtml(__('Your Rating')) ?></span></legend><br/>
             <div class="control">
@@ -53,6 +62,7 @@
                 <input type="hidden" name="validate_rating" class="validate-rating" value="" />
             </div>
         </fieldset>
+		
     <?php endif ?>
         <div class="field review-field-nickname required">
             <label for="nickname_field" class="label"><span><?= $block->escapeHtml(__('Nickname')) ?></span></label>

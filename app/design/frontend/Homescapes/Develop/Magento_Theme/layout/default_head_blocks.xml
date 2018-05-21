@@ -11,6 +11,7 @@
 		<!--Bootstrap and Fontawesome-->
 		<css src="css/bootstrap.css" />
 		<css src="css/fontawesome-all.min.css" />
+		<css src="css/reviews.css" />
 		
     </head>
 </page>

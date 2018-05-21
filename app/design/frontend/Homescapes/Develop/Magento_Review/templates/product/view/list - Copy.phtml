@@ -52,84 +52,83 @@ foreach ($_items as $rating_review){
 <div class="box-collateral box-reviews" id="customer-reviews">
     <?php if (count($_items)):$totalreivew = count($_items);?>
         <div class="rating-review">
-			<h3><?php echo __('Rating & Reviews') ?></h3>
-			<div class="rating-section">
-				<ul>
-					<li class="average-ratings">
-						<div class="dyn-rating">	
-							<label><?php echo __('Overall') ?></label>
-							<div class="ratings">
-								<div class="rating-box">
-									<div class="rating" style="width:<?php echo round($_product->getRatingSummary()->getRatingSummary()) ?>%;"></div>
-								</div>
+        <h3><?php echo __('Rating & Reviews') ?></h3>
+        <div class="rating-section">
+            <ul>
+                <li class="average-ratings">
+                    <div class="dyn-rating">	
+						<label><?php echo __('Overall') ?></label>
+						<div class="ratings">
+							<div class="rating-box">
+								<div class="rating" style="width:<?php echo round($_product->getRatingSummary()->getRatingSummary()) ?>%;"></div>
 							</div>
-							<p><?php echo round(($_product->getRatingSummary()->getRatingSummary())/20, 1) ?></p>
-							<span><?php echo __('Out of 5') ?></span>
-						</div>
-
-						<span><?php echo __('Based on '.$totalreivew.' ratings') ?></span>
-						<div class="overall-ratings">
-						<ul>
-					   <?php  foreach($rating_code as $label => $sumofratings){?>
-							<li>
-								<span class="title"><?php echo __($label); ?></span>
-								<div class="filter-box">
-									<div class="filter" style="width: <?php echo round($sumofratings/$totalreivew,2); ?>%;"></div>
-								</div>                            
-							</li> 
-						<?php }?>
-
-						</ul>
-
-						</div>
-					</li>
-
-					<li class="filter-review">
-						<p class="title"><?php echo __('Select a row below to filter reviews.') ?></p>
-						<ul>
-						<?php foreach($average_ratings_count as $key => $val){?>
-							<li data-star="<?php echo $key?>" class="star_ratings">
-								<span class="count"><?php echo $key?></span>
-								<div class="filter-box">
-								<?php $star_rating = ($val*100)/$totalreivew;?>
-									<div class="filter" style="width: <?php echo round($star_rating,2); ?>%;"></div>
-								</div>
-								<span class="value" id="value_<?php echo $key;?>"><?php echo $val?></span>
-							</li> 
-						<?php }?>  
-
-						</ul>
-					</li>
-
-					<li class="recommends-items">
-						<div class="dyn-rating">
-						<?php $br = ($based_recommendation*100)/$totalreivew;?>
-							<p><?php echo round($br, 2)."%"?></p>
-							<span><?php echo __('recommend') ?></span>
-						</div>
-						<p><?php echo __('Based on '.$totalreivew.' recommendations') ?></p>
-						<span><?php echo __('Would you recommend this item?') ?></span>
-						<div class="action">
-							<a class="yes fancybox review-popup" href="#inline1"><?php echo __('Yes')?></a>
-							<a class="No fancybox review-popup" href="#inline1" ><?php echo __('No')?></a>
-						</div>
-					</li>
-
-					<li class="write-review">
-						<div class="img-box">
-				<?php
-					$imageType = 'product_thumbnail_image';
-					$image = $block->getImage($_product, $imageType); 
-				?>
-		   <img src="<?php echo $image->getImageUrl(); ?>" alt="test"/>                       
-						</div>
-						<p><?php echo __('Have you purchased this item?') ?></p>
-						<a href="#inline1" class="write-review fancybox review-popup"><?php echo __('write a review') ?></a>
-					</li>
-				</ul>
-			</div>
-    	</div>
-	
+                        </div>
+                        <p><?php echo round(($_product->getRatingSummary()->getRatingSummary())/20, 1) ?></p>
+                        <span><?php echo __('Out of 5') ?></span>
+                    </div>
+                   
+                    <span><?php echo __('Based on '.$totalreivew.' ratings') ?></span>
+                    <div class="overall-ratings">
+					<ul>
+                   <?php  foreach($rating_code as $label => $sumofratings){?>
+                        <li>
+                            <span class="title"><?php echo __($label); ?></span>
+                            <div class="filter-box">
+                                <div class="filter" style="width: <?php echo round($sumofratings/$totalreivew,2); ?>%;"></div>
+                            </div>                            
+                        </li> 
+                    <?php }?>
+						
+                    </ul>
+                   
+                    </div>
+                </li>
+                
+                <li class="filter-review">
+                    <p class="title"><?php echo __('Select a row below to filter reviews.') ?></p>
+                    <ul>
+                    <?php foreach($average_ratings_count as $key => $val){?>
+                        <li data-star="<?php echo $key?>" class="star_ratings">
+                            <span class="count"><?php echo $key?></span>
+                            <div class="filter-box">
+                            <?php $star_rating = ($val*100)/$totalreivew;?>
+                                <div class="filter" style="width: <?php echo round($star_rating,2); ?>%;"></div>
+                            </div>
+                            <span class="value" id="value_<?php echo $key;?>"><?php echo $val?></span>
+                        </li> 
+                    <?php }?>  
+                                            
+                    </ul>
+                </li>
+                
+                <li class="recommends-items">
+                    <div class="dyn-rating">
+                    <?php $br = ($based_recommendation*100)/$totalreivew;?>
+                        <p><?php echo round($br, 2)."%"?></p>
+                        <span><?php echo __('recommend') ?></span>
+                    </div>
+                    <p><?php echo __('Based on '.$totalreivew.' recommendations') ?></p>
+                    <span><?php echo __('Would you recommend this item?') ?></span>
+                    <div class="action">
+                        <a class="yes fancybox review-popup" href="#inline1"><?php echo __('Yes')?></a>
+                        <a class="No fancybox review-popup" href="#inline1" ><?php echo __('No')?></a>
+                    </div>
+                </li>
+                
+                <li class="write-review">
+                    <div class="img-box">
+			<?php
+				$imageType = 'product_thumbnail_image';
+				$image = $block->getImage($_product, $imageType); 
+			?>
+	   <img src="<?php echo $image->getImageUrl(); ?>" alt="test"/>                       
+                    </div>
+                    <p><?php echo __('Have you purchased this item?') ?></p>
+                    <a href="#inline1" class="write-review fancybox review-popup"><?php echo __('write a review') ?></a>
+                </li>
+            </ul>
+        </div>
+    </div>
         <div class="review-heading">
             <h2>
                 <?php echo __('Customer Reviews') ?>
@@ -146,8 +145,6 @@ foreach ($_items as $rating_review){
 				</div>
 			</div>		
         </div>
-	
-	
         <dl id="dl_review">
         <?php $it=0;foreach ($_items as $_review):$it++;?>
         <?php 
@@ -155,11 +152,9 @@ foreach ($_items as $rating_review){
                 $rowdata = $_votes->getData();               
                 $average_ratings = ($rowdata[0]['percent']+$rowdata[1]['percent']+$rowdata[2]['percent'])/3;               
                 ?> 
-			
             <dt data-rating="<?php echo round($average_ratings/20)?>" <?php if($it >4){?>class="inactive"<?php }?>>
 				              
 				<?php if (count($_votes)): ?>
-				
                 <table class="ratings-table">
                     <colgroup>
                         <col class="review-label" />
@@ -197,36 +192,18 @@ foreach ($_items as $rating_review){
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-				
-				
-                <?php endif; ?>     
-				
-				
+                <?php endif; ?>                
             </dt>
-			
-			
             <dd data-rating="<?php echo round($average_ratings/20)?>" <?php if($it >4){?>class="inactive"<?php }?>>
 				
                 <p class="title"><?php echo (__($_review->getTitle()))?></p>
-				
-				
-				
-				
 
                 <?php if($helper->getRecommend($_review->getReviewId()) == 1){?>     
 				<label class="check-recommend"><?php echo __('Yes'); ?>, <?php echo __('I recommend this product'); ?></label>
                 <?php }else{?>
                 <label class="nocheck-recommend"><?php echo __('No'); ?>, <?php echo __('I do not recommend this product'); ?></label>
                 <?php }?>
-				
-				
-				
-				
 				<p class="desc"><?php echo nl2br(($_review->getDetail())) ?>    </p>
-				
-				
-				
-				
             </dd>
         <?php endforeach; ?>
         
