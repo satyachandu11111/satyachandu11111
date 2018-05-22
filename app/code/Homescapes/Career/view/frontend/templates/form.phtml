@@ -1,12 +1,11 @@
 <?php 
 $helper = $this->helper('Homescapes\Career\Helper\Data');
-//data-mage-init='{"validation":{}}'
 ?>
 
 <div class="career-page-box">
 
   
-  <form action="<?php echo $block->getUrl('career/save/index'); ?>" id="carrer_form" method="post" name="carrer_form" enctype='multipart/form-data' >
+  <form action="<?php echo $block->getUrl('career/save/index'); ?>" id="carrer_form" method="post" name="carrer_form" enctype='multipart/form-data' data-mage-init='{"validation":{}}'>
     <div class="fill-out"><?php echo __('Please fill out the following information.') ?></div>
     <div class="form-panel">
       <div class="inner-panel">
@@ -19,7 +18,7 @@ $helper = $this->helper('Homescapes\Career\Helper\Data');
                 <select name="jobtitle" id="jobtitle" class="validate-select form-control required-entry">
                   <option value="">-- Please Select --</option>
                   <option value="NewsPaper" >NewsPaper</option>
-                  <option value="onlinsite" >Online Website</option>
+                  <option value="onlinesite" >Online Website</option>
                   <option value="Friends" >Friends</option>
                 </select>
               </div>
