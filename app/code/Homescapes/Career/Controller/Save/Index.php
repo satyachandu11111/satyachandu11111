@@ -78,31 +78,33 @@ class Index extends Action
                           }
 
                     $templateId = $this->_helper->getTemplateId();
-                    $senderEmail= $this->_helper->getOwnerEmail();
+                    $senderEmail= trim($this->_helper->getOwnerEmail());
                     $senderName="Homescapes";
-                    $customerEmail=$data['email_address'];
+                    $customerEmail= trim($data['email_address']);
                     $fullName=$data['fname']." ".$data['lname'];
 
                     $email_template_variables = array(               
-                       'name' => $fullName,
+                       'name' => $senderName,
+                       'fullname' => $fullName,
                        'phone' => $data['phone'],
                        'job' => $data['job'],
-                       'jobtitle' => $data['jobtitle'],              
+                       'jobtitle' => $data['jobtitle'],
                        'email' => $data['email_address'],
-                       'jobform'  =>''          
-                    );  
+                       'user' => ''
 
-                   $jobform='<table width="100%"><tr><td colspan="2">Candidate Details</td></tr><tr><td>Name</td><td>'.$fullName.'</td></tr><tr><td>Email Id</td><td>'.$customerEmail.'</td></tr><tr><td>Contact Number</td><td>'.$data['phone'].'</td></tr><tr><td> Job Title</td><td>'.$data['job'].'</td></tr></table>';
-                  
+                      );  
+
+                   
                   $email_template_variables_admin = array(               
                      'name' => $senderName,
+                     'fullname' => $fullName,
                      'phone' => $data['phone'],
                      'job' => $data['job'],
                      'jobtitle' => $data['jobtitle'],
                      'email' => $data['email_address'], 
-                     'jobform'  =>$jobform
+                     'user' => 'admin'
                     );           
-                
+                 
                   $sender = [
                     'name' => $senderName,
                     'email' => $senderEmail,
@@ -110,20 +112,21 @@ class Index extends Action
 
                   try{
                       /* for customer */
-                      $processedTemplate = $this->_transportBuilder->setTemplateIdentifier($templateId)
+                      $transport = $this->_transportBuilder->setTemplateIdentifier($templateId)
                       ->setTemplateOptions([
                           'area' => \Magento\Framework\App\Area::AREA_FRONTEND,
                           'store' => $this->_storeManager->getStore()->getId(),
                       ])->setTemplateVars($email_template_variables)->setFrom($sender)->addTo($customerEmail, $fullName)->getTransport();
+                      $transport->sendMessage();
                       
                       /* for admin */ 
                       
-                      $processedTemplateadmin = $this->_transportBuilder->setTemplateIdentifier($templateId)
+                      $transportadmin = $this->_transportBuilder->setTemplateIdentifier($templateId)
                       ->setTemplateOptions([
                           'area' => \Magento\Framework\App\Area::AREA_FRONTEND,
                           'store' => $this->_storeManager->getStore()->getId(),
                       ])->setTemplateVars($email_template_variables_admin)->setFrom($sender)->addTo($senderEmail, $senderName)->addAttachment($filePath, $fileName)->getTransport();
-
+                      $transportadmin->sendMessage();
                       $this->messageManager->addSuccess(__('Thank you. Your Cv has uploaded successfully. We will contact you very soon.')); 
                   }catch (\Exception $e) {
                                $this->messageManager->addError('There was a problem to send email.');
