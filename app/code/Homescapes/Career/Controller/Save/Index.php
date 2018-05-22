@@ -55,121 +55,87 @@ class Index extends Action
             if(isset($_FILES['cv']['name']) and (file_exists($_FILES['cv']['tmp_name'])))
             {
 
-              $target = $this->_filesystem->getDirectoryRead(DirectoryList::MEDIA)->getAbsolutePath('mycvupload/');
+                  $target = $this->_filesystem->getDirectoryRead(DirectoryList::MEDIA)->getAbsolutePath('mycvupload/');
 
-              if(!file_exists($target))
-              { mkdir($target, 0777, true); }
+                  if(!file_exists($target))
+                  { mkdir($target, 0777, true); }
 
-              try {
+                      try {
 
-               $myfileupload = $_FILES['cv']['name'];
-             
+                            $myfileupload = $_FILES['cv']['name'];
+                            $uploader = $this->_fileUploaderFactory->create(['fileId' => $this->fileId ]);
+                      
+                            $uploader->setAllowedExtensions(array('doc','docx','xlsx','pdf'));
+                            $uploader->setAllowCreateFolders(true);
+                            $uploader->setAllowRenameFiles(false);
+                            $uploader->setFilesDispersion(false);
+                            $result = $uploader->save($target);
+                            $filePath = $result['path'].$result['file'];
+                            $fileName = $result['name'];
+                           
+                          } catch (\Exception $e) {
+                               $this->messageManager->addError($e->getMessage());
+                          }
 
-              $uploader = $this->_fileUploaderFactory->create(['fileId' => $this->fileId ]);
-        
-              $uploader->setAllowedExtensions(array('doc','docx','xlsx','pdf'));
-              $uploader->setAllowCreateFolders(true);
-              $uploader->setAllowRenameFiles(false);
-              $uploader->setFilesDispersion(false);
-              $result = $uploader->save($target);
+                    $templateId = $this->_helper->getTemplateId();
+                    $senderEmail= $this->_helper->getOwnerEmail();
+                    $senderName="Homescapes";
+                    $customerEmail=$data['email_address'];
+                    $fullName=$data['fname']." ".$data['lname'];
 
-             
-              if ($result['file']) {
-                     $this->messageManager->addSuccess(__('File has been successfully uploaded')); 
-                 }
-            } catch (\Exception $e) {
-                 $this->messageManager->addError($e->getMessage());
-            }
+                    $email_template_variables = array(               
+                       'name' => $fullName,
+                       'phone' => $data['phone'],
+                       'job' => $data['job'],
+                       'jobtitle' => $data['jobtitle'],              
+                       'email' => $data['email_address'],
+                       'jobform'  =>''          
+                    );  
 
-            
-                $templateId = $this->_helper->getTemplateId();
-                $senderEmail= $this->_helper->getOwnerEmail();
-                $senderName="Homescapes";
-               // $customerName = $data['fname']; 
-                $customerEmail=$data['email_address'];
-
+                   $jobform='<table width="100%"><tr><td colspan="2">Candidate Details</td></tr><tr><td>Name</td><td>'.$fullName.'</td></tr><tr><td>Email Id</td><td>'.$customerEmail.'</td></tr><tr><td>Contact Number</td><td>'.$data['phone'].'</td></tr><tr><td> Job Title</td><td>'.$data['job'].'</td></tr></table>';
+                  
+                  $email_template_variables_admin = array(               
+                     'name' => $senderName,
+                     'phone' => $data['phone'],
+                     'job' => $data['job'],
+                     'jobtitle' => $data['jobtitle'],
+                     'email' => $data['email_address'], 
+                     'jobform'  =>$jobform
+                    );           
                 
-                //$emailTemplate = Mage::getModel('core/email_template')->load($templateId);               
-                
+                  $sender = [
+                    'name' => $senderName,
+                    'email' => $senderEmail,
+                  ];
 
-                $email_template_variables = array();
-                $email_template_variables['swatchuser'] = $data['fname'];
-                $email_template_variables['email'] = $customerEmail;
-                
-                $fullName=$data['fname']." ".$data['lname'];
+                  try{
+                      /* for customer */
+                      $processedTemplate = $this->_transportBuilder->setTemplateIdentifier($templateId)
+                      ->setTemplateOptions([
+                          'area' => \Magento\Framework\App\Area::AREA_FRONTEND,
+                          'store' => $this->_storeManager->getStore()->getId(),
+                      ])->setTemplateVars($email_template_variables)->setFrom($sender)->addTo($customerEmail, $fullName)->getTransport();
+                      
+                      /* for admin */ 
+                      
+                      $processedTemplateadmin = $this->_transportBuilder->setTemplateIdentifier($templateId)
+                      ->setTemplateOptions([
+                          'area' => \Magento\Framework\App\Area::AREA_FRONTEND,
+                          'store' => $this->_storeManager->getStore()->getId(),
+                      ])->setTemplateVars($email_template_variables_admin)->setFrom($sender)->addTo($senderEmail, $senderName)->addAttachment($filePath, $fileName)->getTransport();
 
-                $email_template_variables = array(               
-                   'name' => $fullName,
-                   'phone' => $data['phone'],
-                   'job' => $data['job'],
-                   'jobtitle' => $data['jobtitle']              
-                );  
-
-              $jobform='<table width="100%"><tr><td colspan="2">Candidate Details</td></tr><tr><td>Name</td><td>'.$fullName.'</td></tr><tr><td>Email Id</td><td>'.$customerEmail.'</td></tr><tr><td>Contact Number</td><td>'.$data['phone'].'</td></tr><tr><td> Job Title</td><td>'.$data['job'].'</td></tr></table>';
-              $email_template_variables_admin = array();
-              $email_template_variables_admin['swatchuser'] = $data['fname'];
-              $email_template_variables_admin['email'] = $customerEmail;
-
-              $fullName=$data['fname']." ".$data['lname'];
-
-              $email_template_variables_admin = array(               
-                 'name' => $senderName,
-                 'phone' => $data['phone'],
-                 'job' => $data['job'],
-                 'jobtitle' => $data['jobtitle'],
-                 'jobform'  =>$jobform
-                );           
-            //Appending the Custom Variables to Template.
-
-            $processedTemplate = $this->_transportBuilder->setTemplateIdentifier($templateId)
-            ->setTemplateOptions([
-                'area' => \Magento\Framework\App\Area::AREA_FRONTEND,
-                'store' => $this->_storeManager->getStore()->getId(),
-            ])->setTemplateVars($email_template_variables);
-
-            $processedTemplateadmin = $this->_transportBuilder->setTemplateIdentifier($templateId)
-            ->setTemplateOptions([
-                'area' => \Magento\Framework\App\Area::AREA_FRONTEND,
-                'store' => $this->_storeManager->getStore()->getId(),
-            ])->setTemplateVars($email_template_variables_admin);
-
-            }
-            try { 
-
-                  $mail = new \Zend_Mail();
-                  $mail->setType(\Zend_Mime::MULTIPART_RELATED);
-                  $mail->setBodyHtml($processedTemplate);
-                  $mail->setFrom($senderName,$senderEmail);
-                  $mail->addTo($customerEmail,$fullName);
-                  $mail->setSubject('Subject');                 
-                  $mail->send(); 
-
-                  $mails = new \Zend_Mail();
-                  $mails->setType(\Zend_Mime::MULTIPART_RELATED);
-                  $mails->setBodyHtml($processedTemplateadmin);
-                  $mails->setFrom($senderName,$senderEmail);
-                  $mails->addTo($senderEmail,$senderName);
-                  $mails->setSubject('Subject :');
-                  $attachFileHeremails = $this->_filesystem->getDirectoryRead(DirectoryList::MEDIA)->getAbsolutePath('mycvupload/'.$myfileupload);   
-                  $fileNamemails = $myfileupload;
-                  $filemails = $mails->createAttachment(file_get_contents($attachFileHeremails));
-                  $filemails->type   = 'application/doc';
-                  $filemails->disposition = \Zend_Mime::DISPOSITION_INLINE;
-                  $filemails->encoding    = \Zend_Mime::ENCODING_BASE64;
-                  $filemails->filename    = $fileNamemails;
-                  $mails->send();            
-
-                   $this->messageManager->addSuccess(__('File has been successfully uploaded')); 
-                } 
-                catch (\Exception $e) {
-                   $this->messageManager->addError($e->getMessage());
-                }
+                      $this->messageManager->addSuccess(__('Thank you. Your Cv has uploaded successfully. We will contact you very soon.')); 
+                  }catch (\Exception $e) {
+                               $this->messageManager->addError('There was a problem to send email.');
+                  }  
+                  
+            } // close isset if
 
             $resultRedirect = $this->resultRedirectFactory->create();
-            $resultRedirect->setPath('career/index/index');
+            $resultRedirect->setPath('career');
             return $resultRedirect;
 
-        }        
+        } // close $data if        
         
         return $resultPage;
     }
