@@ -9,10 +9,36 @@
             <td valign="top"><h1 style="font-size:22px; font-weight:normal; line-height:22px; margin:0 0 11px 0;">Hello,   {{var name}}</h1>
 </td>
 </tr>
-        <tr>
-            <td> {{var jobform}}
-</td>
+
+{{if user }}
+
+<table bgcolor="#FFFFFF" cellspacing="0" cellpadding="10" border="0" width="650" style="border:1px solid #E0E0E0;">
+<tr>
+    <td valign="top">Candidate Details :</td>
 </tr>
+
+<tr>
+  <td valign="top">Name</td>
+  <td valign="top">{{var fullname}}</td>
+</tr>
+
+<tr><td valign="top">Email Id</td>
+  <td valign="top">{{var email}}</td>
+</tr>
+
+<tr>
+  <td valign="top">Contact Number</td>
+  <td valign="top">{{var phone}}</td>
+</tr>
+
+<tr>
+  <td valign="top"> Job Title</td>
+  <td valign="top">{{var jobtitle}}</td>
+</tr>
+</table>
+
+{{/if}}
+
           <tr>
                     <td valign="top" style="font-size:12px; padding:7px 9px 9px 9px; border-left:1px solid #EAEAEA; border-bottom:1px solid #EAEAEA; border-right:1px solid #EAEAEA;">
 
