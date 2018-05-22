@@ -64,8 +64,8 @@ foreach ($_items as $rating_review){
 									<div class="rating" style="width:<?php echo round($_product->getRatingSummary()->getRatingSummary()) ?>%;"></div>
 								</div>
 							</div>
-							<p><?php echo round(($_product->getRatingSummary()->getRatingSummary())/20, 1) ?></p>
-							<span><?php echo __('Out of 5') ?></span>
+							<p><?php echo round(($_product->getRatingSummary()->getRatingSummary())/20, 1) ?><span> / <?php echo __('5') ?></span> </p>
+							
 						</div>
 
 						<span><?php echo __('Based on '.$totalreivew.' ratings') ?></span>
@@ -117,14 +117,7 @@ foreach ($_items as $rating_review){
 					</li>
 
 					<li class="write-review">
-						<div class="img-box">
-				<?php
-					$imageType = 'product_thumbnail_image';
-					$image = $block->getImage($_product, $imageType); 
-				?>
-		   <img src="<?php echo $image->getImageUrl(); ?>" alt="test"/>                       
-						</div>
-						<p><?php echo __('Have you purchased this item?') ?></p>
+						<p>Have you purchased this </br> product?</p>
 						<a href="#inline1" class="write-review fancybox review-popup"><?php echo __('Write a Review') ?></a>
 					</li>
 				</ul>

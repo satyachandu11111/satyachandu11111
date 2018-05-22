@@ -74,13 +74,14 @@ background-size: 300px 1300px;
 }
 .rating-review .rating-section ul li:nth-child(4) {
   width: 18%;
+	margin-top: 50px
 }
 .rating-review li.average-ratings {
   text-align: center;
 }
 .rating-review li.average-ratings .dyn-rating {
   height: 90px;
-  margin: 0 auto 15px auto;
+  margin: 0 auto;
   width: 120px;
   padding: 0;
   text-align: center;
@@ -102,7 +103,7 @@ background-size: 300px 1300px;
   color: #2f2f2f;
   font-weight: bold;
   font-size: 34px;
-  line-height: 26px;
+  line-height: 30px;
 }
 .rating-review li.average-ratings .dyn-rating span {
   color: #1c1c1c;
@@ -215,9 +216,7 @@ background-size: 300px 1300px;
   width: 117px;
   padding: 52px 0 0 0;
   text-align: center;
-  border: #2f2f2f solid 3px;
   border-radius: 100px;
-  background-color: #fff;
   background-position: center -1037px;
   background-size: 300px 1300px;
 }
@@ -284,16 +283,16 @@ background-size: 300px 1300px;
 .rating-review .write-review p {
   color: #444444;
   font-size: 14px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 .rating-review .write-review .write-review {
   background:#626166;
   border: 1px solid #626166;
   border-radius: 3px;
   color: #fff;
-  font-size: 12px;
+  font-size: 15px;
   margin-top: 10px;
-  padding: 6px 15px;
+  padding: 8px 40px;
   text-decoration: none;
   font-weight: bold;
 }
@@ -327,8 +326,7 @@ background-size: 300px 1300px;
 	margin-bottom: 2rem;
 }
 #customer-reviews .review-heading {
-  border-bottom: 1px solid #e3e3e3;
-  padding: 15px 0 8px;
+  padding: 15px 0 0px;
   clear: both;
 }
 #customer-reviews .review-heading:after {
@@ -674,6 +672,7 @@ table > thead > tr > th, table > tbody > tr > th, table > tfoot > tr > th, table
 }
 .overall-box{
 	margin-bottom: .8rem;
+	margin-top: 2px;
 }
 
 .title-box .rating-box, .overall-box .rating-box {
