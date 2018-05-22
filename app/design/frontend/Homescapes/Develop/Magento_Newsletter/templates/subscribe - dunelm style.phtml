@@ -15,17 +15,20 @@
 	
 	<div class="row">
 	
-		<div class="col-md-7">
-
-		
-			<h5><i class="fas fa-envelope"></i> Sign up for the latest offers, new arrivals & competitions</h5>
-
-		</div>
-		
-		<div class="col-md-5">
+		<div class="col-md">
 			
 			
-			<div class="content">
+			<div class="bottom-icon">
+			
+				<?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('news-gift')->toHtml();?>
+			
+			</div>
+			<div class="news-content">
+			
+				<h3>Newsletter Sign Up</h3>
+				<p>Subscribe to you newsletter for new products, offer & trends. Plus your chance to win £250 gift.</p>
+
+				<div class="content">
 
 					<div class="title"><strong><?= $block->escapeHtml(__('Newsletter')) ?></strong></div>
 
@@ -50,6 +53,17 @@
 						</div>
 					</form>
 				</div>
+			
+			</div>
+		
+				
+			
+		</div>
+		
+		<div class="col-md laptop-visible">
+			
+			
+			<?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('blog-post')->toHtml();?>
 			
 		
 		</div>
