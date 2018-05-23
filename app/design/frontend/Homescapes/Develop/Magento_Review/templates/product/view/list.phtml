@@ -88,12 +88,14 @@ foreach ($_items as $rating_review){
 					<li class="filter-review">
 						<p class="title"><?php echo __('Select a row below to filter reviews.') ?></p>
 						<ul>
+
 						<?php foreach($average_ratings_count as $key => $val){?>
 							<li data-star="<?php echo $key?>" class="star_ratings">
 								<span class="count"><?php echo $key?></span>
 								<div class="filter-box">
+
 								<?php $star_rating = ($val*100)/$totalreivew;?>
-									<div class="filter" style="width: <?php echo round($star_rating,2); ?>%;"></div>
+								 <div class="filter" style="width: <?php echo round($star_rating,2); ?>%;"></div>
 								</div>
 								<span class="value" id="value_<?php echo $key;?>"><?php echo $val?></span>
 							</li> 
@@ -152,9 +154,7 @@ foreach ($_items as $rating_review){
 					$average_ratings = ($rowdata[0]['percent']+$rowdata[1]['percent']+$rowdata[2]['percent'])/3;               
 					?> 
 
-
-
-				<dd class="reviews-bg" data-rating="<?php echo round($average_ratings/20)?>" <?php if($it >4){?>class="inactive"<?php }?>>
+				<dd class="reviews-bg" data-rating="<?php echo floor($average_ratings/20)?>" <?php if($it >4){?>class="inactive"<?php }?>>
 
 					<?php if (count($_votes)): ?>
 
@@ -219,7 +219,7 @@ foreach ($_items as $rating_review){
 			</dl>
 
 			<?php if($it >4){?>
-			<div id="showallreview text-center"><?php echo __('<span>Load More</span> Reviews')?></div>
+			<div id="showallreview"><?php echo __('<span>Load More</span> Reviews')?></div>
         
 		</div>	
 			
@@ -254,6 +254,7 @@ require(["jquery","Magento_Ui/js/modal/modal"], function ($,modal) {
 $( ".star_ratings" ).click(function() {
 
     var rating = this.dataset.star;
+    
     $('#temp_var').val(rating);
     if(rating != 'all'){
         $('.review_filter').show();
@@ -267,7 +268,7 @@ $( ".star_ratings" ).click(function() {
 var review_count= $('#review_count').html($('#value_'+rating).html()+' item(s)');
     var cnt =0;
     $('#dl_review').children('dt,dd').each(function () {  
-
+console.log(this);
         if(this.dataset.rating !=rating && rating != 'all'){
             $( this ).hide();
             $( this ).removeClass( "active" );
@@ -277,7 +278,7 @@ var review_count= $('#review_count').html($('#value_'+rating).html()+' item(s)')
             $( this ).removeClass( "active" );            
             $( this ).removeClass( "inactive" );
              cnt = parseInt(cnt)+1;
-                if(cnt >8){
+                if(cnt >5){
                     $( this ).addClass( "inactive" );
                     $( "#showallreview").show();
                 }else{
@@ -288,7 +289,7 @@ var review_count= $('#review_count').html($('#value_'+rating).html()+' item(s)')
             cnt = parseInt(cnt)+1;
             $( this ).show();
             $( this ).removeClass( "inactive" );
-            if(cnt >8){
+            if(cnt >5){
                 $( this ).addClass( "active" );
                 $( "#showallreview").show();
             }else{
@@ -308,7 +309,7 @@ var review_count= $('#review_count').html($('#value_'+rating).html()+' item(s)')
             $('.inactive').hide();
             $('#value_all').hide();
             $('.review_filter').hide();
-            
+            $(".star_ratings:last").trigger("click");
         });
         
         $( "#showallreview" ).click(function() {
@@ -323,10 +324,10 @@ var review_count= $('#review_count').html($('#value_'+rating).html()+' item(s)')
 
             if($(this).hasClass("reviewhide")){
                 $('#showallreview span').html('COLLAPSE');
-                $("html, body").animate({scrollTop: $('.inactive').position().top}, 'slow');
+                //$("html, body").animate({scrollTop: $('.inactive').position().top}, 'slow');
             }else{                
                 $('#showallreview span').html('Load More'); 
-                 $("html, body").animate({scrollTop: $('#dl_review').position().top}, 'slow');
+                //$("html, body").animate({scrollTop: $('#dl_review').position().top}, 'slow');
             }
         
            
