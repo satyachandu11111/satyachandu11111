@@ -2,89 +2,106 @@
 $helper = $this->helper('Homescapes\Career\Helper\Data');
 ?>
 
-<div class="career-page-box">
+<div class="career-page-box container">
+	
+	
+	<div class="row">
+		
+		<div class="col-md-7">
+		
+			<form action="<?php echo $block->getUrl('career/save/index'); ?>" id="carrer_form" method="post" name="carrer_form" enctype='multipart/form-data' data-mage-init='{"validation":{}}'>
+	  
+				<div class="fill-out"><?php echo __('Please fill out the following information.') ?></div>
+				<div class="form-panel">
+				  <div class="inner-panel">
+					<p class="required"><em>* </em><?php echo __('Required Fields') ?></p>
+					<div class="form-group">
+					  <ul class="form-list">
+						<li>
+						  <label for="jobtitle"><?php echo __('How did you hear about us') ?><em>*</em></label>
+						  <div class="custom-select-">
+							<select name="jobtitle" id="jobtitle" class="validate-select form-control required-entry">
+							  <option value="">-- Please Select --</option>
+							  <option value="NewsPaper" >NewsPaper</option>
+							  <option value="onlinesite" >Online Website</option>
+							  <option value="Friends" >Friends</option>
+							</select>
+						  </div>
+						</li>
+						<li>
+						  <label for="jobtitle"><?php echo __('Job Type') ?><em>*</em></label>
+						  <?php  $jobs= $helper->getJobtype();
+					   if($jobs!='')
+					   $jobsselected=explode(",",$jobs);
+					 else
+					  $jobsselected=array();
 
-  
-  <form action="<?php echo $block->getUrl('career/save/index'); ?>" id="carrer_form" method="post" name="carrer_form" enctype='multipart/form-data' data-mage-init='{"validation":{}}'>
-    <div class="fill-out"><?php echo __('Please fill out the following information.') ?></div>
-    <div class="form-panel">
-      <div class="inner-panel">
-        <p class="required"><em>*</em><?php echo __('Required Fields') ?></p>
-        <div class="form-group">
-          <ul class="form-list">
-            <li>
-              <label for="jobtitle"><?php echo __('How did you hear about us') ?><em>*</em></label>
-              <div class="custom-select-">
-                <select name="jobtitle" id="jobtitle" class="validate-select form-control required-entry">
-                  <option value="">-- Please Select --</option>
-                  <option value="NewsPaper" >NewsPaper</option>
-                  <option value="onlinesite" >Online Website</option>
-                  <option value="Friends" >Friends</option>
-                </select>
-              </div>
-            </li>
-            <li>
-              <label for="jobtitle"><?php echo __('Job Type') ?><em>*</em></label>
-              <?php  $jobs= $helper->getJobtype();
-           if($jobs!='')
-           $jobsselected=explode(",",$jobs);
-         else
-          $jobsselected='';
+					   ?>
+						  <div class="custom-select-">
+							<select name="job" id="job" class="validate-select form-control required-entry">
+							  <option value="">-- Please Select --</option>
+							  <?php foreach($jobsselected as $jobs): ?>
+							  <option value="<?php echo $jobs ?>"> <?php echo $jobs; ?> </option>
+							  <?php endforeach; ?>
+							</select>
+						  </div>
+						</li>
+					  </ul>
+					</div>
+					<div class="form-group">
+					  <ul class="form-list">
+						<li>
+						  <label for="firstname"><?php echo __('First Name') ?><em>*</em></label>
+						  <input name="fname" class="form-control required-entry"  size="45" type="text" placeholder="<?php echo __('First Name') ?>" value=""/>
+						</li>
+						<li>
+						  <label for="lastname"><?php echo __('Last Name') ?><em>*</em></label>
+						  <input name="lname" class="form-control required-entry"  size="45" type="text" placeholder="<?php echo __('Last Name') ?>" value=""/>
+						</li>
+					  </ul>
+					</div>
+					<div class="form-group">
+					  <ul class="form-list">
+						<li>
+						  <label for="emailaddress"><?php echo __('Email address') ?><em>*</em></label>
+						  <input name="email_address" placeholder="<?php echo __('Email address') ?>" class="form-control required-entry validate-email" type="text" value=""/>
+						</li>
+					  </ul>
+					</div>
+					<div class="form-group">
+					  <ul class="form-list">
+						<li>
+						  <label for="telephonenumber"><?php echo __('Telephone Number') ?><em>*</em></label>
+						  <input name="phone" class="form-control required-entry validate-number" type="text" value="" />
+						</li>
+					  </ul>
+					</div>
+					<div class="form-group cv-upload">
+					  <ul class="form-list">
+						<li>
+						  <label for="cv"><?php echo __('Upload Your Cv') ?><em>*</em></label>
+						  <input name="cv" class="form-control required-file" type="file" />
+						</li>
+					  </ul>
+					</div>
+					<div class="buttons-set">
+					  <button class="button" title="<?php echo __('Submit Your Cv'); ?>" type="submit"><span><span><?php echo __('Submit Your Cv') ?></span></span></button>
+					</div>
+				  </div>
+				</div>
+			  </form>
+		
+		</div>
+		
+		<div class="col-md-5 career-text">
+		
+			<?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('career-page')->toHtml();?>
+			
+		</div>
+		
+	</div>
+	
 
-           ?>
-              <div class="custom-select-">
-                <select name="job" id="job" class="validate-select form-control required-entry">
-                  <option value="">-- Please Select --</option>
-                  <?php foreach($jobsselected as $jobs): ?>
-                  <option value="<?php echo $jobs ?>"> <?php echo $jobs; ?> </option>
-                  <?php endforeach; ?>
-                </select>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div class="form-group">
-          <ul class="form-list">
-            <li>
-              <label for="firstname"><?php echo __('First Name') ?><em>*</em></label>
-              <input name="fname" class="form-control required-entry"  size="45" type="text" placeholder="<?php echo __('First Name') ?>" value=""/>
-            </li>
-            <li>
-              <label for="lastname"><?php echo __('Last Name') ?><em>*</em></label>
-              <input name="lname" class="form-control required-entry"  size="45" type="text" placeholder="<?php echo __('Last Name') ?>" value=""/>
-            </li>
-          </ul>
-        </div>
-        <div class="form-group">
-          <ul class="form-list">
-            <li>
-              <label for="emailaddress"><?php echo __('Email address') ?><em>*</em></label>
-              <input name="email_address" placeholder="<?php echo __('Email address') ?>" class="form-control required-entry validate-email" type="text" value=""/>
-            </li>
-          </ul>
-        </div>
-        <div class="form-group">
-          <ul class="form-list">
-            <li>
-              <label for="telephonenumber"><?php echo __('Telephone Number') ?><em>*</em></label>
-              <input name="phone" class="form-control required-entry validate-number" type="text" value="" />
-            </li>
-          </ul>
-        </div>
-        <div class="form-group cv-upload">
-          <ul class="form-list">
-            <li>
-              <label for="cv"><?php echo __('Upload Your Cv') ?><em>*</em></label>
-              <input name="cv" class="form-control required-file" type="file" />
-            </li>
-          </ul>
-        </div>
-        <div class="buttons-set">
-          <button class="button" title="<?php echo __('Submit Your Cv'); ?>" type="submit"><span><span><?php echo __('Submit Your Cv') ?></span></span></button>
-        </div>
-      </div>
-    </div>
-  </form>
 
 </div>
 
