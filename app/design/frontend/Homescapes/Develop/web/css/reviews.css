@@ -528,6 +528,7 @@ background-size: 300px 1300px;
   width: 100%;
 	float: left;
 	display: flex;
+	flex-flow: wrap;
 }
 #customer-reviews dl dd .ratings-table tr {
   margin-right: 15px;
@@ -943,6 +944,16 @@ table > thead > tr > th, table > tbody > tr > th, table > tfoot > tr > th, table
   .form-add h3 {
     font-size: 18px;
   }
+  #customer-reviews dl {
+    padding: 0;
+  }
+  .reviews-list-box{
+	padding: 0;
+  }
+	#customer-reviews .rating-section .filter-review ul{
+		max-width: 310px;
+		margin: auto;
+	}
 }
 @media only screen and (max-width: 599px) {
   #inline1 {
@@ -969,6 +980,9 @@ table > thead > tr > th, table > tbody > tr > th, table > tfoot > tr > th, table
   }
   #customer-reviews dl dd {
     width: 100%;
+  }
+  #customer-reviews dl dd .ratings-table{
+	max-width: 33rem;
   }
 }
 @media only screen and (max-width: 991px) {

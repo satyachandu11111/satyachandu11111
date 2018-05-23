@@ -257,7 +257,7 @@
             .available,
             .unavailable {
                 font-weight: @font-weight__bold;
-                text-transform: uppercase;
+                text-transform:capitalize;
 				border-radius: .3rem;
 				font-size: 1rem;
 				padding: .2rem .8rem .2rem .8rem;
@@ -635,8 +635,8 @@
     }
 
     .product-info-price {
-        margin: 0 -@indent__s 0;
-        width: ~'calc(100% + 2*@{indent__s})' !important;
+        margin: 0;
+        width: 100% !important;
 
         > *:first-child {
             padding-left: @indent__s;

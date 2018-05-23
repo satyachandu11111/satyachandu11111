@@ -99,9 +99,13 @@
 
 @992: ~"only screen and (min-width:992px)";
 
+@1023: ~"only screen and (max-width:1023px)";
+
 @1024: ~"only screen and (min-width:1024px)";
 
-@1199: ~"only screen and (min-width:1200px)";
+@1199: ~"only screen and (min-width:1199px)";
+
+@1100: ~"only screen and (max-width:1100px)";
 
 @1200: ~"only screen and (max-width:1200px)";
 
@@ -2657,6 +2661,8 @@ transition: all 5ms ease-in-out 0s;
 			background: @danger;
 			border-radius: .3rem;
 			padding: .2rem .8rem .2rem .8rem;
+			line-height: 1rem;
+			min-height: 3rem;
 		}
 		.unavailable{
 			@media @479{
@@ -2860,7 +2866,7 @@ transition: all 5ms ease-in-out 0s;
 		
 		.unavailable{
 			font-weight: 700;
-			text-transform: uppercase;
+			text-transform: capitalize;
 			border-radius: .3rem;
 			font-size: 1rem;
 			padding: .2rem .8rem .2rem .8rem;
@@ -2948,14 +2954,29 @@ transition: all 5ms ease-in-out 0s;
 			border-radius: .4rem;
 			float: right;
 			
+			@media @1200{
+				width: 20rem;
+			}
+			
+			@media @1100{
+				width: 16rem;
+			}
+			
+			@media @1023{
+				width:14rem; 
+			}
+			
 			@media @767{
-				width: 14rem;
+				width: 25rem;
+			}
+			@media @639{
+				width:14rem;
 			}
 		}
 		
 		.unavailable{
 			font-weight: 700;
-			text-transform: uppercase;
+			text-transform:capitalize;
 			border-radius: .3rem;
 			font-size: 1rem;
 			padding: .2rem .8rem .2rem .8rem;
@@ -2977,6 +2998,9 @@ transition: all 5ms ease-in-out 0s;
 			width: 56%;
 		}
 		
+		@media @767{
+			width: 76%;
+		}
 		@media @479{
 			width: 100%;
 			float: left;
@@ -2997,6 +3021,9 @@ transition: all 5ms ease-in-out 0s;
 			@media @479{
 				width: 15rem;
 			}
+		}
+		#validation-message-box{
+			clear: both;
 		}
 	}
 	select{
@@ -3129,7 +3156,7 @@ transition: all 5ms ease-in-out 0s;
 			
 			.unavailable{
 				font-weight: 700;
-				text-transform: uppercase;
+				text-transform:capitalize;
 				border-radius: .3rem;
 				font-size: 1rem;
 				padding: .2rem .8rem .2rem .8rem;
@@ -3186,11 +3213,14 @@ transition: all 5ms ease-in-out 0s;
 				@media @1200{
 					width: 36%;
 				}
+				@media @1100{
+					width: 25%;
+				}
 				@media @991{
 					width: 23%;
 				}
 				@media @479{
-					width:45%;
+					width:48%;
 					float: left;
 				}
 			}
@@ -3199,11 +3229,15 @@ transition: all 5ms ease-in-out 0s;
 					width: 23%;
 				}
 				
+				@media @1100{
+					width: 25%;
+				}
+				
 				@media @767{
 					text-align: center !important;
 				}
 				@media @479{
-					width:25%;
+					width:22%;
 					float: left;
 				}
 				
@@ -3211,6 +3245,8 @@ transition: all 5ms ease-in-out 0s;
 					@media @479{
 						background:@danger;
 						border-radius: .4rem;
+						line-height: 1.2rem;
+						min-height: 3rem;
 					}
 					
 					.unavailable{
@@ -4368,17 +4404,32 @@ transition: all 5ms ease-in-out 0s;
 | career page
 --------------------------------------------------------------------------*/
 .career-page-box{
-	max-width: 80rem;
-	margin: auto;
 	
-	.form-control{
+	background: @f9light;
+	padding: 2rem;
+	
+	select.form-control:not([size]):not([multiple]){
 		font-size: @base;
 		height: 4rem;
 		border-radius: .4rem;
 		
 	}
+	.form-control{
+		font-size: @base;
+	}
+	.form-group{
+		float: left;
+		width: 100%;
+		margin-bottom: 0;
+	}
+	.required{
+		color: @danger;
+		right: 0;
+		position: absolute;
+		
+	}
 	label{
-		margin-bottom: 1rem;
+		margin: 2rem  0 1rem 0;
 	}
 	input[type="text"], input[type="password"], input[type="url"], input[type="tel"], input[type="search"], input[type="number"], input[type="datetime"], input[type="email"]{
 		height: 4rem;
@@ -4387,6 +4438,8 @@ transition: all 5ms ease-in-out 0s;
 	.cv-upload input{
 		border: none;
 		padding: .5rem 0;
+		margin-bottom: 1rem;
+		background: none;
 	}
 	.buttons-set button{
 		width: 100%;
@@ -4395,8 +4448,14 @@ transition: all 5ms ease-in-out 0s;
 		box-shadow: none;
 		border-radius: .4rem;
 		font-size: @font16;
+		background: @blue;
+		color: @white;
 	}
 	em{
 		color: @danger;
+	}
+	.career-text{
+		line-height: @font24;
+		font-size: @font16;
 	}
 }
