@@ -9,7 +9,8 @@
     ],
     "require": {
         "magento/product-community-edition": "2.2.3",
-        "composer/composer": "@alpha"
+        "composer/composer": "@alpha",
+        "bronto/magento-module-all": "3.5.3"
     },
     "require-dev": {
         "phpunit/phpunit": "~6.2.0",
