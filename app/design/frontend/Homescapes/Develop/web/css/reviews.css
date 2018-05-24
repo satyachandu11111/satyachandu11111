@@ -88,7 +88,7 @@ background-size: 300px 1300px;
 }
 .rating-review li.average-ratings .dyn-rating label {
   text-transform: capitalize;
-  font-size: 13px;
+  font-size: 14px;
   color: #1c1c1c;
   font-weight: bold;
   margin-bottom: 0px;
@@ -564,16 +564,18 @@ background-size: 300px 1300px;
   margin-right: 2px;
 }
 #customer-reviews #showallreview {
-  border: 1px solid #2f2f2f;
-  border-radius: 3px;
+	background: #f9f9f9;
+  border-radius: 4px;
   color: #2f2f2f;
   float: left;
   font-weight: bold;
   font-size: 15px;
-  padding: 6px 24px 6px 15px;
-  text-transform: uppercase;
+  padding: 15px 24px 15px 15px;
+  text-transform: capitalize;
   cursor: pointer;
   position: relative;
+	width: 100%;
+	text-align: center;
 }
 #customer-reviews #showallreview:before {
   content: "\f078";

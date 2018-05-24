@@ -9,7 +9,7 @@ if(count($relatedProducts)){
     <span><?php echo $displayText; ?></span>
     <ul>
     <li>    
-        <a class="active" href="#"  ><img src="<?php echo $block->getthumbnailImg($currentProduct); ?>" /></a>
+        <a class="active" href="#"><img src="<?php echo $block->getthumbnailImg($currentProduct); ?>" /></a>
     </li>    
     <?php  foreach($relatedProducts as $relatedProduct){ 
            $_product = $block->getLoadProduct($relatedProduct->getId()); 

@@ -120,6 +120,14 @@
 /*--------------------------------------------------------------------------
 |  Reset CSS
 --------------------------------------------------------------------------*/
+
+button{
+	padding: 1rem 2.5rem;
+	font-weight: normal;
+	border: none;
+	box-shadow: none;
+}
+
 input:not([disabled]):focus{
 	box-shadow: none;
 }
@@ -2625,6 +2633,9 @@ transition: all 5ms ease-in-out 0s;
 			font-weight: bold;
 			line-height: @font24;
 		}
+		.active{
+			display: block;
+		}
 	}
 	
 	ul{
@@ -3590,6 +3601,12 @@ transition: all 5ms ease-in-out 0s;
 		.action-edit{
 			left: 0;
 		}
+		.action-towishlist{
+			position: absolute;
+			left: 5.5rem;
+			color: @black;
+			line-height: @font26;
+		}
 		.action-delete{
 			left: 3rem;
 		}
@@ -4387,7 +4404,7 @@ transition: all 5ms ease-in-out 0s;
 --------------------------------------------------------------------------*/
 .modal-popup, .confirm{
 	z-index: 999;
-	max-width: 700px;
+	max-width: 650px;
 	left: 0;
 	margin: auto;
 	
@@ -4398,6 +4415,78 @@ transition: all 5ms ease-in-out 0s;
 		border: 0;
 	}
 	
+	
+}
+ .modals-wrapper .confirm  .modal-footer{
+		display: block;
+	 text-align: right;
+	}
+/*--------------------------------------------------------------------------
+| reviews modal box
+--------------------------------------------------------------------------*/
+.modals-wrapper{
+	
+	.modal-popup .modal-title{
+		width: 100%;
+		text-align: center;
+		border: none;
+		color: @light-black;
+		padding-bottom: 0;
+	}
+	fieldset > .field .field.choice{
+		display: flex;
+		
+		label{
+			width: 7rem;
+		}
+	}
+	.review-control-vote label::before, .review-control-vote::before{
+		font-size: @font18;
+		height: @font18;
+		line-height: @font18;
+	}
+	.modal-footer{
+		display: none;
+	}
+	.review-field-rating .control{
+		margin: 0;
+	}
+	.fieldset .review-legend.legend{
+		margin-bottom:@font22;
+		border-bottom: 1px solid @f2light;
+		padding-bottom: 1rem;
+		text-align: center;
+	}
+	.modal-popup .modal-header{
+		padding-top: 1rem;
+	}
+	input[type="text"], input[type="password"], input[type="url"], input[type="tel"], input[type="search"], input[type="number"], input[type="datetime"], input[type="email"]{
+		border-radius: .4rem;
+	}
+	.fieldset{
+		margin-bottom: 2rem;
+	}
+	.review-form .actions-toolbar .actions-primary{
+		width: 100%;
+	}
+	.review-form .action.submit.primary{
+		width: 100%;
+		border: none;
+		background: @blue;
+		color: @white;
+		padding: 1.2rem;
+	}
+	.review-add{
+		margin-bottom: 0;
+	}
+	.review-field-recommend{
+		display: flex;
+		margin-bottom: 0;
+		
+		.control{
+			margin-left: 1rem;
+		}
+	}
 }
 
 /*--------------------------------------------------------------------------
