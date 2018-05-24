@@ -945,7 +945,7 @@ table > thead > tr > th, table > tbody > tr > th, table > tfoot > tr > th, table
     font-size: 18px;
   }
   #customer-reviews dl {
-    padding: 0;
+    padding: 5px;
   }
   .reviews-list-box{
 	padding: 0;
