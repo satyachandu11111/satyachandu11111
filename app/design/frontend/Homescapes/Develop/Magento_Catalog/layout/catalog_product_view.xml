@@ -25,5 +25,6 @@
         <move element="product.info.type" destination="product.info.main" before="DeliveryCountdown"/>
         <move element="DeliveryCountdown" destination="product.info.main" after="product.info.price"/>
 		
+
     </body>
 </page>
