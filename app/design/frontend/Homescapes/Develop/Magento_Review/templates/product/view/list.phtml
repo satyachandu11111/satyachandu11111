@@ -265,7 +265,7 @@ $( ".star_ratings" ).click(function() {
     
      
 
-var review_count= $('#review_count').html($('#value_'+rating).html()+' item(s)');
+var review_count= $('#review_count').html('['+ $('#value_'+rating).html()+']');
     var cnt =0;
     $('#dl_review').children('dt,dd').each(function () {  
 console.log(this);
