@@ -44,4 +44,8 @@ $urlForm = $block->getReviewsUrl() . '#review-form';
     </div>
 </div>
 <?php endif; ?>
-
+<div class="discount">
+    <span class="g-discount" style="color:#f94747;font-weight: bold;">
+        <?php echo  $percentage = $this->helper('Homescapes\Completelook\Helper\Data')->DisplayDiscount($block->getProduct()); ?>
+    </span>
+</div>

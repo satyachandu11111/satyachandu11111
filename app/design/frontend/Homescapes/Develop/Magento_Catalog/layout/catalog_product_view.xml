@@ -20,7 +20,20 @@
 		  <block class="Magento\Framework\View\Element\Template" name="product.offers" template="Magento_Catalog::product_offers.phtml" before="product.delivery"/>
 		</referenceContainer>
 		
-		
+		<referenceBlock name="product.info.details">
+          <block class="Magento\Catalog\Block\Product\View" name="deliveryinfo.tab" as="deliveryinfo" template="Magento_Catalog::product/view/delivery_info.phtml" group="detailed_info" >
+             <arguments>
+                <argument translate="true" name="title" xsi:type="string">Delivery</argument>
+             </arguments>
+          </block>
+        </referenceBlock>
+        <referenceBlock name="product.info.details">
+          <block class="Magento\Catalog\Block\Product\View" name="return.tab" as="returninfo" template="Magento_Catalog::product/view/return_info.phtml" group="detailed_info" >
+             <arguments>
+                <argument translate="true" name="title" xsi:type="string">Return</argument>
+             </arguments>
+          </block>
+        </referenceBlock>
 		
         <move element="product.info.type" destination="product.info.main" before="DeliveryCountdown"/>
         <move element="DeliveryCountdown" destination="product.info.main" after="product.info.price"/>

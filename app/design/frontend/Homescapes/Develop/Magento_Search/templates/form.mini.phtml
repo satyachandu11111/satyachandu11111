@@ -82,11 +82,18 @@ $helper = $this->helper(\Magento\Search\Helper\Data::class);
 		<div class="user-account">	
 			<ul class="mobile-visible">
 
-				<li>
-					<a href="{{store url=''}}blog">
-						<i class="fa fa-user"></i> My Account
-					</a>
-				</li>
+				<ul class="quick-links">
+				    <li class="links-container">
+				        <i class="fa fa-user"></i>
+				        <span data-mage-init='{"dropdown":{}}' data-toggle="dropdown">My Account</span>
+				        <div class="customer-menu" data-target="dropdown">
+				            <ul class="header links mobiledropdown">
+				                <li class="first"></li>
+				                <li class="second"></li>
+				            </ul>
+				        </div>
+				    </li>
+				</ul>
 
 			</ul>
 	
@@ -94,3 +101,29 @@ $helper = $this->helper(\Magento\Search\Helper\Data::class);
 	
 </div>
 </div>
+
+<script type="text/javascript">
+require(['jquery', 'jquery/ui'], function($){ 
+
+	if ($('.link.wishlist').length > 0) {
+
+		$('.header.links.mobiledropdown').html('<li class="first"><a href="<?php echo $block->getUrl('wishlist/'); ?>">My Wish List</a></li><li class="second"><a href="<?php echo $block->getUrl('customer/account/logout/'); ?>">Sign Out</a></li>');
+		
+	}else{
+
+		$('.header.links.mobiledropdown').html('<li class="first"><a href="<?php echo $block->getUrl('customer/account/login/'); ?>">Sign In</a></li><li class="second"><a href="<?php echo $block->getUrl('customer/account/create/'); ?>">Create an Account</a></li>');
+
+	}
+});
+
+</script>
+
+
+<style type="text/css">
+	li.links-container.active .customer-menu{
+		display: block;
+	}
+	li.links-container .customer-menu{
+		display: none;
+	}
+</style>
