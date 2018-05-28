@@ -46,6 +46,7 @@ $buttonTitle = __('Add to Cart');
 								</span>
 							</div>
 							<a href="<?php echo $_product->getProductUrl(); ?>" title="<?php echo __('Description'); ?>"><?php echo __('Description'); ?></a>
+                                                        <?= $block->getReviewsSummaryHtml($_product) ?>
 						</div>
 					</div>
 					
