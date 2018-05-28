@@ -2755,6 +2755,9 @@ transition: all 5ms ease-in-out 0s;
 	}
 	
 	
+	
+	
+	
 }
 
 /*----------------------------------
@@ -3726,6 +3729,38 @@ transition: all 5ms ease-in-out 0s;
 
 }
 
+.product.info.detailed{
+
+	.card-header{
+		border: none;
+		padding: 0rem 1.2rem;
+		margin: .3rem 0;
+		line-height: 5rem;
+	}
+	a{
+		color: @black;
+		font-size: @font16;
+		font-weight: bold;
+		
+		&:hover{
+			text-decoration: none;
+		}
+	}
+	a .card-header:before {
+	float: right !important;
+	content:"\f0fe";
+	padding-right: 5px;
+	font-size: @font20;
+	font-weight: normal;
+	font-family: "Font Awesome 5 Free";
+	}
+	a .card-header.active:before {
+		float: right !important;
+	    content:"\f146";
+	}
+
+}
+
 /*--------------------------------------------------------------------------
 |  Login page
 --------------------------------------------------------------------------*/
@@ -4552,36 +4587,3 @@ transition: all 5ms ease-in-out 0s;
 /*--------------------------------------------------------------------------
 | complete look slider in
 --------------------------------------------------------------------------*/
-.sidenav {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    right: 0;
-    background-color: #111;
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
-}
-
-.sidenav a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
-}
-
-.sidenav a:hover {
-    color: #f1f1f1;
-}
-
-.sidenav .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
-}
