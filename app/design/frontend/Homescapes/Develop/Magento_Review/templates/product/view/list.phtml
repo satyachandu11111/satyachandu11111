@@ -268,7 +268,7 @@ $( ".star_ratings" ).click(function() {
 var review_count= $('#review_count').html('['+ $('#value_'+rating).html()+']');
     var cnt =0;
     $('#dl_review').children('dt,dd').each(function () {  
-console.log(this);
+
         if(this.dataset.rating !=rating && rating != 'all'){
             $( this ).hide();
             $( this ).removeClass( "active" );
