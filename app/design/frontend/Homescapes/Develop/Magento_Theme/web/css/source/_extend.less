@@ -2539,10 +2539,14 @@ transition: all 5ms ease-in-out 0s;
 			}
 		}
 		.label{
-			display: none;
+			display: block;
+			float: left;
+			width: 4rem;
+			line-height: 4.3rem;
+			margin-bottom: 0;
 		}
 		.box-tocart{
-			width: 70%;
+			width: 73%;
 			float: left;
 			margin: 0;
 			
@@ -2573,7 +2577,7 @@ transition: all 5ms ease-in-out 0s;
 			}
 			
 			.field{
-				width: 15rem;
+				width: 19rem;
 				float: left;
 				margin-right: 1rem;
 			}
@@ -2642,6 +2646,10 @@ transition: all 5ms ease-in-out 0s;
 	.product.alert{
 		margin-bottom: 0;
 		width: 100%;
+	}
+	.g-discount{
+		color: @danger;
+		font-weight: bold;
 	}
 	
 	.rating-summary .rating-result > span::before{
@@ -2838,8 +2846,9 @@ transition: all 5ms ease-in-out 0s;
 			}
 		}
 		a{
-			font-weight:bold;
+			font-weight:normal;
 			color: @black;
+
 		}
 		div.mage-error[generated]{
 			position: absolute;
@@ -3193,7 +3202,7 @@ transition: all 5ms ease-in-out 0s;
 			.g-discount{
 				color: @danger;
 				font-weight: bold;
-				ine-height: 2rem;
+				line-height: 2rem;
 				
 				@media @479{
 					float: left;
@@ -3762,18 +3771,43 @@ transition: all 5ms ease-in-out 0s;
 
 .product.info.detailed{
 	
-
+	.table-wrapper{
+		margin-bottom: 0;
+	}
+	
+	.additional-attributes{
+		width: 100%;
+		margin-bottom: 0;
+		
+		tbody > tr > th{
+			padding: 1rem;
+			max-width: 16rem;
+			text-transform: capitalize;
+				background: @f9light;
+		}
+		tbody > tr > td{
+			padding-left: 2rem;
+		}
+		tr{
+			display: flex;
+			border-bottom: 1px dashed @f2light;
+			
+			&:last-child{
+				border-bottom: none;
+			}
+		}
+	}
 
 	.card-header{
 		border: none;
 		padding: 0rem 1.2rem;
 		margin: .3rem 0;
 		line-height: 5rem;
+		font-size: @font18;
+		color: @black;
 	}
 	a{
-		color: @black;
-		font-size: @font16;
-		font-weight: bold;
+		font-weight: normal;
 		
 		&:hover{
 			text-decoration: none;
@@ -3791,6 +3825,7 @@ transition: all 5ms ease-in-out 0s;
 		float: right !important;
 	    content:"\f146";
 	}
+
 
 }
 

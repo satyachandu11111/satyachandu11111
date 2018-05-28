@@ -37,7 +37,7 @@
         <referenceBlock name="product.info.details">
           <block class="Magento\Catalog\Block\Product\View" name="return.tab" as="returninfo" template="Magento_Catalog::product/view/return_info.phtml" group="detailed_info" >
              <arguments>
-                <argument translate="true" name="title" xsi:type="string">Return</argument>
+                <argument translate="true" name="title" xsi:type="string">Returns</argument>
              </arguments>
           </block>
         </referenceBlock>

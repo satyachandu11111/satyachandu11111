@@ -515,12 +515,14 @@ background-size: 300px 1300px;
   background-size: 300px 1300px;
   padding-left: 20px;
   margin-right: 40px;
+	text-transform: unset;
 }
 #customer-reviews dl dd .nocheck-recommend {
   float: left;
   background-position: 0px -877px;
   background-size: 300px 1300px;
   padding-left: 20px;
+	text-transform: unset;
 }
 #customer-reviews dl dd .ratings-table {
   font-family: 'lato', Verdana;
@@ -571,7 +573,7 @@ background-size: 300px 1300px;
   font-weight: bold;
   font-size: 15px;
   padding: 15px 24px 15px 15px;
-  text-transform: capitalize;
+  text-transform: unset;
   cursor: pointer;
   position: relative;
 	width: 100%;
