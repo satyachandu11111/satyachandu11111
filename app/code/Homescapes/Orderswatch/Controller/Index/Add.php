@@ -70,11 +70,9 @@ class Add extends Action
                 
                 $orderSwatchModel->setData($customData);                
                 $orderSwatchModel->save();
-                //var_dump($orderSwatchModel->getId()); die('sssss');
-                $this->_helper->setLastswatchId($orderSwatchModel->getId());
                 
-                //$this->sendEmail($customData);
-                
+                $this->_helper->setLastswatchId($orderSwatchModel->getId());                
+                $this->sendEmail($customData);                
                 $this->_helper->setHomescapessampleswatch('');
                 $this->_redirect('*/*/success');
                 $this->messageManager->addSuccess(__('Thank you. Your order for free swatches has been placed.'));
@@ -91,9 +89,9 @@ class Add extends Action
     
     public function sendEmail($data){
         $templateId = $this->_helper->getSystemValues('orderswatch/general/user_email_templates');
-                
-//       // $senderEmail = Mage::getStoreConfig('trans_email/ident_general/email');
-//        $emailTemplate = Mage::getModel('core/email_template')->load($templateId);
+                  
+        /*echo "<pre>";
+        print_r($templateId);*/
        
         $senderEmail = $this->_helper->getSystemValues('orderswatch/general/owner_email');
         $senderbccEmail = $this->_helper->getSystemValues('orderswatch/general/ownerbcc_email');
@@ -107,20 +105,23 @@ class Add extends Action
         
         
         $emailTemplateVariables = array();
-        $emailTemplateVariables['swatchuser'] = $customerName;
+        //$emailTemplateVariables['swatchuser'] = $customerName;
         $emailTemplateVariables['email'] = $customerEmail;
         $fullName=$data['fname']." ".$data['lname'];
-        
+        $producthtml = '';
+        $k=0;
+
         foreach ($data['meainpsku'] as $key => $value) 
         {
            $producthtml.='<tr><td style="width:50%;height:22px;">';
            $producthtml.=$data['productname'][$k];
-		   $producthtml.='</td><td width="10">&nbsp;</td><td style="width:20%;height:22px;">';
+		       $producthtml.='</td><td width="10">&nbsp;</td><td style="width:20%;height:22px;">';
            $producthtml.=$value.' - Sample';
            $producthtml.='</td></tr>';
            $k++;
         }
         
+           
         $email_template_variables = array(
            'swatchuser' => $fullName,
            'name' => $fullName,
@@ -138,7 +139,7 @@ class Add extends Action
                       ->setTemplateOptions([
                           'area' => \Magento\Framework\App\Area::AREA_FRONTEND,
                           'store' => $this->_storeManager->getStore()->getId(),
-                      ])->setTemplateVars($email_template_variables)->setFrom($sender)->addTo($customerEmail, $fullName)->getTransport();
+                      ])->setTemplateVars($email_template_variables)->setFrom($sender)->addTo($customerEmail, $fullName)->addBcc($senderbccEmail)->getTransport();
                       $transport->sendMessage();
                       
                 return true;      
