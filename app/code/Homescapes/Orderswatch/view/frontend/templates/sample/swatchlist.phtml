@@ -1,0 +1,31 @@
+<?php
+
+$_product =  $block->getProduct();
+echo $_product->getId();
+$isEnabledOrderSwatch = $_product->getEnableOrderSwatch();
+$swatchsession=$block->getHomescapessampleswatch();
+$productSku = $_product->getSku();
+$productName = $_product->getName();
+$smallImage =  $block->getsmallImg($_product);
+$sampletext= __('Order free swatch');
+$url = $block->getUrl('orderswatches/ajax/index');
+$classname='';
+if($swatchsession!='')
+        $sampleswatchsession=explode(',',$swatchsession); 
+
+?>
+<?php if($isEnabledOrderSwatch){ ?>
+<span class="please-wait1 please-wait<?php echo $_product->getEntityId();?>" style="display:none">
+    <?php echo __('Swatch Adding...') ?>
+</span>
+<div class="order-swatch">
+    <label>
+        <input type="checkbox" class="swatch-checkbox" id="swatch-checkbox<?php echo $_product->getEntityId();?>"  data-url="<?php echo $url; ?>" data-name="<?php echo $productName; ?>" data-img="<?php echo $smallImage; ?>" data-id="<?php echo $_product->getId(); ?>" <?php echo $classname;?> value="<?php echo $_product->getEntityId();?>"  />
+        <span class="swatch-label<?php echo $_product->getEntityId();?>">
+        <?php echo $sampletext; ?>
+        </span>
+        <p style="display:none" class="swatch-quantity-error" role="alert"><span class="swatch-quantity-error-message">You can only order up to 5 swatches</span></p>
+    </label>
+</div>
+<?php } ?>
+

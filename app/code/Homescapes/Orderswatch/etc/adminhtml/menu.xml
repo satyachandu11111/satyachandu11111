@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>        
+        <add id="Homescapes_Orderswatch::orderswatchsample" title="Swatches Order Management" module="Homescapes_Orderswatch" sortOrder="20" action="orderswatchsample/order/index" resource="Homescapes_Orderswatch::orderswatchsample" parent="Homescapes_Completelook::homescapes"/>        
+    </menu>
+</config>

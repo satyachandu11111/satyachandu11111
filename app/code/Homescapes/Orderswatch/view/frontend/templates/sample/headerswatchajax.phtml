@@ -1,0 +1,61 @@
+
+<?php 
+$swatchClose=$block->getHomescapessampleswatchclose();
+$swatchsession=$block->getHomescapessampleswatch();
+
+if($swatchsession!='')
+    $sampleswatchsession=explode(',',$swatchsession); 
+$i=0;
+$remainingcount=5;
+$startnextsample=1;
+if(isset($sampleswatchsession))
+{
+    $i=count($sampleswatchsession);
+    $remainingcount=5-count($sampleswatchsession);
+    $startnextsample=count($sampleswatchsession)+1;
+}
+else
+{
+    $sampleswatchsession=array();
+}
+?>
+<input type="hidden" name="sample_count" id="sample_count" value="<?php echo $i;?>"/>
+<div class="swatches-dialog" style="display:none;">
+  <div class="inner-section">            
+    <ul id="updatedswatches"> 
+    <?php foreach ($sampleswatchsession as $key => $value): ?>
+        
+    <?php $_product = $block->getLoadProduct($value);?>
+    
+      <li id="updatedswatcheslist<?php echo $i;?>">
+
+                <a class="remove-swatch rswatch" data-id="<?php echo $value; ?>" href="javascript: void(0)">&nbsp;</a>
+                  
+                
+
+                <?php $pImage=$block->getsmallImg($_product) ;?>
+                <img src="<?php echo $pImage; ?>" alt="test" width="50" height="50"/>
+                <p class="desc"><?php echo $_product->getName();?></p>
+                <span class="remove-wait1 remove-wait<?php echo $value;?>" style="display:none;">&nbsp;</span>
+            </li> 
+    <?php endforeach ?>     
+    <?php for($r=$startnextsample;$r<=5;$r++){?>
+      <li id="updatedswatcheslist<?php echo $r;?>" class="blankswatch">
+            <p class="emptydesc"><?php echo __('Add Another Swatch'); ?></p>
+      </li>
+    <?php } ?>
+    </ul>
+    <div class="actions">
+      <a href="<?php echo $block->getUrl('orderswatches') ?>" class="order-sw"><?php echo __('Order Swatches'); ?></a>
+      <button class="btn-close" onclick="javascript:void(0)"><?php echo __('Close'); ?></button>
+    </div>
+  </div>
+</div>
+<?php if($i>0){?>
+<div class="vertical-swatch">
+<?php }else{?>
+<div class="vertical-swatch" style="display:none;">
+<?php }?>
+<button class="order-swatch-vertical" onclick="javascript:void(0)"><span class="order-swatch-verticalspan"><?php echo __('Your Swatches'); ?></span><span class="order-swatch-verticalcount"></span></button>
+</div>
+<input type="hidden" value="<?php echo $swatchClose;?>" id="swatchcloseEvent"/>

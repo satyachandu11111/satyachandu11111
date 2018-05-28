@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+ <default> 
+ 	<orderswatch>
+            <general>                     
+                <user_email_templates>orderswatch_email_template</user_email_templates>                
+            </general>	
+ 	</orderswatch> 
+ </default>
+</config>
