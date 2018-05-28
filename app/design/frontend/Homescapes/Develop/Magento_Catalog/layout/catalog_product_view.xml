@@ -11,7 +11,14 @@
         <move element="product.info.sku" destination="product.info.main" after="page.main.title"/>
         <move element="product.info.review" destination="product.info.main" before="product.info.price"/>
 		
-		
+		<referenceContainer name="product.info.price">
+     <container name="product.info.discount" label="product info discount" htmlTag="div" htmlClass="product-info-discount">
+            <block class="Magento\Catalog\Block\Product\View" 
+                   name="product-discount" 
+                   template="Magento_Catalog::product/view/product_discount.phtml" />
+     </container>
+    </referenceContainer>
+
 		<referenceContainer name="product.info.main">		<!--delivery block added-->
 		  <block class="Magento\Framework\View\Element\Template" name="product.delivery" template="Magento_Catalog::product_delivery.phtml" after="-"/>
 		</referenceContainer>
