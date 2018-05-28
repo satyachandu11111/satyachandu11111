@@ -3,13 +3,13 @@
     <acl>
         <resources>
             <resource id="Magento_Backend::admin">
-                 <resource id="Homescapes_Completelook::homescapes" title="Homescapes" sortOrder="51">
-                    <resource id="Homescapes_Completelook::importcompletelook" title="Import Completelook Products" sortOrder="10"/>                    
+                <resource id="Homescapes_Completelook::homescapes">
+                    <resource id="Homescapes_Orderswatch::orderswatchsample" title="ORDER SWATCHES" translate="title" sortOrder="30"/>                    
                 </resource>
                 <resource id="Magento_Backend::stores">
                     <resource id="Magento_Backend::stores_settings">
                         <resource id="Magento_Config::config">
-                            <resource id="Homescapes_Completelook::completelook_config" title="Homescapes - Completelook"/>
+                            <resource id="Homescapes_Orderswatch::orderswatch_config" title="Homescapes - Order Swatch"/>
                         </resource>
                     </resource>
                 </resource>
@@ -17,3 +17,4 @@
         </resources>
     </acl>
 </config>
+

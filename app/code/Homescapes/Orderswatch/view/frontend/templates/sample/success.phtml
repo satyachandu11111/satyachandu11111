@@ -1,0 +1,10 @@
+<div class="order-success">
+<div class="page-title category-title">
+    <h1><?php echo __('Order Swatch Success');?></h1>
+</div>
+<p class="message"><?php echo __('Thank you for your swatches request from Homescapes. We have received your details and are currently processing your order # %1',$block->getLastswatchId());?></p>
+<?php  echo $block->getLayout()
+               ->createBlock('Magento\Cms\Block\Block')
+               ->setBlockId('swatch_sucess')
+               ->toHtml(); ?>
+</div> 

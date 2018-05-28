@@ -36,10 +36,12 @@ class Completelook extends \Magento\Framework\View\Element\Template
     protected $productTypeConfig;
     
     protected $cartHelper;
+    
+    protected $reviewRenderer;
 
 
     public function __construct(
-            \Magento\Framework\View\Element\Template\Context $context,
+            \Magento\Catalog\Block\Product\Context $context,
             \Magento\Framework\App\ResourceConnection $resourceConnection,
             \Magento\Framework\Registry $registry,
             \Magento\Catalog\Model\ProductFactory $_productloader,
@@ -53,7 +55,7 @@ class Completelook extends \Magento\Framework\View\Element\Template
             \Magento\Framework\Json\EncoderInterface $jsonEncoder,
             PriceCurrencyInterface $priceCurrency,
             \Magento\Catalog\Model\ProductTypes\ConfigInterface $productTypeConfig,
-            \Magento\Checkout\Helper\Cart  $cartHelper,
+            \Magento\Checkout\Helper\Cart  $cartHelper,            
             array $data = array(),
             Format $localeFormat = null
             ) {            
@@ -72,6 +74,7 @@ class Completelook extends \Magento\Framework\View\Element\Template
             $this->_localeFormat = $localeFormat ?: ObjectManager::getInstance()->get(Format::class);
             $this->productTypeConfig = $productTypeConfig;
             $this->cartHelper = $cartHelper;
+            $this->reviewRenderer = $context->getReviewRenderer();
             parent::__construct($context, $data);
         }
     
@@ -373,5 +376,31 @@ class Completelook extends \Magento\Framework\View\Element\Template
 
             return $this->jsonEncoder->encode($config);
         }
+        
+    /**
+     * Get product reviews summary
+     *
+     * @param \Magento\Catalog\Model\Product $product
+     * @param bool $templateType
+     * @param bool $displayIfNoReviews
+     * @return string
+     */
+    public function getReviewsSummaryHtml(
+        \Magento\Catalog\Model\Product $product,
+        $templateType = false,
+        $displayIfNoReviews = false
+    ) {
+        return $this->reviewRenderer->getReviewsSummaryHtml($product, $templateType, $displayIfNoReviews);
+    }
+    
+    public function getRatingSummary($product)
+    {
+
+        $this->_reviewFactory->create()->getEntitySummary($product, $this->_storeManager->getStore()->getId());
+        $ratingSummary = $product->getRatingSummary()->getRatingSummary();
+        var_dump($ratingSummary); die('sdfsdf');
+
+        return $ratingSummary;
+    }
     
 }

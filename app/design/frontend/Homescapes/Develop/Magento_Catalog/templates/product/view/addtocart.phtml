@@ -11,6 +11,10 @@
 <?php $_product = $block->getProduct(); ?>
 <?php $buttonTitle = __('Add to Cart'); ?>
 <?php if ($_product->isSaleable()): ?>
+<?php if($_product->getEnableOrderSwatch()){ ?>
+<div class="order-free-sambox">
+</div>
+<?php } ?>
 <div class="box-tocart">
     <div class="fieldset">
         <?php if ($block->shouldRenderQuantity()): ?>
@@ -66,3 +70,33 @@
     }
 </script>
 <?php endif; ?>
+<style>
+    .product-view .order-free-sambox {
+  display: block;
+  border: 1px solid #d9d9d9;
+  padding: 7px 10px 7px 10px;
+  margin: 0 0 7px 0;
+}
+.product-view .order-free-sambox strong {
+  font-size: 15px;
+  color: #030303;
+  text-transform: uppercase;
+  line-height: 26px;
+  font-weight: bold;
+  text-decoration: none;
+  background-position: 0 -1268px;
+  display: inline-block;
+  padding: 0 16px 0 32px;
+  cursor: pointer;
+}
+.product-view .order-free-sambox strong:hover {
+  color: #005dbd;
+}
+.product-view .order-free-sambox strong.order-swatch.added {
+  cursor: text;
+}
+.product-view .order-free-sambox strong.order-swatch.added:hover {
+  color: #005dbd;
+}
+
+</style>

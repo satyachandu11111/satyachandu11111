@@ -1,0 +1,7 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_layout.xsd">
+   <body>
+	<referenceContainer name="content.aside">
+            <block class="Magento\Catalog\Block\Product\View" name="orderswatch.detail"  after="custom.product.review.form" template="Homescapes_Orderswatch::sample/swatchInitListing.phtml" />
+	</referenceContainer>  	 
+ </body> 
+</page>

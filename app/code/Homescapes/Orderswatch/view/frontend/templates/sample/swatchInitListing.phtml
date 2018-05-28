@@ -1,0 +1,5 @@
+<?php $currentProductId = $block->getProduct()->getId(); ?> 
+<div data-mage-init='{"orderswatchesproduct":{"urlgetproducts": "<?php echo $block->getUrl('orderswatches/ajax/productDetail').'id/'.$currentProductId ?>",
+         "urlHeaderSwatch": "<?php echo $block->getUrl('orderswatches/ajax/headerSwatch') ?>",
+         "removeProductSample": "<?php echo $block->getUrl('orderswatches/ajax/removeProductSample') ?>",
+         "closeswatch": "<?php echo $block->getUrl('orderswatches/ajax/setswatch') ?>"}}' class="custom-orderswatch" />
