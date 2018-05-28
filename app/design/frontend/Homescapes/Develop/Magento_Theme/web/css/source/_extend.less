@@ -1585,7 +1585,7 @@ transition: all 5ms ease-in-out 0s;
 		}
 	}
 	.home-heading-title{
-		border-bottom: 2px solid @black;
+		border-bottom: 0px solid @black;
 		width: 60%;
 		margin: 8px auto 35px auto;
 		
@@ -2432,7 +2432,7 @@ transition: all 5ms ease-in-out 0s;
 .catalog-product-view{
 
 	.section-title{
-		border-bottom: 2px solid @black;
+		border-bottom: 0px solid @black;
 		width: 60%;
 		margin: 0px auto 30px auto;
 		font-size: 2rem;
@@ -2467,7 +2467,7 @@ transition: all 5ms ease-in-out 0s;
 .catalog-product-view{
 	
 	h1{
-		font-size: @font28;
+		font-size: @font26;
 		
 		@media @991{
 			font-size: @font20;
@@ -2612,6 +2612,11 @@ transition: all 5ms ease-in-out 0s;
 |  Product swatch
 -----------------------*/
 .product-info-main{
+	
+	.product.alert{
+		margin-bottom: 0;
+		width: 100%;
+	}
 	
 	.rating-summary .rating-result > span::before{
 		color: @yellow;
@@ -3377,7 +3382,7 @@ transition: all 5ms ease-in-out 0s;
 		}
 		
 		.group-prod-price{
-			font-size: @font40;
+			font-size: @font36;
 			
 			@media @991{
 				font-size: @font30;
@@ -3730,6 +3735,8 @@ transition: all 5ms ease-in-out 0s;
 }
 
 .product.info.detailed{
+	
+
 
 	.card-header{
 		border: none;
@@ -4472,7 +4479,7 @@ transition: all 5ms ease-in-out 0s;
 	fieldset > .field .field.choice{
 		display: flex;
 		
-		label{
+		.label{
 			width: 7rem;
 		}
 	}

@@ -253,12 +253,12 @@ background-size: 300px 1300px;
   margin: 0 4px;
 }
 .rating-review .recommends-items .yes {
-  border: 1px solid #005dbd;
+  border: 1px solid #0B8643;
   text-decoration: none;
   color: #444444;
 }
 .rating-review .recommends-items .yes:hover {
-  background: #005dbd;
+  background: #0B8643;
   color: #fff;
 }
 .rating-review .recommends-items .No {
