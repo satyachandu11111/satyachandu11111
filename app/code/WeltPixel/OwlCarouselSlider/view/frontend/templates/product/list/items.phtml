@@ -107,7 +107,7 @@ switch ($type = $block->getType()) {
             $showWishlist = $displaySocial['display_wishlist'];
             $showCompare = $displaySocial['display_compare'];
             $showCart = false;
-            $templateType = null;
+            $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
             $description = false;
             $canItemsAddToCart = false;
         }
