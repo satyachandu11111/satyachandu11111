@@ -46,7 +46,7 @@ define(['jquery'],
                             }
                             $('#updatedswatches li:last-child').remove();
                             $('.please-wait'+productId).hide(); 
-                            $('.swatch-label'+productId).html("swatch added");
+                            $('.swatch-label'+productId).html("remove swatch");
                             $('#sample_count').val(samplecountdown+1);
                             $('.swatches-dialog').show();  
                             $( ".vertical-swatch" ).show();

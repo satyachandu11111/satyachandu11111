@@ -42,7 +42,7 @@ define([
 
                     jQuery.each(selectedProducts, function(index, item) {
                          $('#swatch-checkbox'+item).prop('checked',true); 
-                         $('.swatch-label'+item).html('swatch added');
+                         $('.swatch-label'+item).html('remove swatch');
                          //console.log(item);
                      }.bind(this));
                    }     
@@ -167,7 +167,7 @@ define([
                             }
                             $('#updatedswatches li:last-child').remove();
                             $('.please-wait'+productId).hide(); 
-                            $('.swatch-label'+productId).html("swatch added");
+                            $('.swatch-label'+productId).html("remove swatch");
                             $('#sample_count').val(samplecountdown+1);
                             $('.swatches-dialog').show();  
                             $( ".vertical-swatch" ).show();
