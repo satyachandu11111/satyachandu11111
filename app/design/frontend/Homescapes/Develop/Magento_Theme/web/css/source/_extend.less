@@ -120,7 +120,9 @@
 /*--------------------------------------------------------------------------
 |  Reset CSS
 --------------------------------------------------------------------------*/
-
+button:not(.primary){
+	box-shadow: none;
+}
 button{
 	padding: 1rem 2.5rem;
 	font-weight: normal;
@@ -4707,9 +4709,9 @@ transition: all 5ms ease-in-out 0s;
 	
 	.form-list {
 	  float: left;
-	  margin-right: 30px;
+	  margin-right:3rem;
 	  width: 425px;
-	  padding-top: 20px;
+	  margin-bottom: 2rem;
 		
 		h2 {
 		  color: #1c1c1c;
@@ -4776,9 +4778,14 @@ transition: all 5ms ease-in-out 0s;
 		  height: 32px;
 		  margin-top: 2px;
 		  width: 100%;
+			background: none;
+			border:none;
+			padding: 0;
 		}
 		.custom-select select {
 		  margin-top: 0;
+			font-size: @base;
+			height: @font32;
 		}
 	}
 	.rightdiv {
@@ -4801,11 +4808,11 @@ transition: all 5ms ease-in-out 0s;
 		}
 		.inner-panel.swatches {
 		  float: left;
-		  padding: 32px 0;
+		  padding: 2rem 0;
 		  width: 100%;
 			
 			.swatch-items {
-			  background: #fff none repeat scroll 0 0;
+			  background: @white none repeat scroll 0 0;
 			  border: 1px solid #e5e5e5;
 			  border-radius: 3px;
 			  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
@@ -4968,21 +4975,25 @@ transition: all 5ms ease-in-out 0s;
 }
 
 .vertical-swatch {
-      position: fixed;
-      right: -64px;
-      top: 50%;
-      z-index: 9999;
-      -ms-transform: rotate(-90deg);
-      -webkit-transform: rotate(-90deg);
-      transform: rotate(-90deg);
+    position: fixed;
+	bottom: 0%;
+	left: 0;
+	z-index: 99;
+	background: @white;
+	right: 0;
+	padding: 3rem;
+	text-align: center;
+	border-top: 1px solid @border-color;
 	
 	.order-swatch-vertical {
-      background: #005dbd;
-      border: 1px solid #00468f;
-      color: #fff;
-      font-family: lato;
-      padding: 3px 12px;
+        background:@blue;
+		border: 1px solid @blue;
+		color: @white;
+		padding: 12px 47px;
 		text-transform: uppercase;
+		z-index: 2;
+		font-size: 16px;
+		margin: auto;
 	}
 }
 
@@ -5016,7 +5027,7 @@ transition: all 5ms ease-in-out 0s;
 	  cursor: text;
 		
 		&:hover{
-			color: blue;
+			color: @blue;
 		}
 	}
 }
