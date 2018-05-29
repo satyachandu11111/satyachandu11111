@@ -46,5 +46,34 @@ class UpgradeData implements UpgradeDataInterface {
         ); 
 
         }
+        if(version_compare($context->getVersion(), '1.2.1') < 0)
+        {
+            
+            $eavSetup->addAttribute(
+            \Magento\Catalog\Model\Product::ENTITY,
+            'related_product_item',
+            [
+                'group' => 'General',
+                'type' => 'int',
+                'backend' => '',
+                'frontend' => '',
+                'label' => 'Related Product Item',
+                'input' => 'select',                
+                'class' => '',                
+                'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_STORE,
+                'visible' => true,
+                'required' => false,
+                'user_defined' => true,
+                'default' => '0',
+                'searchable' => false,
+                'filterable' => false,
+                'comparable' => false,
+                'visible_on_front' => true,
+                'used_in_product_listing' => false,
+                'unique' => false,                
+            ]    
+        ); 
+
+        }
 	}
 }
