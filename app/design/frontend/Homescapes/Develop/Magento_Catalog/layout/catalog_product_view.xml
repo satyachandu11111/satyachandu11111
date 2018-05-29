@@ -19,12 +19,16 @@
      </container>
     </referenceContainer>
 
-		<referenceContainer name="product.info.main">		<!--delivery block added-->
+		<referenceContainer name="product.info.main">		<!-- delivery block -->
 		  <block class="Magento\Framework\View\Element\Template" name="product.delivery" template="Magento_Catalog::product_delivery.phtml" after="-"/>
 		</referenceContainer>
 		
-		<referenceContainer name="product.info.main">		<!--offers block added-->
+		<referenceContainer name="product.info.main">		<!-- offers block -->
 		  <block class="Magento\Framework\View\Element\Template" name="product.offers" template="Magento_Catalog::product_offers.phtml" before="product.delivery"/>
+		</referenceContainer>
+		
+		<referenceContainer name="product.info.main">		<!-- sizing block -->
+		  <block class="Magento\Framework\View\Element\Template" name="product.sizing" template="Magento_Catalog::product_sizing.phtml" after="product.info.price"/>
 		</referenceContainer>
 		
 		<referenceBlock name="product.info.details">
@@ -43,7 +47,7 @@
         </referenceBlock>
 		
         <move element="product.info.type" destination="product.info.main" before="DeliveryCountdown"/>
-        <move element="DeliveryCountdown" destination="product.info.main" after="product.info.price"/>
+        <move element="DeliveryCountdown" destination="product.info.main" after="product.sizing"/>
 		
 
     </body>

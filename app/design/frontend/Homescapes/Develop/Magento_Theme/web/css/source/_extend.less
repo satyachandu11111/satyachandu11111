@@ -2420,6 +2420,24 @@ transition: all 5ms ease-in-out 0s;
 |  Product Delivery Block ends
 ------------------------------*/
 
+/*---------------------------
+|  Product sizing guides
+------------------------------*/
+.product-sizing{
+	background: @f9light;
+	border-radius: .4rem;
+	margin-bottom: 1rem;
+	
+	a{
+		color: @black;
+		line-height: @font36;
+		margin-right: 3rem;
+		
+		&:hover{
+			text-decoration: none;
+		}
+	}
+}
 
 .countdown{
 	margin-bottom: 0.5rem;
@@ -3311,6 +3329,18 @@ transition: all 5ms ease-in-out 0s;
 					}
 				}
 			}
+		}
+	}
+	
+	.product-reviews-summary{
+		margin-bottom: 0;
+		float: right;
+		margin-top: -3.5rem;
+		text-align: right;
+		width: 9rem;
+		
+		.rating-summary .rating-result > span::before{
+			color: @yellow;
 		}
 	}
 }
