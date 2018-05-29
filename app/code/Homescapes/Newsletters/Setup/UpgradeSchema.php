@@ -13,12 +13,12 @@ class UpgradeSchema implements UpgradeSchemaInterface
     {
         $setup->startSetup();
 
-        if (version_compare($context->getVersion(), '1.0.0', '<')) {
+         if (version_compare($context->getVersion(), '2.0.0', '<=')) {
 
             $tableName = $setup->getTable('newsletter_subscriber');
 
             if ($setup->getConnection()->isTableExists($tableName) == true) {
-
+                
                 $setup->getConnection()->addColumn($tableName, 'subscriber_date', [
                 'type' => \Magento\Framework\DB\Ddl\Table::TYPE_DATETIME,
                 'unsigned' => true,
@@ -42,8 +42,9 @@ class UpgradeSchema implements UpgradeSchemaInterface
                     ['type' => Table::TYPE_TEXT, 'nullable' => true, 'default' => ''],
                     'Subscriber Lastname'
                 );
-
+    
             }
+      
             
         }
         

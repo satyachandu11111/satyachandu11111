@@ -1,7 +1,8 @@
 <?php
 $currentProduct = $block->getCurrentProduct();
 $relatedProducts = $block->getItems();
-$displayText = $block->getDisplayText();
+$displayText = $currentProduct->getAttributeText('related_product_item');
+
 if(count($relatedProducts)){
 ?>
 <div class="choose-color-related-items">
