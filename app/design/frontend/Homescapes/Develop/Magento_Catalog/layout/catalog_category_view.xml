@@ -58,5 +58,7 @@
 		
 		<move element="category.cms" destination="content" before="category.description"/>
 		
+        <referenceBlock name="wishlist_sidebar" remove="true" />
+
     </body>
 </page>
