@@ -12,7 +12,7 @@
 		 	<referenceBlock name="product.info.mailto" remove="true" />  <!--email-->
 		
 		
-			<move element="product.info.addto" destination="product.info.form.content" after="product.info.addtocart"/> <!--wishlist-->
+			<!-- <move element="product.info.addto" destination="product.info.form.content" after="product.info.addtocart"/> --> <!--wishlist-->
 		
     </body>
 </page>

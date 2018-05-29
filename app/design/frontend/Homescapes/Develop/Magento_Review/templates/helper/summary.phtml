@@ -44,3 +44,19 @@ $urlForm = $block->getReviewsUrl() . '#review-form';
     </div>
 </div>
 <?php endif; ?>
+<script type="text/javascript">
+require(["jquery","Magento_Ui/js/modal/modal"], function ($,modal) {
+    var options = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: true,
+                title: 'Write Your Own Review',
+                
+            };
+
+            var popup = modal(options, $('.block.review-add'));
+            $(".reviews-actions").on('click',function(){ 
+                $(".block.review-add").modal("openModal");
+            });
+    });
+</script>
