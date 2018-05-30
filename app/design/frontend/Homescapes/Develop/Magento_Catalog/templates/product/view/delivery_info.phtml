@@ -1,6 +1,12 @@
 <?php 
-echo $this->getLayout()
+$_product = $block->getProduct();
+
+$staticBlock = $_product->getAttributeText('delivery_block') ? $_product->getAttributeText('delivery_block') : 'delivery';
+
+	echo $this->getLayout()
           ->createBlock('Magento\Cms\Block\Block')
-          ->setBlockId('delivery')
-          ->toHtml();
+          ->setBlockId($staticBlock)
+          ->toHtml();	
+
+
 ?>
