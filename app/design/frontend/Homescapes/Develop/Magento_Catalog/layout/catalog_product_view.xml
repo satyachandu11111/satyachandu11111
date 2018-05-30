@@ -49,6 +49,7 @@
         <move element="product.info.type" destination="product.info.main" before="DeliveryCountdown"/>
         <move element="DeliveryCountdown" destination="product.info.main" after="product.sizing.video"/>
 		
+		 <move element="product.info.addto" destination="product.info.form.content" after="product.info.addtocart"/>
 
     </body>
 </page>
