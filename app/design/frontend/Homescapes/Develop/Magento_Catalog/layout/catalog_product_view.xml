@@ -11,9 +11,6 @@
         <move element="product.info.sku" destination="product.info.main" after="page.main.title"/>
         <move element="product.info.review" destination="product.info.main" before="product.info.price"/>
 		
-		
-        <move element="product.info.addto" destination="product.info.addtocart" after="-"/>
-		
 		<referenceContainer name="product.info.price">
 		 <container name="product.info.discount" label="product info discount" htmlTag="div" htmlClass="product-info-discount">
 				<block class="Magento\Catalog\Block\Product\View" 
