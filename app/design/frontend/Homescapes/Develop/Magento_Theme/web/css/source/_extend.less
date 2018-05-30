@@ -2435,12 +2435,56 @@ transition: all 5ms ease-in-out 0s;
 		line-height: @font40;
 		margin-right: 3rem;
 		font-weight: bold;
+		cursor: pointer;
 		
 		&:hover{
 			text-decoration: none;
 		}
 	}
+	.card-body{
+		padding: 1rem 3rem;
+	}
 }
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    right: 0;
+    background-color: @f2light;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 35px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: @black;
+    display: block;
+    transition: 0.3s;
+}
+		  p{
+			  color:@black;
+		  }
+.sidenav a:hover {
+    color: @black;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    left: 0;
+	font-size:@font20;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
 
 .countdown{
     float: right;
@@ -2566,7 +2610,7 @@ transition: all 5ms ease-in-out 0s;
 			margin-bottom: 0;
 		}
 		.box-tocart{
-			width: 100%;
+			width: 75%;
 			float: left;
 			margin: 0;
 			clear: both;
@@ -2598,7 +2642,7 @@ transition: all 5ms ease-in-out 0s;
 			}
 			
 			.field{
-				width: 31%;
+				width: 41%;
 				float: left;
 				margin-right: 1rem;
 			}
@@ -2609,7 +2653,7 @@ transition: all 5ms ease-in-out 0s;
 	}
 	.product-addto-links{
 		float: left;
-		width: 16.2rem;
+		width: 25%;
 		padding: 1.1rem 0;
 		border-radius: .4rem;
 		background: @flight;
@@ -3862,8 +3906,8 @@ transition: all 5ms ease-in-out 0s;
 	    content:"\f146";
 	}
 
+	}
 
-}
 
 /*--------------------------------------------------------------------------
 |  Login page
@@ -5028,7 +5072,7 @@ transition: all 5ms ease-in-out 0s;
 		
 	}
 	strong.order-swatch.added {
-	  cursor: text;
+	  cursor: pointer;
 		
 		&:hover{
 			color: @blue;

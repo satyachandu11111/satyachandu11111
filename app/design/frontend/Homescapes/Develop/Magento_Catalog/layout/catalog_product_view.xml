@@ -11,6 +11,7 @@
         <move element="product.info.sku" destination="product.info.main" after="page.main.title"/>
         <move element="product.info.review" destination="product.info.main" before="product.info.price"/>
 		
+		
 		<referenceContainer name="product.info.price">
 		 <container name="product.info.discount" label="product info discount" htmlTag="div" htmlClass="product-info-discount">
 				<block class="Magento\Catalog\Block\Product\View" 
@@ -28,7 +29,7 @@
 		</referenceContainer>
 		
 		<referenceContainer name="product.info.main">		<!-- sizing block -->
-		  <block class="Magento\Framework\View\Element\Template" name="product.sizing" template="Magento_Catalog::product_sizing.phtml" after="product.info.price"/>
+		  <block class="Magento\Framework\View\Element\Template" name="product.sizing.video" template="Magento_Catalog::product_buying_sizing_video.phtml" after="product.info.price"/>
 		</referenceContainer>
 		
 		<referenceBlock name="product.info.details">
@@ -47,8 +48,9 @@
         </referenceBlock>
 		
         <move element="product.info.type" destination="product.info.main" before="DeliveryCountdown"/>
-        <move element="DeliveryCountdown" destination="product.info.main" after="product.sizing"/>
+        <move element="DeliveryCountdown" destination="product.info.main" after="product.sizing.video"/>
 		
+		 <move element="product.info.addto" destination="product.info.form.content" after="product.info.addtocart"/>
 
     </body>
 </page>
