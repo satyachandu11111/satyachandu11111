@@ -132,6 +132,7 @@ define([
                         var productImage = $(this).attr('data-img');
                         var productName = $(this).attr('data-name');
                         var url= $(this).attr('data-url');
+                        $('.swatch-quantity-error').hide();                        
                         console.log(url);                   
                         
                          var request = $.ajax( {
@@ -161,7 +162,7 @@ define([
                             }
                             $( ".vertical-swatch" ).hide();    
 		            $('#updatedswatches li:last-child').remove();
-		            $('.view-swatch-label-'+productId).html("Swatch Added Successfully");		         
+		            $('.view-swatch-label-'+productId).html("Remove swatch");		         
 		            $('#sample_count').val(samplecountdown+1);
 		            $(".order-swatch-verticalcount").html(" ("+jQuery('#sample_count').val()+")");
 		            $('#swatchevent').val(productId);
@@ -177,6 +178,45 @@ define([
                         $('.swatch-quantity-error').show();                        
                     }
                     
+                }else{
+                    console.log('remove from labal click ');
+                    var samplecountdown=parseInt($('#sample_count').val());   
+                    var url= self.options.removeProductSample;
+                    var productId = $(this).attr('data-id');
+                    var request = $.ajax( {
+                            url: url ,
+                            data: { productId: productId},
+                            type: 'POST',
+                            showLoader: true,
+                            beforeSend: function(){
+                                //jQuery('.please-wait'+productId).show();
+                                },
+                        } );
+                        request.done( function (result)
+                        {   
+                            console.log('----remove product------');                            
+                            var json = result;
+                            $("#updatedswatches li:nth-child("+json.productnumber+")").remove();
+                            console.log('---------remove label----------');
+                            console.log('.view-swatch-label-'+productId);
+                            $('.view-swatch-label-'+productId).html("Free Fabric Sample Available - Click Here To Add");                            
+                            $('ul#updatedswatches').append(json.html);
+                            //$('.please-wait'+productId).hide();
+                            if(samplecountdown==1)
+                            {
+                              $( ".swatches-dialog" ).hide();
+                              $( ".vertical-swatch" ).hide();
+                            }
+                            $('#sample_count').val(samplecountdown-1);
+                            $('#swatchevent').val(0);
+                            $(".order-swatch-verticalcount").html(" ("+$('#sample_count').val()+")");                             
+                            
+                        } );
+                        request.fail( function ( error )
+                        {
+                            console.dir(error);             
+                        } );
+                    
                 }
                 
                     
@@ -189,7 +229,7 @@ define([
           $('.remove-swatch').bind('click', function(element){
               
               // remove product from onclick 
-                    
+                    $('.swatch-quantity-error').hide();
                     var samplecountdown=parseInt($('#sample_count').val());   
                     var url= self.options.removeProductSample;
                     var productId = $(this).attr('data-id');

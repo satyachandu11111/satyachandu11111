@@ -13,6 +13,7 @@ if($swatchsession!='')
         $sampleswatchsession=explode(',',$swatchsession); 
 
 ?>
+<?php if($_product->isSaleable()){  ?>
 <?php if($isEnabledOrderSwatch){ ?>
 <span class="please-wait1 please-wait<?php echo $_product->getEntityId();?>" style="display:none">
     
@@ -27,4 +28,4 @@ if($swatchsession!='')
     </label>
 </div>
 <?php } ?>
-
+<?php } ?>

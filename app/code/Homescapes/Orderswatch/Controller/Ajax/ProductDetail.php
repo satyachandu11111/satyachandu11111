@@ -54,7 +54,7 @@ class ProductDetail extends \Magento\Framework\App\Action\Action
            {
             if (in_array($_product->getEntityId(),$sampleswatchsession))
             { 
-                $sampletext= __('Swatch Added Successfully'); $buttonevent=$_product->getEntityId();
+                $sampletext= __('Remove swatch'); $buttonevent=$_product->getEntityId();
                 $newcls='added';
 
             }

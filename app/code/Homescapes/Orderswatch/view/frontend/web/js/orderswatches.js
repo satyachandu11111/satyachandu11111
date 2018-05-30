@@ -188,6 +188,7 @@ define([
                 {
                     // remove product from disselect checkbox
                     console.log('remove product from disselect checkbox');
+                    $('.swatch-quantity-error').hide();
                     var samplecountdown=parseInt($('#sample_count').val());   
                     var url= self.options.removeProductSample;
                     var productId = $(this).attr('data-id');
@@ -233,6 +234,7 @@ define([
               
               // remove product from onclick 
                     console.log('remove product onclick event');
+                    $('.swatch-quantity-error').hide();
                     var samplecountdown=parseInt($('#sample_count').val());   
                     var url= self.options.removeProductSample;
                     var productId = $(this).attr('data-id');
