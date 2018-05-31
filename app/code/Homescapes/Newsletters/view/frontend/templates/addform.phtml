@@ -13,24 +13,30 @@
 			<form class="form" action="<?php echo $block->getUrl('newsletters/contact/index'); ?>" id="newsletter_form" method="post">
 				<fieldset class="fieldset">
 					<div class="field required">
-						<label class="label" for="firstname"><span>First Name</span></label>
+						<label class="label" for="firstname"><span><?php echo __('First Name') ?></span></label>
 						<div class="control">
 									<input name="firstname"  id="firstname" title="firstname" value="" class="input-text" type="text" />
 						</div>
 					</div>
 
 				   <div class="field required">
-						<label class="label" for="lastname"><span>Last Name</span></label>
+						<label class="label" for="lastname"><span><?php echo __('Last Name') ?></span></label>
 						<div class="control">
 									<input name="lastname"  id="lastname" title="lastname" value="" class="input-text" type="text" />
 						</div>
 					</div>
 
 					<div class="field required">
-						<label class="label" for="email"><span>Email</span></label>
+						<label class="label" for="email"><span><?php echo __('Email') ?></span></label>
 						<div class="control">
 									<input name="email"  id="email" title="email" value="" class="input-text" type="text" />
 						</div>
+					</div>
+					<div class="field required">
+						<div class="control">
+							<input name="accept"  class="checkbox required" id="accept" title="accept terms & conditions" value=""  type="checkbox" />
+						</div>
+						<p><?php echo __('I consent to receive weekly marketing emails with personalised offers, early leaflet previews, fress prize draws & more.') ?>*</p>
 					</div>
 
 				</fieldset>
