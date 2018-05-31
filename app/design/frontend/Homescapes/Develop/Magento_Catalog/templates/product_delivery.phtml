@@ -3,9 +3,11 @@
  * Copyright © 2018 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
+$_product = $block->getProduct();
 
+$staticBlock = $_product->getAttributeText('home_delivery_block') ? $_product->getAttributeText('home_delivery_block') : 'product-delivery-options' ;
 ?>
 
-<?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('product-delivery-options')->toHtml();?>
+<?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId($staticBlock)->toHtml();?>
 
 

@@ -21,7 +21,7 @@
 		</referenceContainer>
 
 		<referenceContainer name="product.info.main">		<!-- delivery block -->
-		  <block class="Magento\Framework\View\Element\Template" name="product.delivery" template="Magento_Catalog::product_delivery.phtml" after="-"/>
+		  <block class="Magento\Catalog\Block\Product\View" name="product.delivery" template="Magento_Catalog::product_delivery.phtml" after="-"/>
 		</referenceContainer>
 		
 		<referenceContainer name="product.info.main">		<!-- offers block -->
@@ -30,10 +30,6 @@
 		
 		<referenceContainer name="product.info.main">		<!-- sizing block -->
 		  <block class="Magento\Framework\View\Element\Template" name="product.sizing.video" template="Magento_Catalog::product_buying_sizing_video.phtml" after="product.info.price"/>
-		</referenceContainer>
-		
-		<referenceContainer name="product.info.main">		<!-- product instalment block -->
-		  <block class="Magento\Framework\View\Element\Template" name="product.instalment" template="Magento_Catalog::product_instalment.phtml" before="product.delivery"/>
 		</referenceContainer>
 		
 		<referenceBlock name="product.info.details">
