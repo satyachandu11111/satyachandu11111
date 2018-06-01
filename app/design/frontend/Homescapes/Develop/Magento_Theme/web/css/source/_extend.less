@@ -832,6 +832,13 @@ transition: all 5ms ease-in-out 0s;
 		display: none;
 	}
 }
+.tab-visible{
+	display: inline-block;
+	
+	@media @992{
+		display: none;
+	}
+}
 .halfmenu .megacollink {
   width: 48%;
   float: left;
@@ -1685,6 +1692,11 @@ transition: all 5ms ease-in-out 0s;
 	
 	.footer.content .block{
 		float: none;
+		
+		.col-md-7, .col-md-5{
+			flex: 0 0 100%;
+			max-width: 100%;
+		}
 	}
 	
 	.footer, .copyright-section{
@@ -1764,6 +1776,11 @@ transition: all 5ms ease-in-out 0s;
 			text-align: left;
 			margin-bottom: 0;
 			line-height: @font32;
+			
+			@media @991{
+				text-align: center;
+				margin-bottom: 1rem;
+			}
 			
 			.fas{
 				margin-right: .7rem;
@@ -2441,12 +2458,27 @@ transition: all 5ms ease-in-out 0s;
 		font-weight: bold;
 		cursor: pointer;
 		
+		@media @991{
+			margin-right: 2rem;
+		}
+		@media @767{
+			margin-right: 1rem;
+		}
+		@media @479{
+			font-weight: normal;
+		}
 		&:hover{
 			text-decoration: none;
 		}
 	}
 	.card-body{
 		padding: 1rem 3rem;
+	}
+	.col-md{
+		@media @479{
+			padding-left: .8rem;
+			padding-right: 0.8rem;
+		}
 	}
 }
 .sidenav {
@@ -2500,7 +2532,6 @@ transition: all 5ms ease-in-out 0s;
 	
 	@media @991{
 		width: 100%;
-		margin-top: 1rem;
 	}
 	
 	#date, #time{
@@ -2623,6 +2654,10 @@ transition: all 5ms ease-in-out 0s;
 			width: 4rem;
 			line-height: 4.3rem;
 			margin-bottom: 0;
+			
+			@media @991{
+				display: none;
+			}
 		}
 		.box-tocart{
 			width: 75%;
@@ -2636,11 +2671,11 @@ transition: all 5ms ease-in-out 0s;
 			@media @991{
 				width: 86%;
 			}
-			
+			@media @767{
+				width: 90%;
+			}
 			@media @639{
 				width: 100%;
-
-
 			}
 			.action.tocart{
 				@media @1200{
@@ -2648,11 +2683,14 @@ transition: all 5ms ease-in-out 0s;
 				}
 				
 				@media @991{
-					width: 49%;
+					width: 95%;
 				}
 				@media @767{
 					padding: .9rem 1.5rem;
 					border-radius: .4rem;
+				}
+				@media @639{
+					width: 100%;
 				}
 			}
 			
@@ -2661,6 +2699,16 @@ transition: all 5ms ease-in-out 0s;
 				float: left;
 				margin-right: 1rem;
 				margin-bottom: 1rem;
+				
+				@media @991{
+					width: 45%;
+				}
+				@media @767{
+					width: 28%;
+				}
+				@media @639{
+					width: 42%;
+				}
 			}
 			.actions{
 				display: flex;
@@ -2679,8 +2727,9 @@ transition: all 5ms ease-in-out 0s;
 		
 		@media @991{
 			width: 5rem;
+			margin-bottom: 0;
 		}
-		@media @767{
+		@media @639{
 			display: none;
 		}
 		
@@ -2750,6 +2799,11 @@ transition: all 5ms ease-in-out 0s;
 		
 		float: left;
 		width: 100%;
+		margin-bottom: 1rem;
+		
+		@media @767{
+			margin-bottom: 0;
+		}
 		
 		span{
 			font-size: @font16;
@@ -2822,6 +2876,11 @@ transition: all 5ms ease-in-out 0s;
 		margin: -3px 3px 0 0;
 		vertical-align: middle;
 		display: inline-block;
+		}
+	}
+	.product-reviews-summary{
+		@media @767{
+			margin-bottom: 1.5rem;
 		}
 	}
 }
@@ -2939,9 +2998,10 @@ transition: all 5ms ease-in-out 0s;
 			margin-top: 1px;
 		}
 		
-		.grouped ~ div.mage-error[generated]{
-			position: relative;
+		.validation-box{
+			clear: both;
 		}
+		
 		
 		.price-wrapper .price{
 			font-size: @font18;
@@ -3382,6 +3442,9 @@ transition: all 5ms ease-in-out 0s;
 				}
 				
 				.stock{
+					
+					border: none;
+					
 					@media @479{
 						background:@danger;
 						border-radius: .4rem;
@@ -3533,8 +3596,10 @@ transition: all 5ms ease-in-out 0s;
 	width: 100%;
 	margin-bottom: 1rem;
 		
-	
-		
+	.stock{
+		border: none;
+	}
+
 	.table.grouped th, td{
 		padding: .8rem 1.5rem;
 		border: 0;
@@ -3614,6 +3679,10 @@ transition: all 5ms ease-in-out 0s;
 		width: 57%;
 		float: left;
 		margin: 0;
+		
+		@media @991{
+			width: 86%;
+		}
 		
 		@media @639{
 			width: 100%;

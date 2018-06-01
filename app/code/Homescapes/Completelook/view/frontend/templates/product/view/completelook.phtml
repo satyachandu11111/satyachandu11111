@@ -158,7 +158,7 @@ $buttonTitle = __('Add to Cart');
                             });
                         </script>
                         <?php if ($_product->isSaleable()){ ?>
-                        <div id="validation-message-box-<?php echo $_product->getSku(); ?>"></div>
+                        <div class="validation-box" id="validation-message-box-<?php echo $_product->getSku(); ?>"></div>
                         <div class="actions">
                             <button type="submit"
                                     title="<?=   __('Add to Cart'); ?>"

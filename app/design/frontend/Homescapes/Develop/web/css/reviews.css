@@ -892,7 +892,7 @@ table > thead > tr > th, table > tbody > tr > th, table > tfoot > tr > th, table
     padding: 15px 6px 8px;
   }
   #customer-reviews dl {
-    padding: 0 8px;
+    padding: 0px;
   }
 }
 @media only screen and (max-width: 991px) {
@@ -901,7 +901,7 @@ table > thead > tr > th, table > tbody > tr > th, table > tfoot > tr > th, table
     margin: 10px 10px 0 0;
   }
   #customer-reviews dl dd {
-    width: 76%;
+    width: 100%;
 	  display: grid;
   }
   #customer-reviews dl dd .nocheck-recommend,
