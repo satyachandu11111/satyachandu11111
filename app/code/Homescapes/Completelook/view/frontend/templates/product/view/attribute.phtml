@@ -1,0 +1,48 @@
+<?php 
+$product =  $this->getProductAtt();
+$_product = $product;
+$_helper = $this->helper('Magento\Catalog\Helper\Output');
+$data = array();
+$excludeAttr =array();
+$attributes = $product->getAttributes();
+
+        foreach ($attributes as $attribute) {
+
+            if ($attribute->getIsVisibleOnFront() && !in_array($attribute->getAttributeCode(), $excludeAttr) ) {
+                $value = $attribute->getFrontend()->getValue($product);
+
+                if (!$product->hasData($attribute->getAttributeCode())) {
+                    $value = __('N/A');
+                } elseif ((string)$value == '') {
+                    $value = __('No');
+                } elseif ($attribute->getFrontendInput() == 'price' && is_string($value)) {
+                    $value = $this->priceCurrency->convertAndFormat($value);
+                }
+
+                if ($value instanceof \Magento\Framework\Phrase || (is_string($value) && strlen($value))) {
+                    $data[$attribute->getAttributeCode()] = [
+                        'label' => __($attribute->getStoreLabel()),
+                        'value' => $value,
+                        'code' => $attribute->getAttributeCode(),
+                    ];
+                }
+            }
+        }
+    $_additional = $data;
+//    echo "<pre>";
+//    print_r($_additional); die('ddddd');
+?>        
+<div class="additional-attributes-wrapper table-wrapper">
+        <table class="data table additional-attributes" id="product-attribute-specs-table">
+            <caption class="table-caption"><?= /* @escapeNotVerified */ __('More Information') ?></caption>
+            <tbody>
+            <?php foreach ($_additional as $_data): ?>
+                <tr>
+                    <th class="col label" scope="row"><?= $block->escapeHtml(__($_data['label'])) ?></th>
+                    <td class="col data" data-th="<?= $block->escapeHtml(__($_data['label'])) ?>"><?= /* @escapeNotVerified */ $_helper->productAttribute($_product, $_data['value'], $_data['code']) ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+

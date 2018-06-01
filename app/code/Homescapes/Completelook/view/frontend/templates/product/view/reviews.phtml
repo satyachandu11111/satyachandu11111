@@ -1,0 +1,59 @@
+<?php 
+$_items = $this->getProductRewiews();
+?>
+<div class="reviews-list-box">	
+    <div class="review-heading">
+        <h2>
+            <?php echo __('Customer Reviews') ?>
+            <span id="count_review">[<?php echo count($_items); ?>]</span>
+        </h2>
+    </div>
+
+
+			<dl id="dl_review">
+			<?php $it=0;foreach ($_items as $_review):$it++;?>
+			<?php   
+                                        $_votes = $_review->getRatingVotes(); 
+					$rowdata = $_votes->getData();               
+					$average_ratings = ($rowdata[0]['percent']+$rowdata[1]['percent']+$rowdata[2]['percent'])/3;               
+					?> 
+
+				<dd class="reviews-bg" data-rating="<?php echo floor($average_ratings/20)?>">
+
+					<?php if (count($_votes)): ?>
+
+					<table class="title-box">
+						<tbody>                    
+							<tr>
+
+								<td>
+									<div class="rating-box">
+										<div class="rating" style="width:<?php echo $average_ratings ?>%;"></div>
+									</div>
+								</td>
+
+								<td><p class="title"><?php echo (__($_review->getTitle()))?></p></td>
+							</tr>
+
+
+						</tbody>
+					</table>
+
+
+					<?php endif; ?>   
+
+
+
+					<span class="review-meta">
+						<?php echo __('Review by '.($_review->getNickname())) ?>
+						, 
+					   <label class="date"><?php echo __('Posted on '.date('d/m/Y', strtotime($_review->getCreatedAt()))); ?></label>
+					</span>
+
+					<p class="desc"><?php echo nl2br(($_review->getDetail())) ?>    </p>
+
+				</dd>
+			<?php endforeach; ?>
+
+			</dl>
+</div>	

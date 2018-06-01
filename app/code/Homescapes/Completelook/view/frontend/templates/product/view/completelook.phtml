@@ -45,8 +45,39 @@ $buttonTitle = __('Add to Cart');
                                                                     <?php echo  $percentage = $this->helper('Homescapes\Completelook\Helper\Data')->DisplayDiscount($_product); ?>
 								</span>
 							</div>
-							<a href="<?php echo $_product->getProductUrl(); ?>" title="<?php echo __('Description'); ?>"><?php echo __('Description'); ?></a>
-                                                        <?= $block->getReviewsSummaryHtml($_product) ?>
+							<a href="javascript:void(0)" onclick="openDescription('description-<?php echo $_product->getId(); ?>')" title="<?php echo __('Description'); ?>"><?php echo __('Description'); ?></a>
+                                                        <?php $reviews = ''; ?>
+                                                        <?php $_items = $block->getReviewsCollection($_product)->getItems();  //foreach ($_items as $rating_review){ echo "<pre>"; print_r(count($rating_review->getRatingVotes())); die('ffff');   exit; } ?>
+                                                        <?php echo $reviews = $block->getReviewsSummaryHtml($_product) ?>
+                                                        <div id="description-<?php echo $_product->getId(); ?>" class="sidenav">	
+                                                            <a href="javascript:void(0)" class="closebtn" onclick="closeDescription('description-<?php echo $_product->getId(); ?>')"><i class="fas fa-chevron-left"></i> Back</a>
+                                                            <div class="card-body">
+                                                                <h2><?php echo $_product->getName(); ?></h2>
+                                                                <div class="">
+                                                                    <h2><?php echo __('Product Description') ?></h2>
+                                                                    <?php echo $_product->getDescription(); ?>
+                                                                </div>
+                                                                <div>
+                                                                    <h2><?php echo __('Product Specifications') ?></h2>
+                                                                    <div><?php echo $this->getLayout()->createBlock("Magento\Framework\View\Element\Template")->setProductAtt($_product)->setTemplate("Homescapes_Completelook::product/view/attribute.phtml")->toHtml();?> </div>
+                                                                </div>
+                                                                <?php  if(count($_items)){  ?>
+                                                                <div>
+                                                                    <h2><?php echo __('Rating & Reviews') ?></h2>                                                                    
+                                                                    <div><?php echo $this->getLayout()->createBlock("Magento\Framework\View\Element\Template")->setProductRewiews($_items)->setTemplate("Homescapes_Completelook::product/view/reviews.phtml")->toHtml();?> </div>
+                                                                </div>
+                                                                <?php }  ?>
+                                                                <div>
+                                                                    <h2><?php echo __('Delivery') ?></h2>
+                                                                    <?php $staticBlock = $_product->getAttributeText('delivery_block') ? $_product->getAttributeText('delivery_block') : 'delivery'; ?>
+                                                                    <div><?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId($staticBlock)->toHtml(); ?></div>
+                                                                </div>
+                                                                <div>
+                                                                    <h2><?php echo __('Returns') ?></h2>
+                                                                    <div><?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('returns')->toHtml(); ?></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
 						</div>
 					</div>
 					
@@ -349,6 +380,18 @@ $buttonTitle = __('Add to Cart');
                     }
                 </script>
                 </form>
+            <script>
+	function openDescription(element) {
+                console.log(element);
+		document.getElementById(element).style.width = "650px";
+	}
+
+	function closeDescription(element) {
+                console.log(element);
+		document.getElementById(element).style.width = "0";
+	}
+</script>
+            
         <?php } ?>
                 </div>
         </div>

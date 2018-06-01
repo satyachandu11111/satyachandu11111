@@ -6,6 +6,7 @@ namespace Homescapes\Completelook\Block\Product\View;
 use Magento\Framework\App\ObjectManager;
 use Magento\Framework\Locale\Format;
 use Magento\Framework\Pricing\PriceCurrencyInterface;
+use Magento\Review\Model\ResourceModel\Review\Collection as ReviewCollection;
 
 class Completelook extends \Magento\Framework\View\Element\Template
 {
@@ -38,6 +39,20 @@ class Completelook extends \Magento\Framework\View\Element\Template
     protected $cartHelper;
     
     protected $reviewRenderer;
+    
+    /**
+     * Review resource model
+     *
+     * @var \Magento\Review\Model\ResourceModel\Review\CollectionFactory
+     */
+    protected $_reviewsColFactory;
+    
+    /**
+     * Review collection
+     *
+     * @var ReviewCollection
+     */
+    protected $_reviewsCollection;
 
 
     public function __construct(
@@ -56,6 +71,7 @@ class Completelook extends \Magento\Framework\View\Element\Template
             PriceCurrencyInterface $priceCurrency,
             \Magento\Catalog\Model\ProductTypes\ConfigInterface $productTypeConfig,
             \Magento\Checkout\Helper\Cart  $cartHelper,            
+            \Magento\Review\Model\ResourceModel\Review\CollectionFactory $collectionFactory,
             array $data = array(),
             Format $localeFormat = null
             ) {            
@@ -75,6 +91,7 @@ class Completelook extends \Magento\Framework\View\Element\Template
             $this->productTypeConfig = $productTypeConfig;
             $this->cartHelper = $cartHelper;
             $this->reviewRenderer = $context->getReviewRenderer();
+            $this->_reviewsColFactory = $collectionFactory;
             parent::__construct($context, $data);
         }
     
@@ -401,6 +418,21 @@ class Completelook extends \Magento\Framework\View\Element\Template
         var_dump($ratingSummary); die('sdfsdf');
 
         return $ratingSummary;
+    }
+    
+    public function getReviewsCollection($product){
+        
+        $this->_reviewsCollection = $this->_reviewsColFactory->create()->addStoreFilter(
+                $this->_storeManager->getStore()->getId()
+            )->addStatusFilter(
+                \Magento\Review\Model\Review::STATUS_APPROVED
+            )->addEntityFilter(
+                'product',
+                $product->getId()
+            )->setDateOrder();
+        
+        $collection =  $this->_reviewsCollection->load()->addRateVotes();
+        return $collection;
     }
     
 }
