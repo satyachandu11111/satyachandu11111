@@ -2491,11 +2491,12 @@ transition: all 5ms ease-in-out 0s;
 
 
 .countdown{
-    float: right;
-    width: 72%;
+    float: left;
+    width: 100%;
     background: #f9f9f9;
     padding: 0.5rem 1rem;
     border-radius: .4rem;
+	margin-bottom: 1rem;
 	
 	@media @991{
 		width: 100%;
@@ -5103,5 +5104,14 @@ transition: all 5ms ease-in-out 0s;
 		&:hover{
 			color: @blue;
 		}
+	}
+}
+
+.product-instalment{
+	clear: both;
+	margin-bottom: @font10;
+	
+	.col-md{
+		padding: 0;
 	}
 }
