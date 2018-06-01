@@ -7,12 +7,18 @@
 -->
 <page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
-        <move element="page.main.title" destination="product.info.main" before="-"/>
-        <move element="product.info.sku" destination="product.info.main" after="page.main.title"/>
-        <move element="product.info.review" destination="product.info.main" before="product.info.price"/>
+        <move element="page.main.title" destination="product.info.main" before="-"/> <!--title-->
+		
+        <move element="product.info.sku" destination="product.info.main" after="page.main.title"/> <!--SKU-->
+		
+        <move element="product.info.type" destination="product.info.main" after="page.main.title"/> <!--Stock-->
+		
+        <move element="product.info.review" destination="product.info.main" before="product.info.price"/> <!--Review Summary-->
 		
 		
-		<referenceContainer name="product.info.price">
+		
+		
+		<referenceContainer name="product.info.price">      <!--Product Discount-->
 		 <container name="product.info.discount" label="product info discount" htmlTag="div" htmlClass="product-info-discount">
 				<block class="Magento\Catalog\Block\Product\View" 
 					   name="product-discount" 
@@ -32,14 +38,18 @@
 		  <block class="Magento\Framework\View\Element\Template" name="product.sizing.video" template="Magento_Catalog::product_buying_sizing_video.phtml" after="product.info.price"/>
 		</referenceContainer>
 		
-		<referenceBlock name="product.info.details">
+		<referenceContainer name="product.info.main">		<!-- product instalment -->
+		  <block class="Magento\Framework\View\Element\Template" name="product.instalment" template="Magento_Catalog::product_instalment.phtml" after="product.offers"/>
+		</referenceContainer>
+		
+		<referenceBlock name="product.info.details">        <!--Delivery Tab-->
           <block class="Magento\Catalog\Block\Product\View" name="deliveryinfo.tab" as="deliveryinfo" template="Magento_Catalog::product/view/delivery_info.phtml" group="detailed_info" >
              <arguments>
                 <argument translate="true" name="title" xsi:type="string">Delivery</argument>
              </arguments>
           </block>
         </referenceBlock>
-        <referenceBlock name="product.info.details">
+        <referenceBlock name="product.info.details">        <!--Return Tab-->
           <block class="Magento\Catalog\Block\Product\View" name="return.tab" as="returninfo" template="Magento_Catalog::product/view/return_info.phtml" group="detailed_info" >
              <arguments>
                 <argument translate="true" name="title" xsi:type="string">Returns</argument>
@@ -47,10 +57,9 @@
           </block>
         </referenceBlock>
 		
-        <move element="product.info.type" destination="product.info.main" before="DeliveryCountdown"/>
-        <move element="DeliveryCountdown" destination="product.info.main" after="product.sizing.video"/>
+        <move element="DeliveryCountdown" destination="product.info.main" after="product.sizing.video"/>    <!--Delivery Countdown-->
 		
-		 <move element="product.info.addto" destination="product.info.form.content" after="product.info.addtocart"/>
+		 <move element="product.info.addto" destination="product.info.form.content" after="product.info.addtocart"/>    <!--Wishlist-->
 
     </body>
 </page>
