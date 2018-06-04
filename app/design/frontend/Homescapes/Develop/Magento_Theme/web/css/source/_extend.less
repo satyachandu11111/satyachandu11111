@@ -2488,7 +2488,7 @@ transition: all 5ms ease-in-out 0s;
     z-index: 9999;
     top: 0;
     right: 0;
-    background-color: @f2light;
+    background-color: @f9light;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 35px;
@@ -2514,6 +2514,8 @@ transition: all 5ms ease-in-out 0s;
     top: 0;
     left: 0;
 	font-size:@font20;
+	width: 100%;
+	background: @f2light;
 }
 
 @media screen and (max-height: 450px) {
@@ -5194,4 +5196,122 @@ transition: all 5ms ease-in-out 0s;
 	.col-md{
 		padding: 0;
 	}
+}
+
+/*--------------------------------------------------------------------------
+| complete the look description accordian 
+--------------------------------------------------------------------------*/
+.product-name-price{
+	
+	line-height: @font24;
+	font-size: 1.5rem;
+	
+	p{
+		padding: 0 1rem;
+	}
+	
+	#caccordion{
+		width: 100%;
+		padding: 0 1rem;
+	}
+	a{
+		color:@black;
+	}
+	.card{
+		border: none;
+		width: 100%;
+		float: left;
+	}
+	.table-bordered td, .card-body {
+		vertical-align: middle;
+	}
+	.card-body{
+		background: @white;
+		
+		.reviews-list-box{
+			padding: 0;
+		}
+		.reviews-bg{
+			padding: 1rem;
+		}
+		a{
+			font-size: @base;
+			color: @blue;
+			font-weight: bold;
+			padding: 0;
+		}
+		tr {
+			display: flex;
+			border-bottom: 1px dashed @f2light;
+		}
+		tbody > tr > th {
+			padding: 1rem;
+			max-width: 16rem;
+			text-transform: capitalize;
+			background: @f9light;
+			border: none;
+			font-size: @base;
+		}
+		tbody > tr > td {
+			padding-left: 2rem;
+			border: none;
+		}
+		.review-heading  h2{
+			margin-top: 0;
+		}
+		.title-box {
+			
+			p{
+				margin-bottom: 0;
+			}
+			tbody > tr > td {
+				padding-left:0;
+			}
+			tr {
+				border-bottom:0;
+			}
+		}
+	}
+	h2{
+		text-align: center;
+		margin: 2rem 0 1.6rem 0;
+		font-size: 2.2rem;
+	}
+	h5{
+		margin: 0;
+		line-height: 4rem;
+		font-size: @font18;
+	}
+	.card-header{
+		border: none;
+		padding: 0rem 1.2rem;
+		margin:0;
+		line-height: 4rem;
+		border-bottom:.4rem solid @white;
+		
+		a{
+			padding: .5rem;
+		}
+	}
+	#five .card-header{
+		border-bottom: 0;
+	}
+	
+	.card-header > a:before {
+	float: right !important;
+	content:"\f146";
+	padding-right: 5px;
+	font-size: @font20;
+	font-family: "Font Awesome 5 Free";
+	}
+	.card-header > a.collapsed:before {
+		float: right !important;
+		content:"\f0fe";
+	}
+	.card-header > a:hover, 
+	.card-header > a:active, 
+	.card-header > a:focus  {
+		text-decoration:none;
+	}
+
 }

@@ -45,40 +45,156 @@ $buttonTitle = __('Add to Cart');
                                                                     <?php echo  $percentage = $this->helper('Homescapes\Completelook\Helper\Data')->DisplayDiscount($_product); ?>
 								</span>
 							</div>
-							<a href="javascript:void(0)" onclick="openDescription('description-<?php echo $_product->getId(); ?>')" title="<?php echo __('Description'); ?>"><?php echo __('Description'); ?></a>
-                                                        <?php $reviews = ''; ?>
-                                                        <?php $_items = $block->getReviewsCollection($_product)->getItems();  //foreach ($_items as $rating_review){ echo "<pre>"; print_r(count($rating_review->getRatingVotes())); die('ffff');   exit; } ?>
-                                                        <?php echo $reviews = $block->getReviewsSummaryHtml($_product) ?>
-                                                        <div id="description-<?php echo $_product->getId(); ?>" class="sidenav">	
-                                                            <a href="javascript:void(0)" class="closebtn" onclick="closeDescription('description-<?php echo $_product->getId(); ?>')"><i class="fas fa-chevron-left"></i> Back</a>
-                                                            <div class="card-body">
-                                                                <h2><?php echo $_product->getName(); ?></h2>
-                                                                <div class="">
-                                                                    <h2><?php echo __('Product Description') ?></h2>
-                                                                    <?php echo $_product->getDescription(); ?>
-                                                                </div>
-                                                                <div>
-                                                                    <h2><?php echo __('Product Specifications') ?></h2>
-                                                                    <div><?php echo $this->getLayout()->createBlock("Magento\Framework\View\Element\Template")->setProductAtt($_product)->setTemplate("Homescapes_Completelook::product/view/attribute.phtml")->toHtml();?> </div>
-                                                                </div>
-                                                                <?php  if(count($_items)){  ?>
-                                                                <div>
-                                                                    <h2><?php echo __('Rating & Reviews') ?></h2>                                                                    
-                                                                    <div><?php echo $this->getLayout()->createBlock("Magento\Framework\View\Element\Template")->setProductRewiews($_items)->setTemplate("Homescapes_Completelook::product/view/reviews.phtml")->toHtml();?> </div>
-                                                                </div>
-                                                                <?php }  ?>
-                                                                <div>
-                                                                    <h2><?php echo __('Delivery') ?></h2>
-                                                                    <?php $staticBlock = $_product->getAttributeText('delivery_block') ? $_product->getAttributeText('delivery_block') : 'delivery'; ?>
-                                                                    <div><?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId($staticBlock)->toHtml(); ?></div>
-                                                                </div>
-                                                                <div>
-                                                                    <h2><?php echo __('Returns') ?></h2>
-                                                                    <div><?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('returns')->toHtml(); ?></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+							<a href="javascript:void(0)" onclick="openDescription('description-<?php echo $_product->getId(); ?>')" title="<?php echo __('Description'); ?>">
+								
+								<?php echo __('Description'); ?> 
+								
+							</a>
+							
+							<?php $reviews = ''; ?>
+							<?php $_items = $block->getReviewsCollection($_product)->getItems();  //foreach ($_items as $rating_review){ echo "<pre>"; print_r(count($rating_review->getRatingVotes())); die('ffff');   exit; } ?>
+							<?php echo $reviews = $block->getReviewsSummaryHtml($_product) ?>
+							
+							<div id="description-<?php echo $_product->getId(); ?>" class="sidenav">
+								
+								<!--back close button-->
+								
+								<a href="javascript:void(0)" class="closebtn" onclick="closeDescription('description-<?php echo $_product->getId(); ?>')"><i class="fas fa-times-circle"></i> close</a>
+								
+								<!--product name-->
+								
+								<h2><?php echo $_product->getName(); ?></h2>
+								
+								<!--details and decription accordian-->
+								
+								<?php  if(count($_items)){  ?>
+								
+								<div id="caccordion" role="tablist">
+									
+									
+									<!--Description-->
+
+								    <div class="card" id="one">
+										<div class="card-header " role="tab" id="headingOne">
+
+											<a data-toggle="collapse" class="collapsed"  href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+											  <h5>
+												  <?php echo __('Product Description') ?>
+
+											  </h5>
+											 </a> 
+										</div>
+
+										<div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#caccordion">
+											<div class="card-body">
+											
+												<?php echo $_product->getDescription(); ?>
+											
+											</div>
+										</div>
+									</div>
+									
+									
+									<!--Product Specifications-->
+
+									<div class="card" id="two">
+										<div class="card-header " role="tab" id="headingTwo">
+										  <a class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+											<h5>
+
+											 <?php echo __('Product Specifications') ?>
+
+											</h5>
+										  </a>
+										</div>
+										<div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#caccordion">
+											<div class="card-body">
+											
+												<?php echo $this->getLayout()->createBlock("Magento\Framework\View\Element\Template")->setProductAtt($_product)->setTemplate("Homescapes_Completelook::product/view/attribute.phtml")->toHtml();?> 
+											
+											</div>
+
+										</div>
+									</div>
+									
+									<!--Rating and reviews-->
+									
+									<div class="card" id="three">
+										<div class="card-header " role="tab" id="headingThree">
+											 <a class="collapsed" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+												<h5>
+
+												  <?php echo __('Rating & Reviews') ?>
+
+											  </h5>
+											 </a>
+										</div>
+										<div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#caccordion">
+											<div class="card-body">
+											
+												<?php echo $this->getLayout()->createBlock("Magento\Framework\View\Element\Template")->setProductRewiews($_items)->setTemplate("Homescapes_Completelook::product/view/reviews.phtml")->toHtml();?>
+											
+											</div>
+										</div>
+									</div>
+		
+									<!--Delivery-->
+
+									<div class="card" id="four">
+										<div class="card-header " role="tab" id="headingFour">
+											<a data-toggle="collapse" class="collapsed" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">	
+												<h5>
+													
+												  <?php echo __('Delivery') ?>
+
+											  </h5>
+											</a>
+										</div>
+										<div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour" data-parent="#caccordion">
+										  <div class="card-body">
+											  
+												<?php $staticBlock = $_product->getAttributeText('delivery_block') ? $_product->getAttributeText('delivery_block') : 'delivery'; ?>
+											  
+												<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId($staticBlock)->toHtml(); ?>
+											  
+										  </div>
+										</div>
+									</div>
+		
+									
+									<!--Return-->
+
+									<div class="card" id="five">
+										<div class="card-header " role="tab" id="headingfive">
+										  <a class="collapsed" data-toggle="collapse" href="#collapsefive" aria-expanded="false" aria-controls="collapsefive">
+											<h5>
+
+											 <?php echo __('Returns') ?>
+
+											</h5>
+										  </a>
+										</div>
+										<div id="collapsefive" class="collapse" role="tabpanel" aria-labelledby="headingfive" data-parent="#accordion">
+										  <div class="card-body">
+											  
+												<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('returns')->toHtml(); ?>
+											  
+										  </div>
+										</div>
+									</div>
+									
+									
+								</div>
+								
+								<?php }  ?>
+								
+							</div>
+							
+							
 						</div>
+						
+						
+						
 					</div>
 					
                 </div>    
@@ -276,6 +392,7 @@ $buttonTitle = __('Add to Cart');
                     ?>
                     <?php if ($_product->isSaleable() && count($_attributes)){?>
                          <?php foreach ($_attributes as $_attribute): ?>
+					
                                 <div class="field configurable required configurable-container-<?php echo $_product->getId() ?>">
                                     <label class="label" for="attribute<?= /* @escapeNotVerified */ $_attribute->getAttributeId() ?>">
                                         <span><?= $block->escapeHtml($_attribute->getProductAttribute()->getStoreLabel()) ?></span>
@@ -381,16 +498,16 @@ $buttonTitle = __('Add to Cart');
                 </script>
                 </form>
             <script>
-	function openDescription(element) {
-                console.log(element);
-		document.getElementById(element).style.width = "650px";
-	}
+				function openDescription(element) {
+							console.log(element);
+					document.getElementById(element).style.width = "650px";
+				}
 
-	function closeDescription(element) {
-                console.log(element);
-		document.getElementById(element).style.width = "0";
-	}
-</script>
+				function closeDescription(element) {
+							console.log(element);
+					document.getElementById(element).style.width = "0";
+				}
+			</script>
             
         <?php } ?>
                 </div>
