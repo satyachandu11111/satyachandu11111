@@ -1685,7 +1685,7 @@ transition: all 5ms ease-in-out 0s;
 .page-footer {
 	
 	.social-icons{
-		margin-bottom: 0;
+		margin-bottom: 0; 
 	}
 	
 	padding-bottom: 0;
@@ -1694,8 +1694,12 @@ transition: all 5ms ease-in-out 0s;
 		float: none;
 		
 		.col-md-7, .col-md-5{
-			flex: 0 0 100%;
-			max-width: 100%;
+			
+			@media @991{
+				
+				flex: 0 0 100%;
+				max-width: 100%;
+			}
 		}
 	}
 	
@@ -1878,7 +1882,11 @@ transition: all 5ms ease-in-out 0s;
 		.card-header{
 
 			border-bottom: 1px dashed @border-color;
-			padding:@font10;
+			padding:1.5rem 1rem;
+			
+			:last-child{
+				border-bottom: none;
+			}
 			
 			@media @768{
 				background: none;
@@ -2600,9 +2608,6 @@ transition: all 5ms ease-in-out 0s;
 		@media @991{
 			font-size: @font20;
 		}
-		@media @767{
-			font-size: @font16;
-		}
 	}
 	.product-add-form{
 		
@@ -2697,19 +2702,13 @@ transition: all 5ms ease-in-out 0s;
 			}
 			
 			.field{
-				width: 41%;
+				width: 19rem;
 				float: left;
 				margin-right: 1rem;
 				margin-bottom: 1rem;
 				
 				@media @991{
-					width: 45%;
-				}
-				@media @767{
-					width: 28%;
-				}
-				@media @639{
-					width: 42%;
+					width: 15rem;
 				}
 			}
 			.actions{
@@ -2837,6 +2836,11 @@ transition: all 5ms ease-in-out 0s;
 				width: 3.5rem;
 				height: 3.5rem;
 			}
+			@media @767{
+				
+				width: 4.5rem;
+				height: 4.5rem;
+			}
 			
 			img{
 				border-radius: .4rem;
@@ -2884,6 +2888,29 @@ transition: all 5ms ease-in-out 0s;
 		@media @767{
 			margin-bottom: 1.5rem;
 		}
+		@media @479{
+			margin-bottom: 2rem;
+		}
+		.rating-summary .rating-result{
+			@media @479{
+				width: 8.5rem;
+			}
+		}
+	}
+	.product.attribute.sku, .stock{
+		@media @479{
+			border: 0;
+			padding-right: 0;
+			margin-right: .8rem;
+		}
+	}
+	.rating-summary{
+		@media @479{
+			margin-right: .4rem;
+		}
+	}
+	.rating-summary .rating-result::before, .rating-summary .rating-result > span::before{
+		letter-spacing: 1px;
 	}
 }
 
@@ -2939,7 +2966,11 @@ transition: all 5ms ease-in-out 0s;
 	}
 	
 	
-	
+	.card-body{
+		@media @479{
+			padding: 1rem 0;
+		}
+	}
 	
 	
 }
@@ -2993,7 +3024,20 @@ transition: all 5ms ease-in-out 0s;
 		a{
 			font-weight:normal;
 			color: @black;
+			
+			.fas{
+				font-size: @font12;
+			}
 
+		}
+
+		.des-link{
+			@media @479{
+				clear: both;
+				float: left;
+				width: 100%;
+				margin-top: .5rem;
+			}
 		}
 		div.mage-error[generated]{
 			position: absolute;
@@ -3027,6 +3071,12 @@ transition: all 5ms ease-in-out 0s;
 			
 			.special-price{
 				float: right;
+			}
+			.price-box{
+				@media @639{
+					padding-left: 0;
+					padding-bottom: 0;
+				}
 			}
 		}
 		.old-price {
@@ -3115,6 +3165,12 @@ transition: all 5ms ease-in-out 0s;
 		float: left;
 		margin-right: 1.5rem;
 		border: 1px solid @f2light;
+		
+		img{
+			@media @479{
+				max-width: 10rem;
+			}
+		}
 	}
 	.simple-cart, .config-cart, {
 		margin-top: 1rem;
@@ -3471,6 +3527,12 @@ transition: all 5ms ease-in-out 0s;
 		text-align: right;
 		width: 9rem;
 		
+		@media @479{
+			clear: both;
+			width: 100%;
+			margin-top: -2.8rem;
+		}
+		
 		.rating-summary .rating-result > span::before{
 			color: @yellow;
 		}
@@ -3564,9 +3626,6 @@ transition: all 5ms ease-in-out 0s;
 	.product-info-main .product-reviews-summary{
 		margin-bottom: 1rem;
 		
-		@media @991{
-			margin-bottom: .5rem;;
-		}
 	}
 	
 	.product-info-price .price-box{
@@ -3600,6 +3659,7 @@ transition: all 5ms ease-in-out 0s;
 		
 	.stock{
 		border: none;
+		padding-right: 0;
 	}
 
 	.table.grouped th, td{
@@ -3705,6 +3765,12 @@ transition: all 5ms ease-in-out 0s;
 		}
 	}	
 	}	
+	
+	.product-info-price{
+		@media @639{
+			margin-bottom: 1rem;
+		}
+	}
 }
 
 /*--------------------------------------------------------------------------
@@ -5313,5 +5379,5 @@ transition: all 5ms ease-in-out 0s;
 	.card-header > a:focus  {
 		text-decoration:none;
 	}
-
 }
+	

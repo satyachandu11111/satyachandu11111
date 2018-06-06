@@ -45,9 +45,9 @@ $buttonTitle = __('Add to Cart');
                                                                     <?php echo  $percentage = $this->helper('Homescapes\Completelook\Helper\Data')->DisplayDiscount($_product); ?>
 								</span>
 							</div>
-							<a href="javascript:void(0)" onclick="openDescription('description-<?php echo $_product->getId(); ?>')" title="<?php echo __('Description'); ?>">
+							<a class="des-link" href="javascript:void(0)" onclick="openDescription('description-<?php echo $_product->getId(); ?>')" title="<?php echo __('Description'); ?>">
 								
-								<?php echo __('Description'); ?> 
+								<?php echo __('Description'); ?> <i class="fas fa-chevron-right"></i>
 								
 							</a>
 							

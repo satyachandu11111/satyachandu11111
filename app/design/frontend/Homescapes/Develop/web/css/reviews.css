@@ -1027,5 +1027,7 @@ table > thead > tr > th, table > tbody > tr > th, table > tfoot > tr > th, table
 	  }
 	  .rating-review .rating-section ul li:nth-child(4) {
 		width: 100%;
+		  margin-top: 1rem;
+		  margin-bottom: 1rem;
 		}
 }
