@@ -484,6 +484,8 @@ h6, .h6 {
 				margin-right: 2px;
 
 
+
+
 			}
 		}
 	}
@@ -1496,6 +1498,7 @@ transition: all 5ms ease-in-out 0s;
 	}
 	.col-md:last-child{
 		@media @991{
+
 			display: none;
 		}
 	}
@@ -1831,7 +1834,7 @@ transition: all 5ms ease-in-out 0s;
 }
 .footer{
 	
-	#accordion{
+	#footer-accordion{
 		width: 100%;
 	}
 	
@@ -1923,19 +1926,19 @@ transition: all 5ms ease-in-out 0s;
 	
 	@media @767{
 		
-		.mb-0 > a:before {
+		.card-header > a:before {
 		float: right !important;
 		content:"\f146";
 		padding-right: 5px;
 		font-family: "Font Awesome 5 Free";
 		}
-		.mb-0 > a.collapsed:before {
+		.card-header > a.collapsed:before {
 			float: right !important;
 			content:"\f0fe";
 		}
-		.mb-0 > a:hover, 
-		.mb-0 > a:active, 
-		.mb-0 > a:focus  {
+		.card-header > a:hover, 
+		.card-header > a:active, 
+		.card-header > a:focus  {
 			text-decoration:none;
 		}
 	}
@@ -3810,6 +3813,7 @@ transition: all 5ms ease-in-out 0s;
 			left: 0 !important;
 			top: .3rem !important;
 			max-width: 100px !important;
+
 		}
 		
 	}
@@ -3917,6 +3921,10 @@ transition: all 5ms ease-in-out 0s;
 			}
 			.title{
 				padding: 0;
+				
+				@media @767{
+					padding:10px 15px
+				}
 			}
 		}
 		.fieldset{
@@ -4545,6 +4553,7 @@ transition: all 5ms ease-in-out 0s;
 			}
 			.grey-box-50 {
 				float: left;
+
 				width: 49%;
 				background: @f9light;
 				padding: 10px;
