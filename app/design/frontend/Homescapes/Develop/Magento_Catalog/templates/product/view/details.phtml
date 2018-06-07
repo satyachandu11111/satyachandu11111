@@ -11,7 +11,7 @@
     <div class="product info detailed">
         <?php $layout = $block->getLayout(); ?>
 		
-        <div id="element" data-mage-init='{"accordion":{"openedState": "active", "collapsible": true, "active": [0], "multipleCollapsible": true}}'>	
+        <div id="element">	
 			
             <?php foreach ($detailedInfoGroup as $name):?>
                 <?php
@@ -28,6 +28,7 @@
                        data-toggle="switch"
                        href="#<?= /* @escapeNotVerified */ $alias ?>"
                        id="tab-label-<?= /* @escapeNotVerified */ $alias ?>-title">
+				
                 <div class="data item title card-header"
                      aria-labeledby="tab-label-<?= /* @escapeNotVerified */ $alias ?>-title"
                      data-role="collapsible" id="tab-label-<?= /* @escapeNotVerified */ $alias ?>">
@@ -41,9 +42,10 @@
                 </div>
 			
 			 </a>
-                <div class="card-body content" id="<?= /* @escapeNotVerified */ $alias ?>" data-role="content">
-                    <?= /* @escapeNotVerified */ $html ?>
-                </div>
+			
+			<div class="card-body content" id="<?= /* @escapeNotVerified */ $alias ?>" data-role="content">
+				<?= /* @escapeNotVerified */ $html ?>
+			</div>
 			
 			
             <?php endforeach;?>
@@ -53,21 +55,36 @@
 
 <script>
 
-require([
-    'jquery',
-    'accordion'
-], function ($) {
+require(['jquery', 'accordion'], function ($) {
+	
+	
     'use strict';
 
-    jQuery( document ).ready(function() {                      
-        jQuery( "#narrow-by-list" ).accordion({
-            "openedState": "active",
-            "collapsible": true,
-            "active": [0], /** Integrat Dynamic open tab  */
-            "multipleCollapsible": true,
-        });
+    jQuery( document ).ready(function() { 
+		
+		if (window.matchMedia("(max-width: 991px)").matches) {
+		
+			jQuery( "#element" ).accordion({
+				"openedState": "active",
+				"collapsible": true,
+				"active": [false], /** Integrat Dynamic open tab  */
+				"multipleCollapsible": true,
+			});
+		
+		}
+		else{
+			
+			jQuery( "#element" ).accordion({
+				"openedState": "active",
+				"collapsible": true,
+				"active": [0], /** Integrat Dynamic open tab  */
+				"multipleCollapsible": true,
+			});
+			
+		}
     });                 
 });
+
 
 </script>
 
