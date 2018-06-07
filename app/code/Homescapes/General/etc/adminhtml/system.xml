@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="homescapesGeneral" translate="label" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>HomeScapes General Settings</label>
+            <tab>homescapes</tab>
+            <resource>Homescapes_General::homescapesGeneral_config</resource>
+            <group id="freeshipping" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Total for free shipping message</label>
+                <field id="freeshipping_total" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Free shipping total:</label>
+                    <comment>Free shipping message will display if subtotal is greater then above vlaue</comment>
+                </field>                
+            </group>
+        </section>
+    </system>
+</config>
+
