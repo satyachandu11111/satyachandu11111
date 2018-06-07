@@ -1863,6 +1863,7 @@ transition: all 5ms ease-in-out 0s;
 		h5,h6{
 			font-size:@font16;
 			font-weight: 600;
+			line-height: 4rem;
 			
 			@media @767{
 				font-size: @base;
@@ -1885,7 +1886,8 @@ transition: all 5ms ease-in-out 0s;
 		.card-header{
 
 			border-bottom: 1px dashed @border-color;
-			padding:1.5rem 1rem;
+			padding:0 1rem;
+			line-height:4rem;
 			
 			:last-child{
 				border-bottom: none;
@@ -2503,6 +2505,7 @@ transition: all 5ms ease-in-out 0s;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 35px;
+	box-shadow: 0px 0px 8px 4px #ddd;
 }
 
 .sidenav a {
@@ -2528,7 +2531,11 @@ transition: all 5ms ease-in-out 0s;
 	width: 100%;
 	background: @f2light;
 }
-
+.complete-look .conf-products .closebtn {
+	.fas{
+		font-size: @font16;
+	}
+}
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
@@ -3510,7 +3517,9 @@ transition: all 5ms ease-in-out 0s;
 						background:@danger;
 						border-radius: .4rem;
 						line-height: 1.2rem;
-						min-height: 3rem;
+						min-height: 2.8rem;
+						width: 5rem;
+						margin: auto;
 					}
 					
 					.unavailable{
@@ -3532,10 +3541,14 @@ transition: all 5ms ease-in-out 0s;
 		
 		@media @479{
 			clear: both;
-			width: 100%;
-			margin-top: -2.8rem;
+			width: auto;
+			margin-top: -2.6rem;
 		}
-		
+		.rating-summary{
+			@media @479{
+				margin-top: -0.6rem;
+			}
+		}
 		.rating-summary .rating-result > span::before{
 			color: @yellow;
 		}
@@ -3572,7 +3585,9 @@ transition: all 5ms ease-in-out 0s;
 			width: 100%;
 		}
 	}
-	
+	.table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) tbody > tr > td:first-child{
+		padding-top:1.2rem;
+	}
 	.table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody > tr{
 		@media @639{
 			display: flex;
@@ -3585,10 +3600,7 @@ transition: all 5ms ease-in-out 0s;
 	}
 	.table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) tbody > tr > td:last-child{
 		padding-top: 1rem;
-		
-		@media @479{
-			padding-bottom: 1rem;
-		}
+		padding-bottom: 1rem;
 	}
 	.table.grouped{
 
@@ -3719,6 +3731,10 @@ transition: all 5ms ease-in-out 0s;
 	.g-price{
 		max-width: 18.5rem;
 		margin: auto;
+		
+		@media @639{
+			padding-top: 1.2rem;
+		}
 		
 		.price-box{
 			width: auto;

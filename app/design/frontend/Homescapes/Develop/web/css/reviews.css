@@ -888,12 +888,18 @@ table > thead > tr > th, table > tbody > tr > th, table > tfoot > tr > th, table
 }
 
 @media only screen and (max-width: 1099px) {
-  #customer-reviews .review-heading {
-    padding: 15px 6px 8px;
-  }
-  #customer-reviews dl {
-    padding: 0px;
-  }
+	  #customer-reviews .review-heading {
+		padding: 15px 6px 8px;
+	  }
+	  #customer-reviews dl {
+		padding: 0px;
+	  }
+	 .rating-review .rating-section ul li:nth-child(1) {
+		margin-right: 20px;
+	 }
+	  .rating-review .rating-section ul li:nth-child(4) {
+		width: 20%;
+	 }
 }
 @media only screen and (max-width: 991px) {
   #customer-reviews dl dt {
@@ -921,16 +927,31 @@ table > thead > tr > th, table > tbody > tr > th, table > tfoot > tr > th, table
   #customer-reviews #dl_review .nocheck-recommend {
     float: right;
   }
+  .rating-review .rating-section ul li:nth-child(1) {
+	margin-right: 0;
+	width: 50%;
+  }
+  .rating-review .rating-section ul li:nth-child(2) {
+	text-align: center;
+	padding-top: 40px;
+	width: 50%;
+  }
+  .rating-review .rating-section ul li:nth-child(3) {
+	width: 52%;
+  }
+  .rating-review .rating-section ul li:nth-child(4) {
+	width: 40%;
+  }
 }
 
 @media only screen and (max-width: 767px) {
+	
   #customer-reviews dl dd .nocheck-recommend,
   #customer-reviews dl dd .check-recommend {
     float: left;
     clear: both;
   }
-}
-@media only screen and (max-width: 767px) {
+	
   #customer-reviews dl dt {
     width: 24%;
   }
@@ -965,6 +986,28 @@ table > thead > tr > th, table > tbody > tr > th, table > tfoot > tr > th, table
 		margin: auto;
 	}
 }
+@media only screen and (max-width: 639px) {
+	  .rating-review .rating-section ul li:nth-child(1) {
+		margin-right: 0;
+		width: 100%;
+	  }
+	  .rating-review .rating-section ul li:nth-child(2) {
+		text-align: center;
+		padding-top: 40px;
+		width: 100%;
+	  }
+	  .rating-review .rating-section ul li:nth-child(3) {
+		width: 100%;
+	  }
+	  .rating-review .rating-section ul li:nth-child(4) {
+		width: 100%;
+		  margin-top: 1rem;
+		  margin-bottom: 1rem;
+		}
+	.rating-review .rating-section .write-review br{
+		display: none;
+	}
+}
 @media only screen and (max-width: 599px) {
   #inline1 {
     width: 250px;
@@ -992,42 +1035,7 @@ table > thead > tr > th, table > tbody > tr > th, table > tfoot > tr > th, table
     width: 100%;
   }
   #customer-reviews dl dd .ratings-table{
-	max-width: 33rem;
+	max-width: 30rem;
   }
 }
-@media only screen and (max-width: 991px) {
-	  .rating-review .rating-section ul li:nth-child(1) {
-		margin-right: 0;
-		width: 50%;
-	  }
-	  .rating-review .rating-section ul li:nth-child(2) {
-		text-align: center;
-		padding-top: 40px;
-		width: 50%;
-	  }
-	  .rating-review .rating-section ul li:nth-child(3) {
-		width: 52%;
-	  }
-	  .rating-review .rating-section ul li:nth-child(4) {
-		width: 40%;
-		}
-}
-@media only screen and (max-width: 639px) {
-	  .rating-review .rating-section ul li:nth-child(1) {
-		margin-right: 0;
-		width: 100%;
-	  }
-	  .rating-review .rating-section ul li:nth-child(2) {
-		text-align: center;
-		padding-top: 40px;
-		width: 100%;
-	  }
-	  .rating-review .rating-section ul li:nth-child(3) {
-		width: 100%;
-	  }
-	  .rating-review .rating-section ul li:nth-child(4) {
-		width: 100%;
-		  margin-top: 1rem;
-		  margin-bottom: 1rem;
-		}
-}
+

@@ -500,17 +500,35 @@ $buttonTitle = __('Add to Cart');
                 </script>
                 </form>
             <script>
+				var x = window.matchMedia("(max-width: 479px)")
+				
+				var y = window.matchMedia("(max-width: 767px)")
+				
+				
+				
 				function openDescription(element) {
-							jQuery(".sidenav").each(function( index ) {  
-                                                            jQuery(this).width(0);
-                                                        });
-					document.getElementById(element).style.width = "650px";
+					
+					jQuery(".sidenav").each(function( index ) {  
+						jQuery(this).width(0);
+					});
+					
+					
+					 if (x.matches) { // If media query matches to 479
+						document.getElementById(element).style.width = "350px";
+					} 
+					else if (y.matches) { // If media query matches t0 767
+						document.getElementById(element).style.width = "500px";
+					}
+					else {
+						document.getElementById(element).style.width = "650px";
+					}
 				}
 
 				function closeDescription(element) {
 							//console.log(element);
 					document.getElementById(element).style.width = "0";
 				}
+				
 			</script>
             
         <?php } ?>
