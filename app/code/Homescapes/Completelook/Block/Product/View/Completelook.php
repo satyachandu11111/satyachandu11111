@@ -406,9 +406,30 @@ class Completelook extends \Magento\Framework\View\Element\Template
         \Magento\Catalog\Model\Product $product,
         $templateType = false,
         $displayIfNoReviews = false
-    ) {
+    ) {        
         return $this->reviewRenderer->getReviewsSummaryHtml($product, $templateType, $displayIfNoReviews);
     }
+    
+    
+    public function getCustomReviewsSummaryHtml(
+        \Magento\Catalog\Model\Product $product,
+        $templateType = false,
+        $displayIfNoReviews = false
+    ) {
+        $html = '';
+        var_dump($product->getRatingSummary()->getReviewsCount());
+        var_dump($product->getRatingSummary()->getRatingSummary());
+        die('fdfff');
+        if($product->getRatingSummary()->getReviewsCount())
+        {
+            $rating = $product->getRatingSummary()->getRatingSummary();
+            
+        }
+        
+        var_dump(get_class($this->reviewRenderer)); die('dddd');
+        return $this->reviewRenderer->getReviewsSummaryHtml($product, $templateType, $displayIfNoReviews);
+    }
+    
     
     public function getRatingSummary($product)
     {
