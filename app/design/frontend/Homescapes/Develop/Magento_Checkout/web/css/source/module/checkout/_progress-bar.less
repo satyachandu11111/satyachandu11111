@@ -64,6 +64,7 @@
         counter-reset: i;
         display: block;
         font-size: 0;
+		text-align: center;
     }
 
     .opc-progress-bar-item {
@@ -103,13 +104,11 @@
             padding-top: 45px;
             width: 100%;
             word-wrap: break-word;
+			color: #444;
+			font-size: 2rem;
+			font-weight: normal;
 
             .lib-typography(
-            @_color: @checkout-progress-bar-item__color,
-            @_font-family: false,
-            @_font-size: @checkout-progress-bar__font-size,
-            @_font-style: false,
-            @_font-weight: @checkout-progress-bar__font-weight,
             @_line-height: false
             );
 
@@ -180,7 +179,7 @@
 
             > span {
                 .lib-css(color, @checkout-progress-bar-item__active__color);
-                .lib-css(font-weight, @checkout-progress-bar-item__active__font-weight);
+				font-weight: normal;
 
                 &:before {
                     .lib-css(background, @checkout-progress-bar-item__active__background-color);

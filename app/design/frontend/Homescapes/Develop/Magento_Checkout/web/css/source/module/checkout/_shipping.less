@@ -52,7 +52,7 @@
         .form-login,
         .form-shipping-address {
             .lib-css(margin-top, @checkout-shipping-address__margin-top);
-            .lib-css(margin-bottom, @checkout-shipping-address__margin-top);
+			margin-bottom: 1rem;
             .fieldset {
                 .field {
                     .label {
@@ -225,7 +225,7 @@
 
         .form-login {
             + .form-shipping-address {
-                .lib-css(margin-top, -(@checkout-step-content-mobile__margin-s));
+                margin-top: 1.5rem;
             }
         }
 
@@ -299,17 +299,15 @@
     .opc-wrapper {
         .form-login,
         .form-shipping-address {
-            .lib-css(max-width, @checkout-shipping-address__max-width);
+            max-width: 100%;
         }
 
         .form-login {
-            .lib-css(border-bottom, @checkout-step-title__border);
+            border-bottom: 0;
             padding-bottom: @indent__base;
         }
     }
-    .table-checkout-shipping-method {
-        width: auto;
-    }
+    
 }
 
 .media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {

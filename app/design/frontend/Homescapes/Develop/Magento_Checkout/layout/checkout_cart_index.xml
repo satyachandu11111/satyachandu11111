@@ -9,6 +9,8 @@
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>	
 		<move element="cart.discount" destination="cart.summary" before="-" /> <!--discount field to cart summary-->
+		
+		
 		<referenceBlock name="checkout.cart.shipping">
             <arguments>
                 <argument name="jsLayout" xsi:type="array">
@@ -22,6 +24,6 @@
                     </item>
                 </argument>
             </arguments>
-        </referenceBlock>
+        </referenceBlock>	
     </body>
 </page>

@@ -5414,3 +5414,131 @@ transition: all 5ms ease-in-out 0s;
 	}
 }
 	
+/*--------------------------------------------------------------------------
+|  checkout page css reset
+--------------------------------------------------------------------------*/
+.checkout-index-index{
+	.page-header{
+		margin-bottom: 1.5rem;
+		background: @f9light;
+		border-bottom: 1px solid @border-color;
+	}
+	.opc-progress-bar-item._active::before, .opc-progress-bar-item._active > span::before{
+		background: @blue;
+		border-color: @blue;
+	}
+	.opc-progress-bar-item::before, .opc-progress-bar-item > span::before, .opc-progress-bar-item > span::after{
+		border: 0;
+	}
+	.opc-wrapper{
+		background: @f9light;
+		border-radius: .4rem;
+		padding: 1rem 2rem;
+		width: 64%;
+		
+		input[type="text"], input[type="password"], input[type="url"], input[type="tel"], input[type="search"], input[type="number"], input[type="datetime"], input[type="email"], select{
+			border-radius: .4rem;
+			height: 3.5rem;
+		}
+		.fieldset > .field{
+			margin-bottom: 1.5rem;
+			float: left;
+			width: 48%;
+			margin-right: 2%;
+		}
+		.fieldset > .field:nth-child(1){
+			order:1;
+		}
+		.fieldset > .field:nth-child(2){
+			order:2;
+		}
+		.fieldset > .field:nth-child(3){
+			order:4;
+		}
+		.fieldset > .field:nth-child(4){
+			width: 98%;
+			order: 3;
+		}
+		.fieldset > .field:nth-child(5){
+			order:5;
+		}
+		.fieldset > .field:nth-child(6){
+			order:6;
+		}
+		.fieldset > .field:nth-child(7){
+			order:7;
+		}
+		.fieldset > .field:nth-child(8){
+			order:8;
+		}
+		.fieldset > .field:nth-child(9){
+			order:9;
+		}
+		.fieldset > .field:nth-child(10){
+			order:10;
+		}
+		
+		.form-shipping-address{
+			display: grid;
+		}
+		
+		.checkout-shipping-method{
+			clear: both;
+		}
+		
+		.form-login{
+			padding-bottom: 0;
+		}
+		.table-checkout-shipping-method{
+			
+			.row{
+				margin: auto;
+			}
+		}
+		.step-content{
+			margin:0 0 1.5rem 0;
+		}
+		.methods-shipping .actions-toolbar .action.primary{
+			padding: 1rem 5rem;
+		}
+		.collectplus-select{
+			background: @white;
+			border-radius: .4rem;
+			padding: 1rem;
+			.control{
+				display: flex;
+				
+				input[type="checkbox"]{
+					margin-right: 1rem;
+					height:4rem;
+				}
+				label{
+					margin-bottom: 0;
+				}
+				ul{
+					display: flex;
+					
+					li{
+						margin-right: 1rem;
+						
+						#collect_small_logo{
+							margin-top: 0;
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	.opc-sidebar{
+		margin-top: 0;
+		
+		.modal-header{
+			padding: 0;
+			border-bottom: 0;
+		}
+		.modal-content{
+			border: 0;
+		}
+	}
+}
