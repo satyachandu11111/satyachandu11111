@@ -106,11 +106,13 @@
 
                 .action-select-shipping-item {
                     &:extend(.abs-no-display-s all);
-                    visibility: hidden;
+                    visibility: visible;
                 }
             }
         }
-
+		button:hover{
+			border: 0;
+		}
         .field {
             &.addresses {
                 &:extend(.abs-add-clearfix all);
@@ -218,9 +220,9 @@
         .form-login,
         .form-shipping-address,
         .methods-shipping {
-            .lib-css(background, @checkout-step-content-mobile__background);
-            .lib-css(margin, @checkout-step-content-mobile__margin);
-            .lib-css(padding, @indent__base @checkout-step-content-mobile__margin-s);
+            margin: 0;
+            padding: 1rem 1.5rem;
+			width: 100%;
         }
 
         .form-login {
@@ -253,11 +255,6 @@
 
         .action-show-popup {
             width: 100%;
-        }
-
-        .methods-shipping {
-            .lib-css(border-bottom, @checkout-step-title__border);
-            padding-top: @indent__l;
         }
 
         .edit-address-link {

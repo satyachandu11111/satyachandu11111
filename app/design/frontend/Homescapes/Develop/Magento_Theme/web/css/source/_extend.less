@@ -11,6 +11,7 @@
 
 @light-grey:#707070;
 @f2light:#F2F2F2;
+@f5light:#F5F5F5;
 @f9light:#F9F9F9;
 @flight:#eeeeee;
 
@@ -137,7 +138,9 @@ input:not([disabled]):focus{
 body{
 	color: @black;
 }
-
+button:hover{
+	border: 0;
+}
 ._keyfocus :focus, input:not([disabled]):focus, textarea:not([disabled]):focus, select:not([disabled]):focus{
 	box-shadow: none;
 }
@@ -1932,6 +1935,7 @@ transition: all 5ms ease-in-out 0s;
 		float: right !important;
 		content:"\f146";
 		padding-right: 5px;
+		font-size: 2rem;
 		font-family: "Font Awesome 5 Free";
 		}
 		.card-header > a.collapsed:before {
@@ -2932,7 +2936,6 @@ transition: all 5ms ease-in-out 0s;
 .product.info.detailed{
 	width: 50%;
 	float: left;
-	clear: both;
 	
 	@media @991{
 		width: 100%;
@@ -3557,8 +3560,12 @@ transition: all 5ms ease-in-out 0s;
 			color: @yellow;
 		}
 	}
+	
 }
-
+.sticky {
+	position: fixed;
+	top:2rem;
+}
 
 .related, .upsell{
 	float: left;
@@ -5436,15 +5443,45 @@ transition: all 5ms ease-in-out 0s;
 		padding: 1rem 2rem;
 		width: 64%;
 		
+		@media @991{
+			width: 100%;
+		}
+		
 		input[type="text"], input[type="password"], input[type="url"], input[type="tel"], input[type="search"], input[type="number"], input[type="datetime"], input[type="email"], select{
 			border-radius: .4rem;
 			height: 3.5rem;
+		}
+		
+		.shipping-address-item.selected-item {
+			border-color: @blue;
+		}
+		.shipping-address-item.selected-item::after{
+			background: @blue;
 		}
 		.fieldset > .field{
 			margin-bottom: 1.5rem;
 			float: left;
 			width: 48%;
 			margin-right: 2%;
+			
+			@media @479{
+				width: 100%;
+				margin-right: 0;
+			}
+		}
+		.table-checkout-shipping-method tbody td{
+			@media @767{
+				padding-bottom: 1rem;
+				padding-top: 1rem;
+			}
+		}
+		.form-login .fieldset > .field{
+			width: 70%;
+			float: none;
+		}
+		
+		.fieldset > .street .control .field label{
+			display: none;
 		}
 		.fieldset > .field:nth-child(1){
 			order:1;
@@ -5458,6 +5495,10 @@ transition: all 5ms ease-in-out 0s;
 		.fieldset > .field:nth-child(4){
 			width: 98%;
 			order: 3;
+			
+			@media @479{
+				width: 100%;
+			}
 		}
 		.fieldset > .field:nth-child(5){
 			order:5;
@@ -5498,7 +5539,7 @@ transition: all 5ms ease-in-out 0s;
 		.step-content{
 			margin:0 0 1.5rem 0;
 		}
-		.methods-shipping .actions-toolbar .action.primary{
+		.methods-shipping .actions-toolbar .action.primary, .checkout-payment-method .payment-method-content > .actions-toolbar > .primary .action.primary{
 			padding: 1rem 5rem;
 		}
 		.collectplus-select{
@@ -5533,6 +5574,10 @@ transition: all 5ms ease-in-out 0s;
 	.opc-sidebar{
 		margin-top: 0;
 		
+		@media @991{
+			width: 100%;
+		}
+		
 		.modal-header{
 			padding: 0;
 			border-bottom: 0;
@@ -5540,5 +5585,11 @@ transition: all 5ms ease-in-out 0s;
 		.modal-content{
 			border: 0;
 		}
+	}
+	
+	.opc-block-shipping-information{
+		background: @f5light;
+		padding: 1 rem 2rem;
+		border-radius: .4rem;
 	}
 }
