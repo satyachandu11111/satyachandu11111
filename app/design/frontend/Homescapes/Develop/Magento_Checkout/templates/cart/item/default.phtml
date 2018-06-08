@@ -40,6 +40,10 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
                         <?= $block->escapeHtml($block->getProductName()) ?>
                     <?php endif; ?>
                 </strong>
+                <?php $preOrderNote = $this->helper('Homescapes\Preorder\Helper\Data')->isPreOrderCart($product->getId());
+                        if($preOrderNote){  ?>
+                    <?php echo $preOrderNote; ?>
+                    <?php } ?>
                 <?php if ($_options = $block->getOptionList()):?>
                     <dl class="item-options">
                         <?php foreach ($_options as $_option) : ?>
