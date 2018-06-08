@@ -15,6 +15,9 @@
 <div class="order-free-sambox">
 </div>
 <?php } ?>
+<?php if($this->helper('Homescapes\Preorder\Helper\Data')->isPreOrder($_product)){  ?>
+<?php echo $_product->getPreOrderNote(); ?>
+<?php } ?>
 <div class="box-tocart">
     <div class="fieldset">
         <?php if ($block->shouldRenderQuantity()): ?>
