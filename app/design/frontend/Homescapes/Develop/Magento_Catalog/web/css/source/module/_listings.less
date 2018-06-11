@@ -56,6 +56,9 @@
                 display: block;
                 margin: @indent__xs 0;
                 word-wrap: break-word;
+				border-bottom: 1px solid #e3e3e3;
+				min-height: 7rem;
+				padding-bottom: 1rem;
             }
 
             &-info {
@@ -105,7 +108,8 @@
             }
 
             .price-box {
-                margin:.5rem 0;;
+                margin:.5rem 0;
+				line-height: 2.2rem;
 
                 .price {
                     font-weight: @font-weight__bold;
@@ -184,7 +188,11 @@
             }
         }
     }
-
+	.old-price .price-container {
+        .price {
+            .lib-font-size(14);
+        }
+	}
     .price-container {
         .price {
             .lib-font-size(16);
@@ -274,12 +282,13 @@
             &:hover,
             &.active {
                 .lib-css(background, @product-item__hover__background-color);
-                .lib-css(box-shadow, @product-item__hover__box-shadow);
-                border: 1px solid @color-gray-light2;
+                box-shadow: 0px 0px 4px #ccc;
+                border: 0px solid @color-gray-light2;
                
                 padding: 9px;
                 position: relative;
                 z-index: 2;
+				transition: .3s;
 
                 .product-item-inner {
                     display: block;
@@ -299,15 +308,9 @@
 
     .product-item-inner {
         .products-grid & {
-            .lib-css(background, @product-item__hover__background-color);
-            .lib-css(box-shadow, @product-item__hover__box-shadow);
-            border: 1px solid @color-gray-light2;
             border-top: none;
             left: 0;
-            margin: 9px 0 0 -1px;
-            padding: 0 9px 9px;
             position: absolute;
-            right: -1px;
             z-index: 2;
         }
     }

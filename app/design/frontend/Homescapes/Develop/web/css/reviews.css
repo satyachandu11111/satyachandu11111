@@ -1007,6 +1007,9 @@ table > thead > tr > th, table > tbody > tr > th, table > tfoot > tr > th, table
 	.rating-review .rating-section .write-review br{
 		display: none;
 	}
+	#customer-reviews dl dd .ratings-table label{
+		width: 4.2rem;
+	}
 }
 @media only screen and (max-width: 599px) {
   #inline1 {

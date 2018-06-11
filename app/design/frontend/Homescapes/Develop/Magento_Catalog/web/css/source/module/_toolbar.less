@@ -30,13 +30,13 @@
 
     .toolbar {
         &:extend(.abs-add-clearfix all);
-        margin-bottom: @indent__l;
+        margin-bottom: @indent__s;
         text-align: center;
 
         select {
-            .lib-css(background-color, @toolbar-element-background);
-            .lib-css(box-shadow, @button__shadow);
-            border-radius: 3px;
+            background: #fff;
+			border: none;
+            border-radius: 4px;
         }
 
         &-amount {
@@ -49,7 +49,7 @@
             vertical-align: middle;
 
             .products.wrapper ~ .toolbar & {
-                display: none;
+                display: block;
             }
         }
 
@@ -60,7 +60,9 @@
         }
 
         &-products {
-            .lib-css(background-color, @toolbar-background);
+            background-color: #f2f2f2;
+			padding: .5rem 1rem;
+			border-radius: .4rem;
 
             .pages {
                 display: none;
@@ -77,7 +79,7 @@
     }
 
     .sorter {
-        float: right;
+        float: none;
 
         .page-products & {
             position: absolute;
@@ -87,7 +89,7 @@
         }
 
         .products.wrapper ~ .toolbar & {
-            display: none;
+            display: block;
         }
 
         &-options {
@@ -125,7 +127,7 @@
         }
 
         .page-products .toolbar & {
-            display: none;
+            display: block;
         }
 
         .control {
@@ -167,7 +169,7 @@
     }
 
     .modes {
-        display: inline-block;
+        display: none;
         float: left;
         margin-right: @indent__base;
 
@@ -224,6 +226,7 @@
     .sorter {
         .page-products & {
             position: static;
+			margin: 0 2rem;
         }
     }
 

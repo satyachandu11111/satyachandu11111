@@ -192,6 +192,14 @@ ul > li, ol > li{
 .columns .column.main{
 	padding-bottom:@font15;
 }
+.rating-summary .rating-result > span::before{
+	color: @yellow;
+}
+.abs-visually-hidden-desktop-s, .products-grid .product-item-info:not(:hover):not(.active) .product-item-inner{
+	margin: 0;
+	padding: 0;
+	right:0;
+}
 /*--------------------------------------------------------------------------
 |  heading  CSS
 --------------------------------------------------------------------------*/
@@ -5593,3 +5601,50 @@ transition: all 5ms ease-in-out 0s;
 		border-radius: .4rem;
 	}
 }
+
+/*--------------------------------------------------------------------------
+|  listing-toolbar
+--------------------------------------------------------------------------*/
+.toolbar-pager{
+	width: 100%;
+	float: left;
+	margin-bottom: 2rem;
+	text-align: center;
+	display: none;
+	
+	.pages strong.page{
+		background: @f2light;
+		color: @black;
+		padding: 0 1.2rem;
+		border-radius: .4rem;
+		font-size: @base;
+	}
+	.pages .item{
+		
+		font-size: @base;
+	}
+	.pages .action{
+		border: none;
+		background: none;
+		box-shadow: none;
+	}
+}
+.products-grid ~ .toolbar-pager{
+	display: block;
+}
+.toolbar select{
+	
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-ms-appearance: none;
+	appearance: none;
+	background: #fff url('../images/select-bg.svg') no-repeat 100% 45%;
+    background-color: rgb(255, 255, 255);
+    background-size: auto auto;
+	background-size: 30px 60px;
+	border: 1px solid #ccc;
+	height: 32px;
+	padding-right: 25px;
+	text-indent: .01em;
+	text-overflow: '';
+	}

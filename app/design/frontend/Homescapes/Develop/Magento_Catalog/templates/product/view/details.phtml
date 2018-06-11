@@ -62,12 +62,12 @@ require(['jquery', 'accordion'], function ($) {
 
     jQuery( document ).ready(function() { 
 		
-		if (window.matchMedia("(max-width: 991px)").matches) {
+		if (window.matchMedia("(min-width: 992px)").matches) {
 		
 			jQuery( "#element" ).accordion({
 				"openedState": "active",
 				"collapsible": true,
-				"active": [false], /** Integrat Dynamic open tab  */
+				"active": [0], /** Integrat Dynamic open tab  */
 				"multipleCollapsible": true,
 			});
 		
@@ -77,7 +77,7 @@ require(['jquery', 'accordion'], function ($) {
 			jQuery( "#element" ).accordion({
 				"openedState": "active",
 				"collapsible": true,
-				"active": [0], /** Integrat Dynamic open tab  */
+				"active": [false], /** Integrat Dynamic open tab  */
 				"multipleCollapsible": true,
 			});
 			
