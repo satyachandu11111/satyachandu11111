@@ -11,10 +11,6 @@
 <?php $_product = $block->getProduct(); ?>
 <?php $buttonTitle = __('Add to Cart'); ?>
 <?php if ($_product->isSaleable()): ?>
-<?php if($_product->getEnableOrderSwatch()){ ?>
-<div class="order-free-sambox">
-</div>
-<?php } ?>
 <?php if($this->helper('Homescapes\Preorder\Helper\Data')->isPreOrder($_product)){  ?>
 <?php echo $_product->getPreOrderNote(); ?>
 <?php } ?>
