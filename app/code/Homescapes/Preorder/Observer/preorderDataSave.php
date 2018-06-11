@@ -6,7 +6,14 @@ use Magento\Framework\Event\ObserverInterface;
 
 class preorderDataSave implements ObserverInterface
 {
-    
+    protected $quoteFactory;
+
+
+    public function __construct(        
+        \Magento\Quote\Model\QuoteFactory $quoteFactory
+     ) {        
+        $this->quoteFactory = $quoteFactory;
+    }
 
 
  
@@ -20,10 +27,15 @@ class preorderDataSave implements ObserverInterface
     {
         
         //$product = $observer->getQuoteItem()->getProduct();
-        $quote = $observer->getQuote();
-        $order = $observer->getOrder();   
+        $order = $observer->getEvent()->getOrder();
+        $quoteId = $order->getQuoteId();
+        $quote = $this->quoteFactory->create()->load($quoteId);        
+        
         if($quote->getPreorder())     
             $order->setPreorder(1);
+        
+        
+        return $this;    
     }
     
 }
