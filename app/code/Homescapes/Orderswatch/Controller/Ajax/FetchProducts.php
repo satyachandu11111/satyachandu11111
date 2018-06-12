@@ -20,7 +20,7 @@ class FetchProducts extends \Magento\Framework\App\Action\Action
             \Magento\Framework\Session\SessionManagerInterface $coreSession,
             array $data = [])
     {
-    parent::__construct($context,$data);
+    parent::__construct($context);
     $this->coreSession = $coreSession;
     }
 

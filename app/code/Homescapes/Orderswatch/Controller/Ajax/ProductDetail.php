@@ -25,7 +25,7 @@ class ProductDetail extends \Magento\Framework\App\Action\Action
                 \Homescapes\Orderswatch\Helper\Data  $helper,
                 array $data = [])
         {
-            parent::__construct($context,$data);
+            parent::__construct($context);
             $this->coreSession = $coreSession;                        
             $this->helper = $helper;
             $this->url = $context->getUrl();
