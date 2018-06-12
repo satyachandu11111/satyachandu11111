@@ -304,6 +304,11 @@ h6, .h6 {
 	@media @991{
 		top:19px;
 	}
+	input{
+		@media @767{
+			height: 4rem;
+		}
+	}
 }
 
 .page-header{
@@ -1801,6 +1806,10 @@ transition: all 5ms ease-in-out 0s;
 				text-align: center;
 				margin-bottom: 1rem;
 			}
+			@media @479{
+				font-size:1.8rem;
+				line-height: @font22;
+			}
 			
 			.fas{
 				margin-right: .7rem;
@@ -2758,11 +2767,9 @@ transition: all 5ms ease-in-out 0s;
 		background: @flight;
 		text-align: center;
 		cursor: pointer;
-		margin-bottom: 1rem;
 		
 		@media @991{
 			width: 5rem;
-			margin-bottom: 0;
 		}
 		@media @639{
 			display: none;
@@ -3867,6 +3874,8 @@ transition: all 5ms ease-in-out 0s;
 
 		width: 100%;
 	}
+	
+	
 	.cart.table-wrapper .actions-toolbar{
 		
 		
@@ -3878,6 +3887,33 @@ transition: all 5ms ease-in-out 0s;
 		}
 		
 			
+	}
+	thead{
+		@media @479{
+			display: none;
+		}
+	}
+	.product-item-name{
+		min-height: auto;
+		padding-bottom: 0;
+		border: 0;
+	}
+	.cart.table-wrapper .col.qty, .cart.table-wrapper .col.price, .cart.table-wrapper .col.subtotal, .cart.table-wrapper .col.msrp{
+		@media @479{
+			float: right;
+			width: 75%;
+			padding: 0 1rem;
+			display: flex;
+		}
+	}
+	.cart.table-wrapper .col.qty::before, .cart.table-wrapper .col.price::before, .cart.table-wrapper .col.subtotal::before, .cart.table-wrapper .col.msrp::before {
+			
+		@media @479{
+			width: 7rem;
+			float: left;
+			text-align: left;
+		}
+		
 	}
 	.product-image-container{
 		max-width: 130px;
@@ -3925,10 +3961,23 @@ transition: all 5ms ease-in-out 0s;
 		.col.price .price-excluding-tax, .col.subtotal .price-excluding-tax{
 			font-size: @font16;
 			font-weight: normal;
+			
+			@media @479{
+				line-height: 2.2rem;
+			}
 		}
 	} 
 	.col.qty{
 		padding: 1rem !important;
+		
+		@media @479{
+			padding: 0 1rem .5rem 1rem !important;
+		}
+		.input-text{
+			@media @479{
+				margin-right: .4rem;
+			}
+		}
 	}
 	.cart-summary{
 		@media @991{
@@ -4029,6 +4078,12 @@ transition: all 5ms ease-in-out 0s;
 		}
 		.actions-toolbar > .primary .action.primary:not(:focus){
 			box-shadow: none;
+		}
+	}
+	
+	.update{
+		@media @639{
+			width: 90%;
 		}
 	}
 }
@@ -5366,7 +5421,12 @@ transition: all 5ms ease-in-out 0s;
 	font-size: 1.5rem;
 	
 	p{
-		padding: 0 1rem;
+		padding: 0;
+		margin-bottom: 0;
+		
+		a{
+			display: inline;
+		}
 	}
 	
 	#caccordion{
@@ -5387,6 +5447,29 @@ transition: all 5ms ease-in-out 0s;
 	.card-body{
 		background: @white;
 		
+		
+		.delivery-details{
+			border: 0;
+			
+			tr{
+				display: grid;
+				border-bottom: 1px solid @border-color;
+				margin-bottom: 1rem;
+				padding-bottom: 1rem;
+				
+				&:first-child{
+					display: none;
+				}
+			}
+			tbody > tr > td{
+				padding-left: 0;
+				border: none;
+			}
+			tbody > p:first-child{
+				font-weight: bold;
+			}
+		}
+		
 		.reviews-list-box{
 			padding: 0;
 		}
@@ -5402,6 +5485,7 @@ transition: all 5ms ease-in-out 0s;
 		tr {
 			display: flex;
 			border-bottom: 1px dashed @f2light;
+
 		}
 		tbody > tr > th {
 			padding: 1rem;
@@ -5410,10 +5494,6 @@ transition: all 5ms ease-in-out 0s;
 			background: @f9light;
 			border: none;
 			font-size: @base;
-		}
-		tbody > tr > td {
-			padding-left: 2rem;
-			border: none;
 		}
 		.review-heading  h2{
 			margin-top: 0;
