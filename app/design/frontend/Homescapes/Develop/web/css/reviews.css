@@ -890,6 +890,7 @@ table > thead > tr > th, table > tbody > tr > th, table > tfoot > tr > th, table
 @media only screen and (max-width: 1099px) {
 	  #customer-reviews .review-heading {
 		padding: 15px 6px 8px;
+		  text-align: center;
 	  }
 	  #customer-reviews dl {
 		padding: 0px;

@@ -6,7 +6,7 @@ $helper = $this->helper('Homescapes\Ratings\Helper\Data');
 $average_ratings_count = array(1=>0,2=>0,3=>0,4=>0,5=>0);
 $votes = array();
 $review = array();
-$rating_code = array('price'=>0,'quality'=>0,'value'=>0);
+$rating_code = array('price'=>0,'quality'=>0,'value'=>0,'delivery'=>0);
 
 $based_recommendation = 0;
 foreach ($_items as $rating_review){
@@ -27,6 +27,8 @@ foreach ($_items as $rating_review){
                         $rating_code['value']=$rating_code['value']+$rdata[$i]['percent'];
                     }elseif($rdata[$i]['rating_code'] == 'Quality'){
                         $rating_code['quality']=$rating_code['quality']+$rdata[$i]['percent'];
+                    }elseif($rdata[$i]['rating_code'] == 'Delivery'){
+                        $rating_code['delivery']=$rating_code['delivery']+$rdata[$i]['percent'];
                     }
                     
                  }
@@ -51,167 +53,179 @@ foreach ($_items as $rating_review){
 
 <div class="box-collateral box-reviews" id="customer-reviews">
     <?php if (count($_items)):$totalreivew = count($_items);?>
+	
         <div class="rating-review">
-        <h3><?php echo __('Rating & Reviews') ?></h3>
-        <div class="rating-section">
-            <ul>
-                <li class="average-ratings">
-                    <div class="dyn-rating">	
-						<label><?php echo __('Overall') ?></label>
-						<div class="ratings">
-							<div class="rating-box">
-								<div class="rating" style="width:<?php echo round($_product->getRatingSummary()->getRatingSummary()) ?>%;"></div>
-							</div>
-                        </div>
-                        <p><?php echo round(($_product->getRatingSummary()->getRatingSummary())/20, 1) ?></p>
-                        <span><?php echo __('Out of 5') ?></span>
-                    </div>
-                   
-                    <span><?php echo __('Based on '.$totalreivew.' ratings') ?></span>
-                    <div class="overall-ratings">
-					<ul>
-                   <?php  foreach($rating_code as $label => $sumofratings){?>
-                        <li>
-                            <span class="title"><?php echo __($label); ?></span>
-                            <div class="filter-box">
-                                <div class="filter" style="width: <?php echo round($sumofratings/$totalreivew,2); ?>%;"></div>
-                            </div>                            
-                        </li> 
-                    <?php }?>
-						
-                    </ul>
-                   
-                    </div>
-                </li>
-                
-                <li class="filter-review">
-                    <p class="title"><?php echo __('Select a row below to filter reviews.') ?></p>
-                    <ul>
-                    <?php foreach($average_ratings_count as $key => $val){?>
-                        <li data-star="<?php echo $key?>" class="star_ratings">
-                            <span class="count"><?php echo $key?></span>
-                            <div class="filter-box">
-                            <?php $star_rating = ($val*100)/$totalreivew;?>
-                                <div class="filter" style="width: <?php echo round($star_rating,2); ?>%;"></div>
-                            </div>
-                            <span class="value" id="value_<?php echo $key;?>"><?php echo $val?></span>
-                        </li> 
-                    <?php }?>  
-                                            
-                    </ul>
-                </li>
-                
-                <li class="recommends-items">
-                    <div class="dyn-rating">
-                    <?php $br = ($based_recommendation*100)/$totalreivew;?>
-                        <p><?php echo round($br, 2)."%"?></p>
-                        <span><?php echo __('recommend') ?></span>
-                    </div>
-                    <p><?php echo __('Based on '.$totalreivew.' recommendations') ?></p>
-                    <span><?php echo __('Would you recommend this item?') ?></span>
-                    <div class="action">
-                        <a class="yes fancybox review-popup" href="#inline1"><?php echo __('Yes')?></a>
-                        <a class="No fancybox review-popup" href="#inline1" ><?php echo __('No')?></a>
-                    </div>
-                </li>
-                
-                <li class="write-review">
-                    <div class="img-box">
-			<?php
-				$imageType = 'product_thumbnail_image';
-				$image = $block->getImage($_product, $imageType); 
-			?>
-	   <img src="<?php echo $image->getImageUrl(); ?>" alt="test"/>                       
-                    </div>
-                    <p><?php echo __('Have you purchased this item?') ?></p>
-                    <a href="#inline1" class="write-review fancybox review-popup"><?php echo __('write a review') ?></a>
-                </li>
-            </ul>
-        </div>
-    </div>
-        <div class="review-heading">
-            <h2>
-                <?php echo __('Customer Reviews') ?>
-                <span id="review_count">[<?php echo count($_items); ?>]</span>
-            </h2>
-
-            <div class="review_filter">
-				<div data-star="all" class="star_ratings star-value"> 
-					<span class="value_filter" ></span>
-				</div>
-				<div data-star="all" class="star_ratings clear-all"> <?php echo __('Clear all') ?>
-					<span class="icon"></span>
-					<span class="value" id="value_all"><?php echo $totalreivew ?></span>
-				</div>
-			</div>		
-        </div>
-        <dl id="dl_review">
-        <?php $it=0;foreach ($_items as $_review):$it++;?>
-        <?php 
-                $_votes = $_review->getRatingVotes(); 
-                $rowdata = $_votes->getData();               
-                $average_ratings = ($rowdata[0]['percent']+$rowdata[1]['percent']+$rowdata[2]['percent'])/3;               
-                ?> 
-            <dt data-rating="<?php echo round($average_ratings/20)?>" <?php if($it >4){?>class="inactive"<?php }?>>
-				              
-				<?php if (count($_votes)): ?>
-                <table class="ratings-table">
-                    <colgroup>
-                        <col class="review-label" />
-                        <col class="review-value" />
-                    </colgroup>
-                    <tbody>                    
-						<tr>
-                           
-                            <td colspan="2">
-                                <div class="rating-box">
-									<div class="rating" style="width:<?php echo $average_ratings ?>%;"></div>
+			<h3><?php echo __('Rating & Reviews') ?></h3>
+			<div class="rating-section">
+				<ul>
+					<li class="average-ratings">
+						<div class="dyn-rating">	
+							<label><?php echo __('Overall') ?></label>
+							<div class="overall-box">
+								<div class="rating-box">
+									<div class="rating" style="width:<?php echo round($_product->getRatingSummary()->getRatingSummary()) ?>%;"></div>
 								</div>
-                            </td>
-                        </tr>
-						<tr>
-                            
-                            <td colspan="2">
-                                <span class="review-meta">
-									<?php echo __('Review by '.($_review->getNickname())) ?>
-									<br> 
-								   <label><?php echo __('Posted on '.date('d/m/Y', strtotime($_review->getCreatedAt()))); ?></label>
-								</span>
-								
-                            </td>
-                        </tr>
-                        <?php foreach ($_votes as $_vote): ?>
-                        <tr>
-                            <th><?php echo ($_vote->getRatingCode()) ?></th>
-                            <td>
-                                <div class="rating-box">
-                                    <div class="rating" style="width:<?php echo $_vote->getPercent() ?>%;"></div>
-                                </div>
-                            </td>
-                        </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-                <?php endif; ?>                
-            </dt>
-            <dd data-rating="<?php echo round($average_ratings/20)?>" <?php if($it >4){?>class="inactive"<?php }?>>
-				
-                <p class="title"><?php echo (__($_review->getTitle()))?></p>
+							</div>
+							<p><?php echo round(($_product->getRatingSummary()->getRatingSummary())/20, 1) ?><span> / <?php echo __('5') ?></span> </p>
+							
+						</div>
 
-                <?php if($helper->getRecommend($_review->getReviewId()) == 1){?>     
-				<label class="check-recommend"><?php echo __('Yes'); ?>, <?php echo __('I recommend this product'); ?></label>
-                <?php }else{?>
-                <label class="nocheck-recommend"><?php echo __('No'); ?>, <?php echo __('I do not recommend this product'); ?></label>
-                <?php }?>
-				<p class="desc"><?php echo nl2br(($_review->getDetail())) ?>    </p>
-            </dd>
-        <?php endforeach; ?>
-        
-        </dl>
+						<span><?php echo __('Based on '.$totalreivew.' ratings') ?></span>
+						<div class="overall-ratings">
+						<ul>
+					   <?php  foreach($rating_code as $label => $sumofratings){?>
+							<li>
+								<span class="title"><?php echo __($label); ?></span>
+								<div class="filter-box">
+									<div class="filter" style="width: <?php echo round($sumofratings/$totalreivew,2); ?>%;"></div>
+								</div>                            
+							</li> 
+						<?php }?>
 
-        <?php if($it >4){?>
-        <div id="showallreview"><?php echo __('<span>Load More</span> Reviews')?></div>
+						</ul>
+
+						</div>
+					</li>
+
+					<li class="filter-review">
+						<p class="title"><?php echo __('Select a row below to filter reviews.') ?></p>
+						<ul>
+
+						<?php foreach($average_ratings_count as $key => $val){?>
+							<li data-star="<?php echo $key?>" class="star_ratings">
+								<span class="count"><?php echo $key?></span>
+								<div class="filter-box">
+
+								<?php $star_rating = ($val*100)/$totalreivew;?>
+								 <div class="filter" style="width: <?php echo round($star_rating,2); ?>%;"></div>
+								</div>
+								<span class="value" id="value_<?php echo $key;?>"><?php echo $val?></span>
+							</li> 
+						<?php }?>  
+
+						</ul>
+					</li>
+
+					<li class="recommends-items">
+						<div class="dyn-rating">
+						<?php $br = ($based_recommendation*100)/$totalreivew;?>
+							<p><?php echo round($br, 2)."%"?></p>
+							<span><?php echo __('recommend') ?></span>
+						</div>
+						<p><?php echo __('Based on '.$totalreivew.' recommendations') ?></p>
+						<span><?php echo __('Would you recommend this item?') ?></span>
+						<div class="action">
+							<a class="yes fancybox review-popup" href="#inline1"><?php echo __('Yes')?></a>
+							<a class="No fancybox review-popup" href="#inline1" ><?php echo __('No')?></a>
+						</div>
+					</li>
+
+					<li class="write-review">
+						<p>Have you purchased this </br> product?</p>
+						<a href="#inline1" class="write-review fancybox review-popup"><?php echo __('Write a Review') ?></a>
+					</li>
+				</ul>
+			</div>
+    	</div>
+	
+		<div class="reviews-list-box">
+	
+			<div class="review-heading">
+				<h2>
+					<?php echo __('Customer Reviews') ?>
+					<span id="review_count">[<?php echo count($_items); ?>]</span>
+				</h2>
+
+				<div class="review_filter">
+					<div data-star="all" class="star_ratings star-value"> 
+						<span class="value_filter" ></span>
+					</div>
+					<div data-star="all" class="star_ratings clear-all"> <?php echo __('Clear all') ?>
+						<span class="icon"></span>
+						<span class="value" id="value_all"><?php echo $totalreivew ?></span>
+					</div>
+				</div>		
+			</div>
+
+
+			<dl id="dl_review">
+			<?php $it=0;foreach ($_items as $_review):$it++;?>
+			<?php 
+					$_votes = $_review->getRatingVotes(); 
+					$rowdata = $_votes->getData();               
+					$average_ratings = ($rowdata[0]['percent']+$rowdata[1]['percent']+$rowdata[2]['percent'])/3;               
+					?> 
+
+				<dd class="reviews-bg" data-rating="<?php echo floor($average_ratings/20)?>" <?php if($it >4){?>class="inactive"<?php }?>>
+
+					<?php if (count($_votes)): ?>
+
+					<table class="title-box">
+
+						<tbody>                    
+							<tr>
+
+								<td>
+									<div class="rating-box">
+										<div class="rating" style="width:<?php echo $average_ratings ?>%;"></div>
+									</div>
+								</td>
+
+								<td><p class="title"><?php echo (__($_review->getTitle()))?></p></td>
+							</tr>
+
+
+						</tbody>
+					</table>
+
+
+					<?php endif; ?>   
+
+
+
+					<span class="review-meta">
+						<?php echo __('Review by '.($_review->getNickname())) ?>
+						, 
+					   <label class="date"><?php echo __('Posted on '.date('d/m/Y', strtotime($_review->getCreatedAt()))); ?></label>
+					</span>
+
+
+					<div class="ratings-table">
+					<?php foreach ($_votes as $_vote): ?>
+
+
+						<label><?php echo ($_vote->getRatingCode()) ?></label>
+
+						<div class="rating-box">
+							<div class="rating" style="width:<?php echo $_vote->getPercent() ?>%;"></div>
+						</div>
+
+
+					<?php endforeach; ?>
+					</div>
+
+					<p class="desc"><?php echo nl2br(($_review->getDetail())) ?>    </p>
+
+
+					<?php if($helper->getRecommend($_review->getReviewId()) == 1){?>     
+
+					<label class="check-recommend"><?php echo __('Yes'); ?>, <?php echo __('I recommend this product'); ?></label>
+					<?php }else{?>
+					<label class="nocheck-recommend"><?php echo __('No'); ?>, <?php echo __('I do not recommend this product'); ?></label>
+					<?php }?>
+
+
+				</dd>
+			<?php endforeach; ?>
+
+			</dl>
+
+			<?php if($it >4){?>
+			<div id="showallreview"><?php echo __('<span>view more</span> reviews')?></div>
         
+		</div>	
+			
+			
         <?php }?>
     <?php elseif($block->getParentBlock()): ?>
         <?php echo $block->getParentBlock()->getReviewsSummaryHtml($block->getProduct(), 'short', true)?>
@@ -239,82 +253,83 @@ require(["jquery","Magento_Ui/js/modal/modal"], function ($,modal) {
                 $(".block.review-add").modal("openModal");
             });
 
-jQuery( ".star_ratings" ).click(function() {
+$( ".star_ratings" ).click(function() {
 
     var rating = this.dataset.star;
-    jQuery('#temp_var').val(rating);
+    
+    $('#temp_var').val(rating);
     if(rating != 'all'){
-        jQuery('.review_filter').show();
-        jQuery('.value_filter').html(rating+' Star');
+        $('.review_filter').show();
+        $('.value_filter').html(rating+' Star');
     }else{
-        jQuery('.review_filter').hide();
+        $('.review_filter').hide();
     }
     
      
 
-var review_count= jQuery('#review_count').html(jQuery('#value_'+rating).html()+' item(s)');
+var review_count= $('#review_count').html('['+ $('#value_'+rating).html()+']');
     var cnt =0;
-    jQuery('#dl_review').children('dt,dd').each(function () {  
+    $('#dl_review').children('dt,dd').each(function () {  
 
         if(this.dataset.rating !=rating && rating != 'all'){
-            jQuery( this ).hide();
-            jQuery( this ).removeClass( "active" );
-            jQuery( this ).addClass( "inactive" );
+            $( this ).hide();
+            $( this ).removeClass( "active" );
+            $( this ).addClass( "inactive" );
         }else if(rating == 'all'){
-            jQuery( this ).show();
-            jQuery( this ).removeClass( "active" );            
-            jQuery( this ).removeClass( "inactive" );
+            $( this ).show();
+            $( this ).removeClass( "active" );            
+            $( this ).removeClass( "inactive" );
              cnt = parseInt(cnt)+1;
-                if(cnt >8){
-                    jQuery( this ).addClass( "inactive" );
-                    jQuery( "#showallreview").show();
+                if(cnt >5){
+                    $( this ).addClass( "inactive" );
+                    $( "#showallreview").show();
                 }else{
-                    jQuery( "#showallreview").hide();
+                    $( "#showallreview").hide();
                 }
         }
         else{
             cnt = parseInt(cnt)+1;
-            jQuery( this ).show();
-            jQuery( this ).removeClass( "inactive" );
-            if(cnt >8){
-                jQuery( this ).addClass( "active" );
-                jQuery( "#showallreview").show();
+            $( this ).show();
+            $( this ).removeClass( "inactive" );
+            if(cnt >5){
+                $( this ).addClass( "active" );
+                $( "#showallreview").show();
             }else{
-                    jQuery( "#showallreview").hide();
+                    $( "#showallreview").hide();
                 }
         }
 
     });
-     jQuery('.inactive').hide();
-     jQuery('.active').hide();
+     $('.inactive').hide();
+     $('.active').hide();
     });
 
     jQuery.noConflict();
-        jQuery(document).ready(function() {
+        $(document).ready(function() {
             
-            //jQuery('.fancybox').fancybox();
-            jQuery('.inactive').hide();
-            jQuery('#value_all').hide();
-            jQuery('.review_filter').hide();
-            
+            //$('.fancybox').fancybox();
+            $('.inactive').hide();
+            $('#value_all').hide();
+            $('.review_filter').hide();
+            $(".star_ratings:last").trigger("click");
         });
         
-        jQuery( "#showallreview" ).click(function() {
+        $( "#showallreview" ).click(function() {
             
             
-            if(jQuery('#temp_var').val() !='all')
-                jQuery('.active').slideToggle('slow');    
+            if($('#temp_var').val() !='all')
+                $('.active').slideToggle('slow');    
             else
-               jQuery('.inactive').slideToggle('slow');    
+               $('.inactive').slideToggle('slow');    
 
-            jQuery( this ).toggleClass( "reviewhide" );
+            $( this ).toggleClass( "reviewhide" );
 
-            if(jQuery(this).hasClass("reviewhide")){
-                jQuery('#showallreview span').html('COLLAPSE');
-                jQuery("html, body").animate({scrollTop: jQuery('.inactive').position().top}, 'slow');
+            if($(this).hasClass("reviewhide")){
+                $('#showallreview span').html('collaspse');
+                //$("html, body").animate({scrollTop: $('.inactive').position().top}, 'slow');
             }else{                
-                jQuery('#showallreview span').html('Load More'); 
-                 jQuery("html, body").animate({scrollTop: jQuery('#dl_review').position().top}, 'slow');
+                $('#showallreview span').html('view more'); 
+                //$("html, body").animate({scrollTop: $('#dl_review').position().top}, 'slow');
             }
         
            
