@@ -84,6 +84,8 @@
 
 @360: ~"only screen and (min-width:360px)";
 
+@379: ~"only screen and (max-width:379px)";
+
 @479: ~"only screen and (max-width:479px)";
 
 @480: ~"only screen and (min-width:480px)";
@@ -2463,6 +2465,15 @@ transition: all 5ms ease-in-out 0s;
 	padding: 1rem 1.5rem;
 	float: left;
 	margin-bottom: 1rem;
+	
+	@media @479{
+		text-align: center;
+	}
+	img{
+		@media @479{
+			margin-top: 1rem;
+		}
+	}
 }
 /*---------------------------
 |  Product Delivery Block ends
@@ -2601,6 +2612,7 @@ transition: all 5ms ease-in-out 0s;
 		@media @767{
 			width: 100%;
 			margin-bottom: 25px;
+			margin-top: .5rem;
 		}
 		
 		span{
@@ -2878,8 +2890,10 @@ transition: all 5ms ease-in-out 0s;
 			border-radius: .3rem;
 			padding: .2rem .8rem .2rem .8rem;
 			line-height: 1rem;
-			min-height: 3rem;
-			width: 5rem;
+			min-height: 2rem;
+			width: 10rem;
+			margin: auto;
+			float: none;
 		}
 		.unavailable{
 			@media @479{
@@ -3018,6 +3032,11 @@ transition: all 5ms ease-in-out 0s;
 			padding-top: 0;
 		}
 	}
+	.table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody > tr td, .table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody > tr th{
+		@media @639{
+			padding: .5rem 0;
+		}
+	}
 	.table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody{
 		@media @479{
 			float: left;
@@ -3030,6 +3049,12 @@ transition: all 5ms ease-in-out 0s;
 		padding: 1rem;
 		margin-bottom: @font20;
 		border: 1px solid @f2light;
+		
+		@media @639{
+			padding: 1rem 0;
+			border-left: 0;
+			border-right: 0;
+		}
 	}
 	.conf-products {
 		
@@ -3161,6 +3186,10 @@ transition: all 5ms ease-in-out 0s;
 			
 			@media @767{
 				display: block;
+			}
+			@media @479{
+				
+				margin-left: 0rem;
 			}
 		}
 	}
@@ -3377,7 +3406,7 @@ transition: all 5ms ease-in-out 0s;
 				line-height: 2rem;
 				background: @f2light;
 				
-				@media @479{
+				@media @379{
 					display: none;
 				}
 			}
@@ -3409,6 +3438,12 @@ transition: all 5ms ease-in-out 0s;
 			.price-box{
 				width: auto;
 				float: left;
+				
+				@media @479{
+					width: 12rem;
+					margin: auto;
+					float: none;
+				}
 			}
 			
 			.special-price{
@@ -3433,7 +3468,8 @@ transition: all 5ms ease-in-out 0s;
 				line-height: 2rem;
 				
 				@media @479{
-					float: left;
+				float: none;
+				line-height: 1.5rem;
 				}
 			}
 			
@@ -3485,7 +3521,7 @@ transition: all 5ms ease-in-out 0s;
 					width: 18%;
 				}
 				@media @479{
-					width: 30%;
+					width: 28%;
 					float: left;
 				}
 			}
@@ -3503,8 +3539,9 @@ transition: all 5ms ease-in-out 0s;
 					width: 23%;
 				}
 				@media @479{
-					width:48%;
+					width:37%;
 					float: left;
+					text-align: center;
 				}
 			}
 			.col.qty{
@@ -3520,7 +3557,7 @@ transition: all 5ms ease-in-out 0s;
 					text-align: center !important;
 				}
 				@media @479{
-					width:22%;
+					width: 35%;
 					float: left;
 				}
 				
@@ -3531,9 +3568,9 @@ transition: all 5ms ease-in-out 0s;
 					@media @479{
 						background:@danger;
 						border-radius: .4rem;
-						line-height: 1.2rem;
-						min-height: 2.8rem;
-						width: 5rem;
+						line-height: 1.6rem;
+						min-height: 2rem;
+						width: 8rem;
 						margin: auto;
 					}
 					
@@ -3633,7 +3670,7 @@ transition: all 5ms ease-in-out 0s;
 			}
 			@media @479{
 				float: left;
-				width: 35%;
+				width: 29%;
 			}
 		}
 		.col.price{
@@ -3644,7 +3681,7 @@ transition: all 5ms ease-in-out 0s;
 				width: 23%;
 			}
 			@media @479{
-				width: 40%;
+				width: 38%;
 				float: left;
 			}
 		}
@@ -3654,6 +3691,7 @@ transition: all 5ms ease-in-out 0s;
 			}
 			@media @479{
 				float: left;
+				width: 33%;
 			}
 		}
 	}
@@ -3736,7 +3774,7 @@ transition: all 5ms ease-in-out 0s;
 			background: @f2light;
 			
 
-			@media @479{
+			@media @379{
 				display: none;
 			}
 		}
@@ -3757,6 +3795,10 @@ transition: all 5ms ease-in-out 0s;
 		
 		@media @639{
 			padding-top: 1.2rem;
+		}
+		@media @479{
+			max-width: 11.5rem;
+			padding-top: .5rem;
 		}
 		
 		.price-box{
@@ -5292,6 +5334,9 @@ transition: all 5ms ease-in-out 0s;
 		&:hover{
 			color: @blue;
 		}
+		@media @479{
+			font-size: @base;
+		}
 		
 	}
 	strong.order-swatch.added {
@@ -5498,15 +5543,15 @@ transition: all 5ms ease-in-out 0s;
 			order:2;
 		}
 		.fieldset > .field:nth-child(3){
-			order:4;
-		}
-		.fieldset > .field:nth-child(4){
 			width: 98%;
 			order: 3;
 			
 			@media @479{
 				width: 100%;
 			}
+		}
+		.fieldset > .field:nth-child(4){
+			order: 4;
 		}
 		.fieldset > .field:nth-child(5){
 			order:5;
@@ -5601,8 +5646,10 @@ transition: all 5ms ease-in-out 0s;
 		border-radius: .4rem;
 	}
 }
-
-/*--------------------------------------------------------------------------
+.authentication-dropdown .modal-inner-wrap .modal-content{
+	border: 0;
+}
+/*------------------------------------------ --------------------------------
 |  listing-toolbar
 --------------------------------------------------------------------------*/
 .toolbar-pager{
