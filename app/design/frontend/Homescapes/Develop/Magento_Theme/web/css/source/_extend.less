@@ -84,6 +84,8 @@
 
 @360: ~"only screen and (min-width:360px)";
 
+@379: ~"only screen and (max-width:379px)";
+
 @479: ~"only screen and (max-width:479px)";
 
 @480: ~"only screen and (min-width:480px)";
@@ -301,6 +303,11 @@ h6, .h6 {
 .block-search{
 	@media @991{
 		top:19px;
+	}
+	input{
+		@media @767{
+			height: 4rem;
+		}
 	}
 }
 
@@ -1799,6 +1806,10 @@ transition: all 5ms ease-in-out 0s;
 				text-align: center;
 				margin-bottom: 1rem;
 			}
+			@media @479{
+				font-size:1.8rem;
+				line-height: @font22;
+			}
 			
 			.fas{
 				margin-right: .7rem;
@@ -2463,6 +2474,15 @@ transition: all 5ms ease-in-out 0s;
 	padding: 1rem 1.5rem;
 	float: left;
 	margin-bottom: 1rem;
+	
+	@media @479{
+		text-align: center;
+	}
+	img{
+		@media @479{
+			margin-top: 1rem;
+		}
+	}
 }
 /*---------------------------
 |  Product Delivery Block ends
@@ -2601,6 +2621,7 @@ transition: all 5ms ease-in-out 0s;
 		@media @767{
 			width: 100%;
 			margin-bottom: 25px;
+			margin-top: .5rem;
 		}
 		
 		span{
@@ -2746,11 +2767,9 @@ transition: all 5ms ease-in-out 0s;
 		background: @flight;
 		text-align: center;
 		cursor: pointer;
-		margin-bottom: 1rem;
 		
 		@media @991{
 			width: 5rem;
-			margin-bottom: 0;
 		}
 		@media @639{
 			display: none;
@@ -2878,8 +2897,10 @@ transition: all 5ms ease-in-out 0s;
 			border-radius: .3rem;
 			padding: .2rem .8rem .2rem .8rem;
 			line-height: 1rem;
-			min-height: 3rem;
-			width: 5rem;
+			min-height: 2rem;
+			width: 10rem;
+			margin: auto;
+			float: none;
 		}
 		.unavailable{
 			@media @479{
@@ -3018,6 +3039,11 @@ transition: all 5ms ease-in-out 0s;
 			padding-top: 0;
 		}
 	}
+	.table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody > tr td, .table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody > tr th{
+		@media @639{
+			padding: .5rem 0;
+		}
+	}
 	.table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody{
 		@media @479{
 			float: left;
@@ -3030,6 +3056,12 @@ transition: all 5ms ease-in-out 0s;
 		padding: 1rem;
 		margin-bottom: @font20;
 		border: 1px solid @f2light;
+		
+		@media @639{
+			padding: 1rem 0;
+			border-left: 0;
+			border-right: 0;
+		}
 	}
 	.conf-products {
 		
@@ -3161,6 +3193,10 @@ transition: all 5ms ease-in-out 0s;
 			
 			@media @767{
 				display: block;
+			}
+			@media @479{
+				
+				margin-left: 0rem;
 			}
 		}
 	}
@@ -3377,7 +3413,7 @@ transition: all 5ms ease-in-out 0s;
 				line-height: 2rem;
 				background: @f2light;
 				
-				@media @479{
+				@media @379{
 					display: none;
 				}
 			}
@@ -3409,6 +3445,12 @@ transition: all 5ms ease-in-out 0s;
 			.price-box{
 				width: auto;
 				float: left;
+				
+				@media @479{
+					width: 12rem;
+					margin: auto;
+					float: none;
+				}
 			}
 			
 			.special-price{
@@ -3433,7 +3475,8 @@ transition: all 5ms ease-in-out 0s;
 				line-height: 2rem;
 				
 				@media @479{
-					float: left;
+				float: none;
+				line-height: 1.5rem;
 				}
 			}
 			
@@ -3485,7 +3528,7 @@ transition: all 5ms ease-in-out 0s;
 					width: 18%;
 				}
 				@media @479{
-					width: 30%;
+					width: 28%;
 					float: left;
 				}
 			}
@@ -3503,8 +3546,9 @@ transition: all 5ms ease-in-out 0s;
 					width: 23%;
 				}
 				@media @479{
-					width:48%;
+					width:37%;
 					float: left;
+					text-align: center;
 				}
 			}
 			.col.qty{
@@ -3520,7 +3564,7 @@ transition: all 5ms ease-in-out 0s;
 					text-align: center !important;
 				}
 				@media @479{
-					width:22%;
+					width: 35%;
 					float: left;
 				}
 				
@@ -3531,9 +3575,9 @@ transition: all 5ms ease-in-out 0s;
 					@media @479{
 						background:@danger;
 						border-radius: .4rem;
-						line-height: 1.2rem;
-						min-height: 2.8rem;
-						width: 5rem;
+						line-height: 1.6rem;
+						min-height: 2rem;
+						width: 8rem;
 						margin: auto;
 					}
 					
@@ -3633,7 +3677,7 @@ transition: all 5ms ease-in-out 0s;
 			}
 			@media @479{
 				float: left;
-				width: 35%;
+				width: 29%;
 			}
 		}
 		.col.price{
@@ -3644,7 +3688,7 @@ transition: all 5ms ease-in-out 0s;
 				width: 23%;
 			}
 			@media @479{
-				width: 40%;
+				width: 38%;
 				float: left;
 			}
 		}
@@ -3654,6 +3698,7 @@ transition: all 5ms ease-in-out 0s;
 			}
 			@media @479{
 				float: left;
+				width: 33%;
 			}
 		}
 	}
@@ -3736,7 +3781,7 @@ transition: all 5ms ease-in-out 0s;
 			background: @f2light;
 			
 
-			@media @479{
+			@media @379{
 				display: none;
 			}
 		}
@@ -3757,6 +3802,10 @@ transition: all 5ms ease-in-out 0s;
 		
 		@media @639{
 			padding-top: 1.2rem;
+		}
+		@media @479{
+			max-width: 11.5rem;
+			padding-top: .5rem;
 		}
 		
 		.price-box{
@@ -3825,6 +3874,8 @@ transition: all 5ms ease-in-out 0s;
 
 		width: 100%;
 	}
+	
+	
 	.cart.table-wrapper .actions-toolbar{
 		
 		
@@ -3836,6 +3887,33 @@ transition: all 5ms ease-in-out 0s;
 		}
 		
 			
+	}
+	thead{
+		@media @479{
+			display: none;
+		}
+	}
+	.product-item-name{
+		min-height: auto;
+		padding-bottom: 0;
+		border: 0;
+	}
+	.cart.table-wrapper .col.qty, .cart.table-wrapper .col.price, .cart.table-wrapper .col.subtotal, .cart.table-wrapper .col.msrp{
+		@media @479{
+			float: right;
+			width: 75%;
+			padding: 0 1rem;
+			display: flex;
+		}
+	}
+	.cart.table-wrapper .col.qty::before, .cart.table-wrapper .col.price::before, .cart.table-wrapper .col.subtotal::before, .cart.table-wrapper .col.msrp::before {
+			
+		@media @479{
+			width: 7rem;
+			float: left;
+			text-align: left;
+		}
+		
 	}
 	.product-image-container{
 		max-width: 130px;
@@ -3883,10 +3961,23 @@ transition: all 5ms ease-in-out 0s;
 		.col.price .price-excluding-tax, .col.subtotal .price-excluding-tax{
 			font-size: @font16;
 			font-weight: normal;
+			
+			@media @479{
+				line-height: 2.2rem;
+			}
 		}
 	} 
 	.col.qty{
 		padding: 1rem !important;
+		
+		@media @479{
+			padding: 0 1rem .5rem 1rem !important;
+		}
+		.input-text{
+			@media @479{
+				margin-right: .4rem;
+			}
+		}
 	}
 	.cart-summary{
 		@media @991{
@@ -3987,6 +4078,12 @@ transition: all 5ms ease-in-out 0s;
 		}
 		.actions-toolbar > .primary .action.primary:not(:focus){
 			box-shadow: none;
+		}
+	}
+	
+	.update{
+		@media @639{
+			width: 90%;
 		}
 	}
 }
@@ -5292,6 +5389,9 @@ transition: all 5ms ease-in-out 0s;
 		&:hover{
 			color: @blue;
 		}
+		@media @479{
+			font-size: @base;
+		}
 		
 	}
 	strong.order-swatch.added {
@@ -5321,7 +5421,12 @@ transition: all 5ms ease-in-out 0s;
 	font-size: 1.5rem;
 	
 	p{
-		padding: 0 1rem;
+		padding: 0;
+		margin-bottom: 0;
+		
+		a{
+			display: inline;
+		}
 	}
 	
 	#caccordion{
@@ -5342,6 +5447,29 @@ transition: all 5ms ease-in-out 0s;
 	.card-body{
 		background: @white;
 		
+		
+		.delivery-details{
+			border: 0;
+			
+			tr{
+				display: grid;
+				border-bottom: 1px solid @border-color;
+				margin-bottom: 1rem;
+				padding-bottom: 1rem;
+				
+				&:first-child{
+					display: none;
+				}
+			}
+			tbody > tr > td{
+				padding-left: 0;
+				border: none;
+			}
+			tbody > p:first-child{
+				font-weight: bold;
+			}
+		}
+		
 		.reviews-list-box{
 			padding: 0;
 		}
@@ -5357,6 +5485,7 @@ transition: all 5ms ease-in-out 0s;
 		tr {
 			display: flex;
 			border-bottom: 1px dashed @f2light;
+
 		}
 		tbody > tr > th {
 			padding: 1rem;
@@ -5365,10 +5494,6 @@ transition: all 5ms ease-in-out 0s;
 			background: @f9light;
 			border: none;
 			font-size: @base;
-		}
-		tbody > tr > td {
-			padding-left: 2rem;
-			border: none;
 		}
 		.review-heading  h2{
 			margin-top: 0;
@@ -5498,15 +5623,15 @@ transition: all 5ms ease-in-out 0s;
 			order:2;
 		}
 		.fieldset > .field:nth-child(3){
-			order:4;
-		}
-		.fieldset > .field:nth-child(4){
 			width: 98%;
 			order: 3;
 			
 			@media @479{
 				width: 100%;
 			}
+		}
+		.fieldset > .field:nth-child(4){
+			order: 4;
 		}
 		.fieldset > .field:nth-child(5){
 			order:5;
@@ -5601,8 +5726,10 @@ transition: all 5ms ease-in-out 0s;
 		border-radius: .4rem;
 	}
 }
-
-/*--------------------------------------------------------------------------
+.authentication-dropdown .modal-inner-wrap .modal-content{
+	border: 0;
+}
+/*------------------------------------------ --------------------------------
 |  listing-toolbar
 --------------------------------------------------------------------------*/
 .toolbar-pager{

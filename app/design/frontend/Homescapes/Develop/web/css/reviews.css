@@ -992,12 +992,10 @@ table > thead > tr > th, table > tbody > tr > th, table > tfoot > tr > th, table
 		width: 100%;
 	  }
 	  .rating-review .rating-section ul li:nth-child(2) {
-		text-align: center;
-		padding-top: 40px;
-		width: 100%;
+		display: none;
 	  }
 	  .rating-review .rating-section ul li:nth-child(3) {
-		width: 100%;
+		display: none;
 	  }
 	  .rating-review .rating-section ul li:nth-child(4) {
 		width: 100%;
@@ -1009,6 +1007,12 @@ table > thead > tr > th, table > tbody > tr > th, table > tfoot > tr > th, table
 	}
 	#customer-reviews dl dd .ratings-table label{
 		width: 4.2rem;
+	}
+	#customer-reviews .review-heading{
+		padding-bottom: 0;
+	}
+	#customer-reviews .review-heading h2{
+		float: none;
 	}
 }
 @media only screen and (max-width: 599px) {
