@@ -4,7 +4,7 @@
 / Theme Colors
 --------------------------------------------------------------------------*/
 
-@black:#444444;
+@black:#000;
 @light-black:#626166;
 @white:#ffffff;
 @yellow:#f5ba00;
@@ -1061,7 +1061,7 @@ transition: all 5ms ease-in-out 0s;
 		  
 		  @media @991{
 			  background: @white;
-			  border-radius: .4rem;
+			  border-radius: .2rem;
 		  }
 		  
 		  @media @767{  
@@ -1102,7 +1102,7 @@ transition: all 5ms ease-in-out 0s;
 	  @media @767{
 		 left: 280px;
 		  background: @white;
-		  border-radius: .4rem;
+		  border-radius: .2rem;
 	  }
  }
 
@@ -2491,11 +2491,8 @@ transition: all 5ms ease-in-out 0s;
 }
 
 .product-offers{
-
-	background: @f9light;
-	padding: 1rem 1.5rem;
 	float: left;
-	margin-bottom: 1rem;
+	margin:2rem 0;
 	
 	@media @479{
 		text-align: center;
@@ -2504,6 +2501,9 @@ transition: all 5ms ease-in-out 0s;
 		@media @479{
 			margin-top: 1rem;
 		}
+	}
+	.col-md{
+		padding: 0;
 	}
 }
 /*---------------------------
@@ -2514,8 +2514,6 @@ transition: all 5ms ease-in-out 0s;
 |  Product sizing guides
 ------------------------------*/
 .product-sizing{
-	background: @f9light;
-	border-radius: .4rem;
 	margin-bottom: 1rem;
 	
 	a{
@@ -2537,15 +2535,17 @@ transition: all 5ms ease-in-out 0s;
 		&:hover{
 			text-decoration: none;
 		}
+		
+		.fas, .far{
+			margin-right: .5rem;
+		}
 	}
 	.card-body{
 		padding: 1rem 3rem;
 	}
 	.col-md{
-		@media @479{
-			padding-left: .8rem;
-			padding-right: 0.8rem;
-		}
+		
+		padding: 0;
 	}
 }
 .sidenav {
@@ -2599,14 +2599,8 @@ transition: all 5ms ease-in-out 0s;
 .countdown{
     float: left;
     width: 100%;
-    background: #f9f9f9;
-    padding: 0.5rem 1rem;
-    border-radius: .4rem;
 	margin-bottom: 1rem;
-	
-	@media @991{
-		width: 100%;
-	}
+	line-height: 3rem;
 	
 	#date, #time{
 		color: @blue;
@@ -2614,9 +2608,9 @@ transition: all 5ms ease-in-out 0s;
 }
 .countdown:before{
 	content: '\f017';
-	width: 30px;
-	font-size: 2.6rem;
-	line-height: 40px;
+	width: auto;
+	font-size: 2rem;
+	line-height: 3rem;
 	color: inherit;
 	font-family: "Font Awesome 5 Free";
 	margin: 0 5px 0 0;
@@ -2626,7 +2620,6 @@ transition: all 5ms ease-in-out 0s;
 	overflow: hidden;
 	speak: none;
 	text-align: center;
-	height: 40px;
 	float: left;
 }
 .catalog-product-view{
@@ -2699,7 +2692,7 @@ transition: all 5ms ease-in-out 0s;
 			
 			
 			.decreaseQty, .increaseQty{
-				border-radius: .4rem;
+				border-radius: .2rem;
 				font-size:@font24;
 				cursor: pointer;
 				background-color: @f2light;
@@ -2715,7 +2708,7 @@ transition: all 5ms ease-in-out 0s;
 			}
 			.input-text{
 				height:4.3rem;
-				border-radius: .4rem;
+				border-radius: .2rem;
 				background-color: @f2light;
 				border: none;
 			}
@@ -2759,7 +2752,7 @@ transition: all 5ms ease-in-out 0s;
 				}
 				@media @767{
 					padding: .9rem 1.5rem;
-					border-radius: .4rem;
+					border-radius: .2rem;
 				}
 				@media @639{
 					width: 100%;
@@ -2770,7 +2763,7 @@ transition: all 5ms ease-in-out 0s;
 				width: 19rem;
 				float: left;
 				margin-right: 1rem;
-				margin-bottom: 1rem;
+				margin-bottom: 0;
 				
 				@media @991{
 					width: 15rem;
@@ -2785,11 +2778,10 @@ transition: all 5ms ease-in-out 0s;
 		float: left;
 		width: 25%;
 		padding: 1.1rem 0;
-		border-radius: .4rem;
+		border-radius: .2rem;
 		background: @flight;
 		text-align: center;
 		cursor: pointer;
-		margin-bottom: 1rem;
 		
 		@media @991{
 			width: 5rem;
@@ -2832,7 +2824,7 @@ transition: all 5ms ease-in-out 0s;
 	
 	
 	select{
-		border-radius: .4rem;
+		border-radius: .2rem;
 		height: @font40;
 	}
 }
@@ -2870,7 +2862,7 @@ transition: all 5ms ease-in-out 0s;
 		
 		float: left;
 		width: 100%;
-		margin-bottom: 1rem;
+		margin-bottom: 1.5rem;
 		
 		@media @767{
 			margin-bottom: 0;
@@ -2897,7 +2889,7 @@ transition: all 5ms ease-in-out 0s;
 		li{
 			border: 2px solid @border-color;
 			margin-right: .5rem;
-			border-radius: .4rem;
+			border-radius: .2rem;
 			width: 4rem;
 			height: 4rem;
 			margin: .4rem;
@@ -2913,7 +2905,7 @@ transition: all 5ms ease-in-out 0s;
 			}
 			
 			img{
-				border-radius: .4rem;
+				border-radius: .2rem;
 			}
 		}
 	}
@@ -3282,7 +3274,7 @@ transition: all 5ms ease-in-out 0s;
 				.decreaseQty, .increaseQty{
 					padding: 4px 15px;
 					font-size: @font20;
-					border-radius: .4rem;
+					border-radius: .2rem;
 					background: @f2light;
 					cursor: pointer;
 				}
@@ -3290,7 +3282,7 @@ transition: all 5ms ease-in-out 0s;
 					margin: 0 .5rem;
 					background: @f2light;
 					border: none;
-					border-radius: .4rem;
+					border-radius: .2rem;
 					height:3.6rem;
 				}
 			}
@@ -3301,7 +3293,7 @@ transition: all 5ms ease-in-out 0s;
 			padding: 1rem 2rem;
 			width: 25rem;
 			background:@light-grey;
-			border-radius: .4rem;
+			border-radius: .2rem;
 			float: right;
 			
 			@media @1200{
@@ -3377,7 +3369,7 @@ transition: all 5ms ease-in-out 0s;
 	select{
 		border: none;
 		background-color: @f2light;
-		border-radius: .4rem;
+		border-radius: .2rem;
 		height: @font36;
 	}
 	.actions .tocart{
@@ -3385,7 +3377,7 @@ transition: all 5ms ease-in-out 0s;
 			padding: 1rem 2rem;
 			width: 25rem;
 			background:@light-grey;
-			border-radius: .4rem;
+			border-radius: .2rem;
 			float: right;
 		
 			@media @479{
@@ -3437,7 +3429,7 @@ transition: all 5ms ease-in-out 0s;
 
 				border: none;
 				margin-right: 0;
-				border-radius: .4rem;
+				border-radius: .2rem;
 				cursor: pointer;
 				line-height: 2rem;
 				background: @f2light;
@@ -3448,14 +3440,15 @@ transition: all 5ms ease-in-out 0s;
 			}
 			.input-text{
 				height:3.2rem;
-				border-radius: .4rem;
+				border-radius: .2rem;
 				width: 4.5rem !important;
 				background: @f2light;
 				border: none;
 			}
 		}
 		.g-head{
-			background: @f2light;
+			border-top: .2rem solid @border-color;
+			border-bottom: .2rem solid @border-color;
 		}
 		.g-price{
 			max-width: 18.5rem;
@@ -3534,7 +3527,7 @@ transition: all 5ms ease-in-out 0s;
 
 				@media @767{
 					padding: .9rem 1.5rem;
-					border-radius: .4rem;
+					border-radius: .2rem;
 				}
 			}
 
@@ -3603,7 +3596,7 @@ transition: all 5ms ease-in-out 0s;
 					
 					@media @479{
 						background:@danger;
-						border-radius: .4rem;
+						border-radius: .2rem;
 						line-height: 1.6rem;
 						min-height: 2rem;
 						width: 8rem;
@@ -3732,14 +3725,14 @@ transition: all 5ms ease-in-out 0s;
 		}
 	}
 	.product-info-main .product-reviews-summary{
-		margin-bottom: 1rem;
+		margin-bottom: 1.5rem;
 		
 	}
 	
 	.product-info-price .price-box{
 		
 		max-width: 31rem;
-		padding-bottom: .5rem;
+		padding-bottom: 0;
 		
 		@media @991{
 			padding:0;
@@ -3763,7 +3756,6 @@ transition: all 5ms ease-in-out 0s;
 
 	float: left;
 	width: 100%;
-	margin-bottom: 1rem;
 		
 	.stock{
 		border: none;
@@ -3804,7 +3796,7 @@ transition: all 5ms ease-in-out 0s;
 			
 			border: none;
 			margin-right: 0;
-			border-radius: .4rem;
+			border-radius: .2rem;
 			cursor: pointer;
 			line-height: 2rem;
 			background: @f2light;
@@ -3816,14 +3808,15 @@ transition: all 5ms ease-in-out 0s;
 		}
 		.input-text{
 			height:3.2rem;
-			border-radius: .4rem;
+			border-radius: .2rem;
 			width: 4.5rem !important;
 			background: @f2light;
 			border: none;
 		}
 	}
 	.g-head{
-		background: @f2light;
+		border-top: .2rem solid @border-color;
+		border-bottom: .2rem solid @border-color;
 	}
 	.g-price{
 		max-width: 18.5rem;
@@ -3874,7 +3867,7 @@ transition: all 5ms ease-in-out 0s;
 			
 			@media @767{
 				padding: .9rem 1.5rem;
-				border-radius: .4rem;
+				border-radius: .2rem;
 				width: 100%;
 			}
 		}
@@ -3996,18 +3989,7 @@ transition: all 5ms ease-in-out 0s;
 			}
 		}
 	} 
-	.col.qty{
-		padding: 1rem !important;
-		
-		@media @479{
-			padding: 0 1rem .5rem 1rem !important;
-		}
-		.input-text{
-			@media @479{
-				margin-right: .4rem;
-			}
-		}
-	}
+	
 	.cart-summary{
 		@media @991{
 			width: 100%;
@@ -4028,7 +4010,7 @@ transition: all 5ms ease-in-out 0s;
 			padding: .3rem @font12;
 			background: @white;
 			cursor: pointer;
-			border-radius: .4rem;
+			border-radius: .2rem;
 			
 			@media @767{
 				margin-top: -2.8rem;
@@ -4098,7 +4080,7 @@ transition: all 5ms ease-in-out 0s;
 			}
 		}
 		input[type="text"]{
-			border-radius: .4rem;
+			border-radius: .2rem;
 		}
 		.actions-toolbar{
 			float: left;
@@ -4244,11 +4226,11 @@ transition: all 5ms ease-in-out 0s;
 	.actions-toolbar > .primary .action:last-child, .actions-toolbar > .secondary .action:last-child, .actions-toolbar > .primary{
 			width: 100%;
 		    height: 4rem;
-		    border-radius: .4rem;
+		    border-radius: .2rem;
 		}
 	input[type="text"], input[type="password"], input[type="url"], input[type="tel"], input[type="search"], input[type="number"], input[type="datetime"], input[type="email"]{
 		height: 4rem;
-		border-radius: .4rem;
+		border-radius: .2rem;
 	}
 }
 
@@ -4275,12 +4257,12 @@ transition: all 5ms ease-in-out 0s;
 		}
 		input[type="password"], input[type="email"]{
 			height: 4rem;
-			border-radius: .4rem;
+			border-radius: .2rem;
 			font-family: inherit;
 		}
 		.action.primary{
 			height: 4rem;
-			border-radius: .4rem;
+			border-radius: .2rem;
 		}
 		.block-new-customer {
 			
@@ -4291,7 +4273,7 @@ transition: all 5ms ease-in-out 0s;
 				background: @white;
 				color: @black;
 				height:@font40;
-				border-radius: .4rem;
+				border-radius: .2rem;
 				border-color:@light-black;
 			}
 			.actions-toolbar{
@@ -4311,7 +4293,7 @@ transition: all 5ms ease-in-out 0s;
 	
 	input[type="password"], input[type="text"], input[type="email"]{
 		height: 4rem;
-		border-radius: .4rem;
+		border-radius: .2rem;
 		font-family: inherit;
 	}
 	.fieldset{
@@ -4325,7 +4307,7 @@ transition: all 5ms ease-in-out 0s;
 			background: @white;
 			border:1px solid @light-black;
 			color: @black;
-			border-radius: .4rem;
+			border-radius: .2rem;
 		}
 	}
 	.block-title{
@@ -4335,7 +4317,7 @@ transition: all 5ms ease-in-out 0s;
 	.actions-toolbar .primary{
 		
 		height:@font40;
-		border-radius: .4rem;
+		border-radius: .2rem;
 		width: 100%;
 		margin-bottom: 2rem;
 	}
@@ -4377,14 +4359,14 @@ transition: all 5ms ease-in-out 0s;
 	}
 	input[type="text"], input[type="email"]{
 		height: 4rem;
-		border-radius: .4rem;
+		border-radius: .2rem;
 	}
 	.fieldset{
 		margin-bottom: 3rem;
 	}
 	.actions-toolbar > .primary .action{
 		width: 20rem;
-		border-radius: .4rem;
+		border-radius: .2rem;
 		height: 4rem;
 	}
 	.form-section{
@@ -4417,7 +4399,7 @@ transition: all 5ms ease-in-out 0s;
 	}
 	.top-menu{
 		background: @f9light;
-		border-radius: .4rem;
+		border-radius: .2rem;
 		
 		@media @359{
 			display: none;
@@ -4556,7 +4538,7 @@ transition: all 5ms ease-in-out 0s;
 	.left-menu{
 		background: @f9light;
 		padding: 1rem 0;
-		border-radius: .4rem;
+		border-radius: .2rem;
 		
 		display: none;
 		
@@ -4994,7 +4976,7 @@ transition: all 5ms ease-in-out 0s;
 		padding-top: 1rem;
 	}
 	input[type="text"], input[type="password"], input[type="url"], input[type="tel"], input[type="search"], input[type="number"], input[type="datetime"], input[type="email"]{
-		border-radius: .4rem;
+		border-radius: .2rem;
 	}
 	.fieldset{
 		margin-bottom: 2rem;
@@ -5033,7 +5015,7 @@ transition: all 5ms ease-in-out 0s;
 	select.form-control:not([size]):not([multiple]){
 		font-size: @base;
 		height: 4rem;
-		border-radius: .4rem;
+		border-radius: .2rem;
 		
 	}
 	.form-control{
@@ -5055,7 +5037,7 @@ transition: all 5ms ease-in-out 0s;
 	}
 	input[type="text"], input[type="password"], input[type="url"], input[type="tel"], input[type="search"], input[type="number"], input[type="datetime"], input[type="email"]{
 		height: 4rem;
-		border-radius: .4rem;
+		border-radius: .2rem;
 	}
 	.cv-upload input{
 		border: none;
@@ -5068,7 +5050,7 @@ transition: all 5ms ease-in-out 0s;
 		height: 4rem;
 		border: none;
 		box-shadow: none;
-		border-radius: .4rem;
+		border-radius: .2rem;
 		font-size: @font16;
 		background: @blue;
 		color: @white;
@@ -5398,7 +5380,7 @@ transition: all 5ms ease-in-out 0s;
 	clear: both;
 	background: @f9light;
 	padding: 1rem;
-	border-radius: .4rem;
+	border-radius: .2rem;
 	
 	strong{
 		font-size: 1.5rem;
@@ -5433,7 +5415,7 @@ transition: all 5ms ease-in-out 0s;
 
 .product-instalment{
 	clear: both;
-	margin-bottom: @font10;
+	margin-bottom: 1.5rem;
 	
 	.col-md{
 		padding: 0;
@@ -5600,7 +5582,7 @@ transition: all 5ms ease-in-out 0s;
 	}
 	.opc-wrapper{
 		background: @f9light;
-		border-radius: .4rem;
+		border-radius: .2rem;
 		padding: 1rem 2rem;
 		width: 64%;
 		
@@ -5609,7 +5591,7 @@ transition: all 5ms ease-in-out 0s;
 		}
 		
 		input[type="text"], input[type="password"], input[type="url"], input[type="tel"], input[type="search"], input[type="number"], input[type="datetime"], input[type="email"], select{
-			border-radius: .4rem;
+			border-radius: .2rem;
 			height: 3.5rem;
 		}
 		
@@ -5709,7 +5691,7 @@ transition: all 5ms ease-in-out 0s;
 		}
 		.collectplus-select{
 			background: @white;
-			border-radius: .4rem;
+			border-radius: .2rem;
 			padding: 1rem;
 			.control{
 				display: flex;
@@ -5759,13 +5741,13 @@ transition: all 5ms ease-in-out 0s;
 	.opc-block-shipping-information{
 		background: @f5light;
 		padding: 1 rem 2rem;
-		border-radius: .4rem;
+		border-radius: .2rem;
 	}
 	
 	.authentication-dropdown{
 		background: @f9light;
 		border: none;
-		border-radius: .4rem;
+		border-radius: .2rem;
 		
 		.modal-content{
 			background: @f9light;
@@ -5773,7 +5755,7 @@ transition: all 5ms ease-in-out 0s;
 		}
 		input[type="text"], input[type="password"], input[type="url"], input[type="tel"], input[type="search"], input[type="number"], input[type="datetime"], input[type="email"]{
 			height: 3.5rem;
-			border-radius: .4rem;
+			border-radius: .2rem;
 		}
 		.fieldset{
 			margin-bottom: 2rem;
@@ -5820,7 +5802,7 @@ transition: all 5ms ease-in-out 0s;
 		background: @f2light;
 		color: @black;
 		padding: 0 1.2rem;
-		border-radius: .4rem;
+		border-radius: .2rem;
 		font-size: @base;
 	}
 	.pages .item{

@@ -41,7 +41,7 @@
     //  Summary block
     .cart-summary {
         &:extend(.abs-add-box-sizing all);
-        .lib-css(background, @sidebar__background-color);
+		border: 1px solid #ccc;
         margin-bottom: @indent__m;
         padding: 1px 0 @indent__m;
 
@@ -177,10 +177,9 @@
                 thead {
                     tr th.col {
 
-						background: @f2light;
 						padding: 1rem 1.5rem;
-						border-radius: .4rem;
-						border: none;
+						border-top: 1px solid #ccc;
+						border-bottom: 1px solid #ccc;
                     }
                 }
 
@@ -191,9 +190,8 @@
                 }
 
                 > .item {
-					border-top:1.5rem solid @white;
+					border-bottom:1px solid #ccc;
                     position: static;
-					background:@f9light;
                 }
             }
 
@@ -221,7 +219,7 @@
 						margin-top: 0px;
 						text-align: center;
 						width: 40px;
-						border-radius: 4px;
+						border-radius: .2rem;
                     }
                 }
 
@@ -245,7 +243,7 @@
                 .col.item {
                     display: block;
                     min-height: 15.5rem;
-                    padding:1rem 1.5rem;
+                    padding:2rem 1.5rem 1.5rem 0;
                     position: relative;
                 }
             }
