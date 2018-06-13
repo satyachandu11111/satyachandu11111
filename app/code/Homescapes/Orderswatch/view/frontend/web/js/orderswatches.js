@@ -49,7 +49,7 @@ define([
                }
            ).fail(
                function (response) {
-                   alert(response);
+                   console.log(response);
                }
            );
           
@@ -76,7 +76,7 @@ define([
                }
            ).fail(
                function (response) {
-                   alert(response);
+                   console.log(response);
                }
            );
           
