@@ -45,15 +45,16 @@ $buttonTitle = __('Add to Cart');
                                                                     <?php echo  $percentage = $this->helper('Homescapes\Completelook\Helper\Data')->DisplayDiscount($_product); ?>
 								</span>
 							</div>
-							<a href="javascript:void(0)" onclick="openDescription('description-<?php echo $_product->getId(); ?>')" title="<?php echo __('Description'); ?>">
+							<a class="des-link" href="javascript:void(0)" onclick="openDescription('description-<?php echo $_product->getId(); ?>')" title="<?php echo __('Description'); ?>">
 								
-								<?php echo __('Description'); ?> 
+								<?php echo __('Description'); ?> <i class="fas fa-chevron-right"></i>
 								
 							</a>
 							
 							<?php $reviews = ''; ?>
 							<?php $_items = $block->getReviewsCollection($_product)->getItems();  //foreach ($_items as $rating_review){ echo "<pre>"; print_r(count($rating_review->getRatingVotes())); die('ffff');   exit; } ?>
 							<?php echo $reviews = $block->getReviewsSummaryHtml($_product) ?>
+							<?php // echo $reviews = $block->getCustomReviewsSummaryHtml($_product,false,false,$_items) ?>
 							
 							<div id="description-<?php echo $_product->getId(); ?>" class="sidenav">
 								
@@ -77,7 +78,7 @@ $buttonTitle = __('Add to Cart');
 								    <div class="card" id="one">
 										<div class="card-header " role="tab" id="headingOne">
 
-											<a data-toggle="collapse"   href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                                                    <a data-toggle="collapse"   href="#collapseOne-<?php echo $_product->getId(); ?>" aria-expanded="true" aria-controls="collapseOne-<?php echo $_product->getId(); ?>">
 											  <h5>
 												  <?php echo __('Product Description') ?>
 
@@ -85,7 +86,7 @@ $buttonTitle = __('Add to Cart');
 											 </a> 
 										</div>
 
-										<div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#caccordion">
+										<div id="collapseOne-<?php echo $_product->getId(); ?>" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#caccordion">
 											<div class="card-body">
 											
 												<?php echo $_product->getDescription(); ?>
@@ -99,7 +100,7 @@ $buttonTitle = __('Add to Cart');
 
 									<div class="card" id="two">
 										<div class="card-header " role="tab" id="headingTwo">
-										  <a class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+										  <a class="collapsed" data-toggle="collapse" href="#collapseTwo-<?php echo $_product->getId(); ?>" aria-expanded="false" aria-controls="collapseTwo-<?php echo $_product->getId(); ?>">
 											<h5>
 
 											 <?php echo __('Product Specifications') ?>
@@ -107,7 +108,7 @@ $buttonTitle = __('Add to Cart');
 											</h5>
 										  </a>
 										</div>
-										<div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#caccordion">
+										<div id="collapseTwo-<?php echo $_product->getId(); ?>" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#caccordion">
 											<div class="card-body">
 											
 												<?php echo $this->getLayout()->createBlock("Magento\Framework\View\Element\Template")->setProductAtt($_product)->setTemplate("Homescapes_Completelook::product/view/attribute.phtml")->toHtml();?> 
@@ -122,7 +123,7 @@ $buttonTitle = __('Add to Cart');
 									
 									<div class="card" id="three">
 										<div class="card-header " role="tab" id="headingThree">
-											 <a class="collapsed" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+											 <a class="collapsed" data-toggle="collapse" href="#collapseThree-<?php echo $_product->getId(); ?>" aria-expanded="false" aria-controls="collapseThree-<?php echo $_product->getId(); ?>">
 												<h5>
 
 												  <?php echo __('Rating & Reviews') ?>
@@ -130,7 +131,7 @@ $buttonTitle = __('Add to Cart');
 											  </h5>
 											 </a>
 										</div>
-										<div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#caccordion">
+										<div id="collapseThree-<?php echo $_product->getId(); ?>" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#caccordion">
 											<div class="card-body">
 											
 												<?php echo $this->getLayout()->createBlock("Magento\Framework\View\Element\Template")->setProductRewiews($_items)->setTemplate("Homescapes_Completelook::product/view/reviews.phtml")->toHtml();?>
@@ -143,7 +144,7 @@ $buttonTitle = __('Add to Cart');
 
 									<div class="card" id="four">
 										<div class="card-header " role="tab" id="headingFour">
-											<a data-toggle="collapse" class="collapsed" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">	
+											<a data-toggle="collapse" class="collapsed" href="#collapseFour-<?php echo $_product->getId(); ?>" aria-expanded="false" aria-controls="collapseFour-<?php echo $_product->getId(); ?>">	
 												<h5>
 													
 												  <?php echo __('Delivery') ?>
@@ -151,7 +152,7 @@ $buttonTitle = __('Add to Cart');
 											  </h5>
 											</a>
 										</div>
-										<div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour" data-parent="#caccordion">
+										<div id="collapseFour-<?php echo $_product->getId(); ?>" class="collapse" role="tabpanel" aria-labelledby="headingFour" data-parent="#caccordion">
 										  <div class="card-body">
 											  
 												<?php $staticBlock = $_product->getAttributeText('delivery_block') ? $_product->getAttributeText('delivery_block') : 'delivery'; ?>
@@ -167,7 +168,7 @@ $buttonTitle = __('Add to Cart');
 
 									<div class="card" id="five">
 										<div class="card-header " role="tab" id="headingfive">
-										  <a class="collapsed" data-toggle="collapse" href="#collapsefive" aria-expanded="false" aria-controls="collapsefive">
+										  <a class="collapsed" data-toggle="collapse" href="#collapsefive-<?php echo $_product->getId(); ?>" aria-expanded="false" aria-controls="collapsefive-<?php echo $_product->getId(); ?>">
 											<h5>
 
 											 <?php echo __('Returns') ?>
@@ -175,7 +176,7 @@ $buttonTitle = __('Add to Cart');
 											</h5>
 										  </a>
 										</div>
-										<div id="collapsefive" class="collapse" role="tabpanel" aria-labelledby="headingfive" data-parent="#caccordion">
+										<div id="collapsefive-<?php echo $_product->getId(); ?>" class="collapse" role="tabpanel" aria-labelledby="headingfive" data-parent="#caccordion">
 										  <div class="card-body">
 											  
 												<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('returns')->toHtml(); ?>
@@ -499,15 +500,35 @@ $buttonTitle = __('Add to Cart');
                 </script>
                 </form>
             <script>
+				var x = window.matchMedia("(max-width: 479px)")
+				
+				var y = window.matchMedia("(max-width: 767px)")
+				
+				
+				
 				function openDescription(element) {
-							console.log(element);
-					document.getElementById(element).style.width = "650px";
+					
+					jQuery(".sidenav").each(function( index ) {  
+						jQuery(this).width(0);
+					});
+					
+					
+					 if (x.matches) { // If media query matches to 479
+						document.getElementById(element).style.width = "350px";
+					} 
+					else if (y.matches) { // If media query matches t0 767
+						document.getElementById(element).style.width = "500px";
+					}
+					else {
+						document.getElementById(element).style.width = "650px";
+					}
 				}
 
 				function closeDescription(element) {
-							console.log(element);
+							//console.log(element);
 					document.getElementById(element).style.width = "0";
 				}
+				
 			</script>
             
         <?php } ?>

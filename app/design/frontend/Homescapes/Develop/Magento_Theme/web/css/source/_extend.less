@@ -276,6 +276,28 @@ h6, .h6 {
 	}
 
 }
+.modal-custom .action-close, .modal-popup .action-close, .modal-slide .action-close{
+	z-index: 99;
+	margin: 1.9rem;
+}
+
+.checkout-index-index .minicart-wrapper .action.showcart::after {
+    -webkit-font-smoothing: antialiased;
+    font-size:@base;
+    line-height:@font20;
+    color:@black;
+    content: "items in basket";
+    margin: 0;
+    vertical-align: top;
+    display: inline-block;
+    font-weight: normal;
+    overflow: hidden;
+    speak: none;
+    text-align: center;
+}
+.customer-welcome .customer-menu .fas{
+	display: none;
+}
 
 .page-header .fa-phone{
 	transform: rotate(91deg);
@@ -2813,6 +2835,12 @@ transition: all 5ms ease-in-out 0s;
 		border-radius: .4rem;
 		height: @font40;
 	}
+}
+
+.catalog-category-view .product-item-name {
+    border-bottom: 1px solid #e3e3e3;
+    min-height: 7rem;
+    padding-bottom: 1rem;
 }
 /*----------------------
 |  Product swatch
@@ -5611,6 +5639,10 @@ transition: all 5ms ease-in-out 0s;
 		.form-login .fieldset > .field{
 			width: 70%;
 			float: none;
+			
+			@media @991{
+				width: 100%;
+			}
 		}
 		
 		.fieldset > .street .control .field label{
@@ -5706,9 +5738,13 @@ transition: all 5ms ease-in-out 0s;
 	
 	.opc-sidebar{
 		margin-top: 0;
+		z-index: 999;
 		
 		@media @991{
 			width: 100%;
+		}
+		@media @767{
+			width: auto;
 		}
 		
 		.modal-header{
@@ -5725,10 +5761,51 @@ transition: all 5ms ease-in-out 0s;
 		padding: 1 rem 2rem;
 		border-radius: .4rem;
 	}
+	
+	.authentication-dropdown{
+		background: @f9light;
+		border: none;
+		border-radius: .4rem;
+		
+		.modal-content{
+			background: @f9light;
+			
+		}
+		input[type="text"], input[type="password"], input[type="url"], input[type="tel"], input[type="search"], input[type="number"], input[type="datetime"], input[type="email"]{
+			height: 3.5rem;
+			border-radius: .4rem;
+		}
+		.fieldset{
+			margin-bottom: 2rem;
+		}
+		.fieldset > .field{
+			margin-bottom: 1rem;
+		}
+		.actions-toolbar .primary, .actions-toolbar .primary .action {
+			width: 100%;
+		}
+		.actions-toolbar .primary .action {
+			height: 4rem;
+			line-height: 1rem;
+		}
+		.secondary a{
+			color: @danger;
+		}
+	}
+	.opc-estimated-wrapper {
+
+		background: @f5light;
+		border-bottom: 0;
+		border-top: 0;
+		margin: 0 0 1.5rem 0;
+		padding: 1.8rem 1.5rem;
+
+	}
+	.authentication-dropdown .modal-inner-wrap .modal-content{
+		border: 0;
+	}
 }
-.authentication-dropdown .modal-inner-wrap .modal-content{
-	border: 0;
-}
+
 /*------------------------------------------ --------------------------------
 |  listing-toolbar
 --------------------------------------------------------------------------*/
