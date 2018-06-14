@@ -3436,6 +3436,7 @@ p {
 .page-product-grouped .table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) tbody > tr > td:last-child {
   padding-top: 1rem;
   padding-bottom: 1rem;
+  vertical-align: middle;
 }
 @media only screen and (max-width:1200px) {
   .page-product-grouped .table.grouped .col.item {
@@ -5247,9 +5248,6 @@ p {
   border: 0;
 }
 .checkout-index-index .opc-wrapper {
-  background: #F9F9F9;
-  border-radius: .2rem;
-  padding: 1rem 2rem;
   width: 64%;
 }
 @media only screen and (max-width:991px) {
@@ -5271,6 +5269,7 @@ p {
 }
 .checkout-index-index .opc-wrapper .shipping-address-item.selected-item {
   border-color: #025CBD;
+  margin-top: 1rem;
 }
 .checkout-index-index .opc-wrapper .shipping-address-item.selected-item::after {
   background: #025CBD;
@@ -5406,9 +5405,8 @@ p {
   border: 0;
 }
 .checkout-index-index .opc-block-shipping-information {
-  background: #F5F5F5;
-  padding: 1 rem 2rem;
-  border-radius: .2rem;
+  padding: 1rem 2rem;
+  border: 1px solid #CCCCCC;
 }
 .checkout-index-index .authentication-dropdown {
   background: #F9F9F9;

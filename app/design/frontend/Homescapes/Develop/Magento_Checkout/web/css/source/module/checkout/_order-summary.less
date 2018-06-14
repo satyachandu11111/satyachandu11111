@@ -27,16 +27,14 @@
     //  ---------------------------------------------
 
     .opc-block-summary {
-        .lib-css(background, @checkout-summary__background-color);
+		border: 1px solid #ccc;
         .lib-css(margin, 0 0 @checkout-sidebar__margin);
 		padding: 1rem 2rem;
-		border-radius: .4rem;
         &:extend(.abs-add-box-sizing all);
 
         > .title {
             &:extend(.abs-checkout-title all);
             display: block;
-			border-bottom: 1px solid #ccc;
         }
 
         //  Totals table

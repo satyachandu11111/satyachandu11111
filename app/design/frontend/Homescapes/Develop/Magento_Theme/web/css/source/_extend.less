@@ -3686,6 +3686,7 @@ transition: all 5ms ease-in-out 0s;
 	.table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) tbody > tr > td:last-child{
 		padding-top: 1rem;
 		padding-bottom: 1rem;
+		vertical-align: middle;
 	}
 	.table.grouped{
 
@@ -5581,9 +5582,6 @@ transition: all 5ms ease-in-out 0s;
 		border: 0;
 	}
 	.opc-wrapper{
-		background: @f9light;
-		border-radius: .2rem;
-		padding: 1rem 2rem;
 		width: 64%;
 		
 		@media @991{
@@ -5597,6 +5595,7 @@ transition: all 5ms ease-in-out 0s;
 		
 		.shipping-address-item.selected-item {
 			border-color: @blue;
+			margin-top: 1rem;
 		}
 		.shipping-address-item.selected-item::after{
 			background: @blue;
@@ -5698,7 +5697,7 @@ transition: all 5ms ease-in-out 0s;
 				
 				input[type="checkbox"]{
 					margin-right: 1rem;
-					height:4rem;
+					height:4rem
 				}
 				label{
 					margin-bottom: 0;
@@ -5739,9 +5738,8 @@ transition: all 5ms ease-in-out 0s;
 	}
 	
 	.opc-block-shipping-information{
-		background: @f5light;
-		padding: 1 rem 2rem;
-		border-radius: .2rem;
+		padding: 1rem 2rem;
+		border: 1px solid @border-color;
 	}
 	
 	.authentication-dropdown{
