@@ -2390,6 +2390,14 @@ p {
   padding: 0;
   border: none;
 }
+.product-add-form .preoder {
+  float: left;
+  clear: both;
+  width: 100%;
+  color: #0B8643;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
 .catalog-product-view h1 {
   font-size: 2.4rem;
 }
