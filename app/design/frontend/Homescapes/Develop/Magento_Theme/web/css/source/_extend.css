@@ -25,7 +25,7 @@ input:not([disabled]):focus {
   box-shadow: none;
 }
 body {
-  color: #000;
+  color: #333;
 }
 button:hover {
   border: 0;
@@ -101,7 +101,7 @@ ol > li {
 --------------------------------------------------------------------------*/
 h1,
 .h1 {
-  font-size: 3rem;
+  font-size: 2.4rem;
   margin-bottom: 2rem;
 }
 @media only screen and (max-width:767px) {
@@ -150,7 +150,7 @@ h6,
   opacity: 1;
 }
 .minicart-wrapper .action.showcart .fas {
-  color: #000;
+  color: #333;
   line-height: .9rem;
   vertical-align: top;
   margin-top: .5rem;
@@ -164,7 +164,7 @@ h6,
   vertical-align: top;
   margin-left: .2rem;
   line-height: 2.1rem;
-  color: #000;
+  color: #333;
 }
 @media only screen and (max-width:479px) {
   .minicart-wrapper .basket-lable {
@@ -175,13 +175,12 @@ h6,
 .modal-popup .action-close,
 .modal-slide .action-close {
   z-index: 99;
-  margin: 1.9rem;
 }
 .checkout-index-index .minicart-wrapper .action.showcart::after {
   -webkit-font-smoothing: antialiased;
   font-size: 1.4rem;
   line-height: 2rem;
-  color: #000;
+  color: #333;
   content: "items in basket";
   margin: 0;
   vertical-align: top;
@@ -336,13 +335,13 @@ h6,
   display: inline-block;
 }
 .page-header .block-search .custom-links ul li a {
-  color: #000;
+  color: #333;
   text-decoration: none;
   padding: 1.2rem 1rem;
 }
 .page-header .block-search .custom-links ul li a:hover {
   background: #F2F2F2;
-  color: #000;
+  color: #333;
 }
 .page-header .block-search .user-account {
   display: inline-block;
@@ -356,7 +355,7 @@ h6,
   cursor: pointer;
 }
 .page-header .block-search .user-account a {
-  color: #000;
+  color: #333;
   text-decoration: none;
 }
 @media only screen and (max-width:767px) {
@@ -388,7 +387,7 @@ h6,
     clip: unset;
     height: auto;
     width: auto;
-    color: #000;
+    color: #333;
     position: relative;
     margin: 0;
   }
@@ -406,7 +405,7 @@ h6,
 @media only screen and (max-width:767px) {
   .page-header .block-search .label::before {
     font-size: 1.6rem;
-    color: #000;
+    color: #333;
     line-height: 2rem;
     margin-right: 2px;
   }
@@ -493,7 +492,7 @@ video {
 .wsmenu-list > li {
   text-align: center;
   display: table-cell;
-  border-bottom: 2px solid #000;
+  border-bottom: 2px solid #333;
 }
 @media only screen and (max-width:991px) {
   .wsmenu-list > li {
@@ -536,7 +535,7 @@ video {
 }
 .wsmenu-list > li > a {
   display: block;
-  color: #000;
+  color: #333;
   font-weight: 600;
   padding: 0px 14px;
   line-height: 35px;
@@ -567,7 +566,7 @@ video {
   left: 0px;
   position: absolute;
   top: 37px;
-  color: #000;
+  color: #333;
   z-index: 1000;
   margin: 0px;
   text-align: left;
@@ -590,7 +589,7 @@ video {
   font-size: 14px;
   padding: 9px 5px 9px 0px;
   font-size: 1.5rem;
-  color: #000;
+  color: #333;
   font-weight: bold;
   margin: 0px 0px 7px 0px;
   text-align: left;
@@ -601,7 +600,7 @@ video {
   border-bottom: 1px solid #ccc;
   font-size: 1.5rem;
   line-height: 17px;
-  color: #000;
+  color: #333;
   text-align: left;
   margin: 0px 0px 9px 0px;
 }
@@ -632,7 +631,7 @@ video {
   padding: 6px 0px;
   background: #ffffff;
   display: block;
-  color: #000;
+  color: #333;
 }
 .link-list li a.full-image {
   background: #0B8643;
@@ -991,14 +990,14 @@ video {
   }
   .wsmenu-submenu > li:hover > a {
     background-color: #626166;
-    color: #000;
+    color: #333;
   }
   .wsmenu > .wsmenu-list > li > a.active {
-    color: #000;
+    color: #333;
     background-color: rgba(0, 0, 0, 0.08);
   }
   .wsmenu > .wsmenu-list > li > a:hover {
-    color: #000;
+    color: #333;
     background-color: rgba(0, 0, 0, 0.08);
   }
   .wsmenu-list li:last-child a {
@@ -1038,7 +1037,7 @@ video {
     margin-right: 8px;
     background-size: 25px;
     font-size: 2rem;
-    color: #000;
+    color: #333;
     float: right;
   }
   .wsmenu-click02 {
@@ -1097,7 +1096,7 @@ video {
     text-align: left;
     border-right: solid 0px;
     background-color: transparent;
-    color: #000;
+    color: #333;
     line-height: 25px;
     border-bottom: 1px solid;
     border-bottom-color: rgba(0, 0, 0, 0.13);
@@ -1155,7 +1154,7 @@ video {
     color: #626166;
   }
   .megamenu > ul > li > a:hover {
-    background-color: #000 !important;
+    background-color: #333 !important;
   }
   .megamenu ul li.title {
     line-height: 26px;
@@ -1221,7 +1220,7 @@ video {
     cursor: pointer;
     height: 3px;
     width: 35px;
-    background: #000;
+    background: #333;
     position: absolute;
     display: block;
     content: '';
@@ -1300,7 +1299,7 @@ video {
 |  extra-mobile-menu
 --------------------------------*/
 .extra-mobile-menu {
-  color: #000;
+  color: #333;
   border-top: 15px solid #F2F2F2;
   padding: 1rem 1.5rem;
   line-height: 2.4rem;
@@ -1320,7 +1319,7 @@ video {
 }
 .extra-mobile-menu .menu-links li a {
   padding: 1rem;
-  color: #000;
+  color: #333;
 }
 .extra-mobile-menu li:hover > a {
   background: none !important;
@@ -1451,7 +1450,7 @@ video {
 }
 .bedding .home-heading-title,
 .cms-page-heading .home-heading-title {
-  border-bottom: 0px solid #000;
+  border-bottom: 0px solid #333;
   width: 60%;
   margin: 8px auto 35px auto;
 }
@@ -1724,7 +1723,7 @@ video {
   }
 }
 .footer .card .card-header a {
-  color: #000;
+  color: #333;
 }
 @media only screen and (min-width:768px) {
   .footer .card .card-header a {
@@ -1740,7 +1739,7 @@ video {
   padding: 3px 10px;
 }
 .footer .card .card-body ul li a {
-  color: #000;
+  color: #333;
 }
 .footer address {
   line-height: 2.2rem;
@@ -1921,7 +1920,7 @@ video {
   width: 100%;
   font-weight: bold;
   font-size: 1.6rem;
-  color: #000;
+  color: #333;
   line-height: 3rem;
 }
 #ProductCarousel .carousel-control-prev,
@@ -1938,7 +1937,7 @@ video {
   border: 1px solid #CCCCCC;
   background: #ffffff;
   opacity: 1;
-  color: #000;
+  color: #333;
 }
 #ProductCarousel img,
 #ShopbyColor img {
@@ -2117,7 +2116,7 @@ video {
   }
 }
 .category-details .details a {
-  color: #000;
+  color: #333;
 }
 .category-details .icon {
   width: auto;
@@ -2136,7 +2135,7 @@ video {
   margin-bottom: 1rem;
 }
 .select-by-range .product a {
-  color: #000;
+  color: #333;
 }
 .select-by-range label {
   width: 100%;
@@ -2187,6 +2186,9 @@ video {
 /*---------------------------
 |  Product Delivery & offers Block
 ------------------------------*/
+.deliver-options {
+  clear: both;
+}
 .product-delivery {
   background: #F9F9F9;
   padding: 1.5rem;
@@ -2247,7 +2249,7 @@ video {
   margin-bottom: 1rem;
 }
 .product-sizing a {
-  color: #000;
+  color: #333;
   line-height: 4rem;
   margin-right: 3rem;
   font-weight: bold;
@@ -2288,25 +2290,25 @@ video {
   z-index: 9999;
   top: 0;
   right: 0;
-  background-color: #F9F9F9;
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 35px;
   box-shadow: 0px 0px 8px 4px #ddd;
+  background: #ffffff;
 }
 .sidenav a {
   padding: 8px 8px 8px 32px;
   text-decoration: none;
   font-size: 25px;
-  color: #000;
+  color: #333;
   display: block;
   transition: 0.3s;
 }
 p {
-  color: #000;
+  color: #333;
 }
 .sidenav a:hover {
-  color: #000;
+  color: #333;
 }
 .sidenav .closebtn {
   position: absolute;
@@ -2354,10 +2356,10 @@ p {
   float: left;
 }
 .catalog-product-view .section-title {
-  border-bottom: 0px solid #000;
+  border-bottom: 0px solid #333;
   width: 60%;
   margin: 0px auto 30px auto;
-  font-size: 2rem;
+  font-size: 2.2rem;
 }
 @media only screen and (max-width:991px) {
   .catalog-product-view .section-title {
@@ -2389,7 +2391,7 @@ p {
   border: none;
 }
 .catalog-product-view h1 {
-  font-size: 2.6rem;
+  font-size: 2.4rem;
 }
 @media only screen and (max-width:991px) {
   .catalog-product-view h1 {
@@ -2530,7 +2532,7 @@ p {
   }
 }
 .catalog-product-view .product-addto-links .action {
-  color: #000;
+  color: #333;
   text-decoration: none;
 }
 @media only screen and (max-width:991px) {
@@ -2607,6 +2609,7 @@ p {
 .product-info-main ul {
   display: flex;
   flex-flow: row wrap;
+  margin-top: .5rem;
 }
 .product-info-main ul li:first-child {
   border: 2px solid #626166;
@@ -2664,7 +2667,7 @@ p {
   }
 }
 .product-info-main .reviews-actions .add {
-  color: #000;
+  color: #333;
   font-weight: bold;
 }
 .product-info-main .reviews-actions .add:before {
@@ -2730,7 +2733,7 @@ p {
   padding: 2rem 0;
 }
 .product.info.detailed .item.title > .switch {
-  color: #000;
+  color: #333;
   font-size: 1.6rem;
   margin-right: 5px;
   border-top: 2px solid #F9F9F9;
@@ -2749,7 +2752,7 @@ p {
 .product.info.detailed .item.title.active > .switch,
 .product.info.detailed .item.title.active > .switch:hover {
   background: #F2F2F2;
-  color: #000;
+  color: #333;
   font-size: 1.6rem;
   border-top: 2px solid #8A8A8A;
   border-left: 2px solid #8A8A8A;
@@ -2831,7 +2834,7 @@ p {
 }
 .complete-look .conf-products a {
   font-weight: normal;
-  color: #000;
+  color: #333;
 }
 .complete-look .conf-products a .fas {
   font-size: 1.2rem;
@@ -3499,7 +3502,7 @@ p {
   }
 }
 .page-product-grouped .product-info-price .price-box .group-prod-price {
-  font-size: 3.6rem;
+  font-size: 3.2rem;
 }
 @media only screen and (max-width:991px) {
   .page-product-grouped .product-info-price .price-box .group-prod-price {
@@ -3784,7 +3787,7 @@ p {
 .cart-container .form-cart .action-towishlist {
   position: absolute;
   left: 5.5rem;
-  color: #000;
+  color: #333;
   line-height: 2.6rem;
 }
 .cart-container .form-cart .action-delete {
@@ -3811,7 +3814,7 @@ p {
 }
 .cart-container .cart-discount .block .title strong {
   margin: 0;
-  color: #000;
+  color: #333;
 }
 .cart-container .cart-discount .block .title {
   padding: 0;
@@ -3859,7 +3862,7 @@ p {
   width: 100%;
 }
 .cmspage a {
-  color: #000;
+  color: #333;
 }
 .cmspage .card {
   border: none;
@@ -3876,13 +3879,17 @@ p {
 }
 .cmspage h5 {
   margin: 0;
-  line-height: 5rem;
+  line-height: 6rem;
 }
 .cmspage .card-header {
-  border: none;
   padding: 0rem 1.2rem;
-  margin: .3rem 0;
-  line-height: 5rem;
+  margin: 0 0 -1px 0;
+  line-height: 6rem;
+  font-size: 2rem;
+  color: #333;
+  background: #ffffff;
+  border-bottom: 1px solid #eeeeee;
+  border-top: 1px solid #eeeeee;
 }
 .cmspage .card-header > a:before {
   float: right !important;
@@ -3924,12 +3931,14 @@ p {
   border-bottom: none;
 }
 .product.info.detailed .card-header {
-  border: none;
   padding: 0rem 1.2rem;
-  margin: .3rem 0;
-  line-height: 5rem;
-  font-size: 1.8rem;
-  color: #000;
+  margin: 0 0 -1px 0;
+  line-height: 6rem;
+  font-size: 2rem;
+  color: #333;
+  background: #ffffff;
+  border-bottom: 1px solid #eeeeee;
+  border-top: 1px solid #eeeeee;
 }
 .product.info.detailed a {
   font-weight: normal;
@@ -4007,7 +4016,7 @@ p {
 }
 .customer-account-login .login-container .block-new-customer .actions-toolbar .primary {
   background: #ffffff;
-  color: #000;
+  color: #333;
   height: 4rem;
   border-radius: .2rem;
   border-color: #626166;
@@ -4037,7 +4046,7 @@ p {
 .form.create.account .secondary .action {
   background: #ffffff;
   border: 1px solid #626166;
-  color: #000;
+  color: #333;
   border-radius: .2rem;
 }
 .form.create.account .block-title {
@@ -4137,7 +4146,7 @@ p {
   margin: auto;
 }
 .cms-pages .top-menu ul a {
-  color: #000;
+  color: #333;
   padding: 1rem 2rem;
   display: block;
   margin: 0 .5rem;
@@ -4262,7 +4271,7 @@ p {
   border-bottom: none;
 }
 .cms-pages .left-menu ul li a {
-  color: #000;
+  color: #333;
   padding: .7rem 1.5rem;
   display: block;
 }
@@ -4357,7 +4366,7 @@ p {
 .cms-pages .guide-content .button {
   background: #ffffff;
   border: 1px solid #626166;
-  color: #000;
+  color: #333;
   padding: .8rem 2rem;
   font-size: 1.6rem;
   margin: 1rem auto;
@@ -4494,7 +4503,7 @@ p {
   width: 100%;
 }
 .open-cmspage a {
-  color: #000;
+  color: #333;
 }
 @media only screen and (min-width:768px) {
   .open-cmspage a {
@@ -4602,7 +4611,7 @@ p {
   border-radius: .4rem;
   text-align: left;
   background: #CCCCCC;
-  color: #000;
+  color: #333;
   opacity: .8;
   font-size: 1.4rem;
 }
@@ -4611,10 +4620,10 @@ p {
 }
 .message.global.cookie .close-overlay {
   float: right;
-  color: #000;
+  color: #333;
   font-size: 2rem;
   line-height: 9px;
-  border: 1px solid #000;
+  border: 1px solid #333;
   border-radius: 2rem;
   padding: .4rem .6rem .8rem .6rem;
 }
@@ -5071,10 +5080,13 @@ p {
   background: #F9F9F9;
   padding: 1rem;
   border-radius: .2rem;
+  margin-top: 2rem;
+  width: 100%;
+  float: left;
 }
 .order-free-sambox strong {
   font-size: 1.5rem;
-  color: #000;
+  color: #333;
   line-height: 26px;
   font-weight: bold;
   text-decoration: none;
@@ -5099,6 +5111,9 @@ p {
 }
 .order-free-sambox strong.order-swatch.added:hover {
   color: #025CBD;
+}
+.fotorama__nav--thumbs {
+  text-align: center;
 }
 .product-instalment {
   clear: both;
@@ -5126,7 +5141,7 @@ p {
   padding: 0 1rem;
 }
 .product-name-price a {
-  color: #000;
+  color: #333;
 }
 .product-name-price .card {
   border: none;
@@ -5196,27 +5211,29 @@ p {
   border-bottom: 0;
 }
 .product-name-price h2 {
-  text-align: center;
-  margin: 2rem 0 1.6rem 0;
+  margin: 2rem 0 1.6rem 2.5rem;
   font-size: 2.2rem;
 }
 .product-name-price h5 {
   margin: 0;
   line-height: 4rem;
-  font-size: 1.8rem;
+  font-size: 2rem;
 }
 .product-name-price .card-header {
-  border: none;
   padding: 0rem 1.2rem;
-  margin: 0;
+  margin: 0 0 -1px 0;
   line-height: 4rem;
-  border-bottom: 0.4rem solid #ffffff;
+  font-size: 2rem;
+  color: #333;
+  background: #ffffff;
+  border-bottom: 1px solid #eeeeee;
+  border-top: 1px solid #eeeeee;
 }
 .product-name-price .card-header a {
   padding: .5rem;
 }
-.product-name-price #five .card-header {
-  border-bottom: 0;
+.product-name-price .table > tbody > tr > td {
+  border-top: 0;
 }
 .product-name-price .card-header > a:before {
   float: right !important;
@@ -5290,6 +5307,12 @@ p {
     width: 100%;
     margin-right: 0;
   }
+}
+.checkout-index-index .opc-wrapper .fieldset > .field .additional:last-child {
+  display: none;
+}
+.checkout-index-index .opc-wrapper .modal-inner-wrap .additional:last-child {
+  display: none;
 }
 @media only screen and (max-width:767px) {
   .checkout-index-index .opc-wrapper .table-checkout-shipping-method tbody td {
@@ -5471,7 +5494,7 @@ p {
 }
 .toolbar-pager .pages strong.page {
   background: #F2F2F2;
-  color: #000;
+  color: #333;
   padding: 0 1.2rem;
   border-radius: .2rem;
   font-size: 1.4rem;
@@ -5496,7 +5519,7 @@ p {
   background-color: #ffffff;
   background-size: auto auto;
   background-size: 30px 60px;
-  border: 0px solid #ccc;
+  border: 1px solid #ccc;
   height: 32px;
   padding-right: 25px;
   text-indent: .01em;

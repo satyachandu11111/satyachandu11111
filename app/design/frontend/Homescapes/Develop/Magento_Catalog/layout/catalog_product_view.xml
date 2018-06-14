@@ -26,8 +26,8 @@
 		 </container>
 		</referenceContainer>
 
-		<referenceContainer name="product.info.main">		<!-- delivery block -->
-		  <block class="Magento\Catalog\Block\Product\View" name="product.delivery" template="Magento_Catalog::product_delivery.phtml" after="-"/>
+		<referenceContainer name="content">		<!-- delivery block -->
+		  <block class="Magento\Catalog\Block\Product\View" name="product.delivery" template="Magento_Catalog::product_delivery.phtml" before="product.info.details"/>
 		</referenceContainer>
 		
 		<referenceContainer name="product.info.main">		<!-- offers block -->
