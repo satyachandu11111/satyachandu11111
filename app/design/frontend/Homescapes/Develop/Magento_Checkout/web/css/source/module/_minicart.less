@@ -11,7 +11,22 @@
 @minicart__padding-horizontal: @indent__base;
 
 @minicart-qty__height: 24px;
+@black:#000;
+@light-black:#626166;
+@white:#ffffff;
+@yellow:#f5ba00;
 
+@light-grey:#707070;
+@f2light:#F2F2F2;
+@f5light:#F5F5F5;
+@f9light:#F9F9F9;
+@flight:#eeeeee;
+
+@green:#0B8643;
+
+@border-color:#CCCCCC;
+
+@blue:#025CBD;
 //
 //  Common
 //  _____________________________________________
@@ -71,10 +86,22 @@
 
         .block-content {
             > .actions {
-                margin-top: 15px;
+                margin-top: 2rem;
 
                 > .secondary {
                     text-align: center;
+					float: left;
+					width: 100%;
+					
+					a{
+						display: block;
+						width: 100%;
+						background: @blue;
+						color: @white;
+						padding: 1rem 2rem;
+						font-weight: 600;
+						border-radius: .2rem;
+					}
                 }
 
                 > .primary {
@@ -227,6 +254,7 @@
         overflow-x: auto;
         padding: 15px;
 		max-height: 40rem;
+		background: @white;
     }
 
     .minicart-items {
@@ -420,6 +448,7 @@
         .block-minicart {
             right: -15px;
             width: 390px;
+			background: @f5light;
         }
     }
     .minilist .action.delete,

@@ -3438,6 +3438,11 @@ p {
   padding-bottom: 1rem;
   vertical-align: middle;
 }
+@media only screen and (max-width:479px) {
+  .page-product-grouped .table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) tbody > tr > td:last-child {
+    padding-top: 1.4rem;
+  }
+}
 @media only screen and (max-width:1200px) {
   .page-product-grouped .table.grouped .col.item {
     width: 22%;
