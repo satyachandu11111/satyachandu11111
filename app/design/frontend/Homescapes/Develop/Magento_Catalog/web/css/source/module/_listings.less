@@ -21,7 +21,7 @@
 @product-item__hover__box-shadow: 3px 3px 4px 0 rgba(0, 0, 0, .3);
 
 @product-price__muted__color: @color-gray40;
-
+@black:#333;
 //
 //  Common
 //  _____________________________________________
@@ -51,13 +51,16 @@
             &:extend(.abs-add-box-sizing all);
 
             &-name {
-				
-				color: #444;
-				font-weight: 600;
        
                 display: block;
                 margin: @indent__xs 0;
                 word-wrap: break-word;
+				
+				a{
+					color:@black;
+					font-weight: 600 !important;
+					text-decoration: none;
+				}
             }
 
             &-info {
