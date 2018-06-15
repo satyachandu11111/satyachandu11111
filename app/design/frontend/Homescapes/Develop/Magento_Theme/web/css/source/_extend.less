@@ -204,6 +204,10 @@ ul > li, ol > li{
 }
 /*--------------------------------------------------------------------------
 |  heading  CSS
+
+
+
+
 --------------------------------------------------------------------------*/
 
 h1, .h1 {
@@ -598,7 +602,7 @@ h6, .h6 {
 .wsmenu {
   color:@white;
   position: relative;
-  font-size:1.5rem;
+  font-size:@font16;;
   padding: 0px;
   margin: 0px auto;
   width: 100%;
@@ -2007,6 +2011,7 @@ transition: all 5ms ease-in-out 0s;
 	}
 	.fa-pinterest-square:hover{
 		color: @pinterest;
+
 	}
 	.fa-blogger:hover{
 		color: @blog;
@@ -2486,7 +2491,7 @@ transition: all 5ms ease-in-out 0s;
 	}
 	.info{
 		margin:1rem 0 0 2.9rem ;
-		font-size: 1.3rem;
+		font-size: 1.4rem;
 		
 	}
 	
@@ -2667,6 +2672,7 @@ transition: all 5ms ease-in-out 0s;
 	color: @green;
 	font-weight: bold;
 	margin-bottom: 1.5rem;
+	font-size: @font16;
 }
 .catalog-product-view{
 	
@@ -2843,6 +2849,13 @@ transition: all 5ms ease-in-out 0s;
     border-bottom: 1px solid #e3e3e3;
     min-height: 7rem;
     padding-bottom: 1rem;
+}
+
+.page-product-configurable .product-info-main .product-info-price .price-box{
+	
+	.normal-price .price-label{
+		display: none;
+	}
 }
 /*----------------------
 |  Product swatch
@@ -3750,7 +3763,6 @@ transition: all 5ms ease-in-out 0s;
 	.product-info-price .price-box{
 		
 		max-width: 31rem;
-		padding-bottom: 0;
 		
 		@media @991{
 			padding:0;
@@ -4024,6 +4036,7 @@ transition: all 5ms ease-in-out 0s;
 		}
 		
 		.decreaseQty, .increaseQty{
+
 			border: 1px solid @border-color;
 			padding: .3rem @font12;
 			background: @white;
@@ -4492,6 +4505,7 @@ transition: all 5ms ease-in-out 0s;
 		
 		h4 + span{
 			font-weight: bold;
+
 		}
 		ul ~ strong{
 			font-size: @font16;
@@ -4554,6 +4568,20 @@ transition: all 5ms ease-in-out 0s;
 		@media @767{
 			margin-right: .5rem;
 		}
+	}
+	
+	.del-icons{
+		display: inline-block;
+		height: 65px;
+		overflow: hidden;
+		position: absolute;
+		text-indent: -9999px;
+		vertical-align: middle;
+		white-space: nowrap;
+		width: 65px;
+	}
+	.free-d{
+		background-position: 0px 0;
 	}
 	
 	/*----------------------
@@ -4988,6 +5016,7 @@ transition: all 5ms ease-in-out 0s;
 	.modal-footer{
 		display: none;
 	}
+
 	.review-field-rating .control{
 		margin: 0;
 	}
@@ -5389,6 +5418,7 @@ transition: all 5ms ease-in-out 0s;
 	text-align: center;
 	border-top: 1px solid @border-color;
 	
+
 	.order-swatch-vertical {
         background:@blue;
 		border: 1px solid @blue;
@@ -5830,6 +5860,7 @@ transition: all 5ms ease-in-out 0s;
 	width: 100%;
 	float: left;
 	margin-bottom: 2rem;
+
 	text-align: center;
 	display: none;
 	
@@ -5871,4 +5902,14 @@ transition: all 5ms ease-in-out 0s;
 	}
 .fotorama__stage .fotorama__caption{
 	display: none;
+}
+
+/*--------------------------------------------------------------------------
+|  Global icon set
+--------------------------------------------------------------------------*/
+.del-icons{
+	background-image: url(../images/delivery-icons.png);
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	background-size: 155px 1024px;
 }

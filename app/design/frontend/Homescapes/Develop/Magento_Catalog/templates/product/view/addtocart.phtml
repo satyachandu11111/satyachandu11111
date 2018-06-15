@@ -12,7 +12,7 @@
 <?php $buttonTitle = __('Add to Cart'); ?>
 <?php if ($_product->isSaleable()): ?>
 <?php if($this->helper('Homescapes\Preorder\Helper\Data')->isPreOrder($_product)){  ?>
-<span class="preoder"><?php echo $_product->getPreOrderNote(); ?></span>
+<span class="preoder"><i class="fas fa-truck"></i> <?php echo $_product->getPreOrderNote(); ?></span>
 <?php } ?>
 <div class="box-tocart">
     <div class="fieldset">

@@ -4261,6 +4261,19 @@ p {
     margin-right: .5rem;
   }
 }
+.cms-pages .del-icons {
+  display: inline-block;
+  height: 52px;
+  overflow: hidden;
+  position: relative;
+  text-indent: -9999px;
+  vertical-align: middle;
+  white-space: nowrap;
+  width: 52px;
+}
+.cms-pages .free-d {
+  background-position: 0px 0;
+}
 .cms-pages .left-menu {
   background: #F9F9F9;
   padding: 1rem 0;
@@ -5535,4 +5548,13 @@ p {
 }
 .fotorama__stage .fotorama__caption {
   display: none;
+}
+/*--------------------------------------------------------------------------
+|  Global icon set
+--------------------------------------------------------------------------*/
+.del-icons {
+  background-image: url(../images/delivery-icons.png);
+  background-repeat: no-repeat;
+  background-position: 0px 0px;
+  background-size: 300px 1300px;
 }
