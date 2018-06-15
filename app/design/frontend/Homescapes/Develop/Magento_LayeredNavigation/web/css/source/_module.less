@@ -125,11 +125,12 @@
                 overflow: hidden;
                 padding: @indent__s @indent__s + 30px @indent__s @indent__s;
                 position: relative;
-                text-transform: uppercase;
+                text-transform: capitalize;
                 word-break: break-all;
                 z-index: 1;
 				border-radius: .4rem .4rem 0 0;
 				background: @f2light;
+				font-size: 1.6rem;
 
                 .lib-icon-font(
                 @_icon-font-content: @icon-down,
@@ -317,7 +318,7 @@
 
         &-subtitle {
             position: relative;
-            text-transform: uppercase;
+            text-transform: capitalize;
             z-index: 1;
 
             .lib-icon-font(

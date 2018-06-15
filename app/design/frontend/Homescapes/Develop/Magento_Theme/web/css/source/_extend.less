@@ -208,6 +208,8 @@ ul > li, ol > li{
 
 
 
+
+
 --------------------------------------------------------------------------*/
 
 h1, .h1 {
@@ -1977,14 +1979,14 @@ transition: all 5ms ease-in-out 0s;
 		
 		.card-header > a:before {
 		float: right !important;
-		content:"\f146";
+		content:"\e621";
 		padding-right: 5px;
 		font-size: 2rem;
-		font-family: "Font Awesome 5 Free";
+		font-family: 'luma-icons';
 		}
 		.card-header > a.collapsed:before {
 			float: right !important;
-			content:"\f0fe";
+			content:"\e622";
 		}
 		.card-header > a:hover, 
 		.card-header > a:active, 
@@ -3249,6 +3251,7 @@ transition: all 5ms ease-in-out 0s;
 	
 	.simple-cart{
 		width: 100%;
+
 		
 		@media @991{
 			width: 75%;
@@ -4177,14 +4180,14 @@ transition: all 5ms ease-in-out 0s;
 	
 	.card-header > a:before {
 	float: right !important;
-	content:"\f146";
+	content:"\e621";
 	padding-right: 5px;
 	font-size: @font20;
-	font-family: "Font Awesome 5 Free";
+	font-family: 'luma-icons';
 	}
 	.card-header > a.collapsed:before {
 		float: right !important;
-		content:"\f0fe";
+		content:"\e622";
 	}
 	.card-header > a:hover, 
 	.card-header > a:active, 
@@ -4243,15 +4246,15 @@ transition: all 5ms ease-in-out 0s;
 	}
 	a .card-header:before {
 	float: right !important;
-	content:"\f0fe";
+	content:"\e622";
 	padding-right: 5px;
 	font-size: @font20;
 	font-weight: normal;
-	font-family: "Font Awesome 5 Free";
+	font-family: 'luma-icons';
 	}
 	a .card-header.active:before {
 		float: right !important;
-	    content:"\f146";
+	    content:"\e621";
 	}
 
 	}
@@ -4579,11 +4582,86 @@ transition: all 5ms ease-in-out 0s;
 		vertical-align: middle;
 		white-space: nowrap;
 		width: 65px;
+		background-size: 400px 1733px;
+		
+		@media @767{
+			position: relative;
+			background-size: 200px 1083px;
+			width: 4rem;
+			height: 4rem;
+		}
+	}
+	.close-del-icons{
+		display: inline-block;
+		height: 40px;
+		overflow: hidden;
+		position: relative;
+		text-indent: -9999px;
+		vertical-align: middle;
+		white-space: nowrap;
+		width: 40px;
+		background-size: 450px 1950px;
 	}
 	.free-d{
-		background-position: 0px 0;
+		background-position:-325px 8px;
+		
+		@media @767{
+			background-position:-162px 0px;
+		}
 	}
-	
+	.standard-uk-d{
+		background-position:-325px -90px;
+		
+		@media @767{
+			background-position:-162px -54px;
+		}
+	}
+	.express-uk-d{
+		background-position:-325px -173px;
+		
+		@media @767{
+			background-position:-162px -110px;
+		}
+	}
+	.click-d{
+		background-position:-325px -257px;
+		
+		@media @767{
+			background-position:-162px -162px;
+		}
+	}
+	.personalised-d{
+		background-position:-325px -340px;
+		
+		@media @767{
+			background-position:-162px -214px;
+		}
+	}
+	.measure-d{
+		background-position:-325px -423px;
+		
+		@media @767{
+			background-position:-162px -265px;
+		}
+	}
+	.furniture-d{
+		background-position:-407px -570px;
+	}
+	.international-d{
+		background-position:-407px -623px;
+	}
+	.extra-d{
+		background-position:-407px -678px;
+	}
+	.missing-d{
+		background-position:-407px -731px;
+	}
+	.out-d{
+		background-position:-407px -785px;
+	}
+	.customer-d{
+		background-position:-407px -838px;
+	}
 	/*----------------------
 |      BUying guides style
      -------------------------*/
@@ -4874,14 +4952,18 @@ transition: all 5ms ease-in-out 0s;
 		line-height: 5rem;
 	}
 	.card-header{
-		border: none;
-		padding: 0rem 1.2rem;
-		margin: .3rem 0;
-		line-height: 5rem;
+		padding: 0rem;
+		margin: 0 0 -1px 0;
+		line-height: 6rem;
+		font-size: @font20;
+		color: @black;
+		background: @white;
 		
-		@media @768{
-			background: none;
+		@media @767{
+			border-bottom:1px solid @flight;
+			border-top:1px solid @flight;
 		}
+		
 	}
 	.card-body{
 		@media @768{
@@ -4907,10 +4989,10 @@ transition: all 5ms ease-in-out 0s;
 	}
 	.card-header > a:before {
 	float: right !important;
-	content:"\f146";
+	content: '\e621';
 	padding-right: 5px;
 	font-size: @font20;
-	font-family: "Font Awesome 5 Free";
+	font-family: 'luma-icons';
 		
 		@media @767{
 			padding-top:@base;
@@ -4922,7 +5004,7 @@ transition: all 5ms ease-in-out 0s;
 	}
 	.card-header > a.collapsed:before {
 		float: right !important;
-		content:"\f0fe";
+		content: '\e622';
 		
 		@media @768{
 			display: none;
@@ -4947,6 +5029,7 @@ transition: all 5ms ease-in-out 0s;
     z-index: 3;
     max-width: 120rem;
     margin: auto;
+
     border-radius:.4rem;
     text-align: left;
     background:@border-color;
@@ -5610,14 +5693,14 @@ transition: all 5ms ease-in-out 0s;
 	
 	.card-header > a:before {
 	float: right !important;
-	content:"\f146";
+	content:"\e621";
 	padding-right: 5px;
 	font-size: @font20;
-	font-family: "Font Awesome 5 Free";
+	font-family: 'luma-icons';
 	}
 	.card-header > a.collapsed:before {
 		float: right !important;
-		content:"\f0fe";
+		content:"\e622";
 	}
 	.card-header > a:hover, 
 	.card-header > a:active, 
@@ -5907,9 +5990,9 @@ transition: all 5ms ease-in-out 0s;
 /*--------------------------------------------------------------------------
 |  Global icon set
 --------------------------------------------------------------------------*/
-.del-icons{
-	background-image: url(../images/delivery-icons.png);
+.del-icons, .close-del-icons{
+	background-image: url(../images/sprit-icon.svg);
 	background-repeat: no-repeat;
 	background-position: 0px 0px;
-	background-size: 155px 1024px;
+	background-size: 300px 1300px;
 }
