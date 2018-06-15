@@ -2468,6 +2468,7 @@ transition: all 5ms ease-in-out 0s;
 	float: left;
 	margin-bottom: 4rem;
 	display: none;
+	width: 100%;
 	
 	@media @992{
 		display: block;
@@ -2611,6 +2612,7 @@ transition: all 5ms ease-in-out 0s;
     width: 100%;
 	margin-bottom: 1rem;
 	line-height: 3rem;
+	font-weight: bold;
 	
 	#date, #time{
 		color: @blue;
@@ -3885,7 +3887,7 @@ transition: all 5ms ease-in-out 0s;
 	}
 		
 	.box-tocart{
-		width: 57%;
+		width: 75%;
 		float: left;
 		margin: 0;
 		
@@ -3930,7 +3932,10 @@ transition: all 5ms ease-in-out 0s;
 
 		width: 100%;
 	}
-	
+	.cart-totals .grand strong, .opc-block-summary .table-totals .grand strong{
+		font-weight: normal;
+		font-size: @font24;
+	}
 	
 	.cart.table-wrapper .actions-toolbar{
 		
@@ -4094,6 +4099,8 @@ transition: all 5ms ease-in-out 0s;
 			.title strong{
 				margin: 0;
 				color: @black;
+				font-size: @font24;
+				font-weight: normal;
 			}
 			.title{
 				padding: 0;
@@ -5530,14 +5537,14 @@ transition: all 5ms ease-in-out 0s;
 	float: left;
 	
 	strong{
-		font-size: 1.5rem;
+		font-size: @font16;
 		color: @black;
-		line-height: 40px;
+		line-height: 4rem;
 		font-weight: bold;
 		text-decoration: none;
 		background-position: 0 -1643px;
 		display: inline-block;
-		padding: 0 16px 0 145px;
+		padding: 0 16px 0 130px;
 		cursor: pointer;
 	 	background-image: url(../images/icon_sprite_new.png);
 		background-repeat: no-repeat;
@@ -5891,8 +5898,10 @@ transition: all 5ms ease-in-out 0s;
 			border: 0;
 		}
 	}
-	
 	.opc-block-shipping-information{
+		padding: 0;
+	}
+	.shipping-information{
 		padding: 1rem 2rem;
 		border: 1px solid @border-color;
 	}

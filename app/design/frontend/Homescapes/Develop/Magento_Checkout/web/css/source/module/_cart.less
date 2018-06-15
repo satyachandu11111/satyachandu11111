@@ -124,7 +124,7 @@
 
         .checkout-methods-items {
             &:extend(.abs-reset-list all);
-            margin: @indent__base 0 0;
+            margin:0;
             padding: 0 @mobile-cart-padding;
             text-align: center;
 
@@ -166,7 +166,11 @@
         tfoot {
             .mark {
                 text-align: left;
+				font-weight: 600;
             }
+			.amount{
+				font-weight: bold;
+			}
         }
     }
 
