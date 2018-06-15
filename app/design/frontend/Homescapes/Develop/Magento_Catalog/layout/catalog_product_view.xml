@@ -49,10 +49,20 @@
              </arguments>
           </block>
         </referenceBlock>
+		
+		
         <referenceBlock name="product.info.details">        <!--Return Tab-->
           <block class="Magento\Catalog\Block\Product\View" name="return.tab" as="returninfo" template="Magento_Catalog::product/view/return_info.phtml" group="detailed_info" >
              <arguments>
                 <argument translate="true" name="title" xsi:type="string">Returns</argument>
+             </arguments>
+          </block>
+        </referenceBlock>
+		
+		<referenceBlock name="product.info.details">        <!--Video Tab-->
+          <block class="Magento\Catalog\Block\Product\View" name="provideo.tab" as="provideo" template="Magento_Catalog::product/view/pro_video.phtml" group="detailed_info" >
+             <arguments>
+                <argument translate="true" name="title" xsi:type="string">Product Video</argument>
              </arguments>
           </block>
         </referenceBlock>

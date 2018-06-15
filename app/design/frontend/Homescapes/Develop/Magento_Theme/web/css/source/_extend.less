@@ -3362,7 +3362,8 @@ transition: all 5ms ease-in-out 0s;
 	
 	.config-cart{
 		display:grid;
-		width: auto;
+		width: 75%;
+		float: right;
 		
 		@media @991{
 			width: 56%;
@@ -4168,7 +4169,6 @@ transition: all 5ms ease-in-out 0s;
 		line-height: 6rem;
 	}
 	.card-header{
-		padding: 0rem 1.2rem;
 		margin: 0 0 -1px 0;
 		line-height: 6rem;
 		font-size: @font20;
@@ -4202,7 +4202,9 @@ transition: all 5ms ease-in-out 0s;
 	.table-wrapper{
 		margin-bottom: 0;
 	}
-	
+	#provideo{
+		padding: 0;
+	}
 	.additional-attributes{
 		width: 100%;
 		margin-bottom: 0;
@@ -4227,7 +4229,6 @@ transition: all 5ms ease-in-out 0s;
 	}
 
 	.card-header{
-		padding: 0rem 1.2rem;
 		margin: 0 0 -1px 0;
 		line-height: 6rem;
 		font-size: @font20;
@@ -4893,6 +4894,11 @@ transition: all 5ms ease-in-out 0s;
 		
 		pointer-events: auto;
 		
+		@media @767{
+			padding-left: 4.5rem;
+			margin-bottom: 0;
+		}
+		
 		.fas{
 			font-size: @base;
 			position: relative;
@@ -5526,16 +5532,16 @@ transition: all 5ms ease-in-out 0s;
 	strong{
 		font-size: 1.5rem;
 		color: @black;
-		line-height: 26px;
+		line-height: 40px;
 		font-weight: bold;
 		text-decoration: none;
-		background-position: 0 -1268px;
+		background-position: 0 -1643px;
 		display: inline-block;
-		padding: 0 16px 0 32px;
+		padding: 0 16px 0 145px;
 		cursor: pointer;
 	 	background-image: url(../images/icon_sprite_new.png);
 		background-repeat: no-repeat;
-		background-size: 300px 1300px;
+		background-size: 400px 1733px;
 		
 		&:hover{
 			color: @blue;
