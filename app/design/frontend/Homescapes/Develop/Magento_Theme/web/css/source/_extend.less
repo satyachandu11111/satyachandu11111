@@ -342,6 +342,9 @@ h6, .h6 {
 			height: 4rem;
 		}
 	}
+	.action.search[disabled]{
+		opacity: 1;
+	}
 }
 
 .page-header{
@@ -2871,6 +2874,32 @@ transition: all 5ms ease-in-out 0s;
 		display: none;
 	}
 }
+
+/*----------------------
+|  Price band
+-----------------------*/
+.product-info-main{
+	
+	.row-tier-price, .prices-tier{
+		float: left;
+		width: 100%;
+		display: flex;
+		flex-flow: row wrap;
+
+
+		li{
+			width: 31%;
+			border: none;
+			margin: 1%;
+			font-size: @font16;
+		}
+		li:first-child{
+			border:0;
+		}
+	}
+}
+
+
 /*----------------------
 |  Product swatch
 -----------------------*/
@@ -2947,6 +2976,8 @@ transition: all 5ms ease-in-out 0s;
 			}
 		}
 	}
+
+	
 	.qty .stock{
 		width: 100%;
 		text-align: center;
@@ -4269,6 +4300,7 @@ transition: all 5ms ease-in-out 0s;
 		background: @white;
 		border-bottom:1px solid @flight;
 		border-top:1px solid @flight;
+		display: block !important;
 		
 	}
 	a{
@@ -5481,7 +5513,7 @@ transition: all 5ms ease-in-out 0s;
 			  top: -14px;
 			  width: 28px;
 			  font-size: 0;
-			  background: url("../images/icon_sprite_new.png") no-repeat -77px -591px;
+			  background: url("../images/sprit-icon.svg") no-repeat -77px -591px;
 			  background-size: 300px 1300px;
 		}
      }
@@ -5572,7 +5604,7 @@ transition: all 5ms ease-in-out 0s;
 		display: inline-block;
 		padding: 0 16px 0 130px;
 		cursor: pointer;
-	 	background-image: url(../images/icon_sprite_new.png);
+	 	background-image: url(../images/sprit-icon.svg);
 		background-repeat: no-repeat;
 		background-size: 400px 1733px;
 		
