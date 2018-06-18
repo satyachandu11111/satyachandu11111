@@ -167,7 +167,7 @@ button:hover{
 }
 .page-header .header.panel{
 	max-width: 124rem;
-	padding: .8rem 2rem .4rem 2rem;
+	padding: 0rem 2rem 0rem 2rem;
 }
 
 ul, ol{
@@ -265,7 +265,12 @@ h6, .h6 {
 	margin-top: .5rem;
 	font-size: @font20;
 }
-
+.page-header .header.panel > .header.links{
+	padding-top: .7rem;
+}
+.minicart-wrapper .block-minicart{
+	margin-top: 0;
+}
 .minicart-wrapper .basket-lable{
 
     clip: unset;
@@ -316,6 +321,7 @@ h6, .h6 {
 	
 	@media @768{
 		display: block;
+		padding-top: .7rem;
 	}
 }
 .logo img{
@@ -2460,6 +2466,7 @@ transition: all 5ms ease-in-out 0s;
 
 .deliver-options{
 	clear: both;
+	padding: 0;
 }
 .product-delivery{
 	
@@ -2616,6 +2623,9 @@ transition: all 5ms ease-in-out 0s;
 	
 	#date, #time{
 		color: @blue;
+	}
+	@media @479{
+		line-height: 2rem;
 	}
 }
 .countdown:before{
@@ -2945,7 +2955,7 @@ transition: all 5ms ease-in-out 0s;
 			background: @danger;
 			border-radius: .3rem;
 			padding: .2rem .8rem .2rem .8rem;
-			line-height: 1rem;
+			line-height: 2rem;
 			min-height: 2rem;
 			width: 10rem;
 			margin: auto;
@@ -2994,7 +3004,7 @@ transition: all 5ms ease-in-out 0s;
 		@media @479{
 			border: 0;
 			padding-right: 0;
-			margin-right: .8rem;
+			margin-right: .5rem;
 		}
 	}
 	.rating-summary{
@@ -3915,11 +3925,7 @@ transition: all 5ms ease-in-out 0s;
 	}	
 	}	
 	
-	.product-info-price{
-		@media @639{
-			margin-bottom: 1rem;
-		}
-	}
+
 }
 
 /*--------------------------------------------------------------------------
@@ -3971,8 +3977,13 @@ transition: all 5ms ease-in-out 0s;
 		@media @479{
 			float: right;
 			width: 75%;
-			padding: 0 1rem;
+			padding: 0rem;
 			display: flex;
+		}
+		.field label{
+			@media @767{
+				display: none;
+			}
 		}
 	}
 	.cart.table-wrapper .col.qty::before, .cart.table-wrapper .col.price::before, .cart.table-wrapper .col.subtotal::before, .cart.table-wrapper .col.msrp::before {
@@ -4114,7 +4125,8 @@ transition: all 5ms ease-in-out 0s;
 				padding: 0;
 				
 				@media @767{
-					padding:10px 15px
+					padding:10px 15px;
+						margin-bottom: 0;
 				}
 			}
 		}
@@ -4219,6 +4231,12 @@ transition: all 5ms ease-in-out 0s;
 	}
 	#provideo{
 		padding: 0;
+		
+		iframe{
+			@media @479{
+				height: 20rem;
+			}
+		}
 	}
 	.additional-attributes{
 		width: 100%;
@@ -5561,10 +5579,16 @@ transition: all 5ms ease-in-out 0s;
 		&:hover{
 			color: @blue;
 		}
-		@media @479{
+		@media @991{
+			
+			background-position: 0 -1693px;
+			padding: 0 16px 0 45px;
+			line-height: 3rem;
 			font-size: @base;
 		}
-		
+		@media @379{
+			line-height: 2rem;
+		}
 	}
 	strong.order-swatch.added {
 	  cursor: pointer;
