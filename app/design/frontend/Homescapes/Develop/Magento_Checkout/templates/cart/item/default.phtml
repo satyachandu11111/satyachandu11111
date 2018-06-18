@@ -40,6 +40,8 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
                         <?= $block->escapeHtml($block->getProductName()) ?>
                     <?php endif; ?>
                 </strong>
+                <?php echo "SKU: ". $product->getSku(); ?>
+
                 <?php $preOrderNote = $this->helper('Homescapes\Preorder\Helper\Data')->isPreOrderCart($product->getId());
                         if($preOrderNote){  ?>
                     <?php echo $preOrderNote; ?>
@@ -108,6 +110,13 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
                            data-role="cart-item-qty"/>
                     <div class="decreaseQty">-</div>
                     <div class="increaseQty">+</div>
+                    <button type="submit"
+                        name="update_cart_action_cus"
+                        value="update_qty"
+                        title="<?= $block->escapeHtml(__('Update Shopping Cart')) ?>"
+                        class="action_update_custom" style="display:none;">
+                        <span><?= /* @escapeNotVerified */ __('Update Shopping Cart') ?></span>
+                    </button>
                 </div>
             </div>
         </td>

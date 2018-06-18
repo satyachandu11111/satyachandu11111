@@ -76,6 +76,8 @@
             var $this = $(this);
             var currentQty = $this.siblings('.input-text').val();
 
+            $this.siblings('.action_update_custom').show();
+            
             if($this.hasClass('increaseQty')){
                 var newAdd = parseInt(currentQty)+parseInt(1);
                 $this.siblings('.input-text').val(newAdd);
@@ -85,6 +87,10 @@
                     $this.siblings('.input-text').val(newAdd); 
                 }
             }
+        });
+        $('input.input-text.qty').on("focus",function(){
+            var $this = $(this);
+            $this.siblings('.action_update_custom').show();
         });
     });
 </script>
