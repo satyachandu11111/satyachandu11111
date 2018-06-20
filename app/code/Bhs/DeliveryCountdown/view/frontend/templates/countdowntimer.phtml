@@ -6,6 +6,7 @@ $checkEnable = $block->isEnable();
 		$attrCode = $block->getAttrCode();    
 			if($product->getData($attrCode) || $attrCode == ''){
                             if($product->isSaleable()){
+                                 if(!$this->helper('Homescapes\Preorder\Helper\Data')->isPreOrder($product)){
 ?>
 
   <div  id="countDown" name="countDown"  class="countdown"><?php // echo $block->buildString(); ?></div>
@@ -26,7 +27,9 @@ $checkEnable = $block->isEnable();
     });
 </script>
 
-                            <?php     }
+                            <?php     
+                                 }
+                            }
                 }   
     }  ?>
 

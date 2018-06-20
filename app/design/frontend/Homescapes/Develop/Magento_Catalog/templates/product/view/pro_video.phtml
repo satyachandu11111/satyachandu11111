@@ -6,6 +6,9 @@
 
 ?>
 
-<?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('product-videos')->toHtml();?>
+<?php 
 
-
+$_product = $block->getProduct();
+if($_product->getVideoBlock()){
+    echo $_product->getVideoBlock();
+}
