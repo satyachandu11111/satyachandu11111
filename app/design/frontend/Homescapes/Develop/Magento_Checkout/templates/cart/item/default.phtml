@@ -41,6 +41,9 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
                     <?php endif; ?>
                 </strong>
                 <?php echo "SKU: ". $product->getSku(); ?>
+				
+				<br>
+
 
                 <?php $preOrderNote = $this->helper('Homescapes\Preorder\Helper\Data')->isPreOrderCart($product->getId());
                         if($preOrderNote){  ?>
@@ -70,10 +73,12 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
                 <?php if ($addInfoBlock): ?>
                     <?= $addInfoBlock->setItem($_item)->toHtml() ?>
                 <?php endif;?>
+				
+				<div class="actions-toolbar">
+					<?= /* @escapeNotVerified */ $block->getActions($_item) ?>
+				</div>
             </div>
-			<div class="actions-toolbar">
-                <?= /* @escapeNotVerified */ $block->getActions($_item) ?>
-            </div>
+			
         </td>
 
         <?php if ($canApplyMsrp): ?>
