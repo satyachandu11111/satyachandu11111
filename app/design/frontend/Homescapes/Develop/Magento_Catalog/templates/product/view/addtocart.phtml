@@ -33,6 +33,7 @@
                        title="<?= /* @escapeNotVerified */ __('Qty') ?>"
                        class="input-text qty"
                        data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
+                       data-default-qty="<?= /* @escapeNotVerified */ $block->getProductDefaultQty() * 1 ?>"
                        />
                 <div class="increaseQty" id="inc-qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>">+</div>
             </div>
@@ -46,6 +47,18 @@
                 <span><?= /* @escapeNotVerified */ $buttonTitle ?></span>
             </button>
             <?= $block->getChildHtml('', true) ?>
+        </div>
+        <div class="mg-ajaxcart-dialog" id="ajaxcart-dialog-<?php echo $_product->getId() ?>">
+            <div class="main-panel">
+                    <div class="product-info">
+                            <span class="msg"><?php echo __('Added to your basket');?><br>
+                            <div class="name"></div></span>
+                    </div>
+                    <div class="button-set">
+                            <a href="<?php echo $block->getUrl('checkout/cart'); ?>" class="button goto-cart cart-button"><?php echo __('View cart');?></a>                            
+                    </div>
+                    <div style="clear:both;"></div>
+            </div>
         </div>
     </div>
 </div>
@@ -69,3 +82,38 @@
     }
 </script>
 <?php endif; ?>
+<style>
+    
+    .mg-ajaxcart-dialog{
+            background: #fff;
+    border-radius: 2px;
+    margin-bottom: 10px;
+    border: #005dbd solid 1px;
+    padding: 0;
+    width: 100%;
+    position: relative;
+    clear: both;
+    }
+    .mg-ajaxcart-dialog .product-info {
+        padding: 12px 20px 12px 20px;
+        text-align: left;
+    }
+
+    .mg-ajaxcart-dialog .button-set {
+        background: #f7f7f7;
+        float: left;
+        width: 100%;
+        padding: 12px 20px;
+        margin: 9px 0 0 0;
+    }
+    
+    .mg-ajaxcart-dialog .button-set a.goto-cart.cart-button {
+        float: left;
+        color: #fff;
+        font-size: 15px;
+        font-weight: bold;
+        padding: 5px 15px;
+        margin: 3px 20px 0 0;
+        background: #005dbd;
+    }
+</style>

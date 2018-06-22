@@ -40,6 +40,8 @@ class Completelook extends \Magento\Framework\View\Element\Template
     
     protected $reviewRenderer;
     
+    protected $stockRegistry;
+    
     /**
      * Review resource model
      *
@@ -92,6 +94,7 @@ class Completelook extends \Magento\Framework\View\Element\Template
             $this->cartHelper = $cartHelper;
             $this->reviewRenderer = $context->getReviewRenderer();
             $this->_reviewsColFactory = $collectionFactory;
+            $this->stockRegistry = $context->getStockRegistry();
             parent::__construct($context, $data);
         }
     
@@ -454,6 +457,29 @@ class Completelook extends \Magento\Framework\View\Element\Template
         
         $collection =  $this->_reviewsCollection->load()->addRateVotes();
         return $collection;
+    }
+    
+    public function getProductDefaultQty($product = null)
+    {
+        if (!$product) {
+            $product = $this->getProduct();
+        }
+
+        $qty = $this->getMinimalQty($product);
+        $config = $product->getPreconfiguredValues();
+        $configQty = $config->getQty();
+        if ($configQty > $qty) {
+            $qty = $configQty;
+        }
+
+        return $qty;
+    }
+    
+    public function getMinimalQty($product)
+    {
+        $stockItem = $this->stockRegistry->getStockItem($product->getId(), $product->getStore()->getWebsiteId());
+        $minSaleQty = $stockItem->getMinSaleQty();
+        return $minSaleQty > 0 ? $minSaleQty : null;
     }
     
 }

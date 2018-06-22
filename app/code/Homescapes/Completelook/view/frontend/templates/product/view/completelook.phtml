@@ -257,6 +257,7 @@ $buttonTitle = __('Add to Cart');
                                                    class="input-text qty"
                                                    id="qty-<?php /* @escapeNotVerified */ echo $_item->getId() ?>"
                                                    data-validate="{'validate-grouped-qty':'#super-product-table-<?php echo $_product->getSku(); ?>'}"
+                                                   data-default-qty="<?= /* @escapeNotVerified */ $_item->getQty() * 1 ?>"
                                                    data-errors-message-box="#validation-message-box-<?php echo $_product->getSku(); ?>"/>                                            
                                             <div class="increaseQty" id="inc-qty-<?php /* @escapeNotVerified */ echo $_item->getId() ?>">+</div>
                                         </div>
@@ -317,6 +318,18 @@ $buttonTitle = __('Add to Cart');
                             </button>
                             <?= $block->getChildHtml('', true) ?>
                         </div>
+                        <div class="mg-ajaxcart-dialog" id="ajaxcart-dialog-<?php echo $_product->getId() ?>">
+                            <div class="main-panel">
+                                    <div class="product-info">
+                                            <span class="msg"><?php echo __('Added to your basket');?><br>
+                                            <div class="name"></div></span>
+                                    </div>
+                                    <div class="button-set">
+                                            <a href="<?php echo $block->getUrl('checkout/cart'); ?>" class="button goto-cart cart-button"><?php echo __('View cart');?></a>                            
+                                    </div>
+                                    <div style="clear:both;"></div>
+                            </div>
+                        </div>
                         <?php  } ?>
             <?php  // end grouped product code 
 						 
@@ -345,10 +358,11 @@ $buttonTitle = __('Add to Cart');
 										<div class="decreaseQty" id="dec-qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>" >-</div>
 										<input type="number"
 											   name="qty"                                       
-											   value="<?= /* @escapeNotVerified */ $block->getProductDefaultQty() * 1 ?>"
+											   value="<?= /* @escapeNotVerified */ $block->getProductDefaultQty($_product) * 1 ?>"
 											   title="<?= /* @escapeNotVerified */ __('Qty') ?>"
 											   class="input-text qty"
 											   id="qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>"
+                                                                                           data-default-qty="<?= /* @escapeNotVerified */ $block->getProductDefaultQty($_product) * 1 ?>"
 											   data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
 											   />
 										<div class="increaseQty" id="inc-qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>">+</div>   
@@ -366,6 +380,19 @@ $buttonTitle = __('Add to Cart');
 							</button>
 							<?= $block->getChildHtml('', true) ?>
 						</div>
+                                            
+                                            <div class="mg-ajaxcart-dialog" id="ajaxcart-dialog-<?php echo $_product->getId() ?>">
+                                                <div class="main-panel">
+                                                        <div class="product-info">
+                                                                <span class="msg"><?php echo __('Added to your basket');?><br>
+                                                                <div class="name"></div></span>
+                                                        </div>
+                                                        <div class="button-set">
+                                                                <a href="<?php echo $block->getUrl('checkout/cart'); ?>" class="button goto-cart cart-button"><?php echo __('View cart');?></a>                            
+                                                        </div>
+                                                        <div style="clear:both;"></div>
+                                                </div>
+                                            </div>
 					
 					</div>
 					
@@ -458,9 +485,10 @@ $buttonTitle = __('Add to Cart');
 											<input type="number"
 												   name="qty"
 												   id="qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>"
-												   value="<?= /* @escapeNotVerified */ $block->getProductDefaultQty() * 1 ?>"
+												   value="<?= /* @escapeNotVerified */ $block->getProductDefaultQty($_product) * 1 ?>"
 												   title="<?= /* @escapeNotVerified */ __('Qty') ?>"
 												   class="input-text qty"
+                                                                                                   data-default-qty="<?= /* @escapeNotVerified */ $block->getProductDefaultQty($_product) * 1 ?>"
 												   data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
 												   />
 											<div class="increaseQty" id="inc-qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>">+</div>
@@ -477,6 +505,18 @@ $buttonTitle = __('Add to Cart');
 										<?= $block->getChildHtml('', true) ?>
 									</div>
 								</div>
+                                                                <div class="mg-ajaxcart-dialog" id="ajaxcart-dialog-<?php echo $_product->getId() ?>">
+                                                                    <div class="main-panel">
+                                                                            <div class="product-info">
+                                                                                    <span class="msg"><?php echo __('Added to your basket');?><br>
+                                                                                    <div class="name"></div></span>
+                                                                            </div>
+                                                                            <div class="button-set">
+                                                                                    <a href="<?php echo $block->getUrl('checkout/cart'); ?>" class="button goto-cart cart-button"><?php echo __('View cart');?></a>                            
+                                                                            </div>
+                                                                            <div style="clear:both;"></div>
+                                                                    </div>
+                                                                </div>
 							</div>
 						</div>
                     <?php }else{ ?>

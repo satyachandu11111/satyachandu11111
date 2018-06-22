@@ -52,7 +52,7 @@ define([
       },
       _initializeheader : function(){
           var self = this;
-          console.log('urlHeaderSwatch');
+          //console.log('urlHeaderSwatch');
           var urlHeaderSwatch = this.options.urlHeaderSwatch;
           console.log(urlHeaderSwatch);
           $.ajax( {url: urlHeaderSwatch ,
@@ -75,11 +75,11 @@ define([
           
       },
       _headerShowHide : function(){
-          console.log('_headerShowHide');
+          //console.log('_headerShowHide');
           var self = this;
           // header swatch enable if swatch exist 
           var samplecountdown=parseInt($('#sample_count').val());   
-          console.log(samplecountdown);
+          //console.log(samplecountdown);
             if($('#swatchcloseEvent').val() =='close')
             {
                 if(samplecountdown>0)
@@ -224,7 +224,7 @@ define([
           
       },
       _removeOrderSwatchHeader : function(){
-          console.log('remove click');
+          //console.log('remove click');
           var self = this;
           $('.remove-swatch').bind('click', function(element){
               
