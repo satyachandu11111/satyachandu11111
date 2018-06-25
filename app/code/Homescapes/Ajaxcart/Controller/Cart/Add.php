@@ -33,7 +33,7 @@ class Add extends \Magento\Checkout\Controller\Cart\Add
                 return $this->goBack();
             }
             
-            //$this->cart->addProduct($product, $params);
+            $this->cart->addProduct($product, $params);
             
             $html = '';
            
