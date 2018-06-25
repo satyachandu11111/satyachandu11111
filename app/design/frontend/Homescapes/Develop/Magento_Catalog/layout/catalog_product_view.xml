@@ -66,8 +66,18 @@
              </arguments>
           </block>
         </referenceBlock>
-		
-        <move element="DeliveryCountdown" destination="product.info.main" after="product.sizing.video"/>    <!--Delivery Countdown-->
+        <!-- Recently view product -->
+        <referenceContainer name="content">
+		  <block class="Magento\Reports\Block\Product\Widget\Viewed" after="-" name="recently_viewed" cacheable="false" template="Magento_Reports::widget/viewed/content/viewed_grid.phtml">
+		    <action method="setPageSize">
+		       <argument name="page_size" xsi:type="number">5</argument>
+		    </action>
+		  </block>
+		</referenceContainer>
+		<!-- Recently view product -->
+		<move element="product.info.upsell" destination="content" before="recently_viewed" />
+		<!-- upsell  -->
+		<move element="DeliveryCountdown" destination="product.info.main" after="product.sizing.video"/>    <!--Delivery Countdown-->
 		
 		 <move element="product.info.addto" destination="product.info.form.content" after="product.info.addtocart"/>    <!--Wishlist-->
 

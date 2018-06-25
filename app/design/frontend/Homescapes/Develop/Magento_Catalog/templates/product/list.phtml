@@ -76,7 +76,17 @@ $_helper = $this->helper('Magento\Catalog\Helper\Output');
                                 <?= /* @escapeNotVerified */ $_helper->productAttribute($_product, $_product->getName(), 'name') ?>
                             </a>
                         </strong>
-                        <?= /* @escapeNotVerified */ $block->getProductPrice($_product) ?>
+                        
+                        <?php 
+                        $helper = $this->helper('Homescapes\General\Helper\Data');
+                                
+                            if($_product->getTypeId() == "configurable" || $_product->getTypeId() == "grouped"){
+                                echo $helper->getpriceRange($_product);
+                            }else{
+                                echo $block->getProductPrice($_product);
+                            }
+                        ?>
+                    
                         <?= $block->getProductDetailsHtml($_product) ?>
                         <?= $block->getReviewsSummaryHtml($_product, $templateType) ?>
 
