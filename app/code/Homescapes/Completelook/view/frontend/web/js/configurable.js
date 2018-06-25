@@ -265,12 +265,26 @@ define([
                 this.options.spConfig.optionPrices[optionId].oldPrice.amount != //eslint-disable-line eqeqeq
                 this.options.spConfig.optionPrices[optionId].finalPrice.amount
             ) {
+                // percent calculate on config product
+                var oldpricecus = this.options.spConfig.optionPrices[optionId].oldPrice.amount;
+                var newpricecus = this.options.spConfig.optionPrices[optionId].finalPrice.amount;
+                var dis = (oldpricecus - newpricecus);
+                var dis_per = ((100 * dis) / oldpricecus);
+                var completelook_discount = this.options.priceHolderSelector;                
+                if(oldpricecus != "" && newpricecus != "") {
+                    $(completelook_discount).next('.g-discount').html('{ '+Math.round(dis_per)+' % Off }');
+                }                        
+                
+                
                 // code change for complete look products price show
                 var priceelement = this.options.priceHolderSelector+' '+this.options.slyOldPriceSelector;
                 $(priceelement).show();
             } else {
+                var completelook_discount = this.options.priceHolderSelector;                
+                $(completelook_discount).next('.g-discount').html('');
                 // code change for complete look products price hide
                 var priceelement = this.options.priceHolderSelector+' '+this.options.slyOldPriceSelector;
+                
                 $(priceelement).hide();
             }
         },
