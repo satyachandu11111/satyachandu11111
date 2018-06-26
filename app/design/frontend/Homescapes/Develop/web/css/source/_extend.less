@@ -3120,6 +3120,11 @@ transition: all 5ms ease-in-out 0s;
 	@media @991{
 		width: 100%;
 	}
+	
+	.product-info-price .price-box .price-container .price-label{
+		display: none;
+	}
+	
 	.conf-products .product-info-price .price-box .group-prod-price{
 		font-size: @font18;
 		font-weight: bold;
@@ -3280,7 +3285,7 @@ transition: all 5ms ease-in-out 0s;
 				color: @danger;
 				font-weight: bold;
 				margin-left: 1rem;
-				line-height: 3rem;
+				line-height: 2.5rem;
 			
 			@media @767{
 				display: block;
@@ -6089,3 +6094,52 @@ transition: all 5ms ease-in-out 0s;
 	background-position: 0px 0px;
 	background-size: 300px 1300px;
 }
+ /*--------------------------------------------------------------------------
+| Ajax cart
+--------------------------------------------------------------------------*/   
+    .mg-ajaxcart-dialog{
+		background: @white;
+		border-radius: 2px;
+		margin-bottom: 10px;
+		border: @f2light solid 1px;
+		padding: 0;
+		width: 35rem;
+		position:fixed;
+		clear: both;
+		display: none;
+		z-index: 999;
+		right: 5rem;
+		bottom: 15rem;
+		box-shadow: 0 0 .4rem @border-color;
+		
+		.product-info {
+			padding: 1rem 2rem;
+			text-align: left;
+		}
+		.msg{
+			font-weight: bold;
+			
+			.name{
+				font-weight: normal;
+			}
+		}
+		
+		.button-set {
+			background: @f9light;
+			float: left;
+			width: 100%;
+			padding: 1rem 2rem;
+			margin: 9px 0 0 0;
+		}
+		a.goto-cart.cart-button {
+			float: left;
+			color:@white;
+			font-size: 15px;
+			font-weight:normal;
+			padding:.5rem 2rem;
+			margin:auto;
+			background: @blue;
+			border-radius: .2rem;
+		}
+    }
+ 
