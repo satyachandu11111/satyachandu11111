@@ -3997,6 +3997,13 @@ transition: all 5ms ease-in-out 0s;
 
 		width: 100%;
 	}
+	
+	.crosssell{
+		@media @767{
+			display: none;
+		}
+	}
+	
 	.cart.table-wrapper .col.price .price-excluding-tax, .cart.table-wrapper .col.subtotal .price-excluding-tax .price{
 		padding-top: .7rem;
 		display: block;
@@ -4137,11 +4144,16 @@ transition: all 5ms ease-in-out 0s;
 	} 
 	
 	.cart-summary{
+		
 		@media @991{
 			width: 100%;
 			padding: 2%;
 			position: static;
 			order: 3;
+		}
+		
+		@media @767{
+			border: none;
 		}
 	}
 	.form-cart{
