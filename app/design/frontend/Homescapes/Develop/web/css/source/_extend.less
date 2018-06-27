@@ -2219,7 +2219,7 @@ transition: all 5ms ease-in-out 0s;
 --------------------------------------------------------------------------*/
 #return-to-top {
     position: fixed;
-    bottom:@font20;
+    bottom:15rem;
     right:@font20;
     background: rgb(0, 0, 0);
     background: rgba(0, 0, 0, 0.7);
@@ -6139,17 +6139,22 @@ transition: all 5ms ease-in-out 0s;
     .mg-ajaxcart-dialog{
 		background: @white;
 		border-radius: 2px;
-		margin-bottom: 10px;
+		margin-bottom: 0;
 		border: @f2light solid 1px;
 		padding: 0;
-		width: 35rem;
-		position:fixed;
+		width: 100%;
+		position: relative;
 		clear: both;
 		display: none;
 		z-index: 999;
-		right: 5rem;
-		bottom: 15rem;
+		right: auto;
+		bottom: auto;
 		box-shadow: 0 0 .4rem @border-color;
+		margin-top: 1rem;
+		float: left;
+		padding-bottom: .8rem;
+		
+		
 		
 		@media @767{
 			width: 100%;
@@ -6157,6 +6162,7 @@ transition: all 5ms ease-in-out 0s;
 			right: 0;
 			bottom: 0;
 			margin-bottom: 0;
+			position:fixed;
 		}
 		
 		.product-info {
@@ -6165,11 +6171,36 @@ transition: all 5ms ease-in-out 0s;
 		}
 		.msg{
 			font-weight: bold;
-			
 			.name{
 				font-weight: normal;
+				font-size: @base;
+				
+				span{
+					float: left;
+				}
 			}
 		}
+		
+		.msg::before {
+				-webkit-font-smoothing: antialiased;
+				-moz-osx-font-smoothing: grayscale;
+				font-size: 24px;
+				line-height: 24px;
+				color: #006400;
+				content: '\e60e';
+				font-family: 'luma-icons';
+				margin:0;
+				vertical-align: middle;
+				display: inline-block;
+				font-weight: normal;
+				overflow: hidden;
+				speak: none;
+				left: -0.6rem;
+				top: -0.2rem;
+				width: 3rem;
+				position: relative;
+				text-align: center;
+			}
 		
 		.button-set {
 			background: @f9light;
@@ -6179,13 +6210,12 @@ transition: all 5ms ease-in-out 0s;
 			margin: 9px 0 0 0;
 		}
 		a.goto-cart.cart-button {
-			float: left;
-			color:@white;
-			font-size: 15px;
-			font-weight:normal;
-			padding:.5rem 2rem;
+			float: right;
+			color:@blue;
+			font-size:@base;
+			font-weight:bold;
+			padding:0;
 			margin:auto;
-			background: @blue;
 			border-radius: .2rem;
 		}
     }

@@ -51,11 +51,18 @@
         <div class="mg-ajaxcart-dialog" id="ajaxcart-dialog-<?php echo $_product->getId() ?>">
             <div class="main-panel">
                     <div class="product-info">
-                            <span class="msg"><?php echo __('Added to your basket');?><br>
-                            <div class="name"></div></span>
-                    </div>
-                    <div class="button-set">
-                            <a href="<?php echo $block->getUrl('checkout/cart'); ?>" class="button goto-cart cart-button"><?php echo __('View basket');?></a>                            
+                            <span class="msg">
+
+								
+								<?php echo __('Added to your basket');?>
+								
+								<a href="<?php echo $block->getUrl('checkout/cart'); ?>" class="button goto-cart cart-button"><i class="fas fa-shopping-basket"></i> <?php echo __('View basket');?></a> 
+								
+								<br>
+								
+                            	<div class="name"></div>
+						
+						</span>
                     </div>
                     <div style="clear:both;"></div>
             </div>
