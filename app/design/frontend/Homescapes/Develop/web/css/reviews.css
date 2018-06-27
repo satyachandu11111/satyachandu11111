@@ -995,9 +995,17 @@ table > thead > tr > th, table > tbody > tr > th, table > tfoot > tr > th, table
 	  .rating-review .rating-section ul li:nth-child(2) {
 		display: none;
 	  }
-	  .rating-review .rating-section ul li:nth-child(3) {
+	  .rating-review .rating-section  ul li:nth-child(3) {
 		display: none;
 	  }
+	  .rating-review .rating-section .overall-ratings ul li:nth-child(2) {
+		display: block;
+	  }
+	  .rating-review .rating-section .overall-ratings ul li:nth-child(3) {
+		display: block;
+	  }
+	
+	
 	  .rating-review .rating-section ul li:nth-child(4) {
 		width: 100%;
 		  margin-top: 1rem;
@@ -1008,12 +1016,20 @@ table > thead > tr > th, table > tbody > tr > th, table > tfoot > tr > th, table
 	}
 	#customer-reviews dl dd .ratings-table label{
 		width: 4.2rem;
+		text-transform: capitalize;
 	}
 	#customer-reviews .review-heading{
 		padding-bottom: 0;
 	}
 	#customer-reviews .review-heading h2{
 		float: none;
+	}
+	.title-box td{
+		width: 100%;
+		float: left;
+	}
+	#customer-reviews{
+		margin-bottom: 0;
 	}
 }
 @media only screen and (max-width: 599px) {

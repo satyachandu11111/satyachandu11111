@@ -1924,7 +1924,7 @@ transition: all 5ms ease-in-out 0s;
 			line-height: 4rem;
 			
 			@media @767{
-				font-size: @base;
+			font-weight: 400;
 			}
 		}
 		h6{
@@ -1990,7 +1990,7 @@ transition: all 5ms ease-in-out 0s;
 		float: right !important;
 		content:"\e621";
 		padding-right: 5px;
-		font-size: 2rem;
+		font-size: @font18;
 		font-family: 'luma-icons';
 		}
 		.card-header > a.collapsed:before {
@@ -2462,6 +2462,23 @@ transition: all 5ms ease-in-out 0s;
 |  Product Page 
 --------------------------------------------------------------------------*/
 
+/*---------------------------
+| recently viewd
+------------------------------*/
+
+.block-viewed-products-grid{
+	margin-top: 3rem;
+	
+	.block-title{
+		text-align: center;
+		
+		strong{
+			font-size: @font22;
+		}
+	}
+}
+
+
 
 /*---------------------------
 |  Product Delivery & offers Block
@@ -2470,6 +2487,11 @@ transition: all 5ms ease-in-out 0s;
 .deliver-options{
 	clear: both;
 	padding: 0;
+	display: none;
+	
+	@media @992{
+		display: block;
+	}
 }
 .product-delivery{
 	
@@ -2477,12 +2499,8 @@ transition: all 5ms ease-in-out 0s;
 	padding: 1.5rem;
 	float: left;
 	margin-bottom: 4rem;
-	display: none;
 	width: 100%;
 	
-	@media @992{
-		display: block;
-	}
 	
 	.head span{
 		font-weight: bold;
@@ -2605,10 +2623,11 @@ transition: all 5ms ease-in-out 0s;
 	font-size:@font20;
 	width: 100%;
 	background: @f2light;
+	padding-left: 1.5rem;
 }
 .complete-look .conf-products .closebtn {
 	.fas{
-		font-size: @font16;
+		font-size: @font18;
 	}
 }
 @media screen and (max-height: 450px) {
@@ -3389,6 +3408,7 @@ transition: all 5ms ease-in-out 0s;
 			}
 			@media @639{
 				width:14rem;
+				margin-top: 0;
 			}
 		}
 		
@@ -3449,6 +3469,7 @@ transition: all 5ms ease-in-out 0s;
 		border-radius: .2rem;
 		height: @font36;
 	}
+	
 	.actions .tocart{
 			border: 0;
 			padding: 1rem 2rem;
@@ -3458,7 +3479,9 @@ transition: all 5ms ease-in-out 0s;
 			float: right;
 		
 			@media @479{
-				width: 100%;
+				width: 99%;
+				float: left;
+				margin-top: 2rem;
 			}
 		}
 	
@@ -3977,10 +4000,24 @@ transition: all 5ms ease-in-out 0s;
 	.cart.table-wrapper .col.price .price-excluding-tax, .cart.table-wrapper .col.subtotal .price-excluding-tax .price{
 		padding-top: .7rem;
 		display: block;
+		
+		@media @479{
+			padding-top: .3rem;
+		}
 	}
 	.form-cart .actions.main .continue{
 		display: block;
 		float: right;
+		
+		@media @639{
+			float: none;
+			margin: auto;
+			padding: 1.2rem;
+			background: @f9light;
+			width: 90%;
+			font-weight: bold;
+			font-size: @font16;
+		}
 	}
 	
 	.cart-update{
@@ -4029,6 +4066,7 @@ transition: all 5ms ease-in-out 0s;
 			padding: 0rem;
 			display: flex;
 		}
+		
 		.field label{
 			@media @767{
 				display: none;
@@ -4069,6 +4107,7 @@ transition: all 5ms ease-in-out 0s;
 		}
 		@media @639{
 			width: 68%;
+			margin-bottom: 1rem;
 		}
 		@media @359{
 			width: 66%;
@@ -6111,6 +6150,14 @@ transition: all 5ms ease-in-out 0s;
 		right: 5rem;
 		bottom: 15rem;
 		box-shadow: 0 0 .4rem @border-color;
+		
+		@media @767{
+			width: 100%;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			margin-bottom: 0;
+		}
 		
 		.product-info {
 			padding: 1rem 2rem;
