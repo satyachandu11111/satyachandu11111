@@ -5,7 +5,6 @@
         <plugin name="modify_review_edit_form" type="Homescapes\Ratings\Plugin\Magento\Review\Block\Adminhtml\Edit\Form" />
     </type>    
     <preference for="Magento\Review\Block\Adminhtml\Grid" type="Homescapes\Ratings\Block\Adminhtml\Grid" />
-    <preference for="Magento\Review\Model\ResourceModel\Review\Product\Collection" type="Homescapes\Ratings\Model\ResourceModel\Review\Product\Collection" />
-
-    
+    <preference for="Magento\Review\Model\ResourceModel\Review\Product\Collection" type="Homescapes\Ratings\Model\ResourceModel\Review\Product\Collection" />    
+    <preference for="Magento\Review\Block\Form" type="Homescapes\Ratings\Block\Review\Form" />    
 </config>
