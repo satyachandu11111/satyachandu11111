@@ -45,8 +45,10 @@
 	<referenceBlock name="header.links">
             <block class="Magento\Customer\Block\Account\Customer" name="customer" template="account/customer.phtml" before="-"/>
             <block class="Magento\Customer\Block\Account\AuthorizationLink" name="authorization-link-login" template="account/link/authorization.phtml"/>
-	</referenceBlock>
-
+            <block class="Magento\Customer\Block\Account\Customer" name="custom-cstomer-menu" template="Magento_Theme::account/custom-links.phtml" before="-"/>
+	</referenceBlock>        
+        <referenceBlock name="register-link" remove="true" /> 
+        <referenceBlock name="authorization-link-login" remove="true"/>
     </body>	
 	
 </page>

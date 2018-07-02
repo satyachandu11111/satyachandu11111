@@ -1,0 +1,34 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+/** @var Magento\Customer\Block\Account\Customer $block */
+?>
+<?php if(!$block->customerLoggedIn()): ?>
+    <li class="customer-welcome">
+        <span class="customer-name"
+              role="link"
+              tabindex="0"
+              data-mage-init='{"dropdown":{}}'
+              data-toggle="dropdown"
+              data-trigger-keypress-button="true">
+            <i class="fas fa-user"></i> <span><?= $block->escapeHtml(__('My Account')) ?></span>            
+        </span>        
+        
+        <div class="customer-menu" data-target="dropdown">
+            <ul>
+                <li>
+                    <a href="<?php echo $this->getUrl('customer/account/login') ?>"><?php echo __('Sign In') ?></a>
+                </li>
+                <li>
+                    <a href="<?php  echo $this->getUrl('customer/account/create/'); ?>"><?php echo __('New Customer? Sign up') ?></a>
+                </li>                
+            </ul>
+        </div>
+        
+    </li>
+<?php endif; ?>
+
