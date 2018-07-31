@@ -41,10 +41,10 @@ module.exports = {
         ],
         dsl: 'less'
     },
-    Dev: {
+    Homes: {
         area: 'frontend',
         name: 'Homescapes/Develop',
-        locale: 'en_GB',
+        locale: 'en_US',
         files: [
             'css/styles-m',
             'css/styles-l'
