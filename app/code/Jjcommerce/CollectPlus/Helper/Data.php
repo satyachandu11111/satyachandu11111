@@ -53,6 +53,64 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
+     * Check whether to show collectplus find store option
+     *
+     * @return bool
+     */
+    public function isShowCollect()
+    {
+
+        /** @var \Magento\Quote\Model\Quote $quote */
+        $quote = $this->_checkoutSession->getQuote();
+
+
+        $minAmount = $this->getConfigData('min_order_value');
+        $maxAmount = $this->getConfigData('max_order_value');
+        $minWeight = $this->getConfigData('min_order_weight');
+        $maxWeight = $this->getConfigData('max_order_weight');
+
+        $maxWeightFreeShipping = $this->getConfigData('max_order_weight_free_shipping');
+        $minAmountFreeShipping = $this->getConfigData('min_order_value_free_shipping');
+
+        $orderWeight = 0;//$quote->getPackageWeight();
+        $allItems = $quote->getAllVisibleItems();
+        foreach($allItems as $_item) {
+            $orderWeight += $_item->getWeight();
+        }
+
+        if (($quote->getBaseSubtotal() >= $minAmount && $quote->getBaseSubtotal() <= $maxAmount) || (!$minAmount && !$maxAmount) || (!$minAmount && $maxAmount && $quote->getBaseSubtotal() <= $maxAmount) || ($minAmount && !$maxAmount && $quote->getBaseSubtotal() >= $minAmount)) {
+            $show = true;
+        } else {
+            $show = false;
+        }
+
+        $showWeight = false;
+        if(($orderWeight >= $minWeight && $orderWeight <= $maxWeight) || (!$minWeight && !$maxWeight) || (!$minWeight && $maxWeight && $orderWeight <= $maxWeight) || ($minWeight && !$maxWeight && $orderWeight >= $minWeight)) {
+            $showWeight = true;
+        }
+
+        /**$showFreeShipping = false;
+        if($orderWeight <= $maxWeightFreeShipping && $minAmountFreeShipping <= $quote->getBaseSubtotalInclTax()) {
+            $showFreeShipping = true;
+        }*/
+
+        $show = $show && $showWeight ? true : false;
+
+        //return $showFreeShipping || $show;
+        return $show;
+
+    }
+
+    public function getConfigData($field) {
+        $path = 'carriers/' . 'collect' . '/' . $field;
+
+        return $this->scopeConfig->getValue(
+            $path,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    /**
      * @return null|int
      */
     public function getMaxResult()

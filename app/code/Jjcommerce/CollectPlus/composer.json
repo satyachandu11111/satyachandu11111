@@ -2,7 +2,7 @@
   "name": "jjcommerce/collectplus",
   "description": "CollectPlus Stores",
   "type": "magento2-module",
-  "version": "5.0.0",
+  "version": "6.0.0",
   "license": [
     "OSL-3.0",
     "AFL-3.0"

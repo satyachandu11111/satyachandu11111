@@ -108,6 +108,18 @@ class Collect extends AbstractCarrier implements CarrierInterface
         $minWeight = $this->getConfigData('min_order_weight');
         $maxWeight = $this->getConfigData('max_order_weight');
 
+        $isFreeShippingEnabledNextDay = $this->getConfigData('allow_free_next_day');
+        $maxWeightFreeShippingNextDay = $this->getConfigData('max_order_weight_free_shipping_next_day');
+        $minAmountFreeShippingNextDay = $this->getConfigData('min_order_value_free_shipping_next_day');
+
+        $isFreeShippingEnabledTwoDay = $this->getConfigData('allow_free_two_day');
+        $maxWeightFreeShippingTwoDay = $this->getConfigData('max_order_weight_free_shipping_two_day');
+        $minAmountFreeShippingTwoDay = $this->getConfigData('min_order_value_free_shipping_two_day');
+
+        $isFreeShippingEnabledThreeDay = $this->getConfigData('allow_free_three_day');
+        $maxWeightFreeShippingThreeDay = $this->getConfigData('max_order_weight_free_shipping_three_day');
+        $minAmountFreeShippingThreeDay = $this->getConfigData('min_order_value_free_shipping_three_day');
+
         $orderWeight = $request->getPackageWeight();
 
 
@@ -123,6 +135,7 @@ class Collect extends AbstractCarrier implements CarrierInterface
         }
 
         $show = $show && $showWeight && $isAgentData ? true : false;
+
 
         /** @var Result $result */
         $result = $this->_rateResultFactory->create();
@@ -146,6 +159,8 @@ class Collect extends AbstractCarrier implements CarrierInterface
         $foundRates = false;
         $shippingMethods = array();
 
+        $title = $this->getConfigData('title');
+        $freeshippingtitle = $this->getConfigData('title_free_shipping');
         $nextDay = $this->getConfigData('next_day');
         $nextTitle = $this->getConfigData('next_day_title');
         $nextCost = $this->getConfigData('next_day_price');
@@ -155,14 +170,23 @@ class Collect extends AbstractCarrier implements CarrierInterface
             /** @var \Magento\Quote\Model\Quote\Address\RateResult\Method $method */
             $method = $this->_rateMethodFactory->create();
 
+            $showFreeShippingNextDay = false;
+            // $maxWeightFreeShippingNextDay no longer is requirement.
+            /*if($isFreeShippingEnabledNextDay && $orderWeight <= $maxWeightFreeShippingNextDay && $minAmountFreeShippingNextDay <= $request->getBaseSubtotalInclTax()) {
+                $showFreeShippingNextDay = true;
+            }*/
+            if($isFreeShippingEnabledNextDay && $minAmountFreeShippingNextDay <= $request->getBaseSubtotalInclTax()) {
+                $showFreeShippingNextDay = true;
+            }
+
             $method->setCarrier('collect');
-            $method->setCarrierTitle($this->getConfigData('title'));
+            $method->setCarrierTitle($showFreeShippingNextDay ? $freeshippingtitle : $title);
 
             $method->setMethod('collect_next');
             $method->setMethodTitle($nextTitle);
 
-            $method->setPrice($nextCost);
-            $method->setCost($nextCost);
+            $method->setPrice($showFreeShippingNextDay ? 0 : $nextCost);
+            $method->setCost($showFreeShippingNextDay ? 0 : $nextCost);
 
             $shippingMethods[24] = $method;
         }
@@ -177,14 +201,23 @@ class Collect extends AbstractCarrier implements CarrierInterface
 
             $method2 = $this->_rateMethodFactory->create();
 
+            $showFreeShippingTwoDay = false;
+            // $maxWeightFreeShippingTwoDay no longer is requirement.
+            /*if($isFreeShippingEnabledTwoDay && $orderWeight <= $maxWeightFreeShippingTwoDay && $minAmountFreeShippingTwoDay <= $request->getBaseSubtotalInclTax()) {
+                $showFreeShippingTwoDay = true;
+            }*/
+            if($isFreeShippingEnabledTwoDay && $minAmountFreeShippingTwoDay <= $request->getBaseSubtotalInclTax()) {
+                $showFreeShippingTwoDay = true;
+            }
+
             $method2->setCarrier('collect');
-            $method2->setCarrierTitle($this->getConfigData('title'));
+            $method2->setCarrierTitle($showFreeShippingTwoDay ? $freeshippingtitle : $title);
 
             $method2->setMethod('collect_48hr');
             $method2->setMethodTitle($twoTitle);
 
-            $method2->setPrice($twoCost);
-            $method2->setCost($twoCost);
+            $method2->setPrice($showFreeShippingTwoDay ? 0 : $twoCost);
+            $method2->setCost($showFreeShippingTwoDay ? 0 : $twoCost);
 
             $shippingMethods[48] = $method2;
         }
@@ -199,14 +232,23 @@ class Collect extends AbstractCarrier implements CarrierInterface
 
             $method3 = $this->_rateMethodFactory->create();
 
+            $showFreeShippingThreeDay = false;
+            // $maxWeightFreeShippingThreeDay no longer is requirement.
+            /*if($isFreeShippingEnabledThreeDay && $orderWeight <= $maxWeightFreeShippingThreeDay && $minAmountFreeShippingThreeDay <= $request->getBaseSubtotalInclTax()) {
+                $showFreeShippingThreeDay = true;
+            }*/
+            if($isFreeShippingEnabledThreeDay && $minAmountFreeShippingThreeDay <= $request->getBaseSubtotalInclTax()) {
+                $showFreeShippingThreeDay = true;
+            }
+
             $method3->setCarrier('collect');
-            $method3->setCarrierTitle($this->getConfigData('title'));
+            $method3->setCarrierTitle($showFreeShippingThreeDay ? $freeshippingtitle : $title);
 
             $method3->setMethod('collect_72hr');
             $method3->setMethodTitle($threeTitle);
 
-            $method3->setPrice($threeCost);
-            $method3->setCost($threeCost);
+            $method3->setPrice($showFreeShippingThreeDay ? 0 : $threeCost);
+            $method3->setCost($showFreeShippingThreeDay ? 0 : $threeCost);
 
             $shippingMethods[72] = $method3;
             //$result->append($method3);

@@ -133,6 +133,13 @@ class Collect extends \Magento\Framework\View\Element\Template
     /**
      * @return null|int
      */
+    public function isShowCollect() {
+        return $this->_collectHelper->isShowCollect();
+    }
+
+    /**
+     * @return null|int
+     */
     public function canShowSmsBox() {
         return $this->_collectHelper->canShowSmsBox();
     }

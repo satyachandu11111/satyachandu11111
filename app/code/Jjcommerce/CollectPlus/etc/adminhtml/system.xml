@@ -23,6 +23,10 @@
                     <label>Title</label>
                     <comment></comment>
                 </field>
+                <field id="title_free_shipping" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Free Shipping Title</label>
+                    <comment><![CDATA[<b>Free shipping title. Example : CollectPlus Free</b>]]></comment>
+                </field>
                 <field id="errormsg" translate="label" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Displayed Error Message</label>
                     <comment>The text to display the customer if any error is detected during communication with the Collect+ API</comment>
@@ -64,53 +68,174 @@
                     <label>Optional SMS alerts</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
+                <field id="line1" translate="label" type="label" sortOrder="121" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label></label>
+                    <comment><![CDATA[-----------------------------------------------]]></comment>
+                </field>
                 <field id="next_day" translate="label" type="select" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Next Day (24hr)</label>
+                    <label><![CDATA[<b>Next Day (24hr)</b>]]></label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
                 <field id="next_day_title" translate="label" type="text" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Title (Next Day)</label>
                     <comment></comment>
+                    <depends>
+                        <field id="next_day">1</field>
+                    </depends>
                 </field>
                 <field id="next_day_account" translate="label" type="text" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Account number (Next Day)</label>
                     <comment>Account number is required for this shipping method</comment>
+                    <depends>
+                        <field id="next_day">1</field>
+                    </depends>
                 </field>
                 <field id="next_day_price" translate="label" type="text" sortOrder="160" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Next Day (24hr) Cost</label>
                     <comment></comment>
+                    <depends>
+                        <field id="next_day">1</field>
+                    </depends>
+                </field>
+                <field id="allow_free_next_day" translate="label" type="select" sortOrder="161" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Allow Free Shipping for Next Day]]></label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="free_shipping_text1" translate="label" type="label" sortOrder="162" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label></label>
+                    <!--<comment><![CDATA[<b>Free Shipping Maximum Order Weight and Minimum Order Value. When satisfying these two criteria's the price will be 0 for shipping.</b>]]></comment>-->
+                    <comment><![CDATA[<b>Free Shipping Minimum Order Value. When satisfying this criteria's the price will be 0 for shipping.</b>]]></comment>
+                    <depends>
+                        <field id="allow_free_next_day">1</field>
+                    </depends>
+                </field>
+                <!--<field id="max_order_weight_free_shipping_next_day" translate="label" type="text" sortOrder="163" showInDefault="1" showInWebsite="1" showInStore="1">-->
+                    <!--<label>Maximum Order Weight for Free Shipping</label>-->
+                    <!--<comment></comment>-->
+                    <!--<depends>-->
+                        <!--<field id="allow_free_next_day">1</field>-->
+                    <!--</depends>-->
+                <!--</field>-->
+                <field id="min_order_value_free_shipping_next_day" translate="label" type="text" sortOrder="164" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Minimum Order Value for Free Shipping</label>
+                    <comment></comment>
+                    <depends>
+                        <field id="allow_free_next_day">1</field>
+                    </depends>
+                </field>
+                <field id="line2" translate="label" type="label" sortOrder="165" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label></label>
+                    <comment><![CDATA[-----------------------------------------------]]></comment>
                 </field>
                 <field id="two_day" translate="label" type="select" sortOrder="170" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>48 hr</label>
+                    <label><![CDATA[<b>48 hr</b>]]></label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
                 <field id="two_day_title" translate="label" type="text" sortOrder="180" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Title (48 Hour)</label>
                     <comment></comment>
+                    <depends>
+                        <field id="two_day">1</field>
+                    </depends>
                 </field>
                 <field id="two_day_account" translate="label" type="text" sortOrder="190" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Account number (48 Hour)</label>
                     <comment>Account number is required for this shipping method</comment>
+                    <depends>
+                        <field id="two_day">1</field>
+                    </depends>
                 </field>
                 <field id="two_day_price" translate="label" type="text" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>48 Hour Cost</label>
                     <comment></comment>
+                    <depends>
+                        <field id="two_day">1</field>
+                    </depends>
+                </field>
+                <field id="allow_free_two_day" translate="label" type="select" sortOrder="201" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Allow Free Shipping for Two Day]]></label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="free_shipping_text2" translate="label" type="label" sortOrder="202" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label></label>
+                    <!--<comment><![CDATA[<b>Free Shipping Maximum Order Weight and Minimum Order Value. When satisfying these two criteria's the price will be 0 for shipping.</b>]]></comment>-->
+                    <comment><![CDATA[<b>Free Shipping Minimum Order Value. When satisfying this criteria's the price will be 0 for shipping.</b>]]></comment>
+                    <depends>
+                        <field id="allow_free_two_day">1</field>
+                    </depends>
+                </field>
+                <!--<field id="max_order_weight_free_shipping_two_day" translate="label" type="text" sortOrder="203" showInDefault="1" showInWebsite="1" showInStore="1">-->
+                    <!--<label>Maximum Order Weight for Free Shipping</label>-->
+                    <!--<comment></comment>-->
+                    <!--<depends>-->
+                        <!--<field id="allow_free_two_day">1</field>-->
+                    <!--</depends>-->
+                <!--</field>-->
+                <field id="min_order_value_free_shipping_two_day" translate="label" type="text" sortOrder="204" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Minimum Order Value for Free Shipping</label>
+                    <comment></comment>
+                    <depends>
+                        <field id="allow_free_two_day">1</field>
+                    </depends>
+                </field>
+                <field id="line3" translate="label" type="label" sortOrder="205" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label></label>
+                    <comment><![CDATA[-----------------------------------------------]]></comment>
                 </field>
                 <field id="three_day" translate="label" type="select" sortOrder="210" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>72 hr</label>
+                    <label><![CDATA[<b>72 hr</b>]]></label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
                 <field id="three_day_title" translate="label" type="text" sortOrder="220" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Title (72 Hour)</label>
                     <comment></comment>
+                    <depends>
+                        <field id="three_day">1</field>
+                    </depends>
                 </field>
                 <field id="three_day_account" translate="label" type="text" sortOrder="230" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Account number (72 Hour)</label>
                     <comment>Account number is required for this shipping method</comment>
+                    <depends>
+                        <field id="three_day">1</field>
+                    </depends>
                 </field>
                 <field id="three_day_price" translate="label" type="text" sortOrder="240" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>72 Hour Cost</label>
                     <comment></comment>
+                    <depends>
+                        <field id="three_day">1</field>
+                    </depends>
+                </field>
+                <field id="allow_free_three_day" translate="label" type="select" sortOrder="241" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Allow Free Shipping for Three Day]]></label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="free_shipping_text3" translate="label" type="label" sortOrder="242" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label></label>
+                    <!--<comment><![CDATA[<b>Free Shipping Maximum Order Weight and Minimum Order Value. When satisfying these two criteria's the price will be 0 for shipping.</b>]]></comment>-->
+                    <comment><![CDATA[<b>Free Shipping Minimum Order Value. When satisfying this criteria's the price will be 0 for shipping.</b>]]></comment>
+                    <depends>
+                        <field id="allow_free_three_day">1</field>
+                    </depends>
+                </field>
+                <!--<field id="max_order_weight_free_shipping_three_day" translate="label" type="text" sortOrder="243" showInDefault="1" showInWebsite="1" showInStore="1">-->
+                    <!--<label>Maximum Order Weight for Free Shipping</label>-->
+                    <!--<comment></comment>-->
+                    <!--<depends>-->
+                        <!--<field id="allow_free_three_day">1</field>-->
+                    <!--</depends>-->
+                <!--</field>-->
+                <field id="min_order_value_free_shipping_three_day" translate="label" type="text" sortOrder="244" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Minimum Order Value for Free Shipping</label>
+                    <comment></comment>
+                    <depends>
+                        <field id="allow_free_three_day">1</field>
+                    </depends>
+                </field>
+                <field id="line4" translate="label" type="label" sortOrder="245" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label></label>
+                    <comment><![CDATA[-----------------------------------------------]]></comment>
                 </field>
                 <field id="sort_methods" translate="label" type="text" sortOrder="250" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Sort order for CollectPlus shipping methods</label>

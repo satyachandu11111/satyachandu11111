@@ -280,6 +280,7 @@ define(
             getCountryName: function (countryId) {
                 return countryData()[countryId] != undefined ? countryData()[countryId].name : '';
             },
+            
             /**
              * Trigger action to update shipping and billing addresses
              */

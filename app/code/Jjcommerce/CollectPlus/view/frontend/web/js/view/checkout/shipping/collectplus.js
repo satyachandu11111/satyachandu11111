@@ -16,8 +16,16 @@ define([
 ], function ($, Component, ko, config) {
     'use strict';
 
-    var collectavailable = window.collectavailable;
+    var collectavailable = Number(window.collectavailable);
     var collectlogo = window.collect_logo;
+    //alert(collectavailable);
+    if(!collectavailable) {
+        return Component.extend({
+            config: config(),
+            collectlogo:collectlogo,
+            collectavailable:collectavailable
+        });
+    }
     return Component.extend({
         defaults: {
             template: 'Jjcommerce_CollectPlus/checkout/shipping/collectplus-select'

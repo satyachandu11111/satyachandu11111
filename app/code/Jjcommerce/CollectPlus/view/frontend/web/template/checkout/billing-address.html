@@ -10,7 +10,7 @@
         <input type="checkbox" name="billing-address-same-as-shipping" data-bind="checked: isAddressSameAsShipping, click: useShippingAddress, attr: {id: 'billing-address-same-as-shipping-' + getCode($parent)}"/>
         <label data-bind="attr: {for: 'billing-address-same-as-shipping-' + getCode($parent)}"><span data-bind="i18n: 'My billing and shipping address are the same'"></span></label>
     </div>
-    <div class="collectplus-billing-address-text" data-bind="visible: canShowBillingAddressText()"><label><span>My billing address</span></label></div>
+    <div class="collectplus-billing-address-text" data-bind="visible: canShowBillingAddressText()"><label><span data-bind="i18n: 'My billing address'"></span></label></div>
     <!-- ko template: 'Magento_Checkout/billing-address/details' --><!-- /ko -->
     <fieldset class="fieldset" data-bind="visible: !isAddressDetailsVisible()">
         <!-- ko template: 'Magento_Checkout/billing-address/list' --><!-- /ko -->
