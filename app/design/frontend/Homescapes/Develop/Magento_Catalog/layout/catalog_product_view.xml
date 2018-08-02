@@ -81,5 +81,7 @@
 		
 		 <move element="product.info.addto" destination="product.info.form.content" after="product.info.addtocart"/>    <!--Wishlist-->
 
+		 <referenceBlock name="product.info.overview" remove="true" />
+
     </body>
 </page>

@@ -49,6 +49,7 @@
 	</referenceBlock>        
         <referenceBlock name="register-link" remove="true" /> 
         <referenceBlock name="authorization-link-login" remove="true"/>
-    </body>	
-	
+        <referenceBlock name="currency" remove="true"/>
+    </body>		
+
 </page>
