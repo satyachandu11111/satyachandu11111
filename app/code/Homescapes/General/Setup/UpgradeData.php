@@ -22,7 +22,7 @@ class UpgradeData implements UpgradeDataInterface {
         if(version_compare($context->getVersion(), '1.1.0') < 0)
         {
             
-            $eavSetup->addAttribute(
+          /*  $eavSetup->addAttribute(
             \Magento\Catalog\Model\Product::ENTITY,
             'home_delivery_block',
             [
@@ -45,7 +45,7 @@ class UpgradeData implements UpgradeDataInterface {
                 'used_in_product_listing' => true,
                 'unique' => false,                
             ]    
-        ); 
+        ); */
             
       //exit('tttttt');
 

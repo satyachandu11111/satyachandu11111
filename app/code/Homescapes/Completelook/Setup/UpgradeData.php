@@ -19,7 +19,7 @@ class UpgradeData implements UpgradeDataInterface {
         $eavSetup = $this->eavSetupFactory->create(['setup' => $setup]);        
         if(version_compare($context->getVersion(), '1.2.0', '<'))
         {
-        	
+        	/*
         	$eavSetup->addAttribute(
             \Magento\Catalog\Model\Product::ENTITY,
             'complete_look_title',
@@ -43,12 +43,12 @@ class UpgradeData implements UpgradeDataInterface {
                 'used_in_product_listing' => false,
                 'unique' => false,                
             ]    
-        ); 
+        ); */
 
         }
         if(version_compare($context->getVersion(), '1.2.1') < 0)
         {
-            
+            /*
             $eavSetup->addAttribute(
             \Magento\Catalog\Model\Product::ENTITY,
             'related_product_item',
@@ -72,7 +72,7 @@ class UpgradeData implements UpgradeDataInterface {
                 'used_in_product_listing' => false,
                 'unique' => false,                
             ]    
-        ); 
+        ); */
 
         }
 	}
