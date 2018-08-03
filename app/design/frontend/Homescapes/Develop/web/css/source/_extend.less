@@ -14,11 +14,13 @@
 @f5light:#F5F5F5;
 @f9light:#F9F9F9;
 @flight:#eeeeee;
+@dlight:#dddddd;
 
 @green:#0B8643;
 
 @border-color:#CCCCCC;
 
+@skyblue:#0076a3;
 @blue:#025CBD;
 @primary: #025CBD;
 @secondary: #6c757d;
@@ -168,6 +170,11 @@ input:not([disabled]):focus{
 body{
 	color: @black;
 }
+p{
+	
+	line-height: 1.82857143;
+	font-size: 1.5rem;
+}
 button:hover{
 	border: 0;
 }
@@ -221,6 +228,8 @@ ul > li, ol > li{
 }
 .columns .column.main{
 	padding-bottom:@font15;
+	
+	line-height: 1.8;
 }
 .rating-summary .rating-result > span::before{
 	color: @yellow;
@@ -237,7 +246,7 @@ ul > li, ol > li{
 
 h1, .h1 {
   font-size:@font24;
-  margin-bottom: @font20;
+  margin-bottom: 1.5rem;
 	
 	@media @767{
 		font-size: @font26;
@@ -246,6 +255,7 @@ h1, .h1 {
 
 h2, .h2 {
   font-size:@font26;
+  margin-bottom: 1.5rem;
 	
 	@media @767{
 		font-size: @font22;
@@ -1156,6 +1166,7 @@ transition: all 5ms ease-in-out 0s;
     transition: all 0.4s ease-in-out;
   }
   .wsmenucontainer.wsoffcanvasopener {
+
     display: block;
   }
   .wsmobileheader {
@@ -2345,6 +2356,10 @@ transition: all 5ms ease-in-out 0s;
 	
 	margin-bottom: @font40;
 	padding: 0;
+	
+	&:last-child{
+		margin-bottom: 0;
+	}
 	
 	@media @991{
 		text-align: center;
@@ -4349,6 +4364,34 @@ transition: all 5ms ease-in-out 0s;
 	.card-header > a:focus  {
 		text-decoration:none;
 	}
+	.card-body{
+		@media @991{
+			padding: 1.25rem 0;
+		}
+	}
+	.guide-content{
+		
+		span{
+			margin: 2rem 0;
+			float: left;
+		}
+	}
+	.start-creating-curtain{
+		
+		margin: 2rem 0;
+		
+		.button{
+			background: @blue;
+			border: 1px solid @blue;
+			color: @white;
+			padding: .8rem 2rem;
+			font-size: @font16;
+			margin: 1rem auto;
+			border-radius: .4rem;
+			font-weight: bold;
+
+		}
+	}
 
 }
 
@@ -4879,6 +4922,7 @@ transition: all 5ms ease-in-out 0s;
 	
 	.guide-content{
 		
+		
 		ul{
 			list-style-type: disc;
 			margin-left: 2rem;
@@ -5018,6 +5062,8 @@ transition: all 5ms ease-in-out 0s;
 	
 	.guide-banner{
 		margin-bottom: 2rem;
+
+
 	}
 	
 }
@@ -5186,6 +5232,166 @@ transition: all 5ms ease-in-out 0s;
 		text-decoration:none;
 	}
 
+}
+
+/*--------------------------------------------------------------------------
+|  landing  Pages
+--------------------------------------------------------------------------*/
+
+.nwlandinglft{
+	line-height: @font28;
+	font-size: 1.5rem;
+	max-width: 120rem;
+	margin: auto;
+	
+	h1{
+		margin-bottom: 1rem;
+	}
+	.nwlandingprod{
+		float: left;
+		width: 100%;
+	}
+	.products-grid{
+		text-align: center;
+		color: @black;
+		float: left;
+		width: 100%;
+		
+		.item{
+			width: 23.5%;
+			margin: 0 2% 2% 0;
+			float: left;
+			border: 1px solid @dlight;
+			padding-bottom: 1rem;
+			
+			@media @991{
+				width: 32%;
+			}
+			
+			@media @767{
+				width: 48%;
+			}
+			
+			@media @479{
+				width: 100%;
+				margin: 0 0% 2% 0;
+			}
+		}
+		li.item:first-child{
+			margin: 0 2% 2% 0 !important;
+			
+			
+			@media @479{
+				margin: 0 0% 2% 0 !important;
+			}
+		}
+		
+		
+		li.item:nth-child(3), li.item:nth-child(6), li.item:nth-child(9), li.item:nth-child(12){
+			@media @991{
+				margin-right: 0;
+			}
+		}
+		
+		li.item:nth-child(3n+1){
+			margin: 0 0 2% 0;
+			
+			@media @991{
+				margin: 0 2% 2% 0;
+			}
+		}
+		
+		h2{
+			background: @f2light;
+			font-size: @font16;
+			font-weight: bold;
+			line-height: @font24;
+			padding: 1rem;
+			min-height: 6.8rem;
+			
+			a{
+				color: @black;
+			}
+			@media @479{
+				min-height: auto;
+			}
+			
+		}
+		
+		.content > p{
+			@media @991{
+				min-height: 14rem;
+			}
+			@media @767{
+				min-height: auto;
+			}
+		}
+		
+		.content{
+			padding: 1rem;
+			
+			.price-box{
+				padding: .3rem;
+				background: @f9light;
+				margin-bottom: 2rem;
+				font-weight: bold;
+			}
+			.old-price{
+				display: inline-block;
+				margin-bottom: 0;
+				margin-right: .6rem;
+				
+				span{
+					font-size: @font18;
+					color: @light-black;
+					text-decoration: line-through;
+				}
+			}
+			.special-price{
+				display: inline-block;
+				margin-bottom: 0;
+				
+				span{
+					color: @blue;
+					font-size: @font22;
+				}
+			}
+		}
+		
+	}
+	.nwlandingcont{
+		margin-bottom: 3rem;
+	}
+	.button{
+		background: @blue;
+		color: @white;
+		text-transform: uppercase;
+		padding: .7rem 1.5rem;
+		border-radius: .4rem;
+	}
+	.col-50{
+		
+		width: 47%;
+		float: left;
+		margin-bottom: 3rem;
+		margin-right: 2%;
+		
+		@media @479{
+			width: 100%;
+			margin-bottom: 0;
+		}
+		
+		ul li{
+			width: 100% !important;
+			margin-bottom: 3%;	
+		}
+	}
+	.col-50:last-child{
+		margin-right: 0;
+	}
+	.heading-title{
+		margin-bottom: 2rem;
+	}
 }
 
 /*--------------------------------------------------------------------------
@@ -6269,3 +6475,626 @@ transition: all 5ms ease-in-out 0s;
 		}
     }
  
+ /*--------------------------------------------------------------------------
+| made to measure
+--------------------------------------------------------------------------*/ 
+
+.amde-to-measure{
+	
+	float: left;
+	width: 100%;
+	
+	.a-left{
+		float: left;
+		width: 70%;
+		
+		@media @767{
+			width: 100%;
+		}
+		
+	}
+	
+	.a-right{
+		float: right;
+		width: 30%;
+		
+		@media @767{
+			width: 100%;
+		}
+	}
+	.shop-all-pillow-btn{
+		float: left;
+	}
+	.button{
+		background: @white;
+		border: 1px solid @light-black;
+		color: @black;
+		padding: .8rem 2rem;
+		font-size: @font16;
+		margin: 1rem auto;
+		border-radius: .4rem;
+		font-weight: bold;
+		
+		&:hover{
+			background: @light-black;
+			color: @white;
+			text-decoration: none;
+		}
+
+	}
+}
+
+#accordion .mtm-why-homescapes{
+	background: @white;
+}
+.mtm-why-homescapes{
+	background: @f5light;
+	overflow: hidden;
+	padding: 1rem;
+	margin: 0 0 1rem 0;
+	clear: both;
+	
+	h3{
+		margin-bottom: 2rem;
+		font-size: @font18;
+	}
+	strong{
+		margin: 1rem 0;
+	}
+	.mtm-left {
+		display: block;
+		width: 10%;
+		float: left;
+		padding: 1rem 0px 0 1rem;
+	}
+	.mtm-right {
+		display: block;
+		float: left;
+		width: 90%;
+		padding: 1rem 0 0 2rem;
+	}
+	img{
+		max-width: 100%;
+	}
+	p{
+		padding: 0;
+	}
+}
+.mtm-why-homescapes.who-we-are{
+	
+	margin: 1.5rem 0 1rem 0;
+	
+	.mtm-left {
+		display: block;
+		width: 20%;
+		float: left;
+		padding: 1rem 0px 0 1rem;
+	}
+	.mtm-right {
+		display: block;
+		float: left;
+		width: 80%;
+		padding: 1rem 0 0 2rem;
+	}
+}
+
+.cms-made-to-measure-guarantee {
+	.made-to-measure-wrapper .call-us-today::before {
+		background: url(../images/call-center-operator.svg) no-repeat;
+		background-position-x: 0%;
+		background-position-y: 0%;
+		background-size: auto auto;
+		width: 50px;
+		height: 50px;
+		content: "";
+		background-position: 0px;
+		background-size: 50px;
+		display: inline-block;
+		float: left;
+		margin-right: 10px;
+	}
+	
+	.made-to-measure-wrapper {
+		
+		clear: both;
+		margin-top:1.5rem;
+		
+		.made-to-measure-left {
+			float: left;
+			width: 70%;
+			
+			@media @1199{
+				width: 65%;
+			}
+			@media @991{
+				width: 100%;
+			}
+		}
+		.made-to-measure-right {
+			float: right;
+			width: 30%;
+			
+			@media @1199{
+				width: 35%;
+			}
+			@media @991{
+				width: 100%;
+				margin-bottom: 2rem;
+			}
+		}
+		
+		.call-us-today {
+			background: @f5light;
+			border-radius: 8px;
+			-webkit-border-radius: 8px;
+			box-shadow: 2px 3px 0 0 rgba(0, 0, 0, 0.3);
+			-webkit-box-shadow: 2px 3px 0 0 rgba(0, 0, 0, 0.3);
+			padding: 2rem;
+			
+			h4 {
+				margin-bottom: 0;
+				font-size: @font18;
+				color: @blue;
+			}
+		}
+		.made-to-measure-container {
+			clear: both;
+			background: @f5light;
+			text-align: center;
+			border-left: .5rem solid @light-black;
+			padding: 1.5rem;
+			margin: 3rem 0 6rem;
+		}
+	}
+
+}
+
+
+.cms-homescapes-factories .column.main, .cms-made-to-measure-price-match .column.main, .cms-made-to-measure-peace-of-mind .column.main, .cms-made-to-measure-guarantee .column.main, .cms-lieferung .col-main{
+	ul{
+		list-style-type: disc;
+		margin-left: 2rem;
+		margin-bottom: 2rem;
+	}
+	
+}
+.cms-page-view h3{
+	font-size: @font18;
+	margin-bottom: 1rem;
+	font-weight: bold;
+}
+
+
+ /*--------------------------------------------------------------------------
+| cookie table
+--------------------------------------------------------------------------*/ 
+.data-table{
+	width: 100%;
+	line-height: @font28;
+	
+	th{
+		background: @f5light;
+	}
+	td{
+		border-bottom: 1px solid @dlight;
+	}
+}
+ /*--------------------------------------------------------------------------
+| bedding-quick-block
+--------------------------------------------------------------------------*/ 
+.bedding-quick-block{
+	margin: 2rem auto;
+	.deliveries {
+		display: block;
+		float: left;
+		
+		strong{
+			font-size: 1.2rem;
+			line-height: 1.2rem;
+		}
+		p{
+			font-size: 1.2rem;
+			line-height: 1.2rem;
+			margin-bottom: 0;
+		}
+	}
+	.deliveries:nth-child(1){
+		@media @991{
+			margin-right: 1%;
+		}
+		@media @639{
+			margin-right: 0;
+		}
+	}
+	.deliveries:nth-child(1), .deliveries:nth-child(2) {
+		width: 24%;
+		margin-right: 1%;
+		border-right: 1px solid @dlight;
+		
+		@media @991{
+			width: 49%;
+			border: 1px solid @dlight;
+			margin-bottom: 1rem;
+			padding: 1rem;
+			border-radius: .4rem;
+		}
+		@media @639{
+			width: 100%;
+		}
+		
+		&::before{
+			background: url(../images/free-del.png) no-repeat 0 10px;
+			width: 3.2rem;
+			height: 3.2rem;
+			display: block;
+			float: left;
+			content: "";
+			margin: 0 1rem 0 0;
+		}
+	}
+	.deliveries:nth-child(3) {
+		width: 28%;
+		margin-right: 1%;
+		border-right: 1px solid @dlight;
+		
+		@media @991{
+			width: 49%;
+			border:1px solid @dlight;
+			padding: 1rem;
+			border-radius: .4rem;
+		}
+		@media @639{
+			width: 100%;
+			margin-right: 0;
+			margin-bottom: 2%;
+		}
+		
+		&::before{
+
+			background: url(../images/collect-click.png) no-repeat 0 10px;
+			width: 4.2rem;
+			height: 3.2rem;
+			display: block;
+			float: left;
+			content: "";
+			margin: 0 1rem 0 0;
+
+		}
+	}
+	.deliveries:nth-child(4) {
+		width: 21%;
+		
+		@media @991{
+			width: 49%;
+			border:1px solid @dlight;
+			padding: 1rem;
+			border-radius: .4rem;
+		}
+		@media @639{
+			width: 100%;
+		}
+		
+		&::before{
+			
+			font-family: "Font Awesome 5 Free";
+			width: 24px;
+			height: 33px;
+			display: block;
+			float: left;
+			content: '\f017';
+			margin: 0 10px 0 0;
+			font-size: 21px;
+		}
+	}
+}
+
+ /*--------------------------------------------------------------------------
+| double box content blocks
+--------------------------------------------------------------------------*/ 
+.two-box-content{
+	.col-lg-6 > a{
+		width: 60%;
+		float: left;
+		
+		@media @639{
+			width: 100%;
+			margin-bottom: 2rem;
+		}
+	}
+	.col-lg-6{
+		margin-bottom: 2rem;
+	}
+	.pro-content{
+		width: 36%;
+		float: right;
+		
+		@media @639{
+			width: 100%;
+		}
+		
+		.pro-name, .shop-now{
+			font-size: @font16;
+			text-transform: uppercase;
+			font-weight: bold;
+		}
+		.pro-name{
+			color: @black;
+		}
+		.shop-now {
+			color: @skyblue;
+		}
+	}
+}
+
+.category-cms h4{
+	font-size: @font26;
+	margin: 2rem auto;
+	text-align: center;
+}
+.readymade-curtains{
+	
+	h4{
+		font-size: @font26;
+		margin: 2rem auto;
+		text-align: center;
+	}
+	
+	.egyptian-product{
+		
+		ul{
+			width: 49.43%;
+			display: inline-block;
+			vertical-align: top;
+			margin: 0 0 5px 0;
+			margin-right: 0px;
+			
+			@media @991{
+				width:48.43%;
+			}
+			@media @639{
+				width: 100%;
+			}
+			
+			li{
+				position: relative;
+			}
+			li a img{
+				width: 100%;
+			}
+		}
+		
+		ul:first-child{
+			width: 47.90%;
+			display: inline-block;
+			margin-right: 2.389%;
+			
+			@media @639{
+				width: 100%;
+			}
+		}
+		
+		ul li .pro-content{
+			position: absolute;
+			background: rgba(255, 255, 255, 0.75);
+			padding: 2.5rem 3rem;
+			bottom: 0;
+			
+			@media @991{
+				padding: 1.5rem 2rem;
+			}
+			
+			.pro-name{
+				font-size: @font22;
+				color: @black;
+				font-weight: bold;
+				margin: 0 0 10px 0;
+				display: block;
+			}
+			p{
+				font-size: @font16;
+				color: @black;
+			}
+		}
+	}
+}
+
+ /*--------------------------------------------------------------------------
+| kitchen 5 blocks
+--------------------------------------------------------------------------*/ 
+
+	
+.shop-by-range.egyptian-product {
+
+	ul{
+		width: 39.75%;
+		float: left;
+		
+		@media @991{
+			width: 100%;
+		}
+
+		li{
+			background:@f5light;
+			margin-bottom: 1rem;
+			line-height: 0;
+
+			.pro-content {
+				display: inline-block;
+				width: 45%;
+				vertical-align: top;
+				margin: 0 0 0 3%;
+				
+				p{
+					margin-bottom: 0;
+				}
+			}
+			
+			.pro-content  a {
+				width: 100%;
+				font-size: 16px;
+				color: @black;
+				text-transform: uppercase;
+				font-weight: bold;
+				margin: 40px 0 30px;
+				line-height: 1.7;
+			}
+			.pro-content .shop-now {
+				font-size:1.4rem;
+				color: @skyblue;;
+				margin: 1rem 0 0 0;
+			}
+		}
+
+		li a img {
+			width: 100%;
+		}
+	}
+
+	ul:nth-child(2) li {
+		margin-bottom: 1rem;
+		
+		.pro-content {
+			width: 55%;
+			
+			p{
+				line-height: 1.7;
+			}
+			.shop-now {
+				margin: 7px 0 0 0;
+			}
+			.pro-name {
+				margin: 2% 0 1% 0%;
+			}
+		}
+		.pro-content a {
+			width: 100%;
+			line-height: 1.7;
+		}
+		
+		a {
+			width: 35%;
+			display: inline-block;
+		}
+	}
+	
+	ul:first-child{
+		margin-right: 3%;
+		width: 57.15%;
+		
+		@media @991{
+			width: 100%;
+		}
+
+		li{
+			position: relative;
+
+			.pro-name {
+				font-size: 21px;
+				color: @black;
+				font-weight: bold;
+				margin: 0 0 1rem 0;
+				display: block;
+			}
+			a{
+				width: 100%;
+			}
+		}
+	}
+	ul:first-child li .pro-content {
+		position: absolute;
+		bottom: -1px;
+		background: rgba(255, 255, 255, 0.75);
+		padding: 25px 30px;
+		width: 100%;
+		margin: 0;
+		left: 0;
+	}
+
+}
+
+
+.artificial-plants{
+
+	float: left;
+	width: 100%;
+
+	ul li {
+		float: left;
+		width: 23.1%;
+		margin-right: 2.5%;
+		text-align: center;
+		border: 1px solid @dlight;
+		-moz-border-radius: .4rem;
+		-webkit-border-radius: .4rem;
+		-ms-border-radius: .4rem;
+		border-radius:.4rem;
+		padding: .8rem;
+
+		a{
+			width: 100%;
+		}
+	}
+	ul li .offer {
+		
+		margin: .5rem 0 0 0;
+		
+		.offer-tag {
+			float: left;
+			width: 25%;
+			margin-right:@font16;
+			background: @danger;
+			box-sizing: border-box;
+			-webkit-box-sizing: border-box;
+			font-size:@font16;;
+			color:@white;
+			text-transform: uppercase;
+			padding: 1.8rem .0rem;
+			text-align: center;
+			font-weight: bold;
+			
+			@media @1199{
+				width: 38%;
+			}
+			@media @991{
+				width: 35%;
+			}
+		}
+		.product-content {
+			float: left;
+			width: 70%;
+			text-align: left;
+			
+			@media @1199{
+				width: 54%;
+			}
+			
+			a{
+				font-size:@font16;;
+				font-weight: bold;
+				color: @black;
+			}
+			.product-short-des {
+				letter-spacing: -0.5px;
+				line-height: 1.5;
+				margin-bottom: 0;
+				font-size:1.4rem; 
+			}
+		}
+	}
+
+	.grid-3 {
+
+		li {
+			width: 31.667%;
+			
+			@media @639{
+				width: 100%;
+				margin-bottom: 2rem;
+			}
+		}
+		li:last-child {
+			margin-right: 0;
+		}
+	}
+}
+
