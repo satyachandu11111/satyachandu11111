@@ -100,6 +100,8 @@
 
 @768: ~"only screen and (min-width:768px)";
 
+@850: ~"only screen and (max-width:850px)";
+
 @991: ~"only screen and (max-width:991px)";
 
 @992: ~"only screen and (min-width:992px)";
@@ -228,8 +230,6 @@ ul > li, ol > li{
 }
 .columns .column.main{
 	padding-bottom:@font15;
-	
-	line-height: 1.8;
 }
 .rating-summary .rating-result > span::before{
 	color: @yellow;
@@ -1707,7 +1707,9 @@ transition: all 5ms ease-in-out 0s;
 .mb-30{
 	margin-bottom: @font30;
 }
-
+.mb-10{
+	margin-bottom: 1rem;
+}
 .bedding, .cms-page-heading{
 
 	img{
@@ -2298,7 +2300,9 @@ transition: all 5ms ease-in-out 0s;
 /*--------------------------------------------------------------------------
 |  Category CMS pages.
 --------------------------------------------------------------------------*/
-
+.category-curtains .popular-category{
+	margin: 0;
+}
 .popular-category{
 	background: @f9light;
 	padding: @font20 @font30;
@@ -3164,7 +3168,9 @@ transition: all 5ms ease-in-out 0s;
 	
 	
 }
-
+.product-info-price .price-box .price-container .price-label{
+		display: none !important;
+	}
 /*---------------------------------
 |  complete the look
 ---------------------------------------*/
@@ -5194,8 +5200,8 @@ transition: all 5ms ease-in-out 0s;
 			max-width: 50rem;
 		}
 		
-		@media @1199{
-			max-width: 60rem;
+		@media @1200{
+			max-width: 66rem;
 		}
 	}
 	.collapse.show, .collapse{
@@ -6842,14 +6848,14 @@ transition: all 5ms ease-in-out 0s;
 	.egyptian-product{
 		
 		ul{
-			width: 49.43%;
+			width: 48.08%;
 			display: inline-block;
 			vertical-align: top;
 			margin: 0 0 5px 0;
 			margin-right: 0px;
 			
 			@media @991{
-				width:48.43%;
+				width:47.55%;
 			}
 			@media @639{
 				width: 100%;
@@ -6857,6 +6863,7 @@ transition: all 5ms ease-in-out 0s;
 			
 			li{
 				position: relative;
+				margin-bottom: 2rem;
 			}
 			li a img{
 				width: 100%;
@@ -6866,7 +6873,7 @@ transition: all 5ms ease-in-out 0s;
 		ul:first-child{
 			width: 47.90%;
 			display: inline-block;
-			margin-right: 2.389%;
+			margin-right: 3%;
 			
 			@media @639{
 				width: 100%;
@@ -6880,7 +6887,7 @@ transition: all 5ms ease-in-out 0s;
 			bottom: 0;
 			
 			@media @991{
-				padding: 1.5rem 2rem;
+				padding: 1rem;
 			}
 			
 			.pro-name{
@@ -6898,6 +6905,17 @@ transition: all 5ms ease-in-out 0s;
 	}
 }
 
+.category-curtains .popular-category .category img{
+	
+	@media @850{
+		max-width: 21rem;
+		margin-bottom: 2.5rem;
+	}
+	@media @479{
+		max-width: 16rem;
+	}
+	
+}
  /*--------------------------------------------------------------------------
 | kitchen 5 blocks
 --------------------------------------------------------------------------*/ 
@@ -6974,6 +6992,10 @@ transition: all 5ms ease-in-out 0s;
 		a {
 			width: 35%;
 			display: inline-block;
+			
+			@media @850{
+				width: 22%;
+			}
 		}
 	}
 	
@@ -7058,6 +7080,9 @@ transition: all 5ms ease-in-out 0s;
 			@media @991{
 				width: 35%;
 			}
+			@media @639{
+				width: 24%;
+			}
 		}
 		.product-content {
 			float: left;
@@ -7066,6 +7091,10 @@ transition: all 5ms ease-in-out 0s;
 			
 			@media @1199{
 				width: 54%;
+			}
+			
+			@media @639{
+				width: 70%;
 			}
 			
 			a{
@@ -7085,16 +7114,369 @@ transition: all 5ms ease-in-out 0s;
 	.grid-3 {
 
 		li {
-			width: 31.667%;
+			width: 31.667% !important;
+			margin-right: 2.5% !important;
 			
 			@media @639{
-				width: 100%;
+				width: 100% !important;
 				margin-bottom: 2rem;
 			}
 		}
 		li:last-child {
-			margin-right: 0;
+			margin-right: 0 !important;
+		}
+	}
+	.christmas-decorations-banner{
+		float: left;
+		margin-top: 2rem;
+	}
+}
+
+
+ /*--------------------------------------------------------------------------
+| Home decor 5 blocks
+--------------------------------------------------------------------------*/ 
+.mats-rugs.artificial-plants{
+
+	float: left;
+	width: 100%;
+
+	ul li {
+		float: left;
+		width: 23.1%;
+		margin-right: 2.5%;
+		text-align: center;
+		border: 1px solid @dlight;
+		-moz-border-radius: .4rem;
+		-webkit-border-radius: .4rem;
+		-ms-border-radius: .4rem;
+		border-radius:.4rem;
+		padding: .8rem;
+
+		a{
+			width: 100%;
+		}
+	}
+	ul li .offer {
+		
+		margin: .5rem 0 0 0;
+		
+		.offer-tag {
+			float: left;
+			width: 25%;
+			margin-right:@font16;
+			background: @danger;
+			box-sizing: border-box;
+			-webkit-box-sizing: border-box;
+			font-size:@font16;;
+			color:@white;
+			text-transform: uppercase;
+			padding: 1.8rem .0rem;
+			text-align: center;
+			font-weight: bold;
+			
+			@media @1199{
+				width: 38%;
+			}
+			@media @991{
+				width: 35%;
+			}
+			@media @639{
+				width: 24%;
+			}
+		}
+		.product-content {
+			float: left;
+			width: 70%;
+			text-align: left;
+			
+			@media @1199{
+				width: 54%;
+			}
+			
+			@media @639{
+				width: 70%;
+			}
+			
+			a{
+				font-size:@font16;;
+				font-weight: bold;
+				color: @black;
+			}
+			.product-short-des {
+				letter-spacing: -0.5px;
+				line-height: 1.5;
+				margin-bottom: 0;
+				font-size:1.4rem; 
+			}
+		}
+	}
+
+	.grid-3 {
+
+		li {
+			width: 47.967% !important;
+			margin-right: 3.9% !important;
+			
+			@media @639{
+				width: 100% !important;
+				margin-bottom: 2rem;
+			}
+		}
+		li:last-child {
+			margin-right: 0 !important;
+		}
+		
+		.product-img .rugs{
+			float: left;
+			margin-bottom: 1rem;
+			width: 100%;
+			background: @f5light;
+			padding-bottom: 2.6rem;
+			
+			@media @1199{
+				padding-bottom: 1.3rem;
+			}
+			
+			a{
+				width: 47%;
+				float: left;
+			}
+			.links{
+				float: left;
+				width: 50%;
+				
+				ul li{
+					width: 100% !important;
+					border: none;
+					text-align: left;
+					line-height: 1.6rem;
+					
+					a{
+						color: @black;
+						font-size: @font16;
+						width: 100%;
+						
+						&::before {
+							width: 0;
+							height: 0;
+							content: '';
+							z-index: 2;
+							border-left: 0.45em solid #1a1a1a;
+							border-bottom: 0.3em solid transparent;
+							border-top: 0.3em solid transparent;
+							bottom: 100%;
+							content: "";
+							display: inline-block;
+							margin-right: 8px;
+						}
+					}
+				}
+			}
+			
+			h4{
+				text-align: left;
+				margin: 1rem 0 1rem 2rem;
+			}
 		}
 	}
 }
 
+
+
+.cushions {
+	.egyptian-product {
+		ul li {
+			.pro-content {
+				width: 34%;
+				
+				a{
+					margin: 2rem 0 1rem;
+				}
+			}
+		}
+		ul:nth-child(2) li {
+			.pro-content {
+				width: 60% !important;
+				float: right;
+				padding-right: 1rem;
+				
+				@media @850{
+					width: 71% !important;
+				}
+				@media @479{
+					width: 100% !important;
+					padding: 1rem;
+				}
+				
+				.pro-name {
+					margin: 5% 0 2% 0%;
+					width: 100%;
+					
+					@media @1199{
+						margin: 3% 0 0 0;
+					}
+				}
+				.shop-now {
+					margin: 7px 0 0 0;
+				}
+				p{
+					margin-bottom: 0;
+				}
+			}
+		}
+	
+	}
+}
+.bedding-egyptian {
+	float:left;
+	width: 100%;
+	
+	.egyptian-product {
+		
+		ul:first-child{
+			margin-right: 3%;
+			width: 50.15%;
+			
+			@media @850{
+				width: 100%;
+			}
+			
+			li{
+				background: @f5light;
+				float: left;
+				margin-bottom: 1rem;
+				
+				a{
+					width: 67.4%;
+					float: left;
+					
+					@media @850{
+						width: 26%;
+					}
+					@media @639{
+						width: 100%;
+					}
+					img{
+						width: 100%;
+					}
+				}
+				.pro-content{
+					display: inline-block;
+					width: 28%;
+					vertical-align: top;
+					margin: 0 0 0 3%;
+					
+					@media @850{
+						width: 70%;
+					}
+					@media @639{
+						width: 100%;
+						padding-bottom: 1rem;
+					}
+					
+					p{
+						line-height: 1.7;
+						margin-bottom: 0;
+					}
+				}
+			}
+		}
+		ul {
+			width: 45.75%;
+			float: left;
+			
+			@media @850{
+				width: 100%;
+			}
+			
+			li {
+				
+				.pro-content{
+					a{
+						width: 100%;
+						font-size: @font16;;
+						color: @black;
+						text-transform: uppercase;
+						font-weight: bold;
+						margin: 4rem 0 3rem;
+						line-height: 1.7;
+						
+						@media @1199{
+							margin: 2rem 0 1rem;
+						}
+						
+						@media @850{
+							margin: 2rem 0 3rem;
+						}
+						
+						@media @639{
+							margin: 1rem 0 .5rem;
+						}
+					}
+					
+					.shop-now {
+						font-size: 1.4rem;
+						color: @skyblue;
+						margin: 3rem 0 0 0;
+						
+						@media @1199{
+							margin: 1rem 0 0 0;
+						}
+						
+						@media @639{
+							margin: 0;
+						}
+					}
+				}
+				
+			}
+		}
+		
+		ul:nth-child(2) {
+			li {
+				background: @f5light;
+				float: left;
+				margin-bottom: 1rem;
+				
+				a {
+					width: 36%;
+					float: left;
+					
+					@media @850{
+						width: 26%;
+					}
+					@media @479{
+						width: 100%;
+					}
+					
+					img{
+						width: 100%;
+					}
+				}
+				
+			}
+		}
+		
+	}
+	
+}
+
+ /*--------------------------------------------------------------------------
+| Home decor 2blocks
+--------------------------------------------------------------------------*/
+.bedding-pillow-duvets{
+	float: left;
+	width: 100%;
+	
+	ul{
+		li{
+			float: left;
+			width: 49%;
+		}
+		li:first-child{
+			width: 47%;
+			margin-right: 3%;
+		}
+	}
+}
