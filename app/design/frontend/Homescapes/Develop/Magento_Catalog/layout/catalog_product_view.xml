@@ -82,6 +82,19 @@
 		 <move element="product.info.addto" destination="product.info.form.content" after="product.info.addtocart"/>    <!--Wishlist-->
 
 		 <referenceBlock name="product.info.overview" remove="true" />
+		
+		
+		 <referenceBlock name="product.info.description"> <!--change details to description text-->
+                <action method="setTitle">
+                    <argument name="title" xsi:type="string">Product Description</argument>
+                </action>
+ 		</referenceBlock>
+		
+		<referenceBlock name="product.attributes"> <!--change info to specification text-->
+                <action method="setTitle">
+                    <argument name="title" xsi:type="string">Product Specifications</argument>
+                </action>
+ 		</referenceBlock>
 
     </body>
 </page>
