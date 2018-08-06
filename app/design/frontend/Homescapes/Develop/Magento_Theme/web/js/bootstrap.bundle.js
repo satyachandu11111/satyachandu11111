@@ -6421,7 +6421,30 @@ if ($('.complete-look').length <= 0) {
     $('.product.info.detailed').css('width', '100%');
 }
 
+// ---- ShopbyColor
 					   
+$('#ShopbyColor').on('slide.bs.carousel', function (e) {
+
+  
+    var $e = $(e.relatedTarget);
+    var idx = $e.index();
+    var itemsPerSlide = 6;
+    var totalItems = $('.car-item').length;
+    
+    if (idx >= totalItems-(itemsPerSlide-1)) {
+        var it = itemsPerSlide - (totalItems - idx);
+        for (var i=0; i<it; i++) {
+            // append slides to end
+            if (e.direction=="left") {
+                $('.car-item').eq(i).appendTo('.w-100');
+            }
+            else {
+                $('.car-item').eq(0).appendTo('.w-100');
+            }
+        }
+    }
+});							   
+				   
 							   
 //------------------------------------------------custom js ends here ------------------
 							   
