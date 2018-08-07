@@ -887,6 +887,24 @@ transition: all 5ms ease-in-out 0s;
   left: 0 !important;
 
 }
+.menu60L {
+  width: 60%;
+  right: auto !important;
+  left: auto!important;
+
+}
+.menu40L {
+  width: 40%;
+  right: auto !important;
+  left: auto!important;
+
+}
+.menu20L {
+  width: 20%;
+  right: auto !important;
+  left: auto!important;
+
+}
 .menu75R {
   width: 75%;
   right: 0 !important;
@@ -1605,6 +1623,12 @@ transition: all 5ms ease-in-out 0s;
 
 .homescapes-key-points{
 	
+	@media @991{
+		display: none;
+	}
+	
+	margin-bottom: 2rem;
+	
 	ul {
     margin: 4px -15px 0 -10px;
     overflow: hidden;
@@ -1945,7 +1969,9 @@ transition: all 5ms ease-in-out 0s;
 	#footer-accordion{
 		width: 100%;
 	}
-	
+	#accordion{
+		width: 100%;
+	}
 	.card{
 		border: none;
 		width: 23%;
@@ -2456,6 +2482,8 @@ transition: all 5ms ease-in-out 0s;
 
 .select-by-range{
 	
+	float: left;
+	
 	.product{
 		background: @f2light;
 		padding-bottom:0.5rem;
@@ -2466,6 +2494,9 @@ transition: all 5ms ease-in-out 0s;
 		}
 		a{
 			color: @black;
+		}
+		p{
+			margin-bottom: 0;
 		}
 	}
 	
@@ -7502,44 +7533,6 @@ transition: all 5ms ease-in-out 0s;
 	}
 }
 
- /*--------------------------------------------------------------------------
-| Germany Blocks
---------------------------------------------------------------------------*/
-.second-section{
-	float: left;
-	width: 100%;
-	
-	h2{
-		font-size:@font26;
-		margin-bottom: 1rem;
-		text-align: center;
-	}
-	
-	ul{
-		li{
-			float: left;
-			width: 23%;
-			margin: 0 3rem 2.6rem 0;
-			
-			a{
-				color: @black;
-			}
-			img{
-				width: 100%;
-				transition: all 0.2s ease-in-out 0s;
-				border:1px solid @dlight;
-			}
-		}
-		li:nth-child(4){
-			float: right;
-			margin: 0;
-		}
-		.prudDetailstext > h4{
-			font-size: @font18;
-			text-align: center;
-		}
-	}
-}
 
  /*--------------------------------------------------------------------------
 | Furniture Blocks
@@ -7577,7 +7570,15 @@ transition: all 5ms ease-in-out 0s;
 				min-height: 40rem;
 			}
 			
-			
+			@media @767{
+				width: 48%;
+				min-height: 43rem;
+			}
+			@media @639{
+				width: 100%;
+				margin: 0 0 2% 0;
+				min-height: auto;
+			}
 			
 			a{
 				width: 100%;
@@ -7657,6 +7658,7 @@ transition: all 5ms ease-in-out 0s;
 			
 			@media @767{
 				margin-right: 0;
+				width: 100%;
 			}
 		}
 		li:nth-child(3) {
@@ -7835,5 +7837,171 @@ transition: all 5ms ease-in-out 0s;
 		@media @1199{
 			font-size: 1.5rem;
 		}
+	}
+}
+
+
+ /*--------------------------------------------------------------------------
+| Germany Blocks
+--------------------------------------------------------------------------*/
+.first-section, .second-section, .fourth-section, .fifth-section{
+	float: left;
+	width: 100%;
+	
+	h2{
+		font-size:@font26;
+		margin-bottom: 2rem;
+		text-align: center;
+	}
+	ul li img{
+		width: 100%;
+	}
+	ul li .prudDetailstext{
+			
+		text-align: center;
+
+		h4{
+			font-size: @font16;
+			font-weight: bold;
+			margin: 1rem 0 0.5rem 0;
+			color:@black;
+			a{
+				color: @black;
+			}
+		}
+	}
+}
+
+
+.first-section{
+	
+	@media @991{
+		margin-top: 1rem;
+	}
+	ul{
+		li {
+			float: left;
+			list-style: outside none none;
+			margin: 0 0 2rem 0;
+			width: 48.8%;
+			overflow: hidden;
+
+			
+			img{
+
+				width: 100%;
+				height: auto;
+				transition: all 0.2s ease-in-out 0s;
+				border-radius: 3px;
+
+			}
+		}
+		li:nth-child(2){
+			float: right;
+		}
+	}
+}
+
+.second-section{
+
+	ul{
+		li{
+			float: left;
+			width: 23%;
+			margin: 0 3rem 2.6rem 0;
+			
+			@media @1199{
+				margin: 0 2.6rem 2.6rem 0;
+			}
+			@media @850{
+				margin: 0 1rem 2rem 1rem;
+				width: 47%;
+			}
+			
+			@media @767{
+				width: 46%;
+			}
+			@media @639{
+				width: 100%;
+				margin: 0 0 2rem 0;
+			}
+			a{
+				color: @black;
+			}
+			img{
+				width: 100%;
+				transition: all 0.2s ease-in-out 0s;
+				border:1px solid @dlight;
+			}
+		}
+		li:nth-child(4){
+			float: right;
+			margin: 0;
+			
+			@media @850{
+				margin: 0 1rem 2rem 1rem;
+				float: left;
+			}
+		
+		}
+	}
+}
+
+.fourth-section{
+	ul li {
+		float: left;
+		list-style: outside none none;
+		margin: 0 32px 0 0;
+		width: 31.5%;
+		overflow: hidden;
+		
+		@media @1199{
+			margin: 0 2.6rem 0 0;
+		}
+		@media @850{
+			margin: 0 2rem 0 0;
+		}
+		@media @767{
+			width: 31%;
+		}
+		@media @639{
+			width: 100%;
+			margin: 0 0 2rem  0;
+		}
+
+	}
+	li:nth-child(3) {
+		float: right;
+		margin: 0;
+	}
+}
+
+
+.fifth-section{
+	ul li {
+		float: left;
+		list-style: outside none none;
+		margin: 0 30px 0 0;
+		width: 48.7%;
+		overflow: hidden;
+		
+		@media @1199{
+			margin: 0 2.5rem 0 0;
+		}
+		
+		@media @850{
+			margin: 0 1.8rem 0 0;
+		}
+		@media @767{
+			width: 47.8%;
+		}
+		@media @639{
+			width: 100%;
+			margin: 0 0 2.5rem 0;
+		}
+	}
+	ul li:nth-child(2) {
+		float: right;
+		margin: 0;
 	}
 }
