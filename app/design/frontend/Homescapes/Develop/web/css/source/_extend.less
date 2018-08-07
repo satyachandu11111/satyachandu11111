@@ -1713,6 +1713,14 @@ transition: all 5ms ease-in-out 0s;
 .cms-page-heading{
 	float: left;
 }
+.category-description{
+	line-height: 1.8;
+	
+	ul{
+		list-style-type: disc;
+		margin-left: 2rem;
+	}
+}
 .bedding, .cms-page-heading{
 
 	img{
@@ -7529,6 +7537,303 @@ transition: all 5ms ease-in-out 0s;
 		.prudDetailstext > h4{
 			font-size: @font18;
 			text-align: center;
+		}
+	}
+}
+
+ /*--------------------------------------------------------------------------
+| Furniture Blocks
+--------------------------------------------------------------------------*/
+.shop-furniture-by-range, .shop-furniture-by-room, .bed-linen-buying-guide{
+	
+	float: left;
+	width: 100%;
+	
+	h4{
+		font-size: @font26;
+	}
+}
+
+
+.shop-furniture-by-range{
+
+	ul{
+		li{
+			float: left;
+			width: 23.1%;
+			margin:0 2.5% 3% 0;
+			text-align: center;
+			border: 1px solid @dlight;
+			-moz-border-radius: .4rem;
+			-webkit-border-radius: .4rem;
+			-ms-border-radius: .4rem;
+			border-radius: .4rem;
+			padding: 1rem;
+			text-align: center;
+			
+			@media @991{
+				width: 31%;
+				margin: 0 1% 2% 1%;
+				min-height: 40rem;
+			}
+			
+			
+			
+			a{
+				width: 100%;
+			}
+			h4{
+				font-size: @font16;
+				font-weight: bold;
+				margin: 1rem 0;
+			}
+			p{
+				margin-bottom: 1rem;
+			}
+			.button{
+				background: @blue;
+				display: inline-block;
+				padding: .6rem 1.8rem;
+				border: 0;
+				color: @white;
+				font-size: 15px;
+				font-weight: normal;
+				line-height: @font18;
+				text-align: center;
+				text-transform:capitalize;
+				vertical-align: middle;
+				white-space: nowrap;
+				border-radius: 3px;
+				width: auto;
+			}
+		}
+		li:nth-child(4n) {
+			margin-right: 0;
+			
+			@media @991{
+				margin-right: 1%;
+			}
+		}
+	}
+}
+.furniture-quick-block{
+	
+	margin-top: 1.5rem;
+	
+	span{
+		display: inline-block;
+		color: @black;
+		font-size: 16px;
+		text-transform: capitalize;
+		margin: 0 6rem 0 0;
+		
+		@media @1199{
+			margin-right: 2rem;
+		}
+		
+		&::before{
+			background: url(../images/correct-icon.jpg) center center no-repeat;
+			display: inline-block;
+			width: 18px;
+			height: 14px;
+			content: "";
+			margin-right: 5px;
+		}
+	}
+	
+	
+	
+}
+.shop-furniture-by-room{
+	
+	.room{
+		
+		clear: both;
+		margin: 0;
+		padding: 0;
+		
+		li:first-child {
+			margin-right: 6.4%;
+			
+			@media @767{
+				margin-right: 0;
+			}
+		}
+		li:nth-child(3) {
+			margin-right: 8%;
+			
+			@media @767{
+				margin-right: 0;
+			}
+			
+		}
+		li {
+			width: 45.8%;
+			float: left;
+			margin-bottom: 2rem;
+			
+			@media @767{
+				width: 100%;
+			}
+			
+			.pro-name {
+				font-size: @font20;
+				font-weight: normal;
+				margin: 0 0 20px 0;
+			}
+			.product-img {
+				padding: 0 !important;
+				border: 0 !important;
+				border-radius: 0 !important;
+				-webkit-border-radius: 0 !important;
+				margin: 0 0 3rem 0;
+				
+				a {
+					width: auto;
+					float: left;
+					display: block;
+					color: @black;
+					
+					@media @991{
+						width: 49%;
+					}
+				}
+			}
+			.furniture-product {
+				margin-bottom: 1rem;
+				padding: 0 0 2rem 0;
+				overflow: hidden;
+				border-bottom: 1px solid @dlight;
+				min-height: 195px;
+				
+				ul {
+					float: left;
+					width: 40%;
+					display: block;
+					clear: none;
+					margin: 0 0 0 25px;
+					
+					li {
+						width: 100%;
+						margin: 5px 0 6px;
+						
+						a{
+							width: 100%;
+						}
+						
+						a::before {
+							width: 0;
+							height: 0;
+							content: '';
+							z-index: 2;
+							border-left: 0.45em solid #1a1a1a;
+							border-bottom: 0.3em solid transparent;
+							border-top: 0.3em solid transparent;
+							bottom: 100%;
+							content: "";
+							display: inline-block;
+							margin-right: 8px;
+						}
+					}
+				}
+			}
+			
+			
+		}
+	}
+	
+	ul li .offer {
+		
+		margin: .5rem 0 0 0;
+
+		.offer-tag {
+			float: left;
+			width: 25%;
+			margin-right:@font16;
+			background: @danger;
+			box-sizing: border-box;
+			-webkit-box-sizing: border-box;
+			font-size:@font16;;
+			color:@white;
+			text-transform: uppercase;
+			padding: 1.8rem .0rem;
+			text-align: center;
+			font-weight: bold;
+
+			@media @1199{
+				width: 21%;
+			}
+			@media @991{
+				width: 20%;
+			}
+			@media @639{
+				width: 24%;
+			}
+		}
+		.product-content {
+			float: left;
+			width: 70%;
+			text-align: left;
+
+			@media @1199{
+				width: 75%;
+			}
+
+			@media @639{
+				width: 70%;
+			}
+
+			a{
+				font-size:@font16;;
+				font-weight: bold;
+				color: @black;
+			}
+			.product-short-des {
+				letter-spacing: -0.5px;
+				line-height: 1.5;
+				margin-bottom: 0;
+				font-size:1.4rem; 
+			}
+		}
+	}
+}
+.bed-linen-buying-guide{
+	margin: 15px 0;
+	background: @f5light;
+	overflow: hidden;
+	padding: 1rem .5rem;
+	
+	&::before{
+		content: "";
+		background: url(../images/book.svg) no-repeat left top @black;
+		width: 56px;
+		height: 56px;
+		display: inline-block;
+		float: left;
+		-moz-border-radius: 100%;
+		-webkit-border-radius: 100%;
+		-ms-border-radius: 100%;
+		border-radius: 100%;
+		margin: 0 13px 0 11px;
+	}
+	h3 {
+		float: left;
+		font-size:@font22;
+		font-weight: bold;
+		padding: 1.2rem 4rem 0 0;
+		
+		@media @1199{
+			padding-right: 1rem;
+			font-size: @font20;
+		}
+	}
+	p{
+		padding:0;
+		font-size: @font16;
+		margin-bottom: 0;
+		
+		@media @1199{
+			font-size: 1.5rem;
 		}
 	}
 }
