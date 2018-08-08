@@ -3201,8 +3201,10 @@ transition: all 5ms ease-in-out 0s;
 	
 	
 	.card-body{
-		@media @1100{
-			padding: 1rem 0;
+		padding: 1.25rem 0;
+		
+		table, table > tbody > tr > td{
+			border-color: @dlight;
 		}
 	}
 	
@@ -6713,7 +6715,9 @@ transition: all 5ms ease-in-out 0s;
 	margin-bottom: 1rem;
 	font-weight: bold;
 }
-
+.page-layout-1column.page-with-filter .column.main{
+	padding-top: 0;
+}
 
  /*--------------------------------------------------------------------------
 | cookie table
