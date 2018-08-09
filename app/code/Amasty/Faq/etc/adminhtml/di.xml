@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @package Amasty_Faq
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="amastyImportSampleFiles" type="Magento\Framework\DataObject">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="faq_category_import" xsi:type="string">Amasty_Faq</item>
+                <item name="faq_question_import" xsi:type="string">Amasty_Faq</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Amasty\Faq\Component\ComponentRegistrar">
+        <arguments>
+            <argument name="samples" xsi:type="object">amastyImportSampleFiles</argument>
+        </arguments>
+    </type>
+    <virtualType name="sampleFile" type="Magento\ImportExport\Model\Import\SampleFileProvider">
+        <arguments>
+            <argument name="samples" xsi:type="array">
+                <item name="faq_category_import" xsi:type="string">Amasty_Faq</item>
+                <item name="faq_question_import" xsi:type="string">Amasty_Faq</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Magento\ImportExport\Controller\Adminhtml\Import\Download">
+        <arguments>
+            <argument name="componentRegistrar" xsi:type="object">Amasty\Faq\Component\ComponentRegistrar</argument>
+        </arguments>
+    </type>
+    <type name="Amasty\Faq\Model\Import\Category\Import">
+        <arguments>
+            <argument name="importValidator" xsi:type="object">Amasty\Faq\Model\Import\Category\Validator</argument>
+        </arguments>
+    </type>
+    <type name="Amasty\Faq\Model\Import\Question\Import">
+        <arguments>
+            <argument name="importValidator" xsi:type="object">Amasty\Faq\Model\Import\Question\Validator</argument>
+        </arguments>
+    </type>
+    <type name="Magento\AdvancedPricingImportExport\Controller\Adminhtml\Export\GetFilter">
+        <plugin name="Amasty_Faq::ExportFilter" type="Amasty\Faq\Plugin\ImportExport\Controller\Adminhtml\Export\GetFilter" />
+    </type>
+    <type name="Magento\ImportExport\Controller\Adminhtml\Export\GetFilter">
+        <plugin name="Amasty_Faq::ExportFilter" type="Amasty\Faq\Plugin\ImportExport\Controller\Adminhtml\Export\GetFilter" />
+    </type>
+    <type name="Magento\ImportExport\Controller\Adminhtml\Export\Export">
+        <plugin name="Amasty_Faq::ExportExport" type="Amasty\Faq\Plugin\ImportExport\Controller\Adminhtml\Export\Export" />
+    </type>
+</config>

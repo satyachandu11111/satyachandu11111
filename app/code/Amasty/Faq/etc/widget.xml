@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @package Amasty_Faq
+ */
+-->
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget id="amasty_faq_back_to_product" class="Amasty\Faq\Block\Widgets\BackToProduct" is_email_compatible="false">
+        <label translate="true">Amasty Back to Product Button</label>
+        <description translate="true">Back to last viewed Product Button by Amasty</description>
+        <parameters>
+            <parameter name="back_to_product_align" xsi:type="select" visible="true" source_model="Amasty\Faq\Model\Config\WidgetAlign">
+                <label translate="true">Back To Product button Align</label>
+            </parameter>
+        </parameters>
+    </widget>
+    <widget id="amasty_faq_search_box" class="Amasty\Faq\Block\Widgets\SearchBox" is_email_compatible="false">
+        <label translate="true">Amasty FAQ Search Box</label>
+        <description translate="true">Amasty FAQ Search Box widget</description>
+        <parameters>
+            <parameter name="search_box_width" xsi:type="text" required="true" visible="true">
+                <label translate="true">Search Box Width</label>
+                <description translate="true">You can use the CSS-length values for the Search Box configuration (100px, 77pt, 20em, .5ex or 50%)</description>
+            </parameter>
+            <parameter name="search_box_align" xsi:type="select" visible="true" source_model="Amasty\Faq\Model\Config\WidgetAlign">
+                <label translate="true">Search Box Align</label>
+            </parameter>
+        </parameters>
+    </widget>
+    <widget id="amasty_faq_categories" class="Amasty\Faq\Block\Widgets\Categories" is_email_compatible="false">
+        <label translate="true">Amasty FAQ Categories List</label>
+        <description translate="true">FAQ and Product Questions Categories list widget</description>
+        <parameters>
+            <parameter name="layout_type" xsi:type="select" visible="true" source_model="Amasty\Faq\Model\Config\CategoriesWidgetLayoutType">
+                <label translate="true">Layout Type</label>
+            </parameter>
+            <parameter name="questions_limit" xsi:type="text" required="false" visible="true">
+                <label translate="true">Limit question number in category</label>
+            </parameter>
+            <parameter name="categories_limit" xsi:type="text" required="false" visible="true">
+                <label translate="true">Limit categories number</label>
+            </parameter>
+            <parameter name="without_questions" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Categories list without questions</label>
+            </parameter>
+            <parameter name="sort_categories_by" xsi:type="select" visible="true" source_model="Amasty\Faq\Model\Config\CategoriesSort">
+                <label translate="true">Sort Categories By</label>
+            </parameter>
+            <parameter name="sort_questions_by" xsi:type="select" visible="true" source_model="Amasty\Faq\Model\Config\QuestionsSort">
+                <label translate="true">Sort Questions By</label>
+            </parameter>
+            <parameter name="short_answer_behavior" xsi:type="select" visible="true" source_model="Amasty\Faq\Model\Config\ShortAnswerBehavior">
+                <label translate="true">Short Answer Behavior</label>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>
