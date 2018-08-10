@@ -1,0 +1,53 @@
+<div class="email-campaign__overview" data-bind="visible: visible">
+    <h1 translate="'Cross Overview'"/>
+
+    <div class="rates">
+        <div class="value fa-send">
+            <h3 translate="'Sent'"/>
+            <strong text="email_qty" />
+            <i class="arrow fa fa-arrow-circle-right"></i>
+        </div>
+
+        <div class="value fa-envelope-open">
+            <h3 translate="'Opened'"/>
+            <strong text="open_qty" />
+            <i class="arrow fa fa-arrow-circle-right"></i>
+        </div>
+
+        <div class="value fa-mouse-pointer">
+            <h3 translate="'Clicked'"/>
+            <strong text="click_qty" />
+            <i class="arrow fa fa-arrow-circle-right"></i>
+        </div>
+
+        <div class="value fa-shopping-cart">
+            <h3 translate="'Orders'"/>
+            <strong text="order_qty" />
+            <i class="arrow fa fa-arrow-circle-right"></i>
+        </div>
+
+        <div class="value fa-comment">
+            <h3 translate="'Reviews'"/>
+            <strong text="review_qty" />
+        </div>
+
+        <div class="rate-box">
+            <div class="value rate fa-percent">
+                <h3 data-bind="i18n: 'Open Rate'"></h3>
+                <strong data-bind="text: open_rate + '%'"></strong>
+            </div>
+            <div class="value rate fa-percent">
+                <h3 data-bind="i18n: 'Click Rate'"></h3>
+                <strong data-bind="text: click_rate + '%'"></strong>
+            </div>
+            <div class="value rate fa-percent">
+                <h3 data-bind="i18n: 'Order Rate'"></h3>
+                <strong data-bind="text: order_rate + '%'"></strong>
+            </div>
+            <div class="value rate fa-percent">
+                <h3 data-bind="i18n: 'Review Rate'"></h3>
+                <strong data-bind="text: review_rate + '%'"></strong>
+            </div>
+        </div>
+    </div>
+</div>
