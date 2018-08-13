@@ -1,0 +1,56 @@
+<div class="email-campaign__listing">
+    <if args="hasData()">
+        <div class="campaign" repeat="foreach: rows, item: '$campaign'">
+            <div class="col-info">
+                <div class="status" data-bind="css: {active: $campaign().is_active == 1}"/>
+                <a class="title" text="$campaign().title" data-bind="attr: {href: $campaign().view_url}"/>
+                <div class="description" text="$campaign().description"/>
+
+                <div class="triggers">
+                    <a data-bind="attr: {href: $trigger().view_url}" class="trigger"
+                       repeat="foreach: $campaign().triggers, item: '$trigger'">
+                        <div class="status" data-bind="css: {active: $trigger().is_active == 1}"/>
+                        <span text="$trigger().title"/>
+                    </a>
+                </div>
+            </div>
+            <div class="col-overview">
+                <div class="actions">
+                    <div><a data-bind="attr: {href: $campaign().view_url}" class="primary">View</a></div>
+                    <div><a data-bind="click: deleteConfirm.bind($data, campaignDeleteMsg, $campaign().delete_url, undefined)" href="#">delete</a></div>
+                    <div><a data-bind="attr: {href: $campaign().duplicate_url}">duplicate</a></div>
+                </div>
+                <div class="email-campaign__inline-overview">
+                    <div class="rates">
+                        <div class="value">
+                            <p translate="'Sent'"></p>
+                            <strong text="$campaign().report.email_qty || '-'" />
+                        </div>
+
+                        <div class="value">
+                            <p translate="'Opened'"></p>
+                            <strong text="$campaign().report.open_qty || '-'" />
+                        </div>
+
+                        <div class="value">
+                            <p translate="'Clicked'"></p>
+                            <strong text="$campaign().report.click_qty || '-'" />
+                        </div>
+
+                        <div class="value">
+                            <p translate="'Orders'"></p>
+                            <strong text="$campaign().report.order_qty || '-'" />
+                        </div>
+
+                        <div class="value">
+                            <p translate="'Reviews'"></p>
+                            <strong text="$campaign().report.review_qty || '-'" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </if>
+
+    <!-- ko template: helpTemplate --><!-- /ko -->
+</div>
