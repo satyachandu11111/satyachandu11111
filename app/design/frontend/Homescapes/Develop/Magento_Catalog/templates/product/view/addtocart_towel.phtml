@@ -1,0 +1,130 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var $block \Magento\Catalog\Block\Product\View */
+?>
+<?php $_product = $block->getProduct(); ?>
+<?php $buttonTitle = __('Add to Cart'); ?>
+<?php if ($_product->isSaleable()): ?>
+<?php if($this->helper('Homescapes\Preorder\Helper\Data')->isPreOrder($_product)){  ?>
+<span class="preoder"><i class="fas fa-truck"></i> <?php echo $_product->getPreOrderNote(); ?></span>
+<?php } ?>
+<div class="box-tocart">
+    <div class="fieldset">
+        <?php if ($block->shouldRenderQuantity()): ?>
+        <div class="field qty">
+            <label class="label" for="qty"><span><?= /* @escapeNotVerified */ __('Qty') ?></span></label>
+            <div class="control" data-mage-init='{
+                                        "qtyInput":{"qtyInputSelector": "#qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>",
+                                        "qtyIncrementSelector":"#inc-qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>",
+                                        "qtyDecrementSelector":"#dec-qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>"
+                                        }
+                                    }'>
+                <div class="decreaseQty" id="dec-qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>" >-</div>
+                <input type="number"
+                       name="qty"
+                       id="qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>"
+                       value="<?= /* @escapeNotVerified */ $block->getProductDefaultQty() * 1 ?>"
+                       title="<?= /* @escapeNotVerified */ __('Qty') ?>"
+                       class="input-text qty"
+                       data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
+                       data-default-qty="<?= /* @escapeNotVerified */ $block->getProductDefaultQty() * 1 ?>"
+                       />
+                <div class="increaseQty" id="inc-qty-<?php /* @escapeNotVerified */ echo $_product->getId() ?>">+</div>
+            </div>
+        </div>
+        <?php endif; ?>
+        <input type="checkbox" class="checkbox required" name="condition" /><label><span><?php echo __('I agree that personalised products can neither be returned nor exchanged and have read the full terms and conditions.')?></span></label>
+        <a class="terms-condition" id="terms-condition" href="javascript:void(0)">View terms and conditions</a>
+
+        <div id="terms-popup" >
+            <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('custom-towel-terms-condition')->toHtml(); ?>
+        </div>
+
+        <script>
+            require(
+                [
+                    'jquery',
+                    'Magento_Ui/js/modal/modal'
+                ],
+                function(
+                    $,
+                    modal
+                ) {
+                    var options = {
+                        type: 'popup',
+                        responsive: true,
+                        innerScroll: true,
+                        buttons: [{
+                            text: $.mage.__('Continue'),
+                            class: '',
+                            click: function () {
+                                this.closeModal();
+                            }
+                        }]
+                    };
+
+                    var popup = modal(options, $('#terms-popup'));
+                    $("#terms-condition").on('click',function(){
+                        $("#terms-popup").modal("openModal");
+                    });
+
+                }
+            );
+        </script>
+
+        <div class="actions">
+            <button type="submit"
+                    title="<?= /* @escapeNotVerified */ $buttonTitle ?>"
+                    class="action primary tocart"
+                    id="product-addtocart-button">
+                <span><?= /* @escapeNotVerified */ $buttonTitle ?></span>
+            </button>
+            <?= $block->getChildHtml('', true) ?>
+        </div>
+        <div class="mg-ajaxcart-dialog" id="ajaxcart-dialog-<?php echo $_product->getId() ?>">
+            <div class="main-panel">
+                    <div class="product-info">
+                            <span class="msg">
+
+								
+								<?php echo __('Added to your basket');?>
+								
+								<a href="<?php echo $block->getUrl('checkout/cart'); ?>" class="button goto-cart cart-button"><i class="fas fa-shopping-basket"></i> <?php echo __('View basket');?></a> 
+								
+								<br>
+								
+                            	<div class="name"></div>
+						
+						</span>
+                    </div>
+                    <div style="clear:both;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
+<?php if ($block->isRedirectToCartEnabled()) : ?>
+<script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "Magento_Catalog/product/view/validation": {
+                "radioCheckboxClosest": ".nested"
+            }
+        }
+    }
+</script>
+<?php else : ?>
+<script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "Magento_Catalog/js/validate-product": {}
+        }
+    }
+</script>
+<?php endif; ?>
