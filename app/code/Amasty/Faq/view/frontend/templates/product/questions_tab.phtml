@@ -16,9 +16,10 @@
 Customer Questions & Answers')); ?></strong>
     </div>
     <?php
-    echo $block->getChildHtml('amasty_faq_questions');
     if ($block->showAskQuestionForm()) {
         echo $block->getChildHtml('amasty_faq_ask_question_form');
     }
+    echo $block->getChildHtml('amasty_faq_questions');
+    
     ?>
 </div>
