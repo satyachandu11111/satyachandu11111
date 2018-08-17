@@ -170,7 +170,9 @@
 	}
 }
 
-
+.page-layout-1column .product-info-main{
+	margin-bottom: 2rem;
+}
 
 button:not(.primary){
 	box-shadow: none;
@@ -2923,6 +2925,9 @@ transition: all 5ms ease-in-out 0s;
 				display: flex;
 			}
 		}
+		
+		
+		
 	}
 	.product-addto-links{
 		float: left;
@@ -8073,4 +8078,70 @@ transition: all 5ms ease-in-out 0s;
 			font-weight: normal;
 		}
 	}
+	.ask-question-form{
+		float: left;
+		width: 100%;
+		background: @f2light;
+		padding:1rem;
+		border-radius: .2rem;
+		margin-bottom: 2rem;
+		
+		.button-container{
+			margin: 0;
+			
+			.button-info{
+				margin: 0;
+				font-size: @base;
+			}
+			.form-toggle-button{
+				float: right;
+				margin: .6rem .6rem 0 0;
+				border: 1px solid @dlight;
+				font-weight: 600;
+				font-size: @font16;
+				background: @white;
+			}
+			h4{
+				margin-bottom: .5rem;
+			}
+		}
+		.ask-form-container{
+			float: left;
+			width: 100%;
+			margin-top: 1rem
+		}
+	}
+}
+
+
+ /*--------------------------------------------------------------------------
+| Personalised Embroidery 
+--------------------------------------------------------------------------*/
+.catalog-product-view {
+	
+	.product-add-form{
+		.product-options-wrapper{
+			float: left;
+			width: 100%;
+
+			.fieldset .field{
+				margin-bottom: 2rem;
+				float: left;
+				width: 100%;
+
+				label{
+					float: left;
+					width: 100%;
+				}
+				.control{
+					float: left;
+					width: 100%;
+				}
+			}
+			.note{
+				text-align: left;
+			}
+		}
+	}
+	
 }
