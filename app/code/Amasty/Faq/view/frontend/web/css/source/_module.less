@@ -105,10 +105,11 @@
         .am-title {
             cursor: pointer;
             font-weight: 600;
-            font-size: 1.8rem;
+            font-size: 1.4rem;
             line-height: 1.1;
             margin-bottom: 1.5rem;
             word-wrap: break-word;
+			color: #444;
 
             .am-plus {
                 display: inline-block;
@@ -161,7 +162,8 @@
             }
 
             .form-toggle-button {
-                margin: 10px;
+                margin: 0;
+				float: right;
             }
         }
 
@@ -177,7 +179,7 @@
 
     .amfaq_categories {
         & {
-            .lib-css(border-radius, @faq-category__border-radius);
+            
             .lib-css(border, @faq-border-value);
         }
 
@@ -185,6 +187,13 @@
             .lib-css(border-bottom, @faq-border-value);
             padding: 1rem;
             word-wrap: break-word;
+			
+			a{
+				color: #444;
+				font-weight: bold;
+				font-size: 1.5rem;
+				text-decoration: none;
+			}
         }
 
         .item.current {
@@ -202,6 +211,7 @@
             font-size: 1.8rem;
             text-align: center;
             word-wrap: break-word;
+			display: none;
         }
 
         .item:first-child {
