@@ -68,8 +68,8 @@
                 type="Amasty\ShopbyBrand\Plugin\Catalog\Block\Product\Listing\ListProductPlugin" />
     </type>
 
-    <virtualType name="Magento\CatalogSearch\Block\SearchResult\ListProduct">
+    <type name="Magento\CatalogSearch\Block\SearchResult\ListProduct">
         <plugin name="Amasty_ShopbyBrand::show_logo_on_listing_search"
                 type="Amasty\ShopbyBrand\Plugin\Catalog\Block\Product\Listing\ListProductPlugin" />
-    </virtualType>
+    </type>
 </config>
