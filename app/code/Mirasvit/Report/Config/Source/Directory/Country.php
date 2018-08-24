@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-report
- * @version   1.3.35
+ * @version   1.3.37
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -50,8 +50,13 @@ class Country implements OptionSourceInterface
         $result = [];
 
         foreach ($this->collectionFactory->create() as $item) {
+            $label = $this->localeLists->getCountryTranslation($item->getCountryId());
+            if (!$label) {
+                continue;
+            }
+
             $result[] = [
-                'label' => $this->localeLists->getCountryTranslation($item->getCountryId()),
+                'label' => $label,
                 'value' => $item->getCountryId(),
             ];
         }

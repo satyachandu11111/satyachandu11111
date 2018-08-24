@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="../../ReportApi/etc/mst_report.xsd">
+        xsi:noNamespaceSchemaLocation="../../../../module-report-api/src/ReportApi/etc/mst_report.xsd">
 
     <table name="sales_order" label="Orders" connection="sales">
         <pk name="entity_id" label="Order"/>

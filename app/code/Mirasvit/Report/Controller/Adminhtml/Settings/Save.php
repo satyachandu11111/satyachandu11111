@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-report
- * @version   1.3.35
+ * @version   1.3.37
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -58,16 +58,16 @@ class Save extends Action
 
                 $this->messageManager->addSuccessMessage(__('Report columns saved.'));
 
-                return $resultRedirect->setPath('reports/report/view', ['report' => $reportId]);
+                return $resultRedirect->setUrl($this->_redirect->getRefererUrl());
             } catch (\Exception $e) {
                 $this->messageManager->addErrorMessage($e->getMessage());
 
-                return $resultRedirect->setPath('reports/report/view', ['report' => $reportId]);
+                return $resultRedirect->setUrl($this->_redirect->getRefererUrl());
             }
         } else {
             $this->messageManager->addErrorMessage('No data to save.');
 
-            return $resultRedirect->setPath('reports/report/view', ['report' => $reportId]);
+            return $resultRedirect->setUrl($this->_redirect->getRefererUrl());
         }
     }
 

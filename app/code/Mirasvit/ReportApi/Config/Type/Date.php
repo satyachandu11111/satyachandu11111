@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-report-api
- * @version   1.0.6
+ * @version   1.0.7
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -71,25 +71,25 @@ class Date implements TypeInterface
             case AggregatorInterface::TYPE_DAY_OF_WEEK:
                 switch ($actualValue) {
                     case 0:
-                        $value = __('Sunday');
-                        break;
-                    case 1:
                         $value = __('Monday');
                         break;
-                    case 2:
+                    case 1:
                         $value = __('Tuesday');
                         break;
-                    case 3:
+                    case 2:
                         $value = __('Wednesday');
                         break;
-                    case 4:
+                    case 3:
                         $value = __('Thursday');
                         break;
-                    case 5:
+                    case 4:
                         $value = __('Friday');
                         break;
-                    case 6:
+                    case 5:
                         $value = __('Saturday');
+                        break;
+                    case 6:
+                        $value = __('Sunday');
                         break;
                 }
                 break;

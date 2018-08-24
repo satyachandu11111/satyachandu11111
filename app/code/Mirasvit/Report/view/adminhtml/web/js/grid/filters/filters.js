@@ -23,14 +23,15 @@ define([
                         component:     'Mirasvit_Report/js/grid/filters/multiselect',
                         template:      'ui/grid/filters/elements/ui-select',
                         options:       '${ JSON.stringify($.$data.column.options) }',
-                        caption:       ' '
+                        caption:       ' ',
+                        filterOptions: true
                     }
                 }
             }
         },
         
         isFilterVisible: function (filter) {
-            return this._super(filter)// || filter.isFilterOnly;
+            return this._super(filter);// || filter.isFilterOnly;
         }
     });
 });

@@ -114,8 +114,15 @@ define([
                 
                 _.each(this.rows, function (row, i) {
                     var item = [];
+                    var isValid = true;
+
                     _.each(this.columns, function (column) {
                         var value = row[column.index + '_orig'];
+
+                        if ((column.isDimension || column.isVisible) && !value) {
+                            isValid = false;
+                        }
+
                         if (column.isDimension) {
                             item.push(value);
                         }
@@ -124,8 +131,10 @@ define([
                             item.push(value);
                         }
                     }.bind(this));
-                    
-                    rows.push(item);
+
+                    if (isValid) {
+                        rows.push(item);
+                    }
                 }, this);
                 
                 data.addRows(rows);
