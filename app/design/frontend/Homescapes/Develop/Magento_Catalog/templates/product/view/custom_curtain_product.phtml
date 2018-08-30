@@ -1,0 +1,181 @@
+<script type="text/javascript">
+	require(['jquery'], function($){ 
+		$(document).ready(function($){
+			
+			$(".custom-width-cm .input-text").focusout(function(){
+				var customwidthClass='.custom-width-cm';
+			    var customdropClass='.custom-drop-cm';
+			    var pairwidthClass= ".price-pair-width-cm";
+			    var pairdropClass= ".price-pair-drop-cm";   
+			    countpricePerUnit(customwidthClass,customdropClass,pairwidthClass,pairdropClass)
+			 });
+
+			$(".custom-drop-cm .input-text").focusout(function(){
+			    var customwidthClass='.custom-width-cm';
+			    var customdropClass='.custom-drop-cm';
+			    var pairwidthClass= ".price-pair-width-cm";
+			    var pairdropClass= ".price-pair-drop-cm";
+			    drop_foucus_in(customwidthClass,customdropClass,pairwidthClass,pairdropClass);
+			});
+
+			$(".custom-width-inch .input-text").focusout(function(){
+    
+			    var customwidthClass='.custom-width-inch';
+			    var customdropClass='.custom-drop-inch';
+			    var pairwidthClass= ".price-pair-width-inch";
+			    var pairdropClass= ".price-pair-drop-inch";   
+			    countpricePerUnit(customwidthClass,customdropClass,pairwidthClass,pairdropClass)
+			 });
+
+			$(".custom-drop-inch .input-text").focusout(function(){
+			    var customwidthClass='.custom-width-inch';
+			    var customdropClass='.custom-drop-inch';
+			    var pairwidthClass= ".price-pair-width-inch";
+			    var pairdropClass= ".price-pair-drop-inch";
+			    drop_foucus_in(customwidthClass,customdropClass,pairwidthClass,pairdropClass);
+			});
+
+
+			    $('#product-options-wrapper .field.curtain-header-custom label').click(function(e){            
+            		$(".field.curtain-header-custom .control").toggle();		            
+		            e.preventDefault();
+		            e.stopPropagation();
+		        });
+
+
+			    $('#product-options-wrapper .field.eyelet-material label').click(function(){		        
+		        	$(".field.eyelet-material .control").toggle();
+		    	}); 
+
+		    /*$('#product-options-wrapper .field.curtain-header-custom').each(function(index) {
+	         $(this).on("click", function(){
+	         	$(this).children('.control').toggleClass('curtain-header-show');
+	         	console.log($(this).children('.control'));
+
+	             });
+ 			});*/
+
+		    $('#product-options-wrapper .field.select-lining-choice-width-h label').click(function(){		        
+		        $(".field.select-lining-choice-width-h .control").toggle();
+		    }); 
+
+			$('#product-options-wrapper .field.Cushion label').click(function(){		        
+		        $('.field.Cushion .control').toggle();
+		    }); 
+
+			$('#product-options-wrapper .field.Tiebacks label').click(function(){
+		        $('.field.Tiebacks .control').toggle();
+		    }); 
+
+
+
+		});
+
+		function countpricePerUnit(customwidthClass,customdropClass,pairwidthClass,pairdropClass){
+		
+			    if($(pairwidthClass).length == 1){
+			        /*$(pairwidthClass).hide();
+			        $(pairdropClass).hide();*/
+			        if($(customwidthClass).length == 1)
+			        {
+			           //jQuery(customwidthClass+" .input-text").focusout(function(){
+			                var width = parseFloat(jQuery(customwidthClass+" .input-text").val());
+			                $(customwidthClass+" .input-text").addClass('validate-number');
+			                $(customwidthClass+" .input-text").addClass('validate-number-range');
+			                var wditharray = new Array();
+			                $(pairwidthClass+" div label").each(function() {
+			                    var array =$(this).text().split("-");
+
+			                    wditharray.push(parseFloat(array[0]));
+			                      
+			                    if(width >=array[0] && width <=array[1]){
+			                       
+			                        var width_radio_id = $(this).attr('for');
+			                        $('#'+width_radio_id).trigger('click'); 
+			                        /*$(pairdropClass).hide();                  */
+			                    }
+			                    //alert(wditharray.join());
+			                });
+
+			                wditharray.sort(function(a, b){return a-b});
+		   	                
+			              	var wditharrayLength = wditharray.length-1;
+			               
+			                var min_width = wditharray[0];	                
+			                var max_width = wditharray[wditharrayLength];
+			                //console.log(wditharray);			                
+			                $(customwidthClass+" .input-text").addClass('number-range-'+min_width+'-'+(max_width-1));
+			               
+			                drop_foucus_in(customwidthClass,customdropClass,pairwidthClass,pairdropClass);
+			            //});
+			           $(customdropClass+" .input-text").focusout(function(){            
+			                drop_foucus_in(customwidthClass,customdropClass,pairwidthClass,pairdropClass);
+			            });
+			           
+			            
+			        } 
+			    }
+			}
+		function drop_foucus_in(customwidthClass,customdropClass,pairwidthClass,pairdropClass){
+				  
+		          //$(pairdropClass).hide();
+		          $(customdropClass+" .input-text").addClass('validate-number');
+		            var droparray = new Array();
+		            var drop = parseFloat(jQuery(customdropClass+" .input-text").val());
+		            
+		            $(customdropClass+" .input-text").addClass('validate-number');
+		            $(customdropClass+" .input-text").addClass('validate-number-range');
+		            $(pairdropClass).each(function() {
+		             
+		                //if(jQuery(this).css('display') == 'block'){
+		                   
+		                   $(this).find("div label").each(function() {
+		                    
+		                    if($(this).parent().css('display') == 'block'){
+		                       var array =jQuery(this).clone().children().remove().end().text().split("-");
+		                       var maxArrayValue = array[1];
+		                       maxArrayValue = maxArrayValue.split(' ');
+		                       
+		                        droparray.push(parseFloat(array[0]));
+		                        if(drop >=array[0] && drop <=maxArrayValue[0]){
+		                            var drop_radio_id = jQuery(this).attr('for');                          
+		                            jQuery('#'+drop_radio_id).trigger('click');    
+		                            console.log('trigger');               
+		                        }
+		                      }
+		                    }); 
+
+		                //}
+		            });
+		            
+		            droparray.sort(function(a, b){return a-b});
+		            var droparrayLength = droparray.length-1;
+		            var min_drop = droparray[0];
+		            var max_drop = droparray[droparrayLength];
+		            jQuery(customdropClass+" .input-text").addClass('number-range-'+min_drop+'-'+(max_drop-1));    
+	  }
+	})
+</script>
+<style type="text/css">
+	.price-pair-width-cm {display: none !important;	 }
+	.price-pair-width-inch {display: none !important; }
+	.price-pair-drop-inch {display: none !important; }
+	.price-pair-drop-cm {display: none !important; }
+
+	.field.choice.admin__field.admin__field-option.required.required-entry{
+		float: left;
+		width: 100%; 
+	}
+
+	.field input.radio{
+		float: left;
+		width: 10%;
+
+	}
+	.field .label{
+		float: left;
+		text-align: left; 
+		width: 80% !important;
+	}
+
+</style>
