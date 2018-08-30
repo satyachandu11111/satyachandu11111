@@ -9,6 +9,7 @@
 @f2light:#F2F2F2;
 @f9light:#F9F9F9;
 @flight:#eeeeee;
+@767: ~"only screen and (max-width:767px)";
 
 & when (@media-common = true) {
     .filter {
@@ -32,6 +33,15 @@
                 text-align: center;
                 top: 0;
                 z-index: 2;
+				
+				@media @767{
+					right: 0;
+					text-align: left;
+					font-weight: 600;
+					font-size: 1.6rem;
+					padding: @indent__s;
+					border: none;
+				}
 
                 &[data-count]:after {
                     .lib-css(color, @color-white);
