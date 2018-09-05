@@ -26,8 +26,12 @@
 		 </container>
 		</referenceContainer>
 
-		<referenceContainer name="content">		<!-- delivery block -->
-		  <block class="Magento\Catalog\Block\Product\View" name="product.delivery" template="Magento_Catalog::product_delivery.phtml" before="product.info.details"/>
+		<referenceContainer name="product.info.main">		<!-- delivery block -->
+		  <block class="Magento\Catalog\Block\Product\View" name="product.delivery" template="Magento_Catalog::product_delivery.phtml" after="-"/>
+		</referenceContainer>
+		
+		<referenceContainer name="product.info.main">		<!-- made 2 measure help hub -->
+		  <block class="Magento\Catalog\Block\Product\View" name="made.helphub" template="Magento_Catalog::m2o_help_hub.phtml" after="product.info.price"/>
 		</referenceContainer>
 		
 		<referenceContainer name="product.info.main">		<!-- offers block -->

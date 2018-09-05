@@ -1,22 +1,6 @@
 <script type="text/javascript">
 	require(['jquery'], function($){ 
 		$(document).ready(function($){
-
-
-			jQuery( ".units-class, .custom-width-cm,.custom-width-inch,.custom-drop-cm,.custom-drop-inch" ).wrapAll( "<div class='custom-width-drop-group' ></div>");
-			
-			$('.units-class, .curtain-header-custom, .select-lining-choice-width-h, .select-valance-choice-width-h').children('label').addClass('main-label');
-			
-			//jQuery('.units-class').before(' <span class="enter-eidth-drop"><label>Enter Measurements for Quick Quote</label></span> ');
-
-
-			$('#product-options-wrapper .field.units-class label').click(function(e){            
-					$(this).toggleClass('show-content');
-    				$('.custom-width-drop-group').toggleClass('width-drop-content');
-    		});
-	
-			$('#product-options-wrapper .field.units-class label').toggleClass('show-content');
-    		$('.custom-width-drop-group').toggleClass('width-drop-content');
 			
 			$(".custom-width-cm .input-text").focusout(function(){
 				var customwidthClass='.custom-width-cm';
@@ -52,16 +36,14 @@
 			});
 
 
-			    $('#product-options-wrapper .field.curtain-header-custom .main-label').click(function(e){            
-			    	$(this).toggleClass('curtain-header-show');
+			    $('#product-options-wrapper .field.curtain-header-custom label').click(function(e){            
             		$(".field.curtain-header-custom .control").toggle();		            
 		            e.preventDefault();
 		            e.stopPropagation();
 		        });
 
 
-			    $('#product-options-wrapper .field.eyelet-material .main-label').click(function(){		        
-			    	$(this).toggleClass('curtain-header-show');
+			    $('#product-options-wrapper .field.eyelet-material label').click(function(){		        
 		        	$(".field.eyelet-material .control").toggle();
 		    	}); 
 
@@ -73,26 +55,19 @@
 	             });
  			});*/
 
-		    $('#product-options-wrapper .field.select-lining-choice-width-h .main-label').click(function(){		        
-		    	$(this).toggleClass('curtain-header-show');
+		    $('#product-options-wrapper .field.select-lining-choice-width-h label').click(function(){		        
 		        $(".field.select-lining-choice-width-h .control").toggle();
 		    }); 
 
-			$('#product-options-wrapper .field.Cushion .main-label').click(function(){		        
-				$(this).toggleClass('curtain-header-show');
+			$('#product-options-wrapper .field.Cushion label').click(function(){		        
 		        $('.field.Cushion .control').toggle();
 		    }); 
 
-			$('#product-options-wrapper .field.Tiebacks .main-label').click(function(){
-				$(this).toggleClass('curtain-header-show');
+			$('#product-options-wrapper .field.Tiebacks label').click(function(){
 		        $('.field.Tiebacks .control').toggle();
 		    }); 
 
-		    $('#product-options-wrapper .field.select-valance-choice-width-h .main-label').click(function(){
-				$(this).toggleClass('curtain-header-show');
-		        $('.field.select-valance-choice-width-h .control').toggle();
-		    }); 
-			
+
 
 		});
 
@@ -156,7 +131,7 @@
 		                   
 		                   $(this).find("div label").each(function() {
 		                    
-		                    if($(this).parent().css('display') == 'flex'){
+		                    if($(this).parent().css('display') == 'block'){
 		                       var array =jQuery(this).clone().children().remove().end().text().split("-");
 		                       var maxArrayValue = array[1];
 		                       maxArrayValue = maxArrayValue.split(' ');
@@ -181,3 +156,26 @@
 	  }
 	})
 </script>
+<style type="text/css">
+	.price-pair-width-cm {display: none !important;	 }
+	.price-pair-width-inch {display: none !important; }
+	.price-pair-drop-inch {display: none !important; }
+	.price-pair-drop-cm {display: none !important; }
+
+	.field.choice.admin__field.admin__field-option.required.required-entry{
+		float: left;
+		width: 100%; 
+	}
+
+	.field input.radio{
+		float: left;
+		width: 10%;
+
+	}
+	.field .label{
+		float: left;
+		text-align: left; 
+		width: 80% !important;
+	}
+
+</style>

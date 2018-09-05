@@ -70,6 +70,12 @@
     </div>
 </div>
 <?php endif; ?>
+<?php 
+ /*"<pre>";
+print_r($_product->getData('m2m_readymade')); die('dddd');*/
+if($_product->getData('m2m_readymade')){?>
+            <div class="custom-curtain-image"><a href="<?php echo $_product->getData('m2m_readymade').".html"?>"> <img src="<?php echo $block->getViewFileUrl('images/made-to-measure-detailpage.jpg') ?>" /></a></div>
+            <?php }?>
 <?php if ($block->isRedirectToCartEnabled()) : ?>
 <script type="text/x-magento-init">
     {
