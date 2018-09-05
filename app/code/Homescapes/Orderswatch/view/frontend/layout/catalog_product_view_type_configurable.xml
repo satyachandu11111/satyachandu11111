@@ -5,6 +5,6 @@
 	</referenceContainer>  	 
         <referenceContainer name="product.info.main">
 		  <block class="Magento\Catalog\Block\Product\View"  name="orderswatch.detail.text" template="Homescapes_Orderswatch::sample/orderswatchText.phtml" after="product.info.addto"  />
-	</referenceContainer>  	 
+	</referenceContainer>  	
  </body> 
 </page>
