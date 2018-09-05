@@ -2596,7 +2596,9 @@ transition: all 5ms ease-in-out 0s;
 	clear: both;
 	padding: 0;
 	display: none;
-	
+	float: left;
+	margin-top: .5rem;
+
 	@media @992{
 		display: block;
 	}
@@ -2612,6 +2614,7 @@ transition: all 5ms ease-in-out 0s;
 	
 	.head span{
 		font-weight: bold;
+		font-size: 1.5rem;
 		
 		.fas{
 			color: @blue;
@@ -2629,8 +2632,12 @@ transition: all 5ms ease-in-out 0s;
 		}
 	}
 	.info{
-		margin:1rem 0 0 2.9rem ;
+		margin:.5rem 0 0 2.9rem ;
 		font-size: 1.4rem;
+		
+		strong{
+			font-size: @base;
+		}
 		
 	}
 	
@@ -2876,7 +2883,7 @@ transition: all 5ms ease-in-out 0s;
 		.label{
 			display: block;
 			float: left;
-			width: 4rem;
+			width: 4rem !important;
 			line-height: 4.3rem;
 			margin-bottom: 0;
 			
@@ -3246,6 +3253,10 @@ transition: all 5ms ease-in-out 0s;
 	float: right;
 	width: 48%;
 	display: grid;
+	max-height: 103rem;
+	overflow: hidden;
+	overflow-y: auto;
+	margin-bottom: 2rem;
 	
 	@media @991{
 		width: 100%;
@@ -6481,6 +6492,8 @@ transition: all 5ms ease-in-out 0s;
 	padding-right: 25px;
 	text-indent: .01em;
 	text-overflow: '';
+	
+	
 	}
 .fotorama__stage .fotorama__caption{
 	display: none;
@@ -7061,6 +7074,7 @@ transition: all 5ms ease-in-out 0s;
 		float: left;
 		
 		@media @991{
+
 			width: 100%;
 		}
 
@@ -8115,8 +8129,8 @@ transition: all 5ms ease-in-out 0s;
 	
 	.amfaq_questions{
 		.am-title{
-			font-size: @font20;
-			font-weight: normal;
+			font-size: @font16;
+			font-weight: 600;
 		}
 	}
 	.ask-question-form{
@@ -8189,7 +8203,7 @@ transition: all 5ms ease-in-out 0s;
 
 				label{
 					float: left;
-					width: 100%;
+					width: 100% !important;
 					font-size: 1.5rem;
 				}
 				.control{
@@ -8204,7 +8218,7 @@ transition: all 5ms ease-in-out 0s;
 		
 		.product-options-bottom{
 			.box-tocart{
-				width: 100%;
+				width: 74%;
 				
 				.emb-terms{
 					float: left;
@@ -8230,4 +8244,159 @@ transition: all 5ms ease-in-out 0s;
 }
 .catalog-product-view .modal-popup .action-close{
 	padding: .8rem;
+}
+
+
+ /*--------------------------------------------------------------------------
+|Made 2 measure curtains
+--------------------------------------------------------------------------*/
+
+	.price-pair-width-cm {display: none !important;	 }
+	.price-pair-width-inch {display: none !important; }
+	.price-pair-drop-inch {display: none !important; }
+	.price-pair-drop-cm {display: none !important; }
+
+	#product-options-wrapper .curtain-header-custom .control{ display: none; padding: 0 1rem;}
+	#product-options-wrapper .select-lining-choice-width-h .control{ display: none; padding: 0 1rem;}
+	#product-options-wrapper .select-valance-choice-width-h .control{ display: none; padding: 0 1rem;}
+	#product-options-wrapper .Cushion .control{ display: none; padding: 0 1rem;}
+	#product-options-wrapper .Tiebacks .control{ display: none; padding: 0 1rem;}
+
+	.field.choice.admin__field.admin__field-option.required.required-entry{
+		float: left;
+		width: 100%; 
+	}
+
+	.field input.radio{
+		float: left;
+		width: 10%;
+
+	}
+	
+.custom-curtain-detail.product-shop #product-options-wrapper .custom-width-drop-group{
+	overflow: hidden;
+}  
+.catalog-product-view .product-add-form {
+	#product-options-wrapper{
+
+		.fieldset{
+
+			.field {
+
+				margin-bottom: .5rem;
+				
+				.label{
+					margin-bottom: 0;
+					text-align: left;
+				}
+
+				.main-label{
+
+					background: @f2light;
+					padding: 1rem;
+					border-radius: 2px 2px 0 0;
+					font-weight: 600;
+					margin-bottom: .5rem;
+					cursor: pointer;
+					
+					&::before{
+						float: right !important;
+						content: "\e622";
+						padding-right: 5px;
+						font-weight: normal;
+						font-family: 'luma-icons';
+					}
+
+				}
+				
+				.main-label.curtain-header-show::before{
+						content: "\e621";
+				}
+				.main-label.show-content::before{
+					content: "\e621";
+				}
+				
+				.control{
+					.choice{
+						float: left;
+						width: auto;
+						display: flex;
+						min-width: 28rem;
+					}
+				}
+			}
+			
+			.curtain-header-custom, .eyelet-material{
+				margin-top: 1rem;
+				
+				.mageworx-swatch-option{
+					border: none;
+				}
+			}
+			
+			.custom-width-inch, .custom-width-cm{
+				float: left;
+				width: 46%;
+				margin-right: 2%;
+				margin-left: 1.8%;
+				
+				label{
+					margin-bottom: .6rem !important;
+					font-weight: 600;
+				}
+				
+			}
+			.custom-drop-inch, .custom-drop-cm{
+				float: left;
+				width: 48%;
+				
+				label{
+					margin-bottom: .6rem !important;
+					font-weight: 600;
+				}
+			
+			}
+
+
+		}
+
+		.custom-width-drop-group{
+			float: left;
+			width: 100%;
+			
+			.fieldset .field label{
+				margin-bottom: 1rem;
+				font-weight: 600;
+			}
+		}
+		
+		.control .input-text{
+			height: 4rem;
+			background: none;
+			border: 1px solid @dlight;
+		}
+		.custom-width-drop-group{
+			height: 4.2rem;
+			overflow: hidden;
+		}
+		.custom-width-drop-group.width-drop-content{
+			height: auto;
+		}
+
+	}
+	.product-options-bottom{
+		margin-top: 2rem;
+		float: left;
+		width: 100%;
+		margin-bottom: 2rem;
+		
+		.box-tocart .field{
+			display: flex;
+			
+			label{
+				width: 4rem !important;
+			}
+		}
+	}
+	
 }
