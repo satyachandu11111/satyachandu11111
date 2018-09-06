@@ -1,0 +1,4 @@
+<?php $_product = $block->getProduct();  ?>
+<?php if($_product->getSaleValidity()){?>
+	<div class="sale-validity-text"><?php echo  $_product->getSaleValidity() ?></div>
+<?php }?>

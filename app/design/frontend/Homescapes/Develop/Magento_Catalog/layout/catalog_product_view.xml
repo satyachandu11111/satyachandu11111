@@ -41,6 +41,10 @@
 		<referenceContainer name="product.info.main">		<!-- sizing block -->
 		  <block class="Magento\Framework\View\Element\Template" name="product.sizing.video" template="Magento_Catalog::product_buying_sizing_video.phtml" after="product.info.price"/>
 		</referenceContainer>
+
+		<referenceContainer name="product.info.main">		<!-- Sale Vaid For block -->
+		  <block class="Magento\Catalog\Block\Product\View" name="product.sale.valid" template="Magento_Catalog::sale_valid_block.phtml" after="product.sizing.video"/>
+		</referenceContainer>
 		
 		<referenceContainer name="product.info.main">		<!-- product instalment -->
 		  <block class="Magento\Framework\View\Element\Template" name="product.instalment" template="Magento_Catalog::product_instalment.phtml" after="product.offers"/>

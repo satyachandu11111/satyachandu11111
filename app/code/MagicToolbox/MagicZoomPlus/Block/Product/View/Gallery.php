@@ -401,6 +401,10 @@ class Gallery extends \Magento\Catalog\Block\Product\View\Gallery
                 $thumbSwitcherOptions = $this->getThumbSwitcherInitAttribute();
             }
 
+            // custom code for sale label
+            $productSaleLabel = $product->getProductLabelSale();
+            // end custom code for sale label
+
             $layout = $this->toolObj->params->getValue('template');
             ob_start();
             try {

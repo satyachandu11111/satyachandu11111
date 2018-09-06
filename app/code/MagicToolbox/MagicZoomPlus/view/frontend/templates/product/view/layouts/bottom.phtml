@@ -1,4 +1,9 @@
 <div class="MagicToolboxContainer selectorsBottom minWidth"<?php echo $thumbSwitcherOptions ?>>
+<?php  if($productSaleLabel){?>                
+                <div class="extra-off">
+                    <span class=""><?php echo $productSaleLabel; ?></span>
+                </div>
+                <?php }  ?>
     <?php echo $mainHTML; ?>
 <?php
 if (count($selectorsArray)) {

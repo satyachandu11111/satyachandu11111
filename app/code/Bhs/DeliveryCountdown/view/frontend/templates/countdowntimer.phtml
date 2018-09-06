@@ -4,7 +4,7 @@ $checkEnable = $block->isEnable();
 	if($checkEnable){
 		$product = $block->getCurrentProduct();
 		$attrCode = $block->getAttrCode();    
-			if($product->getData($attrCode) || $attrCode == ''){
+			if($product->getData($attrCode)){
                             if($product->isSaleable()){
                                  if(!$this->helper('Homescapes\Preorder\Helper\Data')->isPreOrder($product)){
 ?>
