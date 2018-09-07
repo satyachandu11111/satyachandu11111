@@ -1763,6 +1763,10 @@ transition: all 5ms ease-in-out 0s;
 		list-style-type: disc;
 		margin-left: 2rem;
 	}
+	h1, h2, h3, h4{
+		font-size:@font18;
+		font-weight: 600;
+	}
 }
 .bedding, .cms-page-heading{
 
@@ -8436,6 +8440,10 @@ transition: all 5ms ease-in-out 0s;
 	float: left;
 	width: 100%;
 	
+	@media @639{
+		margin: 1rem 0 2rem 0;
+	}
+	
 	.help-center{
 		a{
 			margin-right: 2rem;
@@ -8447,6 +8455,13 @@ transition: all 5ms ease-in-out 0s;
 			border-radius: .4rem;
 			border-bottom:1px solid @dlight;
 			display: inline-block;
+			
+			
+		}
+		&:first-child{
+			@media @800{
+				display: none;
+			}	
 		}
 	}
 }

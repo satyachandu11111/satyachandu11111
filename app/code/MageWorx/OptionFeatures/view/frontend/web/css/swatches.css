@@ -89,7 +89,6 @@
 }
 
 .mageworx-swatch-option:not(.disabled):hover {
-    outline: 1px solid #999;
     border: 1px solid #fff;
     color: #333;
 }
