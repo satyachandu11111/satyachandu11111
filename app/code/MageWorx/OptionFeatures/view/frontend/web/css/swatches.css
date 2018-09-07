@@ -85,17 +85,17 @@
 .swatch-attribute.size .mageworx-swatch-option.selected, .swatch-attribute.manufacturer .mageworx-swatch-option.selected {
     color: black;
     background: #fff;
-    border: 1px solid #fff;
+    border: 2px solid #040404 !important;
 }
 
 .mageworx-swatch-option:not(.disabled):hover {
-    border: 1px solid #fff;
+    border: 2px solid #040404 !important;
     color: #333;
 }
 
 .mageworx-swatch-option.image:not(.disabled):hover,
 .mageworx-swatch-option.color:not(.disabled):hover {
-    border: 2px solid #040404;
+    border: 2px solid #040404 !important;
 	border-radius: 100%;
 }
 
