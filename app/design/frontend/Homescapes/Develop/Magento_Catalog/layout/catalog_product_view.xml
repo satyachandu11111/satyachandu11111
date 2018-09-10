@@ -85,7 +85,7 @@
 		<!-- Recently view product -->
 		<move element="product.info.upsell" destination="content" before="recently_viewed" />
 		<!-- upsell  -->
-		<move element="DeliveryCountdown" destination="product.info.main" after="product.sizing.video"/>    <!--Delivery Countdown-->
+		<move element="DeliveryCountdown" destination="product.info.main" after="product.info.price"/>    <!--Delivery Countdown-->
 		
 		 <move element="product.info.addto" destination="product.info.form.content" after="product.info.addtocart"/>    <!--Wishlist-->
 
