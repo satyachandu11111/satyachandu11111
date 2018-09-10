@@ -8,7 +8,7 @@
 //  _____________________________________________
 
 @review-ratings-left: 280px;
-
+@991: ~"only screen and (max-width:991px)";
 //
 //  Common
 //  _____________________________________________
@@ -304,6 +304,10 @@
     .customer-review {
         .rating-summary {
             margin-right: 1rem;
+			
+			@media @991{
+				margin-right: 0;
+			}
         }
     }
 }

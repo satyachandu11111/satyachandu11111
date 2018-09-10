@@ -14,8 +14,7 @@
 <?php if($this->helper('Homescapes\Preorder\Helper\Data')->isPreOrder($_product)){  ?>
 <span class="preoder"><i class="fas fa-truck"></i> <?php echo $_product->getPreOrderNote(); ?></span>
 <?php } ?>
-<div class="box-tocart">
-	
+
 	<div class="emb-terms">
 	
 			 <input type="checkbox" class="checkbox required" name="condition" />
@@ -29,6 +28,9 @@
 			</div>
 	
 	</div>
+<div class="box-tocart">
+	
+
     <div class="fieldset">
         <?php if ($block->shouldRenderQuantity()): ?>
         <div class="field qty">
