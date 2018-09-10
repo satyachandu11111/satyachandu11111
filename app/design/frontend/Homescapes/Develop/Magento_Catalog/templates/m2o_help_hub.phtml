@@ -4,11 +4,8 @@
  * See COPYING.txt for license details.
  */
 $_product = $block->getProduct();
-
-$staticBlock = $_product->getAttributeText('m2o_help_hub') ? $_product->getAttributeText('m2o_help_hub') : 'm2o-help-hub' ;
+if($_product->getData('m2o_help_hub')){
+$staticBlock = $_product->getData('m2o_help_hub');
+ echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId($staticBlock)->toHtml();
+}
 ?>
-
-<?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId($staticBlock)->toHtml();?>
-
-
-<?php echo "help hub"?>
