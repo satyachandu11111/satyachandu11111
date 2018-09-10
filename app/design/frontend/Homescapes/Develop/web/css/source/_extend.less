@@ -2758,9 +2758,13 @@ transition: all 5ms ease-in-out 0s;
 .countdown{
     float: left;
     width: 100%;
-	margin-bottom: 1rem;
+	margin-bottom: 2rem;
 	line-height: 3rem;
 	font-weight: bold;
+	
+	@media @991{
+		line-height: @font24;
+	}
 	
 	#date, #time{
 		color: @blue;
@@ -2900,6 +2904,10 @@ transition: all 5ms ease-in-out 0s;
 			float: left;
 			margin: 0;
 			clear: both;
+			
+			@media @991{
+				width: 86%;
+			}
 			
 			
 			@media @767{
@@ -3190,6 +3198,7 @@ transition: all 5ms ease-in-out 0s;
 .product.info.detailed{
 	width: 50%;
 	float: left;
+	margin-bottom: 3rem;
 	
 	@media @991{
 		width: 100%;
@@ -8521,7 +8530,7 @@ transition: all 5ms ease-in-out 0s;
 	}
 }
 
-sale-validity-text{
+.sale-validity-text{
 	background: @f2light;
 	float: left;
 	margin: 2rem 0;
