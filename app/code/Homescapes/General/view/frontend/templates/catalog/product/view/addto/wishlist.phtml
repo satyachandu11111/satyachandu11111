@@ -12,7 +12,11 @@
     <a href="#"
        class="action towishlist"
        data-post='<?= /* @noEscape */ $block->getWishlistParams() ?>'
-       data-action="add-to-wishlist"><span><?= $block->escapeHtml(__('Add to Wish List')) ?></span></a>
+       data-action="add-to-wishlist">
+		
+		<div class="wish"><span><?= $block->escapeHtml(__('Add to Wish List')) ?></span></div>
+
+</a>
 <?php endif; ?>
 <script type="text/x-magento-init">
     {
