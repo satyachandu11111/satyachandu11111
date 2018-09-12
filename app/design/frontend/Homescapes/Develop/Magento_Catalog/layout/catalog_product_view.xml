@@ -87,7 +87,10 @@
 		<!-- upsell  -->
 		<move element="DeliveryCountdown" destination="product.info.main" after="product.info.price"/>    <!--Delivery Countdown-->
 		
-		 <!-- <move element="product.info.addto" destination="product.info.form.content" after="product.info.addtocart"/>     --><!--Wishlist-->
+		<!-- product.info.addtocart -->
+		<!-- <move element="product.info.addto" destination="product.info.form.content"/>      -->
+		<!-- <move element="product.info.addto" destination="product.info.options.wrapper.bottom" after="product.info.addtocart"/>      -->
+		<!--Wishlist-->
 
 		 <referenceBlock name="product.info.overview" remove="true" />
 		
