@@ -6,6 +6,9 @@
         <referenceContainer name="product.info.options.wrapper.bottom">
                     <block class="Magento\Wishlist\Block\Catalog\Product\View\AddTo\Wishlist" name="options.wrapper.bottom.view.addto.wishlist" after="product.info.addtocart.additional" template="Homescapes_General::catalog/product/view/addto/wishlist.phtml" />                
         </referenceContainer>
+        <referenceContainer name="product.info.main">
+		  <block class="Magento\Catalog\Block\Product\View"  name="m2m.readymade" template="Homescapes_General::catalog/product/view/m2m_readymade.phtml" after="-"  />
+	 </referenceContainer>  	
          <referenceBlock name="view.addto.wishlist" remove="true"/>
  	</body> 
 </page>
