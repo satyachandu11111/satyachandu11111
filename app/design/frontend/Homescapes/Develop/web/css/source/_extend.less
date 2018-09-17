@@ -2019,7 +2019,6 @@ transition: all 5ms ease-in-out 0s;
 		
 		h5,h6{
 			font-size:@font16;
-			font-weight: 600;
 			line-height: 4rem;
 			
 			@media @767{
@@ -2028,6 +2027,19 @@ transition: all 5ms ease-in-out 0s;
 		}
 		h6{
 			margin-left: 10px;
+			
+			font-weight: 600;
+			
+			margin-bottom: 0;
+			
+		}
+		h5{
+			
+			font-weight: 600;
+			
+			@media @767{
+				font-weight: 400;
+			}
 		}
 		.collapse{
 			display: block;
@@ -2384,8 +2396,8 @@ transition: all 5ms ease-in-out 0s;
 			
 			
 			@media @360{
-				max-width: 14.5rem;
-				margin-bottom: @font15;
+				max-width: 16.5rem;
+				margin-bottom: @font26;
 			}
 			
 			@media @480{
@@ -4480,24 +4492,105 @@ transition: all 5ms ease-in-out 0s;
 			float: left;
 		}
 	}
-	.start-creating-curtain{
-		
-		margin: 2rem 0;
-		
-		.button{
-			background: @blue;
-			border: 1px solid @blue;
-			color: @white;
-			padding: .8rem 2rem;
-			font-size: @font16;
-			margin: 1rem auto;
-			border-radius: .4rem;
-			font-weight: bold;
-
-		}
-	}
 
 }
+.start-creating-curtain{
+		
+	margin: 2rem 0;
+
+	.button{
+		background: @blue;
+		border: 1px solid @blue;
+		color: @white;
+		padding: .8rem 2rem;
+		font-size: @font16;
+		margin: 1rem auto;
+		border-radius: .4rem;
+		font-weight: bold;
+
+	}
+}
+
+
+.help-hub{
+	width: 100%;
+	float: left;
+	
+	.help-hub-content{
+		display: block;
+		float: left;
+		width: 32.5%;
+		margin-right: 1%;
+		border: 1px solid @dlight;
+		
+		@media @991{
+			width: 100%;
+			margin: 0 0 2rem 0;
+		}
+		
+		&:last-child{
+			margin-right: 0;
+			display: table;
+			min-height: 219px;
+		}
+		
+		.how-do-img, .how-do-content{
+			padding: 32px 15px;
+			float: left;
+			
+			@media @1100{
+				padding: 4rem .5rem;
+			}
+			
+			@media @991{
+				padding: 32px 15px;
+			}
+			
+			a{
+				color: @black;
+			}
+		}
+		.free-fabric {
+			padding: 15px 0 15px 15px;
+			display: table-cell;
+			vertical-align: middle;
+			
+			h5{
+				font-size: 1.4rem;
+				font-weight: 600;
+				margin-bottom: .8rem;
+			}
+			
+			ul li::before {
+				background: url(../images/correct-signal.svg) no-repeat;
+					background-position-x: 0%;
+					background-position-y: 0%;
+					background-size: auto auto;
+				display: inline-block;
+				content: "";
+				width: 14px;
+				height: 14px;
+				background-position: 0;
+				background-size: 14px;
+				margin-right: 10px;
+			}
+		}
+		.free-sample {
+			display: table-cell;
+			padding: 0;
+			vertical-align: middle;
+		}
+		.video-custom-cat{
+			line-height: 0;
+			
+			img{
+				width: 100%;
+			}
+		}
+	}
+}
+
+
 
 .toolbar-sorter{
 	label{
@@ -6622,6 +6715,7 @@ transition: all 5ms ease-in-out 0s;
 	
 	float: left;
 	width: 100%;
+	margin-bottom:2rem;
 	
 	.a-left{
 		float: left;
@@ -7003,6 +7097,11 @@ transition: all 5ms ease-in-out 0s;
 	font-size: @font26;
 	margin: 2rem auto;
 	text-align: center;
+}
+
+.custom.readymade-curtains{
+	float: left;
+	width: 100%;
 }
 .readymade-curtains{
 	
