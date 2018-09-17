@@ -2905,6 +2905,10 @@ transition: all 5ms ease-in-out 0s;
 			margin: 0;
 			clear: both;
 			
+			@media @1100{
+				width: 90%;
+			}
+			
 			@media @991{
 				width: 86%;
 			}
@@ -2947,8 +2951,8 @@ transition: all 5ms ease-in-out 0s;
 		
 		.towishlist .wish{
 			float: left;
-			width: 25%;
-			padding: 1.1rem 0;
+			width: 100%;
+			padding: 1.1rem 1.5rem;
 			border-radius: .2rem;
 			background: @flight;
 			text-align: center;
@@ -2967,6 +2971,9 @@ transition: all 5ms ease-in-out 0s;
 					display: none;
 				}
 			}
+		}
+		.towishlist{
+			float: right;
 		}
 		.towishlist .wish:before{
 			content: '\f004';
@@ -6795,10 +6802,12 @@ transition: all 5ms ease-in-out 0s;
 	margin-bottom: 1rem;
 	font-weight: bold;
 }
-.page-layout-1column.page-with-filter .column.main{
+.page-layout-1column.page-with-filter .column.main, .page-layout-1column.page-products .columns{
 	padding-top: 0;
 }
-.page-with-filter{
+
+
+.page-layout-2columns-left.page-with-filter{
 	.columns .column.main{
 		@media @767{
 			padding-top: 4rem;
