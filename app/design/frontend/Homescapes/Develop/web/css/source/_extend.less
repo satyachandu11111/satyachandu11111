@@ -814,8 +814,8 @@ transition: all 5ms ease-in-out 0s;
   border-bottom: 0px solid @border-color;
 }
 .wsmenu-list > li > a.menu-special{
-	background: @danger;
-	color:@white;
+	background: @f9light;
+	color:@danger;
 	border-right: 0 solid;
 }
 .wsmenu-list > li > a.menu-special:hover{
@@ -6038,6 +6038,12 @@ transition: all 5ms ease-in-out 0s;
 			  overflow: hidden;
 			  padding: 5px 0 0;
 			  width: 70%;
+			 
+			 @media @767{
+				 display: none;
+				 width: 6rem;
+				 margin: 0 1rem;
+			 }
 		}
 		 .remove-swatch {
 			  display: block;
@@ -6059,6 +6065,10 @@ transition: all 5ms ease-in-out 0s;
 		  color: #bbb;
 		  padding: 11px 0 12px;
 		  text-align: center;
+		 
+		 @media @767{
+			 display: none;
+		 }
      }
 	.actions {
 		  float: right;
@@ -6900,7 +6910,11 @@ transition: all 5ms ease-in-out 0s;
 	padding-top: 0;
 }
 
-
+.page-products .sorter{
+	@media @767{
+		display: none;
+	}
+}
 .page-layout-2columns-left.page-with-filter{
 	.columns .column.main{
 		@media @767{
