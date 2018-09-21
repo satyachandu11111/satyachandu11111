@@ -6371,8 +6371,12 @@ $('#return-to-top').click(function() {      // When arrow is clicked
 });
 });							   
 // back to tops ends here
+	
+// ---- tooltip							   
 							   
-
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
 // ---- carsel starts here
 							   				   
 	
@@ -6418,7 +6422,9 @@ $('#ProductCarousel').on('slide.bs.carousel', function (e) {
 	
 // complete look and decription 
 if ($('.complete-look').length <= 0) {
-    $('.product.info.detailed').css('width', '100%');
+    $('.product.info.detailed').css('width', '940px');
+	$('.product.info.detailed').css('float', 'none');
+	$('.product.info.detailed').css('margin', '0 auto 3rem auto');
 }
 
 // ---- ShopbyColor
