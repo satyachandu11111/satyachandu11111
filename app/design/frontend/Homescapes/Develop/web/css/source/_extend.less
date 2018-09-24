@@ -1738,6 +1738,49 @@ transition: all 5ms ease-in-out 0s;
 	}
 
 }
+.icon-set {
+	display: inline-block;
+	overflow: hidden;
+	position: relative;
+	text-indent: -9999px;
+	vertical-align: middle;
+	white-space: nowrap;
+	width: 34px;
+	height: 34px;
+	background-image: url(../images/icon_sprite_new.png);
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	background-size: 300px 1300px;
+}
+/*--------------------------------------------------------------------------
+|  store switcher
+--------------------------------------------------------------------------*/
+
+.page-header .switcher, .flags{
+	.english-flag{
+		background-position: -2px -61px;
+		height: 16px;
+		margin-right: 3px;
+		margin-top: -2px;
+		width: 24px;
+	}
+	.german-flag {
+		background-position: -2px -102px;
+		height: 16px;
+		margin-right: 7px;
+		margin-top: -2px;
+		width: 24px;
+	}
+	
+	.french-flag {
+		background-position: -2px -140px;
+		height: 16px;
+		margin-right: 7px;
+		margin-top: -2px;
+		width: 24px;
+	}
+}
+
 
 /*--------------------------------------------------------------------------
 |  Home Bedding Block 
@@ -3269,6 +3312,7 @@ transition: all 5ms ease-in-out 0s;
 	
 	.card-body{
 		padding: 1.25rem 0;
+		font-size: 1.5rem;
 		
 		table, table > tbody > tr > td{
 			border-color: @dlight;
