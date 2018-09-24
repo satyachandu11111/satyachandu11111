@@ -2107,7 +2107,7 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.for
   max-width: 100%;
   padding: .5rem;
   margin-top: .1rem;
-  font-size: .875rem;
+  font-size: 1.4rem;
   line-height: 1;
   color: #fff;
   background-color: rgba(40, 167, 69, 0.8);
@@ -5483,7 +5483,7 @@ button.close {
   word-spacing: normal;
   white-space: normal;
   line-break: auto;
-  font-size: 0.875rem;
+  font-size: 1.4rem;
   word-wrap: break-word;
   opacity: 0;
 }

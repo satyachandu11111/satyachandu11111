@@ -357,8 +357,13 @@ h6, .h6 {
     speak: none;
     text-align: center;
 }
-.customer-welcome .customer-menu .fas{
-	display: none;
+.customer-welcome{
+	.customer-menu .fas{
+		display: none;
+	}
+	ul{
+		min-width: 20rem;
+	}
 }
 
 .page-header .fa-phone{
@@ -5014,6 +5019,24 @@ transition: all 5ms ease-in-out 0s;
 		}
 	}
 	
+	.r-icons{
+		display: inline-block;
+		height: 65px;
+		overflow: hidden;
+		position: absolute;
+		text-indent: -9999px;
+		vertical-align: middle;
+		white-space: nowrap;
+		width: 65px;
+		
+		@media @767{
+			position: relative;
+			background-size: 200px 1083px;
+			width: 4rem;
+			height: 4rem;
+		}
+	}
+	
 	.del-icons{
 		display: inline-block;
 		height: 65px;
@@ -5103,6 +5126,23 @@ transition: all 5ms ease-in-out 0s;
 	.customer-d{
 		background-position:-407px -838px;
 	}
+	
+	.r-auth{
+		background-position: -233px -815px;
+	}
+	.r-pack{
+		background-position: -233px -878px;
+	}
+	.r-meth{
+		background-position: -233px -948px;
+	}
+	.r-refund{
+		background-position: -233px -1012px;
+	}
+	.r-furt{
+		background-position: -233px -1088px;
+	}
+	
 	/*----------------------
 |      BUying guides style
      -------------------------*/
@@ -6634,7 +6674,7 @@ transition: all 5ms ease-in-out 0s;
 /*--------------------------------------------------------------------------
 |  Global icon set
 --------------------------------------------------------------------------*/
-.del-icons, .close-del-icons{
+.del-icons, .close-del-icons, .r-icons{
 	background-image: url(../images/sprit-icon.svg);
 	background-repeat: no-repeat;
 	background-position: 0px 0px;
@@ -8562,7 +8602,6 @@ transition: all 5ms ease-in-out 0s;
 		margin-top: 2rem;
 		float: left;
 		width: 100%;
-		margin-bottom: 2rem;
 		
 		.box-tocart .field{
 			display: flex;
