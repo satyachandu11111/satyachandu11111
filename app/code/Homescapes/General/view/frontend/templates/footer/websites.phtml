@@ -8,7 +8,13 @@ $websiteId = $block->getCurrentWebsiteId(); ?>
 		?>		
 
 <li>
-<a href="<?php echo $default_store_path;?>" alter="<?php echo $default_store->getName(); ?>" rel="nofollow" ><span class="icon-set <?php echo $default_store->getCode();?>-flag"></span><?php echo $default_store->getName(); ?></a>
+<a href="<?php echo $default_store_path;?>" alter="<?php echo $default_store->getName(); ?>" rel="nofollow" >
+	
+	<span class="icon-set <?php echo $default_store->getCode();?>-flag"></span>
+	
+	<span class="cname"><?php echo $default_store->getName(); ?></span>
+	
+	</a>
 </li>
 
 <?php 	} ?>
