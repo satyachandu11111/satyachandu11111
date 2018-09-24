@@ -8,7 +8,7 @@
 //
 //  Theme variables
 //  _____________________________________________
-
+@991: ~"only screen and (max-width:991px)";
 @f9light:#F9F9F9;
 @black:#444444;
 //  Messages
@@ -461,10 +461,14 @@
         }
 
         .switcher {
-            float: right;
-            margin-left: 15px;
-            margin-right: -6px;
+            float: left;
+			position: absolute;
+			margin-top: 2rem;
             .lib-vendor-prefix-order(1);
+			
+			@media @991{
+				display: none;
+			}
         }
     }
 
