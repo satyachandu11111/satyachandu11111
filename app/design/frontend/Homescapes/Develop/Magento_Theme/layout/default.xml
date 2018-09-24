@@ -15,8 +15,8 @@
                 </arguments>
             </block>            
         </referenceContainer>
-        <referenceContainer name="header.container">
-                <block class="Homescapes\General\Block\Websites" name="website_switcher" as="website_switcher"  template="Homescapes_General::header/websites.phtml"  before="header-wrapper"/>
+        <referenceContainer name="header-wrapper">
+                <block class="Homescapes\General\Block\Websites" name="website_switcher" as="website_switcher"  template="Homescapes_General::header/websites.phtml"  before="logo"/>
         </referenceContainer>
         <referenceBlock name="logo">
             <arguments>
