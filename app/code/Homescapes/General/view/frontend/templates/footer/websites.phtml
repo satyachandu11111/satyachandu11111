@@ -1,0 +1,15 @@
+<?php $websites = $block->getWebsites(); 
+$websiteId = $block->getCurrentWebsiteId(); ?>
+<?php if (count($block->getWebsites()) > 1){ ?>
+	<ul class="flags">
+	<?php foreach ($websites as $website) { 
+		$default_store = $website->getDefaultStore();
+		$default_store_path = $default_store->getBaseUrl();		
+		?>		
+
+<li>
+<a href="<?php echo $default_store_path;?>" alter="<?php echo $default_store->getName(); ?>" rel="nofollow" ><span class="icon-set <?php echo $default_store->getCode();?>-flag"></span><?php echo $default_store->getName(); ?></a>
+</li>
+
+<?php 	} ?>
+<?php } ?>

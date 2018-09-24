@@ -13,7 +13,10 @@
                 <arguments>
                     <argument name="css_class" xsi:type="string">header links</argument>
                 </arguments>
-            </block>
+            </block>            
+        </referenceContainer>
+        <referenceContainer name="header.container">
+                <block class="Homescapes\General\Block\Websites" name="website_switcher" as="website_switcher"  template="Homescapes_General::header/websites.phtml"  before="header-wrapper"/>
         </referenceContainer>
         <referenceBlock name="logo">
             <arguments>
@@ -50,6 +53,9 @@
         <referenceBlock name="register-link" remove="true" /> 
         <referenceBlock name="authorization-link-login" remove="true"/>
         <referenceBlock name="currency" remove="true"/>
+
+    
+    
     </body>		
 
 </page>

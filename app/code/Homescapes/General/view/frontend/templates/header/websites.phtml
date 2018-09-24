@@ -1,0 +1,43 @@
+<?php
+ $websites = $block->getWebsites();
+ $websiteid = $block->getCurrentWebsiteId();
+ ?>
+ <?php if (count($block->getWebsites())>1): ?>
+<div class="switcher website switcher-website" id="switcher-website">
+  <strong class="label switcher-label"><span><?php echo __('Select Website') ?></span></strong>
+  <div class="actions dropdown options switcher-options">
+    <?php foreach ($websites as $website): 
+    $storecode = $website->getDefaultStore()->getCode();  
+    ?>
+      <?php if ($websiteid == $website->getId()): ?>
+        <div class="action toggle switcher-trigger"
+        role="button"
+        tabindex="0"
+        data-mage-init='{"dropdown":{}}'
+        data-toggle="dropdown"
+        data-trigger-keypress-button="true"
+        id="switcher-website-trigger">
+        <strong>
+        <span class="icon-set <?php echo $storecode;?>-flag"></span>
+        <span><?php echo $block->escapeHtml($website->getName()) ?></span>
+        </strong>
+        </div>
+      <?php endif; ?>
+    <?php endforeach; ?>
+    <ul class="dropdown switcher-dropdown" data-target="dropdown">
+      <?php foreach ($websites as $website): ?>
+        <?php if (!($websiteid == $website->getId())): 
+        	$storecode = $website->getDefaultStore()->getCode();  
+        ?>
+          <li class="switcher-option">
+            <a href='<?php echo $website->getDefaultStore()->getBaseUrl() ?>'>
+            <span class="icon-set <?php echo $storecode;?>-flag"></span>
+              <?php echo $block->escapeHtml($website->getName()) ?>
+            </a>
+          </li>
+        <?php endif; ?>
+      <?php endforeach; ?>
+    </ul>
+  </div>
+</div>
+<?php endif; ?>
