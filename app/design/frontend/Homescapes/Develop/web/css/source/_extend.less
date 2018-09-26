@@ -1755,7 +1755,11 @@ transition: all 5ms ease-in-out 0s;
 /*--------------------------------------------------------------------------
 |  store switcher
 --------------------------------------------------------------------------*/
-
+.page-header .switcher{
+	@media @991{
+		display: none;
+	}
+}
 .page-header .switcher, .flags{
 	.english-flag{
 		background-position: -2px -61px;
@@ -6251,7 +6255,7 @@ transition: all 5ms ease-in-out 0s;
 		&:hover{
 			color: @blue;
 		}
-		@media @991{
+		@media @1100{
 			
 			background-position: 0 -1693px;
 			padding: 0 16px 0 45px;
@@ -6720,7 +6724,7 @@ transition: all 5ms ease-in-out 0s;
 /*--------------------------------------------------------------------------
 |  Global icon set
 --------------------------------------------------------------------------*/
-.del-icons, .close-del-icons, .r-icons{
+.del-icons, .close-del-icons, .r-icons, .fa-info-circle:hover + .del-hover::before{
 	background-image: url(../images/sprit-icon.svg);
 	background-repeat: no-repeat;
 	background-position: 0px 0px;
@@ -8755,4 +8759,40 @@ transition: all 5ms ease-in-out 0s;
 	border-radius: .4rem;
 	width: 100%;
 
+}
+
+ /*--------------------------------------------------------------------------
+|delivery hover-text
+--------------------------------------------------------------------------*/
+.del-hover{
+	display: none;
+}
+.fa-info-circle:hover + .del-hover{
+	background: @white none repeat scroll 0 0;
+	border: 1px solid @blue;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.176);
+	display: inline-block;
+	margin-left: 1rem;
+	line-height: 18px;
+	font-size: 14px;
+	font-weight: normal;
+	padding: 6px 10px;
+	position: absolute;
+	width: 25rem;;
+	top: -1.5rem;
+	z-index: 99;
+	border-radius: .2rem;
+	
+	&::before{
+		content: "";
+		width: 18px;
+		height: 12px;
+		left: -13px;
+		top: 1.5rem;
+		position: absolute;
+		-ms-transform: rotate(-90deg);
+		-webkit-transform: rotate(-90deg);
+		transform: rotate(-90deg);
+		background-position: -83px -630px;
+	}
 }
