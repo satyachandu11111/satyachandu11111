@@ -124,7 +124,8 @@ define([
           var self = this;
           
           $('.swatch-checkbox').on('change', function(element){
-                    
+                    element.stopImmediatePropagation();
+                    element.preventDefault();
                     var samplecountdown=parseInt($('#sample_count').val());                       
                     //console.log(this.id);
                     
@@ -231,7 +232,10 @@ define([
           console.log('remove click');
           var self = this;
           $('.remove-swatch').bind('click', function(element){
-              
+              element.stopImmediatePropagation();
+              element.preventDefault();
+              /*element.preventDefault();
+              element.stopPropagation();*/
               // remove product from onclick 
                     console.log('remove product onclick event');
                     $('.swatch-quantity-error').hide();
