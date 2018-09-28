@@ -182,6 +182,11 @@
                 <width>240</width>
                 <height>240</height>
             </image>
+			
+			<image id="swatch_image" type="swatch_image">
+                <width>50</width>
+                <height>50</height>
+            </image>
         </images>
 		
 
