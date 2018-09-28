@@ -8468,10 +8468,24 @@ transition: all 5ms ease-in-out 0s;
 --------------------------------------------------------------------------*/
 
 .page-product-configurable.catalog-product-view .product-add-form .product-options-wrapper{
-	width: 60%;
 	
-	@media @991{
+	margin-bottom: 1.5rem;
+	
+	.fieldset .swatch-opt{
 		width: 100%;
+		margin: 0;
+		
+		.swatch-option{
+			min-width:3.6rem;
+			height: 3.6rem;
+		}
+	}
+	.fieldset .configurable{
+		width:60%;
+		
+		@media @991{
+			width:100%;
+		}
 	}
 }
 .catalog-product-view {
@@ -8684,7 +8698,6 @@ transition: all 5ms ease-in-out 0s;
 
 	}
 	.product-options-bottom{
-		margin-top: 2rem;
 		float: left;
 		width: 100%;
 		
