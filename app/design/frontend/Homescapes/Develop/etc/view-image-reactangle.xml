@@ -182,6 +182,12 @@
                 <width>240</width>
                 <height>300</height>
             </image>
+			<images module="Magento_Catalog">
+             <image id="swatch_image" type="swatch_image">
+                 <width>50</width>
+                 <height>50</height>
+             </image>
+        </images>
         </images>
     </media>
     <vars module="Magento_Catalog">
