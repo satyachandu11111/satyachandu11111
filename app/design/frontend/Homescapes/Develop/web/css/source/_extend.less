@@ -2683,7 +2683,14 @@ transition: all 5ms ease-in-out 0s;
 	margin-bottom: 4rem;
 	width: 100%;
 	
-	
+	.head {
+		
+		position: relative;
+		
+		.title{
+			padding-left: 4.5rem;
+		}
+	}
 	.head span{
 		font-weight: bold;
 		font-size: 1.5rem;
@@ -2704,7 +2711,7 @@ transition: all 5ms ease-in-out 0s;
 		}
 	}
 	.info{
-		margin:.5rem 0 0 2.9rem ;
+		margin:.5rem 0 0 4.5rem ;
 		font-size: 1.4rem;
 		
 		strong{
@@ -2713,7 +2720,34 @@ transition: all 5ms ease-in-out 0s;
 		
 	}
 	
-	
+	.pdel-icons{
+		display: inline-block;
+		height: 35px;
+		overflow: hidden;
+		position: absolute;
+		text-indent: -9999px;
+		vertical-align: middle;
+		white-space: nowrap;
+		width: 35px;
+		background-size: 200px 867px;
+	}
+	.uks-free{
+		background-position:-161px -30px;
+	}
+	.uks-del{
+		background-position:-161px -70px;
+	}
+	.uks-express{
+		background-position:-161px -110px;
+	}
+	.uks-cc{
+		background-position:-161px -150px;
+	}
+	.inter{
+		background-position:-260px -430px;
+		background-size:300px 1300px !important;
+		height: 30px;
+	}
 }
 
 .product-offers{
@@ -6724,7 +6758,7 @@ transition: all 5ms ease-in-out 0s;
 /*--------------------------------------------------------------------------
 |  Global icon set
 --------------------------------------------------------------------------*/
-.del-icons, .close-del-icons, .r-icons, .fa-info-circle:hover + .del-hover::before{
+.del-icons, .close-del-icons, .r-icons, .fa-info-circle:hover + .del-hover::before, .pdel-icons{
 	background-image: url(../images/sprit-icon.svg);
 	background-repeat: no-repeat;
 	background-position: 0px 0px;
