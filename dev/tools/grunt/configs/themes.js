@@ -41,16 +41,6 @@ module.exports = {
         ],
         dsl: 'less'
     },
-    Homes: {
-        area: 'frontend',
-        name: 'Homescapes/Develop',
-        locale: 'en_US',
-        files: [
-            'css/styles-m',
-            'css/styles-l'
-        ],
-        dsl: 'less'
-    },
     backend: {
         area: 'adminhtml',
         name: 'Magento/backend',
