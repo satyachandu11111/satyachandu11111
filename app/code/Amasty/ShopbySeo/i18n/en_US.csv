@@ -29,7 +29,13 @@ Enable,Enable
                     ","
                         To configure the 'Category URL Suffix' setting please go to Configuration - Catalog - Catalog - Search Engine Optimization - Category URL Suffix. FYI on the category pages the suffix is added regardless of this setting.
                     "
-"Option Separator","Option Separator"
+"Replace Special Characters With","Replace Special Characters With"
+"Separate Attribute Options With","Separate Attribute Options With"
+"
+                        For example, if a customer selects 3 options for the attribute `color`, the URL will look like http://example.com/red-green-blue.html.
+                    ","
+                        For example, if a customer selects 3 options for the attribute `color`, the URL will look like http://example.com/red-green-blue.html.
+                    "
 "Robots Tag Control","Robots Tag Control"
 "Allow the Module to Modify Robots Meta Tag","Allow the Module to Modify Robots Meta Tag"
 "Use ""No"" for compatibility with other SEO extensions.","Use ""No"" for compatibility with other SEO extensions."

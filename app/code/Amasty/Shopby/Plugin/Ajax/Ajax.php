@@ -146,9 +146,12 @@ class Ajax
             'tags' => implode(',', array_unique($tags + [\Magento\PageCache\Model\Cache\Type::CACHE_TAG])),
             'productsCount' => $productsCount,
             'js_init' => $jsInit ? $jsInit->toHtml() : '',
-            'isDisplayModePage' => $isDisplayModePage,
-            'newClearUrl' => $layout->getBlock('category.amshopby.ajax')->getClearUrl()
+            'isDisplayModePage' => $isDisplayModePage
         ];
+        if ($layout->getBlock('category.amshopby.ajax')) {
+            $responseData['newClearUrl'] = $layout->getBlock('category.amshopby.ajax')->getClearUrl();
+        }
+
         try {
             $sidebarTag = $layout->getElementProperty('div.sidebar.additional', Element::CONTAINER_OPT_HTML_TAG);
             $sidebarClass = $layout->getElementProperty('div.sidebar.additional', Element::CONTAINER_OPT_HTML_CLASS);

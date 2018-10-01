@@ -7,14 +7,16 @@
 ?>
 <?php
 /** @var \Amasty\Shopby\Block\Navigation\Widget\HideMoreOptions $block */
+$dataAmJsAttribute = "data-am-js='%s'";
+
 if ($block->getIsState()) {
-    $buttonSelector = "data-am-js='show-more_button_state'";
-    $itemSelector = "[data-am-js='shopby-container']";
+    $buttonSelector = sprintf($dataAmJsAttribute, 'show-more_button_state');
+    $itemSelector = '[' . sprintf($dataAmJsAttribute, 'shopby-container') . ']';
     $numberUnfoldedOptions = $block->getUnfoldedOptions();
 } else {
     $filterSetting = $block->getFilterSetting();
     $filterCode = $block->escapeHtml($filterSetting->getFilterCode());
-    $buttonSelector = 'am-filter-items-'.  $filterCode. '-show-more';
+    $buttonSelector = sprintf($dataAmJsAttribute, 'am-filter-items-'.  $filterCode. '-show-more');
     $itemSelector = '.am-filter-items-' . $filterCode;
     $numberUnfoldedOptions = $filterSetting->getNumberUnfoldedOptions();
 }

@@ -23,6 +23,21 @@
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment><![CDATA[URL will look 'category/autumn.html' instead of 'category.html?season=114'. See per-attribute settings for fine-tuning.]]></comment>
                 </field>
+                <field id="attribute_name" translate="label" type="select" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Include Attribute Name</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Select 'Yes' to add attribute name to the URL scheme, e.g. black -> color_black]]></comment>
+                    <depends>
+                        <field id="mode">1</field>
+                    </depends>
+                </field>
+                <field id="filter_word" translate="label" type="text" sortOrder="17" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Filter Key</label>
+                    <comment><![CDATA[It allows to add filter key to the URL scheme, e.g. black-xl-activity -> shopby/black-xl-activity]]></comment>
+                    <depends>
+                        <field id="mode">1</field>
+                    </depends>
+                </field>
                 <field id="add_suffix_shopby" translate="label comment" type="select" sortOrder="20" showInDefault="1"
                        showInWebsite="1" showInStore="1">
                     <label>Add Suffix to the Brand Pages and Filtered All-products Pages</label>
@@ -31,18 +46,19 @@
                         <![CDATA[To configure the 'Category URL Suffix' setting please go to Configuration - Catalog - Catalog - Search Engine Optimization - Category URL Suffix. FYI on the category pages the suffix is added regardless of this setting.]]>
                     </comment>
                 </field>
-                <field id="option_separator" translate="label" type="select" sortOrder="30" showInDefault="1"
+                <field id="special_char" translate="label" type="select" sortOrder="30" showInDefault="1"
                        showInWebsite="1" showInStore="1">
-                    <label>Option Separator</label>
+                    <label>Replace Special Characters With</label>
                     <source_model>Amasty\ShopbySeo\Model\Source\OptionSeparator</source_model>
                 </field>
-                <!-- remove it in future updates if it don't used for customers -->
-                <!--field id="seo_redirect" translate="label comment" type="select" sortOrder="40" showInDefault="1"
+                <field id="option_separator" translate="label comment" type="select" sortOrder="30" showInDefault="1"
                        showInWebsite="1" showInStore="1">
-                    <label>Redirect to SEO URL</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Standard Magento URLs with applied filters will be redirected to SEO friendly URLs</comment>
-                </field-->
+                    <label>Separate Attribute Options With</label>
+                    <source_model>Amasty\ShopbySeo\Model\Source\OptionSeparator</source_model>
+                    <comment>
+                        <![CDATA[For example, if a customer selects 3 options for the attribute `color`, the URL will look like http://example.com/red-green-blue.html.]]>
+                    </comment>
+                </field>
             </group>
             <group id="robots" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1"
                    showInStore="1">

@@ -15,6 +15,8 @@ use Amasty\Shopby\Helper\FilterSetting as FilterSettingHelper;
 use Magento\Eav\Model\Entity\Attribute\Option;
 use Magento\Catalog\Model\Layer\Filter\AbstractFilter;
 use Magento\Swatches\Block\LayeredNavigation\RenderLayered;
+use \Magento\Store\Model\Store;
+use Amasty\Shopby\Api\Data\GroupAttrInterface;
 
 class SwatchRenderer extends RenderLayered implements RendererInterface
 {
@@ -119,7 +121,7 @@ class SwatchRenderer extends RenderLayered implements RendererInterface
             $swatchData['swatches'][$id] = $value;
         }
 
-        if ($this->getFilterSetting()->getAttributeGroups()) {
+        if ($this->getFilterSetting()->hasAttributeGroups()) {
             $swatchDataGroup = $this->getGroupSwatchData($swatchData);
             $swatchData['options'] += $swatchDataGroup['options'];
             $swatchData['swatches'] += $swatchDataGroup['swatches'];
@@ -144,21 +146,16 @@ class SwatchRenderer extends RenderLayered implements RendererInterface
         $filterCode = \Amasty\Shopby\Helper\FilterSetting::ATTR_PREFIX . $attribute->getAttributeCode();
         $featuredOptionArray = [];
         $optionKeys = array_keys($swatchData['options']);
-
-        foreach ($swatchData['options'] as $key => $option) {
-            $setting = $this->optionSettingHelper->getSettingByValue(
-                $key,
-                $filterCode,
-                $this->_storeManager->getStore()->getId()
-            );
-            $swatchData['options'][$key]['key'] = $key;
-            if ($setting->getIsFeatured()) {
+        $featuredOptions = $this->optionSettingHelper->getAllFeaturedOptionsArray();
+        foreach ($swatchData['swatches'] as $key => $option) {
+            if ($this->isOptionFeatured($featuredOptions, $filterCode, $option)) {
                 $keyPosition = array_search($key, $optionKeys);
                 if ($keyPosition) {
                     unset($optionKeys[$keyPosition]);
                 }
                 $featuredOptionArray[] = $key;
             }
+            $swatchData['options'][$key]['key'] = $key;
         }
         $optionKeys = array_merge($featuredOptionArray, $optionKeys);
 
@@ -168,6 +165,40 @@ class SwatchRenderer extends RenderLayered implements RendererInterface
         }
 
          return $options;
+    }
+
+    /**
+     * @param array $options
+     * @param string $filterCode
+     * @param array $option
+     * @return bool
+     */
+    private function isOptionFeatured($options, $filterCode, $option)
+    {
+        $isFeatured = false;
+        if (isset($option['option_id'])) {
+            if (isset($options[$filterCode][$option['option_id']][$this->getStoreId()])) {
+                $isFeatured = (bool)$options[$filterCode][$option['option_id']][$this->getStoreId()];
+            } elseif (isset($options[$filterCode][$option['option_id']][Store::DEFAULT_STORE_ID])) {
+                $isFeatured = (bool)$options[$filterCode][$option['option_id']][Store::DEFAULT_STORE_ID];
+            }
+        }
+
+        return $isFeatured;
+    }
+
+    /**
+     * Retrieve current store id scope
+     *
+     * @return int
+     */
+    public function getStoreId()
+    {
+        $storeId = $this->_getData('store_id');
+        if ($storeId === null) {
+            $storeId = $this->_storeManager->getStore()->getId();
+        }
+        return $storeId;
     }
 
     /**
@@ -284,19 +315,23 @@ class SwatchRenderer extends RenderLayered implements RendererInterface
      */
     private function getGroupSwatchData($data)
     {
-        if ($collection = $this->getFilterSetting()->getGroupCollection()) {
+        if ($this->getFilterSetting()->hasAttributeGroups()) {
+            $attributeGroups = $this->getFilterSetting()->getAttributeGroups();
             $attributeOptions = [];
             $attributeSwatches = [];
             $showNoResults = (int)$this->getFilterSetting()->getAttributeModel()->getIsFilterable()
                 != AbstractFilter::ATTRIBUTE_OPTIONS_ONLY_WITH_RESULTS;
-            foreach ($collection as $option) {
-                $option->setName($this->groupHelper->chooseGroupLabel($option->getName()));
-                if ($currentOption = $this->getFilterOptionGroup($this->filter->getItems(), $option)) {
-                    $attributeOptions[$option->getGroupCode()] = $currentOption;
+            foreach ($attributeGroups as $group) {
+                /**
+                 * @var GroupAttrInterface $group
+                 */
+                $group->setName($this->groupHelper->chooseGroupLabel($group->getName()));
+                if ($currentOption = $this->getFilterOptionGroup($this->filter->getItems(), $group)) {
+                    $attributeOptions[$group->getGroupCode()] = $currentOption;
                 } elseif ($showNoResults) {
-                    $attributeOptions[$option->getGroupCode()] = $this->getUnusedOptionGroup($option);
+                    $attributeOptions[$group->getGroupCode()] = $this->getUnusedOptionGroup($group);
                 }
-                $attributeSwatches[$option->getGroupCode()] = $this->getUnusedSwatchGroup($option);
+                $attributeSwatches[$group->getGroupCode()] = $this->getUnusedSwatchGroup($group);
             }
             $data['options'] = $attributeOptions;
             $data['swatches'] = $attributeSwatches;

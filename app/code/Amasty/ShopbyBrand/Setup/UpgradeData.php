@@ -59,33 +59,21 @@ class UpgradeData implements UpgradeDataInterface
     protected $filterSettingRepository;
 
     /**
-     * UpgradeData constructor.
-     * @param PageFactory $pageFactory
-     * @param WriterInterface $configWriter
-     * @param \Amasty\ShopbyBrand\Helper\Data $brandHelper
-     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
-     * @param \Amasty\ShopbyBase\Model\ResourceModel\FilterSetting\CollectionFactory $filterCollectionFactory
-     * @param \Magento\Framework\App\State $state
-     * @param \Amasty\ShopbyBase\Helper\Data $baseHelper
-     * @param \Magento\UrlRewrite\Model\UrlFinderInterface $urlFinder
-     * @param \Amasty\ShopbyBase\Api\Data\FilterSettingRepositoryInterface $filterSettingRepository
+     * @var \Magento\Framework\App\State
      */
+    private $appState;
+
     public function __construct(
         \Magento\Cms\Model\PageFactory $pageFactory,
         WriterInterface $configWriter,
         \Amasty\ShopbyBrand\Helper\Data $brandHelper,
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \Amasty\ShopbyBase\Model\ResourceModel\FilterSetting\CollectionFactory $filterCollectionFactory,
-        \Magento\Framework\App\State $state,
         \Amasty\ShopbyBase\Helper\Data $baseHelper,
         \Magento\UrlRewrite\Model\UrlFinderInterface $urlFinder,
-        \Amasty\ShopbyBase\Api\Data\FilterSettingRepositoryInterface $filterSettingRepository
+        \Amasty\ShopbyBase\Api\Data\FilterSettingRepositoryInterface $filterSettingRepository,
+        \Magento\Framework\App\State $appState
     ) {
-        try {
-            $state->setAreaCode('adminhtml');
-        } catch (\Exception $e) {
-            //Area code already set
-        }
         $this->_pageFactory = $pageFactory;
         $this->_configWriter = $configWriter;
         $this->brandHelper = $brandHelper;
@@ -94,13 +82,27 @@ class UpgradeData implements UpgradeDataInterface
         $this->baseHelper = $baseHelper;
         $this->urlFinder = $urlFinder;
         $this->filterSettingRepository = $filterSettingRepository;
+        $this->appState = $appState;
     }
 
     /**
      * @param ModuleDataSetupInterface $setup
      * @param ModuleContextInterface $context
      */
-    public function upgrade(
+    public function upgrade(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
+    {
+        $this->appState->emulateAreaCode(
+            \Magento\Framework\App\Area::AREA_ADMINHTML,
+            [$this, 'upgradeCallback'],
+            [$setup, $context]
+        );
+    }
+
+    /**
+     * @param ModuleDataSetupInterface $setup
+     * @param ModuleContextInterface $context
+     */
+    public function upgradeCallback(
         ModuleDataSetupInterface $setup,
         ModuleContextInterface $context
     ) {

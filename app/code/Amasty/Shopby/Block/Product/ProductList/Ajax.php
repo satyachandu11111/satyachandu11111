@@ -57,7 +57,7 @@ class Ajax extends \Magento\Framework\View\Element\Template implements IdentityI
     /**
      * @return bool
      */
-    public function isGoogleTagManaegr()
+    public function isGoogleTagManager()
     {
         return $this->moduleManager->isEnabled('Magento_GoogleTagManager');
     }

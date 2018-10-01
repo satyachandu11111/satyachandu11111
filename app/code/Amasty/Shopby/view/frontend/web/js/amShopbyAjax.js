@@ -57,7 +57,7 @@ define([
                 swatchesTooltip = $(self.swatchesTooltip),
                 filterTooltip = $(self.filterTooltip);
             $(document).on('baseCategory', function (event, eventData) {
-                self.baseCategoryId = eventData;
+                self.currentCategoryId = eventData;
             });
             $(document).on('amshopby:submit_filters', function (event, eventData) {
                 var data = eventData.data,
@@ -119,8 +119,14 @@ define([
                 this.$shopbyOverlay.show();
             }
             data.every(function (item, key) {
-                if (item.name.indexOf('[cat]') != -1 && item.value == self.options.baseCategoryId) {
-                    data.splice(key, 1);
+                if (item.name.indexOf('[cat]') != -1) {
+                    if (item.value == self.options.currentCategoryId) {
+                        data.splice(key, 1);
+                    } else {
+                        var regex = new RegExp(',*(' + self.options.currentCategoryId + '),*', "g");
+                        item.value = item.value.replace(regex, '');
+                    }
+
                     return false;
                 }
             });
@@ -149,7 +155,9 @@ define([
                         }
 
                         $.mage.amShopbyAjax.prototype.response = response;
-                        self.options.clearUrl = response.newClearUrl;
+                        if (response.newClearUrl) {
+                            self.options.clearUrl = response.newClearUrl;
+                        }
 
                         if (pushState || ($.mage.amShopbyApplyFilters && $.mage.amShopbyApplyFilters.prototype.showButtonClick) || isSorting) {
                             window.history.pushState({url: response.url}, '', response.url);
@@ -254,8 +262,9 @@ define([
                 this.$shopbyOverlay.hide();
             }
 
-            if (this.options.scrollUp) {
-                $(document).scrollTop($('#amasty-shopby-product-list').offset().top);
+            var producttList = $('#amasty-shopby-product-list');
+            if (this.options.scrollUp && producttList.length) {
+                $(document).scrollTop(producttList.offset().top);
             }
 
 

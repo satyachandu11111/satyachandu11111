@@ -12,6 +12,7 @@ use Magento\Framework\Search\Request\FilterInterface;
 use Magento\CatalogSearch\Model\Search\RequestGenerator;
 use Magento\Framework\App\ResourceConnection;
 use Amasty\Shopby\Helper\Category;
+use \Magento\Framework\App\ProductMetadataInterface;
 
 /**
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
@@ -28,12 +29,16 @@ class Preprocessor
     private $connection;
 
     /**
-     * Preprocessor constructor.
-     * @param ResourceConnection $resource
+     * @var ProductMetadataInterface
      */
-    public function __construct(ResourceConnection $resource)
-    {
+    private $productMetadata;
+
+    public function __construct(
+        ResourceConnection $resource,
+        ProductMetadataInterface $productMetadata
+    ) {
         $this->connection = $resource->getConnection();
+        $this->productMetadata = $productMetadata;
     }
 
     /**
@@ -63,9 +68,9 @@ class Preprocessor
                 $query
             );
         } elseif ($filter->getField() === Category::STORE_CODE) {
-            return $this->processQuery($query, 'store_id', 'store_id');
+            return $this->resolveAlias($query, 'store_id', 'store_id');
         } elseif ($filter->getField() === Category::ATTRIBUTE_CODE && is_array($filter->getValue())) {
-            return $this->processQuery($query, 'category_ids', 'category_id');
+            return $this->resolveAlias($query, 'category_ids', 'category_id');
         }
         return $proceed($filter, $isNegation, $query);
     }
@@ -76,11 +81,17 @@ class Preprocessor
      * @param string $column2
      * @return string
      */
-    private function processQuery($query, $column1, $column2)
+    private function resolveAlias($query, $column1, $column2)
     {
+        $alias = 'category_ids_index';
+        if (version_compare($this->productMetadata->getVersion(), '2.2.0', '<')) {
+            //See \Magento\CatalogSearch\Model\Adapter\Mysql\Filter\AliasResolver
+            $alias = 'category_products_index';
+        }
+
         return str_replace(
             $this->connection->quoteIdentifier($column1),
-            $this->connection->quoteIdentifier('category_ids_index.' . $column2),
+            $this->connection->quoteIdentifier($alias . '.' . $column2),
             $query
         );
     }

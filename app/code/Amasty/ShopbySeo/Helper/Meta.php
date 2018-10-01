@@ -75,10 +75,6 @@ class Meta extends AbstractHelper
         if ($this->scopeConfig->getValue('amasty_shopby_seo/robots/control_robots', ScopeInterface::SCOPE_STORE)) {
             $this->setRobots();
         }
-
-        if ($this->scopeConfig->getValue('amasty_shopby_seo/other/prev_next', ScopeInterface::SCOPE_STORE)) {
-            $this->addPrevNext();
-        }
     }
 
     /**
@@ -169,51 +165,4 @@ class Meta extends AbstractHelper
     {
         return $this->isFollowingAllowed;
     }
-
-    /**
-     * @return void
-     */
-    private function addPrevNext()
-    {
-        $toolbar = $this->getToolbarBlock();
-        if (!$toolbar) {
-            return;
-        }
-
-        $currPage = $toolbar->getCurrentPage();
-        if (!$toolbar->isFirstPage()) {
-            $prevPage = ($currPage == 2) ? null : ($currPage - 1);
-            $prevUrl = $toolbar->getPagerUrl(['p' => $prevPage]);
-            $this->pageConfig->addRemotePageAsset(
-                $prevUrl,
-                'link_rel',
-                ['attributes' => ['rel' => 'prev']]
-            );
-        }
-
-        $lastPage = $toolbar->getLastPageNum();
-        if ($currPage < $lastPage) {
-            $nextUrl = $toolbar->getPagerUrl(['p' => $currPage + 1]);
-            $this->pageConfig->addRemotePageAsset(
-                $nextUrl,
-                'link_rel',
-                ['attributes' => ['rel' => 'next']]
-            );
-        }
-    }
-
-    /**
-     * @return Toolbar|null
-     */
-    private function getToolbarBlock()
-    {
-        /** @var Toolbar $toolbar */
-        $toolbar = $this->layout->getBlock('product_list_toolbar');
-        if ($toolbar) {
-            $toolbar->setCollection($this->layerResolver->get()->getProductCollection());
-        }
-
-        return $toolbar;
-    }
-
 }

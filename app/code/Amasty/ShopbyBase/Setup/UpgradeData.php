@@ -24,17 +24,17 @@ class UpgradeData implements UpgradeDataInterface
      */
     private $categoryCollectionFactory;
 
+    /**
+     * @var \Magento\Framework\App\State
+     */
+    private $state;
+
     public function __construct(
         \Magento\Framework\App\State $state,
         CategoryCollectionFactory $categoryFactory
     ) {
-        try {
-            $state->setAreaCode('adminhtml');
-        } catch (\Exception $e) {
-            //Area code is already set
-        }
-
         $this->categoryCollectionFactory = $categoryFactory;
+        $this->state = $state;
     }
 
     /**
@@ -43,6 +43,21 @@ class UpgradeData implements UpgradeDataInterface
      * @return void
      */
     public function upgrade(
+        ModuleDataSetupInterface $setup,
+        ModuleContextInterface $context
+    ) {
+        $this->state->emulateAreaCode(
+            \Magento\Framework\App\Area::AREA_ADMINHTML,
+            [$this, 'upgradeData'],
+            [$setup, $context]
+        );
+    }
+
+    /**
+     * @param ModuleDataSetupInterface $setup
+     * @param ModuleContextInterface $context
+     */
+    public function upgradeData(
         ModuleDataSetupInterface $setup,
         ModuleContextInterface $context
     ) {

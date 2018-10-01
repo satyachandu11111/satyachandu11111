@@ -14,7 +14,7 @@
                 <item name="amasty_shopby_root" xsi:type="array">
                     <item name="class" xsi:type="string">Amasty\ShopbyRoot\Controller\Router</item>
                     <item name="disable" xsi:type="boolean">false</item>
-                    <item name="sortOrder" xsi:type="string">43</item>
+                    <item name="sortOrder" xsi:type="string">41</item>
                 </item>
             </argument>
         </arguments>

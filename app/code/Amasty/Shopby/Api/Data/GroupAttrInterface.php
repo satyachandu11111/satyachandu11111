@@ -123,4 +123,48 @@ interface GroupAttrInterface
      * @return GroupAttrInterface
      */
     public function setEnabled($enabled);
+
+    /**
+     * @param GroupAttrOptionInterface $option
+     * @return $this
+     */
+    public function addOption(GroupAttrOptionInterface $option);
+
+    /**
+     * @param array $options
+     * @return $this
+     */
+    public function setOptions(array $options = []);
+
+    /**
+     * @return GroupAttrOptionInterface[]
+     */
+    public function getOptions();
+
+    /**
+     * @return bool
+     */
+    public function hasOptions();
+
+    /**
+     * @param GroupAttrValueInterface $value
+     * @return $this
+     */
+    public function addValue(GroupAttrValueInterface $value);
+
+    /**
+     * @param array $values
+     * @return $this
+     */
+    public function setValues(array $values = []);
+
+    /**
+     * @return GroupAttrValueInterface[]
+     */
+    public function getValues();
+
+    /**
+     * @return bool
+     */
+    public function hasValues();
 }

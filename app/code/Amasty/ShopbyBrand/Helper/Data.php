@@ -19,6 +19,7 @@ use Magento\Catalog\Model\Product\Attribute\Repository as AttributeRepository;
 use Amasty\ShopbyBase\Model\ResourceModel\OptionSetting\CollectionFactory as OptionCollectionFactory;
 use Magento\Catalog\Model\Product\Url as ProductUrl;
 use Amasty\ShopbyBase\Api\Data\OptionSettingRepositoryInterface;
+use Magento\Framework\Data\Collection\AbstractDb;
 
 class Data extends AbstractHelper
 {
@@ -63,6 +64,16 @@ class Data extends AbstractHelper
      * @var \Magento\Framework\Escaper
      */
     private $escaper;
+
+    /**
+     * @var Manager
+     */
+    protected $moduleManager;
+
+    /**
+     * @var array
+     */
+    private $brandAliases = [];
 
     public function __construct(
         \Magento\Framework\App\Helper\Context $context,
@@ -173,30 +184,37 @@ class Data extends AbstractHelper
      */
     public function getBrandAliases()
     {
-        $attributeCode = $this->getBrandAttributeCode();
-        if ($attributeCode == '') {
-            return [];
+        if (empty($this->brandAliases)) {
+            $attributeCode = $this->getBrandAttributeCode();
+            if ($attributeCode == '') {
+                return [];
+            }
+
+            $suffix = '';
+            if ($this->scopeConfig->isSetFlag('amasty_shopby_seo/url/add_suffix_shopby')) {
+                $suffix = $this->scopeConfig
+                    ->getValue('catalog/seo/category_url_suffix', ScopeInterface::SCOPE_STORE);
+            }
+
+            $options = $this->attributeRepository->get($attributeCode)->getOptions();
+            array_shift($options);
+
+            if (empty($options)) {
+                return [];
+            }
+
+            $items = [];
+            foreach ($options as $option) {
+                $items[$option->getValue()] = str_replace(
+                    '-',
+                    $this->getSpecialChar(),
+                    $this->productUrl->formatUrlKey($option->getLabel()) . $suffix
+                );
+            }
+
+            $this->brandAliases = $this->getStoreAliases($items, $this->storeManager->getStore()->getId());
         }
-
-        $suffix = '';
-        if ($this->scopeConfig->isSetFlag('amasty_shopby_seo/url/add_suffix_shopby')) {
-            $suffix = $this->scopeConfig
-                ->getValue('catalog/seo/category_url_suffix', ScopeInterface::SCOPE_STORE);
-        }
-
-        $options = $this->attributeRepository->get($attributeCode)->getOptions();
-        array_shift($options);
-
-        if (empty($options)) {
-            return [];
-        }
-
-        $items = [];
-        foreach ($options as $option) {
-            $items[$option->getValue()] = $this->productUrl->formatUrlKey($option->getLabel()) . $suffix;
-        }
-
-        return $this->processStoreAliases($items);
+        return $this->brandAliases;
     }
 
     /**
@@ -243,43 +261,29 @@ class Data extends AbstractHelper
     }
 
     /**
-     * @param array $options
-     * @return array
-     */
-    private function processStoreAliases($options)
-    {
-        $storeIds = [
-            \Magento\Store\Model\Store::DEFAULT_STORE_ID,
-            $this->storeManager->getStore()->getId()
-        ];
-        foreach ($storeIds as $storeId) {
-            $storeAliases = $this->getStoreAliases($options, $storeId);
-            foreach ($storeAliases as $optionId => $alias) {
-                $options[$optionId] = $alias;
-            }
-        }
-        return $options;
-    }
-
-    /**
-     * @param array $options
+     * @param array $defaultAliases
      * @param int $storeId
      * @return array
      */
-    private function getStoreAliases($options, $storeId)
+    private function getStoreAliases($defaultAliases, $storeId)
     {
+        $storeIds = [
+            \Magento\Store\Model\Store::DEFAULT_STORE_ID,
+            $storeId
+        ];
         $storeAliases = [];
         $filterCode =  FilterSettingHelper::ATTR_PREFIX . $this->getBrandAttributeCode();
         $collection = $this->optionCollectionFactory->create();
         $collection->addFieldToFilter('filter_code', ['eq' => $filterCode])
-            ->addFieldToFilter('value', ['in' => array_keys($options)])
-            ->addFieldToFilter('store_id', $storeId)
-            ->addFieldToFilter('url_alias', ['neq' => '']);
+            ->addFieldToFilter('value', ['in' => array_keys($defaultAliases)])
+            ->addFieldToFilter('store_id', ['in' => $storeIds])
+            ->addFieldToFilter('url_alias', ['neq' => ''])
+            ->setOrder('store_id', AbstractDb::SORT_ORDER_ASC);
         foreach ($collection as $item) {
-            $storeAliases[$item->getValue()] = $item->getUrlAlias();
+            $defaultAliases[$item->getValue()] = $item->getUrlAlias();
         }
 
-        return $storeAliases;
+        return $defaultAliases;
     }
 
     /**
@@ -350,5 +354,15 @@ class Data extends AbstractHelper
         }
 
         return $template;
+    }
+
+     /**
+     * @return string
+     */
+    public function getSpecialChar()
+    {
+        return $this->_moduleManager->isEnabled('Amasty_ShopbySeo')
+            ? $this->scopeConfig->getValue('amasty_shopby_seo/url/special_char', ScopeInterface::SCOPE_STORE)
+            : '-';
     }
 }

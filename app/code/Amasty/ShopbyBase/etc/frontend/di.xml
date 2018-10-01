@@ -28,4 +28,8 @@
             </argument>
         </arguments>
     </type>
+
+    <type name="Magento\Framework\View\Page\Config\Renderer">
+        <plugin name="Amasty_ShopbyBase::make-css" type="Amasty\ShopbyBase\Plugin\View\Page\Config\Renderer" />
+    </type>
 </config>

@@ -41,23 +41,23 @@ class UpgradeData implements UpgradeDataInterface
      */
     private $resourceConfig;
 
+    /**
+     * @var \Magento\Framework\App\State
+     */
+    private $appState;
+
     public function __construct(
         DeployHelper $deployHelper,
-        \Magento\Framework\App\State $state,
         CategorySetupFactory $categorySetupFactory,
         CategoryCollectionFactory $categoryFactory,
-        \Magento\Framework\App\Config\ConfigResource\ConfigInterface $resourceConfig
+        \Magento\Framework\App\Config\ConfigResource\ConfigInterface $resourceConfig,
+        \Magento\Framework\App\State $appState
     ) {
-        try {
-            $state->setAreaCode('adminhtml');
-        } catch (\Exception $e) {
-            //Area code is already set
-        }
-
         $this->deployHelper = $deployHelper;
         $this->categorySetupFactory = $categorySetupFactory;
         $this->categoryCollectionFactory = $categoryFactory;
         $this->resourceConfig = $resourceConfig;
+        $this->appState = $appState;
     }
 
     /**
@@ -69,6 +69,22 @@ class UpgradeData implements UpgradeDataInterface
         ModuleDataSetupInterface $setup,
         ModuleContextInterface $context
     ) {
+        $this->appState->emulateAreaCode(
+            \Magento\Framework\App\Area::AREA_ADMINHTML,
+            [$this, 'upgradeCallback'],
+            [$setup, $context]
+        );
+    }
+
+    /**
+     * @param ModuleDataSetupInterface $setup
+     * @param ModuleContextInterface   $context
+     * @return void
+     */
+    public function upgradeCallback(
+        ModuleDataSetupInterface $setup,
+        ModuleContextInterface $context
+    ) {
         if (version_compare($context->getVersion(), '1.6.3', '<')) {
             $this->deployPub();
         }
@@ -76,7 +92,7 @@ class UpgradeData implements UpgradeDataInterface
         if (version_compare($context->getVersion(), '2.1.5', '<')) {
             $this->addCategoryThumbnail($setup);
         }
-        
+
         if (version_compare($context->getVersion(), '2.6.0', '<')) {
             $this->setMobileSubmitFilters();
         }

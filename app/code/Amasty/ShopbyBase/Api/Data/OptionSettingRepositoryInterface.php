@@ -32,4 +32,10 @@ interface OptionSettingRepositoryInterface
      * @return OptionSettingRepositoryInterface
      */
     public function save(OptionSettingInterface $optionSetting);
+
+    /**
+     * @param int $storeId
+     * @return array
+     */
+    public function getAllFeaturedOptionsArray($storeId);
 }

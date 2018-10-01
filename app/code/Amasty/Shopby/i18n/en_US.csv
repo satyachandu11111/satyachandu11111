@@ -65,7 +65,6 @@ Categories,Categories
 Installed,Installed
 "Not Installed","Not Installed"
 "Please update Amasty Base module. Re-upload it and replace all the files.","Please update Amasty Base module. Re-upload it and replace all the files."
-"The default Magento LESS functionality is missing for the following website(s): %1. Try to run ssh command ""php bin/magento setup:static-content:deploy"". To add CSS please set ""Include CSS"" setting to ""Yes"".","The default Magento LESS functionality is missing for the following website(s): %1. Try to run ssh command ""php bin/magento setup:static-content:deploy"". To add CSS please set ""Include CSS"" setting to ""Yes""."
 "Wrong Filter Type","Wrong Filter Type"
 "%1 - %2","%1 - %2"
 above,above
@@ -180,7 +179,6 @@ Show,Show
 Items,Items
 Item,Item
 Information,Information
-"Include CSS","Include CSS"
 General,General
 "Enable Ajax","Enable Ajax"
 "Scroll to top after AJAX load","Scroll to top after AJAX load"

@@ -87,7 +87,7 @@ class Data extends AbstractHelper
         foreach ($filters as $filter) {
             /** @var Layer\Filter\AbstractFilter $filter */
             $var = $filter->getRequestVar();
-            if ($this->_getRequest()->getParam($var) !== null) {
+            if ($this->shopbyRequest->getParam($var) !== null) {
                 $setting = $this->settingHelper->getSettingByLayerFilter($filter);
                 $result[] = [
                     'filter' => $filter,
@@ -194,7 +194,7 @@ class Data extends AbstractHelper
      */
     public function getUnfoldedCount()
     {
-        return $this->scopeConfig->getValue(self::UNFOLDED_OPTIONS_STATE, ScopeInterface::SCOPE_STORE);
+        return (int)$this->scopeConfig->getValue(self::UNFOLDED_OPTIONS_STATE, ScopeInterface::SCOPE_STORE);
     }
 
     /**
@@ -214,6 +214,9 @@ class Data extends AbstractHelper
     {
         $swatches = [];
         if (!$this->swatchHelper->isVisualSwatch($attribute) && !$this->swatchHelper->isTextSwatch($attribute)) {
+            /**
+             * @TODO use collection method
+             */
             foreach ($optionIds as $optionId) {
                 $setting = $this->optionSettingHelper->getSettingByValue(
                     $optionId,

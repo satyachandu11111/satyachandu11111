@@ -15,13 +15,13 @@ use Amasty\ShopbyBase\Api\Data\FilterSettingInterface;
 use Magento\Catalog\Model\Layer\Filter\AbstractFilter;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Amasty\Shopby\Model\Layer\Filter\Traits\FilterTrait;
-
 use Amasty\Shopby\Helper\Group as GroupHelper;
 use Magento\Framework\Filter\StripTags as TagFilter;
 use Magento\Catalog\Model\Layer\Filter\ItemFactory as FilterItemFactory;
 use Magento\Catalog\Model\Layer\Filter\Item\DataBuilder as ItemDataBuilder;
 use Amasty\Shopby\Model\Search\RequestGenerator as ShopbyRequestGenerator;
 use Amasty\Shopby\Model\Search\Adapter\Mysql\AggregationAdapter as MysqlAggregationAdapter;
+use \Magento\Store\Model\Store;
 
 /**
  * Layer attribute filter
@@ -29,7 +29,7 @@ use Amasty\Shopby\Model\Search\Adapter\Mysql\AggregationAdapter as MysqlAggregat
 class Attribute extends AbstractFilter
 {
     use FilterTrait;
-    
+
     /**
      * @var TagFilter
      */
@@ -146,13 +146,13 @@ class Attribute extends AbstractFilter
 
         $attribute = $this->getAttributeModel();
         $id = $attribute->getAttributeId();
-        $optionGroups = $id ? $this->groupHelper->getGroupsWithOptions($id) : [];
+        $groups = $id ? $this->groupHelper->getGroupsByAttributeId($id) : [];
 
         /** @var \Amasty\Shopby\Model\ResourceModel\Fulltext\Collection $productCollection */
         $productCollection = $this->getLayer()->getProductCollection();
         if ($this->getFilterSetting()->isUseAndLogic()) {
             foreach ($requestedOptions as $key => $value) {
-                $optionsFromGroup = $this->groupHelper->getGroup($optionGroups, $value);
+                $optionsFromGroup = $this->groupHelper->getGroupOptionsByCode($groups, $value);
                 $value = $optionsFromGroup ?: $value;
 
                 $fakeAttributeCode = $this->getFakeAttributeCodeForApply($attribute->getAttributeCode(), $key);
@@ -161,7 +161,7 @@ class Attribute extends AbstractFilter
         } else {
             $optionValues = $requestedOptions;
             foreach ($optionValues as $key => $value) {
-                $optionsFromGroup = $this->groupHelper->getGroup($optionGroups, $value);
+                $optionsFromGroup = $this->groupHelper->getGroupOptionsByCode($groups, $value);
                 if ($optionsFromGroup) {
                     unset($optionValues[$key]);
                     $optionValues = array_merge($optionValues, $optionsFromGroup);
@@ -189,8 +189,8 @@ class Attribute extends AbstractFilter
 
         foreach ($values as $value) {
             $labelGroup = null;
-            if ($id = $attribute->getAttributeId()) {
-                $labelGroup = $this->groupHelper->getGroupLabel($id, $value);
+            if ($attributeId = $attribute->getAttributeId()) {
+                $labelGroup = $this->groupHelper->getGroupLabel($attributeId, $value);
             }
             if ($labelGroup) {
                 $labels[] = $labelGroup;
@@ -320,28 +320,28 @@ class Attribute extends AbstractFilter
         $attribute = $this->getAttributeModel();
         $options = $attribute->getFrontend()->getSelectOptions();
 
-        if ($this->getFilterSetting()->getAttributeGroups()) {
-            /** @var \Magento\Eav\Model\ResourceModel\Entity\Attribute\Group\Collection $groups */
-            $groups = $this->getFilterSetting()->getGroupCollection();
+        if ($this->getFilterSetting()->hasAttributeGroups()) {
+            /**
+             * @var \Amasty\Shopby\Api\Data\GroupAttrInterface[] $groups
+             */
+            $groups = $this->getFilterSetting()->getAttributeGroups();
             $groupOptions = [];
+            $allGroupedOptions = [];
             foreach ($groups as $group) {
-                $groupOptions[] =
-                    [
-                        'label' => $group->getName(),
-                        'value' => $group->getGroupCode()
-                    ];
+                $groupOptions[] = [
+                    'label' => $group->getName(),
+                    'value' => $group->getGroupCode()
+                ];
+                if ($group->hasOptions()) {
+                    foreach ($group->getOptions() as $option) {
+                        $allGroupedOptions[] = $option->getOptionId();
+                    }
+                }
             }
 
-            $attributeGroupsOptions = $this->groupHelper->getGroupsWithOptions($attribute->getId());
-            $repeatOptions = [];
-
-            foreach ($attributeGroupsOptions as $option) {
-                $repeatOptions = array_merge($repeatOptions, $option['options']);
-            }
-
-            if (count($repeatOptions)) {
+            if (count($allGroupedOptions)) {
                 foreach ($options as $key => $value) {
-                    if (in_array($value['value'], $repeatOptions)) {
+                    if (in_array($value['value'], $allGroupedOptions)) {
                         unset($options[$key]);
                     }
                 }
@@ -371,13 +371,9 @@ class Attribute extends AbstractFilter
         $filterCode = \Amasty\Shopby\Helper\FilterSetting::ATTR_PREFIX . $attribute->getAttributeCode();
         $featuredOptionArray = [];
         $nonFeaturedOptionArray = [];
+        $featuredOptions = $this->optionSettingHelper->getAllFeaturedOptionsArray();
         foreach ($options as $option) {
-            $setting = $this->optionSettingHelper->getSettingByValue(
-                $option['value'],
-                $filterCode,
-                $this->_storeManager->getStore()->getId()
-            );
-            if ($setting->getIsFeatured()) {
+            if ($this->isOptionFeatured($featuredOptions, $filterCode, $option)) {
                 $featuredOptionArray[] = $option;
             } else {
                 $nonFeaturedOptionArray[] = $option;
@@ -392,6 +388,26 @@ class Attribute extends AbstractFilter
         }
 
         return $options;
+    }
+
+    /**
+     * @param array $options
+     * @param string $filterCode
+     * @param array $option
+     * @return bool
+     */
+    private function isOptionFeatured($options, $filterCode, $option)
+    {
+
+        $isFeatured = false;
+        if (isset($options[$filterCode][$option['value']][$this->getStoreId()])) {
+            $isFeatured = (bool)$options[$filterCode][$option['value']][$this->getStoreId()];
+        } elseif (isset($options[$filterCode][$option['value']][Store::DEFAULT_STORE_ID])) {
+            $isFeatured = (bool)$options[$filterCode][$option['value']][Store::DEFAULT_STORE_ID];
+        }
+
+        return $isFeatured;
+
     }
 
     /**
@@ -462,13 +478,13 @@ class Attribute extends AbstractFilter
             return $optionsFacetedData;
         }
 
-        $groupedOptionCollection = $this->groupHelper->getGroupCollection($this->getAttributeModel()->getId());
+        $groups = $this->groupHelper->getGroupsByAttributeId($this->getAttributeModel()->getId());
 
-        foreach ($groupedOptionCollection as $option) {
-            $key = GroupHelper::LAST_POSSIBLE_OPTION_ID - $option['group_id'];
+        foreach ($groups as $group) {
+            $key = GroupHelper::LAST_POSSIBLE_OPTION_ID - $group->getId();
 
             if (isset($optionsFacetedData[$key])) {
-                $code = $option['group_code'];
+                $code = $group->getGroupCode();
                 $optionsFacetedData[$code] = $optionsFacetedData[$key];
                 unset($optionsFacetedData[$key]);
             }

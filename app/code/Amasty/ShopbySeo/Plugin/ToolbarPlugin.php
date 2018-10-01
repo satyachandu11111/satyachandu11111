@@ -16,10 +16,11 @@ class ToolbarPlugin
     /**
      * @var  Registry
      */
-    protected $registry;
+    private $registry;
 
-    public function __construct(Registry $registry)
-    {
+    public function __construct(
+        Registry $registry
+    ) {
         $this->registry = $registry;
     }
 

@@ -254,7 +254,8 @@ class Price extends \Magento\CatalogSearch\Model\Layer\Filter\Price implements F
             if ($isSlider) {
                 $this->getLayer()->getProductCollection()->addFieldToFilter('price', $filter);
             }
-            if ($this->groupHelper->getAttributeGroupsValues($this->getAttributeModel()->getAttributeId())) {
+
+            if ($this->groupHelper->getGroupsByAttributeId($this->getAttributeModel()->getAttributeId())) {
                 $this->getLayer()->getProductCollection()->addFieldToFilter(
                     'price',
                     [
@@ -347,7 +348,7 @@ class Price extends \Magento\CatalogSearch\Model\Layer\Filter\Price implements F
             $toPrice = round($toPrice * $this->getCurrencyRate(), self::NUMBERS_AFTER_POINT);
         }
 
-        $ranges = $this->groupHelper->getRanges($this->getAttributeModel()->getAttributeId());
+        $ranges = $this->groupHelper->getGroupAttributeMinMaxRanges($this->getAttributeModel()->getAttributeId());
         if ($ranges) {
             if (isset($ranges[$fromPrice . '-' . $toPrice])) {
                 return __($ranges[$fromPrice . '-' . $toPrice]);

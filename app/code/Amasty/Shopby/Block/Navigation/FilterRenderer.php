@@ -306,4 +306,12 @@ class FilterRenderer extends \Magento\LayeredNavigation\Block\Navigation\FilterR
             ->setFilter($this->filter)
             ->toHtml();
     }
+
+    /**
+     * @return int
+     */
+    public function getCurrentCategoryId()
+    {
+        return $this->helper->getCurrentCategory()->getId();
+    }
 }

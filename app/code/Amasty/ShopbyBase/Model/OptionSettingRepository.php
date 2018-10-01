@@ -117,4 +117,13 @@ class OptionSettingRepository implements OptionSettingRepositoryInterface
         $this->resource->save($optionSetting);
         return $this;
     }
+
+    /**
+     * @param int $storeId
+     * @return array
+     */
+    public function getAllFeaturedOptionsArray($storeId)
+    {
+        return $this->resource->getAllFeaturedOptionsArray($storeId);
+    }
 }

@@ -26,15 +26,31 @@ class UrlPlugin
      */
     protected $_storeManager;
 
-    public function __construct(Url $helper, \Magento\Store\Model\StoreManagerInterface $storeManager)
-    {
+    /**
+     * @var \Amasty\ShopbyBrand\Helper\Data
+     */
+    private $brandHelper;
+
+    public function __construct(
+        Url $helper,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \Amasty\ShopbyBrand\Helper\Data $brandHelper
+    ) {
         $this->helper = $helper;
         $this->_storeManager = $storeManager;
+        $this->brandHelper = $brandHelper;
     }
 
+    /**
+     * @param UrlInterface $subject
+     * @param $native
+     * @return string
+     */
     public function afterGetUrl(UrlInterface $subject, $native)
     {
-        if ($this->helper->isSeoUrlEnabled()
+        $isBrandOrSeoEnable = (strpos($native, $this->brandHelper->getBrandAttributeCode()) !== false
+            || $this->helper->isSeoUrlEnabled());
+        if ($isBrandOrSeoEnable
             && $this->_isInternalHost($native)
             && $this->helper->getRequest()->getFullActionName() != 'catalogsearch_result_index'
         ) {

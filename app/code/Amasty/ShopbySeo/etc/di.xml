@@ -10,6 +10,9 @@
     <type name="Amasty\ShopbyBase\Model\XmlSitemap">
         <plugin name="Amasty_ShopbySeo::apply-seo-url" type="Amasty\ShopbySeo\Plugin\XmlSitemap\ShopbyBase\Model\Sitemap" />
     </type>
+    <type name="Magento\Config\Model\Config">
+        <plugin name="Amasty_ShopbySeo::config_save_plugin" type="Amasty\ShopbySeo\Plugin\Adminhtml\ConfigPlugin" />
+    </type>
 
     <type name="Amasty\ShopbySeo\Block\System\Config\Form\Field\Label">
         <arguments>

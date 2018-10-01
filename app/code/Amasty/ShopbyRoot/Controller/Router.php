@@ -72,13 +72,18 @@ class Router implements \Magento\Framework\App\RouterInterface
      */
     private $urlBuilder;
 
+    /**
+     * @var \Amasty\ShopbyBase\Model\AllowedRoute
+     */
+    private $allowedRoute;
+
     public function __construct(
         \Magento\Framework\App\ActionFactory $actionFactory,
         \Magento\Framework\App\ResponseInterface $response,
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \Magento\Framework\Registry $registry,
-        \Magento\Framework\App\RequestFactory $requestFactory,
         \Magento\Framework\UrlInterface $urlBuilder,
+        \Amasty\ShopbyBase\Model\AllowedRoute $allowedRoute,
         UrlParser $urlParser,
         Url $urlHelper,
         Manager $moduleManager,
@@ -92,6 +97,7 @@ class Router implements \Magento\Framework\App\RouterInterface
         $this->urlParser = $urlParser;
         $this->urlHelper = $urlHelper;
         $this->amshopbyRequest = $amshopbyRequest;
+        $this->allowedRoute = $allowedRoute;
         $this->brandCode = $this->scopeConfig
             ->getValue('amshopby_brand/general/attribute_code', ScopeInterface::SCOPE_STORE);
         $this->urlBuilder = $urlBuilder;
@@ -100,19 +106,16 @@ class Router implements \Magento\Framework\App\RouterInterface
     public function match(RequestInterface $request)
     {
         $shopbyPageUrl = $this->scopeConfig->getValue('amshopby_root/general/url', ScopeInterface::SCOPE_STORE);
-        $identifier = trim($request->getPathInfo(), '/');
 
-        $urlKey = trim($this->scopeConfig->getValue('amshopby_brand/general/url_key', ScopeInterface::SCOPE_STORE));
-        $brandUrlKeyMatched = ($urlKey == $identifier)
-            && $this->registry->registry('amasty_shopby_seo_parsed_params');
+        $identifier = str_replace(
+            $this->scopeConfig->getValue('catalog/seo/category_url_suffix', ScopeInterface::SCOPE_STORE),
+            '',
+            trim($request->getPathInfo(), '/')
+        );
 
-        if ($this->scopeConfig->isSetFlag('amasty_shopby_seo/url/add_suffix_shopby')) {
-            $identifier = $this->urlHelper->removeCategorySuffix($identifier);
-        }
-
-        if ($identifier == $shopbyPageUrl || $brandUrlKeyMatched) {
+        if ($identifier == $shopbyPageUrl) {
             // Forward Shopby
-            if ($this->isRouteAllowed($request)) {
+            if ($this->allowedRoute->isRouteAllowed($request)) {
                 $request->setModuleName('amshopby')->setControllerName('index')->setActionName('index');
                 $request->setAlias(\Magento\Framework\Url::REWRITE_REQUEST_PATH_ALIAS, $identifier);
                 $params = $this->getRequestParams($request);
@@ -122,37 +125,6 @@ class Router implements \Magento\Framework\App\RouterInterface
                 }
                 $this->setBrandParamToRequest($params);
                 return $this->actionFactory->create(\Magento\Framework\App\Action\Forward::class);
-            }
-        }
-
-        if ($this->moduleManager->isEnabled('Amasty_ShopbySeo')
-            && $this->scopeConfig->getValue('amasty_shopby_seo/url/mode', ScopeInterface::SCOPE_STORE)
-            && !$this->registry->registry('amasty_shopby_seo_parsed_params')
-        ) {
-            $params = $this->urlParser->parseSeoPart($identifier) ?: [];
-            foreach ($params as $key => $value) {
-                if ($key == $this->brandCode) {
-                    unset($params[$key]);
-                }
-            }
-            if ($params) {
-                $this->registry->register('amasty_shopby_seo_parsed_params', $params);
-
-                // Forward to very short brand-like url
-                if ($this->isRouteAllowed($request)) {
-                    $request->setModuleName('amshopby')->setControllerName('index')->setActionName('index');
-                    $params = $this->checkMultibrand($params);
-                    if ($this->isRedirectToSingleBrand) {
-                        $request->setParams($params);
-                        return $this->redirectToSingleBrand($request);
-                    }
-
-                    $request->setAlias(\Magento\Framework\Url::REWRITE_REQUEST_PATH_ALIAS, $shopbyPageUrl);
-                    $params = array_merge($params, $request->getParams());
-                    $request->setParams($params);
-                    $this->setBrandParamToRequest($params);
-                    return $this->actionFactory->create(\Magento\Framework\App\Action\Forward::class);
-                }
             }
         }
 
@@ -219,24 +191,6 @@ class Router implements \Magento\Framework\App\RouterInterface
         if (isset($params[$this->brandCode])) {
             $this->amshopbyRequest->setBrandParam(['code' => $this->brandCode, 'value' => [$params[$this->brandCode]]]);
         }
-    }
-
-    protected function isRouteAllowed(RequestInterface $request)
-    {
-        if ($this->scopeConfig->isSetFlag('amshopby_root/general/enabled', ScopeInterface::SCOPE_STORE)) {
-            return true;
-        }
-
-        if ($this->brandCode) {
-            $seoParams = $this->registry->registry('amasty_shopby_seo_parsed_params');
-            $seoBrandPresent = isset($seoParams) && array_key_exists($this->brandCode, $seoParams);
-            if ($request->getParam($this->brandCode) || $seoBrandPresent) {
-                return true;
-            }
-        }
-
-        $this->registry->unregister('amasty_shopby_seo_parsed_params');
-        return false;
     }
 
     public function parseAmShopByParams($request)

@@ -16,8 +16,8 @@
         <amasty_shopby_seo>
             <url>
                 <mode>1</mode>
+                <special_char>_</special_char>
                 <option_separator>-</option_separator>
-                <seo_redirect>1</seo_redirect>
             </url>
             <robots>
                 <control_robots>1</control_robots>

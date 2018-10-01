@@ -22,12 +22,6 @@
                    showInStore="1">
                 <label>Information</label>
                 <frontend_model>Amasty\Shopby\Block\Adminhtml\System\Config\Information</frontend_model>
-                <field id="css_include" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Include CSS</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <frontend_model>Amasty\Shopby\Block\Adminhtml\System\Config\CssInclude</frontend_model>
-                    <comment>To include CSS style please select 'Yes'. Recommended if the default Magento LESS functionality is missing.</comment>
-                </field>
             </group>
             <group id="general" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>General</label>

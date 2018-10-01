@@ -84,7 +84,7 @@ class CustomExclusionStrategy
         $this->localeDate = $localeDate;
         $this->conditionManager = $conditionManager;
         $this->eavConfig = $eavConfig;
-        $this->productIdLink = $productMetadata->getEdition() == 'Enterprise' ? 'row_id' : 'entity_id';
+        $this->productIdLink = $productMetadata->getEdition() != 'Community' ? 'row_id' : 'entity_id';
     }
 
     /**

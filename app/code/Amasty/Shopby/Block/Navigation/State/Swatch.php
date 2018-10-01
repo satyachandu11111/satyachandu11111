@@ -46,6 +46,11 @@ class Swatch extends \Magento\Framework\View\Element\Template
      */
     private $filterSettingHelper;
 
+    /**
+     * @var array
+     */
+    private $groupsByCode = [];
+
     public function __construct(
         Template\Context $context,
         \Magento\Swatches\Helper\Data $swatchHelper,
@@ -101,31 +106,35 @@ class Swatch extends \Magento\Framework\View\Element\Template
      */
     public function getSwatchData()
     {
-        $value = $this->filter->getValue();
-        $attributeOptions = [];
-
-        if (!is_array($value)) {
-            $value = [$value];
+        $filterAppliedValues = $this->filter->getValue();
+        if (!is_array($filterAppliedValues)) {
+            $filterAppliedValues = [$filterAppliedValues];
         }
 
+        $attributeOptions = [];
         $eavAttribute = $this->filter->getFilter()->getAttributeModel();
-        $groups = $this->groupHelper->getGroupCollection($eavAttribute->getAttributeId());
+        $groups = $this->groupHelper->getGroupsByAttributeId($eavAttribute->getAttributeId());
 
-        foreach ($value as $val) {
+        $groupsByCode = [];
+        foreach ($groups as $group) {
+            $groupsByCode[$group->getGroupCode()] = $group;
+        }
+
+        foreach ($filterAppliedValues as $value) {
             $label = '';
-            $groupOption = $this->getGroupOption($groups, $val);
-            if ($groupOption) {
-                $label = $groupOption->getName();
+            if (isset($groupsByCode[$value])) {
+                $group = $groupsByCode[$value];
+                $label = $group->getName();
             } else {
                 foreach ($eavAttribute->getOptions() as $option) {
-                    if ($option->getValue() === $val) {
+                    if ($option->getValue() === $value) {
                         $label = $option->getLabel();
                         break;
                     }
                 }
             }
 
-            $attributeOptions[$val] = [
+            $attributeOptions[$value] = [
                 'link' => '#',
                 'custom_style' => '',
                 'label' => $this->groupHelper->chooseGroupLabel($label)
@@ -133,25 +142,24 @@ class Swatch extends \Magento\Framework\View\Element\Template
         }
 
         $swatches = [];
-        if ($groups->getSize()) {
-            foreach ($value as $key => $val) {
-                $groupOption = $this->getGroupOption($groups, $val);
-                if ($groupOption) {
-                    unset($value[$key]);
-                    $swatches[$groupOption->getGroupCode()] = [
-                        "option_id" => $groupOption->getId(),
-                        "type" => $groupOption->getType(),
-                        "value" => $groupOption->getVisual()
+        if (!empty($groups)) {
+            foreach ($filterAppliedValues as $key => $value) {
+                if (isset($groupsByCode[$value])) {
+                    $group = $groupsByCode[$value];
+                    unset($filterAppliedValues[$key]);
+                    $swatches[$group->getGroupCode()] = [
+                        "option_id" => $group->getId(),
+                        "type" => $group->getType(),
+                        "value" => $group->getVisual()
                     ];
                 }
             }
         }
 
-        $attribute = $this->filter->getFilter()->getAttributeModel();
-        $swatches += $this->amshopbyHelper->getSwatchesFromImages($value, $attribute);
+        $swatches += $this->amshopbyHelper->getSwatchesFromImages($filterAppliedValues, $eavAttribute);
 
         /* not lost keys */
-        $swatches = $swatches + $this->swatchHelper->getSwatchesByOptionsId($value);
+        $swatches = $swatches + $this->swatchHelper->getSwatchesByOptionsId($filterAppliedValues);
         foreach ($attributeOptions as $key => $attributeOption) {
             if ($this->filter->getOptionLabel() == $attributeOption['label']) {
                 $swatchId = $key;
@@ -195,23 +203,5 @@ class Swatch extends \Magento\Framework\View\Element\Template
         $imagePath = $this->mediaHelper->getSwatchAttributeImage($type, $filename);
 
         return $imagePath;
-    }
-
-    /**
-     * @param \Amasty\Shopby\Model\ResourceModel\GroupAttr\Collection $collection
-     * @param $groupCode
-     * @return null
-     */
-    public function getGroupOption(\Amasty\Shopby\Model\ResourceModel\GroupAttr\Collection $collection, $groupCode)
-    {
-        $tempCollection = clone $collection;
-        $tempCollection->addFieldToFilter('group_code', $groupCode);
-        $tempCollection->setPageSize(1);
-        // getSize call error, here must be count()
-        if ($tempCollection->count()) {
-            return $tempCollection->getFirstItem();
-        }
-
-        return null;
     }
 }

@@ -29,15 +29,22 @@ class Group extends \Magento\Framework\App\Helper\AbstractHelper
      */
     private $serializer;
 
+    /**
+     * @var \Amasty\Shopby\Model\GroupAttr\DataProvider
+     */
+    private $groupAttributeDataProvider;
+
     public function __construct(
         Context $context,
         \Amasty\Shopby\Model\ResourceModel\GroupAttr\CollectionFactory $collectionFactory,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
-        \Amasty\Base\Model\Serializer $serializer
+        \Amasty\Base\Model\Serializer $serializer,
+        \Amasty\Shopby\Model\GroupAttr\DataProviderFactory $dataProviderFactory
     ) {
         $this->collectionFactory = $collectionFactory;
         $this->storeManager = $storeManager;
         $this->serializer = $serializer;
+        $this->groupAttributeDataProvider = $dataProviderFactory->create();
         parent::__construct($context);
     }
 
@@ -50,17 +57,6 @@ class Group extends \Magento\Framework\App\Helper\AbstractHelper
         $collection = $this->getGroupCollection($id)->joinOptions();
 
         return $this->scopeData($collection, 'options', 'option_id');
-    }
-
-    /**
-     * @param $id
-     * @return array
-     */
-    public function getAttributeGroupsValues($id)
-    {
-        $collection = $this->getGroupCollection($id)->joinValues();
-
-        return $this->scopeData($collection, 'values', 'value');
     }
 
     /**
@@ -79,24 +75,13 @@ class Group extends \Magento\Framework\App\Helper\AbstractHelper
         return $collection;
     }
 
-    public function getGroupOptions($attrId)
+    /**
+     * @param $attributeId
+     * @return \Amasty\Shopby\Api\Data\GroupAttrInterface[]
+     */
+    public function getGroupsByAttributeId($attributeId)
     {
-        $collection = $this->getGroupCollection($attrId)
-            ->joinOptions();
-
-        return $this->getOptionsId($collection);
-    }
-
-    public function getOptionsId($collection)
-    {
-        $ids = [];
-        foreach ($collection->getData() as $data) {
-            if (!isset($ids[$data['group_code']])) {
-                $ids[$data['group_code']] = $data['option_id'];
-            }
-        }
-
-        return $ids;
+        return $this->groupAttributeDataProvider->getGroupsByAttributeId($attributeId);
     }
 
     /**
@@ -124,65 +109,65 @@ class Group extends \Magento\Framework\App\Helper\AbstractHelper
         return $options;
     }
 
-    /**
-     * @param $options
-     * @return array
-     */
-    public function getMinMax($options)
-    {
-        $groups = [];
-        foreach ($options as $option) {
-            list($min, $max) = $this->searchMinMax($option);
-            $groups[$option['code']] = ['min' => $min, 'max' => $max];
-        }
-
-        return $groups;
-    }
 
     /**
-     * @param $id
+     * @param $attributeId
      * @return array
      */
-    public function getRanges($id)
+    public function getGroupAttributeRanges($attributeId)
     {
-        $groups = [];
-        $options = $this->getAttributeGroupsValues($id);
-        if ($options) {
-            foreach ($options as $option) {
-                list($min, $max) = $this->searchMinMax($option);
-                $groups[$min . "-" . $max] = $option['label'];
+        $groupRanges = [];
+        $groups = $this->getGroupsByAttributeId($attributeId);
+        foreach ($groups as $group) {
+            if ($group->hasValues()) {
+                $values = $group->getValues();
+                $groupRanges[$group->getGroupCode()] = $this->getMinMaxValues($values);
             }
         }
 
-        return $groups;
+        return $groupRanges;
+    }
+
+    public function getGroupAttributeMinMaxRanges($attributeId)
+    {
+        $minMaxRanges = [];
+        $groupRanges = $this->getGroupAttributeRanges($attributeId);
+        foreach ($groupRanges as $groupCode => $groupRange) {
+            $minMaxRanges[$groupRange['min'] . '-' . $groupRange['max']] = $groupCode;
+        }
+        return $minMaxRanges;
     }
 
     /**
-     * @param $option
+     * @param \Amasty\Shopby\Api\Data\GroupAttrOptionInterface[] $option
      * @return array
      */
-    public function searchMinMax($option)
+    public function getMinMaxValues($groupValues)
     {
-        $min = $option['values'][0];
-        $max = $option['values'][1];
-        if ($option['values'][1] < $min) {
-            $min = $option['values'][1];
-            $max = $option['values'][0];
+        $min = $groupValues[0]->getValue();
+        $max = $groupValues[1]->getValue();
+        if ($max < $min) {
+            $buffer = $min;
+            $min = $max;
+            $max = $buffer;
         }
 
-        return [$min, $max];
+        return ['min' => $min, 'max' => $max];
     }
 
     /**
-     * @param $options
-     * @param $value
+     * @param \Amasty\Shopby\Api\Data\GroupAttrInterface[] $groups
+     * @param string $value
      * @return array
      */
-    public function getGroup($options, $value)
+    public function getGroupOptionsByCode($groups, $value)
     {
-        foreach ($options as $group) {
-            if ($group['code'] == $value) {
-                return $group['options'];
+        foreach ($groups as $group) {
+            if ($group->getGroupCode() == $value && $group->hasOptions()) {
+                $options = $group->getOptions();
+                return array_map(function($option){
+                    return $option->getOptionId();
+                }, $options);
             }
         }
 
@@ -194,33 +179,33 @@ class Group extends \Magento\Framework\App\Helper\AbstractHelper
      * @param $value
      * @return null
      */
-    public function getGroupLabel($id, $value)
+    public function getGroupLabel($attributeId, $groupCode)
     {
-        $collection = $this->getGroupCollection($id)->addFieldToFilter('group_code', $value);
-        if ($collection->getSize()) {
-            $item = $collection->getFirstItem();
-            return $item->getName();
+        $groups = $this->getGroupsByAttributeId($attributeId);
+        foreach ($groups as $group) {
+            if ($group->getGroupCode() == $groupCode) {
+                return $group->getName();
+            }
         }
 
         return null;
     }
 
     /**
-     * @param $id
+     * @param int $attributeId
      * @return array
      */
-    public function getAliasGroup($id)
+    public function getAliasGroup($attributeId)
     {
         $data = [];
-        $collection = $this->getGroupCollection($id);
-        if ($collection->getSize()) {
-            foreach ($collection as $item) {
-                $url = $item->getUrl();
-                if (!$url) {
-                    $url = $item->getGroupCode();
-                }
-                 $data[$item->getGroupCode()] = $url;
+        $groups = $this->getGroupsByAttributeId($attributeId);
+
+        foreach ($groups as $group) {
+            $url = $group->getUrl();
+            if (!$url) {
+                $url = $group->getGroupCode();
             }
+            $data[$group->getGroupCode()] = $url;
         }
 
         return $data;
@@ -234,7 +219,7 @@ class Group extends \Magento\Framework\App\Helper\AbstractHelper
     public function chooseGroupLabel($label, $storeId = null)
     {
         $storeId = $storeId ?: $this->storeManager->getStore()->getId();
-        if (preg_match('/^\{\s*\".*\}$/', $label) || preg_match('^([adObis]:|N;)^', $label)) {
+        if (preg_match('/^\{\s*\".*\}$/', $label) || preg_match('/s:([0-9]+):\"(.*?)\";/', $label)) {
             $labels = $this->serializer->unserialize($label);
             if (isset($labels[$storeId])) {
                 $label = $labels[$storeId] ?: $this->chooseDefaultLabel($labels);

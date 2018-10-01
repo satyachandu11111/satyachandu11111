@@ -116,16 +116,13 @@ class Dynamic
             $attribute = $this->eavConfig->getAttribute(\Magento\Catalog\Model\Product::ENTITY, $bucket->getField());
 
             if ($attribute->getBackendType() == 'decimal') {
-                $options = $this->groupHelper->getAttributeGroupsValues($attribute->getAttributeId());
-                $groups = [];
-                if (count($options)) {
-                    $groups = $this->groupHelper->getMinMax($options);
-                    if (count($groups)) {
-                        $newBucket = new DynamicBucket($bucket->getName(), $bucket->getField(), 'group_manual');
-                        $bucket = $newBucket;
-                        $dimensions['group'] = $groups;
-                    }
+                $groupAttributeRanges = $this->groupHelper->getGroupAttributeRanges($attribute->getAttributeId());
+                if (count($groupAttributeRanges)) {
+                    $newBucket = new DynamicBucket($bucket->getName(), $bucket->getField(), 'group_manual');
+                    $bucket = $newBucket;
+                    $dimensions['group'] = $groupAttributeRanges;
                 }
+
 
                 $filterSetting = $this->filterSettingHelper->getSettingByAttribute($attribute);
                 if ($filterSetting->getDisplayMode() == \Amasty\Shopby\Model\Source\DisplayMode::MODE_SLIDER ||
@@ -138,7 +135,7 @@ class Dynamic
                     );
                     if ($attribute->getAttributeCode() == 'price') {
                         if ($rangeCalculationPath == AlgorithmFactory::RANGE_CALCULATION_IMPROVED
-                            && !count($groups)
+                            && !count($groupAttributeRanges)
                         ) {
                             $bucket = new DynamicBucket($bucket->getName(), $bucket->getField(), 'auto');
                         }
@@ -153,7 +150,15 @@ class Dynamic
                         $table = $this->resource->getTableName(
                             'catalog_product_index_eav_decimal'
                         );
-                        $select->from(['main_table' => $table], ['value'])
+                        $select->from(
+                            ['main_table' => $table],
+                            [
+                                'value' => new \Zend_Db_Expr("'data'"),
+                                'min'   => 'min(main_table.value)',
+                                'max'   => 'max(main_table.value)',
+                                'count' => 'count(*)'
+                            ]
+                        )
                             ->where('main_table.attribute_id = ?', $attribute->getAttributeId())
                             ->where('main_table.store_id = ? ', $currentScopeId);
                         $select->joinInner(
@@ -161,19 +166,8 @@ class Dynamic
                             'main_table.entity_id  = entities.entity_id',
                             []
                         );
-                        /** @var Select $fullQuery */
-                        $fullQuery = $this->resource->getConnection()
-                            ->select();
 
-                        $fullQuery->from(['main_table' => $select], ['value' => new \Zend_Db_Expr("'data'")]);
-                        $fullQuery->columns(
-                            ['min' => 'min(main_table.value)',
-                                'max' => 'max(main_table.value)',
-                                'count' => 'count(*)'
-                            ]
-                        );
-
-                        $minMaxData = $dataProvider->execute($fullQuery);
+                        $minMaxData = $dataProvider->execute($select);
                     }
 
                     $defaultData = $closure($dataProvider, $dimensions, $bucket, $entityIdsTable);

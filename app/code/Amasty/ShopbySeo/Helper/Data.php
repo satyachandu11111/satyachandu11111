@@ -25,6 +25,10 @@ class Data extends AbstractHelper
 {
     const CANONICAL_ROOT = 'amasty_shopby_seo/canonical/root';
     const CANONICAL_CATEGORY = 'amasty_shopby_seo/canonical/category';
+    const AMASTY_SHOPBY_SEO_URL_SPECIAL_CHAR = 'amasty_shopby_seo/url/special_char';
+    const AMASTY_SHOPBY_SEO_URL_ATTRIBUTE_NAME = 'amasty_shopby_seo/url/attribute_name';
+    const AMASTY_SHOPBY_SEO_URL_FILTER_WORD = 'amasty_shopby_seo/url/filter_word';
+    const AMSHOPBY_ROOT_GENERAL_URL = 'amshopby_root/general/url';
 
     /**
      * @var CollectionFactory
@@ -140,8 +144,9 @@ class Data extends AbstractHelper
             $dynamicAliases = $this->loadDynamicAliasesExcluding(array_values($aliasHash));
             $ids = [];
             foreach ($dynamicAliases as $row) {
+                $attributeCode = isset($row['attribute_code']) ? $row['attribute_code'] : '';
                 if (!array_key_exists($row['attribute_id'], $ids)) {
-                    $ids[$row['attribute_id']] = $row['attribute_code'];
+                    $ids[$row['attribute_id']] = $attributeCode;
                 }
 
                 $alias = $this->buildUniqueAlias($row['value'], $aliasHash);
@@ -153,7 +158,8 @@ class Data extends AbstractHelper
                 $data = $this->groupHelper->getAliasGroup($id);
                 if ($data) {
                     foreach ($data as $key => $record) {
-                        $this->optionsSeoData[$code][$key] = $record;
+                        $alias = $this->buildUniqueAlias($record, $aliasHash);
+                        $this->optionsSeoData[$code][$key] = $alias;
                         $aliasHash[$record] = $key;
                     }
                 }
@@ -243,11 +249,29 @@ class Data extends AbstractHelper
             $format = '-';
         }
 
+        $format = str_replace('-', $this->getSpecialChar(), $format);
+
         $unique = $format;
         for ($i=1; array_key_exists($unique, $hash); $i++) {
             $unique = $format . '-' . $i;
         }
         return $unique;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSpecialChar()
+    {
+        return $this->scopeConfig->getValue(self::AMASTY_SHOPBY_SEO_URL_SPECIAL_CHAR, ScopeInterface::SCOPE_STORE);
+    }
+
+    /**
+     * @return string
+     */
+    public function getOptionSeparator()
+    {
+        return $this->scopeConfig->getValue('amasty_shopby_seo/url/option_separator', ScopeInterface::SCOPE_STORE);
     }
 
     /**
@@ -271,7 +295,23 @@ class Data extends AbstractHelper
      */
     public function getGeneralUrl()
     {
-        return $this->scopeConfig->getValue('amshopby_root/general/url', ScopeInterface::SCOPE_STORE);
+        return $this->scopeConfig->getValue(self::AMSHOPBY_ROOT_GENERAL_URL, ScopeInterface::SCOPE_STORE);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isIncludeAttributeName()
+    {
+        return $this->scopeConfig->getValue(self::AMASTY_SHOPBY_SEO_URL_ATTRIBUTE_NAME, ScopeInterface::SCOPE_STORE);
+    }
+
+    /**
+     * @return string
+     */
+    public function getFilterWord()
+    {
+        return $this->scopeConfig->getValue(self::AMASTY_SHOPBY_SEO_URL_FILTER_WORD, ScopeInterface::SCOPE_STORE);
     }
 
     /**
@@ -282,6 +322,17 @@ class Data extends AbstractHelper
         /** @var \Amasty\ShopbyBrand\Helper\Data|\Amasty\ShopbyBase\Model\Integration\DummyObject $brandHelper */
         $brandHelper = $this->integrationFactory->get(\Amasty\ShopbyBrand\Helper\Data::class, true);
         return (string)$brandHelper->getBrandAttributeCode();
+    }
+
+    /**
+     * @return string
+     */
+    public function getBrandUrlKey()
+    {
+        /** @var \Amasty\ShopbyBrand\Helper\Data|\Amasty\ShopbyBase\Model\Integration\DummyObject $brandHelper */
+        $brandHelper = $this->integrationFactory->get(\Amasty\ShopbyBrand\Helper\Data::class, true);
+
+        return (string)$brandHelper->getBrandUrlKey();
     }
 
     /**

@@ -9,9 +9,21 @@
 namespace Amasty\Shopby\Model;
 
 use Amasty\Shopby\Api\Data\GroupAttrInterface;
+use Amasty\Shopby\Api\Data\GroupAttrOptionInterface;
+use Amasty\Shopby\Api\Data\GroupAttrValueInterface;
 
 class GroupAttr extends \Magento\Framework\Model\AbstractModel implements GroupAttrInterface
 {
+    /**
+     * @var GroupAttrOptionInterface[]
+     */
+    private $options = [];
+
+    /**
+     * @var GroupAttrValueInterface[]
+     */
+    private $values = [];
+
     protected function _construct()
     {
         $this->_init(\Amasty\Shopby\Model\ResourceModel\GroupAttr::class);
@@ -176,5 +188,77 @@ class GroupAttr extends \Magento\Framework\Model\AbstractModel implements GroupA
     public function setEnabled($enabled)
     {
         return $this->setData(self::ENABLED, $enabled);
+    }
+
+    /**
+     * @param GroupAttrOptionInterface $option
+     * @return $this
+     */
+    public function addOption(GroupAttrOptionInterface $option)
+    {
+        $this->options[] = $option;
+        return $this;
+    }
+
+    /**
+     * @param array $options
+     * @return $this
+     */
+    public function setOptions(array $options = [])
+    {
+        $this->options = $options;
+        return $this;
+    }
+
+    /**
+     * @return GroupAttrOptionInterface[]
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasOptions()
+    {
+        return !empty($this->options);
+    }
+
+    /**
+     * @param GroupAttrValueInterface $value
+     * @return $this
+     */
+    public function addValue(GroupAttrValueInterface $value)
+    {
+        $this->values[] = $value;
+        return $this;
+    }
+
+    /**
+     * @param array $values
+     * @return $this
+     */
+    public function setValues(array $values = [])
+    {
+        $this->values = $values;
+        return $this;
+    }
+
+    /**
+     * @return GroupAttrValueInterface[]
+     */
+    public function getValues()
+    {
+        return $this->values;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasValues()
+    {
+        return !empty($this->values);
     }
 }

@@ -16,6 +16,7 @@ use Magento\Framework\Registry;
 use \Magento\Eav\Model\Entity\Attribute\Option;
 use Magento\Store\Model\ScopeInterface;
 use Amasty\ShopbyBrand\Helper\Data as DataHelper;
+use Amasty\ShopbyBase\Model\ResourceModel\OptionSetting\CollectionFactory as OptionSettingCollectionFactory;
 
 class BrandSlider extends BrandListAbstract implements \Magento\Widget\Block\BlockInterface
 {
@@ -50,6 +51,8 @@ class BrandSlider extends BrandListAbstract implements \Magento\Widget\Block\Blo
         Context $context,
         Repository $repository,
         OptionSettingHelper $optionSetting,
+        \Amasty\ShopbyBase\Model\OptionSettingFactory $optionSettingFactory,
+        OptionSettingCollectionFactory $optionSettingCollectionFactory,
         \Magento\CatalogSearch\Model\Layer\Category\ItemCollectionProvider $collectionProvider,
         \Magento\Catalog\Model\Product\Url $productUrl,
         \Magento\Catalog\Api\CategoryRepositoryInterface $categoryRepository,
@@ -62,6 +65,8 @@ class BrandSlider extends BrandListAbstract implements \Magento\Widget\Block\Blo
             $context,
             $repository,
             $optionSetting,
+            $optionSettingFactory,
+            $optionSettingCollectionFactory,
             $collectionProvider,
             $productUrl,
             $categoryRepository,

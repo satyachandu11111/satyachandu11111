@@ -26,18 +26,31 @@ class OptionSetting extends \Magento\Framework\App\Helper\AbstractHelper
     private $repository;
 
     /**
-     * OptionSetting constructor.
-     * @param Context $context
-     * @param \Amasty\ShopbyBase\Model\OptionSettingFactory $settingFactory
-     * @param Repository $repository
+     * @var \Amasty\ShopbyBase\Model\ResourceModel\OptionSetting
      */
+    private $optionSettingResource;
+
+    /**
+     * @var \Magento\Store\Model\StoreManagerInterface
+     */
+    private $storeManager;
+
+    /**
+     * @var array
+     */
+    private $allAttributeOptionsArray = [];
+
     public function __construct(
         Context $context,
         \Amasty\ShopbyBase\Model\OptionSettingFactory $settingFactory,
+        \Amasty\ShopbyBase\Model\ResourceModel\OptionSetting $optionSettingResource,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
         Repository $repository
     ) {
         parent::__construct($context);
         $this->settingFactory = $settingFactory;
+        $this->optionSettingResource = $optionSettingResource;
+        $this->storeManager = $storeManager;
         $this->repository = $repository;
     }
 
@@ -82,5 +95,14 @@ class OptionSetting extends \Magento\Framework\App\Helper\AbstractHelper
         $setting->setTitle($option->getLabel());
         $setting->setMetaTitle($option->getLabel());
         return $this;
+    }
+
+    public function getAllFeaturedOptionsArray()
+    {
+        if (empty($this->allAttributeOptionsArray)) {
+            $this->allAttributeOptionsArray = $this->optionSettingResource
+                ->getAllFeaturedOptionsArray($this->storeManager->getStore()->getId());
+        }
+        return $this->allAttributeOptionsArray;
     }
 }

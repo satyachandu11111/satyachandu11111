@@ -10,21 +10,19 @@ namespace Amasty\ShopbyBase\Helper;
 
 use Magento\Catalog\Model\Layer\Filter\FilterInterface;
 use Magento\Framework\App\Helper\Context;
-use Amasty\ShopbyBase\Model\ResourceModel\FilterSetting\Collection;
-use Amasty\ShopbyBase\Model\ResourceModel\FilterSetting\CollectionFactory;
 use Amasty\ShopbyBase\Api\Data\FilterSettingInterface;
-use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Store\Model\ScopeInterface;
+use Amasty\ShopbyBase\Model\ResourceModel\FilterSetting\CollectionExtendedFactory;
 
 class FilterSetting extends \Magento\Framework\App\Helper\AbstractHelper
 {
     const ATTR_PREFIX = 'attr_';
-    const USE_COLLECTION_METHOD = false;
 
     /**
-     * @var  Collection
+     * Do not use this method for stores with big amount of filterable attributes
+     * more than 500
      */
-    protected $collection;
+    const USE_COLLECTION_METHOD = true;
 
     /**
      * @var \Amasty\ShopbyBase\Model\FilterSetting[]
@@ -42,21 +40,20 @@ class FilterSetting extends \Magento\Framework\App\Helper\AbstractHelper
     private $settingRepository;
 
     /**
-     * FilterSetting constructor.
-     * @param Context $context
-     * @param CollectionFactory $settingCollectionFactory
-     * @param \Amasty\ShopbyBase\Model\FilterSettingFactory $settingFactory
+     * @var CollectionExtendedFactory
      */
+    private $collectionExtendedFactory;
+
     public function __construct(
         Context $context,
-        CollectionFactory $settingCollectionFactory,
+        CollectionExtendedFactory $collectionExtendedFactory,
         \Amasty\ShopbyBase\Model\FilterSettingFactory $settingFactory,
         \Amasty\ShopbyBase\Model\FilterSettingRepository $settingRepository
     ) {
         parent::__construct($context);
-        $this->collection = $settingCollectionFactory->create();
         $this->settingFactory = $settingFactory;
         $this->settingRepository = $settingRepository;
+        $this->collectionExtendedFactory = $collectionExtendedFactory;
     }
 
     /**
@@ -83,7 +80,7 @@ class FilterSetting extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getSettingByAttribute($attributeModel)
     {
-        return $this->getSettingByAttributeCode($attributeModel->getAttributeCode());
+        return $this->collectionExtendedFactory->get()->getItemByAttribute($attributeModel);
     }
 
     /**
@@ -95,10 +92,7 @@ class FilterSetting extends \Magento\Framework\App\Helper\AbstractHelper
     {
         $filterCode = self::ATTR_PREFIX . $attributeCode;
         $setting = $this->getFilterSettingByCode($filterCode);
-        if ($setting === null) {
-            $data = [FilterSettingInterface::FILTER_CODE=>$filterCode];
-            $setting = $this->settingFactory->create(['data'=>$data]);
-        }
+
         return $setting;
     }
 
@@ -120,26 +114,10 @@ class FilterSetting extends \Magento\Framework\App\Helper\AbstractHelper
 
     /**
      * @param string $filterName
-     * @return array
-     */
-    protected function getDataByCustomFilter($filterName)
-    {
-        $data = [];
-        $data[FilterSettingInterface::FILTER_SETTING_ID] = $filterName;
-        $data[FilterSettingInterface::DISPLAY_MODE] = $this->getConfig($filterName, 'display_mode');
-        $data[FilterSettingInterface::FILTER_CODE] = $filterName;
-        $data[FilterSettingInterface::IS_EXPANDED] = $this->getConfig($filterName, 'is_expanded');
-        $data[FilterSettingInterface::TOOLTIP] = $this->getConfig($filterName, 'tooltip');
-        $data[FilterSettingInterface::BLOCK_POSITION] = $this->getConfig($filterName, 'block_position');
-        return $data;
-    }
-
-    /**
-     * @param string $filterName
      * @param string $configName
      * @return string
      */
-    protected function getConfig($filterName, $configName)
+    public function getConfig($filterName, $configName)
     {
         return $this->scopeConfig->getValue(
             'amshopby/' . $filterName . '_filter/' . $configName,
@@ -179,43 +157,8 @@ class FilterSetting extends \Magento\Framework\App\Helper\AbstractHelper
      */
    protected function getFilterSettingByCode($code)
    {
-       $result = null;
-       if ($code) {
-           if (self::USE_COLLECTION_METHOD && $this->settings === null) {
-               $settings = $this->collection->getItems();
-               $this->settings = $settings ? $this->makeSettingsHash($settings) : [];
-           }
-
-           if (isset($this->settings[$code])) {
-               $result = $this->settings[$code];
-           } else {
-               try {
-                   $result = $this->settingRepository->get($code, \Amasty\ShopbyBase\Model\FilterSetting::FILTER_CODE);
-               } catch (NoSuchEntityException $e) {
-                   $result = null;
-               }
-               $this->settings[$code] = $result;
-           }
-       }
+       $result = $this->collectionExtendedFactory->get()->getItemByCode($code);
 
        return $result;
-   }
-
-    /**
-     * @param array $settings
-     * @return \Amasty\ShopbyBase\Model\FilterSetting[]
-     */
-   private function makeSettingsHash(array $settings)
-   {
-      return array_combine(
-          array_map(
-              function ($setting) {
-                  /** @var \Amasty\ShopbyBase\Model\FilterSetting $setting */
-                  return $setting->getDataByKey(\Amasty\ShopbyBase\Model\FilterSetting::FILTER_CODE);
-              },
-              $settings
-          ),
-          $settings
-      );
    }
 }

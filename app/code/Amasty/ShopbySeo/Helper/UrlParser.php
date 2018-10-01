@@ -31,8 +31,10 @@ class UrlParser extends AbstractHelper
 
     public function parseSeoPart($seoPart)
     {
+        $seoPart = str_replace('/', $this->aliasDelimiter, $seoPart);
         $aliases = explode($this->aliasDelimiter, $seoPart);
-        $params = $this->parseAliasesRecursively($aliases);
+        $params = $this->parseAliases($aliases);
+
         return $params;
     }
 
@@ -40,31 +42,24 @@ class UrlParser extends AbstractHelper
      * @param array $aliases
      * @return array|false
      */
-    protected function parseAliasesRecursively($aliases)
+    protected function parseAliases($aliases)
     {
         $attributeOptionsData = $this->seoHelper->getOptionsSeoData();
-        $unparsedAliases = [];
-        while ($aliases) {
-            $currentAlias = implode($this->aliasDelimiter, $aliases);
+        $params = [];
+        foreach ($aliases as $currentAlias) {
+            if (in_array($currentAlias, array_keys($attributeOptionsData))) {
+                continue;
+            }
             foreach ($attributeOptionsData as $attributeCode => $optionsData) {
                 foreach ($optionsData as $optionId => $alias) {
                     if ($alias === $currentAlias) {
-                        // Continue DFS
-                        $params = $unparsedAliases ? $this->parseAliasesRecursively($unparsedAliases) : [];
-
-                        if ($params !== false) {
-                            // Local solution found
-                            $params = $this->addParsedOptionToParams($optionId, $attributeCode, $params);
-                            return $params;
-                        }
+                        $params = $this->addParsedOptionToParams($optionId, $attributeCode, $params);
                     }
                 }
             }
-
-            array_unshift($unparsedAliases, array_pop($aliases));
         }
 
-        return false;
+        return $params ?: false;
     }
 
     protected function addParsedOptionToParams($value, $paramName, $params)

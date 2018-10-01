@@ -18,6 +18,7 @@ use Magento\Catalog\Model\ResourceModel\Layer\Filter\Attribute as FilterAttribut
 use Magento\Store\Model\ScopeInterface;
 use \Magento\Eav\Model\Entity\Attribute\Option;
 use Amasty\ShopbyBrand\Helper\Data as DataHelper;
+use Amasty\ShopbyBase\Model\ResourceModel\OptionSetting\CollectionFactory as OptionSettingCollectionFactory;
 
 class BrandList extends BrandListAbstract implements \Magento\Widget\Block\BlockInterface
 {
@@ -47,6 +48,8 @@ class BrandList extends BrandListAbstract implements \Magento\Widget\Block\Block
         Context $context,
         Repository $repository,
         OptionSettingHelper $optionSetting,
+        \Amasty\ShopbyBase\Model\OptionSettingFactory $optionSettingFactory,
+        OptionSettingCollectionFactory $optionSettingCollectionFactory,
         \Magento\CatalogSearch\Model\Layer\Category\ItemCollectionProvider $collectionProvider,
         \Magento\Catalog\Model\Product\Url $productUrl,
         \Magento\Catalog\Api\CategoryRepositoryInterface $categoryRepository,
@@ -62,6 +65,8 @@ class BrandList extends BrandListAbstract implements \Magento\Widget\Block\Block
             $context,
             $repository,
             $optionSetting,
+            $optionSettingFactory,
+            $optionSettingCollectionFactory,
             $collectionProvider,
             $productUrl,
             $categoryRepository,

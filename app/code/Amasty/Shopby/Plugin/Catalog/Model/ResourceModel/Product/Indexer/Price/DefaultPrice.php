@@ -15,22 +15,27 @@ class DefaultPrice
     /**
      * @var ResourceConnection
      */
-    private $resource;
+    protected $resource;
 
     /**
      * @var \Magento\Framework\Stdlib\DateTime
      */
-    private $date;
+    protected $date;
 
     /**
      * @var array
      */
-    private $entityIds;
+    protected $entityIds;
 
     /**
      * @var string
      */
-    private $productIdLink;
+    protected $productIdLink;
+
+    /**
+     * @var \Magento\Catalog\Model\ResourceModel\Product\Indexer\Price\DefaultPrice
+     */
+    protected $subject;
 
     public function __construct(
         ResourceConnection $resourceConnection,
@@ -39,7 +44,7 @@ class DefaultPrice
     ) {
         $this->resource = $resourceConnection;
         $this->date = $date;
-        $this->productIdLink = $productMetadata->getEdition() == 'Enterprise' ? 'row_id' : 'entity_id';
+        $this->productIdLink = $productMetadata->getEdition() != 'Community' ? 'row_id' : 'entity_id';
     }
 
     /**
@@ -50,6 +55,7 @@ class DefaultPrice
     public function beforeReindexEntity($subject, $entityIds)
     {
         $this->entityIds = $entityIds;
+        $this->subject = $subject;
         return [$entityIds];
     }
 
@@ -94,71 +100,17 @@ class DefaultPrice
             $select->where('main_table.entity_id IN (?)', $this->entityIds);
         }
 
-        $connection->insertOnDuplicate(
-            $this->getIdxTable(),
-            $connection->fetchAll($select),
-            ['final_price', 'min_price', 'max_price']
-        );
+        $insertData = $connection->fetchAll($select);
+        if (!empty($insertData)) {
+            $connection->insertOnDuplicate(
+                $this->getIdxTable(),
+                $insertData,
+                ['final_price', 'min_price', 'max_price']
+            );
 
-        $this->addSpecialPriceToConfigurable($columns);
+        }
 
         return $result;
-    }
-
-    /**
-     * @param $columns
-     */
-    private function addSpecialPriceToConfigurable($columns)
-    {
-        $columns['final_price'] = 'product_price.value';
-        $columns['min_price'] = 'main_table.min_price';
-        $columns['max_price'] = 'main_table.max_price';
-
-        $connection = $this->resource->getConnection();
-
-        $select = $connection->select()->from(
-            ['main_table' => $this->getIdxTable()],
-            $columns
-        );
-
-        if ($this->productIdLink == 'row_id') {
-            $select->joinInner(
-                ['product_entity' => $this->resource->getTableName('catalog_product_entity')],
-                'product_entity.entity_id=main_table.entity_id',
-                []
-            );
-            $entityIdLink = 'product_entity.row_id';
-        } else {
-            $entityIdLink = 'main_table.entity_id';
-        }
-
-        $select->joinInner(
-            ['simple_link' => $this->resource->getTableName('catalog_product_super_link')],
-            'simple_link.parent_id=' . $entityIdLink,
-            []
-        );
-
-        $select->joinInner(
-            ['product_price' => $this->resource->getTableName('catalog_product_entity_decimal')],
-            'simple_link.product_id=product_price.' . $this->productIdLink,
-            []
-        );
-
-        $select->joinInner(
-            ['eav' => $this->resource->getTableName('eav_attribute')],
-            'eav.attribute_id=product_price.attribute_id AND eav.attribute_code="special_price"',
-            []
-        );
-
-        if ($this->entityIds) {
-            $select->where('main_table.entity_id IN (?)', $this->entityIds);
-        }
-
-        $connection->insertOnDuplicate(
-            $this->getIdxTable(),
-            $connection->fetchAll($select),
-            ['final_price', 'min_price', 'max_price']
-        );
     }
 
     /**
@@ -166,6 +118,6 @@ class DefaultPrice
      */
     public function getIdxTable()
     {
-        return $this->resource->getTableName('catalog_product_index_price_temp');
+        return $this->subject->getIdxTable();
     }
 }

@@ -18,7 +18,7 @@ define([
             j.src =
                 'https://www.googletagmanager.com/gtm.js?id=' + containerId + dl;
             f.parentNode.insertBefore(j, f);
-            jQuery(f.parentNode).find('script[src="' + j.src + '"]')[0].remove();
+            f.parentNode.removeChild(f.parentNode.querySelectorAll('script[src="' + j.src + '"]')[0]);
         })
     }
 });

@@ -53,15 +53,17 @@ define([
             if (typeof this.element !== 'undefined' && clearFilter) {
                 var attributeName = this.element.closest(".filter-options-content").find('form').data('amshopby-filter');
                 var excludedFormSelector = ((this.element.closest("div.sidebar").length == 0)
-                    ? 'div.catalog-topnav' : 'div.sidebar') + ' form[data-amshopby-filter=' + attributeName +']';
+                        ? 'div.catalog-topnav' : 'div.sidebar') + ' form[data-amshopby-filter=' + attributeName +']';
                 forms = forms.not(excludedFormSelector);
             }
 
             var existFields = [],
-                priceCounter = 0;
+                priceCounter = 0,
+                savedFilter;
             forms.each(function (index, item) {
-                if ($(item).closest('[class*="am-filter-items"]').length) {
-                    var className = $(item).closest('[class*="am-filter-items"]')[0].className,
+                var $item = $(item);
+                if ($item.closest('[class*="am-filter-items"]').length) {
+                    var className = $item.closest('[class*="am-filter-items"]')[0].className,
                         startPos = className.indexOf('am-filter-items'),
                         endPos = className.indexOf(' ', startPos + 1) == -1 ? 100 : className.indexOf(' ', startPos + 1),
                         filterClass = className.substring(startPos, endPos);
@@ -71,30 +73,34 @@ define([
                     } else {
                         existFields[filterClass] = true;
                     }
-
-                    if (filterClass === 'am-filter-items-attr_price') {
-                        priceCounter++;
-                    }
+                }
+                if ($item.hasClass('am_saved_filter_values')) {
+                    savedFilter = forms[index];
+                    forms[index] = '';
                 }
             });
 
-            if (priceCounter > 0) {
-                forms.each(function (index, item) {
-                    if ($(item).hasClass('am_saved_filter_values')) {
-                        forms[index] = '';
-                        return false;
-                    }
-                });
+            var serializeForms = forms.serializeArray(),
+                isPriceExist = false;
+            _.each(serializeForms, function (index, item) {
+               if (item['name'] == 'amshopby[price][]') {
+                   isPriceExist = true;
+                   return false;
+               }
+            });
+
+            if (!isPriceExist && savedFilter) {
+                serializeForms.push($(savedFilter).serializeArray()[0]);
             }
 
-            var data = this.normalizeData(forms.serializeArray(), isSorting);
+            var data = this.normalizeData(serializeForms, isSorting, clearFilter);
             data.clearUrl = data.clearUrl ? data.clearUrl : clearUrl;
             element = element ? element : document;
             $(element).trigger('amshopby:submit_filters', {data: data, clearFilter: clearFilter, isSorting: isSorting});
             return data;
         },
 
-        normalizeData: function(data, isSorting) {
+        normalizeData: function(data, isSorting, clearFilter) {
             var normalizedData = [],
                 ajaxOptions = $("body.page-with-filter, body.catalogsearch-result-index, body.cms-index-index").amShopbyAjax('option'),
                 clearUrl,
@@ -109,12 +115,11 @@ define([
 
                     if (isSorting && item.name == 'amshopby[price][]') {
                         var values = item.value.split('-'),
-                            rate = $(rateSelector).attr('rate')
-                                ? $(rateSelector).attr('rate')
-                                : 1;
+                            rate = $(rateSelector).attr('rate') ? $(rateSelector).attr('rate') : 1,
+                            from = values[0] ? self.fixPriceForCurrency(parseFloat(values[0]), 'from', rate).toFixed(4) : values[0],
+                            to = values[1] ? self.fixPriceForCurrency(parseFloat(values[1]), 'to', rate).toFixed(4) : values[1];
 
-                        item.value = self.fixPriceForCurrency(parseFloat(values[0]), 'from', rate).toFixed(4) + "-"
-                            + self.fixPriceForCurrency(parseFloat(values[1]), 'to', rate).toFixed(4);
+                        item.value = from + "-" + to;
                     }
 
                     if (!isNormalizeItem) {
@@ -122,12 +127,15 @@ define([
                             item.value = item.value.replace(/[ \r\n]/g, '');
                         }
                         normalizedData.push(item);
-                        if (ajaxOptions.isCategorySingleSelect
+                        if (ajaxOptions.isCategorySingleSelect == '1'
                             && item.name === 'amshopby[cat][]'
-                            && item.value != ajaxOptions.baseCategoryId
+                            && item.value != ajaxOptions.currentCategoryId
+                            && !clearFilter
                         ) {
                             clearUrl = $('*[data-amshopby-filter-request-var="cat"] *[value="' + item.value + '"]')
                                 .parent().attr('href');
+                            ajaxOptions.currentCategoryId = item.value;
+                            $("body.page-with-filter, body.catalogsearch-result-index, body.cms-index-index").amShopbyAjax('option', ajaxOptions);
                         }
                     }
                 }
@@ -260,7 +268,7 @@ define([
                     }
                     $.mage.amShopbyFilterAbstract.prototype.renderShowButton(e, element);
                     self.apply(href);
-                    
+
                     e.stopPropagation();
                     e.preventDefault();
                 });
@@ -595,7 +603,9 @@ define([
             if (apply !== false) {
                 var fromNew = $.mage.amShopbyFilterAbstract.prototype.fixPriceForCurrency(parseFloat(from), 'from', rate),
                     toNew = $.mage.amShopbyFilterAbstract.prototype.fixPriceForCurrency(parseFloat(to), 'to', rate);
-                newVal = fromNew.toFixed(4) + '-' + toNew.toFixed(4);
+                fromNew = (fromNew <= 0) ? '0' : fromNew.toFixed(4);
+
+                newVal = fromNew + '-' + toNew.toFixed(4);
 
                 this.value.val(newVal);
                 var linkHref = this.options.url.replace('amshopby_slider_from', fromNew).replace('amshopby_slider_to', toNew);
@@ -742,11 +752,11 @@ define([
                 fixed = this.getFixed(this.isSlider(), 0),
                 max = Number(this.options.max).toFixed(fixed),
                 min = Number(this.options.min).toFixed(fixed),
-                to = max, from = min;
+                to = max, from = min, rate = this.element.find('.range').attr('rate');
 
-                if (value.length === 2) {
-                    from = value[0] == '' ? 0 : parseFloat(value[0]);
-                    to = value[1] == 0 ? this.options.max : parseFloat(value[1]);
+            if (value.length === 2) {
+                from = value[0] == '' ? 0 : parseFloat(value[0]);
+                to = value[1] == 0 ? this.options.max : parseFloat(value[1]);
 
                 if (this.isDropDown()) {
                     to = Math.ceil(to);
@@ -1144,7 +1154,7 @@ define([
                     digits = $(from).attr('validate-digits-range'),
                     regexp = /\[([\d\.]+)-([\d\.]+)\]/g,
                     ranges = regexp.exec(digits);
-                
+
                 $(from).val(ranges[1]);
                 $(to).val(ranges[2]);
             }

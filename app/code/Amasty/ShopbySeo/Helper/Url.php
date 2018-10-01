@@ -212,9 +212,11 @@ class Url extends AbstractHelper
         $resultPath = $routeUrlTrimmed;
 
         $seoAliases = $this->cutAliases();
-        foreach ($seoAliases as $key => $alias) {
-            if ($alias == $routeUrl) {
-                unset($seoAliases[$key]);
+        foreach ($seoAliases as $aliases) {
+            foreach ($aliases as $key => $alias) {
+                if ($alias == $routeUrl) {
+                    unset($seoAliases[$key]);
+                }
             }
         }
 
@@ -345,7 +347,7 @@ class Url extends AbstractHelper
     }
 
     /**
-     * @return string[]
+     * @return array
      */
     protected function cutAliases()
     {
@@ -366,7 +368,7 @@ class Url extends AbstractHelper
                     }
                     $alias = $optionsData[$value];
                     if ($paramName == $this->brandAttributeCode) {
-                        $brandAliases[] = $alias;
+                        $brandAliases[$paramName][] = $alias;
                     } else {
                         if (array_key_exists($paramName, $aliasesByCode)) {
                             $aliasesByCode[$paramName][] = $alias;
@@ -437,14 +439,12 @@ class Url extends AbstractHelper
     /**
      * @param string[] $brandAliases
      * @param string[][] $aliasesByCode
-     * @return string[]
+     * @return array
      */
     private function mergeAliases($brandAliases, $aliasesByCode)
     {
-        $result = $brandAliases;
-        array_walk_recursive($aliasesByCode, function ($alias) use (&$result) {
-            $result[] = $alias;
-        });
+        $result = array_merge($brandAliases, $aliasesByCode);
+
         return $result;
     }
 
@@ -467,8 +467,32 @@ class Url extends AbstractHelper
     {
         $result = $routeUrl;
         if ($aliases) {
-            $result .= DIRECTORY_SEPARATOR . implode($this->aliasDelimiter, $aliases);
+            $filterWord = $this->helper->getFilterWord() ? $this->helper->getFilterWord() . DIRECTORY_SEPARATOR : '';
+
+            if ($this->coreRegistry->registry('amasty_shopby_root_category_index')
+                && isset($aliases[$this->brandAttributeCode])
+            ) {
+                $result .= DIRECTORY_SEPARATOR . implode($this->aliasDelimiter, $aliases[$this->brandAttributeCode]);
+                unset($aliases[$this->brandAttributeCode]);
+            }
+
+            if (count($aliases) > 0) {
+                $result .= DIRECTORY_SEPARATOR . $filterWord;
+            }
+
+            $isFirstAlias = true;
+            foreach ($aliases as $code => $alias) {
+                $delimiter = $isFirstAlias ? '' : $this->aliasDelimiter;
+                if (!$this->helper->isIncludeAttributeName()) {
+                    $result .= $delimiter . implode($this->aliasDelimiter, $alias);
+                } else {
+                    $result .= $delimiter . $code . $this->aliasDelimiter . implode($this->aliasDelimiter, $alias);
+                }
+
+                $isFirstAlias = false;
+            }
         }
+
         return $result;
     }
 
@@ -557,13 +581,5 @@ class Url extends AbstractHelper
     public function isSeoUrlEnabled()
     {
         return !!$this->scopeConfig->getValue('amasty_shopby_seo/url/mode', ScopeInterface::SCOPE_STORE);
-    }
-
-    /**
-     * @return bool
-     */
-    public function isSeoRedirectEnabled()
-    {
-        return !!$this->scopeConfig->getValue('amasty_shopby_seo/url/seo_redirect', ScopeInterface::SCOPE_STORE);
     }
 }

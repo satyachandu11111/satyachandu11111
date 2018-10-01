@@ -69,16 +69,28 @@ class Router implements \Magento\Framework\App\RouterInterface
      */
     private $logger;
 
+    /**
+     * @var \Amasty\ShopbySeo\Helper\Data
+     */
+    private $helper;
+
+    /**
+     * @var \Amasty\ShopbyBase\Model\AllowedRoute
+     */
+    private $allowedRoute;
+
     public function __construct(
         \Magento\Framework\App\ActionFactory $actionFactory,
         \Magento\Framework\App\ResponseInterface $response,
         \Magento\Framework\Registry $registry,
+        \Amasty\ShopbyBase\Model\AllowedRoute $allowedRoute,
         UrlParser $urlParser,
         Url $urlHelper,
         UrlFinderInterface $urlFinder,
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \Psr\Log\LoggerInterface $logger,
-        Manager $moduleManager
+        Manager $moduleManager,
+        \Amasty\ShopbySeo\Helper\Data $helper
     ) {
         $this->actionFactory = $actionFactory;
         $this->_response = $response;
@@ -89,6 +101,8 @@ class Router implements \Magento\Framework\App\RouterInterface
         $this->scopeConfig = $scopeConfig;
         $this->moduleManager = $moduleManager;
         $this->logger = $logger;
+        $this->helper = $helper;
+        $this->allowedRoute = $allowedRoute;
     }
 
     /**
@@ -98,17 +112,25 @@ class Router implements \Magento\Framework\App\RouterInterface
     public function match(RequestInterface $request)
     {
         $identifier = trim($request->getPathInfo(), '/');
-        $posLastValue = strrpos($identifier, "/");
+        $brandUrlKey = $this->helper->getBrandUrlKey();
+        $positionBrandUrlKey = $brandUrlKey ? strpos($identifier, $brandUrlKey) : false;
 
-        $matches[self::INDEX_ALIAS] = substr($identifier, 0, $posLastValue);
-        $positionFrom = ($posLastValue === false) ? 0 : $posLastValue + 1;
-        $matches[self::INDEX_CATEGORY] = substr($identifier, $positionFrom);
+        if ($positionBrandUrlKey !== false) {
+            $matches[self::INDEX_ALIAS] = substr($identifier, 0, $positionBrandUrlKey + iconv_strlen($brandUrlKey));
+            $matches[self::INDEX_CATEGORY] = substr($identifier, $positionBrandUrlKey);
+        } else {
+            $posLastValue = strrpos($identifier, "/");
+            $matches[self::INDEX_ALIAS] = substr($identifier, 0, $posLastValue);
+            $positionFrom = ($posLastValue === false) ? 0 : $posLastValue + 1;
+            $matches[self::INDEX_CATEGORY] = substr($identifier, $positionFrom);
+        }
 
         $seoPart = $this->urlHelper->removeCategorySuffix($matches[self::INDEX_CATEGORY]);
         $suffix = $this->scopeConfig
             ->getValue('catalog/seo/category_url_suffix', ScopeInterface::SCOPE_STORE);
         $suffixMoved = $seoPart != $matches[self::INDEX_CATEGORY] || $suffix == '/';
-        $alias = $matches[self::INDEX_ALIAS];
+        $regex = $this->helper->getFilterWord() ? '/\/+(' . $this->helper->getFilterWord() . ')/' : '';
+        $alias = $regex ? preg_replace($regex, '', $matches[self::INDEX_ALIAS]) : $matches[self::INDEX_ALIAS];
 
         $params = $this->urlParser->parseSeoPart($seoPart);
         if ($params === false) {
@@ -119,20 +141,6 @@ class Router implements \Magento\Framework\App\RouterInterface
          * for brand pages with key, e.g. /brand/adidas
          */
         $matchedAlias = null;
-        if ($this->moduleManager->isEnabled('Amasty_ShopbyBrand')) {
-            $brandKey = trim($this->scopeConfig->getValue(
-                'amshopby_brand/general/url_key',
-                \Magento\Store\Model\ScopeInterface::SCOPE_STORE
-            ));
-            if ($brandKey == $alias) {
-                $redirectToSeo = $this->createSeoRedirect($request, true);
-                if ($redirectToSeo) {
-                    return $redirectToSeo;
-                }
-
-                $matchedAlias = $alias;
-            }
-        }
 
         /* For regular seo category */
         if (!$matchedAlias) {
@@ -147,14 +155,23 @@ class Router implements \Magento\Framework\App\RouterInterface
         }
 
         if ($matchedAlias) {
-            if ($this->registry->registry('amasty_shopby_seo_parsed_params')) {
-                $this->logger
-                    ->warning('"amasty_shopby_seo_parsed_params" registry key already exists');
-                $this->registry->unregister('amasty_shopby_seo_parsed_params');
-            }
+            $this->registry->unregister('amasty_shopby_seo_parsed_params');
             $this->registry->register('amasty_shopby_seo_parsed_params', $params);
             $request->setParams($params);
             $request->setPathInfo($matchedAlias);
+            return $this->actionFactory->create(\Magento\Framework\App\Action\Forward::class);
+        }
+
+        $this->registry->unregister('amasty_shopby_seo_parsed_params') ;
+        $this->registry->register('amasty_shopby_seo_parsed_params', $params);
+
+        if ($this->allowedRoute->isRouteAllowed($request)) {
+            $request->setModuleName('amshopby')->setControllerName('index')->setActionName('index');
+            $shopbyPageUrl = $this->scopeConfig->getValue('amshopby_root/general/url', ScopeInterface::SCOPE_STORE);
+            $request->setAlias(\Magento\Framework\Url::REWRITE_REQUEST_PATH_ALIAS, $shopbyPageUrl);
+            $params = array_merge($params, $request->getParams());
+            $request->setParams($params);
+
             return $this->actionFactory->create(\Magento\Framework\App\Action\Forward::class);
         }
 
@@ -168,27 +185,21 @@ class Router implements \Magento\Framework\App\RouterInterface
      */
     protected function createSeoRedirect(RequestInterface $request, $brandRedirect = false)
     {
-        if ($this->urlHelper->isSeoRedirectEnabled()) {
-            $url = $this->urlHelper->seofyUrl($request->getUri()->toString());
-            if ($brandRedirect
-                && $this->scopeConfig->isSetFlag('amasty_shopby_seo/url/add_suffix_shopby')
-            ) {
-                $suffix = $this->scopeConfig
-                    ->getValue('catalog/seo/category_url_suffix', ScopeInterface::SCOPE_STORE);
-                if (strpos($url, '?') === false && substr($url, -strlen($suffix)) !== $suffix) {
-                    $url .= $suffix;
-                }
+        $url = $this->urlHelper->seofyUrl($request->getUri()->toString());
+        if ($brandRedirect && $this->scopeConfig->isSetFlag('amasty_shopby_seo/url/add_suffix_shopby')) {
+            $suffix = $this->scopeConfig->getValue('catalog/seo/category_url_suffix', ScopeInterface::SCOPE_STORE);
+            if (strpos($url, '?') === false && substr($url, -strlen($suffix)) !== $suffix) {
+                $url .= $suffix;
             }
-
-            if (strcmp($url, $request->getUri()->toString()) === 0) {
-                return false;
-            }
-
-            $this->_response->setRedirect($url, \Zend\Http\Response::STATUS_CODE_301);
-            $request->setDispatched(true);
-            return $this->actionFactory->create(\Magento\Framework\App\Action\Redirect::class);
         }
 
-        return false;
+        if (strcmp($url, $request->getUri()->toString()) === 0) {
+            return false;
+        }
+
+        $this->_response->setRedirect($url, \Zend\Http\Response::STATUS_CODE_301);
+        $request->setDispatched(true);
+
+        return $this->actionFactory->create(\Magento\Framework\App\Action\Redirect::class);
     }
 }

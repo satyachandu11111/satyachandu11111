@@ -33,34 +33,23 @@ class FilterSetting extends \Magento\Framework\Model\AbstractModel implements Fi
     protected $scopeConfig;
 
     /**
-     * @var \Amasty\ShopbyBase\Api\GroupAttributeCollectionProvider
+     * @var \Amasty\ShopbyBase\Api\GroupAttributeDataFactoryProvider
      */
-    protected $groupAttrCollectionProvider = null;
+    protected $groupAttrDataProviderFactory = null;
 
-    /**
-     * FilterSetting constructor.
-     * @param \Magento\Framework\Model\Context $context
-     * @param \Magento\Framework\Registry $registry
-     * @param \Magento\Catalog\Helper\Data $catalogHelper
-     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
-     * @param \Amasty\ShopbyBase\Api\GroupAttributeCollectionProvider $groupAttrCollectionProvider
-     * @param \Magento\Framework\Model\ResourceModel\AbstractResource|null $resource
-     * @param \Magento\Framework\Data\Collection\AbstractDb|null $resourceCollection
-     * @param array $data
-     */
     public function __construct(
         \Magento\Framework\Model\Context $context,
         \Magento\Framework\Registry $registry,
         \Magento\Catalog\Helper\Data $catalogHelper,
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
-        \Amasty\ShopbyBase\Api\GroupAttributeCollectionProvider $groupAttrCollectionProvider = null,
+        \Amasty\ShopbyBase\Api\GroupAttributeDataFactoryProvider $groupAttributeDataFactoryProvider = null,
         \Magento\Framework\Model\ResourceModel\AbstractResource $resource = null,
         \Magento\Framework\Data\Collection\AbstractDb $resourceCollection = null,
         array $data = []
     ) {
         $this->catalogHelper = $catalogHelper;
         $this->scopeConfig = $scopeConfig;
-        $this->groupAttrCollectionProvider = $groupAttrCollectionProvider;
+        $this->groupAttrDataProviderFactory = $groupAttributeDataFactoryProvider;
         parent::__construct(
             $context,
             $registry,
@@ -598,24 +587,25 @@ class FilterSetting extends \Magento\Framework\Model\AbstractModel implements Fi
     }
 
     /**
-     * @return int
+     * @return bool
+     */
+    public function hasAttributeGroups()
+    {
+        $groups = $this->getAttributeGroups();
+        return !empty($groups);
+    }
+
+    /**
+     * @return array
      */
     public function getAttributeGroups()
     {
-        $size = 0;
-        if ($this->groupAttrCollectionProvider && $this->getAttributeModel() && !$this->hasGroupCollection()) {
-            $code = $this->getAttributeModel()->getId();
-            $collection = $this->groupAttrCollectionProvider->getCollection();
-            $collection->addFieldToFilter('attribute_id', $code)
-                ->addFieldToFilter('enabled', 1)
-                ->addOrder('position', \Magento\Framework\Data\Collection\AbstractDb::SORT_ORDER_ASC);
-            $this->setGroupCollection($collection);
-            $size = count($collection);
-        } elseif ($this->hasGroupCollection()) {
-            $size = count($this->getGroupCollection());
+        if ($this->groupAttrDataProviderFactory && $this->getAttributeModel()) {
+            $dataProvider = $this->groupAttrDataProviderFactory->create();
+            $attributeId = $this->getAttributeModel()->getId();
+            return $dataProvider->getGroupsByAttributeId($attributeId);
         }
-
-        return $size;
+        return [];
     }
 
     /**

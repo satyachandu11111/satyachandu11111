@@ -331,4 +331,9 @@ interface FilterSettingInterface
      * @return FilterSettingInterface
      */
     public function setCategoryTreeDisplayMode($displayMode);
+
+    /**
+     * @return bool
+     */
+    public function hasAttributeGroups();
 }

@@ -190,11 +190,7 @@ trait FromToDecimal
 
             $from = !empty($this->getCurrentFrom()) ? floatval($this->getCurrentFrom()) : null;
             $to = !empty($this->getCurrentTo()) ? floatval($this->getCurrentTo()) : null;
-            if ($filterSetting->getUnitsLabelUseCurrencySymbol()) {
-                $template = $this->currencySymbol . '{from} - ' . $this->currencySymbol . '{to}';
-            } else {
-                $template = $this->getTemplateForSlider($filterSetting);
-            }
+            $template = $this->getTemplateForSlider($filterSetting);
 
             $config =
                 [
@@ -221,15 +217,33 @@ trait FromToDecimal
     }
 
     /**
-     * @param $filterSetting
+     * @param \Amasty\ShopbyBase\Model\FilterSetting $filterSetting
      * @return string
      */
-    private function getTemplateForSlider($filterSetting)
+    private function getTemplateForSlider(\Amasty\ShopbyBase\Model\FilterSetting $filterSetting)
     {
-        if ($filterSetting->getPositionLabel() == PositionLabel::POSITION_BEFORE) {
-            $template = $filterSetting->getUnitsLabel() . '{from}' . ' - ' . $filterSetting->getUnitsLabel() . '{to}';
+        if ($filterSetting->getUnitsLabelUseCurrencySymbol()) {
+            /** @var \Magento\Framework\Pricing\PriceCurrencyInterface $priceCurrency */
+            $priceCurrency = \Magento\Framework\App\ObjectManager::getInstance()
+                ->get(\Magento\Framework\Pricing\PriceCurrencyInterface::class);
+            $trialValue = '345';
+
+            //label position can be customized by "currency_display_options_forming" event. Trigger it.
+            $formattedExample = $priceCurrency->format($trialValue, false, 0);
+
+            $labelPosition = strpos($formattedExample, $trialValue) ==! 0
+                ? PositionLabel::POSITION_BEFORE
+                : PositionLabel::POSITION_AFTER;
+            $labelUnit = $this->currencySymbol;
         } else {
-            $template = '{from}' . $filterSetting->getUnitsLabel() . ' - {to}' . $filterSetting->getUnitsLabel();
+            $labelUnit = $filterSetting->getUnitsLabel();
+            $labelPosition = $filterSetting->getPositionLabel();
+        }
+
+        if ($labelPosition == PositionLabel::POSITION_BEFORE) {
+            $template = $labelUnit . '{from}' . ' - ' . $labelUnit . '{to}';
+        } else {
+            $template = '{from}' . $labelUnit . ' - {to}' . $labelUnit;
         }
 
         return $template;

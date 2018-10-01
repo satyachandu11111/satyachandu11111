@@ -269,7 +269,7 @@ class Decimal extends \Magento\CatalogSearch\Model\Layer\Filter\Decimal implemen
      */
     protected function renderRangeLabel($fromPrice, $toPrice)
     {
-        $ranges = $this->groupHelper->getRanges($this->getAttributeModel()->getAttributeId());
+        $ranges = $this->groupHelper->getGroupAttributeMinMaxRanges($this->getAttributeModel()->getAttributeId());
         if ($ranges) {
             if (isset($ranges[$fromPrice . '-' . $toPrice])) {
                 return __($ranges[$fromPrice . '-' . $toPrice]);

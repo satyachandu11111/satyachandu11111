@@ -118,8 +118,8 @@
 
     <type name="Amasty\ShopbyBase\Model\FilterSetting">
         <arguments>
-            <argument name="groupAttrCollectionProvider"
-                      xsi:type="object">Amasty\Shopby\Model\GroupAttr\CollectionProvider</argument>
+            <argument name="groupAttributeDataFactoryProvider"
+                      xsi:type="object">Amasty\Shopby\Model\GroupAttr\DataProviderFactory</argument>
         </arguments>
     </type>
 
@@ -201,6 +201,11 @@
     <type name="\Magento\Catalog\Model\ResourceModel\Product\Indexer\Price\DefaultPrice">
         <plugin name="Amasty_Shopby::PriceRuleIndexerFixer"
                 type="Amasty\Shopby\Plugin\Catalog\Model\ResourceModel\Product\Indexer\Price\DefaultPrice"/>
+    </type>
+
+    <type name="\Magento\ConfigurableProduct\Model\ResourceModel\Product\Indexer\Price\Configurable">
+        <plugin name="Amasty_Shopby::PriceRuleIndexerFixerConfigurable"
+                type="Amasty\Shopby\Plugin\Catalog\Model\ResourceModel\Product\Indexer\Price\Configurable"/>
     </type>
     <type name="Magento\CatalogRule\Model\Indexer\RuleProductPricesPersistor">
         <plugin name="Amasty_Shopby::PriceIndexerInvalidator"

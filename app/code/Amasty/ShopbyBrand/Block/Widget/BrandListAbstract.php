@@ -8,6 +8,7 @@
 
 namespace Amasty\ShopbyBrand\Block\Widget;
 
+use Amasty\ShopbyBase\Model\ResourceModel\OptionSetting\CollectionFactory as OptionSettingCollectionFactory;
 use Amasty\ShopbyBrand\Helper\Data;
 use Magento\Catalog\Model\Product\Attribute\Repository;
 use Magento\Framework\View\Element\Template\Context;
@@ -67,6 +68,21 @@ abstract class BrandListAbstract extends \Magento\Framework\View\Element\Templat
     protected $messageManager;
 
     /**
+     * @var OptionSettingCollectionFactory
+     */
+    private $optionSettingCollectionFactory;
+
+    /**
+     * @var \Amasty\ShopbyBase\Model\OptionSettingFactory
+     */
+    private $optionSettingFactory;
+
+    /**
+     * @var array
+     */
+    private $settingByValue = [];
+
+    /**
      * BrandListAbstract constructor.
      * @param Context $context
      * @param Repository $repository
@@ -81,6 +97,8 @@ abstract class BrandListAbstract extends \Magento\Framework\View\Element\Templat
         Context $context,
         Repository $repository,
         OptionSettingHelper $optionSetting,
+        \Amasty\ShopbyBase\Model\OptionSettingFactory $optionSettingFactory,
+        OptionSettingCollectionFactory $optionSettingCollectionFactory,
         \Magento\CatalogSearch\Model\Layer\Category\ItemCollectionProvider $collectionProvider,
         \Magento\Catalog\Model\Product\Url $productUrl,
         \Magento\Catalog\Api\CategoryRepositoryInterface $categoryRepository,
@@ -96,6 +114,8 @@ abstract class BrandListAbstract extends \Magento\Framework\View\Element\Templat
         $this->categoryRepository = $categoryRepository;
         $this->helper = $helper;
         $this->messageManager = $messageManager;
+        $this->optionSettingCollectionFactory = $optionSettingCollectionFactory;
+        $this->optionSettingFactory = $optionSettingFactory;
     }
 
     /**
@@ -117,13 +137,7 @@ abstract class BrandListAbstract extends \Magento\Framework\View\Element\Templat
             array_shift($options);
 
             foreach ($options as $option) {
-                $filterCode = \Amasty\ShopbyBase\Helper\FilterSetting::ATTR_PREFIX . $attributeCode;
-                $setting = $this->optionSettingHelper->getSettingByValue(
-                    $option->getValue(),
-                    $filterCode,
-                    $this->_storeManager->getStore()->getId()
-                );
-
+                $setting = $this->getBrandOptionSettingByValue($option->getValue());
                 $data = $this->getItemData($option, $setting);
                 if ($data) {
                     $this->items[] = $data;
@@ -135,6 +149,30 @@ abstract class BrandListAbstract extends \Magento\Framework\View\Element\Templat
         return $this->items;
     }
 
+    /**
+     * @param int $value
+     * @return OptionSettingInterface
+     */
+    private function getBrandOptionSettingByValue($value)
+    {
+        if (empty($this->settingByValue)) {
+            $attributeCode = $this->_scopeConfig->getValue(
+                self::PATH_BRAND_ATTRIBUTE_CODE,
+                ScopeInterface::SCOPE_STORE
+            );
+            $filterCode = \Amasty\ShopbyBase\Helper\FilterSetting::ATTR_PREFIX . $attributeCode;
+            
+            $collection = $this->optionSettingCollectionFactory->create();
+            $collection->addFieldToFilter('filter_code', $filterCode);
+            foreach ($collection as $item) {
+                $this->settingByValue[$item->getValue()] = $item;
+            }
+        }
+        
+        return isset($this->settingByValue[$value])
+            ? $this->settingByValue[$value] : $this->optionSettingFactory->create() ;
+    }
+    
     /**
      * @param \Magento\Eav\Model\Entity\Attribute\Option $option
      * @param \Amasty\ShopbyBase\Api\Data\OptionSettingInterface $setting
