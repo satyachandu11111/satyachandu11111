@@ -10,9 +10,14 @@ namespace Amasty\Scroll\Plugin\Ajax;
 
 use Magento\Framework\App\Response\Http as Response;
 use Magento\Framework\Url\Helper\Data as UrlHelper;
+use Magento\Framework\View\Result\Page;
 
 class AjaxAbstract
 {
+    const OSN_CONFIG = 'amasty.xnotif.config';
+
+    const QUICKVIEW_CONFIG = 'amasty.quickview.config';
+
     /**
      * @var \Amasty\Scroll\Helper\Data
      */
@@ -83,15 +88,17 @@ class AjaxAbstract
     }
 
     /**
-     * @param \Magento\Framework\View\Result\Page $page
+     * @param Page $page
      *
      * @return array
      */
-    protected function getAjaxResponseData(\Magento\Framework\View\Result\Page $page)
+    protected function getAjaxResponseData(Page $page)
     {
+        $html = '';
         $products = $page->getLayout()->getBlock('category.products');
         if (!$products) {
             $products = $page->getLayout()->getBlock('search_result_list');
+            $html .= $this->getAdditionalConfigs($page);
         }
 
         $currentPage = $this->request->getParam('p');
@@ -100,7 +107,7 @@ class AjaxAbstract
         }
 
         //fix bug with multiple adding to cart
-        $html = $products->toHtml();
+        $html .= $products->toHtml();
         $search = '[data-role=tocart-form]';
         $replace = ".amscroll-pages[amscroll-page='" . $currentPage . "'] " . $search;
         $html = str_replace($search, $replace, $html);
@@ -127,5 +134,57 @@ class AjaxAbstract
 
         $newUenc = $this->urlHelper->getEncodedUrl($refererUrl);
         $html = str_replace($currentUenc, $newUenc, $html);
+    }
+
+    /**
+     * @param Page $page
+     *
+     * @return string
+     */
+    private function getAdditionalConfigs($page)
+    {
+        $html = '';
+
+        $html .= $this->getQuickviewHtml($page);
+        $html .= $this->getOsnHtml($page);
+
+        return $html;
+    }
+
+    /**
+     * @param Page $page
+     *
+     * @return string
+     */
+    private function getQuickviewHtml($page)
+    {
+        return $this->getBlockHtml($page, self::QUICKVIEW_CONFIG);
+    }
+
+    /**
+     * @param Page $page
+     *
+     * @return string
+     */
+    private function getOsnHtml($page)
+    {
+        return $this->getBlockHtml($page, self::OSN_CONFIG);
+    }
+
+    /**
+     * @param Page $page
+     * @param string $nameBlock
+     *
+     * @return string
+     */
+    private function getBlockHtml($page, $nameBlock)
+    {
+        $html = '';
+        $config = $page->getLayout()->getBlock($nameBlock);
+        if ($config !== false) {
+            $html .= $config->toHtml();
+        }
+
+        return $html;
     }
 }

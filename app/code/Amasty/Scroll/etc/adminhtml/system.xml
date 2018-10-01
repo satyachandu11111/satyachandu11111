@@ -15,6 +15,11 @@
             <label>Infinite Scroll</label>
             <tab>amasty</tab>
             <resource>Amasty_Scroll::config</resource>
+            <group id="amasty_information" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Information</label>
+                <frontend_model>Amasty\Scroll\Block\Adminhtml\System\Config\Information</frontend_model>
+            </group>
             <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
                    showInStore="1">
                 <label>General settings</label>
@@ -72,10 +77,9 @@
             <group id="advanced" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1"
                    showInStore="1">
                 <label>DOM Selectors (for custom themes)</label>
-                <field id="product_container_group" translate="label comment" type="text" sortOrder="10" showInDefault="1"
+                <field id="product_container_group" translate="label" type="text" sortOrder="10" showInDefault="1"
                        showInWebsite="1" showInStore="1">
                     <label>Products Group</label>
-                    <comment><![CDATA[Please do not use comma.]]></comment>
                 </field>
             </group>
         </section>

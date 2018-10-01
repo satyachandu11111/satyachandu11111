@@ -25,7 +25,7 @@
                 <styles><![CDATA[background: #3A4F62;]]></styles>
             </info>
             <advanced>
-                <product_container_group>.products.products-grid, .products.products-list</product_container_group>
+                <product_container_group>.products.products-grid, .products.products-list, .products-grid.grid</product_container_group>
             </advanced>
         </amasty_scroll>
     </default>
