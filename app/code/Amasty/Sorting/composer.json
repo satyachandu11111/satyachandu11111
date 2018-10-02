@@ -6,7 +6,7 @@
         "amasty/base": "*"
     },
     "type": "magento2-module",
-    "version": "2.2.0",
+    "version": "2.2.3",
     "license": [
         "Commercial"
     ],

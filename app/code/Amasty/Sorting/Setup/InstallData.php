@@ -11,7 +11,7 @@ namespace Amasty\Sorting\Setup;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Framework\Setup\InstallDataInterface;
-use Magento\Indexer\Model\Indexer;
+use Magento\Indexer\Model\IndexerFactory;
 use Amasty\Sorting\Model\Indexer\Bestsellers\BestsellersProcessor;
 use Amasty\Sorting\Model\Indexer\MostViewed\MostViewedProcessor;
 use Amasty\Sorting\Model\Indexer\TopRated\TopRatedProcessor;
@@ -21,7 +21,7 @@ use Magento\Framework\App\State;
 class InstallData implements InstallDataInterface
 {
     /**
-     * @var Indexer
+     * @var IndexerFactory
      */
     private $indexer;
 
@@ -35,16 +35,16 @@ class InstallData implements InstallDataInterface
         WishedProcessor::INDEXER_ID
     ];
 
+    /**
+     * @var \Magento\Framework\App\State
+     */
+    private $state;
+
     public function __construct(
-        Indexer $indexer,
+        IndexerFactory $indexer,
         State $state
     ) {
-        try {
-            $state->setAreaCode('adminhtml');
-        } catch (\Exception $e) {
-            //Area code is already set
-        }
-
+        $this->state = $state;
         $this->indexer = $indexer;
     }
 
@@ -55,8 +55,16 @@ class InstallData implements InstallDataInterface
      */
     public function install(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
     {
+        $this->state->emulateAreaCode(
+            'adminhtml',
+            [$this, 'reindexAll']
+        );
+    }
+
+    public function reindexAll()
+    {
         foreach ($this->indexerIds as $indexerId) {
-            $indexer = $this->indexer
+            $indexer = $this->indexer->create()
                 ->load($indexerId);
             $indexer->reindexAll();
         }

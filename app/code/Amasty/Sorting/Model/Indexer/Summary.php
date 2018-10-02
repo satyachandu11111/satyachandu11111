@@ -9,12 +9,27 @@
 namespace Amasty\Sorting\Model\Indexer;
 
 use Amasty\Sorting\Helper\Data;
+use Amasty\Sorting\Model\Indexer\Bestsellers\BestsellersProcessor;
+use Amasty\Sorting\Model\Indexer\MostViewed\MostViewedProcessor;
+use Amasty\Sorting\Model\Indexer\TopRated\TopRatedProcessor;
+use Amasty\Sorting\Model\Indexer\Wished\WishedProcessor;
+use Magento\Indexer\Model\IndexerFactory;
 
 /**
  * Class Summary
  */
 class Summary
 {
+    /**
+     * @var array
+     */
+    private $indexerIds = [
+        BestsellersProcessor::INDEXER_ID,
+        MostViewedProcessor::INDEXER_ID,
+        TopRatedProcessor::INDEXER_ID,
+        WishedProcessor::INDEXER_ID
+    ];
+
     /**
      * @var Data
      */
@@ -26,17 +41,18 @@ class Summary
     private $methodProvider;
 
     /**
-     * Summary constructor.
-     *
-     * @param Data                                 $helper
-     * @param \Amasty\Sorting\Model\MethodProvider $methodProvider
+     * @var IndexerFactory
      */
+    private $indexerFactory;
+
     public function __construct(
         \Amasty\Sorting\Helper\Data $helper,
-        \Amasty\Sorting\Model\MethodProvider $methodProvider
+        \Amasty\Sorting\Model\MethodProvider $methodProvider,
+        IndexerFactory $indexerFactory
     ) {
         $this->helper = $helper;
         $this->methodProvider = $methodProvider;
+        $this->indexerFactory = $indexerFactory;
     }
 
     /**
@@ -44,10 +60,11 @@ class Summary
      */
     public function reindexAll()
     {
-        $methods = $this->methodProvider->getIndexedMethods();
-        foreach ($methods as $methodWrapper) {
+        foreach ($this->indexerIds as $indexerId) {
+            $indexer = $this->indexerFactory->create()
+                ->load($indexerId);
             // do full reindex if method not disabled
-            $methodWrapper->getIndexer()->executeFull();
+            $indexer->reindexAll();
         }
     }
 }

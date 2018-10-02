@@ -1,3 +1,4 @@
+"Please update Amasty Base module. Re-upload it and replace all the files.","Please update Amasty Base module. Re-upload it and replace all the files."
 "Could not rebuild index for empty products array","Could not rebuild index for empty products array"
 "We can't rebuild the index for an undefined product.","We can't rebuild the index for an undefined product."
 "Method object ' . . ' must be implemented by Amasty\Sorting\Api\MethodInterface","Method object ' . . ' must be implemented by Amasty\Sorting\Api\MethodInterface"
@@ -12,6 +13,7 @@ Price,Price
 Relevance,Relevance
 "Sorting Order","Sorting Order"
 "Improved Sorting","Improved Sorting"
+Information,Information
 General,General
 "Show Products without Images Last","Show Products without Images Last"
 "If it is not important, select `No` to optimize server resources usage.","If it is not important, select `No` to optimize server resources usage."
