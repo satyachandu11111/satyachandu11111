@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-report-api
- * @version   1.0.7
+ * @version   1.0.12
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -102,8 +102,7 @@ class Request extends AbstractSimpleObject implements RequestInterface
                 RequestFilter::VALUE          => $value,
                 RequestFilter::CONDITION_TYPE => $condition,
                 RequestFilter::GROUP          => $group,
-            ]
-        )]);
+            ])]);
     }
 
     public function setDimension($column)

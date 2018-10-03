@@ -91,6 +91,7 @@
                 <item name="html" xsi:type="string">Mirasvit\ReportApi\Config\Type\Html</item>
                 <item name="country" xsi:type="string">Mirasvit\ReportApi\Config\Type\Country</item>
                 <item name="store" xsi:type="string">Mirasvit\ReportApi\Config\Type\Store</item>
+                <item name="serialized" xsi:type="string">Mirasvit\ReportApi\Config\Type\Serialized</item>
             </argument>
             <argument name="aggregator" xsi:type="array">
                 <item name="none" xsi:type="string">Mirasvit\ReportApi\Config\Aggregator\None</item>

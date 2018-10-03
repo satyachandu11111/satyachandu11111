@@ -9,9 +9,10 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-core
- * @version   1.2.68
+ * @version   1.2.72
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
+
 
 
 namespace Mirasvit\Core\Setup;
@@ -30,21 +31,21 @@ class UpgradeSchema implements UpgradeSchemaInterface
         $installer = $setup;
 
         if (version_compare($context->getVersion(), '1.0.1') < 0) {
-            include_once 'Upgrade_1_0_1.php';
+            include_once 'Upgrade101.php';
 
-            Upgrade_1_0_1::upgrade($installer, $context);
+            Upgrade101::upgrade($installer, $context);
         }
 
         if (version_compare($context->getVersion(), '1.0.2') < 0) {
-            include_once 'Upgrade_1_0_2.php';
+            include_once 'Upgrade102.php';
 
-            Upgrade_1_0_2::upgrade($installer, $context);
+            Upgrade102::upgrade($installer, $context);
         }
 
         if (version_compare($context->getVersion(), '1.0.3') < 0) {
-            include_once 'Upgrade_1_0_3.php';
+            include_once 'Upgrade103.php';
 
-            Upgrade_1_0_3::upgrade($installer, $context);
+            Upgrade103::upgrade($installer, $context);
         }
     }
 }

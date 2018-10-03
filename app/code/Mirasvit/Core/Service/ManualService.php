@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-core
- * @version   1.2.68
+ * @version   1.2.72
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -58,7 +58,7 @@ class ManualService implements ManualServiceInterface
     }
 
     /**
-     * @return bool
+     * @return string|bool
      */
     public function getManualLink()
     {
@@ -122,7 +122,6 @@ class ManualService implements ManualServiceInterface
                         $manualLink['template'] = self::TOP_TEMPLATE;
                         break;
                 }
-
             }
         }
 
@@ -154,7 +153,7 @@ class ManualService implements ManualServiceInterface
         $help = [];
         $moduleList = $this->moduleList->getAll();
         if (defined('ARRAY_FILTER_USE_BOTH')) {
-            $moduleListData = array_filter($moduleList, function ($value, $key) {
+            $moduleListData = array_filter(array_keys($moduleList), function ($key) {
                 return strpos($key, 'Mirasvit_') === 0;
             }, ARRAY_FILTER_USE_BOTH);
         } else {
@@ -176,18 +175,21 @@ class ManualService implements ManualServiceInterface
         return $help;
     }
 
-
     /**
      * @param string $module
      * @return array
      */
     private function loadXML($module)
     {
-        $filePath = $this->moduleDirReader->getModuleDir(self::MANUAL_FILE_PATH, $module)
-            . '/'
-            . self::MANUAL_FILE_NAME;
+        $bp = $this->moduleDirReader->getModuleDir(self::MANUAL_FILE_PATH, $module);
 
-        if (file_exists($filePath)) {
+        if ($bp == '/etc') {
+            return [];
+        }
+
+        $filePath = $bp . '/' . self::MANUAL_FILE_NAME;
+
+        if (@file_exists($filePath)) {
             $xml = $this->parser->load($filePath)->xmlToArray();
 
             if (isset($xml['config'])) {

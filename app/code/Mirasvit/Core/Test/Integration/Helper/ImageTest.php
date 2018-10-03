@@ -9,9 +9,10 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-core
- * @version   1.2.68
+ * @version   1.2.72
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
+
 
 
 namespace Mirasvit\Core\Helper;
@@ -26,7 +27,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
      */
     protected $helper;
 
-
     /**
      * @magentoDataFixture Mirasvit/Core/_files/Helper/image.php
      * @covers             \Mirasvit\Core\Helper\Image::__toString
@@ -36,7 +36,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
         $this->helper = Bootstrap::getObjectManager()->create('Mirasvit\Core\Helper\Image');
 
         $object = new DataObject([
-            'image' => 'image1.jpg'
+            'image' => 'image1.jpg',
         ]);
 
         $url = $this->helper->init($object, 'image', 'kb/article')

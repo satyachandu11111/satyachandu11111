@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-core
- * @version   1.2.68
+ * @version   1.2.72
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -149,7 +149,8 @@ class License
         }
 
         if (!$this->license) {
-            return "Extension does not contain all necessary files. Please reinstall the extension from original package.";
+            return "Extension does not contain all necessary files.
+                Please reinstall the extension from original package.";
         }
 
         if ($this->isNeedUpdate()) {
@@ -421,10 +422,12 @@ class License
     {
         $db = $this->deploymentConfig->get(
             ConfigOptionsListConstants::CONFIG_PATH_DB_CONNECTION_DEFAULT
-            . '/' . ConfigOptionsListConstants::KEY_NAME);
+            . '/' . ConfigOptionsListConstants::KEY_NAME
+        );
         $host = $this->deploymentConfig->get(
             ConfigOptionsListConstants::CONFIG_PATH_DB_CONNECTION_DEFAULT
-            . '/' . ConfigOptionsListConstants::KEY_HOST);
+            . '/' . ConfigOptionsListConstants::KEY_HOST
+        );
 
         return md5($db . $host);
     }

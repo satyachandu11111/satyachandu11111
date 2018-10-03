@@ -4,9 +4,10 @@
     <body>
         <referenceContainer name="head.additional">
             <block class="Mirasvit\Core\Block\FontAwesome" name="font-awesome"
-                   template="Mirasvit_Core::font-awesome.phtml"/>
+                   template="Mirasvit_Core::font_awesome.phtml"/>
+
             <block class="Mirasvit\Core\Block\CustomCss" name="mirasvit-custom-css"
-                   template="Mirasvit_Core::custom-css.phtml"/>
+                   template="Mirasvit_Core::custom_css.phtml"/>
         </referenceContainer>
     </body>
 </page>

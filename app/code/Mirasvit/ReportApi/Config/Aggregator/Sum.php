@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-report-api
- * @version   1.0.7
+ * @version   1.0.12
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -29,5 +29,10 @@ class Sum implements AggregatorInterface
     public function getExpression()
     {
         return 'IFNULL(SUM(%1), 0)';
+    }
+
+    public function getLabel()
+    {
+        return 'Sum';
     }
 }

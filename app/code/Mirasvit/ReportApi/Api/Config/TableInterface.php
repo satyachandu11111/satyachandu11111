@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-report-api
- * @version   1.0.7
+ * @version   1.0.12
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -23,6 +23,11 @@ interface TableInterface
      * @return string
      */
     public function getName();
+
+    /**
+     * @return string
+     */
+    public function getGroup();
 
     /**
      * @return string

@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-email
- * @version   2.1.6
+ * @version   2.1.11
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -66,14 +66,8 @@ class Send extends Action
     {
         /** @var \Magento\Framework\Controller\Result\Json $resultPage */
         $resultPage = $this->resultFactory->create(ResultFactory::TYPE_JSON);
-        if (!$this->getRequest()->isAjax()
-            || $this->getRequest()->getParam('form_key', null) !== $this->emailSessionManager->get()
-        ) {
-            /** @var \Magento\Framework\Controller\Result\Redirect $resultRedirect */
-            $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
-            $this->messageManager->addErrorMessage(__('Operation is not allowed'));
-
-            return $resultRedirect->setPath('/');
+        if (!$this->getRequest()->isAjax()) {
+            return $resultPage->setData(['success' => false, 'message' => __('Operation is not allowed')]);
         }
 
         if (!$this->getRequest()->getParam('email')) {

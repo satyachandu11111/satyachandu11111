@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-report
- * @version   1.3.37
+ * @version   1.3.41
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -22,6 +22,7 @@ use Magento\Framework\Stdlib\DateTime\DateTime;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Directory\Helper\Data as DirectoryHelper;
+use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
 
 /**
  * @SuppressWarnings(PHPMD)
@@ -42,8 +43,13 @@ class DateService implements DateServiceInterface
      * @var ScopeConfigInterface
      */
     private $scopeConfig;
+    /**
+     * @var TimezoneInterface
+     */
+    private $localeDate;
 
     public function __construct(
+        TimezoneInterface $localeDate,
         DateTime $dateTime,
         StoreManagerInterface $storeManager,
         ScopeConfigInterface $scopeConfig
@@ -51,6 +57,7 @@ class DateService implements DateServiceInterface
         $this->dateTime = $dateTime;
         $this->storeManager = $storeManager;
         $this->scopeConfig = $scopeConfig;
+        $this->localeDate = $localeDate;
     }
 
     /**
@@ -107,10 +114,10 @@ class DateService implements DateServiceInterface
         $timestamp = $this->dateTime->gmtTimestamp();
         $firstDay = (int)$this->scopeConfig->getValue('general/locale/firstday');
         $locale = $this->scopeConfig->getValue(DirectoryHelper::XML_PATH_DEFAULT_LOCALE);
-        $localeTimezone = $this->scopeConfig->getValue(DirectoryHelper::XML_PATH_DEFAULT_TIMEZONE);
+        //$localeTimezone = $this->scopeConfig->getValue(DirectoryHelper::XML_PATH_DEFAULT_TIMEZONE);
 
         if ($inStoreTZ) {
-            $timestamp = $this->dateTime->date($timestamp);
+            $timestamp = strtotime($this->localeDate->date()->format('Y-m-d H:i:s'));
         }
 
         $from = new \Zend_Date(
@@ -119,8 +126,8 @@ class DateService implements DateServiceInterface
             $locale
         );
 
-        $offset = $this->dateTime->calculateOffset($localeTimezone);
-        $from->addSecond($offset);
+        //$offset = $this->dateTime->calculateOffset($localeTimezone);
+        //$from->addSecond($offset);
         $to = clone $from;
 
         switch ($code) {

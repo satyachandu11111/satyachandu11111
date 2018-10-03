@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-core
- * @version   1.2.68
+ * @version   1.2.72
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -17,16 +17,20 @@
 
 namespace Mirasvit\Core\Api\Service;
 
-
 interface ValidatorInterface
 {
     /**
      * Possible Validation Results
      */
     const SUCCESS = 1;
-    const INFO    = 2;
+    const INFO = 2;
     const WARNING = 3;
-    const FAILED  = 4;
+    const FAILED = 4;
+
+    const STATUS_CODE = 'status_code';
+    const TEST_NAME = 'test_name';
+    const MODULE_NAME = 'module_name';
+    const MESSAGE = 'message';
 
     /**
      * Execute validator tests.

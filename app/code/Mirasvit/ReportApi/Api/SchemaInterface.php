@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-report-api
- * @version   1.0.7
+ * @version   1.0.12
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -76,6 +76,13 @@ interface SchemaInterface
      * @return RelationInterface[]
      */
     public function getRelations();
+
+    /**
+     * @param $relations RelationInterface[]
+     *
+     * @return $this
+     */
+    public function setRelations($relations);
 
     /**
      * @param TableInterface $table

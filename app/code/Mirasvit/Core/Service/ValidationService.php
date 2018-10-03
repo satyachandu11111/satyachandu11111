@@ -9,14 +9,13 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-core
- * @version   1.2.68
+ * @version   1.2.72
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
 
 
 namespace Mirasvit\Core\Service;
-
 
 use Mirasvit\Core\Api\Service\ValidationServiceInterface;
 use Mirasvit\Core\Api\Service\ValidatorInterface;
@@ -35,12 +34,6 @@ class ValidationService implements ValidationServiceInterface
      */
     private $moduleFactory;
 
-    /**
-     * ValidationService constructor.
-     *
-     * @param ModuleFactory        $moduleFactory
-     * @param ValidatorInterface[] $validators
-     */
     public function __construct(
         ModuleFactory $moduleFactory,
         array $validators = []
@@ -59,14 +52,16 @@ class ValidationService implements ValidationServiceInterface
      */
     public function runValidation(array $modules = [])
     {
-        $result = [];
+        $merged = [];
         foreach ($this->validators as $validator) {
-            if ($this->canValidate($validator->getModuleName(), $modules)) {
-                $result = array_merge($result, $validator->validate());
+            if ($this->canValidate($validator->getModuleName(), $modules) || count($modules) == 0) {
+                $result = $validator->validate();
+
+                $merged = array_merge($merged, $result);
             }
         }
 
-        return $result;
+        return $merged;
     }
 
     /**
@@ -78,7 +73,9 @@ class ValidationService implements ValidationServiceInterface
     }
 
     /**
-     *
+     * @param string $validatorModuleName
+     * @param array $requestedModules
+     * @return bool
      */
     private function canValidate($validatorModuleName, array $requestedModules)
     {

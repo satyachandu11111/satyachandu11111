@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-core
- * @version   1.2.68
+ * @version   1.2.72
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -43,13 +43,12 @@ class TransportBuilder extends \Magento\Framework\Mail\Template\TransportBuilder
      */
     public function addAttachment(
         $body,
-        $mimeType    = \Zend_Mime::TYPE_OCTETSTREAM,
+        $mimeType = \Zend_Mime::TYPE_OCTETSTREAM,
         $disposition = \Zend_Mime::DISPOSITION_ATTACHMENT,
-        $encoding    = \Zend_Mime::ENCODING_BASE64,
-        $filename    = null
+        $encoding = \Zend_Mime::ENCODING_BASE64,
+        $filename = null
     ) {
-        if (
-            $body instanceof \Fooman\EmailAttachments\Model\Api\AttachmentInterface &&
+        if ($body instanceof \Fooman\EmailAttachments\Model\Api\AttachmentInterface &&
             $this->moduleHelper->isFoomanEmailAttachmentsEnable()
         ) {
             $mimeType    = $body->getMimeType();

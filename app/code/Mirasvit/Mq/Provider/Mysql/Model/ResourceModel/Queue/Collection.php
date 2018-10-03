@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-message-queue
- * @version   1.0.3
+ * @version   1.0.4
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 

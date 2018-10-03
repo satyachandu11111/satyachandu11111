@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-email
- * @version   2.1.6
+ * @version   2.1.11
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -210,6 +210,10 @@ class Handler implements TriggerHandlerInterface
         if ($trigger->getIsAdmin() && !isset($params['force'])) {
             $recipientEmail = $trigger->getAdminEmail();
             $recipientName = "Administrator";
+        }
+
+        if (!$recipientEmail) {
+            return false;
         }
 
         $queue = $this->queueRepository->create();

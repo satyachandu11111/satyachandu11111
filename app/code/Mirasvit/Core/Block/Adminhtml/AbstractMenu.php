@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-core
- * @version   1.2.68
+ * @version   1.2.72
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -67,7 +67,7 @@ abstract class AbstractMenu extends Template
      *
      * @return $this
      */
-    protected abstract function buildMenu();
+    abstract protected function buildMenu();
 
     /**
      * Set menu visibility
@@ -142,7 +142,6 @@ abstract class AbstractMenu extends Template
 
                     $item->setData('items', $items);
                     break;
-
                 }
             }
         } else {

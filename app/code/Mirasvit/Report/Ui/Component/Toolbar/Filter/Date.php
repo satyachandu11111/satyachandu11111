@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-report
- * @version   1.3.37
+ * @version   1.3.41
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -67,10 +67,10 @@ class Date extends AbstractComponent
         $intervals = [];
 
         foreach ($this->dateService->getIntervals() as $code => $label) {
-            $interval = $this->dateService->getInterval($code);
+            $interval = $this->dateService->getInterval($code, true);
             $intervals[$label] = [
-                $interval->getFrom()->get(DateTime::DATE_INTERNAL_FORMAT),
-                $interval->getTo()->get(DateTime::DATE_INTERNAL_FORMAT),
+                $interval->getFrom()->get(DateTime::DATETIME_INTERNAL_FORMAT),
+                $interval->getTo()->get(DateTime::DATETIME_INTERNAL_FORMAT),
             ];
         }
 

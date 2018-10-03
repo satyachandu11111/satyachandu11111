@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-email-designer
- * @version   1.1.23
+ * @version   1.1.25
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -18,8 +18,20 @@
 namespace Mirasvit\EmailDesigner\Service\TemplateEngine\Php\Variable;
 
 
+use Magento\Framework\View\Element\BlockFactory;
+
 class Item
 {
+    /**
+     * @var BlockFactory
+     */
+    private $blockFactory;
+
+    public function __construct(BlockFactory $blockFactory)
+    {
+        $this->blockFactory = $blockFactory;
+    }
+
     /**
      * @inheritdoc
      *
@@ -39,6 +51,24 @@ class Item
                 $result = array_merge($result, $options['attributes_info']);
             }
         }
+
+        return $result;
+    }
+
+    /**
+     * @param \Magento\Sales\Model\Order\Item|\Magento\Quote\Model\Quote\Item $item
+     *
+     * @return string
+     */
+    public function getPriceHtml($item)
+    {
+        /** @var \Magento\Weee\Block\Item\Price\Renderer $priceRender */
+        $priceRender = $this->blockFactory->createBlock(\Magento\Weee\Block\Item\Price\Renderer::class);
+        $result = $priceRender->setArea('frontend')
+            ->setTemplate('item/price/unit.phtml')
+            ->setZone('cart')
+            ->setItem($item)
+            ->toHtml();
 
         return $result;
     }

@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-email
- * @version   2.1.6
+ * @version   2.1.11
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -20,7 +20,6 @@ namespace Mirasvit\Email\Ui\Campaign\View\Control;
 
 use Magento\Framework\Url;
 use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
-use Mirasvit\Email\Api\Data\CampaignInterface;
 use Mirasvit\Email\Api\Data\ChainInterface;
 use Mirasvit\Email\Api\Service\SessionInitiatorInterface;
 
@@ -43,15 +42,6 @@ class SendTestButton extends GenericButton implements ButtonProviderInterface
      */
     private $formKey;
 
-    /**
-     * SendTestButton constructor.
-     *
-     * @param \Mirasvit\Email\Model\Config          $config
-     * @param \Magento\Backend\Block\Widget\Context $context
-     * @param \Magento\Framework\Registry           $registry
-     * @param Url                                   $urlBuilder
-     * @param SessionInitiatorInterface             $sessionInitiator
-     */
     public function __construct(
         \Mirasvit\Email\Model\Config $config,
         \Magento\Backend\Block\Widget\Context $context,
@@ -59,6 +49,7 @@ class SendTestButton extends GenericButton implements ButtonProviderInterface
         Url $urlBuilder,
         SessionInitiatorInterface $sessionInitiator
     ) {
+        $this->storeManager = $context->getStoreManager();
         $this->formKey = $context->getFormKey();
         $this->config = $config;
         $this->urlBuilder = $urlBuilder;
@@ -102,9 +93,11 @@ class SendTestButton extends GenericButton implements ButtonProviderInterface
     public function getSendUrl()
     {
         // init front session to make possible to send emails
-        $this->sessionInitiator->set($this->formKey->getFormKey());
+        //$this->sessionInitiator->set($this->formKey->getFormKey());
+        $storeId = $this->storeManager->getDefaultStoreView()->getId();
 
         return $this->urlBuilder->getUrl('email/action/send/', [
+            '_scope' => $storeId,
             ChainInterface::ID => $this->context->getRequest()->getParam(ChainInterface::ID)
         ]);
     }

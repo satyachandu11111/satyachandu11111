@@ -9,14 +9,13 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-report-api
- * @version   1.0.7
+ * @version   1.0.12
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
 
 
 namespace Mirasvit\ReportApi\Config\Entity;
-
 
 use Mirasvit\ReportApi\Api\Config\FieldInterface;
 use Mirasvit\ReportApi\Api\Config\SelectInterface;

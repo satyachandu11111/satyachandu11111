@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-email-designer
- * @version   1.1.23
+ * @version   1.1.25
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 

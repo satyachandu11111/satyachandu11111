@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-report-api
- * @version   1.0.7
+ * @version   1.0.12
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -28,6 +28,11 @@ class Table implements TableInterface
      * @var string
      */
     protected $name;
+
+    /**
+     * @var string
+     */
+    protected $group;
 
     /**
      * @var string
@@ -74,10 +79,12 @@ class Table implements TableInterface
         FieldFactory $fieldFactory,
         $name,
         $label,
+        $group = null,
         $connection = 'default'
     ) {
         $this->name = $name;
         $this->label = $label;
+        $this->group = $group;
         $this->connectionName = $connection;
 
         $this->fieldFactory = $fieldFactory;
@@ -92,6 +99,14 @@ class Table implements TableInterface
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getGroup()
+    {
+        return $this->group;
     }
 
     /**

@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-core
- * @version   1.2.68
+ * @version   1.2.72
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -26,6 +26,7 @@ namespace Mirasvit\Core\Service;
  * @copyright Copyright 2005-2006 Chris Wanstrath, 2006-2011 Vlad Andersen
  * @license http://www.opensource.org/licenses/mit-license.php MIT License
  * @package Spyc
+ * @SuppressWarnings(PHPMD)
  */
 class YamlService
 {
@@ -48,7 +49,6 @@ class YamlService
      * @var bool
      */
     public $setting_use_syck_is_possible = false;
-
 
     /**#@+
      * @access private
@@ -168,7 +168,6 @@ class YamlService
         return $yaml->_dump($array, $indent, $wordwrap, $no_opening_dashes);
     }
 
-
     /**
      * Dump PHP array to YAML
      *
@@ -209,14 +208,18 @@ class YamlService
 
         // New YAML document
         $string = "";
-        if (!$no_opening_dashes) $string = "---\n";
+        if (!$no_opening_dashes) {
+            $string = "---\n";
+        }
 
         // Start at the base of the array and move through it.
         if ($array) {
             $array = (array)$array;
             $previous_key = -1;
             foreach ($array as $key => $value) {
-                if (!isset($first_key)) $first_key = $key;
+                if (!isset($first_key)) {
+                    $first_key = $key;
+                }
                 $string .= $this->_yamlize($key, $value, 0, $previous_key, $first_key, $array);
                 $previous_key = $key;
             }
@@ -234,10 +237,13 @@ class YamlService
      */
     private function _yamlize($key, $value, $indent, $previous_key = -1, $first_key = 0, $source_array = null)
     {
-        if (is_object($value)) $value = (array)$value;
+        if (is_object($value)) {
+            $value = (array)$value;
+        }
         if (is_array($value)) {
-            if (empty ($value))
+            if (empty($value)) {
                 return $this->_dumpNode($key, [], $indent, $previous_key, $first_key, $source_array);
+            }
             // It has children.  What to do?
             // Make it the right kind of item
             $string = $this->_dumpNode($key, self::REMPTY, $indent, $previous_key, $first_key, $source_array);
@@ -265,7 +271,9 @@ class YamlService
             $string = '';
             $previous_key = -1;
             foreach ($array as $key => $value) {
-                if (!isset($first_key)) $first_key = $key;
+                if (!isset($first_key)) {
+                    $first_key = $key;
+                }
                 $string .= $this->_yamlize($key, $value, $indent, $previous_key, $first_key, $array);
                 $previous_key = $key;
             }
@@ -286,30 +294,51 @@ class YamlService
     private function _dumpNode($key, $value, $indent, $previous_key = -1, $first_key = 0, $source_array = null)
     {
         // do some folding here, for blocks
-        if (is_string($value) && ((strpos($value, "\n") !== false || strpos($value, ": ") !== false || strpos($value, "- ") !== false ||
-                    strpos($value, "*") !== false || strpos($value, "#") !== false || strpos($value, "<") !== false || strpos($value, ">") !== false || strpos($value, '%') !== false || strpos($value, '  ') !== false ||
-                    strpos($value, "[") !== false || strpos($value, "]") !== false || strpos($value, "{") !== false || strpos($value, "}") !== false) || strpos($value, "&") !== false || strpos($value, "'") !== false || strpos($value, "!") === 0 ||
-                substr($value, -1, 1) == ':')
+        if (is_string($value) && ((strpos($value, "\n") !== false || strpos($value, ": ") !== false
+                    || strpos($value, "- ") !== false
+                    || strpos($value, "*") !== false
+                    || strpos($value, "#") !== false
+                    || strpos($value, "<") !== false
+                    || strpos($value, ">") !== false
+                    || strpos($value, '%') !== false
+                    || strpos($value, '  ') !== false
+                    || strpos($value, "[") !== false
+                    || strpos($value, "]") !== false
+                    || strpos($value, "{") !== false
+                    || strpos($value, "}") !== false)
+                || strpos($value, "&") !== false
+                || strpos($value, "'") !== false
+                || strpos($value, "!") === 0
+                || substr($value, -1, 1) == ':')
         ) {
             $value = $this->_doLiteralBlock($value, $indent);
         } else {
             $value = $this->_doFolding($value, $indent);
         }
 
-        if ($value === []) $value = '[ ]';
-        if ($value === "") $value = '""';
+        if ($value === []) {
+            $value = '[ ]';
+        }
+        if ($value === "") {
+            $value = '""';
+        }
         if (self::isTranslationWord($value)) {
             $value = $this->_doLiteralBlock($value, $indent);
         }
-        if (trim($value) != $value)
+        if (trim($value) != $value) {
             $value = $this->_doLiteralBlock($value, $indent);
+        }
 
         if (is_bool($value)) {
             $value = $value ? "true" : "false";
         }
 
-        if ($value === null) $value = 'null';
-        if ($value === "'" . self::REMPTY . "'") $value = null;
+        if ($value === null) {
+            $value = 'null';
+        }
+        if ($value === "'" . self::REMPTY . "'") {
+            $value = null;
+        }
 
         $spaces = str_repeat(' ', $indent);
 
@@ -318,7 +347,8 @@ class YamlService
             // It's a sequence
             $string = $spaces . '- ' . $value . "\n";
         } else {
-            // if ($first_key===0)  throw new Exception('Keys are all screwy.  The first one was zero, now it\'s "'. $key .'"');
+            // if ($first_key===0)  throw new Exception('Keys are all screwy.
+            // The first one was zero, now it\'s "'. $key .'"');
             // It's mapped
             if (strpos($key, ":") !== false || strpos($key, "#") !== false) {
                 $key = '"' . $key . '"';
@@ -337,7 +367,9 @@ class YamlService
      */
     private function _doLiteralBlock($value, $indent)
     {
-        if ($value === "\n") return '\n';
+        if ($value === "\n") {
+            return '\n';
+        }
         if (strpos($value, "\n") === false && strpos($value, "'") === false) {
             return sprintf("'%s'", $value);
         }
@@ -354,7 +386,10 @@ class YamlService
         $spaces = str_repeat(' ', $indent);
         foreach ($exploded as $line) {
             $line = trim($line);
-            if (strpos($line, '"') === 0 && strrpos($line, '"') == (strlen($line) - 1) || strpos($line, "'") === 0 && strrpos($line, "'") == (strlen($line) - 1)) {
+            if (strpos($line, '"') === 0
+                && strrpos($line, '"') == (strlen($line) - 1)
+                || strpos($line, "'") === 0
+                && strrpos($line, "'") == (strlen($line) - 1)) {
                 $line = substr($line, 1, -1);
             }
             $newValue .= "\n" . $spaces . ($line);
@@ -378,12 +413,13 @@ class YamlService
             $wrapped = wordwrap($value, $this->_dumpWordWrap, "\n$indent");
             $value = ">\n" . $indent . $wrapped;
         } else {
-            if ($this->setting_dump_force_quotes && is_string($value) && $value !== self::REMPTY)
+            if ($this->setting_dump_force_quotes && is_string($value) && $value !== self::REMPTY) {
                 $value = '"' . $value . '"';
-            if (is_numeric($value) && is_string($value))
+            }
+            if (is_numeric($value) && is_string($value)) {
                 $value = '"' . $value . '"';
+            }
         }
-
 
         return $value;
     }
@@ -426,9 +462,9 @@ class YamlService
     {
         if (self::isTrueWord($value)) {
             $value = true;
-        } else if (self::isFalseWord($value)) {
+        } elseif (self::isFalseWord($value)) {
             $value = false;
-        } else if (self::isNullWord($value)) {
+        } elseif (self::isNullWord($value)) {
             $value = null;
         }
     }
@@ -464,7 +500,9 @@ class YamlService
 
     private function loadWithSource($Source)
     {
-        if (empty ($Source)) return [];
+        if (empty($Source)) {
+            return [];
+        }
         if ($this->setting_use_syck_is_possible && function_exists('syck_load')) {
             $array = syck_load(implode("\n", $Source));
             return is_array($array) ? $array : [];
@@ -480,8 +518,12 @@ class YamlService
             $this->indent = strlen($line) - strlen(ltrim($line));
             $tempPath = $this->getParentPathByIndent($this->indent);
             $line = self::stripIndent($line, $this->indent);
-            if (self::isComment($line)) continue;
-            if (self::isEmpty($line)) continue;
+            if (self::isComment($line)) {
+                continue;
+            }
+            if (self::isEmpty($line)) {
+                continue;
+            }
             $this->path = $tempPath;
 
             $literalBlockStyle = self::startsLiteralBlock($line);
@@ -491,7 +533,12 @@ class YamlService
                 $line .= ' ' . $this->LiteralPlaceHolder;
                 $literal_block_indent = strlen($Source[$i + 1]) - strlen(ltrim($Source[$i + 1]));
                 while (++$i < $cnt && $this->literalBlockContinues($Source[$i], $this->indent)) {
-                    $literalBlock = $this->addLiteralLine($literalBlock, $Source[$i], $literalBlockStyle, $literal_block_indent);
+                    $literalBlock = $this->addLiteralLine(
+                        $literalBlock,
+                        $Source[$i],
+                        $literalBlockStyle,
+                        $literal_block_indent
+                    );
                 }
                 $i--;
             }
@@ -508,24 +555,26 @@ class YamlService
 
             $lineArray = $this->_parseLine($line);
 
-            if ($literalBlockStyle)
+            if ($literalBlockStyle) {
                 $lineArray = $this->revertLiteralPlaceHolder($lineArray, $literalBlock);
+            }
 
             $this->addArray($lineArray, $this->indent);
 
-            foreach ($this->delayedPath as $indent => $delayedPath)
+            foreach ($this->delayedPath as $indent => $delayedPath) {
                 $this->path[$indent] = $delayedPath;
+            }
 
             $this->delayedPath = [];
-
         }
         return $this->result;
     }
 
     private function loadFromSource($input)
     {
-        if (!empty($input) && strpos($input, "\n") === false && file_exists($input))
+        if (!empty($input) && strpos($input, "\n") === false && file_exists($input)) {
             $input = file_get_contents($input);
+        }
 
         return $this->loadFromString($input);
     }
@@ -547,9 +596,13 @@ class YamlService
      */
     private function _parseLine($line)
     {
-        if (!$line) return [];
+        if (!$line) {
+            return [];
+        }
         $line = trim($line);
-        if (!$line) return [];
+        if (!$line) {
+            return [];
+        }
 
         $array = [];
 
@@ -559,21 +612,23 @@ class YamlService
             $line = $this->stripGroup($line, $group);
         }
 
-        if ($this->startsMappedSequence($line))
+        if ($this->startsMappedSequence($line)) {
             return $this->returnMappedSequence($line);
+        }
 
-        if ($this->startsMappedValue($line))
+        if ($this->startsMappedValue($line)) {
             return $this->returnMappedValue($line);
+        }
 
-        if ($this->isArrayElement($line))
+        if ($this->isArrayElement($line)) {
             return $this->returnArrayElement($line);
+        }
 
-        if ($this->isPlainArray($line))
+        if ($this->isPlainArray($line)) {
             return $this->returnPlainArray($line);
-
+        }
 
         return $this->returnKeyValuePair($line);
-
     }
 
     /**
@@ -584,32 +639,44 @@ class YamlService
      */
     private function _toType($value)
     {
-        if ($value === '') return "";
+        if ($value === '') {
+            return "";
+        }
         $first_character = $value[0];
         $last_character = substr($value, -1, 1);
 
         $is_quoted = false;
         do {
-            if (!$value) break;
-            if ($first_character != '"' && $first_character != "'") break;
-            if ($last_character != '"' && $last_character != "'") break;
+            if (!$value) {
+                break;
+            }
+            if ($first_character != '"' && $first_character != "'") {
+                break;
+            }
+            if ($last_character != '"' && $last_character != "'") {
+                break;
+            }
             $is_quoted = true;
         } while (0);
 
         if ($is_quoted) {
             $value = str_replace('\n', "\n", $value);
-            if ($first_character == "'")
+            if ($first_character == "'") {
                 return strtr(substr($value, 1, -1), ['\'\'' => '\'', '\\\'' => '\'']);
+            }
             return strtr(substr($value, 1, -1), ['\\"' => '"', '\\\'' => '\'']);
         }
 
-        if (strpos($value, ' #') !== false && !$is_quoted)
+        if (strpos($value, ' #') !== false && !$is_quoted) {
             $value = preg_replace('/\s+#(.+)$/', '', $value);
+        }
 
         if ($first_character == '[' && $last_character == ']') {
             // Take out strings sequences and mappings
             $innerValue = trim(substr($value, 1, -1));
-            if ($innerValue === '') return [];
+            if ($innerValue === '') {
+                return [];
+            }
             $explode = $this->_inlineEscape($innerValue);
             // Propagate value array
             $value = [];
@@ -630,7 +697,9 @@ class YamlService
 
         if ($first_character == '{' && $last_character == '}') {
             $innerValue = trim(substr($value, 1, -1));
-            if ($innerValue === '') return [];
+            if ($innerValue === '') {
+                return [];
+            }
             // Inline Mapping
             // Take out strings sequences and mappings
             $explode = $this->_inlineEscape($innerValue);
@@ -638,7 +707,9 @@ class YamlService
             $array = [];
             foreach ($explode as $v) {
                 $SubArr = $this->_toType($v);
-                if (empty($SubArr)) continue;
+                if (empty($SubArr)) {
+                    continue;
+                }
                 if (is_array($SubArr)) {
                     $array[key($SubArr)] = $SubArr[key($SubArr)];
                     continue;
@@ -654,8 +725,9 @@ class YamlService
 
         if (is_numeric($value) && preg_match('/^(-|)[1-9]+[0-9]*$/', $value)) {
             $intvalue = (int)$value;
-            if ($intvalue != PHP_INT_MAX && $intvalue != ~PHP_INT_MAX)
+            if ($intvalue != PHP_INT_MAX && $intvalue != ~PHP_INT_MAX) {
                 $value = $intvalue;
+            }
             return $value;
         }
 
@@ -667,9 +739,12 @@ class YamlService
         $this->coerceValue($value);
 
         if (is_numeric($value)) {
-            if ($value === '0') return 0;
-            if (rtrim($value, 0) === $value)
+            if ($value === '0') {
+                return 0;
+            }
+            if (rtrim($value, 0) === $value) {
                 $value = (float)$value;
+            }
             return $value;
         }
 
@@ -713,7 +788,6 @@ class YamlService
 
         $i = 0;
         do {
-
             // Check for sequences
             while (preg_match('/\[([^{}\[\]]+)\]/U', $inline, $matchseqs)) {
                 $seqs[] = $matchseqs[0];
@@ -726,8 +800,9 @@ class YamlService
                 $inline = preg_replace('/{([^\[\]{}]+)}/U', ('YAMLMap' . (count($maps) - 1) . 's'), $inline, 1);
             }
 
-            if ($i++ >= 10) break;
-
+            if ($i++ >= 10) {
+                break;
+            }
         } while (strpos($inline, '[') !== false || strpos($inline, '{') !== false);
 
         $explode = explode(',', $inline);
@@ -736,7 +811,6 @@ class YamlService
         $i = 0;
 
         while (1) {
-
             // Re-add the sequences
             if (!empty($seqs)) {
                 foreach ($explode as $key => $value) {
@@ -761,7 +835,6 @@ class YamlService
                 }
             }
 
-
             // Re-add the strings
             if (!empty($saved_strings)) {
                 foreach ($explode as $key => $value) {
@@ -773,7 +846,6 @@ class YamlService
                     }
                 }
             }
-
 
             // Re-add the empties
             if (!empty($saved_empties)) {
@@ -804,21 +876,27 @@ class YamlService
                     break;
                 }
             }
-            if ($finished) break;
+            if ($finished) {
+                break;
+            }
 
             $i++;
-            if ($i > 10)
+            if ($i > 10) {
                 break; // Prevent infinite loops.
+            }
         }
-
 
         return $explode;
     }
 
     private function literalBlockContinues($line, $lineIndent)
     {
-        if (!trim($line)) return true;
-        if (strlen($line) - strlen(ltrim($line)) > $lineIndent) return true;
+        if (!trim($line)) {
+            return true;
+        }
+        if (strlen($line) - strlen(ltrim($line)) > $lineIndent) {
+            return true;
+        }
         return false;
     }
 
@@ -841,7 +919,9 @@ class YamlService
     private function addArrayInline($array, $indent)
     {
         $CommonGroupPath = $this->path;
-        if (empty ($array)) return false;
+        if (empty($array)) {
+            return false;
+        }
 
         foreach ($array as $k => $_) {
             $this->addArray([$k => $_], $indent);
@@ -852,17 +932,18 @@ class YamlService
 
     private function addArray($incoming_data, $incoming_indent)
     {
-
-        // print_r ($incoming_data);
-
-        if (count($incoming_data) > 1)
+        if (count($incoming_data) > 1) {
             return $this->addArrayInline($incoming_data, $incoming_indent);
+        }
 
         $key = key($incoming_data);
         $value = isset($incoming_data[$key]) ? $incoming_data[$key] : null;
-        if ($key === '__!YAMLZero') $key = '0';
+        if ($key === '__!YAMLZero') {
+            $key = '0';
+        }
 
-        if ($incoming_indent == 0 && !$this->_containsGroupAlias && !$this->_containsGroupAnchor) { // Shortcut for root-level values.
+        if ($incoming_indent == 0 && !$this->_containsGroupAlias && !$this->_containsGroupAnchor) {
+            // Shortcut for root-level values.
             if ($key || $key === '' || $key === '0') {
                 $this->result[$key] = $value;
             } else {
@@ -873,7 +954,6 @@ class YamlService
             $this->path[$incoming_indent] = $key;
             return;
         }
-
 
         $history = [];
         // Unfolding inner array tree.
@@ -887,7 +967,6 @@ class YamlService
             $this->_containsGroupAlias = false;
         }
 
-
         // Adding string or numeric key to the innermost level or $this->arr.
         if (is_string($key) && $key == '<<') {
             if (!is_array($_arr)) {
@@ -895,11 +974,12 @@ class YamlService
             }
 
             $_arr = array_merge($_arr, $value);
-        } else if ($key || $key === '' || $key === '0') {
-            if (!is_array($_arr))
+        } elseif ($key || $key === '' || $key === '0') {
+            if (!is_array($_arr)) {
                 $_arr = [$key => $value];
-            else
+            } else {
                 $_arr[$key] = $value;
+            }
         } else {
             if (!is_array($_arr)) {
                 $_arr = [$value];
@@ -932,26 +1012,39 @@ class YamlService
             }
             $this->_containsGroupAnchor = false;
         }
-
     }
 
     private static function startsLiteralBlock($line)
     {
         $lastChar = substr(trim($line), -1);
-        if ($lastChar != '>' && $lastChar != '|') return false;
-        if ($lastChar == '|') return $lastChar;
+        if ($lastChar != '>' && $lastChar != '|') {
+            return false;
+        }
+        if ($lastChar == '|') {
+            return $lastChar;
+        }
         // HTML tags should not be counted as literal blocks.
-        if (preg_match('#<.*?>$#', $line)) return false;
+        if (preg_match('#<.*?>$#', $line)) {
+            return false;
+        }
         return $lastChar;
     }
 
     private static function greedilyNeedNextLine($line)
     {
         $line = trim($line);
-        if (!strlen($line)) return false;
-        if (substr($line, -1, 1) == ']') return false;
-        if ($line[0] == '[') return true;
-        if (preg_match('#^[^:]+?:\s*\[#', $line)) return true;
+        if (!strlen($line)) {
+            return false;
+        }
+        if (substr($line, -1, 1) == ']') {
+            return false;
+        }
+        if ($line[0] == '[') {
+            return true;
+        }
+        if (preg_match('#^[^:]+?:\s*\[#', $line)) {
+            return true;
+        }
         return false;
     }
 
@@ -965,66 +1058,88 @@ class YamlService
         if ($literalBlockStyle == '|') {
             return $literalBlock . $line;
         }
-        if (strlen($line) == 0)
+        if (strlen($line) == 0) {
             return rtrim($literalBlock, ' ') . "\n";
+        }
         if ($line == "\n" && $literalBlockStyle == '>') {
             return rtrim($literalBlock, " \t") . "\n";
         }
-        if ($line != "\n")
+        if ($line != "\n") {
             $line = trim($line, "\r\n ") . " ";
+        }
+
         return $literalBlock . $line;
     }
 
-    function revertLiteralPlaceHolder($lineArray, $literalBlock)
+    public function revertLiteralPlaceHolder($lineArray, $literalBlock)
     {
         foreach ($lineArray as $k => $_) {
-            if (is_array($_))
+            if (is_array($_)) {
                 $lineArray[$k] = $this->revertLiteralPlaceHolder($_, $literalBlock);
-            else if (substr($_, -1 * strlen($this->LiteralPlaceHolder)) == $this->LiteralPlaceHolder)
+            } elseif (substr($_, -1 * strlen($this->LiteralPlaceHolder)) == $this->LiteralPlaceHolder) {
                 $lineArray[$k] = rtrim($literalBlock, " \r\n");
+            }
         }
+
         return $lineArray;
     }
 
     private static function stripIndent($line, $indent = -1)
     {
-        if ($indent == -1) $indent = strlen($line) - strlen(ltrim($line));
+        if ($indent == -1) {
+            $indent = strlen($line) - strlen(ltrim($line));
+        }
+
         return substr($line, $indent);
     }
 
     private function getParentPathByIndent($indent)
     {
-        if ($indent == 0) return [];
+        if ($indent == 0) {
+            return [];
+        }
         $linePath = $this->path;
         do {
             end($linePath);
             $lastIndentInParentPath = key($linePath);
-            if ($indent <= $lastIndentInParentPath) array_pop($linePath);
+            if ($indent <= $lastIndentInParentPath) {
+                array_pop($linePath);
+            }
         } while ($indent <= $lastIndentInParentPath);
+
         return $linePath;
     }
 
-
     private function clearBiggerPathValues($indent)
     {
-
-
-        if ($indent == 0) $this->path = [];
-        if (empty ($this->path)) return true;
+        if ($indent == 0) {
+            $this->path = [];
+        }
+        if (empty($this->path)) {
+            return true;
+        }
 
         foreach ($this->path as $k => $_) {
-            if ($k > $indent) unset ($this->path[$k]);
+            if ($k > $indent) {
+                unset($this->path[$k]);
+            }
         }
 
         return true;
     }
 
-
     private static function isComment($line)
     {
-        if (!$line) return false;
-        if ($line[0] == '#') return true;
-        if (trim($line, " \r\n\t") == '---') return true;
+        if (!$line) {
+            return false;
+        }
+        if ($line[0] == '#') {
+            return true;
+        }
+        if (trim($line, " \r\n\t") == '---') {
+            return true;
+        }
+
         return false;
     }
 
@@ -1033,13 +1148,19 @@ class YamlService
         return (trim($line) === '');
     }
 
-
     private function isArrayElement($line)
     {
-        if (!$line || !is_scalar($line)) return false;
-        if (substr($line, 0, 2) != '- ') return false;
-        if (strlen($line) > 3)
-            if (substr($line, 0, 3) == '---') return false;
+        if (!$line || !is_scalar($line)) {
+            return false;
+        }
+        if (substr($line, 0, 2) != '- ') {
+            return false;
+        }
+        if (strlen($line) > 3) {
+            if (substr($line, 0, 3) == '---') {
+                return false;
+            }
+        }
 
         return true;
     }
@@ -1051,18 +1172,31 @@ class YamlService
 
     private function isLiteral($line)
     {
-        if ($this->isArrayElement($line)) return false;
-        if ($this->isHashElement($line)) return false;
+        if ($this->isArrayElement($line)) {
+            return false;
+        }
+        if ($this->isHashElement($line)) {
+            return false;
+        }
+
         return true;
     }
 
-
     private static function unquote($value)
     {
-        if (!$value) return $value;
-        if (!is_string($value)) return $value;
-        if ($value[0] == '\'') return trim($value, '\'');
-        if ($value[0] == '"') return trim($value, '"');
+        if (!$value) {
+            return $value;
+        }
+        if (!is_string($value)) {
+            return $value;
+        }
+        if ($value[0] == '\'') {
+            return trim($value, '\'');
+        }
+        if ($value[0] == '"') {
+            return trim($value, '"');
+        }
+
         return $value;
     }
 
@@ -1077,6 +1211,7 @@ class YamlService
         $key = self::unquote(trim(substr($line, 1, -1)));
         $array[$key] = [];
         $this->delayedPath = [strpos($line, $key) + $this->indent => $key];
+
         return [$array];
     }
 
@@ -1095,6 +1230,7 @@ class YamlService
         $array = [];
         $key = self::unquote(trim(substr($line, 0, -1)));
         $array[$key] = '';
+
         return $array;
     }
 
@@ -1132,19 +1268,23 @@ class YamlService
             }
             // Set the type of the value.  Int, string, etc
             $value = $this->_toType($value);
-            if ($key === '0') $key = '__!YAMLZero';
+            if ($key === '0') {
+                $key = '__!YAMLZero';
+            }
             $array[$key] = $value;
         } else {
             $array = [$line];
         }
+
         return $array;
-
     }
-
 
     private function returnArrayElement($line)
     {
-        if (strlen($line) <= 1) return [[]]; // Weird %)
+        if (strlen($line) <= 1) {
+            return [[]]; // Weird %)
+        }
+
         $array = [];
         $value = trim(substr($line, 1));
         $value = $this->_toType($value);
@@ -1152,28 +1292,43 @@ class YamlService
             $value = $this->returnArrayElement($value);
         }
         $array[] = $value;
+
         return $array;
     }
-
 
     private function nodeContainsGroup($line)
     {
         $symbolsForReference = 'A-z0-9_\-';
-        if (strpos($line, '&') === false && strpos($line, '*') === false) return false; // Please die fast ;-)
-        if ($line[0] == '&' && preg_match('/^(&[' . $symbolsForReference . ']+)/', $line, $matches)) return $matches[1];
-        if ($line[0] == '*' && preg_match('/^(\*[' . $symbolsForReference . ']+)/', $line, $matches)) return $matches[1];
-        if (preg_match('/(&[' . $symbolsForReference . ']+)$/', $line, $matches)) return $matches[1];
-        if (preg_match('/(\*[' . $symbolsForReference . ']+$)/', $line, $matches)) return $matches[1];
-        if (preg_match('#^\s*<<\s*:\s*(\*[^\s]+).*$#', $line, $matches)) return $matches[1];
-        return false;
+        if (strpos($line, '&') === false && strpos($line, '*') === false) {
+            return false; // Please die fast ;-)
+        }
+        if ($line[0] == '&' && preg_match('/^(&[' . $symbolsForReference . ']+)/', $line, $matches)) {
+            return $matches[1];
+        }
+        if ($line[0] == '*' && preg_match('/^(\*[' . $symbolsForReference . ']+)/', $line, $matches)) {
+            return $matches[1];
+        }
+        if (preg_match('/(&[' . $symbolsForReference . ']+)$/', $line, $matches)) {
+            return $matches[1];
+        }
+        if (preg_match('/(\*[' . $symbolsForReference . ']+$)/', $line, $matches)) {
+            return $matches[1];
+        }
+        if (preg_match('#^\s*<<\s*:\s*(\*[^\s]+).*$#', $line, $matches)) {
+            return $matches[1];
+        }
 
+        return false;
     }
 
     private function addGroup($line, $group)
     {
-        if ($group[0] == '&') $this->_containsGroupAnchor = substr($group, 1);
-        if ($group[0] == '*') $this->_containsGroupAlias = substr($group, 1);
-        //print_r ($this->path);
+        if ($group[0] == '&') {
+            $this->_containsGroupAnchor = substr($group, 1);
+        }
+        if ($group[0] == '*') {
+            $this->_containsGroupAlias = substr($group, 1);
+        }
     }
 
     private function stripGroup($line, $group)

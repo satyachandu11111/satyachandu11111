@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-email
- * @version   2.1.6
+ * @version   2.1.11
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -166,7 +166,9 @@ class Modifier implements ModifierInterface
             $chainData = [
                 'id_field_name' => QueueInterface::ID,
                 ChainInterface::ID => $chain->getId(),
-                TemplateInterface::TITLE  => $chain->getTemplate()->getTitle(),
+                TemplateInterface::TITLE  => $chain->getTemplate()
+                    ? $chain->getTemplate()->getTitle()
+                    : __('No Template Selected'),
                 'info'                    => $chain->toString(),
                 'report'                  => [],
                 'delete_url'              => $this->urlBuilder->getUrl(

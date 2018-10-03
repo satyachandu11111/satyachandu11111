@@ -6,7 +6,7 @@
     "mirasvit/module-core": "^1.2"
   },
   "type": "magento2-module",
-  "version": "1.0.7",
+  "version": "1.0.12",
   "license": [
     "proprietary"
   ],

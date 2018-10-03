@@ -9,9 +9,10 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-core
- * @version   1.2.68
+ * @version   1.2.72
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
+
 
 
 namespace Mirasvit\Core\Model;
@@ -57,7 +58,6 @@ class Config
     {
         return (bool)$this->scopeConfig->getValue('mst_core/css/include_font_awesome');
     }
-
 
     /**
      * @return string

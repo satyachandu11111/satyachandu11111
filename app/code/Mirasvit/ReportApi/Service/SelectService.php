@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-report-api
- * @version   1.0.7
+ * @version   1.0.12
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -28,6 +28,7 @@ use Mirasvit\ReportApi\Api\Config\RelationInterface;
 use Mirasvit\ReportApi\Api\Config\TableInterface;
 use Mirasvit\ReportApi\Api\Config\TypeInterface;
 use Mirasvit\ReportApi\Api\RequestInterface;
+use Mirasvit\ReportApi\Api\Service\SelectPillInterface;
 use Mirasvit\ReportApi\Api\Service\SelectServiceInterface;
 use Mirasvit\ReportApi\Config\Entity\Relation;
 use Mirasvit\ReportApi\Config\Entity\Table;
@@ -76,13 +77,19 @@ class SelectService implements SelectServiceInterface
 
     private $cache = [];
 
+    /**
+     * @var SelectPillInterface[]
+     */
+    private $pills;
+
     public function __construct(
         TableService $tableService,
         SelectFactory $selectFactory,
         Schema $schema,
         ObjectManagerInterface $objectManager,
         ResourceConnection $resource,
-        TimezoneInterface $timezone
+        TimezoneInterface $timezone,
+        array $pills = []
     ) {
         $this->tableService = $tableService;
         $this->selectFactory = $selectFactory;
@@ -90,6 +97,7 @@ class SelectService implements SelectServiceInterface
         $this->objectManager = $objectManager;
         $this->resource = $resource;
         $this->timezone = $timezone;
+        $this->pills = $pills;
     }
 
     /**
@@ -336,7 +344,7 @@ class SelectService implements SelectServiceInterface
      */
     private function joinWays(TableInterface $currentTable, TableInterface $requiredTable, $relations = [], $tables = [], $level = 0)
     {
-        if ($level > 3) {
+        if ($level > 5) {
             return [];
         }
 
@@ -383,7 +391,6 @@ class SelectService implements SelectServiceInterface
                     }
                 }
             }
-
         }
 
         return $ways;
@@ -399,6 +406,12 @@ class SelectService implements SelectServiceInterface
             ->addFieldToSelect($baseTable->getPkField())
             ->addColumnToSelect($column, $column->getName())
             ->addFieldToGroup($baseTable->getPkField());
+
+        foreach ($this->pills as $pill) {
+            if ($pill->isApplicable($request, $column, $baseTable)) {
+                $pill->take($select, $column, $baseTable, $request);
+            }
+        }
 
         $select->where($baseTable->getPkField()->toDbExpr() . '>0');
 
@@ -462,7 +475,10 @@ class SelectService implements SelectServiceInterface
         //        echo $select.'<br>';
         //        echo __LINE__.' '.round($ts - microtime(true), 4) . '*<br>';
 
+
+        $this->applyTimeZone($this->resource->getConnection());
         $this->resource->getConnection()->query($insertQuery);
+        $this->restoreTimeZone($this->resource->getConnection());
 
         /** @var TableInterface $table */
         $table = $this->objectManager->create(Table::class, [
@@ -507,7 +523,8 @@ class SelectService implements SelectServiceInterface
         }
 
         if (!isset($select)) {
-            throw new LocalizedException(__('Select does not exists for required table %1, current table %2',
+            throw new LocalizedException(__(
+                'Select does not exists for required table %1, current table %2',
                 $requiredTable,
                 $currentTable
             ));

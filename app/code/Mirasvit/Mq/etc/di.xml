@@ -9,6 +9,15 @@
     <preference for="Mirasvit\Mq\Api\Repository\ConsumerRepositoryInterface" type="Mirasvit\Mq\Repository\ConsumerRepository"/>
     <preference for="Mirasvit\Mq\Api\Service\QueueServiceInterface" type="Mirasvit\Mq\Service\QueueService"/>
 
+    <!-- Validator -->
+    <type name="Mirasvit\Core\Api\Service\ValidationServiceInterface">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="mq_validator" xsi:type="object">Mirasvit\Mq\Service\Validator</item>
+            </argument>
+        </arguments>
+    </type>
+
     <!-- Push available providers to queue repository -->
     <type name="Mirasvit\Mq\Repository\QueueRepository">
         <arguments>

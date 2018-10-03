@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-report-api
- * @version   1.0.7
+ * @version   1.0.12
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -41,5 +41,10 @@ class Year implements AggregatorInterface
     public function getExpression()
     {
         return $this->resource->getConnection()->getDateFormatSql('%1', '%Y-01-01 00:00:00');
+    }
+
+    public function getLabel()
+    {
+        return 'Year';
     }
 }

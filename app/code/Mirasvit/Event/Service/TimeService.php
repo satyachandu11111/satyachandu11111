@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-event
- * @version   1.2.14
+ * @version   1.2.15
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 

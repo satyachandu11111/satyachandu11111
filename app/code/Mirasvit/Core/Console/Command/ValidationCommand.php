@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-core
- * @version   1.2.68
+ * @version   1.2.72
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -53,7 +53,6 @@ class ValidationCommand extends Command
 
         parent::__construct();
     }
-
 
     /**
      * {@inheritdoc}
@@ -172,7 +171,6 @@ class ValidationCommand extends Command
             return self::COMPANY_NAMESPACE . '_' . ucfirst($module);
         }, $input->getArgument(self::INPUT_KEY_MODULES));
 
-
         $result = $this->validationService->runValidation($modules);
         if (!$result) {
             $output->writeln(sprintf('Validation does exist for given extension(s): "%s"', implode(', ', $modules)));
@@ -182,11 +180,16 @@ class ValidationCommand extends Command
         }
 
         $table = new Table($output);
-        $table->setHeaders(['Test', 'Status', 'How to fix']);
+        $table->setHeaders(['Status', 'Module', 'Test', 'How to fix']);
         foreach ($result as $test) {
-            $tag = $this->getStatusTag($test[0]);
-            $status = "<$tag>" . strtoupper($this->getStatusLabel($test[0])) . "</$tag>";
-            $table->addRow([$test[1], $status, implode("\n", $test[2])]);
+            $tag = $this->getStatusTag($test[ValidatorInterface::STATUS_CODE]);
+            $status = "<$tag>" . strtoupper($this->getStatusLabel($test[ValidatorInterface::STATUS_CODE])) . "</$tag>";
+            $table->addRow([
+                $status,
+                $test[ValidatorInterface::MODULE_NAME],
+                $test[ValidatorInterface::TEST_NAME],
+                $test[ValidatorInterface::MESSAGE],
+            ]);
         }
 
         $table->render();

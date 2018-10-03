@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-core
- * @version   1.2.68
+ * @version   1.2.72
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -17,8 +17,8 @@
 
 namespace Mirasvit\Core\Block\Adminhtml;
 
-
 use Magento\Backend\Block\Template;
+use Magento\Backend\Block\Template\Context;
 use Mirasvit\Core\Api\Service\ValidationServiceInterface;
 use Mirasvit\Core\Api\Service\ValidatorInterface;
 
@@ -32,13 +32,13 @@ class Validator extends Template
     private $validationService;
 
     /**
-     * @var bool
+     * @var array[]
      */
     private $results = [];
 
     public function __construct(
         ValidationServiceInterface $validationService,
-        \Magento\Backend\Block\Template\Context $context,
+        Context $context,
         array $data = []
     ) {
         $this->validationService = $validationService;
@@ -49,13 +49,19 @@ class Validator extends Template
     /**
      * Get validation result.
      *
-     * @return string[]
+     * @return array[]
      */
     public function getResult()
     {
         if (!$this->results) {
+            $modules = [];
+
             $module = $this->getRequest()->getParam('module');
-            $this->results = $this->validationService->runValidation([$module]);
+            if ($module) {
+                $modules[] = $module;
+            }
+
+            $this->results = $this->validationService->runValidation($modules);
         }
 
         return $this->results;
@@ -66,10 +72,10 @@ class Validator extends Template
      *
      * @return bool
      */
-    public function getIsPassed()
+    public function isPassed()
     {
         foreach ($this->getResult() as $result) {
-            if ($result[0] == ValidatorInterface::FAILED) {
+            if ($result[ValidatorInterface::STATUS_CODE] == ValidatorInterface::FAILED) {
                 return false;
             }
         }
@@ -90,7 +96,7 @@ class Validator extends Template
             ValidatorInterface::FAILED  => 'error',
             ValidatorInterface::WARNING => 'warning',
             ValidatorInterface::INFO    => 'info',
-            ValidatorInterface::SUCCESS => 'success'
+            ValidatorInterface::SUCCESS => 'success',
         ];
 
         return $statusLabels[$status];

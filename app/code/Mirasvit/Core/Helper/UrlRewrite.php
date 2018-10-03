@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-core
- * @version   1.2.68
+ * @version   1.2.72
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -54,6 +54,11 @@ class UrlRewrite extends AbstractHelper implements UrlRewriteHelperInterface
     protected $scopeConfig;
 
     /**
+     * @var StoreManagerInterface
+     */
+    protected $storeManager;
+
+    /**
      * @var array
      */
     protected $config = [];
@@ -63,16 +68,6 @@ class UrlRewrite extends AbstractHelper implements UrlRewriteHelperInterface
      */
     protected $configB = [];
 
-
-    /**
-     * {@inheritdoc}
-     *
-     * @param UrlRewriteFactory           $urlRewriteFactory
-     * @param UrlRewriteCollectionFactory $urlRewriteCollectionFactory
-     * @param FilterManager               $filter
-     * @param StoreManagerInterface       $storeManager
-     * @param Context                     $context
-     */
     public function __construct(
         UrlRewriteFactory $urlRewriteFactory,
         UrlRewriteCollectionFactory $urlRewriteCollectionFactory,
@@ -154,8 +149,7 @@ class UrlRewrite extends AbstractHelper implements UrlRewriteHelperInterface
                     ->addFieldToFilter('module', $module)
                     ->addFieldToFilter('type', $type)
                     ->addFieldToFilter('entity_id', $entity->getId())
-                    ->addFieldToFilter('store_id', ['in' => [0, $this->storeManager->getStore()->getId()]])
-                ;
+                    ->addFieldToFilter('store_id', ['in' => [0, $this->storeManager->getStore()->getId()]]);
                 if ($collection->count()) {
                     /** @var \Mirasvit\Core\Model\UrlRewrite $rewrite */
                     $rewrite = $collection->getFirstItem();
@@ -174,12 +168,12 @@ class UrlRewrite extends AbstractHelper implements UrlRewriteHelperInterface
     /**
      * Return unique path (recursive check)
      *
-     * @param string $module   module alias (kbase)
-     * @param string $type     path type (category, article etc)
-     * @param string $path     path url key
+     * @param string $module module alias (kbase)
+     * @param string $type path type (category, article etc)
+     * @param string $path path url key
      * @param string $entityId entity id
-     * @param int    $storeId  store id
-     * @param array  $i        additional
+     * @param int $storeId store id
+     * @param array $i additional
      * @return string
      */
     protected function getUniquePath($module, $type, $path, $entityId, $storeId, $i = [])
@@ -232,13 +226,12 @@ class UrlRewrite extends AbstractHelper implements UrlRewriteHelperInterface
             ->addFieldToFilter('module', $module)
             ->addFieldToFilter('type', $type)
             ->addFieldToFilter('entity_id', $objectId)
-            ->addFieldToFilter('store_id', $storeId)
-        ;
+            ->addFieldToFilter('store_id', $storeId);
         if ($collection->count()) {
             /** @var \Mirasvit\Core\Model\UrlRewrite $rewrite */
             $rewrite = $collection->getFirstItem();
             $rewrite->setUrlKey($path)
-                ->setStoreId($storeId) //compatibility with old versions
+                ->setStoreId($storeId)//compatibility with old versions
                 ->save();
         } else {
             $rewrite = $this->urlRewriteFactory->create();
@@ -300,8 +293,8 @@ class UrlRewrite extends AbstractHelper implements UrlRewriteHelperInterface
     /**
      * Absolute url by key
      *
-     * @param string     $basePath
-     * @param string     $urlKey
+     * @param string $basePath
+     * @param string $urlKey
      * @param bool|false $params
      * @return string
      */
@@ -356,7 +349,7 @@ class UrlRewrite extends AbstractHelper implements UrlRewriteHelperInterface
      * @return bool|DataObject
      *
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
-     *  @SuppressWarnings(PHPMD.NPathComplexity)
+     * @SuppressWarnings(PHPMD.NPathComplexity)
      */
     public function match($pathInfo)
     {
@@ -371,11 +364,11 @@ class UrlRewrite extends AbstractHelper implements UrlRewriteHelperInterface
         }
         $configUrlSuffix = $this->scopeConfig->getValue('catalog/seo/product_url_suffix');
         if ($configUrlSuffix && $pathInfo == $this->getUrlKeyWithoutSuffix($pathInfo)) {
-            $result = new DataObject(['forwardUrl' => $this->getUrlKeyWithoutSuffix($pathInfo).$configUrlSuffix]);
+            $result = new DataObject(['forwardUrl' => $this->getUrlKeyWithoutSuffix($pathInfo) . $configUrlSuffix]);
 
             return $result;
         }
-        if ($pathInfo != $this->getUrlKeyWithoutSuffix($pathInfo).$configUrlSuffix) {
+        if ($pathInfo != $this->getUrlKeyWithoutSuffix($pathInfo) . $configUrlSuffix) {
             return false;
         }
         $module = $this->configB[$parts[0]];

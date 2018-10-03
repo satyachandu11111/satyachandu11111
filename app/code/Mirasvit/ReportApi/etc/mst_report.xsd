@@ -39,6 +39,7 @@
             </xs:sequence>
             <xs:attribute type="xs:string" name="name" use="required"/>
             <xs:attribute type="xs:string" name="label"/>
+            <xs:attribute type="xs:string" name="group"/>
             <xs:attribute type="xs:string" name="type" use="required"/>
             <xs:attribute type="connectionDeclaration" name="connection"/>
         </xs:complexType>
@@ -52,6 +53,7 @@
                 <xs:element ref="column" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
             <xs:attribute type="xs:string" name="name" use="required"/>
+            <xs:attribute type="xs:string" name="group"/>
             <xs:attribute type="xs:string" name="label"/>
             <xs:attribute type="connectionDeclaration" name="connection"/>
         </xs:complexType>
@@ -81,7 +83,7 @@
         <xs:complexType>
             <xs:attribute type="xs:string" name="name" use="required"/>
             <xs:attribute type="xs:string" name="label"/>
-            <xs:attribute type="xs:string" name="table" use="required" />
+            <xs:attribute type="xs:string" name="table" use="required"/>
             <xs:attribute type="columnUniqDeclaration" name="uniq"/>
             <xs:attribute type="xs:string" name="options"/>
         </xs:complexType>
@@ -102,7 +104,7 @@
 
     <xs:simpleType name="columnTypeDeclaration">
         <xs:restriction base="xs:string">
-            <xs:pattern value="pk|fk|number|percent|money|html|date|select|country|store|qty|Mirasvit.*"/>
+            <xs:pattern value="pk|fk|number|percent|money|html|date|select|country|store|qty|serialized|Mirasvit.*"/>
         </xs:restriction>
     </xs:simpleType>
 

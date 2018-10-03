@@ -5,5 +5,8 @@
         <job name="mq_process" instance="Mirasvit\Mq\Cron\ProcessCron" method="execute">
             <schedule>*/1 * * * *</schedule>
         </job>
+        <job name="clean_history" instance="Mirasvit\Mq\Cron\CleanHistory" method="execute">
+            <schedule>0 1 * * *</schedule>
+        </job>
     </group>
 </config>

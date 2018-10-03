@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-report-api
- * @version   1.0.7
+ * @version   1.0.12
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -22,7 +22,6 @@ use Mirasvit\ReportApi\Config\Loader\Map;
 use Magento\Eav\Model\EntityFactory as EavEntityFactory;
 use Magento\Eav\Model\Config;
 use Mirasvit\ReportApi\Service\TableService;
-
 
 class EavTable extends Table
 {
@@ -41,17 +40,16 @@ class EavTable extends Table
      */
     private $eavFieldFactory;
 
-
     /**
      * @var CacheInterface
      */
     private $cache;
 
+    /**
+     * @var Map
+     */
     private $map;
 
-    /**
-     * {@inheritdoc}
-     */
     public function __construct(
         Map $map,
         EavFieldFactory $eavFieldFactory,
@@ -63,9 +61,10 @@ class EavTable extends Table
         FieldFactory $fieldFactory,
         $name,
         $label,
+        $group = null,
         $connection = 'default'
     ) {
-        parent::__construct($tableService, $fieldFactory, $name, $label, $connection);
+        parent::__construct($tableService, $fieldFactory, $name, $label, $group, $connection);
 
         $this->map = $map;
         $this->eavFieldFactory = $eavFieldFactory;
@@ -108,6 +107,9 @@ class EavTable extends Table
                     $cache = $this->cache->load($identifier);
                     if ($cache) {
                         $options = \Zend_Json::decode($cache);
+                    } elseif ($attribute->getSourceModel() && !class_exists($attribute->getSourceModel())) {
+                        unset($this->fieldsPool[$field->getName()]);
+                        continue;
                     } else {
                         $options = $attribute->getSource()->toOptionArray();
                         $this->cache->save(\Zend_Json::encode($options), $identifier);

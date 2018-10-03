@@ -2,7 +2,7 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="../../../../module-report-api/src/ReportApi/etc/mst_report.xsd">
 
-    <table name="sales_order" label="Orders" connection="sales">
+    <table name="sales_order" label="Orders" group="Sales" connection="sales">
         <pk name="entity_id" label="Order"/>
         <fk name="customer_id" label="Customer" table="customer_entity"/>
         <fk name="billing_address_id" table="sales_order_address"/>
@@ -81,7 +81,7 @@
         <column name="coupon_rule_name" label="Cart Price Rule"/>
     </table>
 
-    <table name="sales_order_item" label="Order Items" connection="sales">
+    <table name="sales_order_item" label="Order Items" group="Sales" connection="sales">
         <pk name="item_id"/>
         <fk name="order_id" table="sales_order"/>
         <fk name="quote_item_id" table="quote_item" uniq="1"/>
@@ -137,7 +137,7 @@
 
     </table>
 
-    <table name="sales_order_payment" label="Order Payments" connection="sales">
+    <table name="sales_order_payment" label="Order Payments" group="Sales" connection="sales">
         <pk name="entity_id"/>
         <fk name="parent_id" table="sales_order" uniq="1"/>
 
@@ -145,7 +145,7 @@
                 options="Mirasvit\Report\Config\Source\Sales\PaymentMethod"/>
     </table>
 
-    <table name="sales_payment_transaction" label="Payment Transactions" connection="sales">
+    <table name="sales_payment_transaction" label="Payment Transactions" group="Sales" connection="sales">
         <pk name="transaction_id" label="Transaction ID"/>
         <fk name="order_id" table="sales_order" uniq="1"/>
 
@@ -155,7 +155,7 @@
         <column name="created_at" label="Created At" type="date"/>
     </table>
 
-    <table name="sales_order_tax" label="Order Taxes" connection="sales">
+    <table name="sales_order_tax" label="Order Taxes" group="Sales" connection="sales">
         <pk name="tax_id" label="Tax ID"/>
         <fk name="order_id" table="sales_order" uniq="1"/>
 
@@ -165,7 +165,7 @@
         <column name="base_amount" label="Tax Amount" type="money"/>
     </table>
 
-    <table name="sales_order_address" label="Order Addresses" connection="sales">
+    <table name="sales_order_address" label="Order Addresses" group="Sales" connection="sales">
         <pk name="entity_id"/>
         <fk name="parent_id" table="sales_order"/>
 
@@ -183,8 +183,7 @@
         <column name="created_at" label="Created At" type="date" tables="sales_order" fields="sales_order.created_at"/>
     </table>
 
-
-    <table name="quote" label="Quotes" connection="checkout">
+    <table name="quote" label="Quotes" group="Sales" connection="checkout">
         <pk name="entity_id" label="Cart"/>
         <fk name="customer_id" table="customer_entity"/>
 
@@ -222,7 +221,7 @@
         <column name="coupon_code" label="Coupon Code"/>
     </table>
 
-    <table name="quote_item" label="Quote Items" connection="checkout">
+    <table name="quote_item" label="Quote Items" group="Sales" connection="checkout">
         <pk name="item_id"/>
         <fk name="quote_id" table="quote"/>
         <fk name="product_id" table="catalog_product_entity"/>
@@ -250,14 +249,14 @@
                 tables="quote"/>
     </table>
 
-    <table name="cataloginventory_stock_item" label="Stock Items">
+    <table name="cataloginventory_stock_item" group="Products" label="Stock Items">
         <pk name="item_id"/>
         <fk name="product_id" table="catalog_product_entity" uniq="1"/>
 
         <column name="qty" label="Stock Qty" type="qty"/>
     </table>
 
-    <table name="sales_invoice" connection="sales" label="Invoices">
+    <table name="sales_invoice" group="Sales" connection="sales" label="Invoices">
         <pk name="entity_id"/>
         <fk name="order_id" table="sales_order" uniq="1"/>
         <fk name="billing_address_id" table="sales_order_address"/>
@@ -270,7 +269,7 @@
         <fk name="product_id" table="catalog_product_entity"/>
     </table>
 
-    <eavTable name="customer_entity" label="Customers" type="customer">
+    <eavTable name="customer_entity" label="Customers" group="Customers" type="customer">
         <pk name="entity_id" label="Customer ID"/>
         <fk name="default_billing" table="customer_address_entity"/>
 
@@ -278,11 +277,11 @@
         <column name="group_id" label="Group" type="select" options="Mirasvit\Report\Config\Source\Customer\Group"/>
     </eavTable>
 
-    <eavTable name="customer_address_entity" label="Customer Addresses" type="customer_address">
+    <eavTable name="customer_address_entity" label="Customer Addresses" group="Customers" type="customer_address">
         <pk name="entity_id"/>
     </eavTable>
 
-    <eavTable name="catalog_product_entity" label="Products" type="catalog_product">
+    <eavTable name="catalog_product_entity" label="Products" group="Products" type="catalog_product">
         <pk name="entity_id" label="Product ID"/>
 
         <column name="sku" label="SKU" uniq="1"/>
@@ -294,7 +293,7 @@
         <column name="attribute" label="Attribute" fields="entity_id"/>
     </eavTable>
 
-    <eavTable name="catalog_category_entity" label="Categories" type="catalog_category">
+    <eavTable name="catalog_category_entity" label="Categories" group="Categories" type="catalog_category">
         <pk name="entity_id" label="Category ID"/>
     </eavTable>
 

@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-core
- * @version   1.2.68
+ * @version   1.2.72
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -17,9 +17,9 @@
 
 namespace Mirasvit\Core\Controller\Adminhtml\Validator;
 
-
 use Magento\Backend\App\Action;
 use Magento\Framework\Controller\ResultFactory;
+use Mirasvit\Core\Block\Adminhtml\Validator;
 
 class Index extends Action
 {
@@ -37,9 +37,14 @@ class Index extends Action
     {
         /** @var \Magento\Framework\Controller\Result\Json $resultJson */
         $resultJson = $this->resultFactory->create(ResultFactory::TYPE_JSON);
+
         /** @var \Mirasvit\Core\Block\Adminhtml\Validator $validator */
-        $validator = $this->_view->getLayout()->createBlock(\Mirasvit\Core\Block\Adminhtml\Validator::class);
-        $resultJson->setData(['content' => $validator->toHtml(), 'isPassed' => $validator->getIsPassed()]);
+        $validator = $this->_view->getLayout()->createBlock(Validator::class);
+
+        $resultJson->setData([
+            'content'  => $validator->toHtml(),
+            'isPassed' => $validator->isPassed(),
+        ]);
 
         return $resultJson;
     }

@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-report-api
- * @version   1.0.7
+ * @version   1.0.12
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -195,7 +195,8 @@ class Collection implements CollectionInterface
                 $clone->setExpression('%1');
                 $clone->setFields([$clone->getName()]);
 
-                $this->select->joinLeft($table->getName(),
+                $this->select->joinLeft(
+                    $table->getName(),
                     $table->getPkField()->toDbExpr() . '=' . $baseTable->getPkField()->toDbExpr(),
                     []
                 )->order($clone->toDbExpr() . ' ' . $sortOrder->getDirection());
@@ -316,9 +317,9 @@ class Collection implements CollectionInterface
             $column = $this->schema->getColumn($columnName);
 
             if ($this->selectService->getRelationType(
-                    $column->getTable(),
-                    $this->schema->getTable($this->request->getTable())
-                ) == RelationInterface::TYPE_MANY) {
+                $column->getTable(),
+                $this->schema->getTable($this->request->getTable())
+            ) == RelationInterface::TYPE_MANY) {
                 $result[$columnName] = null;
                 continue;
             }
@@ -334,7 +335,7 @@ class Collection implements CollectionInterface
                 }
 
                 $result[$columnName] = implode(', ', $values);
-            } elseif(!in_array($column->getType()->getValueType(), [TypeInterface::VALUE_TYPE_NUMBER])) {
+            } elseif (!in_array($column->getType()->getValueType(), [TypeInterface::VALUE_TYPE_NUMBER])) {
                 $result[$columnName] = null;
             } elseif ($column->getAggregator()->getType() == AggregatorInterface::TYPE_AVERAGE) {
                 $result[$columnName] /= count($rows);

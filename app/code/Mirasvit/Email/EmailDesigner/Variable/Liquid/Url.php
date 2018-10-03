@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-email
- * @version   2.1.6
+ * @version   2.1.11
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -20,6 +20,7 @@ use Magento\Framework\UrlInterface;
 use Mirasvit\EmailDesigner\Service\TemplateEngine\Liquid\Variable\AbstractVariable;
 use Mirasvit\EmailDesigner\Service\TemplateEngine\Liquid\Variable\Context;
 use Mirasvit\Email\Model\Config;
+use Mirasvit\EmailDesigner\Service\TemplateEngine\Liquid\Variable\Store as StoreVariable;
 
 class Url extends AbstractVariable
 {
@@ -32,19 +33,27 @@ class Url extends AbstractVariable
      * @var Context
      */
     protected $context;
-
     /**
-     * @param UrlInterface $urlBuilder
-     * @param Context      $context
+     * @var StoreVariable
      */
+    private $store;
+    /**
+     * @var StoreVariable
+     */
+    private $storeVariable;
+
     public function __construct(
+        StoreVariable $storeVariable,
         UrlInterface $urlBuilder,
         Context $context,
         Config $config
     ) {
+        parent::__construct();
+
         $this->urlBuilder = $urlBuilder;
         $this->context = $context;
         $this->config = $config;
+        $this->storeVariable = $storeVariable;
     }
 
     /**
@@ -125,7 +134,7 @@ class Url extends AbstractVariable
     protected function _getUrl($route, $params = [])
     {
         /** @var \Magento\Store\Model\Store $store */
-        $store = $this->context->getStore();
+        $store = $this->storeVariable->setContext($this->context)->getStore();
         if ($this->context->getQueue() && $store) {
             $hash = $this->context->getQueue()->getUniqHash();
 

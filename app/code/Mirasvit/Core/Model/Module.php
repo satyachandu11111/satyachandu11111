@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-core
- * @version   1.2.68
+ * @version   1.2.72
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -77,10 +77,14 @@ class Module
     {
         if (self::$modules == null) {
             $framework = $this->getFrameworkVersion();
-            self::$modules = json_decode(
-                @file_get_contents('http://mirasvit.com/pc/modules/?framework=' . $framework),
-                true
-            );
+
+            try {
+                self::$modules = \Zend_Json::decode(@file_get_contents(
+                    'http://mirasvit.com/pc/modules/?framework=' . $framework
+                ));
+            } catch (\Exception $e) {
+                self::$modules = [];
+            }
 
             if (!is_array(self::$modules)) {
                 self::$modules = [];
@@ -114,7 +118,6 @@ class Module
         $modules = $this->getAllModules();
 
         if (array_key_exists(strtolower($moduleName), $modules)) {
-
             $m = $modules[strtolower($moduleName)];
 
             $this->moduleName = $moduleName;
@@ -138,14 +141,18 @@ class Module
      */
     public function getComposerInformation($moduleName)
     {
-        $dir = $this->dirReader->getModuleDir("", $moduleName);
+        try {
+            $dir = $this->dirReader->getModuleDir("", $moduleName);
+        } catch (\Exception $e) {
+            return false;
+        }
 
         if (file_exists($dir . '/composer.json')) {
-            return json_decode(file_get_contents($dir . '/composer.json'), true);
+            return \Zend_Json::decode(file_get_contents($dir . '/composer.json'));
         }
 
         if (file_exists($dir . '/../../composer.json')) {
-            return json_decode(file_get_contents($dir . '/../../composer.json'), true);
+            return \Zend_Json::decode(file_get_contents($dir . '/../../composer.json'));
         }
 
         return false;
@@ -159,7 +166,8 @@ class Module
         $backend = $this->dirReader->getModuleDir("", "Magento_Backend");
         $fw = dirname($backend) . '/framework';
         if (file_exists($fw . '/composer.json')) {
-            $json = json_decode(file_get_contents($fw . '/composer.json'), true);
+            $json = \Zend_Json::decode(file_get_contents($fw . '/composer.json'));
+
             if (isset($json['version'])) {
                 return $json['version'];
             }

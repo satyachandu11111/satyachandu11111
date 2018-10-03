@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-email-designer
- * @version   1.1.23
+ * @version   1.1.25
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -20,6 +20,7 @@ namespace Mirasvit\EmailDesigner\Service\TemplateEngine\Liquid\Variable;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\Model\AbstractModel;
+use Magento\Framework\View\Element\BlockFactory;
 
 class Item extends AbstractVariable
 {
@@ -65,8 +66,13 @@ class Item extends AbstractVariable
      * @var Store
      */
     private $storeVariable;
+    /**
+     * @var BlockFactory
+     */
+    private $blockFactory;
 
     public function __construct(
+        BlockFactory $blockFactory,
         Store $storeVariable,
         ScopeConfigInterface $config,
         Order $orderVariable,
@@ -80,6 +86,7 @@ class Item extends AbstractVariable
         $this->productVariable = $productVariable;
         $this->config = $config;
         $this->storeVariable = $storeVariable;
+        $this->blockFactory = $blockFactory;
     }
 
     /**
@@ -136,6 +143,27 @@ class Item extends AbstractVariable
         $result = '';
         if ($item = $this->context->getData('item')) {
             $result = $item->getPrice();
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get price HTML
+     *
+     * @return string
+     */
+    public function getPriceHtml()
+    {
+        $result = '';
+        if ($item = $this->context->getData('item')) {
+            /** @var \Magento\Weee\Block\Item\Price\Renderer $priceRender */
+            $priceRender = $this->blockFactory->createBlock(\Magento\Weee\Block\Item\Price\Renderer::class);
+            $result = $priceRender->setArea('frontend')
+                ->setTemplate('item/price/unit.phtml')
+                ->setZone('cart')
+                ->setItem($item)
+                ->toHtml();
         }
 
         return $result;

@@ -14,22 +14,31 @@ $modules = $block->getModules();
     <fieldset class="admin__collapsible-block" id="core_modules">
         <div class="admin__data-grid-wrap-static" data-bind="scope: 'mstValidator'">
             <table class="data-grid">
+                <thead>
                 <tr>
                     <th class="data-grid-th"><?= __('Module') ?></th>
                     <th class="data-grid-th" nowrap><?= __('Installed Version') ?></th>
                     <th class="data-grid-th" nowrap><?= __('Latest Version') ?></th>
-                    <th class="data-grid-th" nowrap><?= __('Validation') ?></th>
+                    <th class="data-grid-th" nowrap>
+                        <button type="button"
+                                class="action-default"
+                                data-bind="click: validate.bind($data, '')"
+                                style="width: 100%;">
+                            Validate All
+                        </button>
+                    </th>
                 </tr>
+                </thead>
                 <?php foreach ($modules as $i => $module): ?>
                     <tr>
                         <td>
-                            <?php if ($module->getUrl() && $module->getName()): ?>
-                                <a href="<?= $module->getUrl() ?>"><?= $module->getName() ?></a>
-                            <?php else: ?>
-                                &nbsp;&nbsp;&nbsp;&nbsp;
-                                <small><?= $module->getModuleName() ?></small>
+                            <?= $module->getModuleName() ?>
+
+                            <?php if ($module->getUrl()): ?>
+                                <a href="<?= $module->getUrl() ?>"><span class="fa fa-fw fa-external-link"></span></a>
                             <?php endif ?>
-                            <?php if ($module->getInstalledVersion() && version_compare($module->getInstalledVersion(), $module->getLatestVersion())): ?>
+
+                            <?php if ($module->getInstalledVersion() && version_compare($module->getInstalledVersion(), $module->getLatestVersion()) == -1): ?>
                                 <div style="float: right; color: #eb5202;">
                                     <span class="fa fa-fw fa-code-fork"></span> New version is available
                                 </div>
@@ -42,12 +51,12 @@ $modules = $block->getModules();
                             <td><?= $module->getLatestVersion() ?></td>
                         <?php endif ?>
                         <td align="center">
-                            <?php if ($block->isValidationAvailable($module)): ?>
-                                <button type="button" class="action-default"
-                                        data-bind="click: validate.bind($data, '<?= $module->getModuleName() ?>')">
-                                    Validate Installation
-                                </button>
-                            <?php endif ?>
+                            <button type="button"
+                                    class="action-default"
+                                    data-bind="click: validate.bind($data, '<?= $module->getModuleName() ?>')"
+                                    <?php if (!$block->isValidationAvailable($module)): ?>style="visibility: hidden"<?php endif ?>>
+                                Validate Installation
+                            </button>
                         </td>
                     </tr>
                 <?php endforeach ?>
@@ -80,6 +89,17 @@ $modules = $block->getModules();
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 </script>

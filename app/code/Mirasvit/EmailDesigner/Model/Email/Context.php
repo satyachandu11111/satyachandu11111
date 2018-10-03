@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-email-designer
- * @version   1.1.23
+ * @version   1.1.25
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -24,7 +24,9 @@ use Magento\Sales\Model\OrderFactory;
 use Magento\Sales\Model\Order\Address\Renderer;
 use Magento\Payment\Helper\Data as PaymentHelper;
 use Magento\Store\Model\Store;
+use Magento\Store\Model\App\Emulation;
 use Psr\Log\LoggerInterface;
+use Magento\Framework\App\Area;
 
 class Context
 {
@@ -60,13 +62,15 @@ class Context
         CustomerFactory $customerFactory,
         OrderFactory $orderFactory,
         Renderer $addressRenderer,
-        PaymentHelper $paymentHelper
+        PaymentHelper $paymentHelper,
+        Emulation $appEmulation
     ) {
         $this->addressRenderer = $addressRenderer;
         $this->paymentHelper = $paymentHelper;
         $this->orderFactory = $orderFactory;
         $this->customerFactory = $customerFactory;
         $this->logger = $logger;
+        $this->appEmulation = $appEmulation;
     }
 
     /**
@@ -104,6 +108,8 @@ class Context
                             && $this->paymentHelper->getMethodInstance($order->getPayment()->getMethod())
                         ) {
                             $variables['payment_html'] = $this->getPaymentHtml($order, $storeId);
+
+                            $this->appEmulation->startEnvironmentEmulation($storeId, Area::AREA_FRONTEND, true);
                         }
                     } catch (\Exception $e) {
                         $this->logger->info($e->getMessage());

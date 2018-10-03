@@ -9,9 +9,10 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-core
- * @version   1.2.68
+ * @version   1.2.72
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
+
 
 
 namespace Mirasvit\Core\Helper;
@@ -26,7 +27,6 @@ class ParseVariablesTest extends \PHPUnit_Framework_TestCase
      */
     protected $helper;
 
-
     /**
      * @covers \Mirasvit\Core\Helper\ParseVariables::parse
      */
@@ -36,11 +36,11 @@ class ParseVariablesTest extends \PHPUnit_Framework_TestCase
 
         $product = new DataObject([
             'name'  => 'magento',
-            'model' => 'm2'
+            'model' => 'm2',
         ]);
 
         $category = new DataObject([
-            'name' => 'category'
+            'name' => 'category',
         ]);
 
         $result = $this->helper->parse(

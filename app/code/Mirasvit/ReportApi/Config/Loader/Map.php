@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-report-api
- * @version   1.0.7
+ * @version   1.0.12
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -101,6 +101,8 @@ class Map
     {
         $attributes = $data[Converter::DATA_ATTRIBUTES_KEY];
         $attributes['label'] = isset($attributes['label']) ? $attributes['label'] : false;
+        $attributes['group'] = isset($attributes['group']) ? $attributes['group'] : false;
+
         $table = $this->objectManager->create(Table::class, $attributes);
 
         $this->schema->addTable($table);
@@ -114,6 +116,8 @@ class Map
     {
         $attributes = $data[Converter::DATA_ATTRIBUTES_KEY];
         $attributes['label'] = isset($attributes['label']) ? $attributes['label'] : false;
+        $attributes['group'] = isset($attributes['group']) ? $attributes['group'] : false;
+
         $table = $this->objectManager->create(EavTable::class, $attributes);
 
         $this->schema->addTable($table);
@@ -180,7 +184,6 @@ class Map
                 $relation = $this->objectManager->create(Relation::class, $data);
 
                 $this->schema->addRelation($relation);
-
             }
         }
     }

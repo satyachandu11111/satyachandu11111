@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-email
- * @version   2.1.6
+ * @version   2.1.11
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -23,6 +23,7 @@ use Magento\Store\Model\StoreManagerInterface;
 use Mirasvit\Email\Api\Data\ChainInterface;
 use Mirasvit\Email\Api\Data\TriggerInterface;
 use Mirasvit\Email\Api\Repository\TriggerRepositoryInterface;
+use Mirasvit\Email\Api\Service\EventManagementInterface;
 use Mirasvit\Email\Api\Service\SenderInterface;
 use Mirasvit\Email\Api\Service\TriggerHandlerInterface;
 use Mirasvit\Event\Api\Repository\EventRepositoryInterface;
@@ -50,8 +51,13 @@ class TestSender implements SenderInterface
      * @var TriggerHandlerInterface
      */
     private $triggerHandler;
+    /**
+     * @var EventManagementInterface
+     */
+    private $eventManagement;
 
     public function __construct(
+        EventManagementInterface $eventManagement,
         TriggerHandlerInterface $triggerHandler,
         EventRepositoryInterface $eventRepository,
         EventServiceInterface $eventService,
@@ -63,6 +69,7 @@ class TestSender implements SenderInterface
         $this->eventService = $eventService;
         $this->eventRepository = $eventRepository;
         $this->triggerHandler = $triggerHandler;
+        $this->eventManagement = $eventManagement;
     }
 
     /**
@@ -80,6 +87,7 @@ class TestSender implements SenderInterface
             $queue = $this->triggerHandler->enqueue($trigger, $chain, $event);
             if ($queue) {
                 $queue->send();
+                $this->eventManagement->addProcessedTriggerId($event->getId(), $trigger->getId());
             }
         }
 

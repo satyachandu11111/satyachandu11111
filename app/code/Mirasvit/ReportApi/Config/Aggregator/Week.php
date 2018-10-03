@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-report-api
- * @version   1.0.7
+ * @version   1.0.12
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -45,5 +45,10 @@ class Week implements AggregatorInterface
         $contact = $connection->getConcatSql([$year, $weekOfYear, $firstDay], ' ');
 
         return $connection->getConcatSql(["STR_TO_DATE($contact, '%X %V %W')", "'00:00:00'"], ' ');
+    }
+
+    public function getLabel()
+    {
+        return 'Week';
     }
 }

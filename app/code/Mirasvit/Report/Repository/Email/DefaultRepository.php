@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-report
- * @version   1.3.37
+ * @version   1.3.41
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -140,7 +140,7 @@ class DefaultRepository implements BlockRepositoryInterface
         $request = $this->requestBuilder->create()
             ->setTable($report->getTable())
             ->setDimension($report->getDefaultDimension())
-            ->setPageSize($reportData['limit'] ? $reportData['limit'] : 100)
+            ->setPageSize((isset($reportData['limit']) && $reportData['limit']) ? $reportData['limit'] : 100)
             ->addFilter('created_at', $interval->getFrom()->toString(\Zend_Date::W3C), 'gteq', 'A')
             ->addFilter('created_at', $interval->getTo()->toString(\Zend_Date::W3C), 'lteq', 'A');
 

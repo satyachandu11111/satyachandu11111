@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-core
- * @version   1.2.68
+ * @version   1.2.72
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -55,10 +55,10 @@ class OnLayoutRenderElementObserver implements ObserverInterface
                 if ($block instanceof \Mirasvit\Core\Block\Adminhtml\Menu) {
                     return;
                 }
+
                 if ($block instanceof \Mirasvit\Core\Block\Adminhtml\License) {
                     return;
                 }
-
 
                 $status = $this->licenseFactory->create()->getStatus(get_class($block));
 

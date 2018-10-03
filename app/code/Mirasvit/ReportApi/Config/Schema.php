@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-report-api
- * @version   1.0.7
+ * @version   1.0.12
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -183,6 +183,16 @@ class Schema implements SchemaInterface
     public function getRelations()
     {
         return $this->relationPool;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setRelations($relations)
+    {
+        $this->relationPool = $relations;
+
+        return $this;
     }
 
     public function addTable(TableInterface $table)

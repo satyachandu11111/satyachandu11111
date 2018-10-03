@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-core
- * @version   1.2.68
+ * @version   1.2.72
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -54,7 +54,6 @@ class Index extends Action
         echo '<pre>';
         $module = $this->moduleFactory->create();
         foreach ($module->getInstalledModules() as $moduleName) {
-
             $moduleName = str_replace('Mirasvit_', '', $moduleName);
 
             echo $moduleName;

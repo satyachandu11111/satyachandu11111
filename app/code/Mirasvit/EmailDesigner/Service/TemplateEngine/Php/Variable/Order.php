@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-email-designer
- * @version   1.1.23
+ * @version   1.1.25
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -60,7 +60,7 @@ class Order
     /**
      * @inheritdoc
      */
-    public function getCustomerName(\Magento\Sales\Model\Order $order = null)
+    public function getCustomerName(\Magento\Sales\Model\Order $order = null, $default = '')
     {
         if (null === $order || $this->context->getData('customer_name')) {
             return $this->context->getData('customer_name');
@@ -77,7 +77,7 @@ class Order
                 . ' ' . $order->getShippingAddress()->getLastname();
         }
 
-        return $customerName;
+        return $customerName ?: $default;
     }
 
     /**

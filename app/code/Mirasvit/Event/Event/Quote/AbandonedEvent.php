@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-event
- * @version   1.2.14
+ * @version   1.2.15
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -167,7 +167,7 @@ class AbandonedEvent extends CronEvent
                 CustomerData::ID           => $quote['customer_id'],
                 self::PARAM_CUSTOMER_EMAIL => $quote['customer_email'],
                 self::PARAM_CUSTOMER_NAME  => $quote['customer_firstname'] . ' ' . $quote['customer_lastname'],
-                self::PARAM_CREATED_AT     => $quote['created_at'],
+                self::PARAM_CREATED_AT     => max($quote['created_at'], $quote['i_created_at']),
             ];
 
             $this->context->eventRepository->register(

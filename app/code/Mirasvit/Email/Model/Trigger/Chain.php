@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-email
- * @version   2.1.6
+ * @version   2.1.11
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -398,11 +398,17 @@ class Chain extends AbstractModel implements ChainInterface
             $crossSellSource = ' including ' . $this->crossSellSource->toArray()[$this->getCrossSellsTypeId()];
         }
 
-        return __('Send <b>%1</b> email %2 %3 %4',
-            $this->getTemplate()->getTitle(),
-            $delay,
-            $coupon,
-            $crossSellSource
-        );
+        if ($this->getTemplate()) {
+            return __('Send <b>%1</b> email %2 %3 %4',
+                $this->getTemplate()->getTitle(),
+                $delay,
+                $coupon,
+                $crossSellSource
+            );
+        } else {
+            return __(
+                'No Template Selected - <small>probably the previously used email template has been removed</small>.'
+            );
+        }
     }
 }

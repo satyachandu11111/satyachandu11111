@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-report-api
- * @version   1.0.7
+ * @version   1.0.12
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -97,7 +97,10 @@ class EavField extends Field
                 $conditions[] = $this->eavTableAlias . '.entity_id = ' . $this->table->getName() . '.entity_id';
             }
             $conditions[] = $this->eavTableAlias . '.attribute_id = ' . $this->attribute->getAttributeId();
-            $conditions[] = $this->eavTableAlias . '.store_id = 0';
+
+            if ($this->entityTypeId === \Magento\Catalog\Api\Data\ProductAttributeInterface::ENTITY_TYPE_CODE) {
+                $conditions[] = $this->eavTableAlias . '.store_id = 0';
+            }
 
             $select->joinTable($this->table);
 
