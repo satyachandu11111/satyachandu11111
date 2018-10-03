@@ -9,15 +9,17 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-feed
- * @version   1.0.76
+ * @version   1.0.82
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
+
 
 
 namespace Mirasvit\Feed\Export\Liquid\Tag;
 
 use Mirasvit\Feed\Export\Liquid\Block;
 use Mirasvit\Feed\Export\Liquid\Regexp;
+
 /**
  * @codingStandardsIgnoreFile
  * @SuppressWarnings(PHPMD)
@@ -41,7 +43,7 @@ class TagFor extends Block
 
     /**
      * @param string $markup
-     * @param array  &$tokens
+     * @param array &$tokens
      * @throws \Exception
      */
     public function __construct($markup, &$tokens)
@@ -111,6 +113,7 @@ class TagFor extends Block
                     continue;
                 }
 
+                $x = microtime(true);
                 $result .= $this->executeAll($this->nodeList, $context);
 
                 $this->index++;
@@ -164,7 +167,7 @@ class TagFor extends Block
         $array = [
             'name'   => $this->name,
             'length' => $this->length,
-            'index'  => $this->index
+            'index'  => $this->index,
         ];
 
         foreach ($this->nodeList as $token) {

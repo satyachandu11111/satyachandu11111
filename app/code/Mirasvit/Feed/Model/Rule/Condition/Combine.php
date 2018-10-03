@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-feed
- * @version   1.0.76
+ * @version   1.0.82
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -28,13 +28,10 @@ use Mirasvit\Feed\Model\Rule\Condition\ProductFactory as ConditionProductFactory
  */
 class Combine extends RuleConditionCombine
 {
-    /**
-     * Constructor
-     *
-     * @param ConditionProductFactory $conditionProductFactory
-     * @param OutputHelper            $outputHelper
-     * @param Context                 $context
-     */
+    private $conditionProductFactory;
+
+    private $outputHelper;
+
     public function __construct(
         ConditionProductFactory $conditionProductFactory,
         OutputHelper $outputHelper,

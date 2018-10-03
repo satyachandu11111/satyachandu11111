@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-feed
- * @version   1.0.76
+ * @version   1.0.82
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -56,11 +56,13 @@ class CategoryResolver extends AbstractResolver
     {
         $value = [];
         foreach ($category->getParentCategories() as $parent) {
-            $value[] = $parent->getName();
+            $value[$parent->getLevel()] = $parent->getName();
         }
         if (!count($value)) {
-            $value[] = $category->getName();
+            $value[$category->getLevel()] = $category->getName();
         }
+
+        ksort($value);
 
         return $value;
     }

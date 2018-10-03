@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-feed
- * @version   1.0.76
+ * @version   1.0.82
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -150,8 +150,7 @@ class Product extends \Magento\Rule\Model\Condition\AbstractCondition
         \Magento\Framework\Model\ResourceModel\AbstractResource $resource = null,
         \Magento\Framework\Data\Collection\AbstractDb $resourceCollection = null,
         array $data = []
-    )
-    {
+    ) {
         $this->sourceYesNo = $systemConfigSourceYesno;
         $this->stockItemFactory = $stockItemFactory;
         $this->attributeSetCollectionFactory = $entityAttributeSetCollectionFactory;
@@ -548,8 +547,8 @@ class Product extends \Magento\Rule\Model\Condition\AbstractCondition
                 '{{table}}.stock_id = 1',
                 'left'
             );
-           
-            return $children;
+
+        return $children;
     }
 
     /**
@@ -566,9 +565,10 @@ class Product extends \Magento\Rule\Model\Condition\AbstractCondition
 
         switch ($attrCode) {
             case 'is_salable':
+                $object = $this->productRepository->getById($object->getId());
                 if ($object->getVisibility() == \Magento\Catalog\Model\Product\Visibility::VISIBILITY_NOT_VISIBLE) {
                     $parent = $this->productResolver->getParent($object);
-                    if ($parent->getId() !== $object->getId()) {
+                    if ($parent->getStatus() == 1 && $parent->getId() !== $object->getId()) {
                         $value = $parent->isSalable();
                     } else {
                         $value = null;
@@ -581,7 +581,6 @@ class Product extends \Magento\Rule\Model\Condition\AbstractCondition
                 return $this->validateAttribute($value);
                 break;
 
-
             case 'status_parent':
                 $value = $object->getStatus();
 
@@ -591,7 +590,7 @@ class Product extends \Magento\Rule\Model\Condition\AbstractCondition
             case 'image':
             case 'small_image':
             case 'thumbnail':
-                
+
                 $object = $this->productRepository->getById($object->getId());
                 $value = $object->getData($attrCode);
 
@@ -627,7 +626,7 @@ class Product extends \Magento\Rule\Model\Condition\AbstractCondition
 
                 break;
 
-            case 'final_price':                
+            case 'final_price':
                 $object = $this->productRepository->getById($object->getId());
                 $value = $object->getPriceInfo()->getPrice('final_price')->getAmount()->getValue();
 
@@ -711,8 +710,8 @@ class Product extends \Magento\Rule\Model\Condition\AbstractCondition
 
             default:
                 if (!isset($this->_entityAttributeValues[$object->getId()])) {
+                    $ts = microtime(true);
                     $attr = $object->getResource()->getAttribute($attrCode);
-
                     if ($attr && $attr->getBackendType() == 'datetime' && !is_int($this->getValue())) {
                         $this->setValue(strtotime($this->getValue()));
                         $value = strtotime($object->getData($attrCode));

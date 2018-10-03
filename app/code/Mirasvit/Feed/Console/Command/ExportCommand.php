@@ -9,9 +9,10 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-feed
- * @version   1.0.76
+ * @version   1.0.82
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
+
 
 
 namespace Mirasvit\Feed\Console\Command;
@@ -40,8 +41,8 @@ class ExportCommand extends AbstractCommand
     /**
      * {@inheritdoc}
      * @param FeedFactory $feedFactory
-     * @param Exporter    $exporter
-     * @param State       $appState
+     * @param Exporter $exporter
+     * @param State $appState
      */
     public function __construct(
         FeedFactory $feedFactory,
@@ -66,7 +67,7 @@ class ExportCommand extends AbstractCommand
                 InputOption::VALUE_OPTIONAL,
                 'Feed ID',
                 false
-            )
+            ),
         ];
         $this->setName('mirasvit:feed:export')
             ->setDescription('Export Feed')
@@ -94,7 +95,7 @@ class ExportCommand extends AbstractCommand
             $feedsIds = [$feedId];
         } else {
             $feedsIds = $this->feedFactory->create()->getCollection()
-                ->addFieldToFilter('is_active',array('eq' => 1))
+                ->addFieldToFilter('is_active', ['eq' => 1])
                 ->getAllIds();
         }
         foreach ($feedsIds as $feedId) {
@@ -112,9 +113,17 @@ class ExportCommand extends AbstractCommand
             }
 
             try {
+                $time = microtime(true);
                 foreach ($this->exporter->exportCli($feed) as $status => $state) {
                     if ($verbose) {
                         $output->writeln('<info>' . ucfirst($status) . '</info>');
+
+                        if ($output->getVerbosity() === 256) {
+                            $output->writeln('  Memory: ' . round(memory_get_usage(true) / 1024 / 1024) . 'mb');
+                            $output->writeln('  Iteration time: ' . round(microtime(true) - $time) . 's');
+                            $time = microtime(true);
+                        }
+
                         $output->writeln('<comment>' . $state . '</comment>');
                     }
                 }

@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-feed
- * @version   1.0.76
+ * @version   1.0.82
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -299,14 +299,14 @@ class ProductResolver extends AbstractResolver
         if (count($parentIds)) {
             if ($magentoEdition == 'Enterprise') {
                 $parentRowId = $parentIds[0];
-                 $select = $this->productRelation->getConnection()->select()->from(
+                $select = $this->productRelation->getConnection()->select()->from(
                     $this->resource->getTableName('catalog_product_entity'),
                     ['entity_id']
-                 )->where(
+                )->where(
                     'row_id = ?',
-                     $parentRowId
-                 );
-                 $parentIds = $this->productRelation->getConnection()->fetchCol($select);
+                    $parentRowId
+                );
+                $parentIds = $this->productRelation->getConnection()->fetchCol($select);
             }
             return $this->productFactory->create()->load($parentIds[0]);
         } else {
@@ -563,7 +563,6 @@ class ProductResolver extends AbstractResolver
         if (!isset(self::$products[$object->getId()])) {
             self::$products[$object->getId()] = $object->load($object->getId());
         }
-
         return self::$products[$object->getId()];
     }
 

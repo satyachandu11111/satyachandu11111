@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-feed
- * @version   1.0.76
+ * @version   1.0.82
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -37,12 +37,6 @@ class Filtration extends AbstractStep
      */
     protected $stepFactory;
 
-    /**
-     * {@inheritdoc}
-     * @param RuleFactory        $ruleFactory
-     * @param ResourceConnection $resource
-     * @param Context            $context
-     */
     public function __construct(
         RuleFactory $ruleFactory,
         ResourceConnection $resource,

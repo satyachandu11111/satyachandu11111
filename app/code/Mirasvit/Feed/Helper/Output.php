@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-feed
- * @version   1.0.76
+ * @version   1.0.82
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -237,8 +237,10 @@ class Output extends AbstractHelper
             $group = __('6. Dynamic Attributes');
         } elseif (strpos($code, 'variable') !== false) {
             $group = __('7. Dynamic Variables');
+        } elseif (strpos($code, 'mapping') === 0) {
+            $group = __('8. Category Mappings');
         } else {
-            $group = __('8. Others Attributes');
+            $group = __('9. Others Attributes');
         }
 
         return $group->__toString();

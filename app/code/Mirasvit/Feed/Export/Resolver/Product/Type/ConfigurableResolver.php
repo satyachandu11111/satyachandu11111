@@ -9,9 +9,10 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-feed
- * @version   1.0.76
+ * @version   1.0.82
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
+
 
 
 namespace Mirasvit\Feed\Export\Resolver\Product\Type;
@@ -45,19 +46,24 @@ class ConfigurableResolver extends ProductResolver
     {
         $value = parent::getData($object, $key);
 
-        if (!$value) {
-            $value = [];
-            foreach ($this->getAssociatedProducts($object) as $child) {
-                $childValue = parent::getData($child, $key);
-                if (is_string($childValue)) {
-                    $childValue = explode(', ', $childValue);
-                }
-                if (is_array($childValue)) {
-                    $value = array_merge($value, $childValue);
-                }
-            }
-            $value = array_unique(array_filter($value));
-        }
+        # require huge amount of resources
+        //        if (!$value) {
+        //            $value = [];
+        //
+        //            foreach ($this->getAssociatedProducts($object) as $child) {
+        //                $childValue = parent::getData($child, $key);
+        //
+        //                if (is_string($childValue)) {
+        //                    $childValue = explode(', ', $childValue);
+        //                }
+        //
+        //                if (is_array($childValue)) {
+        //                    $value = array_merge($value, $childValue);
+        //                }
+        //            }
+        //
+        //            $value = array_unique(array_filter($value));
+        //        }
 
         return $value;
     }

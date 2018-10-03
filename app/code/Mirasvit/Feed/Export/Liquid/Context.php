@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-feed
- * @version   1.0.76
+ * @version   1.0.82
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -304,7 +304,6 @@ class Context
                     } else {
                         return null;
                     }
-
                 } elseif (is_object($object)) {
                     $object = $this->resolver->resolve($object, $nextPartName, $args);
                 }

@@ -9,9 +9,10 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-feed
- * @version   1.0.76
+ * @version   1.0.82
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
+
 
 
 namespace Mirasvit\Feed\Export\Resolver;
@@ -48,7 +49,7 @@ abstract class AbstractResolver
     /**
      * Constructor
      *
-     * @param Context                $context
+     * @param Context $context
      * @param ObjectManagerInterface $objectManager
      */
     public function __construct(
@@ -103,21 +104,18 @@ abstract class AbstractResolver
                 $object = $this->{'prepareObject'}($object);
             }
 
+            $result = false;
             if (method_exists($this, $method)) {
-                return $this->{$method}($object, $args);
+                $result = $this->{$method}($object, $args);
+            } elseif (method_exists($this, 'getData')) {
+                $result = $this->getData($object, $key);
+            } elseif (method_exists($object, $method)) {
+                $result = $object->{$method}();
+            } elseif (method_exists($object, 'getData')) {
+                $result = $object->getData($exploded[0]);
             }
 
-            if (method_exists($this, 'getData')) {
-                return $this->getData($object, $key);
-            }
-
-            if (method_exists($object, $method)) {
-                return $object->{$method}();
-            }
-
-            if (method_exists($object, 'getData')) {
-                return $object->getData($exploded[0]);
-            }
+            return $result;
         }
 
         return false;
@@ -127,7 +125,7 @@ abstract class AbstractResolver
      * Return string value of object
      *
      * @param object|array|string $value
-     * @param string              $key
+     * @param string $key
      * @return string
      */
     public function toString($value, $key = null)

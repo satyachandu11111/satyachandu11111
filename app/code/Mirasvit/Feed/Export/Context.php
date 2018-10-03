@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-feed
- * @version   1.0.76
+ * @version   1.0.82
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -263,8 +263,8 @@ class Context
     {
         $this->rootStep = $this->stepFactory->create('Root');
 
-        if (file_exists($this->getStateFile())) {
-            $data = \Zend_Serializer::unserialize(file_get_contents($this->getStateFile()));
+        if (file_exists($this->getStateFile()) && ($data = file_get_contents($this->getStateFile()))) {
+            $data = \Zend_Serializer::unserialize($data);
             $this->filename = $data['filename'];
             $this->isTestMode = $data['isTestMode'];
             $this->createdAt = $data['createdAt'];

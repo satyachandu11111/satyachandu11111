@@ -9,9 +9,10 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-feed
- * @version   1.0.76
+ * @version   1.0.82
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
+
 
 
 namespace Mirasvit\Feed\Export\Step\Filtration;
@@ -23,13 +24,12 @@ use Mirasvit\Feed\Model\RuleFactory;
 
 class Rule extends AbstractStep
 {
-    /**
-     * {@inheritdoc}
-     * @param RuleFactory              $ruleFactory
-     * @param ProductCollectionFactory $productCollectionFactory
-     * @param Context                  $context
-     * @param array                    $data
-     */
+    private $ruleFactory;
+
+    private $productCollectionFactory;
+
+    private $ruleId;
+
     public function __construct(
         RuleFactory $ruleFactory,
         ProductCollectionFactory $productCollectionFactory,
@@ -70,25 +70,34 @@ class Rule extends AbstractStep
         $rule = $this->ruleFactory->create()->load($this->ruleId);
 
         $validIds = [];
+
+        $lastId = 0;
         while (!$this->isCompleted()) {
             $collection = $this->getProductCollection();
 
-            $collection->getSelect()->limit(100, $this->index);
+            if ($lastId) {
+                $collection->getSelect()
+                    ->where('entity_id > ?', $lastId)
+                    ->limit(100, 0);
+            } else {
+                $collection->getSelect()
+                    ->limit(100, $this->index);
+            }
 
             $startIndex = $this->index;
 
             foreach ($collection as $product) {
+                $lastId = $product->getId();
+                $this->index++;
+
                 if ($rule->getConditions()->validate($product)) {
                     $validIds[] = $product->getId();
                 }
-
-                $this->index++;
 
                 if ($this->context->isTimeout()) {
                     break 2;
                 }
             }
-
             #sometimes collection getSize not equal real number of items
             if ($startIndex == $this->index) {
                 $this->length = $this->index;
@@ -111,7 +120,14 @@ class Rule extends AbstractStep
     {
         $collection = $this->productCollectionFactory->create()
             ->addStoreFilter($this->context->getFeed()->getStoreId())
-            ->setStoreId($this->context->getFeed()->getStoreId());
+            ->setStoreId($this->context->getFeed()->getStoreId())
+            ->setFlag('has_stock_status_filter', true);
+
+        $collection->getSelect()->order('e.entity_id asc');
+
+        // add base attributes - improve simple filters time
+        $collection->addAttributeToSelect('status')
+            ->addAttributeToSelect('visibility');
 
         return $collection;
     }

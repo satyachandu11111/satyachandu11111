@@ -67,7 +67,6 @@ define([
             this.listener = false;
 
             if (this.request) {
-                this.request.abort();
                 this.request = null;
             }
         },
@@ -97,7 +96,6 @@ define([
                                 self.state($.parseJSON(response.responseText));
                             }
                         }
-
                         setTimeout(function () {
                             self.listen();
                         }, 200);

@@ -9,9 +9,10 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-feed
- * @version   1.0.76
+ * @version   1.0.82
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
+
 
 
 namespace Mirasvit\Feed\Export\Step;
@@ -60,15 +61,7 @@ class Exporting extends AbstractStep
      */
     protected $liquidTemplate;
 
-    /**
-     * {@inheritdoc}
-     * @param ResourceConnection     $resource
-     * @param Io                     $io
-     * @param Config                 $config
-     * @param GeneralResolver        $resolver
-     * @param ObjectManagerInterface $objectManager
-     * @param Context                $context
-     */
+
     public function __construct(
         ResourceConnection $resource,
         Io $io,

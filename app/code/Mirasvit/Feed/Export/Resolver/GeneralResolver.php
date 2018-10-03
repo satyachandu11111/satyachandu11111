@@ -9,9 +9,10 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-feed
- * @version   1.0.76
+ * @version   1.0.82
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
+
 
 
 namespace Mirasvit\Feed\Export\Resolver;
@@ -100,7 +101,7 @@ class GeneralResolver extends AbstractResolver
     /**
      * Collection of filtered products
      *
-     * @param null  $object
+     * @param null $object
      * @param array $args
      * @return \Magento\Catalog\Model\ResourceModel\Product\Collection
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
@@ -148,6 +149,7 @@ class GeneralResolver extends AbstractResolver
                     ->where('rule.is_new = 1');
             }
 
+            $collection->setFlag('has_stock_status_filter', true);
             if (isset($args['index'])) {
                 $collection->getSelect()->limit($args['length'], $args['index']);
                 $collection->load();
@@ -160,7 +162,7 @@ class GeneralResolver extends AbstractResolver
     /**
      * Collection of categories
      *
-     * @param null  $object
+     * @param null $object
      * @param array $args
      * @return \Magento\Catalog\Model\ResourceModel\Category\Collection
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
@@ -180,7 +182,7 @@ class GeneralResolver extends AbstractResolver
     /**
      * Collection of reviews
      *
-     * @param null  $object
+     * @param null $object
      * @param array $args
      * @return \Magento\Review\Model\ResourceModel\Review\Collection
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)

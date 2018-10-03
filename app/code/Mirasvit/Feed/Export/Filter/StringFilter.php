@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-feed
- * @version   1.0.76
+ * @version   1.0.82
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -79,7 +79,7 @@ class StringFilter
      */
     public function lowercase($input)
     {
-        return is_string($input) ? strtolower($input) : $input;
+        return is_string($input) ? mb_strtolower($input) : $input;
     }
 
     /**
@@ -92,7 +92,7 @@ class StringFilter
      */
     public function uppercase($input)
     {
-        return is_string($input) ? strtoupper($input) : $input;
+        return is_string($input) ? mb_strtoupper($input) : $input;
     }
 
     /**
@@ -200,7 +200,7 @@ class StringFilter
      */
     public function truncate($input, $len)
     {
-        return is_string($input) ? substr($input, 0, intval($len)) : $input;
+        return is_string($input) ? mb_substr($input, 0, intval($len)) : $input;
     }
 
     /**
