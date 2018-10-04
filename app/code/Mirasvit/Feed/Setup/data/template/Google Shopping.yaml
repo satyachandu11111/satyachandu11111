@@ -1,15 +1,15 @@
-name: 'Google Shopping'
+---
+name: Google Shopping
 type: xml
-xml:
-  schema: |
-    <?xml version="1.0" encoding="utf-8" ?>
-    <rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">  
-      <channel>  
-        <title>Data feed Title</title>
-        <link>{{ context.store.base_url }}</link>
-        <description>Data feed description.</description>
-        {% for product in context.products %}
-        <item>
+format_serialized: |
+          a:1:{s:6:"schema";s:1342:"<?xml version="1.0" encoding="utf-8" ?>
+          <rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
+          <channel>
+          <title>Data feed Title</title>
+          <link>{{ context.store.base_url }}</link>
+          <description>Data feed description.</description>
+          {% for product in context.products %}
+          <item>
           <g:id><![CDATA[{{ product.sku }}]]></g:id>
           <title><![CDATA[{{ product.name | truncate: '150' }}]]></title>
           <link><![CDATA[{{ product.url }}]]></link>
@@ -27,7 +27,12 @@ xml:
           <g:brand><![CDATA[{{ product.manufacturer }}]]></g:brand>
           <g:mpn><![CDATA[{{ product.parent.sku }}]]></g:mpn>
           <g:gtin><![CDATA[{{ product.upc }}]]></g:gtin>
-        </item>
-        {% endfor %}
-      </channel>
-    </rss>
+          </item>
+          {% endfor %}
+          </channel>
+          </rss>";}
+csv_delimiter: null
+csv_enclosure: null
+csv_include_header: null
+csv_extra_header: null
+csv_schema: null
