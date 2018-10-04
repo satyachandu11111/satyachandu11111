@@ -22,13 +22,21 @@ class DataSaver
     protected $connection;
 
     /**
+     * @var \MageWorx\OptionBase\Helper\Data
+     */
+    protected $baseHelper;
+
+    /**
      * @param ResourceConnection $resource
+     * @param \MageWorx\OptionBase\Helper\Data $helperData
      */
     public function __construct(
-        ResourceConnection $resource
+        ResourceConnection $resource,
+        \MageWorx\OptionBase\Helper\Data $helperData
     ) {
         $this->resource = $resource;
         $this->connection = $resource->getConnection();
+        $this->baseHelper = $helperData;
     }
 
     /**
@@ -53,5 +61,22 @@ class DataSaver
     public function insertMultipleData($tableName, $data)
     {
         $this->connection->insertMultiple($this->resource->getTableName($tableName), $data);
+    }
+
+    /**
+     * Update table catalog_product_entity
+     *
+     * @param $productId
+     * @param $isRequire
+     */
+    public function updateValueIsRequire($productId, $isRequire)
+    {
+        $columnIdName = $this->baseHelper->isEnterprise() ? 'row_id' : 'entity_id';
+        $where        = [$columnIdName . '=' . $productId];
+        $this->connection->update(
+            $this->resource->getTableName('catalog_product_entity'),
+            ['mageworx_is_require' => $isRequire],
+            $where
+        );
     }
 }

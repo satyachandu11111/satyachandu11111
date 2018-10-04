@@ -145,6 +145,11 @@ class DuplicateDependency
         foreach ($dependency as $id => $row) {
             $dependency[$id]['child_option_id'] = $mapMageworxOptionId[$row['child_option_id']];
             $dependency[$id]['parent_option_id'] = $mapMageworxOptionId[$row['parent_option_id']];
+
+            if (empty($mapMageworxOptionTypeId[$row['child_option_type_id']])) {
+                $mapMageworxOptionTypeId[$row['child_option_type_id']] = "";
+            }
+
             $dependency[$id]['child_option_type_id'] = $mapMageworxOptionTypeId[$row['child_option_type_id']];
             $dependency[$id]['parent_option_type_id'] = $mapMageworxOptionTypeId[$row['parent_option_type_id']];
             $dependency[$id]['product_id'] = $newProductId;

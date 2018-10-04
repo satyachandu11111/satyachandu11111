@@ -119,4 +119,27 @@ class Config extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 
         return $connection->fetchPairs($select);
     }
+
+    /**
+     *
+     * @param array $parentValueId
+     * @return array
+     */
+    public function getIsDisabledData($parentValueId = [])
+    {
+        $select = $this->getConnection()
+                       ->select()
+                       ->from(
+                           ['main_table' => $this->getTable('catalog_product_option_type_value')],
+                           ['disabled']
+                       )
+                       ->join(
+                           ['dependency_table' => $this->getTable('mageworx_option_dependency')],
+                           'main_table.mageworx_option_type_id = dependency_table.parent_option_type_id',
+                           ['parent_option_type_id']
+                       )
+                       ->where('dependency_table.parent_option_type_id IN (?)', $parentValueId);
+
+        return $this->getConnection()->fetchAll($select);
+    }
 }

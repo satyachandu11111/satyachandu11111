@@ -103,11 +103,8 @@ class Templates extends AbstractModifier implements ModifierInterface
             : [];
         $productOptionToGroupRelations = $this->groupResourceModel->getProductOptionToGroupRelations($productId);
 
-        /** @var \Magento\Catalog\Model\Product\Option $productOption */
         foreach ($productOptions as $index => $productOption) {
-            if (empty($productOption['group_option_id'])
-                || empty($groupNames[$productOptionToGroupRelations[$productOption['option_id']]])
-            ) {
+            if ($this->isNotTemplateOption($productOption, $productOptionToGroupRelations, $groupNames)) {
                 $productOptions[$index][self::KEY_TEMPLATE_NAME] = '';
                 $productOptions[$index][self::KEY_GROUP_ID] = null;
                 continue;
@@ -119,6 +116,22 @@ class Templates extends AbstractModifier implements ModifierInterface
 
         $data[$productId]['product']['options'] = $productOptions;
         return $data;
+    }
+
+    /**
+     * Check if product option is not from template
+     *
+     * @param array $productOption
+     * @param array $productOptionToGroupRelations
+     * @param array $groupNames
+     * @return bool
+     */
+    protected function isNotTemplateOption($productOption, $productOptionToGroupRelations, $groupNames)
+    {
+        return empty($productOption['group_option_id'])
+            || empty($productOption['option_id'])
+            || empty($productOptionToGroupRelations[$productOption['option_id']])
+            || empty($groupNames[$productOptionToGroupRelations[$productOption['option_id']]]);
     }
 
     /**

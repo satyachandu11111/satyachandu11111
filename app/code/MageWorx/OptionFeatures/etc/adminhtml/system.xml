@@ -56,6 +56,10 @@
                     <label><![CDATA[Enable Is Default]]></label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
+                <field id="use_is_disabled" translate="label" type="select" sortOrder="95" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Enable 'Disable' Option Value]]></label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
                 <field id="base_image_thumbnail_size" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label><![CDATA[Option Gallery Thumbnail Image Size]]></label>
                 </field>

@@ -3,12 +3,14 @@
  * Copyright © 2017 MageWorx. All rights reserved.
  * See LICENSE.txt for license details.
  */
+
 namespace MageWorx\OptionBase\Helper;
 
 use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Quote\Model\Quote\Item as QuoteItem;
 use Magento\Framework\App\ResourceConnection;
+use Magento\Store\Model\ScopeInterface;
 
 class Data extends AbstractHelper
 {
@@ -70,15 +72,26 @@ class Data extends AbstractHelper
     protected $linkedAttributes = [];
 
     /**
+     * Path to config disable option value
+     *
+     * @var null
+     */
+    protected $isDisabledConfigPath = null;
+
+    /**
+     * Data constructor.
+     *
      * @param \Magento\Framework\App\ProductMetadataInterface $productMetadata
      * @param \Magento\Framework\ObjectManagerInterface $objectManager
+     * @param \Magento\Framework\App\Helper\Context $context
      * @param \Magento\Framework\Component\ComponentRegistrarInterface $componentRegistrar
      * @param \Magento\Framework\Filesystem\Directory\ReadFactory $readFactory
      * @param \Magento\Framework\Message\ManagerInterface $messageManager
      * @param \Magento\Framework\App\ResponseInterface $response
      * @param \Magento\Framework\Json\Helper\Data $jsonHelper
-     * @param \Magento\Framework\App\Helper\Context $context
      * @param ResourceConnection $resource
+     * @param array $linkedAttributes
+     * @param null $isDisabledConfigPath
      */
     public function __construct(
         \Magento\Framework\App\ProductMetadataInterface $productMetadata,
@@ -90,17 +103,19 @@ class Data extends AbstractHelper
         \Magento\Framework\App\ResponseInterface $response,
         \Magento\Framework\Json\Helper\Data $jsonHelper,
         ResourceConnection $resource,
-        $linkedAttributes = []
+        $linkedAttributes = [],
+        $isDisabledConfigPath = null
     ) {
-        $this->productMetadata = $productMetadata;
-        $this->objectManager = $objectManager;
-        $this->componentRegistrar = $componentRegistrar;
-        $this->readFactory = $readFactory;
-        $this->messageManager = $messageManager;
-        $this->response = $response;
-        $this->jsonHelper = $jsonHelper;
-        $this->resource = $resource;
-        $this->linkedAttributes = $linkedAttributes;
+        $this->productMetadata      = $productMetadata;
+        $this->objectManager        = $objectManager;
+        $this->componentRegistrar   = $componentRegistrar;
+        $this->readFactory          = $readFactory;
+        $this->messageManager       = $messageManager;
+        $this->response             = $response;
+        $this->jsonHelper           = $jsonHelper;
+        $this->resource             = $resource;
+        $this->linkedAttributes     = $linkedAttributes;
+        $this->isDisabledConfigPath = $isDisabledConfigPath;
         parent::__construct($context);
     }
 
@@ -153,6 +168,7 @@ class Data extends AbstractHelper
                 return $k;
             }
         }
+
         return null;
     }
 
@@ -174,11 +190,11 @@ class Data extends AbstractHelper
         }
 
         /** <!-- Change qty based on the customers input (qty input) --> */
-        $itemQty = $item->getQty() ? $item->getQty() : 1;
-        $itemQty = isset($cart[$item->getId()]) ? $cart[$item->getId()]['qty'] : $itemQty;
-        $optionId = $valueData['option_id'];
+        $itemQty       = $item->getQty() ? $item->getQty() : 1;
+        $itemQty       = isset($cart[$item->getId()]) ? $cart[$item->getId()]['qty'] : $itemQty;
+        $optionId      = $valueData['option_id'];
         $productOption = $item->getProduct()->getOptionById($optionId);
-        $isOneTime = (boolean)$productOption->getData('one_time');
+        $isOneTime     = (boolean)$productOption->getData('one_time');
 
         // Find base value's qty
         $valueQty = 1;
@@ -204,6 +220,7 @@ class Data extends AbstractHelper
     public function getLinkField($class)
     {
         $this->metadataPool = $this->objectManager->get('\Magento\Framework\EntityManager\MetadataPool');
+
         return $this->metadataPool->getMetadata($class)->getLinkField();
     }
 
@@ -223,13 +240,13 @@ class Data extends AbstractHelper
      */
     public function getModuleVersion($moduleName)
     {
-        $path = $this->componentRegistrar->getPath(
+        $path             = $this->componentRegistrar->getPath(
             \Magento\Framework\Component\ComponentRegistrar::MODULE,
             $moduleName
         );
-        $directoryRead = $this->readFactory->create($path);
+        $directoryRead    = $this->readFactory->create($path);
         $composerJsonData = $directoryRead->readFile('composer.json');
-        $data = json_decode($composerJsonData);
+        $data             = json_decode($composerJsonData);
 
         return !empty($data->version) ? $data->version : 0;
     }
@@ -259,6 +276,7 @@ class Data extends AbstractHelper
         if ($toVersion === '') {
             return $fromCondition;
         }
+
         return $fromCondition && version_compare($this->moduleVersion[$moduleName], $toVersion, $toOperator);
     }
 
@@ -276,7 +294,7 @@ class Data extends AbstractHelper
             $this->response->representJson(
                 $this->jsonHelper->jsonEncode(
                     [
-                        'error' => true,
+                        'error'   => true,
                         'message' => __('Invalid Form Key. Please try to set "max_input_vars" directive to "10000"')
                     ]
                 )
@@ -367,7 +385,7 @@ class Data extends AbstractHelper
     private function replaceMWIdWithRecordId($dependency, $options)
     {
         $dependencyOptionMageworxId = $dependency[0];
-        $dependencyValueMageworxId = $dependency[1];
+        $dependencyValueMageworxId  = $dependency[1];
 
         foreach ($options as $oIndex => $option) {
             $mageworxOptionId = $option['mageworx_option_id'];
@@ -403,11 +421,11 @@ class Data extends AbstractHelper
      */
     public function prepareLinkedAttributes($attributes)
     {
-        $attributeName = \Magento\Catalog\Api\Data\ProductAttributeInterface::CODE_NAME;
+        $attributeName  = \Magento\Catalog\Api\Data\ProductAttributeInterface::CODE_NAME;
         $attributePrice = \Magento\Catalog\Api\Data\ProductAttributeInterface::CODE_PRICE;
 
         $this->linkedAttributes += [
-            $attributeName => $attributeName,
+            $attributeName  => $attributeName,
             $attributePrice => $attributePrice
         ];
 
@@ -428,19 +446,20 @@ class Data extends AbstractHelper
 
         $whereCondition = "option_id IN (" . implode(',', $conditions['option_id']) . ")";
 
-        $connection = $this->resource->getConnection();
-        $sql = $connection->select()
-            ->reset()
-            ->distinct()
-            ->from($this->getOptionValueTableName($conditions['entity_type']))
-            ->where($whereCondition)
-            ->columns('mageworx_option_type_id');
+        $connection      = $this->resource->getConnection();
+        $sql             = $connection->select()
+                                      ->reset()
+                                      ->distinct()
+                                      ->from($this->getOptionValueTableName($conditions['entity_type']))
+                                      ->where($whereCondition)
+                                      ->columns('mageworx_option_type_id');
         $subselectResult = $connection->fetchAll($sql);
 
         $mageworxOptionTypeIds = [];
         foreach ($subselectResult as $subselectResultItem) {
-            $mageworxOptionTypeIds[] = "'". $subselectResultItem['mageworx_option_type_id'] . "'";
+            $mageworxOptionTypeIds[] = "'" . $subselectResultItem['mageworx_option_type_id'] . "'";
         }
+
         return $mageworxOptionTypeIds;
     }
 
@@ -455,6 +474,7 @@ class Data extends AbstractHelper
         if ($entityType == 'group') {
             return $this->resource->getTableName('mageworx_optiontemplates_group_option_type_value');
         }
+
         return $this->resource->getTableName('catalog_product_option_type_value');
     }
 
@@ -516,10 +536,12 @@ class Data extends AbstractHelper
      */
     public function generateUUIDv4()
     {
-        return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+        return sprintf(
+            '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
 
             // 32 bits for "time_low"
-            mt_rand(0, 0xffff), mt_rand(0, 0xffff),
+            mt_rand(0, 0xffff),
+            mt_rand(0, 0xffff),
 
             // 16 bits for "time_mid"
             mt_rand(0, 0xffff),
@@ -534,7 +556,23 @@ class Data extends AbstractHelper
             mt_rand(0, 0x3fff) | 0x8000,
 
             // 48 bits for "node"
-            mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
+            mt_rand(0, 0xffff),
+            mt_rand(0, 0xffff),
+            mt_rand(0, 0xffff)
+        );
+    }
+
+    /**
+     *
+     * @param int $storeId
+     * @return bool
+     */
+    public function isEnabledIsDisabled($storeId = null)
+    {
+        return $this->scopeConfig->isSetFlag(
+            $this->isDisabledConfigPath,
+            ScopeInterface::SCOPE_STORE,
+            $storeId
         );
     }
 }

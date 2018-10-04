@@ -64,4 +64,10 @@
                 disabled="false"
         />
     </type>
+    <type name="Magento\Catalog\Model\Product">
+        <plugin name="mageworx_optiontemplates_is_require_checker_aftersave"
+                type="MageWorx\OptionBase\Plugin\IsRequireChecker"
+                sortOrder="10"
+                disabled="false"/>
+    </type>
 </config>

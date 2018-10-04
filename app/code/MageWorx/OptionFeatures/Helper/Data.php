@@ -3,6 +3,7 @@
  * Copyright © 2016 MageWorx. All rights reserved.
  * See LICENSE.txt for license details.
  */
+
 namespace MageWorx\OptionFeatures\Helper;
 
 use Magento\Catalog\Model\Product\Option;
@@ -14,83 +15,82 @@ use Magento\Framework\Image\Factory as ImageFactory;
 use MageWorx\OptionFeatures\Model\Image as ImageModel;
 use MageWorx\OptionFeatures\Model\Product\Option\Value\Media\Config;
 use Magento\Framework\App\Filesystem\DirectoryList;
-use Magento\Framework\App\Area;
 use Magento\Framework\App\State;
 use Magento\Store\Model\StoreManagerInterface;
 
 class Data extends AbstractHelper
 {
     // Option value attributes
-    const KEY_IS_DEFAULT = 'is_default';
-    const KEY_DISABLED = 'disabled';
-    const KEY_COST = 'cost';
-    const KEY_WEIGHT = 'weight';
+    const KEY_IS_DEFAULT  = 'is_default';
+    const KEY_DISABLED    = 'disabled';
+    const KEY_COST        = 'cost';
+    const KEY_WEIGHT      = 'weight';
     const KEY_DESCRIPTION = 'description';
-    const KEY_IMAGE = 'images_data';
+    const KEY_IMAGE       = 'images_data';
 
     // Option attributes
-    const KEY_QTY_INPUT = 'qty_input';
-    const KEY_ONE_TIME = 'one_time';
-    const KEY_DIV_CLASS = 'div_class';
+    const KEY_QTY_INPUT          = 'qty_input';
+    const KEY_ONE_TIME           = 'one_time';
     const KEY_OPTION_DESCRIPTION = 'description';
 
     // Product attributes
-    const KEY_ABSOLUTE_COST = 'absolute_cost';
+    const KEY_ABSOLUTE_COST   = 'absolute_cost';
     const KEY_ABSOLUTE_WEIGHT = 'absolute_weight';
-    const KEY_ABSOLUTE_PRICE = 'absolute_price';
+    const KEY_ABSOLUTE_PRICE  = 'absolute_price';
 
     const KEY_OPTION_GALLERY_DISPLAY_MODE = 'mageworx_option_gallery';
-    const KEY_OPTION_IMAGE_MODE = 'mageworx_option_image_mode';
+    const KEY_OPTION_IMAGE_MODE           = 'mageworx_option_image_mode';
 
-    const OPTION_GALLERY_TYPE_DISABLED = 0;
+    const OPTION_GALLERY_TYPE_DISABLED      = 0;
     const OPTION_GALLERY_TYPE_BESIDE_OPTION = 1;
     const OPTION_GALLERY_TYPE_ONCE_SELECTED = 2;
 
     // Value map
-    const IS_DEFAULT_TRUE = '1';
-    const IS_DEFAULT_FALSE = '0';
-    const DISABLED_TRUE = '1';
-    const DISABLED_FALSE = '0';
-    const QTY_INPUT_TRUE = '1';
-    const QTY_INPUT_FALSE = '0';
-    const ONE_TIME_TRUE = '1';
-    const ONE_TIME_FALSE = '0';
-    const ABSOLUTE_COST_TRUE = '1';
-    const ABSOLUTE_COST_FALSE = '0';
-    const ABSOLUTE_WEIGHT_TRUE = '1';
+    const IS_DEFAULT_TRUE       = '1';
+    const IS_DEFAULT_FALSE      = '0';
+    const DISABLED_TRUE         = '1';
+    const DISABLED_FALSE        = '0';
+    const QTY_INPUT_TRUE        = '1';
+    const QTY_INPUT_FALSE       = '0';
+    const ONE_TIME_TRUE         = '1';
+    const ONE_TIME_FALSE        = '0';
+    const ABSOLUTE_COST_TRUE    = '1';
+    const ABSOLUTE_COST_FALSE   = '0';
+    const ABSOLUTE_WEIGHT_TRUE  = '1';
     const ABSOLUTE_WEIGHT_FALSE = '0';
-    const ABSOLUTE_PRICE_TRUE = '1';
-    const ABSOLUTE_PRICE_FALSE = '0';
+    const ABSOLUTE_PRICE_TRUE   = '1';
+    const ABSOLUTE_PRICE_FALSE  = '0';
 
     // Config
-    const XML_PATH_USE_WEIGHT = 'mageworx_apo/optionfeatures/use_weight';
-    const XML_PATH_USE_COST = 'mageworx_apo/optionfeatures/use_cost';
-    const XML_PATH_USE_ABSOLUTE_COST = 'mageworx_apo/optionfeatures/use_absolute_cost';
-    const XML_PATH_USE_ABSOLUTE_WEIGHT = 'mageworx_apo/optionfeatures/use_absolute_weight';
-    const XML_PATH_USE_ABSOLUTE_PRICE = 'mageworx_apo/optionfeatures/use_absolute_price';
-    const XML_PATH_USE_ONE_TIME = 'mageworx_apo/optionfeatures/use_one_time';
-    const XML_PATH_USE_QTY_INPUT = 'mageworx_apo/optionfeatures/use_qty_input';
-    const XML_PATH_USE_DESCRIPTION = 'mageworx_apo/optionfeatures/use_description';
+    const XML_PATH_USE_WEIGHT             = 'mageworx_apo/optionfeatures/use_weight';
+    const XML_PATH_USE_COST               = 'mageworx_apo/optionfeatures/use_cost';
+    const XML_PATH_USE_ABSOLUTE_COST      = 'mageworx_apo/optionfeatures/use_absolute_cost';
+    const XML_PATH_USE_ABSOLUTE_WEIGHT    = 'mageworx_apo/optionfeatures/use_absolute_weight';
+    const XML_PATH_USE_ABSOLUTE_PRICE     = 'mageworx_apo/optionfeatures/use_absolute_price';
+    const XML_PATH_USE_ONE_TIME           = 'mageworx_apo/optionfeatures/use_one_time';
+    const XML_PATH_USE_QTY_INPUT          = 'mageworx_apo/optionfeatures/use_qty_input';
+    const XML_PATH_USE_DESCRIPTION        = 'mageworx_apo/optionfeatures/use_description';
     const XML_PATH_USE_OPTION_DESCRIPTION = 'mageworx_apo/optionfeatures/use_option_description';
-    const XML_PATH_USE_IS_DEFAULT = 'mageworx_apo/optionfeatures/use_is_default';
-    const XML_PATH_TOOLTIP_IMAGE = 'mageworx_apo/optionfeatures/tooltip_image';
+    const XML_PATH_USE_IS_DEFAULT         = 'mageworx_apo/optionfeatures/use_is_default';
+    const XML_PATH_USE_IS_DISABLE         = 'mageworx_apo/optionfeatures/use_is_disabled';
+    const XML_PATH_TOOLTIP_IMAGE          = 'mageworx_apo/optionfeatures/tooltip_image';
 
     const OPTION_DESCRIPTION_DISABLED = 0;
-    const OPTION_DESCRIPTION_TOOLTIP = 1;
-    const OPTION_DESCRIPTION_TEXT = 2;
+    const OPTION_DESCRIPTION_TOOLTIP  = 1;
+    const OPTION_DESCRIPTION_TEXT     = 2;
 
-    const IMAGE_MEDIA_ATTRIBUTE_BASE_IMAGE = 'base_image';
+    const IMAGE_MEDIA_ATTRIBUTE_BASE_IMAGE    = 'base_image';
     const IMAGE_MEDIA_ATTRIBUTE_TOOLTIP_IMAGE = 'tooltip_image';
-    const IMAGE_MEDIA_ATTRIBUTE_SWATCH_IMAGE = 'swatch_image';
+    const IMAGE_MEDIA_ATTRIBUTE_SWATCH_IMAGE  = 'swatch_image';
 
-    const XML_BASE_IMAGE_THUMBNAIL_SIZE = 'mageworx_apo/optionfeatures/base_image_thumbnail_size';
+    const XML_BASE_IMAGE_THUMBNAIL_SIZE    = 'mageworx_apo/optionfeatures/base_image_thumbnail_size';
     const XML_TOOLTIP_IMAGE_THUMBNAIL_SIZE = 'mageworx_apo/optionfeatures/tooltip_image_thumbnail_size';
-    const XML_SWATCH_SIZE = 'mageworx_apo/optionfeatures/swatch_size';
+    const XML_SWATCH_SIZE                  = 'mageworx_apo/optionfeatures/swatch_size';
 
     // Option value image attributes
     protected $imageAttributes = [
-        self::IMAGE_MEDIA_ATTRIBUTE_BASE_IMAGE => 'Base',
-        self::IMAGE_MEDIA_ATTRIBUTE_TOOLTIP_IMAGE => 'Tooltip',
+        self::IMAGE_MEDIA_ATTRIBUTE_BASE_IMAGE        => 'Base',
+        self::IMAGE_MEDIA_ATTRIBUTE_TOOLTIP_IMAGE     => 'Tooltip',
         ImageModel::COLUMN_REPLACE_MAIN_GALLERY_IMAGE => 'Replace Main Gallery Image'
     ];
 
@@ -155,12 +155,12 @@ class Data extends AbstractHelper
         $optionValueDescriptionPath = ''
     ) {
         parent::__construct($context);
-        $this->mediaConfig = $mediaConfig;
-        $this->imageFactory = $imageFactory;
-        $this->filesystem = $filesystem;
-        $this->optionValueDescriptionPath = $optionValueDescriptionPath;
-        $this->state = $state;
-        $this->storeManager = $storeManager;
+        $this->mediaConfig                 = $mediaConfig;
+        $this->imageFactory                = $imageFactory;
+        $this->filesystem                  = $filesystem;
+        $this->optionValueDescriptionPath  = $optionValueDescriptionPath;
+        $this->state                       = $state;
+        $this->storeManager                = $storeManager;
         $this->additionalProductAttributes = $additionalProductAttributes;
     }
 
@@ -277,15 +277,15 @@ class Data extends AbstractHelper
             return $this->mediaConfig->getMediaUrl($path);
         }
 
-        $filePath = $this->mediaConfig->getMediaPath($path);
-        $pathArray = explode('/', $filePath);
-        $fileName = array_pop($pathArray);
+        $filePath      = $this->mediaConfig->getMediaPath($path);
+        $pathArray     = explode('/', $filePath);
+        $fileName      = array_pop($pathArray);
         $directoryPath = implode('/', $pathArray);
-        $thumbPath = $directoryPath . '/' . $thumbnailSize . 'x/';
+        $thumbPath     = $directoryPath . '/' . $thumbnailSize . 'x/';
 
-        $mediaDirectory = $this->filesystem->getDirectoryRead(DirectoryList::MEDIA);
+        $mediaDirectory    = $this->filesystem->getDirectoryRead(DirectoryList::MEDIA);
         $thumbAbsolutePath = $mediaDirectory->getAbsolutePath($thumbPath);
-        $fileAbsolutePath = $mediaDirectory->getAbsolutePath($filePath);
+        $fileAbsolutePath  = $mediaDirectory->getAbsolutePath($filePath);
 
         $thumbFilePath = $thumbAbsolutePath . $fileName;
         if (!file_exists($thumbFilePath)) {
@@ -339,9 +339,9 @@ class Data extends AbstractHelper
     public function createThumbFile($origFilePath, $thumbPath, $newFileName, $thumbnailSize)
     {
         try {
-            $image = $this->imageFactory->create($origFilePath);
+            $image      = $this->imageFactory->create($origFilePath);
             $origHeight = $image->getOriginalHeight();
-            $origWidth = $image->getOriginalWidth();
+            $origWidth  = $image->getOriginalWidth();
 
             $image->keepAspectRatio(true);
             $image->keepFrame(true);
@@ -350,7 +350,7 @@ class Data extends AbstractHelper
             $image->backgroundColor([255, 255, 255]);
             $image->quality(100);
 
-            $width = null;
+            $width  = null;
             $height = null;
 
             if ($origHeight > $origWidth) {
@@ -384,14 +384,14 @@ class Data extends AbstractHelper
             return '';
         }
 
-        $filePath = $this->mediaConfig->getMediaPath($path);
-        $pathArray = explode('/', $filePath);
-        $fileName = array_pop($pathArray);
+        $filePath      = $this->mediaConfig->getMediaPath($path);
+        $pathArray     = explode('/', $filePath);
+        $fileName      = array_pop($pathArray);
         $directoryPath = implode('/', $pathArray);
-        $imagePath = $directoryPath . '/' . $width . 'x' . $height . '/';
+        $imagePath     = $directoryPath . '/' . $width . 'x' . $height . '/';
 
-        $mediaDirectory = $this->filesystem->getDirectoryRead(DirectoryList::MEDIA);
-        $imgAbsolutePath = $mediaDirectory->getAbsolutePath($imagePath);
+        $mediaDirectory   = $this->filesystem->getDirectoryRead(DirectoryList::MEDIA);
+        $imgAbsolutePath  = $mediaDirectory->getAbsolutePath($imagePath);
         $fileAbsolutePath = $mediaDirectory->getAbsolutePath($filePath);
 
         $imgFilePath = $imgAbsolutePath . $fileName;
@@ -447,7 +447,7 @@ class Data extends AbstractHelper
 
         $sortedOptions = [];
         foreach ($options as $index => $option) {
-            $sortOrder = $option->getSortOrder() * 100;
+            $sortOrder                 = $option->getSortOrder() * 100;
             $sortedOptions[$sortOrder] = $option;
         }
 
@@ -479,10 +479,10 @@ class Data extends AbstractHelper
     public function isAbsoluteWeightEnabled($storeId = null)
     {
         return $this->scopeConfig->isSetFlag(
-            self::XML_PATH_USE_ABSOLUTE_WEIGHT,
-            ScopeInterface::SCOPE_STORE,
-            $storeId
-        ) && $this->isWeightEnabled($storeId);
+                self::XML_PATH_USE_ABSOLUTE_WEIGHT,
+                ScopeInterface::SCOPE_STORE,
+                $storeId
+            ) && $this->isWeightEnabled($storeId);
     }
 
     /**
@@ -510,10 +510,10 @@ class Data extends AbstractHelper
     public function isAbsoluteCostEnabled($storeId = null)
     {
         return $this->scopeConfig->isSetFlag(
-            self::XML_PATH_USE_ABSOLUTE_COST,
-            ScopeInterface::SCOPE_STORE,
-            $storeId
-        ) && $this->isCostEnabled($storeId);
+                self::XML_PATH_USE_ABSOLUTE_COST,
+                ScopeInterface::SCOPE_STORE,
+                $storeId
+            ) && $this->isCostEnabled($storeId);
     }
 
     /**
@@ -586,6 +586,20 @@ class Data extends AbstractHelper
     {
         return $this->scopeConfig->isSetFlag(
             self::XML_PATH_USE_IS_DEFAULT,
+            ScopeInterface::SCOPE_STORE,
+            $storeId
+        );
+    }
+
+    /**
+     *
+     * @param int $storeId
+     * @return bool
+     */
+    public function isEnabledIsDisabled($storeId = null)
+    {
+        return $this->scopeConfig->isSetFlag(
+            self::XML_PATH_USE_IS_DISABLE,
             ScopeInterface::SCOPE_STORE,
             $storeId
         );

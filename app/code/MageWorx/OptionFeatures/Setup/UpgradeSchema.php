@@ -20,6 +20,7 @@ class UpgradeSchema implements UpgradeSchemaInterface
 
     /**
      * UpgradeSchema constructor.
+     *
      * @param \MageWorx\OptionBase\Model\Installer $optionBaseInstaller
      */
     public function __construct(
@@ -96,26 +97,16 @@ class UpgradeSchema implements UpgradeSchemaInterface
             );
         }
 
-        
-        if (version_compare($context->getVersion(), '1.0.7', '<')) {
-            $tableName = $setup->getTable('mageworx_optiontemplates_group_option');
-            $connection = $setup->getConnection();
-            //var_dump($tableName); die('qqqq');
-
-            $connection->addColumn(
-                $setup->getTable($tableName),
-                'div_class',
-                [
-                    'type' => \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
-                    'length' => 64,
-                    'comment' =>'div class',
-                    'default' => '',
-                    'nullable' => false,
-                ]               
-
-            );
-        }
-
+        $setup->getConnection()->addColumn(
+            $setup->getTable('catalog_product_entity'),
+            'mageworx_is_require',
+            [
+                'type'     => \Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
+                'nullable' => false,
+                'default'  => '0',
+                'comment'  => 'MageWorx Is Required',
+            ]
+        );
 
         $this->optionBaseInstaller->install();
     }

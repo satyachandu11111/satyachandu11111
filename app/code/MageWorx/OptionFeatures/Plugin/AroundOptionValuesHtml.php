@@ -108,12 +108,13 @@ class AroundOptionValuesHtml
 
         $this->dom->loadHTML($result);
         $body = $this->dom->documentElement->firstChild;
+        $nameQty = __('Qty: ');
 
         if ($this->isCheckboxWithQtyInput($this->option)) {
-            $this->addHtmlToMultiSelectionOption();
+            $this->addHtmlToMultiSelectionOption($nameQty);
         } else {
             if ($this->isDropdownWithQtyInput($this->option) || $this->isRadioWithQtyInput($this->option)) {
-                $qtyInput = $this->getHtmlForSingleSelectionOption();
+                $qtyInput = $this->getHtmlForSingleSelectionOption($nameQty);
             } elseif ($this->isMultiselect($this->option) || !$this->option->getQtyInput()) {
                 $qtyInput = $this->getDefaultHtml();
             } else {
@@ -197,14 +198,14 @@ class AroundOptionValuesHtml
      *
      * @return void
      */
-    protected function addHtmlToMultiSelectionOption()
+    protected function addHtmlToMultiSelectionOption($nameQty)
     {
         $count = 1;
         foreach ($this->option->getValues() as $value) {
             $count++;
             $optionValueQty = $this->getOptionQty($value->getOptionTypeId());
             $qtyInput = '<div class="label-qty" style="display: inline-block; padding: 5px; margin-left: 3em">' .
-                '<b>Qty: </b>' .
+                '<b>' . $nameQty . '</b>' .
                 '<input name="options_qty[' . $this->option->getId() . '][' . $value->getOptionTypeId() . ']"' .
                 ' id="options_' . $this->option->getId() . '_' . $value->getOptionTypeId() . '_qty"' .
                 ' class="qty mageworx-option-qty" type="number" value="' . $optionValueQty . '" min="0" disabled' .
@@ -229,10 +230,10 @@ class AroundOptionValuesHtml
      *
      * @return void
      */
-    protected function getHtmlForSingleSelectionOption()
+    protected function getHtmlForSingleSelectionOption($nameQty)
     {
         $optionQty = $this->getOptionQty($this->option->getId());
-        return '<div class="label-qty" style="display: inline-block; padding: 5px;"><b>Qty: </b>'
+        return '<div class="label-qty" style="display: inline-block; padding: 5px;"><b>' . $nameQty . '</b>'
             . '<input name="options_qty[' . $this->option->getId() . ']"'
             . ' id="options_' . $this->option->getId() . '"'
             . ' class="qty mageworx-option-qty" type="number" value="' . $optionQty . '" min="0" disabled'
