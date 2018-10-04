@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-autocomplete
- * @version   1.1.48
+ * @version   1.1.58
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -68,73 +68,91 @@ class Injection extends Template
     }
 
     /**
-     * Js configuration array for autocomplete
-     *
      * @return array
      */
     public function getJsConfig()
     {
-        $config = [
-            "*" => [
-                'Magento_Ui/js/core/app' => [
-                    'components' => [
-                        'autocompleteInjection'  => [
-                            'component' => 'Mirasvit_SearchAutocomplete/js/injection',
-                            'config'    => [],
-                        ],
-                        'autocomplete'           => [
-                            'component' => 'Mirasvit_SearchAutocomplete/js/autocomplete',
-                            'provider'  => 'autocompleteProvider',
-                            'config'    => [
-                                'query'           => $this->searchHelper->getEscapedQueryText(),
-                                'priceFormat'     => $this->localeFormat->getPriceFormat(),
-                                'minSearchLength' => $this->config->getMinChars(),
-                            ],
-                        ],
-                        'autocompleteProvider'   => [
-                            'component' => 'Mirasvit_SearchAutocomplete/js/provider',
-                            'config'    => [
-                                'url'             => $this->getUrl(
-                                    'searchautocomplete/ajax/suggest',
-                                    ['_secure' => $this->getRequest()->isSecure()]
-                                ),
-                                'delay'           => $this->config->getDelay(),
-                                'minSearchLength' => $this->config->getMinChars(),
-                            ],
-                        ],
-                        'autocompleteNavigation' => [
-                            'component'    => 'Mirasvit_SearchAutocomplete/js/navigation',
-                            'autocomplete' => 'autocomplete',
-                        ],
-                    ],
-                ],
-            ],
+        return [
+            'query'              => $this->searchHelper->getEscapedQueryText(),
+            'priceFormat'        => $this->localeFormat->getPriceFormat(),
+            'minSearchLength'    => $this->config->getMinChars(),
+            'url'                => $this->getUrl(
+                'searchautocomplete/ajax/suggest',
+                ['_secure' => $this->getRequest()->isSecure()]
+            ),
+            'delay'              => $this->config->getDelay(),
+            'popularSearches'    => $this->config->isShowPopularSearches() ? $this->config->getPopularSearches() : [],
+            'isTypeaheadEnabled' => $this->config->isTypeAheadEnabled(),
+            'typeaheadUrl'       => $this->getUrl(
+                'searchautocomplete/ajax/typeahead',
+                ['_secure' => $this->getRequest()->isSecure()]
+            ),
         ];
-
-        if ($this->config->isShowPopularSearches()) {
-            $config['*']['Magento_Ui/js/core/app']['components']['autocompletePopular'] = [
-                'component'    => 'Mirasvit_SearchAutocomplete/js/popular',
-                'autocomplete' => 'autocomplete',
-                'provider'     => 'autocompleteProvider',
-                'config'       => [
-                    'enabled'         => $this->config->isShowPopularSearches(),
-                    'queries'         => $this->config->getPopularSearches(),
-                    'minSearchLength' => $this->config->getMinChars(),
-                ],
-            ];
-        } else {
-            $config['*']['Magento_Ui/js/core/app']['components']['autocompleteRecent'] = [
-                'component'    => 'Mirasvit_SearchAutocomplete/js/recent',
-                'autocomplete' => 'autocomplete',
-                'provider'     => 'autocompleteProvider',
-                'config'       => [
-                    'limit'           => 5,
-                    'minSearchLength' => $this->config->getMinChars(),
-                ],
-            ];
-        }
-        return $config;
     }
+
+    //    /**
+    //     * Js configuration array for autocomplete
+    //     *
+    //     * @return array
+    //     */
+    //    public function getJsConfig2()
+    //    {
+    //        $config = [
+    //            "*" => [
+    //                'Magento_Ui/js/core/app' => [
+    //                    'components' => [
+    //                        'autocompleteInjection'  => [
+    //                            'component' => 'Mirasvit_SearchAutocomplete/js/injection',
+    //                            'config'    => [],
+    //                        ],
+    //                        'autocomplete'           => [
+    //                            'component' => 'Mirasvit_SearchAutocomplete/js/autocomplete',
+    //                            'provider'  => 'autocompleteProvider',
+    //                            'config'    => [
+    //                                'query'           => $this->searchHelper->getEscapedQueryText(),
+    //                                'priceFormat'     => ,
+    //                                'minSearchLength' => ,
+    //                            ],
+    //                        ],
+    //                        'autocompleteProvider'   => [
+    //                            'component' => 'Mirasvit_SearchAutocomplete/js/provider',
+    //                            'config'    => [
+    //
+    //                            ],
+    //                        ],
+    //                        'autocompleteNavigation' => [
+    //                            'component'    => 'Mirasvit_SearchAutocomplete/js/navigation',
+    //                            'autocomplete' => 'autocomplete',
+    //                        ],
+    //                    ],
+    //                ],
+    //            ],
+    //        ];
+    //
+    //        if ($this->config->isShowPopularSearches()) {
+    //            $config['*']['Magento_Ui/js/core/app']['components']['autocompletePopular'] = [
+    //                'component'    => 'Mirasvit_SearchAutocomplete/js/popular',
+    //                'autocomplete' => 'autocomplete',
+    //                'provider'     => 'autocompleteProvider',
+    //                'config'       => [
+    //                    'enabled'         => $this->config->isShowPopularSearches(),
+    //                    'queries'         => $this->config->getPopularSearches(),
+    //                    'minSearchLength' => $this->config->getMinChars(),
+    //                ],
+    //            ];
+    //        } else {
+    //            $config['*']['Magento_Ui/js/core/app']['components']['autocompleteRecent'] = [
+    //                'component'    => 'Mirasvit_SearchAutocomplete/js/recent',
+    //                'autocomplete' => 'autocomplete',
+    //                'provider'     => 'autocompleteProvider',
+    //                'config'       => [
+    //                    'limit'           => 5,
+    //                    'minSearchLength' => $this->config->getMinChars(),
+    //                ],
+    //            ];
+    //        }
+    //        return $config;
+    //    }
 
     /**
      * @return string

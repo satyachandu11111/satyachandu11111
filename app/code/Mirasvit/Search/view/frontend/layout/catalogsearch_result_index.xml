@@ -4,6 +4,9 @@
     <body>
         <attribute name="class" value="page-products"/>
 
+        <!--blackbird content manager block-->
+        <referenceBlock name="search.content.result" remove="true" />
+
         <move element="search.result" destination="searchindex.result" as="catalogsearch_fulltext"/>
 
         <referenceContainer name="content">
@@ -74,6 +77,13 @@
                 <block class="Mirasvit\Search\Block\Index\Base"
                        name="amasty_faq_question"
                        template="index/amasty/faq/question.phtml" />
+                <block class="Mirasvit\Search\Block\Index\Base"
+                       name="amasty_blog_post"
+                       template="index/amasty/blog/post.phtml" />
+
+                <block class="Mirasvit\Search\Block\Index\Base"
+                       name="blackbird_contentmanager_content"
+                       template="index/blackbird/contentmanager/content.phtml" />
             </block>
         </referenceContainer>
     </body>

@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-autocomplete
- * @version   1.1.48
+ * @version   1.1.58
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -68,6 +68,7 @@ class Product extends AbstractIndex
      * @var RequestInterface
      */
     protected $request;
+
     /**
      * @var TaxConfig
      */
@@ -128,10 +129,11 @@ class Product extends AbstractIndex
 
     /**
      * @param \Magento\Catalog\Model\Product $product
+     * @param int $storeId
      * @return array
      * @SuppressWarnings(PHPMD)
      */
-    public function mapProduct($product)
+    public function mapProduct($product, $storeId = 1)
     {
         $item = [
             'name'        => $product->getName(),
@@ -163,7 +165,6 @@ class Product extends AbstractIndex
             $image = $product->getSmallImage();
         }
 
-
         if ($this->config->isShowImage()) {
             $item['image'] = $this->imageHelper->init($product, 'product_page_image_small')
                 ->setImageFile($image)
@@ -180,16 +181,26 @@ class Product extends AbstractIndex
             if ($product->getFinalPrice() == 0) {
                 $product->setData('final_price', null);
             }
-//            $fp = $product->getPriceInfo()->getPrice('final_price')->getValue();
-//            $item['price'] = $this->catalogHelper->getTaxPrice($product, $fp);
+
             $item['price'] = $this->catalogHelper->getTaxPrice($product, $product->getFinalPrice(), $includingTax);
             $item['price'] = $this->pricingHelper->currency($item['price'], false, false);
         }
 
         if ($this->config->isShowRating() && $product->getRatingSummary()) {
             try {
-                $item['rating'] = $this->reviewRenderer
-                    ->getReviewsSummaryHtml($product, ReviewRendererInterface::SHORT_VIEW);
+                /** @var \Magento\Store\Model\App\Emulation $emulation */
+                $emulation = ObjectManager::getInstance()->get('Magento\Store\Model\App\Emulation');
+                $emulation->startEnvironmentEmulation($storeId, 'frontend', true);
+
+                /** @var \Magento\Framework\App\State $state */
+                $state = ObjectManager::getInstance()->get('Magento\Framework\App\State');
+
+                $state->emulateAreaCode('frontend', function (&$item, $product) {
+                    $item['rating'] = $this->reviewRenderer
+                        ->getReviewsSummaryHtml($product, ReviewRendererInterface::SHORT_VIEW);
+                }, [&$item, $product]);
+
+                $emulation->stopEnvironmentEmulation();
             } catch (\Exception $e) {
             }
         }
@@ -250,7 +261,7 @@ class Product extends AbstractIndex
 
         foreach ($collection as $product) {
             $entityId = $product->getId();
-            $map = $this->mapProduct($product);
+            $map = $this->mapProduct($product, $storeId);
             $documents[$entityId]['autocomplete'] = $map;
         }
 

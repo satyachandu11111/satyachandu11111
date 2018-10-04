@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search
- * @version   1.0.78
+ * @version   1.0.94
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -17,6 +17,7 @@
 
 namespace Mirasvit\Search\Index\Magento\Cms\Page;
 
+use Magento\Framework\App\ObjectManager;
 use Magento\Store\Model\App\Emulation as AppEmulation;
 use Mirasvit\Search\Api\Data\Index\DataMapperInterface;
 use Magento\Cms\Model\Template\FilterProvider as CmsFilterProvider;

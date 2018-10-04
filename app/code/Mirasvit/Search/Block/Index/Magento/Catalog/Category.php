@@ -9,9 +9,10 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search
- * @version   1.0.78
+ * @version   1.0.94
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
+
 
 
 namespace Mirasvit\Search\Block\Index\Magento\Catalog;
@@ -23,17 +24,35 @@ use Magento\Framework\View\Element\Template\Context;
 use Magento\Store\Model\StoreManagerInterface;
 use Mirasvit\Search\Api\Service\IndexServiceInterface;
 use Mirasvit\Search\Block\Index\Base;
+use Magento\Catalog\Helper\Output;
 
 class Category extends Base
 {
+    /**
+     * Magento\Catalog\Helper\Output
+     */
+    private $outputHelper;
+
+    /**
+     * @var StoreManagerInterface
+     */
+    private $storeManager;
+
+    /**
+     * @var CatalogCategoryFactory
+     */
+    private $categoryFactory;
+
     public function __construct(
         CatalogCategoryFactory $categoryFactory,
+        Output $outputHelper,
         IndexServiceInterface $indexService,
         ObjectManagerInterface $objectManager,
         Context $context
     ) {
         $this->storeManager = $context->getStoreManager();
         $this->categoryFactory = $categoryFactory;
+        $this->outputHelper = $outputHelper;
 
         parent::__construct($indexService, $objectManager, $context);
     }
@@ -53,7 +72,10 @@ class Category extends Base
         $id = $categoryId;
 
         do {
-            $parent = $this->categoryFactory->create()->load($id)->getParentCategory();
+            $parent = $this->categoryFactory->create()
+                ->load($id)
+                ->getParentCategory();
+
             $id = $parent->getId();
 
             if (!$parent->getId()) {
@@ -61,7 +83,7 @@ class Category extends Base
             }
 
             if (!$parent->getIsActive() && $parent->getId() != $rootId) {
-                break;//return false;
+                break;
             }
 
             if ($parent->getId() != $rootId) {
@@ -72,5 +94,21 @@ class Category extends Base
         $result = array_reverse($result);
 
         return $result;
+    }
+
+    public function getCategoryImage($item)
+    {
+        $category = $item->load($item->getId());
+        $imgHtml = '';
+
+        if ($imgUrl = $category->getImageUrl()) {
+            $imgHtml = '<img src="' . $imgUrl . '" 
+                alt="' . $this->escapeHtml($category->getName()) . '" 
+                title="' . $this->escapeHtml($category->getName()) . '" 
+                class="image" />';
+            $imgHtml = $this->outputHelper->categoryAttribute($category, $imgHtml, 'image');
+        }
+
+        return $imgHtml;
     }
 }

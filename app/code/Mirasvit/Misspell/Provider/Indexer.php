@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-misspell
- * @version   1.0.24
+ * @version   1.0.27
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -145,7 +145,6 @@ class Indexer
             }
         }
     }
-
 
     /**
      * List of tables that follow allowedTables, disallowedTables conditions

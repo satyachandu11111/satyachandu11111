@@ -8,6 +8,10 @@
              sortOrder="10" parent="Mirasvit_Search::search" action="search/index"
              resource="Mirasvit_Search::search_index"/>
 
+        <add id="Mirasvit_Search::search_score_rule" title="Score Boost Rules" module="Mirasvit_Search"
+             sortOrder="15" parent="Mirasvit_Search::search" action="search/scoreRule"
+             resource="Mirasvit_Search::search_score_rule"/>
+
         <add id="Mirasvit_Search::search_synonym" title="Manage Synonyms"
              module="Mirasvit_Search" sortOrder="20" parent="Mirasvit_Search::search"
              action="search/synonym" resource="Mirasvit_Search::search_synonym"/>

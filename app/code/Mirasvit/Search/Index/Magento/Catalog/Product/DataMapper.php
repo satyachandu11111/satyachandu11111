@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search
- * @version   1.0.78
+ * @version   1.0.94
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -25,7 +25,6 @@ use Magento\Framework\App\ResourceConnection;
 
 use Magento\Catalog\Model\Category;
 use Magento\Catalog\Model\Product;
-use Mirasvit\Search\Api\Service\ScoreServiceInterface as ScoreService;
 use Magento\Catalog\Model\Category\Tree;
 
 class DataMapper implements DataMapperInterface
@@ -86,7 +85,6 @@ class DataMapper implements DataMapperInterface
         $this->addCustomOptions($documents);
         $this->addBundledOptions($documents);
         $this->addProductIdData($documents);
-        $this->addSoldQTYData($documents);
 
         return $documents;
     }
@@ -107,8 +105,8 @@ class DataMapper implements DataMapperInterface
 
         $root = $this->categoryTree->getTree($this->categoryTree->getRootNode())->getChildrenData();
         $ids = $this->getActiveCategories($root);
-        $activeCategories = '(' . implode(',', $ids ) . ')';
-        $productIds = '(' . implode(',',array_keys($index)) . ')';
+        $activeCategories = '(' . implode(',', $ids) . ')';
+        $productIds = '(' . implode(',', array_keys($index)) . ')';
 
         $select = $this->connection->select()
             ->from([$this->resource->getTableName('catalog_category_product')], ['product_id'])
@@ -117,7 +115,7 @@ class DataMapper implements DataMapperInterface
             ->where('category_id IN '. trim($activeCategories))
             ->group('product_id');
 
-        foreach (array_diff(array_keys($index), $this->connection->fetchCol($select)) as $productId) {    
+        foreach (array_diff(array_keys($index), $this->connection->fetchCol($select)) as $productId) {
             unset($index[$productId]);
         }
 
@@ -302,45 +300,6 @@ class DataMapper implements DataMapperInterface
                 $index[$row['product_id']]['options'] = implode(' ', $index[$row['product_id']]['options']);
             }
             $index[$row['product_id']]['options'] .= ' ' . $row['category'];
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param array &$index
-     * @return $this
-     */
-    protected function addSoldQTYData(&$index)
-    {
-        $attributeId = $this->attribute->loadByCode(Product::ENTITY, ScoreService::SOLD_QTY)->getId();
-    
-        foreach (array_keys($index) as $productId) {
-            unset($index[$productId][$attributeId]);
-        }
-
-        if ((bool)$this->getIndex()->getProperty(ScoreService::PROPERTY_NAME)) {
-            
-            $valueSelect = $this->connection->select()
-                ->from(
-                    ['cc' => $this->resource->getTableName('catalog_product_entity')],
-                    ['product_id'=>'max(entity_id)']
-                )->joinLeft(
-                    ['catalog_product_relation' => $this->resource->getTableName('catalog_product_relation')],
-                    ' cc.entity_id in (catalog_product_relation.parent_id, catalog_product_relation.child_id)',
-                    []
-                )->joinLeft(
-                    ['sales_order_item' => $this->resource->getTableName('sales_order_item')],
-                    'sales_order_item.product_id = cc.entity_id',
-                    ['SUM(qty_ordered) as ordered_qty']
-                )->where('parent_id IN (?)', array_keys($index))
-                ->group('parent_id');
-
-            foreach ($this->connection->fetchAll($valueSelect) as $data) {
-                if ($data['ordered_qty'] > 0) {
-                    $index[$data['product_id']][$attributeId] = $data['ordered_qty'];
-                }
-            }
         }
 
         return $this;

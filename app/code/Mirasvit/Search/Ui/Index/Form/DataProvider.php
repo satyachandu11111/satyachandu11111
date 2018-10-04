@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search
- * @version   1.0.78
+ * @version   1.0.94
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -20,10 +20,10 @@ namespace Mirasvit\Search\Ui\Index\Form;
 use Magento\Framework\View\Element\UiComponentFactory;
 use Magento\Framework\View\Element\UiComponentInterface;
 use Magento\Ui\DataProvider\AbstractDataProvider;
+use Mirasvit\Core\Service\CompatibilityService;
 use Mirasvit\Search\Api\Data\IndexInterface;
 use Mirasvit\Search\Api\Repository\IndexRepositoryInterface;
 use Magento\Framework\View\Element\UiComponent\ContextInterface;
-use Magento\Ui\Config\DataFactory as DataInterfaceFactory;
 
 class DataProvider extends AbstractDataProvider
 {
@@ -38,11 +38,6 @@ class DataProvider extends AbstractDataProvider
     private $uiComponentFactory;
 
     /**
-     * @var DataInterfaceFactory
-     */
-    private $configFactory;
-
-    /**
      * @var ContextInterface
      */
     private $context;
@@ -50,8 +45,8 @@ class DataProvider extends AbstractDataProvider
     public function __construct(
         IndexRepositoryInterface $indexRepository,
         UiComponentFactory $uiComponentFactory,
-        DataInterfaceFactory $configFactory,
         ContextInterface $context,
+        //        DataInterfaceFactory $configFactory,
         $name,
         $primaryFieldName,
         $requestFieldName,
@@ -59,8 +54,8 @@ class DataProvider extends AbstractDataProvider
         array $data = []
     ) {
         $this->uiComponentFactory = $uiComponentFactory;
-        $this->configFactory = $configFactory;
         $this->context = $context;
+//        $this->configFactory = $configFactory;
 
         $this->indexRepository = $indexRepository;
         $this->collection = $this->indexRepository->getCollection();
@@ -77,11 +72,17 @@ class DataProvider extends AbstractDataProvider
         if ($id) {
             $index = $this->indexRepository->get($id);
 
+            $identifier = 'search_index_form_' . $index->getIdentifier();
+
+            if (CompatibilityService::is22()) {
+                $componentData = CompatibilityService::getObjectManager()
+                    ->create('Magento\Ui\Config\DataFactory')
+                    ->create(['componentName' => $identifier])->get($identifier);
+            } else {
+                $componentData = true;
+            }
+
             try {
-                $identifier = 'search_index_form_' . $index->getIdentifier();
-
-                $componentData = $this->configFactory->create(['componentName' => $identifier])->get($identifier);
-
                 if ($componentData) {
                     $component = $this->uiComponentFactory->create($identifier);
                     return ['props' => $this->prepareComponent($component)];

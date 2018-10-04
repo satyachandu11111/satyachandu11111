@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-sphinx
- * @version   1.1.33
+ * @version   1.1.38
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -83,14 +83,15 @@ class IndexerHandler implements IndexerInterface
      */
     public function saveIndex($dimensions, \Traversable $documents)
     {
-        $index = $this->indexRepository->get($this->getIndexName());
-        $instance = $this->indexRepository->getInstance($this->getIndexName());
+        $index = $this->indexRepository->get($this->getIndexId());
+
+        $instance = $this->indexRepository->getInstance($index);
 
         $indexName = $this->indexScopeResolver->resolve($this->getIndexName(), $dimensions);
 
         foreach ($this->batch->getItems($documents, $this->batchSize) as $docs) {
             foreach ($instance->getDataMappers('sphinx') as $mapper) {
-                $docs = $mapper->map($docs, $dimensions, $this->getIndexName());
+                $docs = $mapper->map($docs, $dimensions, $this->getIndexName(), $instance);
             }
 
             $this->engine->saveDocuments($index, $indexName, $docs);
@@ -104,7 +105,7 @@ class IndexerHandler implements IndexerInterface
      */
     public function deleteIndex($dimensions, \Traversable $documents)
     {
-        $index = $this->indexRepository->get($this->getIndexName());
+        $index = $this->indexRepository->get($this->getIndexId());
         $indexName = $this->indexScopeResolver->resolve($this->getIndexName(), $dimensions);
 
         foreach ($this->batch->getItems($documents, $this->batchSize) as $batchDocuments) {
@@ -133,5 +134,13 @@ class IndexerHandler implements IndexerInterface
     private function getIndexName()
     {
         return $this->data['indexer_id'];
+    }
+
+    /**
+     * @return string
+     */
+    private function getIndexId()
+    {
+        return isset($this->data['index_id']) ? $this->data['index_id'] : 1;
     }
 }

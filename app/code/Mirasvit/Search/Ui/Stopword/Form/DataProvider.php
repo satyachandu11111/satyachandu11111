@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search
- * @version   1.0.78
+ * @version   1.0.94
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -29,14 +29,14 @@ class DataProvider extends AbstractDataProvider
     private $stopwordRepository;
 
     public function __construct(
-        StopwordRepositoryInterface $synonymRepository,
+        StopwordRepositoryInterface $repository,
         $name,
         $primaryFieldName,
         $requestFieldName,
         array $meta = [],
         array $data = []
     ) {
-        $this->stopwordRepository = $synonymRepository;
+        $this->stopwordRepository = $repository;
         $this->collection = $this->stopwordRepository->getCollection();
 
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data);

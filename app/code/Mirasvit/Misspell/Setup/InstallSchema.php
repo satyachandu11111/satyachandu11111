@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-misspell
- * @version   1.0.24
+ * @version   1.0.27
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -74,7 +74,6 @@ class InstallSchema implements InstallSchemaInterface
         );
 
         $installer->getConnection()->createTable($table);
-
 
         /**
          * Create table 'mst_misspell_suggest'

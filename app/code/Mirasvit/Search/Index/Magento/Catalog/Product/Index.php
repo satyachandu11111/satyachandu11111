@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search
- * @version   1.0.78
+ * @version   1.0.94
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -262,6 +262,7 @@ class Index extends AbstractIndex
         $configData = [
             'fieldsets'  => [],
             'indexer_id' => 'catalogsearch_fulltext',
+            'index_id'   => $this->getModel()->getId(),
         ];
 
         if ($storeId) {

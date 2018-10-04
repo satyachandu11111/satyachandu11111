@@ -9,12 +9,15 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-sphinx
- * @version   1.1.33
+ * @version   1.1.38
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
 
-$configFile = BP . '/app/etc/autocomplete.json';
+$configFile = dirname(dirname(dirname(dirname(dirname(__DIR__))))) . '/app/etc/autocomplete.json';
+if (!file_exists($configFile)) { //extension may be installed by coping files to the folder /app/code/Mirasvit
+    $configFile = dirname(dirname(dirname(dirname(__DIR__)))) . '/app/etc/autocomplete.json';
+}
 if (isset($_SERVER)
     && is_array($_SERVER)
     && isset($_SERVER['REQUEST_URI'])
@@ -23,7 +26,8 @@ if (isset($_SERVER)
     require_once 'autocomplete.php';
 }
 
-$registration = dirname(dirname(dirname(__DIR__))) . '/vendor/mirasvit/module-search-sphinx/src/SearchSphinx/registration.php';
+$registration = dirname(dirname(dirname(__DIR__)))
+    . '/vendor/mirasvit/module-search-sphinx/src/SearchSphinx/registration.php';
 if (file_exists($registration)) {
     # module was already installed via composer
     return;

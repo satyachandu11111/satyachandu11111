@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search
- * @version   1.0.78
+ * @version   1.0.94
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -24,7 +24,6 @@ use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Eav\Setup\EavSetupFactory;
 use Magento\Cms\Api\BlockRepositoryInterface;
 use Magento\Cms\Api\Data\BlockInterfaceFactory;
-use Mirasvit\Search\Api\Service\ScoreServiceInterface;
 
 /**
  * Upgrade Data script
@@ -103,7 +102,7 @@ class UpgradeData implements UpgradeDataInterface
             $this->blockRepository->save($block);
         }
 
-       if (version_compare($context->getVersion(), '1.0.7') < 0) {
+        if (version_compare($context->getVersion(), '1.0.7') < 0) {
             $eavSetup = $this->eavSetupFactory->create(['setup' => $setup]);
             $eavSetup->addAttribute(
                 ProductAttributeInterface::ENTITY_TYPE_CODE,

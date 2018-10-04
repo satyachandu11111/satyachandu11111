@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-mysql
- * @version   1.0.13
+ * @version   1.0.22
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -20,7 +20,6 @@ namespace Mirasvit\SearchMysql\Adapter;
 use Magento\Framework\App\ResourceConnection;
 use Magento\Framework\DB\Ddl\Table;
 use Magento\Framework\Search\Adapter\Mysql\Aggregation\Builder as AggregationBuilder;
-use Magento\Framework\Search\Adapter\Mysql\Mapper;
 use Magento\Framework\Search\Adapter\Mysql\ResponseFactory;
 use Magento\Framework\Search\Adapter\Mysql\TemporaryStorageFactory;
 use Magento\Framework\Search\AdapterInterface;
@@ -66,14 +65,6 @@ class Adapter implements AdapterInterface
      */
     protected $searchConfig;
 
-    /**
-     * @param Mapper $mapper
-     * @param ResponseFactory $responseFactory
-     * @param ResourceConnection $resource
-     * @param AggregationBuilder $aggregationBuilder
-     * @param TemporaryStorageFactory $temporaryStorageFactory
-     * @param SearchConfig $searchConfig
-     */
     public function __construct(
         Mapper $mapper,
         ResponseFactory $responseFactory,
@@ -104,12 +95,12 @@ class Adapter implements AdapterInterface
 
             //ability to search by 0 attribute (options)
             $from = $query->getPart('FROM');
-            foreach ($from as $k => $f) {
+            foreach (array_keys($from) as $k) {
                 $from[$k]['tableName'] = new \Zend_Db_Expr('(' . str_replace(
-                        'search_index.attribute_id = cea.attribute_id',
-                        'search_index.attribute_id = cea.attribute_id or search_index.attribute_id = 0',
-                        $from[$k]['tableName']
-                    ) . ')');
+                    'search_index.attribute_id = cea.attribute_id',
+                    'search_index.attribute_id = cea.attribute_id or search_index.attribute_id = 0',
+                    $from[$k]['tableName']
+                ) . ')');
             }
             $query->setPart('FROM', $from);
         }
@@ -121,7 +112,6 @@ class Adapter implements AdapterInterface
         $temporaryStorage = $this->temporaryStorageFactory->create();
 
         $table = $temporaryStorage->storeDocumentsFromSelect($query);
-
 
         return $this->responseFactory->create([
             'documents'    => $this->getDocuments($table),

@@ -2,11 +2,11 @@
   "name": "mirasvit/module-search-mysql",
   "description": "Search Mysql",
   "require": {
-    "magento/framework": "101.0.*",
+    "magento/framework": "100.1.*|100.2.*|101.0.*",
     "mirasvit/module-search": "1.0.*"
   },
   "type": "magento2-module",
-  "version": "1.0.13",
+  "version": "1.0.22",
   "license": [
     "proprietary"
   ],

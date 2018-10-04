@@ -21,7 +21,7 @@
     <type name="Magento\CatalogSearch\Model\ResourceModel\EngineProvider">
         <arguments>
             <argument name="engines" xsi:type="array">
-                <item name="mysql2" xsi:type="string">Magento\CatalogSearch\Model\ResourceModel\Engine</item>
+                <item name="mysql2" xsi:type="string">Mirasvit\SearchMysql\Model\ResourceModel\Engine</item>
             </argument>
         </arguments>
     </type>
@@ -33,11 +33,11 @@
         </arguments>
     </type>
 
-    <type name="Magento\CatalogSearch\Model\Indexer\IndexSwitcherProxy">
+    <type name="Magento\CatalogSearch\Model\Indexer\IndexSwitcherInterface">
         <arguments>
             <argument name="configPath" xsi:type="const">Magento\CatalogSearch\Model\ResourceModel\EngineInterface::CONFIG_ENGINE_PATH</argument>
             <argument name="handlers" xsi:type="array">
-                <item name="mysql2" xsi:type="string">Magento\CatalogSearch\Model\Indexer\Scope\IndexSwitcher</item>
+                <item name="mysql2" xsi:type="string">Mirasvit\SearchMysql\Model\Indexer\Scope\IndexSwitcher</item>
             </argument>
         </arguments>
     </type>

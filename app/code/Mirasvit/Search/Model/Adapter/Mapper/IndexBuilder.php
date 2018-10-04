@@ -9,9 +9,10 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search
- * @version   1.0.78
+ * @version   1.0.94
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
+
 
 
 namespace Mirasvit\Search\Model\Adapter\Mapper;
@@ -22,6 +23,7 @@ use Magento\Framework\Indexer\ScopeResolver\IndexScopeResolver;
 use Magento\Framework\Search\Adapter\Mysql\IndexBuilderInterface;
 use Magento\Framework\Search\RequestInterface;
 use Mirasvit\Search\Api\Data\Index\InstanceInterface;
+use Mirasvit\Search\Api\Data\IndexInterface;
 
 /**
  * IndexBuilder for native mysql engine
@@ -55,8 +57,14 @@ class IndexBuilder implements IndexBuilderInterface
      */
     public function build(RequestInterface $request)
     {
+        if (is_array($request->getFrom())) {
+            $indexName = $request->getFrom()['index_name'];
+        } else {
+            $indexName = $request->getIndex();
+        }
+
         $searchIndexTable = $this->scopeResolver->resolve(
-            InstanceInterface::INDEX_PREFIX . $request->getIndex(),
+            $indexName,
             $request->getDimensions()
         );
 

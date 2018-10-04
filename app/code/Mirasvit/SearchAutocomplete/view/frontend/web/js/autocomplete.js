@@ -1,136 +1,246 @@
 define([
     'jquery',
-    'uiComponent',
     'ko',
-    'priceUtils',
-    'uiRegistry',
-    'Mirasvit_SearchAutocomplete/js/lib/jquery.highlight'
-], function ($, Component, ko, priceUtils, registry) {
-    'use strict';
+    'underscore',
+    'mage/translate',
+    'Magento_Catalog/js/price-utils',
+    'Magento_Catalog/js/catalog-add-to-cart'
+], function ($, ko, _, $t, priceUtils) {
+    "use strict";
+    
+    var $input;
+    var isVisible = false;
+    var isShowAll = true;
+    var loading = false;
     
     ko.bindingHandlers.highlight = {
         init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
-            bindingContext.$parentContext.$parentContext.$parent.query.subscribe(function (query) {
-                ko.bindingHandlers.highlight.highlight(element, query);
-            }, this);
+            var needle      = bindingContext.$parents[2].result.query,
+                haystack    = $(element).html(),
+                regEx       = new RegExp(needle, "ig"),
+                replaceMask = '<span class="searchautocomplete__highlight">' + needle.charAt(0) + needle.slice(1) + '</span>';
             
-            ko.bindingHandlers.highlight.highlight(
-                element,
-                bindingContext.$parentContext.$parentContext.$parent.query()
-            );
-        },
-        
-        highlight: function (element, query) {
-            $(element).highlight(query);
+            $(element).html(haystack.replace(regEx, replaceMask));
         }
     };
     
     ko.bindingHandlers.price = {
-        init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
-            var $element = $(element);
-            
-            $element.html(priceUtils.formatPrice(
-                $element.html(),
-                bindingContext.$parentContext.$parentContext.$parent.priceFormat
-            ));
+        init: function (element) {
+            $(element).html(priceUtils.formatPrice($(element).html(), window.priceFormat));
         }
     };
     
-    return Component.extend({
-        defaults: {
-            template:        'Mirasvit_SearchAutocomplete/autocomplete',
-            query:           false,
-            category:        false,
-            localStorage:    $.initNamespaceStorage('autocomplete').localStorage,
-            delay:           100,
-            minSearchLength: 1,
+    return {
+        placeholderSelector: '.searchautocomplete__autocomplete',
+        wrapperSelector:     '.wrapper',
+        
+        xhr: null,
+        
+        config: {
+            query:           '',
+            priceFormat:     {},
+            minSearchLength: 3,
+            url:             '',
+            delay:           300,
+            popularSearches: []
+        },
+        
+        init: function (selector, config) {
+            $input = $(selector);
             
-            _hasFocus: false,
+            this.config = _.defaults(config, this.config);
             
-            isVisible:   false,
-            isSubmitted: false,
-            priceFormat: false,
-            searchLabel: '[data-role=minisearch-label]',
-            result:      {
-                totalItems: 0,
-                items:      [],
-                noResults:  false
-            },
-            listens:     {
-                query:    'updateIsVisible updateQuery',
-                hasFocus: 'updateIsVisible',
-                result:   'updateIsVisible',
-                loading:  'updateIsVisible'
-            },
-            exports:     {
-                query:    '${ $.provider }:params.q',
-                category: '${ $.provider }:params.cat'
-            },
-            imports:     {
-                result:  '${ $.provider }:result',
-                loading: '${ $.provider }:loading'
+            window.priceFormat = this.config.priceFormat;
+            
+            this.doSearch = _.debounce(this._doSearch, this.config.delay);
+            
+            $($('#searchAutocompletePlaceholder').html()).appendTo($input.parent());
+        },
+        
+        $spinner: function () {
+            return $(".searchautocomplete__spinner");
+        },
+        
+        search: function () {
+            this.ensurePosition();
+            
+            $input.off("keydown");
+            $input.off("blur");
+            
+            if (this.xhr != null) {
+                this.xhr.abort();
+                this.xhr = null;
             }
-        },
-        
-        initialize: function () {
-            this._super();
             
-            this.searchLabel = $(this.searchLabel);
-        },
-        
-        initObservable: function () {
-            this._super()
-                .observe('query')
-                .observe('category')
-                .observe('result')
-                .observe('loading')
-                .observe('_hasFocus')
-                .observe('isVisible')
-                .observe('isSubmitted');
-            
-            this.hasFocus = ko.computed(this._hasFocus).extend({throttle: 100});
-            
-            return this;
-        },
-        
-        onKey: function (key, event) {
-            var result = true;
-            
-            registry.get('autocompleteNavigation', function (navigation) {
-                result = navigation.onKey(event);
-            });
-            
-            return result;
-        },
-        
-        updateIsVisible: function () {
-            if (this.hasFocus()) {
-                if (this.result().totalItems || this.result().noResults || this.loading()) {
-                    this.isVisible(true);
-                } else {
-                    this.isVisible(false);
-                }
+            if ($input.val().length >= this.config.minSearchLength) {
+                this.doSearch();
             } else {
-                window.setTimeout($.proxy(function () {
-                    this.isVisible(false);
-                }, this), 100);
+                return this.doPopular();
+            }
+            
+            return true;
+        },
+        
+        _doSearch: function () {
+            isVisible = true;
+            
+            this.$spinner().show();
+            
+            this.xhr = $.ajax({
+                url:      this.config.url,
+                dataType: 'json',
+                type:     'GET',
+                data:     {
+                    q:   $input.val(),
+                    cat: false
+                },
+                success:  function (data) {
+                    this.processApplyBinding(data);
+                    
+                    this.$spinner().hide();
+                }.bind(this)
+            });
+        },
+        
+        viewModel: function (data) {
+            var model = {
+                onMouseOver: function (item, event) {
+                    $(event.currentTarget).addClass('_active');
+                }.bind(this),
+                
+                onMouseOut: function (item, event) {
+                    $(event.currentTarget).removeClass('_active');
+                }.bind(this),
+                
+                afterRender: function (el) {
+                    $(el).catalogAddToCart({});
+                }.bind(this),
+                
+                onClick: function (item, event) {
+                    if (event.button === 0) { // left click
+                        event.preventDefault();
+                        
+                        if ($(event.target).closest('.tocart').length) {
+                            return;
+                        }
+                        
+                        if (event.target.nodeName === 'A'
+                            || event.target.nodeName === 'IMG'
+                            || event.target.nodeName === 'LI'
+                            || event.target.nodeName === 'SPAN'
+                            || event.target.nodeName === 'DIV') {
+                            this.enter(item);
+                        }
+                    }
+                }.bind(this),
+                
+                onSubmit: function (item, event) {
+                }.bind(this),
+                
+                bindPrice: function (item, event) {
+                    return true;
+                }.bind(this)
+            };
+            
+            model.isVisible = isVisible;
+            model.loading = loading;
+            model.result = data;
+            model.result.isShowAll = isShowAll;
+            model.form_key = $.cookie('form_key');
+            
+            return model;
+        },
+        
+        enter: function (item) {
+            if (item.url) {
+                window.location.href = item.url;
+            } else {
+                this.pasteToSearchString(item.query);
             }
         },
         
-        onSubmit: function () {
-            if (this.query()) {
-                this.isSubmitted(true);
+        pasteToSearchString: function (searchTerm) {
+            $input.val(searchTerm);
+            this.search();
+        },
+        
+        doPopular: function () {
+            if (this.config.popularSearches.length) {
+                this.processApplyBinding(this._showQueries(this.config.popularSearches));
+                
                 return true;
             }
             
             return false;
         },
         
-        updateQuery: function () {
-            if (this.injection && this.query() !== this.injection.activeInput.val()) {
-                this.injection.activeInput.val(this.query());
-                this.injection.activeInput.trigger('propertychange');
+        processApplyBinding: function (data) {
+            if ($(this.wrapperSelector, this.placeholderSelector).length > 0) {
+                if (!!ko.dataFor($(this.wrapperSelector, this.placeholderSelector)[0])) {
+                    ko.cleanNode($(this.wrapperSelector, this.placeholderSelector)[0]);
+                }
             }
+            
+            $(this.wrapperSelector, this.placeholderSelector).remove();
+            
+            var wrapper = $('#searchAutocompleteWrapper').html();
+            
+            $(this.placeholderSelector).append(wrapper);
+            
+            ko.applyBindings(this.viewModel(data), $(this.wrapperSelector, this.placeholderSelector)[0]);
+            
+            this.ensurePosition();
+        },
+        
+        _showQueries: function (data) {
+            var self = this;
+            var queries = data;
+            var items = [];
+            var item;
+            var result, index;
+            
+            _.each(queries, function (query, idx) {
+                if (idx < 5) {
+                    item = {};
+                    item.query = query;
+                    item.enter = function () {
+                        self.query = query;
+                    };
+                    
+                    items.push(item);
+                }
+            }, this);
+            
+            result = {
+                totalItems: items.length,
+                query:      $input.val(),
+                indices:    [],
+                isShowAll:  false
+            };
+            
+            index = {
+                totalItems:   items.length,
+                isShowTotals: false,
+                items:        items,
+                identifier:   'popular',
+                title:        $t('Hot Searches')
+            };
+            
+            result.indices.push(index);
+            
+            return result;
+        },
+        
+        ensurePosition: function () {
+            var position = $input.position();
+            var left = position.left + parseInt($input.css('marginLeft'), 10);
+            var top = position.top + parseInt($input.css('marginTop'), 10);
+            
+            $(this.placeholderSelector)
+                .css('top', $input.outerHeight() - 1 + top)
+                .css('left', left)
+                .css('width', $input.outerWidth());
         }
-    });
+    }
 });
+

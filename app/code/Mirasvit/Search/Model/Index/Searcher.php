@@ -9,9 +9,10 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search
- * @version   1.0.78
+ * @version   1.0.94
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
+
 
 
 namespace Mirasvit\Search\Model\Index;
@@ -24,6 +25,8 @@ use Magento\Framework\Search\Adapter\Mysql\TemporaryStorageFactory;
 use Magento\Framework\Search\Adapter\Mysql\TemporaryStorage;
 use Magento\Framework\App\ScopeResolverInterface;
 use Mirasvit\Search\Api\Data\Index\InstanceInterface;
+use Mirasvit\Search\Api\Data\IndexInterface;
+use Mirasvit\Search\Api\Repository\IndexRepositoryInterface;
 
 /**
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
@@ -61,26 +64,33 @@ class Searcher
     protected $scopeResolver;
 
     /**
+     * @var ScopeResolverInterface
+     */
+    protected $indexRepository;
+
+    /**
      * Constructor
      *
-     * @param QueryFactory            $queryFactory
-     * @param RequestBuilderFactory   $requestBuilderFactory
-     * @param SearchEngine            $searchEngine
+     * @param QueryFactory $queryFactory
+     * @param RequestBuilderFactory $requestBuilderFactory
+     * @param SearchEngine $searchEngine
      * @param TemporaryStorageFactory $temporaryStorageFactory
-     * @param ScopeResolverInterface  $scopeResolver
+     * @param ScopeResolverInterface $scopeResolver
      */
     public function __construct(
         QueryFactory $queryFactory,
         RequestBuilderFactory $requestBuilderFactory,
         SearchEngine $searchEngine,
         TemporaryStorageFactory $temporaryStorageFactory,
-        ScopeResolverInterface $scopeResolver
+        ScopeResolverInterface $scopeResolver,
+        IndexRepositoryInterface $indexRepository
     ) {
         $this->queryFactory = $queryFactory;
         $this->requestBuilderFactory = $requestBuilderFactory;
         $this->searchEngine = $searchEngine;
         $this->temporaryStorageFactory = $temporaryStorageFactory;
         $this->scopeResolver = $scopeResolver;
+        $this->indexRepository = $indexRepository;
     }
 
     /**
@@ -102,6 +112,7 @@ class Searcher
     public function getQueryResponse()
     {
         $requestBuilder = $this->requestBuilderFactory->create();
+
         $queryText = $this->queryFactory->get()->getQueryText();
 
         $requestBuilder->bind('search_term', $queryText);
@@ -109,6 +120,11 @@ class Searcher
         $requestBuilder->bindDimension('scope', $this->scopeResolver->getScope());
 
         $requestBuilder->setRequestName($this->index->getIdentifier());
+
+        $requestBuilder->setFrom([
+            'index_name' => $this->index->getIndexName(),
+            'index_id'   => $this->index->getModel()->getId(),
+        ]);
 
         $queryRequest = $requestBuilder->create();
 
@@ -119,7 +135,7 @@ class Searcher
      * Join matches to collection
      *
      * @param AbstractDb $collection
-     * @param string     $field
+     * @param string $field
      *
      * @return $this
      */
@@ -139,6 +155,7 @@ class Searcher
             $collection->getSelect()->where(new \Zend_Db_Expr("$field IN (" . implode(',', $ids) . ")"));
         } else {
             $table = $temporaryStorage->storeDocuments($queryResponse->getIterator());
+
             $collection->getSelect()->joinInner(
                 ['search_result' => $table->getName()],
                 $field . ' = search_result.' . TemporaryStorage::FIELD_ENTITY_ID,
@@ -163,7 +180,14 @@ class Searcher
 
         $requestBuilder->setRequestName($this->index->getIdentifier());
 
+        $requestBuilder->setFrom([
+            'index_name' => $this->index->getIndexName(),
+            'index_id'   => $this->index->getModel()->getId(),
+        ]);
+
+        /** @var \Magento\Framework\Search\Request $queryRequest */
         $queryRequest = $requestBuilder->create();
+
         $queryResponse = $this->searchEngine->search($queryRequest);
         $ids = [];
         foreach ($queryResponse->getIterator() as $item) {

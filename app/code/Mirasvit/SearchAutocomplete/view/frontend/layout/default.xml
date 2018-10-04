@@ -3,8 +3,10 @@
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="after.body.start">
-            <block class="Mirasvit\SearchAutocomplete\Block\Injection" name="autocomplete.injection" as="autocomplete.injection"
-                   template="injection.phtml"/>
+            <block class="Mirasvit\SearchAutocomplete\Block\Injection" name="autocomplete.injection.template" as="autocomplete.injection.template"
+                   template="injection_templates.phtml"/>
+			<block class="Mirasvit\SearchAutocomplete\Block\Injection" name="autocomplete.injection.js" as="autocomplete.injection.js"
+                   template="injection_js.phtml"/>
         </referenceContainer>
     </body>
 </page>

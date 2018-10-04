@@ -9,9 +9,10 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search
- * @version   1.0.78
+ * @version   1.0.94
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
+
 
 
 namespace Mirasvit\Search\Plugin;
@@ -35,7 +36,7 @@ class RequestConfigPlugin
 
     /**
      * @param FilesystemReader $fsReader
-     * @param array            $requests
+     * @param array $requests
      * @return array
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
@@ -46,6 +47,10 @@ class RequestConfigPlugin
         // add requests for all possible search indices
         foreach ($this->indexRepository->getList() as $instance) {
             $requests[$instance->getIdentifier()] = $this->generateRequest($instance);
+
+            if ($instance->getIdentifier() == 'catalogsearch_fulltext') {
+                $requests = $this->updateNativeRequest($instance, $requests);
+            }
         }
 
         // add requests for added indices (with fields weights)
@@ -111,5 +116,26 @@ class RequestConfigPlugin
         }
 
         return $request;
+    }
+
+    /**
+     * @param InstanceInterface $index
+     * @param array $requests
+     * @return array
+     */
+    private function updateNativeRequest($index, $requests)
+    {
+        $requests['quick_search_container']['queries']['search']['match'] = [[
+            'field' => '*',
+        ]];
+
+        foreach ($index->getAttributeWeights() as $attribute => $boost) {
+            $requests['quick_search_container']['queries']['search']['match'][] = [
+                'field' => $attribute,
+                'boost' => $boost,
+            ];
+        }
+
+        return $requests;
     }
 }

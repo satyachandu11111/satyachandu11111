@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search
- * @version   1.0.78
+ * @version   1.0.94
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -27,6 +27,11 @@ class Source implements ArrayInterface
      */
     private $attributeCollectionFactory;
 
+    /**
+     * @var variable
+     */
+    private $toBuild = true;
+
     public function __construct(
         AttributeCollectionFactory $attributeCollectionFactory
     ) {
@@ -38,17 +43,25 @@ class Source implements ArrayInterface
      */
     public function toOptionArray()
     {
-        $collection = $this->attributeCollectionFactory->create()
-            ->addVisibleFilter()
-            ->addDisplayInAdvancedSearchFilter()
-            ->setOrder('attribute_id', 'asc');
-
         $options = [];
-        foreach ($collection as $attribute) {
-            $options[] = [
-                'value' => $attribute->getAttributeCode(),
-                'label' => $attribute->getDefaultFrontendLabel() . ' [' . $attribute->getAttributeCode() . ']',
-            ];
+
+        if ($this->toBuild) {
+            $this->toBuild = false;
+
+            $collection = $this->attributeCollectionFactory->create()
+                ->addVisibleFilter()
+                ->addDisplayInAdvancedSearchFilter()
+                ->setOrder('attribute_id', 'asc');
+
+            foreach ($collection as $attribute) {
+                $attributeOptions = $attribute->getSource()->getAllOptions(true);
+                if (count($attributeOptions) > 1) {
+                    $options[] = [
+                        'value' => $attribute->getAttributeCode(),
+                        'label' => $attribute->getDefaultFrontendLabel() . ' [' . $attribute->getAttributeCode() . ']',
+                    ];
+                }
+            }
         }
 
         return $options;

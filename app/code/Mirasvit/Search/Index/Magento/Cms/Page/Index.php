@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search
- * @version   1.0.78
+ * @version   1.0.94
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -54,14 +54,6 @@ class Index extends AbstractIndex
     public function getIdentifier()
     {
         return 'magento_cms_page';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getFieldsets()
-    {
-        return ['\Mirasvit\Search\Block\Adminhtml\Index\Edit\Properties\CmsPage'];
     }
 
     /**

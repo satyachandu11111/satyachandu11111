@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-sphinx
- * @version   1.1.33
+ * @version   1.1.38
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -100,7 +100,6 @@ class ManageCommand extends Command
             }
         }
 
-
         if ($input->getOption('stop')) {
             $out = '';
             $result = $engine->stop($out);
@@ -110,7 +109,6 @@ class ManageCommand extends Command
                 $output->writeln("<error>$out</error>");
             }
         }
-
 
         if ($input->getOption('restart')) {
             $out = '';

@@ -3,11 +3,11 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
     <type name="Mirasvit\Search\Block\Result">
-        <plugin name="highlight" type="Mirasvit\Search\Plugin\HighlightPlugin"/>
-        <plugin name="single-result" type="Mirasvit\Search\Plugin\SingleResultPlugin"/>
+        <plugin name="mstSearchHighlight" type="Mirasvit\Search\Plugin\HighlightPlugin"/>
+        <plugin name="mstSearchSingleResult" type="Mirasvit\Search\Plugin\SingleResultPlugin"/>
     </type>
 
     <type name="Magento\Framework\App\Response\HttpInterface">
-        <plugin name="no-route" type="Mirasvit\Search\Plugin\NoRoutePlugin"/>
+        <plugin name="mstSearchNoRoute" type="Mirasvit\Search\Plugin\NoRoutePlugin"/>
     </type>
 </config>

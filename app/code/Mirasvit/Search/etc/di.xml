@@ -2,26 +2,22 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
     <preference for="Mirasvit\Search\Api\Data\IndexInterface" type="Mirasvit\Search\Model\Index"/>
-    <preference for="Mirasvit\Search\Api\Repository\IndexRepositoryInterface" type="Mirasvit\Search\Repository\IndexRepository"/>
-    <preference for="Mirasvit\Search\Api\Service\IndexServiceInterface" type="Mirasvit\Search\Service\IndexService"/>
-
-    <preference for="Mirasvit\Search\Api\Service\QueryServiceInterface" type="Mirasvit\Search\Service\QueryService"/>
-
     <preference for="Mirasvit\Search\Api\Data\StopwordInterface" type="Mirasvit\Search\Model\Stopword"/>
-    <preference for="Mirasvit\Search\Api\Repository\StopwordRepositoryInterface" type="Mirasvit\Search\Repository\StopwordRepository"/>
-    <preference for="Mirasvit\Search\Api\Service\StopwordServiceInterface" type="Mirasvit\Search\Service\StopwordService"/>
-
     <preference for="Mirasvit\Search\Api\Data\SynonymInterface" type="Mirasvit\Search\Model\Synonym"/>
+    <preference for="Mirasvit\Search\Api\Data\ScoreRuleInterface" type="Mirasvit\Search\Model\ScoreRule"/>
+
+    <preference for="Mirasvit\Search\Api\Repository\IndexRepositoryInterface" type="Mirasvit\Search\Repository\IndexRepository"/>
+    <preference for="Mirasvit\Search\Api\Repository\StopwordRepositoryInterface" type="Mirasvit\Search\Repository\StopwordRepository"/>
     <preference for="Mirasvit\Search\Api\Repository\SynonymRepositoryInterface" type="Mirasvit\Search\Repository\SynonymRepository"/>
+    <preference for="Mirasvit\Search\Api\Repository\ScoreRuleRepositoryInterface" type="Mirasvit\Search\Repository\ScoreRuleRepository"/>
+
+    <preference for="Mirasvit\Search\Api\Service\IndexServiceInterface" type="Mirasvit\Search\Service\IndexService"/>
+    <preference for="Mirasvit\Search\Api\Service\QueryServiceInterface" type="Mirasvit\Search\Service\QueryService"/>
+    <preference for="Mirasvit\Search\Api\Service\StopwordServiceInterface" type="Mirasvit\Search\Service\StopwordService"/>
     <preference for="Mirasvit\Search\Api\Service\SynonymServiceInterface" type="Mirasvit\Search\Service\SynonymService"/>
-
     <preference for="Mirasvit\Search\Api\Service\StemmingServiceInterface" type="Mirasvit\Search\Service\StemmingService"/>
-
     <preference for="Mirasvit\Search\Api\Service\CloudServiceInterface" type="Mirasvit\Search\Service\CloudService"/>
-
     <preference for="Magento\Framework\Search\Request\IndexScopeResolverInterface" type="Magento\Framework\Indexer\ScopeResolver\IndexScopeResolver" />
-
-    <preference for="Mirasvit\Search\Api\Service\ScoreServiceInterface" type="Mirasvit\Search\Service\ScoreService"/>
 
     <!-- register default data mapper for indexation -->
     <type name="Mirasvit\Search\Api\Data\Index\InstanceInterface">
@@ -65,14 +61,16 @@
                 <item name="ves_brand_brand" xsi:type="string">Mirasvit\Search\Index\Ves\Brand\Brand\Index</item>
                 <item name="magento_catalog_attribute" xsi:type="string">Mirasvit\Search\Index\Magento\Catalog\Attribute\Index</item>
                 <item name="amasty_faq_question" xsi:type="string">Mirasvit\Search\Index\Amasty\Faq\Question\Index</item>
+                <item name="amasty_blog_post" xsi:type="string">Mirasvit\Search\Index\Amasty\Blog\Post\Index</item>
+                <item name="blackbird_contentmanager_content" xsi:type="string">Mirasvit\Search\Index\Blackbird\ContentManager\Content\Index</item>
             </argument>
         </arguments>
 
-        <plugin name="syncWeights" type="Mirasvit\Search\Index\Magento\Catalog\Product\WeightSynchronizationPlugin"/>
+        <plugin name="mstSearchSyncWeights" type="Mirasvit\Search\Index\Magento\Catalog\Product\WeightSynchronizationPlugin"/>
     </type>
 
     <type name="Magento\Framework\Search\Adapter\Mysql\TemporaryStorage">
-        <plugin name="customWeight" type="Mirasvit\Search\Index\Magento\Catalog\Product\CustomWeightPlugin"/>
+        <plugin name="mstSearchScoreRule" type="Mirasvit\Search\Index\Magento\Catalog\Product\ScoreRulePlugin"/>
     </type>
 
     <!--register index providers for NATIVE magento mysql search-->
@@ -93,6 +91,8 @@
                 <item name="ves_brand_brand" xsi:type="object">Mirasvit\Search\Model\Adapter\Mapper\IndexBuilder</item>
                 <item name="magento_catalog_attribute" xsi:type="object">Mirasvit\Search\Model\Adapter\Mapper\IndexBuilder</item>
                 <item name="amasty_faq_question" xsi:type="object">Mirasvit\Search\Model\Adapter\Mapper\IndexBuilder</item>
+                <item name="amasty_blog_post" xsi:type="object">Mirasvit\Search\Model\Adapter\Mapper\IndexBuilder</item>
+                <item name="blackbird_contentmanager_content" xsi:type="object">Mirasvit\Search\Model\Adapter\Mapper\IndexBuilder</item>
             </argument>
         </arguments>
     </type>
@@ -114,6 +114,8 @@
                 <item name="ves_brand_brand" xsi:type="object">Mirasvit\Search\Model\Adapter\Aggregation\DataProvider</item>
                 <item name="magento_catalog_attribute" xsi:type="object">Mirasvit\Search\Model\Adapter\Aggregation\DataProvider</item>
                 <item name="amasty_faq_question" xsi:type="object">Mirasvit\Search\Model\Adapter\Aggregation\DataProvider</item>
+                <item name="amasty_blog_post" xsi:type="object">Mirasvit\Search\Model\Adapter\Aggregation\DataProvider</item>
+                <item name="blackbird_contentmanager_content" xsi:type="object">Mirasvit\Search\Model\Adapter\Aggregation\DataProvider</item>
             </argument>
         </arguments>
     </type>
@@ -138,21 +140,21 @@
     </type>
 
     <type name="Magento\CatalogSearch\Model\ResourceModel\EngineProvider">
-        <plugin name="syncEngine" type="Mirasvit\Search\Plugin\SyncEngineConfigPlugin"/>
+        <plugin name="mstSearchSyncEngine" type="Mirasvit\Search\Plugin\SyncEngineConfigPlugin"/>
     </type>
 
     <!--register requests for all search indices-->
     <type name="Magento\Framework\Search\Request\Config\FilesystemReader">
-        <plugin name="searchIndices" type="Mirasvit\Search\Plugin\RequestConfigPlugin"/>
+        <plugin name="mstSearchSearchIndices" type="Mirasvit\Search\Plugin\RequestConfigPlugin"/>
     </type>
 
     <!--register console commands-->
-    <type name="Magento\Framework\Console\CommandList">
+    <type name="Magento\Framework\Console\CommandListInterface">
         <arguments>
             <argument name="commands" xsi:type="array">
-                <item name="SynonymCommand" xsi:type="object">Mirasvit\Search\Console\Command\SynonymCommand</item>
-                <item name="StopwordCommand" xsi:type="object">Mirasvit\Search\Console\Command\StopwordCommand</item>
-                <item name="ReindexCommand" xsi:type="object">Mirasvit\Search\Console\Command\ReindexCommand</item>
+                <item name="mstSearchSynonym" xsi:type="object">Mirasvit\Search\Console\Command\SynonymCommand</item>
+                <item name="mstSearchStopword" xsi:type="object">Mirasvit\Search\Console\Command\StopwordCommand</item>
+                <item name="mstSearchReindex" xsi:type="object">Mirasvit\Search\Console\Command\ReindexCommand</item>
             </argument>
         </arguments>
     </type>
@@ -168,16 +170,6 @@
         </arguments>
     </type>
 
-    <!--register score handlers -->
-    <type name="Mirasvit\Search\Api\Service\ScoreServiceInterface">
-        <arguments>
-            <argument name="handlers" xsi:type="array">
-                <item name="defaultScore" xsi:type="object">Mirasvit\Search\Service\QueryScore\DefaultScore</item>
-                <item name="salesScore" xsi:type="object">Mirasvit\Search\Service\QueryScore\SalesScore</item>
-            </argument>
-        </arguments>
-    </type>
-
     <!-- register indices provider for autocomplete -->
     <type name="Mirasvit\SearchAutocomplete\Api\Repository\IndexRepositoryInterface">
         <arguments>
@@ -189,7 +181,7 @@
 
     <!--after full reindex-->
     <type name="Magento\CatalogSearch\Model\Indexer\Fulltext">
-        <plugin name="search" type="Mirasvit\Search\Plugin\FullReindexPlugin"/>
+        <plugin name="mstSearchFullReindex" type="Mirasvit\Search\Plugin\FullReindexPlugin"/>
     </type>
 
     <type name="Magento\Framework\EntityManager\MetadataPool">
@@ -199,6 +191,10 @@
                     <item name="entityTableName" xsi:type="const">Mirasvit\Search\Api\Data\IndexInterface::TABLE_NAME</item>
                     <item name="identifierField" xsi:type="const">Mirasvit\Search\Api\Data\IndexInterface::ID</item>
                 </item>
+                <item name="Mirasvit\Search\Api\Data\ScoreRuleInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="const">Mirasvit\Search\Api\Data\ScoreRuleInterface::TABLE_NAME</item>
+                    <item name="identifierField" xsi:type="const">Mirasvit\Search\Api\Data\ScoreRuleInterface::ID</item>
+                </item>
             </argument>
         </arguments>
     </type>
@@ -207,6 +203,7 @@
         <arguments>
             <argument name="hydrators" xsi:type="array">
                 <item name="Mirasvit\Search\Api\Data\IndexInterface" xsi:type="string">Magento\Framework\EntityManager\AbstractModelHydrator</item>
+                <item name="Mirasvit\Search\Api\Data\ScoreRuleInterface" xsi:type="string">Magento\Framework\EntityManager\AbstractModelHydrator</item>
             </argument>
         </arguments>
     </type>
@@ -218,14 +215,32 @@
                 <item name="search_index_listing_data_source" xsi:type="string">Mirasvit\Search\Model\ResourceModel\Index\Grid</item>
                 <item name="search_stopword_listing_data_source" xsi:type="string">Mirasvit\Search\Model\ResourceModel\Stopword\Grid</item>
                 <item name="search_synonym_listing_data_source" xsi:type="string">Mirasvit\Search\Model\ResourceModel\Synonym\Grid</item>
+                <item name="search_scorerule_listing_data_source" xsi:type="string">Mirasvit\Search\Model\ResourceModel\ScoreRule\Grid</item>
             </argument>
         </arguments>
     </type>
-    <type name="Mirasvit\Core\Service\ValidationService">
+
+    <type name="Mirasvit\Core\Api\Service\ValidationServiceInterface">
         <arguments>
             <argument name="validators" xsi:type="array">
                 <item name="search" xsi:type="object">Mirasvit\Search\Service\ValidationService</item>
             </argument>
         </arguments>
+    </type>
+
+    <type name="Magento\Framework\App\DeploymentConfig\Writer">
+        <plugin name="mstSearchModuleStatus" type="Mirasvit\Search\Plugin\ModuleStatusPlugin"/>
+    </type>
+
+    <type name="Magento\CatalogSearch\Model\Indexer\Fulltext\Action\DataProvider">
+        <plugin name="mstSearchIndexer" type="Mirasvit\Search\Plugin\SearchIndexerPlugin"/>
+    </type>
+
+    <!-- Score Rule Indexation -->
+    <type name="Magento\Catalog\Model\ResourceModel\Product">
+        <plugin name="mstSearchScoreRuleProduct" type="Mirasvit\Search\Model\ScoreRule\Indexer\Plugin\ProductPlugin"/>
+    </type>
+    <type name="Magento\Catalog\Model\Product\Action">
+        <plugin name="mstSearchScoreRuleMassAction" type="Mirasvit\Search\Model\ScoreRule\Indexer\Plugin\ProductActionPlugin"/>
     </type>
 </config>

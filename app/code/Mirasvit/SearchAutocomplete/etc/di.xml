@@ -27,6 +27,7 @@
                 <item name="mageplaza_blog_post" xsi:type="object">Mirasvit\SearchAutocomplete\Index\Mageplaza\Blog\Post</item>
                 <item name="ves_blog_post" xsi:type="object">Mirasvit\SearchAutocomplete\Index\Ves\Blog\Post</item>
                 <item name="magefan_blog_post" xsi:type="object">Mirasvit\SearchAutocomplete\Index\Magefan\Blog\Post</item>
+                <item name="amasty_blog_post" xsi:type="object">Mirasvit\SearchAutocomplete\Index\Amasty\Blog\Post</item>
             </argument>
         </arguments>
     </type>
@@ -59,6 +60,15 @@
             <argument name="dataMappers" xsi:type="array">
                 <item name="engine-elastic-autocomplete" xsi:type="object">Mirasvit\SearchAutocomplete\Index\Magento\Catalog\Product</item>
                 <item name="engine-sphinx-autocomplete" xsi:type="object">Mirasvit\SearchAutocomplete\Index\Magento\Catalog\Product</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Mirasvit\Search\Index\Amasty\Blog\Post\Index">
+        <arguments>
+            <argument name="dataMappers" xsi:type="array">
+                <item name="engine-elastic-autocomplete" xsi:type="object">Mirasvit\SearchAutocomplete\Index\Amasty\Blog\Post</item>
+                <item name="engine-sphinx-autocomplete" xsi:type="object">Mirasvit\SearchAutocomplete\Index\Amasty\Blog\Post</item>
             </argument>
         </arguments>
     </type>

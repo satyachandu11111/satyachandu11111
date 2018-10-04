@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search
- * @version   1.0.78
+ * @version   1.0.94
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -90,9 +90,12 @@ class Indexer
      */
     public function reindexAll($storeId = null)
     {
+        $indexName = $this->index->getIndexName();
+
         $configData = [
             'fieldsets'  => [],
-            'indexer_id' => $this->index->getIndexName(),
+            'indexer_id' => $indexName,
+            'index_id'   => $this->index->getModel()->getId(),
         ];
 
         /** @var \Magento\CatalogSearch\Model\Indexer\IndexerHandler $indexHandler */

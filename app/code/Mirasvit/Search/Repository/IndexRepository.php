@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search
- * @version   1.0.78
+ * @version   1.0.94
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -157,6 +157,7 @@ class IndexRepository implements IndexRepositoryInterface
      */
     public function getInstance($index)
     {
+
         if (is_object($index)) {
             $identifier = $index->getIdentifier();
 

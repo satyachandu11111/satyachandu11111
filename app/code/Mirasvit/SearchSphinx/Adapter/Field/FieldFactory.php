@@ -9,13 +9,12 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-sphinx
- * @version   1.1.33
+ * @version   1.1.38
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
 
 namespace Mirasvit\SearchSphinx\Adapter\Field;
-
 
 class FieldFactory
 {
