@@ -68,11 +68,11 @@ define([
      *  - option-tooltip-thumb
      *  - option-tooltip-value
      */
-    $.widget('mage.SwatchRendererTooltip', {
-        options: {
-            delay: 200,                             //how much ms before tooltip to show
-            tooltipClass: 'swatch-option-tooltip'  //configurable, but remember about css
-        },
+    //$.widget('mage.SwatchRendererTooltip', {
+     //   options: {
+     //       delay: 200,                             //how much ms before tooltip to show
+      //      tooltipClass: 'swatch-option-tooltip'  //configurable, but remember about css
+     //   },
 
         /**
          * @private
