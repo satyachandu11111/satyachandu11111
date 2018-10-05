@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-sphinx
- * @version   1.1.33
+ * @version   1.1.38
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -140,7 +140,7 @@ class Mapper
             'indexBuilder' => $indexBuilder,
             'request'      => $request,
         ]);
-
+        
         $select = $indexBuilder->build($request);
 
         /** @var ScoreBuilder $scoreBuilder */
@@ -205,7 +205,6 @@ class Mapper
         QueryContainer $queryContainer
     ) {
         switch ($query->getType()) {
-
             case RequestQueryInterface::TYPE_BOOL:
                 /** @var BoolQuery $query */
                 $select = $this->processBoolQuery($scoreBuilder, $query, $select, $queryContainer);
@@ -214,7 +213,6 @@ class Mapper
                 /** @var FilterQuery $query */
                 $select = $this->processFilterQuery($scoreBuilder, $query, $select, $conditionType, $queryContainer);
                 break;
-
         }
 
         return $select;

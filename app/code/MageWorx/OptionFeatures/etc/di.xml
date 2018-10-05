@@ -33,6 +33,7 @@
                 <item name="weight" xsi:type="object">MageWorx\OptionFeatures\Model\Attribute\OptionValue\Weight</item>
                 <item name="description" xsi:type="object">MageWorx\OptionFeatures\Model\Attribute\OptionValue\Description</item>
                 <item name="is_default" xsi:type="object">MageWorx\OptionFeatures\Model\Attribute\OptionValue\IsDefault</item>
+                <item name="disabled" xsi:type="object">MageWorx\OptionFeatures\Model\Attribute\OptionValue\Disabled</item>
                 <item name="image" xsi:type="object">MageWorx\OptionFeatures\Model\Attribute\OptionValue\Image</item>
             </argument>
         </arguments>
@@ -95,6 +96,13 @@
             <argument name="optionValueDescriptionPath" xsi:type="string">mageworx_optionfeatures/main/use_description</argument>
         </arguments>
     </type>
+
+    <!-- Config param injection -->
+    <type name="MageWorx\OptionBase\Helper\Data">
+        <arguments>
+            <argument name="isDisabledConfigPath" xsi:type="string">mageworx_apo/optionfeatures/use_is_disabled</argument>
+        </arguments>
+    </type>
      <!-- Plugins -->
     <type name="Magento\Catalog\Model\Product\Type\Price">
         <plugin name="AroundGetBasePrice" type="MageWorx\OptionFeatures\Plugin\AroundGetBasePrice" sortOrder="10" disabled="false"/>
@@ -123,4 +131,30 @@
     <type name="Magento\Checkout\CustomerData\ItemPool">
         <plugin name="changeImageInCartSidebarBasedOnOptionValues" type="MageWorx\OptionFeatures\Plugin\Checkout\CustomerData\ItemPool" sortOrder="10" disabled="false"/>
     </type>
+
+    <type name="Magento\Catalog\Block\Product\View\Options">
+        <plugin name="mageworx_optionfeature_options"
+                type="MageWorx\OptionFeatures\Plugin\AfterGetOptions"
+                sortOrder="10"
+                disabled="false"
+        />
+    </type>
+
+    <type name="Magento\Catalog\Model\Product\Type\AbstractType">
+        <plugin name="mageworx_optionfeature_has_require_option"
+                type="MageWorx\OptionFeatures\Plugin\AroundHasRequiredOptions"
+                sortOrder="10"
+                disabled="false"
+        />
+    </type>
+
+    <!-- validate -->
+    <type name="MageWorx\OptionBase\Model\ValidationResolver">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="option_features" xsi:type="object">MageWorx\OptionFeatures\Model\Validator</item>
+            </argument>
+        </arguments>
+    </type>
+
 </config>

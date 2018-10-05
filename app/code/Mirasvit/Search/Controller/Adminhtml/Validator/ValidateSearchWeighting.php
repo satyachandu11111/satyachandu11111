@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search
- * @version   1.0.78
+ * @version   1.0.94
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -161,7 +161,7 @@ class ValidateSearchWeighting extends Validator
         $sql = 'Select * FROM ' . $tableName .' WHERE entity_id = '. $productId;
        
         $catalogSearchData = $connection->fetchAll($sql); // gives associated array, table fields as key in array.
-        $searchAttributes = $this->prepareCatalogSearchData($catalogSearchData); 
+        $searchAttributes = $this->prepareCatalogSearchData($catalogSearchData);
         $this->result[] = $this->buildAttributesTable($searchAttributes);
         
         return;
@@ -170,7 +170,7 @@ class ValidateSearchWeighting extends Validator
     private function isContainingSearchTerm()
     {
         if (!$this->proceedTest) {
-            return; 
+            return;
         }
 
         $dataIndex = '';
@@ -203,7 +203,7 @@ class ValidateSearchWeighting extends Validator
     }
 
     private function buildAttributesTable($searchAttributes)
-    {   
+    {
         $result = '<table style="border:1px solid">';
         foreach ($searchAttributes as $key => $attributeValue) {
                 $result .= '<tr style="border:1px solid">'
@@ -250,6 +250,4 @@ class ValidateSearchWeighting extends Validator
 
         return $qty;
     }
-
-
 }

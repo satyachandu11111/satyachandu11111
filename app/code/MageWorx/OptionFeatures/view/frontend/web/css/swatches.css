@@ -60,8 +60,8 @@
 }
 
 .mageworx-swatch-option.selected {
-    border: 2px solid #040404;
-	border-radius: 100%;
+    outline: 2px solid #FF5100;
+    border: 1px solid #fff;
     color: #333;
 }
 
@@ -85,18 +85,19 @@
 .swatch-attribute.size .mageworx-swatch-option.selected, .swatch-attribute.manufacturer .mageworx-swatch-option.selected {
     color: black;
     background: #fff;
-    border: 2px solid #040404 !important;
+    border: 1px solid #fff;
 }
 
 .mageworx-swatch-option:not(.disabled):hover {
-    border: 2px solid #040404 !important;
+    outline: 1px solid #999;
+    border: 1px solid #fff;
     color: #333;
 }
 
 .mageworx-swatch-option.image:not(.disabled):hover,
 .mageworx-swatch-option.color:not(.disabled):hover {
-    border: 2px solid #040404 !important;
-	border-radius: 100%;
+    outline: 2px solid #FF5216;
+    border: 1px solid #fff;
 }
 
 .mageworx-swatch-option.disabled {

@@ -19,6 +19,7 @@
                 <use_description>1</use_description>
                 <use_option_description>1</use_option_description>
                 <use_is_default>1</use_is_default>
+                <use_is_disabled>1</use_is_disabled>
                 <base_image_thumbnail_size>35</base_image_thumbnail_size>
                 <swatch_size>35</swatch_size>
                 <tooltip_image_thumbnail_size>130</tooltip_image_thumbnail_size>

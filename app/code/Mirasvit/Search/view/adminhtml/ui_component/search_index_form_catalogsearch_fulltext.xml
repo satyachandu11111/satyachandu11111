@@ -94,21 +94,6 @@
                 </item>
             </argument>
         </field>
-        <field name="properties.relevance_by_sales">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="formElement" xsi:type="string">checkbox</item>
-                    <item name="componentType" xsi:type="string">input</item>
-                    <item name="prefer" xsi:type="string">toggle</item>
-                    <item name="label" xsi:type="string" translate="true">Adjust relevance by sold items QTY</item>
-                    <item name="valueMap" xsi:type="array">
-                        <item name="true" xsi:type="number">1</item>
-                        <item name="false" xsi:type="number">0</item>
-                    </item>
-                    <item name="default" xsi:type="number">0</item>
-                </item>
-            </argument>
-        </field>
         <field name="properties.only_active_categories">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">

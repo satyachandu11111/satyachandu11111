@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search
- * @version   1.0.78
+ * @version   1.0.94
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -19,6 +19,7 @@ namespace Mirasvit\Search\Service;
 
 use Mirasvit\Core\Service\AbstractValidator;
 use Magento\Framework\Module\Manager;
+use Magento\Framework\Module\ModuleListInterface;
 
 class ValidationService extends AbstractValidator
 {
@@ -27,54 +28,48 @@ class ValidationService extends AbstractValidator
      */
     private $moduleManager;
 
+    /**
+     * @var ModuleListInterface
+     */
+    private $moduleList;
+
     public function __construct(
-        Manager $moduleManager
+        Manager $moduleManager,
+        ModuleListInterface $moduleList
     ) {
         $this->moduleManager = $moduleManager;
+        $this->moduleList = $moduleList;
     }
 
-    public function testMageworksSearchSuiteConflict()
+    public function testKnownConflicts()
     {
-        if ($this->moduleManager->isEnabled('Mageworks_SearchSuite')) {
-            return [self::FAILED, __FUNCTION__, 'Please disable or delete Mageworks_SearchSuite module'];
-        } else {
-            return [self::SUCCESS, __FUNCTION__, []];
+        $known = ['Mageworks_SearchSuite', 'Magento_Solr', 'Magento_ElasticSearch'];
+
+        foreach ($known as $moduleName) {
+            if ($this->moduleManager->isEnabled($moduleName)) {
+                $this->addError('Please disable {0} module.', [$moduleName]);
+            }
         }
     }
 
-    // public function testManadev_ProductCollectionConflict()
-    // {
-    //     if ($this->moduleManager->isEnabled('Manadev_ProductCollection')) {
-    //         return [self::FAILED, __FUNCTION__, 'Please disable or delete Manadev_ProductCollection module'];
-    //     } else {
-    //         return [self::SUCCESS, __FUNCTION__, []];
-    //     }
-    // }
-
-    // public function testManadev_LayeredNavigationConflict()
-    // {
-    //     if ($this->moduleManager->isEnabled('Manadev_LayeredNavigation')) {
-    //         return [self::FAILED, __FUNCTION__, 'Please disable or delete Manadev_LayeredNavigation module'];
-    //     } else {
-    //         return [self::SUCCESS, __FUNCTION__, []];
-    //     }
-    // }
-
-    public function testMagento_SolrConflict()
+    public function testPossibleConflicts()
     {
-        if ($this->moduleManager->isEnabled('Magento_Solr')) {
-            return [self::FAILED, __FUNCTION__, 'If you use Magento Cloud please disable Magento_Solr module'];
-        } else {
-            return [self::SUCCESS, __FUNCTION__, []];
-        }
-    }
+        $exceptions = ['Magento_Search', 'Magento_CatalogSearch'];
 
-    public function testMagento_ElasticSearchConflict()
-    {
-        if ($this->moduleManager->isEnabled('Magento_ElasticSearch')) {
-            return [self::FAILED, __FUNCTION__, 'If you use Magento Cloud please disable Magento_ElasticSearch module'];
-        } else {
-            return [self::SUCCESS, __FUNCTION__, []];
+        foreach ($this->moduleList->getAll() as $module) {
+            $moduleName = $module['name'];
+
+            if (in_array($moduleName, $exceptions)) {
+                continue;
+            }
+
+            if (stripos($moduleName, 'mirasvit') !== false) {
+                continue;
+            }
+
+            if (stripos($moduleName, 'search') !== false && $this->moduleManager->isEnabled($moduleName)) {
+                $this->addWarning("Possible conflict with {0} module.", [$moduleName]);
+            }
         }
     }
 }

@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search
- * @version   1.0.78
+ * @version   1.0.94
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -49,11 +49,11 @@ abstract class Index extends Action
 
     public function __construct(
         Context $context,
-        IndexRepositoryInterface $indexRepository,
+        IndexRepositoryInterface $scoreRuleRepository,
         ForwardFactory $resultForwardFactory
     ) {
         $this->context = $context;
-        $this->indexRepository = $indexRepository;
+        $this->indexRepository = $scoreRuleRepository;
         $this->session = $context->getSession();
         $this->resultForwardFactory = $resultForwardFactory;
 

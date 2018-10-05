@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search
- * @version   1.0.78
+ * @version   1.0.94
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -76,7 +76,9 @@ abstract class AbstractIndex extends DataObject implements InstanceInterface
             return $this->getIdentifier();
         }
 
-        return InstanceInterface::INDEX_PREFIX . $this->getIdentifier();
+        $identifier = $this->getIdentifier() . '_' . $this->getModel()->getId();
+
+        return InstanceInterface::INDEX_PREFIX . $identifier;
     }
 
     /**
@@ -116,23 +118,12 @@ abstract class AbstractIndex extends DataObject implements InstanceInterface
     }
 
     /**
-     * Fieldsets (names of classes)
-     *
-     * @return array
-     */
-    public function getFieldsets()
-    {
-        return [];
-    }
-
-    /**
      * Search collection
      *
      * @return \Magento\Framework\Data\Collection\AbstractDb
      */
     public function getSearchCollection()
     {
-
         $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 
         /** @var \Magento\Store\Model\StoreManagerInterface $storeManager */
@@ -143,7 +134,7 @@ abstract class AbstractIndex extends DataObject implements InstanceInterface
 
         $storeId = $this->getData('store_id') ? $this->getData('store_id') : 0;
 
-        if (!isset($this->searchCollection[$storeId])) {
+        if (!isset($this->searchCollection[$storeId]) || in_array($this->getIdentifier(), IndexInterface::WHITELIST)) {
             $isEmulation = false;
             if ($storeId && $storeId != $storeManager->getStore()->getId()
             ) {
@@ -202,8 +193,9 @@ abstract class AbstractIndex extends DataObject implements InstanceInterface
 
         $index = $this->getModel();
         $index->setStatus(IndexInterface::STATUS_READY);
+        $index->save();
 
-        $this->context->getIndexRepository()->save($this->getModel());
+        // $this->context->getIndexRepository()->save($this->getModel());
 
         return true;
     }

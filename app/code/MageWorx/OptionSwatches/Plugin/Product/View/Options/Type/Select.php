@@ -138,11 +138,11 @@ class Select
 
         $attributes = ' option-type="' . $type . '"' .
             ' option-id="' . $option->getId() . '"' .
-            ' option-type-id="' . $optionValue->getId() . '"' .            
+            ' option-type-id="' . $optionValue->getId() . '"' .
             ' option-description="' . $description . '"' .
             ' option-price="' . $price . '"' .
             ' option-tooltip-thumb="' . $thumb . '"';
-        $attributes .= "option-label='" . $label ."'" ;
+        $attributes .= "option-label='" . $label ."'" ;    
         $html = '';
         switch ($type) {
             case 'text':

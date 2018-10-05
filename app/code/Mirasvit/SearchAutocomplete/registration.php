@@ -9,16 +9,25 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-autocomplete
- * @version   1.1.48
+ * @version   1.1.58
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
 
-$registration = dirname(dirname(dirname(__DIR__))) . '/vendor/mirasvit/module-search-autocomplete/src/SearchAutocomplete/registration.php';
+if (isset($_SERVER)
+    && is_array($_SERVER)
+    && isset($_SERVER['REQUEST_URI'])
+    && strpos($_SERVER['REQUEST_URI'], 'searchautocomplete/ajax/typeahead') !== false) {
+    require_once 'typeahead.php';
+}
+
+$registration = dirname(dirname(dirname(__DIR__)))
+    . '/vendor/mirasvit/module-search-autocomplete/src/SearchAutocomplete/registration.php';
 if (file_exists($registration)) {
     # module was already installed via composer
     return;
 }
+
 \Magento\Framework\Component\ComponentRegistrar::register(
     \Magento\Framework\Component\ComponentRegistrar::MODULE,
     'Mirasvit_SearchAutocomplete',

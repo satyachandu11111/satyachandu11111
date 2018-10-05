@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-autocomplete
- * @version   1.1.48
+ * @version   1.1.58
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -19,6 +19,7 @@ namespace Mirasvit\SearchAutocomplete\Model;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Search\Model\ResourceModel\Query\CollectionFactory as QueryCollectionFactory;
+use Mirasvit\Core\Service\CompatibilityService;
 
 class Config
 {
@@ -155,7 +156,11 @@ class Config
      */
     public function getIndicesConfig()
     {
-        $indexes = \Zend_Json::decode($this->scopeConfig->getValue('searchautocomplete/general/index'));
+        if (!CompatibilityService::is22()) {
+            $indexes = unserialize($this->scopeConfig->getValue('searchautocomplete/general/index'));
+        } else {
+            $indexes = \Zend_Json::decode($this->scopeConfig->getValue('searchautocomplete/general/index'));
+        }
 
         return $indexes;
     }
@@ -277,5 +282,13 @@ class Config
         $result = array_map('ucfirst', $result);
 
         return $result;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTypeAheadEnabled()
+    {
+        return $this->scopeConfig->getValue('searchautocomplete/general/type_ahead');
     }
 }

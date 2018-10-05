@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-sphinx
- * @version   1.1.33
+ * @version   1.1.38
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -48,7 +48,8 @@ class SphinxAutocomplete
         $result = [];
         $totalItems = 0;
 
-        foreach ($this->config['indexes'] as $identifier => $config) {
+        foreach ($this->config['indexes'] as $i => $config) {
+            $identifier = $config['identifier'];
             $sphinxQL = new SphinxQL($this->getConnection());
             $metaQL = new SphinxQL($this->getConnection());
 
@@ -58,7 +59,7 @@ class SphinxAutocomplete
                 ->match('*', $this->getQuery())
                 ->limit(0, $config['limit'])
                 ->option('max_matches', 1000000)
-                ->option('field_weights', $this->getWeights($identifier))
+                ->option('field_weights', $this->getWeights($i))
                 ->enqueue($metaQL->query('SHOW META'))
                 ->enqueue()
                 ->executeBatch();
@@ -95,8 +96,7 @@ class SphinxAutocomplete
         $connection->setParams([
                 'host' => $this->config['host'],
                 'port' => $this->config['port'],
-            ]
-        );
+            ]);
 
         return $connection;
     }
@@ -126,7 +126,7 @@ class SphinxAutocomplete
             $conditions[] = "($term | *$term*)";
         }
 
-        return new QLExpression(implode(" AND ", $conditions));
+        return new QLExpression(implode(" ", $conditions));
     }
 
     private function escape($value)
@@ -168,7 +168,6 @@ class SphinxAutocomplete
                         ],
                     ],
                 ];
-
 
                 $items[] = $item;
             } catch (\Exception $e) {

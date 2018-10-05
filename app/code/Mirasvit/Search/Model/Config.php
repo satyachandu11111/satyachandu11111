@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search
- * @version   1.0.78
+ * @version   1.0.94
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -33,6 +33,8 @@ class Config
 
     const MATCH_MODE_AND = 'and';
     const MATCH_MODE_OR = 'or';
+
+    const MIN_COLLECTION_SIZE = 5;
 
     /**
      * @var ScopeConfigInterface

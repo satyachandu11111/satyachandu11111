@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-sphinx
- * @version   1.1.33
+ * @version   1.1.38
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -38,7 +38,6 @@ use Magento\Framework\DataObject;
  */
 class MapperQL
 {
-
     public function __construct(
         IndexRepositoryInterface $indexRepository,
         QueryContainerFactory $queryContainerFactory,
@@ -64,8 +63,19 @@ class MapperQL
      */
     public function buildQuery(RequestInterface $request)
     {
-        $searchIndex = $this->indexRepository->get($request->getIndex());
-        $instance = $this->indexRepository->getInstance($searchIndex);
+        if (is_array($request->getFrom())) {
+            $searchIndex = $this->indexRepository->get($request->getFrom()['index_id']);
+            $indexName = $this->scopeResolver->resolve(
+                $request->getFrom()['index_name'],
+                $request->getDimensions()
+            );
+        } else {
+            $searchIndex = $this->indexRepository->get($request->getIndex());
+            $indexName = $this->scopeResolver->resolve(
+                $searchIndex->getIdentifier(),
+                $request->getDimensions()
+            );
+        }
 
         $weights = [];
         foreach ($this->indexRepository->getInstance($searchIndex)->getAttributeWeights() as $attr => $weight) {
@@ -74,16 +84,14 @@ class MapperQL
             }
         }
 
-        $indexName = $this->scopeResolver->resolve($instance->getIndexName(), $request->getDimensions());
-
         $sphinxQuery = $this->engine->getQuery()
             ->select(['id', new QLExpression('weight()')])
             ->from($indexName)
             ->limit(0, 1000000)
             ->option('max_matches', 1000000)
             ->option('field_weights', $weights)
-            ->option('ranker', new QLExpression("expr('sum(1/min_hit_pos*user_weight + word_count*user_weight + exact_hit*user_weight*1000 + lcs*user_weight) * 1000 + bm25')"));
-        //@todo http://habrahabr.ru/company/sphinx/blog/133790/
+            ->option('ranker', new QLExpression("expr('sum(1/min_hit_pos*user_weight 
+                + word_count*user_weight + exact_hit*user_weight*1000 + lcs*user_weight) * 1000 + bm25')"));
 
         $queryContainer = $this->queryContainerFactory->create(['request' => $request]);
 
@@ -162,7 +170,6 @@ class MapperQL
         SphinxQL $select,
         QueryContainer $queryContainer
     ) {
-
         $select = $this->processBoolQueryCondition(
             $query->getMust(),
             $select,
@@ -183,7 +190,6 @@ class MapperQL
             BoolQuery::QUERY_CONDITION_NOT,
             $queryContainer
         );
-
 
         return $select;
     }

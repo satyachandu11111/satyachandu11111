@@ -9,9 +9,10 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search
- * @version   1.0.78
+ * @version   1.0.94
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
+
 
 
 namespace Mirasvit\Search\Plugin;
@@ -100,7 +101,7 @@ class HighlightPlugin
      */
     private function getMatches($open, $close, $subject)
     {
-        preg_match_all('/.' . $open . '([^<]*)' . $close . '/i', $subject, $matches);
+        preg_match_all('/.' . $open . '([^<]*)' . $close . '/', $subject, $matches);
 
         return $matches[2];
     }
@@ -108,13 +109,13 @@ class HighlightPlugin
     /**
      * @param string $open
      * @param string $close
-     * @param array  $search
+     * @param array $search
      * @return array
      */
     private function createPattern($open, $close, $search)
     {
         foreach ($search as $i => $match) {
-            $match = '/' . $open . '(' . $this->escapeSpecialChars($match) . ')' . $close . '/i';
+            $match = '/' . $open . '(' . $this->escapeSpecialChars($match) . ')' . $close . '/';
             $search[$i] = $match;
         }
 
@@ -123,14 +124,14 @@ class HighlightPlugin
 
     /**
      * @param string $pattern
-     * @param string $subject
+     * @param array $subject
      * @return array
      */
     private function createReplacement($pattern, $subject)
     {
         $replacement = [];
         $arrPattern = explode(' ', $pattern);
-        $replace = '${1}<span class="search-result-highlight">${2}</span>${3}';
+        $replace = '${1}<span class="mst-search__highlight">${2}</span>${3}';
         foreach ($arrPattern as $pattern) {
             $pattern = trim($pattern);
 
@@ -146,19 +147,19 @@ class HighlightPlugin
     }
 
     /**
-     * @param array  $pattern
-     * @param array  $replacement
+     * @param array $pattern
+     * @param array $replacement
      * @param string $html
      * @return string
      */
     private function _highlight($pattern, $replacement, $html)
     {
-        foreach ($replacement as $ind => $match) {
+        foreach ($replacement as $idx => $match) {
             foreach ($match as $i => $el) {
                 $el = '${1}' . $el . '${3}';
                 $match[$i] = $el;
             }
-            $replacement[$ind] = $match;
+            $replacement[$idx] = $match;
         }
 
         foreach ($pattern as $i => $search) {
@@ -184,7 +185,7 @@ class HighlightPlugin
     }
 
     /**
-     * @param array $chars
+     * @param string $chars
      * @return string
      */
     public function removeSpecialChars($chars)

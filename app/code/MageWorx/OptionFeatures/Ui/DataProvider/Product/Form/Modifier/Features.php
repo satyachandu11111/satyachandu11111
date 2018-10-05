@@ -97,10 +97,10 @@ class Features extends AbstractModifier implements ModifierInterface
     ) {
         $this->arrayManager = $arrayManager;
         $this->storeManager = $storeManager;
-        $this->locator = $locator;
-        $this->helper = $helper;
-        $this->request = $request;
-        $this->urlBuilder = $urlBuilder;
+        $this->locator      = $locator;
+        $this->helper       = $helper;
+        $this->request      = $request;
+        $this->urlBuilder   = $urlBuilder;
     }
 
     /**
@@ -119,9 +119,9 @@ class Features extends AbstractModifier implements ModifierInterface
             [
                 $product->getId() => [
                     static::DATA_SOURCE_DEFAULT => [
-                        Helper::KEY_ABSOLUTE_COST => $product->getData(Helper::KEY_ABSOLUTE_COST),
+                        Helper::KEY_ABSOLUTE_COST   => $product->getData(Helper::KEY_ABSOLUTE_COST),
                         Helper::KEY_ABSOLUTE_WEIGHT => $product->getData(Helper::KEY_ABSOLUTE_WEIGHT),
-                        Helper::KEY_ABSOLUTE_PRICE => $product->getData(Helper::KEY_ABSOLUTE_PRICE),
+                        Helper::KEY_ABSOLUTE_PRICE  => $product->getData(Helper::KEY_ABSOLUTE_PRICE),
                     ],
                 ],
             ]
@@ -153,12 +153,13 @@ class Features extends AbstractModifier implements ModifierInterface
      */
     protected function addFeaturesFields()
     {
-        $groupCustomOptionsName = CustomOptions::GROUP_CUSTOM_OPTIONS_NAME;
-        $optionContainerName = CustomOptions::CONTAINER_OPTION;
+        $groupCustomOptionsName    = CustomOptions::GROUP_CUSTOM_OPTIONS_NAME;
+        $optionContainerName       = CustomOptions::CONTAINER_OPTION;
         $commonOptionContainerName = CustomOptions::CONTAINER_COMMON_NAME;
 
         // Add fields to the values
-        $valueFeaturesFields = $this->getValueFeaturesFieldsConfig();
+        $valueFeaturesFields                                                           = $this->getValueFeaturesFieldsConfig(
+        );
         $this->meta[$groupCustomOptionsName]['children']['options']['children']['record']['children']
         [$optionContainerName]['children']['values']['children']['record']['children'] = array_replace_recursive(
             $this->meta[$groupCustomOptionsName]['children']['options']['children']['record']['children']
@@ -167,7 +168,8 @@ class Features extends AbstractModifier implements ModifierInterface
         );
 
         // Add fields to the option
-        $optionFeaturesFields = $this->getOptionFeaturesFieldsConfig();
+        $optionFeaturesFields                                                      = $this->getOptionFeaturesFieldsConfig(
+        );
         $this->meta[$groupCustomOptionsName]['children']['options']['children']['record']['children']
         [$optionContainerName]['children'][$commonOptionContainerName]['children'] = array_replace_recursive(
             $this->meta[$groupCustomOptionsName]['children']['options']['children']['record']['children']
@@ -176,7 +178,7 @@ class Features extends AbstractModifier implements ModifierInterface
         );
 
         // Add fields to the options container
-        $productFeaturesFields = $this->getProductFeaturesFieldsConfig();
+        $productFeaturesFields                           = $this->getProductFeaturesFieldsConfig();
         $this->meta[$groupCustomOptionsName]['children'] = array_replace_recursive(
             $this->meta[$groupCustomOptionsName]['children'],
             $productFeaturesFields
@@ -205,6 +207,10 @@ class Features extends AbstractModifier implements ModifierInterface
             $fields[Helper::KEY_IS_DEFAULT] = $this->getIsDefaultConfig(148);
         }
 
+        if ($this->helper->isEnabledIsDisabled()) {
+            $fields[Helper::KEY_DISABLED] = $this->getIsDisabledConfig(149);
+        }
+
         return $fields;
     }
 
@@ -220,19 +226,50 @@ class Features extends AbstractModifier implements ModifierInterface
             'arguments' => [
                 'data' => [
                     'config' => [
-                        'label' => __('Is Default'),
+                        'label'         => __('Is Default'),
                         'componentType' => Field::NAME,
-                        'component' => 'MageWorx_OptionFeatures/js/element/option-type-dependent-checkbox',
-                        'formElement' => Checkbox::NAME,
-                        'dataScope' => Helper::KEY_IS_DEFAULT,
-                        'dataType' => Number::NAME,
-                        'prefer' => 'toggle',
-                        'valueMap' => [
-                            'true' => Helper::IS_DEFAULT_TRUE,
+                        'component'     => 'MageWorx_OptionFeatures/js/element/option-type-dependent-checkbox',
+                        'formElement'   => Checkbox::NAME,
+                        'dataScope'     => Helper::KEY_IS_DEFAULT,
+                        'dataType'      => Number::NAME,
+                        'prefer'        => 'toggle',
+                        'valueMap'      => [
+                            'true'  => Helper::IS_DEFAULT_TRUE,
                             'false' => Helper::IS_DEFAULT_FALSE,
                         ],
-                        'fit' => true,
-                        'sortOrder' => $sortOrder,
+                        'fit'           => true,
+                        'sortOrder'     => $sortOrder,
+                    ],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * Is default field config
+     *
+     * @param $sortOrder
+     * @return array
+     */
+    protected function getIsDisabledConfig($sortOrder)
+    {
+        return [
+            'arguments' => [
+                'data' => [
+                    'config' => [
+                        'label'         => __('Disabled'),
+                        'componentType' => Field::NAME,
+                        'component'     => 'MageWorx_OptionFeatures/js/element/option-type-dependent-checkbox',
+                        'formElement'   => Checkbox::NAME,
+                        'dataScope'     => Helper::KEY_DISABLED,
+                        'dataType'      => Number::NAME,
+                        'prefer'        => 'toggle',
+                        'valueMap'      => [
+                            'true'  => Helper::DISABLED_TRUE,
+                            'false' => Helper::DISABLED_FALSE,
+                        ],
+                        'fit'           => true,
+                        'sortOrder'     => $sortOrder,
                     ],
                 ],
             ],
@@ -251,17 +288,17 @@ class Features extends AbstractModifier implements ModifierInterface
             'arguments' => [
                 'data' => [
                     'config' => [
-                        'label' => __('Cost'),
+                        'label'         => __('Cost'),
                         'componentType' => Field::NAME,
-                        'formElement' => Input::NAME,
-                        'dataScope' => Helper::KEY_COST,
-                        'dataType' => Number::NAME,
-                        'addbefore' => $this->getBaseCurrencySymbol(),
-                        'validation' => [
-                            'validate-number' => true,
+                        'formElement'   => Input::NAME,
+                        'dataScope'     => Helper::KEY_COST,
+                        'dataType'      => Number::NAME,
+                        'addbefore'     => $this->getBaseCurrencySymbol(),
+                        'validation'    => [
+                            'validate-number'          => true,
                             'validate-zero-or-greater' => true,
                         ],
-                        'sortOrder' => $sortOrder,
+                        'sortOrder'     => $sortOrder,
                     ],
                 ],
             ],
@@ -280,19 +317,19 @@ class Features extends AbstractModifier implements ModifierInterface
             'arguments' => [
                 'data' => [
                     'config' => [
-                        'label' => __('Weight'),
-                        'componentType' => Field::NAME,
-                        'formElement' => Input::NAME,
-                        'dataScope' => Helper::KEY_WEIGHT,
-                        'dataType' => Number::NAME,
-                        'validation' => [
-                            'validate-number' => true,
+                        'label'             => __('Weight'),
+                        'componentType'     => Field::NAME,
+                        'formElement'       => Input::NAME,
+                        'dataScope'         => Helper::KEY_WEIGHT,
+                        'dataType'          => Number::NAME,
+                        'validation'        => [
+                            'validate-number'          => true,
                             'validate-zero-or-greater' => true,
                         ],
-                        'sortOrder' => $sortOrder,
+                        'sortOrder'         => $sortOrder,
                         'additionalClasses' => 'admin__field-small',
-                        'addafter' => $this->getWeightUnit(),
-                        'imports' => [
+                        'addafter'          => $this->getWeightUnit(),
+                        'imports'           => [
                             'disabled' => '!${$.provider}:' . self::DATA_SCOPE_PRODUCT
                                 . '.product_has_weight:value',
                         ],
@@ -314,12 +351,12 @@ class Features extends AbstractModifier implements ModifierInterface
             'arguments' => [
                 'data' => [
                     'config' => [
-                        'label' => __('Description'),
+                        'label'         => __('Description'),
                         'componentType' => Field::NAME,
-                        'formElement' => Input::NAME,
-                        'dataScope' => Helper::KEY_DESCRIPTION,
-                        'dataType' => Text::NAME,
-                        'sortOrder' => $sortOrder,
+                        'formElement'   => Input::NAME,
+                        'dataScope'     => Helper::KEY_DESCRIPTION,
+                        'dataType'      => Text::NAME,
+                        'sortOrder'     => $sortOrder,
                     ],
                 ],
             ],
@@ -364,12 +401,12 @@ class Features extends AbstractModifier implements ModifierInterface
             'arguments' => [
                 'data' => [
                     'config' => [
-                        'label' => __('Description'),
+                        'label'         => __('Description'),
                         'componentType' => Field::NAME,
-                        'formElement' => Textarea::NAME,
-                        'dataScope' => Helper::KEY_OPTION_DESCRIPTION,
-                        'dataType' => Text::NAME,
-                        'sortOrder' => $sortOrder
+                        'formElement'   => Textarea::NAME,
+                        'dataScope'     => Helper::KEY_OPTION_DESCRIPTION,
+                        'dataType'      => Text::NAME,
+                        'sortOrder'     => $sortOrder
                     ],
                 ],
             ],
@@ -388,14 +425,14 @@ class Features extends AbstractModifier implements ModifierInterface
             'arguments' => [
                 'data' => [
                     'config' => [
-                        'label' => __('Qty Input'),
+                        'label'         => __('Qty Input'),
                         'componentType' => Field::NAME,
-                        'formElement' => Checkbox::NAME,
-                        'dataScope' => Helper::KEY_QTY_INPUT,
-                        'dataType' => Text::NAME,
-                        'sortOrder' => $sortOrder,
-                        'valueMap' => [
-                            'true' => Helper::QTY_INPUT_TRUE,
+                        'formElement'   => Checkbox::NAME,
+                        'dataScope'     => Helper::KEY_QTY_INPUT,
+                        'dataType'      => Text::NAME,
+                        'sortOrder'     => $sortOrder,
+                        'valueMap'      => [
+                            'true'  => Helper::QTY_INPUT_TRUE,
                             'false' => Helper::QTY_INPUT_FALSE,
                         ],
                     ],
@@ -416,20 +453,22 @@ class Features extends AbstractModifier implements ModifierInterface
             'arguments' => [
                 'data' => [
                     'config' => [
-                        'label' => __('One Time'),
+                        'label'         => __('One Time'),
                         'componentType' => Field::NAME,
-                        'formElement' => Checkbox::NAME,
-                        'dataScope' => Helper::KEY_ONE_TIME,
-                        'dataType' => Text::NAME,
-                        'sortOrder' => $sortOrder,
-                        'prefer' => 'toggle',
-                        'tooltip' => [
-                            'description' => __('Due to Magento calculations, the one-time option price is divided by the added quantity to get the final price.') .
+                        'formElement'   => Checkbox::NAME,
+                        'dataScope'     => Helper::KEY_ONE_TIME,
+                        'dataType'      => Text::NAME,
+                        'sortOrder'     => $sortOrder,
+                        'prefer'        => 'toggle',
+                        'tooltip'       => [
+                            'description' => __(
+                                    'Due to Magento calculations, the one-time option price is divided by the added quantity to get the final price.'
+                                ) .
                                 ' ' .
                                 __('Note: the final price may possibly differ by 1-2 cents.')
                         ],
-                        'valueMap' => [
-                            'true' => Helper::ONE_TIME_TRUE,
+                        'valueMap'      => [
+                            'true'  => Helper::ONE_TIME_TRUE,
                             'false' => Helper::ONE_TIME_FALSE,
                         ],
                     ],
@@ -438,7 +477,7 @@ class Features extends AbstractModifier implements ModifierInterface
         ];
     }
 
-     protected function getDivClassConfig($sortOrder)
+    protected function getDivClassConfig($sortOrder)
     {
         return [
             'arguments' => [
@@ -465,7 +504,7 @@ class Features extends AbstractModifier implements ModifierInterface
     protected function getProductFeaturesFieldsConfig()
     {
 
-        $children =  [];
+        $children = [];
         if ($this->helper->isAbsoluteCostEnabled()) {
             $children[Helper::KEY_ABSOLUTE_COST] = $this->getAbsoluteCostConfig(5);
         }
@@ -481,18 +520,18 @@ class Features extends AbstractModifier implements ModifierInterface
                 'arguments' => [
                     'data' => [
                         'config' => [
-                            'componentType' => Container::NAME,
-                            'formElement' => Container::NAME,
-                            'component' => 'Magento_Ui/js/form/components/group',
-                            'breakLine' => false,
-                            'showLabel' => false,
+                            'componentType'     => Container::NAME,
+                            'formElement'       => Container::NAME,
+                            'component'         => 'Magento_Ui/js/form/components/group',
+                            'breakLine'         => false,
+                            'showLabel'         => false,
                             'additionalClasses' =>
                                 'admin__field-control admin__control-grouped admin__field-group-columns',
-                            'sortOrder' => 10,
+                            'sortOrder'         => 10,
                         ],
                     ],
                 ],
-                'children' => $children
+                'children'  => $children
             ],
         ];
 
@@ -511,18 +550,18 @@ class Features extends AbstractModifier implements ModifierInterface
             'arguments' => [
                 'data' => [
                     'config' => [
-                        'label' => __('Absolute Cost'),
+                        'label'         => __('Absolute Cost'),
                         'componentType' => Field::NAME,
-                        'formElement' => Checkbox::NAME,
-                        'dataScope' => Helper::KEY_ABSOLUTE_COST,
-                        'dataType' => Number::NAME,
-                        'prefer' => 'toggle',
-                        'valueMap' => [
-                            'true' => Helper::ABSOLUTE_COST_TRUE,
+                        'formElement'   => Checkbox::NAME,
+                        'dataScope'     => Helper::KEY_ABSOLUTE_COST,
+                        'dataType'      => Number::NAME,
+                        'prefer'        => 'toggle',
+                        'valueMap'      => [
+                            'true'  => Helper::ABSOLUTE_COST_TRUE,
                             'false' => Helper::ABSOLUTE_COST_FALSE,
                         ],
-                        'fit' => true,
-                        'sortOrder' => $sortOrder,
+                        'fit'           => true,
+                        'sortOrder'     => $sortOrder,
                     ],
                 ],
             ],
@@ -541,18 +580,18 @@ class Features extends AbstractModifier implements ModifierInterface
             'arguments' => [
                 'data' => [
                     'config' => [
-                        'label' => __('Absolute Weight'),
+                        'label'         => __('Absolute Weight'),
                         'componentType' => Field::NAME,
-                        'formElement' => Checkbox::NAME,
-                        'dataScope' => Helper::KEY_ABSOLUTE_WEIGHT,
-                        'dataType' => Number::NAME,
-                        'prefer' => 'toggle',
-                        'valueMap' => [
-                            'true' => Helper::ABSOLUTE_WEIGHT_TRUE,
+                        'formElement'   => Checkbox::NAME,
+                        'dataScope'     => Helper::KEY_ABSOLUTE_WEIGHT,
+                        'dataType'      => Number::NAME,
+                        'prefer'        => 'toggle',
+                        'valueMap'      => [
+                            'true'  => Helper::ABSOLUTE_WEIGHT_TRUE,
                             'false' => Helper::ABSOLUTE_WEIGHT_FALSE,
                         ],
-                        'fit' => true,
-                        'sortOrder' => $sortOrder,
+                        'fit'           => true,
+                        'sortOrder'     => $sortOrder,
                     ],
                 ],
             ],
@@ -571,18 +610,18 @@ class Features extends AbstractModifier implements ModifierInterface
             'arguments' => [
                 'data' => [
                     'config' => [
-                        'label' => __('Absolute Price'),
+                        'label'         => __('Absolute Price'),
                         'componentType' => Field::NAME,
-                        'formElement' => Checkbox::NAME,
-                        'dataScope' => Helper::KEY_ABSOLUTE_PRICE,
-                        'dataType' => Number::NAME,
-                        'prefer' => 'toggle',
-                        'valueMap' => [
-                            'true' => Helper::ABSOLUTE_PRICE_TRUE,
+                        'formElement'   => Checkbox::NAME,
+                        'dataScope'     => Helper::KEY_ABSOLUTE_PRICE,
+                        'dataType'      => Number::NAME,
+                        'prefer'        => 'toggle',
+                        'valueMap'      => [
+                            'true'  => Helper::ABSOLUTE_PRICE_TRUE,
                             'false' => Helper::ABSOLUTE_PRICE_FALSE,
                         ],
-                        'fit' => true,
-                        'sortOrder' => $sortOrder,
+                        'fit'           => true,
+                        'sortOrder'     => $sortOrder,
                     ],
                 ],
             ],
@@ -631,42 +670,42 @@ class Features extends AbstractModifier implements ModifierInterface
             'arguments' => [
                 'data' => [
                     'config' => [
-                        'isTemplate' => false,
+                        'isTemplate'    => false,
                         'componentType' => Modal::NAME,
-                        'provider' => static::FORM_NAME . '.' . static::FORM_NAME . '_data_source',
-                        'options' => [
+                        'provider'      => static::FORM_NAME . '.' . static::FORM_NAME . '_data_source',
+                        'options'       => [
                             'title' => __('Manage Images'),
                         ],
-                        'imports' => [
+                        'imports'       => [
                             'state' => '!index=' . static::OPTION_VALUE_IMAGES_CONTENT . ':responseStatus',
                         ],
                     ],
                 ],
             ],
-            'children' => [
+            'children'  => [
                 static::OPTION_VALUE_IMAGES_CONTENT => [
                     'arguments' => [
                         'data' => [
                             'config' => [
-                                'autoRender' => false,
-                                'label' => '',
-                                'componentType' => 'container',
-                                'component' => 'MageWorx_OptionFeatures/js/components/images-insert-form',
-                                'update_url' => $this->urlBuilder->getUrl('mui/index/render'),
-                                'render_url' => $this->urlBuilder->getUrl(
+                                'autoRender'       => false,
+                                'label'            => '',
+                                'componentType'    => 'container',
+                                'component'        => 'MageWorx_OptionFeatures/js/components/images-insert-form',
+                                'update_url'       => $this->urlBuilder->getUrl('mui/index/render'),
+                                'render_url'       => $this->urlBuilder->getUrl(
                                     'mui/index/render_handle',
                                     [
-                                        'handle' => static::OPTION_VALUE_IMAGES_LAYOUT,
-                                        'store' => $this->locator->getProduct()->getStoreId(),
-                                        'buttons' => 1,
+                                        'handle'   => static::OPTION_VALUE_IMAGES_LAYOUT,
+                                        'store'    => $this->locator->getProduct()->getStoreId(),
+                                        'buttons'  => 1,
                                         'formName' => $this->form,
                                     ]
                                 ),
-                                'ns' => static::OPTION_VALUE_IMAGES_FORM,
+                                'ns'               => static::OPTION_VALUE_IMAGES_FORM,
                                 'externalProvider' => static::OPTION_VALUE_IMAGES_FORM . '.'
                                     . static::OPTION_VALUE_IMAGES_FORM . '_data_source',
                                 'toolbarContainer' => '${ $.parentName }',
-                                'formSubmitType' => 'ajax',
+                                'formSubmitType'   => 'ajax',
                             ],
                         ],
                     ],
@@ -678,9 +717,10 @@ class Features extends AbstractModifier implements ModifierInterface
     protected function addImagesButton()
     {
         $groupCustomOptionsName = CustomOptions::GROUP_CUSTOM_OPTIONS_NAME;
-        $optionContainerName = CustomOptions::CONTAINER_OPTION;
+        $optionContainerName    = CustomOptions::CONTAINER_OPTION;
 
-        $imagesButtonFieldConfig = $this->getImagesButtonFieldConfig();
+        $imagesButtonFieldConfig                                                       = $this->getImagesButtonFieldConfig(
+        );
         $this->meta[$groupCustomOptionsName]['children']['options']['children']['record']['children']
         [$optionContainerName]['children']['values']['children']['record']['children'] = array_replace_recursive(
             $this->meta[$groupCustomOptionsName]['children']['options']['children']['record']['children']
@@ -688,7 +728,8 @@ class Features extends AbstractModifier implements ModifierInterface
             $imagesButtonFieldConfig
         );
 
-        $imagesHiddenFieldConfig = $this->getImagesHiddenFieldConfig();
+        $imagesHiddenFieldConfig                                                       = $this->getImagesHiddenFieldConfig(
+        );
         $this->meta[$groupCustomOptionsName]['children']['options']['children']['record']['children']
         [$optionContainerName]['children']['values']['children']['record']['children'] = array_replace_recursive(
             $this->meta[$groupCustomOptionsName]['children']['options']['children']['record']['children']
@@ -704,7 +745,7 @@ class Features extends AbstractModifier implements ModifierInterface
      */
     protected function getImagesButtonFieldConfig()
     {
-        $fields = [];
+        $fields                = [];
         $fields['images_link'] = $this->getImagesButtonConfig(150);
 
         return $fields;
@@ -724,10 +765,10 @@ class Features extends AbstractModifier implements ModifierInterface
                     'config' => [
 //                        'label' => __('Images'),
                         'displayAsLink' => false,
-                        'formElement' => Container::NAME,
+                        'formElement'   => Container::NAME,
                         'componentType' => Container::NAME,
-                        'component' => 'MageWorx_OptionFeatures/js/components/button',
-                        'actions' => [
+                        'component'     => 'MageWorx_OptionFeatures/js/components/button',
+                        'actions'       => [
                             [
                                 'targetName' => 'ns=' . $this->form . ', index='
                                     . static::OPTION_VALUE_IMAGES_MODAL_INDEX, // selector
@@ -744,18 +785,20 @@ class Features extends AbstractModifier implements ModifierInterface
                                     $this->form . '.' . $this->form . '.'
                                     . static::OPTION_VALUE_IMAGES_MODAL_INDEX . '.' . static::OPTION_VALUE_IMAGES_CONTENT,
                                 'actionName' => 'loadImagesData',
-                                'params' => [
+                                'params'     => [
                                     [
-                                        'provider' => '${ $.provider }',
-                                        'dataScope' => '${ $.dataScope }',
-                                        'loadImageUrl' => $this->urlBuilder->getUrl('mageworx_optionfeatures/form_image/load'),
-                                        'formName' => $this->form,
+                                        'provider'     => '${ $.provider }',
+                                        'dataScope'    => '${ $.dataScope }',
+                                        'loadImageUrl' => $this->urlBuilder->getUrl(
+                                            'mageworx_optionfeatures/form_image/load'
+                                        ),
+                                        'formName'     => $this->form,
                                     ],
                                 ],
                             ],
                         ],
-                        'title' => __('Images'),
-                        'sortOrder' => $sortOrder,
+                        'title'         => __('Images'),
+                        'sortOrder'     => $sortOrder,
                     ],
                 ],
             ],
@@ -769,7 +812,7 @@ class Features extends AbstractModifier implements ModifierInterface
      */
     protected function getImagesHiddenFieldConfig()
     {
-        $fields = [];
+        $fields                = [];
         $fields['images_data'] = $this->getImagesDataConfig(151);
 
         return $fields;
@@ -788,9 +831,9 @@ class Features extends AbstractModifier implements ModifierInterface
                 'data' => [
                     'config' => [
                         'componentType' => Field::NAME,
-                        'formElement' => Hidden::NAME,
-                        'sortOrder' => $sortOrder,
-                        'visible' => false,
+                        'formElement'   => Hidden::NAME,
+                        'sortOrder'     => $sortOrder,
+                        'visible'       => false,
                     ],
                 ],
             ],
@@ -802,12 +845,12 @@ class Features extends AbstractModifier implements ModifierInterface
      */
     protected function addImageModeConfig()
     {
-        $groupCustomOptionsName = CustomOptions::GROUP_CUSTOM_OPTIONS_NAME;
-        $optionContainerName = CustomOptions::CONTAINER_OPTION;
+        $groupCustomOptionsName    = CustomOptions::GROUP_CUSTOM_OPTIONS_NAME;
+        $optionContainerName       = CustomOptions::CONTAINER_OPTION;
         $commonOptionContainerName = CustomOptions::CONTAINER_COMMON_NAME;
 
         // Add fields to the option
-        $additionalOptionFields = $this->getAdditionalOptionFields();
+        $additionalOptionFields                                                    = $this->getAdditionalOptionFields();
         $this->meta[$groupCustomOptionsName]['children']['options']['children']['record']['children']
         [$optionContainerName]['children'][$commonOptionContainerName]['children'] = array_replace_recursive(
             $this->meta[$groupCustomOptionsName]['children']['options']['children']['record']['children']
@@ -825,7 +868,7 @@ class Features extends AbstractModifier implements ModifierInterface
     {
         $fields = [
             static::KEY_OPTION_GALLERY_DISPLAY_MODE => $this->getOptionGalleryDisplayModeFieldsConfig(),
-            static::KEY_OPTION_IMAGE_MODE => $this->getOptionImageModeFieldConfig(),
+            static::KEY_OPTION_IMAGE_MODE           => $this->getOptionImageModeFieldConfig(),
         ];
 
         return $fields;
@@ -842,14 +885,14 @@ class Features extends AbstractModifier implements ModifierInterface
             'arguments' => [
                 'data' => [
                     'config' => [
-                        'label' => __('Option Gallery Display Mode'),
+                        'label'         => __('Option Gallery Display Mode'),
                         'componentType' => Field::NAME,
-                        'component' => 'MageWorx_OptionFeatures/js/element/option-type-filtered-select',
-                        'formElement' => Select::NAME,
-                        'dataScope' => static::KEY_OPTION_GALLERY_DISPLAY_MODE,
-                        'dataType' => Number::NAME,
-                        'sortOrder' => 80,
-                        'options' => [
+                        'component'     => 'MageWorx_OptionFeatures/js/element/option-type-filtered-select',
+                        'formElement'   => Select::NAME,
+                        'dataScope'     => static::KEY_OPTION_GALLERY_DISPLAY_MODE,
+                        'dataType'      => Number::NAME,
+                        'sortOrder'     => 80,
+                        'options'       => [
                             0 => [
                                 'label' => __('Disabled'),
                                 'value' => 0,
@@ -863,8 +906,8 @@ class Features extends AbstractModifier implements ModifierInterface
                                 'value' => 2,
                             ],
                         ],
-                        'disableLabel' => true,
-                        'multiple' => false,
+                        'disableLabel'  => true,
+                        'multiple'      => false,
                     ],
                 ],
             ],
@@ -882,14 +925,14 @@ class Features extends AbstractModifier implements ModifierInterface
             'arguments' => [
                 'data' => [
                     'config' => [
-                        'label' => __('Image Mode'),
+                        'label'         => __('Image Mode'),
                         'componentType' => Field::NAME,
-                        'component' => 'MageWorx_OptionFeatures/js/element/option-type-filtered-select',
-                        'formElement' => Select::NAME,
-                        'dataScope' => static::KEY_OPTION_IMAGE_MODE,
-                        'dataType' => Number::NAME,
-                        'sortOrder' => 90,
-                        'options' => [
+                        'component'     => 'MageWorx_OptionFeatures/js/element/option-type-filtered-select',
+                        'formElement'   => Select::NAME,
+                        'dataScope'     => static::KEY_OPTION_IMAGE_MODE,
+                        'dataType'      => Number::NAME,
+                        'sortOrder'     => 90,
+                        'options'       => [
                             0 => [
                                 'label' => __('Disabled'),
                                 'value' => static::OPTION_IMAGE_MODE_DISABLED,
@@ -899,8 +942,8 @@ class Features extends AbstractModifier implements ModifierInterface
                                 'value' => static::OPTION_IMAGE_MODE_REPLACE,
                             ],
                         ],
-                        'disableLabel' => true,
-                        'multiple' => false,
+                        'disableLabel'  => true,
+                        'multiple'      => false,
                     ],
                 ],
             ],

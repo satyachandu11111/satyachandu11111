@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-sphinx
- * @version   1.1.33
+ * @version   1.1.38
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -42,9 +42,10 @@ class AutocompleteJsonConfigPlugin
 
         $config = array_merge($config, $this->getEngineConfig());
 
-        foreach ($config['indexes'] as $identifier => $data) {
+        foreach ($config['indexes'] as $i => $data) {
+            $identifier = $data['identifier'];
             $data = array_merge($data, $this->getEngineIndexConfig($identifier, 1));
-            $config['indexes'][$identifier] = $data;
+            $config['indexes'][$i] = $data;
         }
 
         return $config;
@@ -57,9 +58,10 @@ class AutocompleteJsonConfigPlugin
      */
     public function getEngineIndexConfig($identifier, $dimension)
     {
-        $instance = $this->indexRepository->getInstance($identifier);
-        $indexName = $instance->getIndexer()->getIndexName($dimension);
+        $index = $this->indexRepository->get($identifier);
 
+        $instance = $this->indexRepository->getInstance($index);
+        $indexName = $instance->getIndexer()->getIndexName($dimension);
 
         $result = [];
         $result['index'] = $indexName;

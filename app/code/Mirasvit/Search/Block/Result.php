@@ -9,9 +9,10 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search
- * @version   1.0.78
+ * @version   1.0.94
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
+
 
 
 namespace Mirasvit\Search\Block;
@@ -52,7 +53,7 @@ class Result extends Template
      * @var IndexInterface[]
      */
     protected $indices;
-    
+
     /**
      * @var Registry
      */
@@ -168,10 +169,8 @@ class Result extends Template
     public function getFirstMatchedIndex()
     {
         foreach ($this->getIndices() as $index) {
-            $collection = $this->getSearchCollection($index);
-
             if (($index->getData('store_id') == false
-                    || $index->getData('store_id') == $this->getCurrentStore()->getId())
+                || $index->getData('store_id') == $this->getCurrentStore()->getId())
             ) {
                 return $index;
             }
@@ -276,5 +275,13 @@ class Result extends Template
             ->saveNumResults($numResults);
 
         return $html;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMinCollectionSize()
+    {
+        return (int) $this->config::MIN_COLLECTION_SIZE;
     }
 }

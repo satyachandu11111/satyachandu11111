@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-misspell
- * @version   1.0.24
+ * @version   1.0.27
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -153,7 +153,6 @@ class Suggester
             }
             $this->keys[$key] .= $aa['keyword'] . ' ' . $bb['keyword'];
 
-
             $this->diffs[$key] = (
                     $this->damerauHelper->similarity($base, $this->keys[$key]) + $aa['diff'] + $bb['diff']
                 ) / 3;
@@ -167,7 +166,6 @@ class Suggester
             if ($aa['diff'] > 50) {
                 $this->split($b, $kwd, $query);
             }
-
         }
 
         return null;

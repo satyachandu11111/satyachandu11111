@@ -2,17 +2,17 @@
 //@codingStandardsIgnoreFile
 /** @var \Mirasvit\Search\Block\Index\Base $block */
 ?>
-<div class="search__result-index search__index-mirasvit-kb-article">
+<div class="mst-search__index mst-search__index-mirasvit-kb-article">
     <?= $block->getPager() ?>
     <ul>
         <?php /** @var \Mirasvit\Kb\Model\Article $article */ ?>
         <?php foreach ($block->getCollection() as $article): ?>
             <li>
-                <div class="title">
+                <div class="mst-search__index-title">
                     <a href="<?= $article->getUrl() ?>"><?= $article->getName() ?></a>
                 </div>
 
-                <div class="content">
+                <div class="mst-search__index-content">
                     <?= $this->truncate($block->stripTags($article->getSummary())) ?>
                 </div>
             </li>

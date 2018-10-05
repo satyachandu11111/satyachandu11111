@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search
- * @version   1.0.78
+ * @version   1.0.94
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -84,6 +84,14 @@ class AutocompleteProvider
     /**
      * {@inheritdoc}
      */
+    public function get($id)
+    {
+        return $this->indexRepository->get($id);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getIndices()
     {
         $indices = [];
@@ -92,11 +100,17 @@ class AutocompleteProvider
 
         /** @var IndexInterface $index */
         foreach ($collection as $index) {
-            $indices[] = new DataObject([
+            $indexDataObject = new DataObject([
                 'identifier' => $index->getIdentifier(),
                 'title'      => $index->getTitle(),
                 'properties' => $index->getProperties(),
             ]);
+
+            if (in_array($index->getIdentifier(), IndexInterface::WHITELIST)) {
+                $indexDataObject['index_id'] = $index->getIndexId();
+            }
+
+            $indices[] = $indexDataObject;
         }
 
         $indices[] = new DataObject([
@@ -120,7 +134,6 @@ class AutocompleteProvider
     {
         switch ($index->getIdentifier()) {
             case 'magento_search_query':
-
                 $query = $this->queryFactory->get();
                 $queryText = $this->stemmingService->singularize($query->getQueryText());
                 $collection = $this->queryCollectionFactory->create();
@@ -146,13 +159,15 @@ class AutocompleteProvider
                 break;
 
             case 'magento_catalog_categoryproduct':
-
                 $index = $this->indexRepository->get('catalogsearch_fulltext');
                 break;
 
             default:
-
-                $index = $this->indexRepository->get($index->getIdentifier());
+                if (in_array($index->getIdentifier(), IndexInterface::WHITELIST)) {
+                    $index = $this->indexRepository->get($index->getIndexId());
+                } else {
+                    $index = $this->indexRepository->get($index->getIdentifier());
+                }
                 break;
         }
         return $this->indexService->getSearchCollection($index);

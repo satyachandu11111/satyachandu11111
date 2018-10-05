@@ -36,6 +36,11 @@
                     <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
                 </field>
 
+                <field id="type_ahead" translate="label comment tooltip" type="select" sortOrder="60" showInDefault="1" showInWebsite="0">
+                    <label>Enable TypeAhead</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
                 <group id="product" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="0"
                        showInStore="0">
                     <label>Products Settings</label>

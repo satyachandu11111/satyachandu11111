@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search
- * @version   1.0.78
+ * @version   1.0.94
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -86,7 +86,9 @@ class WeightSynchronizationPlugin
         foreach ($attributes as $code => $weight) {
             /** @var \Magento\Eav\Model\Entity\Attribute $attribute */
             $attribute = $this->eavAttribute->loadByCode($entityTypeId, $code);
-
+            if (!$attribute->getId()) {
+                continue;
+            }
             if ($attribute->getSearchWeight() != $weight || !$attribute->getIsSearchable()) {
                 $attribute->setSearchWeight($weight)
                     ->setIsSearchable(1)

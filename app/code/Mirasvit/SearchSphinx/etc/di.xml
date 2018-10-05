@@ -15,6 +15,7 @@
                 <item name="mirasvit_kb_article" xsi:type="object">Mirasvit\SearchSphinx\Model\Search\IndexBuilder</item>
                 <item name="mirasvit_gry_registry" xsi:type="object">Mirasvit\SearchSphinx\Model\Search\IndexBuilder</item>
                 <item name="magento_catalog_attribute" xsi:type="object">Mirasvit\SearchSphinx\Model\Search\IndexBuilder</item>
+                <item name="ves_blog_post" xsi:type="object">Mirasvit\SearchSphinx\Model\Search\IndexBuilder</item>
             </argument>
 
             <argument name="entityMetadata" xsi:type="object">Magento\Framework\Search\ObjectEntityMetadata</argument>
@@ -76,15 +77,15 @@
     </type>
 
     <!--register console commands-->
-    <type name="Magento\Framework\Console\CommandList">
+    <type name="Magento\Framework\Console\CommandListInterface">
         <arguments>
             <argument name="commands" xsi:type="array">
-                <item name="sphinxManage" xsi:type="object">Mirasvit\SearchSphinx\Console\Command\ManageCommand</item>
+                <item name="mstSearchSphinxManage" xsi:type="object">Mirasvit\SearchSphinx\Console\Command\ManageCommand</item>
             </argument>
         </arguments>
     </type>
 
     <type name="Mirasvit\SearchAutocomplete\Service\JsonConfigService">
-        <plugin name="autocompleteJson" type="Mirasvit\SearchSphinx\Plugin\AutocompleteJsonConfigPlugin"/>
+        <plugin name="mstSearchSphinxAutocompleteJson" type="Mirasvit\SearchSphinx\Plugin\AutocompleteJsonConfigPlugin"/>
     </type>
 </config>

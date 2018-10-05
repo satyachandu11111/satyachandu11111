@@ -2,14 +2,14 @@
   "name": "mirasvit/module-search-autocomplete",
   "description": "Search Autocomplete & Suggest",
   "require": {
-    "magento/framework": "101.0.*",
+    "magento/framework": "100.1.*|100.2.*|101.0.*",
     "mirasvit/module-core": "^1.2"
   },
   "conflict": {
     "mirasvit/module-search-sphinx": "1.0.*"
   },
   "type": "magento2-module",
-  "version": "1.1.48",
+  "version": "1.1.58",
   "license": [
     "proprietary"
   ],

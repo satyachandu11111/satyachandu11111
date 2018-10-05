@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-autocomplete
- * @version   1.1.48
+ * @version   1.1.58
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -33,6 +33,7 @@ class OnConfigChanged implements ObserverInterface
 
     public function execute(Observer $observer)
     {
-        $this->jsonConfigService->ensure();
+        $this->jsonConfigService->ensure(JsonConfigService::AUTOCOMPLETE);
+        $this->jsonConfigService->ensure(JsonConfigService::TYPEAHEAD);
     }
 }

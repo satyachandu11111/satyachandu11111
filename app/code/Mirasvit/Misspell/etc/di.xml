@@ -13,7 +13,7 @@
     </type>
 
     <type name="Magento\Indexer\Model\Config\Data">
-        <plugin name="indexerMisspellConfigGet" type="Mirasvit\Misspell\Plugin\IndexerConfigData"/>
+        <plugin name="mstMisspellIndexerConfig" type="Mirasvit\Misspell\Plugin\IndexerConfigDataPlugin"/>
     </type>
 
     <type name="Mirasvit\Core\Service\ValidationService">

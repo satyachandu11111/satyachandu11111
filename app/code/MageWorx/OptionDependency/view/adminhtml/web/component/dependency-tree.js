@@ -189,7 +189,7 @@ define([
             _.each(this.cacheOptions.tree[0].optgroup, function (value) {
                 setTimeout(function () {
                     value.visible(false);
-                }, 500);
+                }, 1000);
             });
         },
 

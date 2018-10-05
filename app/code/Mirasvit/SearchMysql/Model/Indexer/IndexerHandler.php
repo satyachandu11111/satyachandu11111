@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-mysql
- * @version   1.0.13
+ * @version   1.0.22
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -20,11 +20,10 @@ namespace Mirasvit\SearchMysql\Model\Indexer;
 use Magento\Framework\App\ResourceConnection;
 use Magento\Framework\Indexer\SaveHandler\IndexerInterface;
 use Magento\Framework\Search\Request\Dimension;
-use Magento\Framework\Search\Request\IndexScopeResolverInterface;
 use Magento\Framework\Indexer\SaveHandler\Batch;
 use Magento\CatalogSearch\Model\Indexer\IndexStructure;
+use Mirasvit\Core\Service\CompatibilityService;
 use Mirasvit\Search\Api\Repository\IndexRepositoryInterface;
-use Magento\CatalogSearch\Model\Indexer\Scope\ScopeProxy;
 
 class IndexerHandler implements IndexerInterface
 {
@@ -68,17 +67,24 @@ class IndexerHandler implements IndexerInterface
         IndexStructure $indexStructure,
         ResourceConnection $resource,
         Batch $batch,
-        ScopeProxy $indexScopeResolver,
         array $data,
         $batchSize = 100
     ) {
         $this->indexRepository = $indexRepository;
-        $this->indexScopeResolver = $indexScopeResolver;
+
         $this->indexStructure = $indexStructure;
         $this->resource = $resource;
         $this->batch = $batch;
         $this->data = $data;
         $this->batchSize = $batchSize;
+
+        if (CompatibilityService::is22()) {
+            $this->indexScopeResolver = CompatibilityService::getObjectManager()
+                ->create('Magento\CatalogSearch\Model\Indexer\Scope\ScopeProxy');
+        } else {
+            $this->indexScopeResolver = CompatibilityService::getObjectManager()
+                ->create('Magento\Framework\Indexer\ScopeResolver\IndexScopeResolver');
+        }
     }
 
     /**
@@ -86,9 +92,9 @@ class IndexerHandler implements IndexerInterface
      */
     public function saveIndex($dimensions, \Traversable $documents)
     {
-        $index = $this->indexRepository->get($this->getIndexName());
-        $instance = $this->indexRepository->getInstance($index);
+        $index = $this->indexRepository->get($this->getIndexId());
 
+        $instance = $this->indexRepository->getInstance($index);
         foreach ($this->batch->getItems($documents, $this->batchSize) as $docs) {
             foreach ($instance->getDataMappers('mysql2') as $dataMapper) {
                 $docs = $dataMapper->map($docs, $dimensions, $this->getIndexName());
@@ -144,6 +150,14 @@ class IndexerHandler implements IndexerInterface
     }
 
     /**
+     * @return string
+     */
+    private function getIndexId()
+    {
+        return isset($this->data['index_id']) ? $this->data['index_id'] : 1;
+    }
+
+    /**
      * @param array $documents
      * @param Dimension[] $dimensions
      * @return void
@@ -155,7 +169,6 @@ class IndexerHandler implements IndexerInterface
         if (empty($documents)) {
             return;
         }
-
         $this->resource->getConnection()->insertOnDuplicate(
             $this->getTableName($dimensions),
             $documents,

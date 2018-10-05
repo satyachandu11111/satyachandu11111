@@ -130,7 +130,8 @@ class Base extends AbstractModel
                 $result['image_size_y'] = $option->getImageSizeY();
                 $result['div_class'] = $option->getDivClass();
                 $result['values'] = null;
-            }            
+            }
+
             // Add option attributes specified in the third-party modules to the option
             $result = $this->addSpecificOptionAttributes($result, $option);
             $results[$option->getOptionId()] = $result;

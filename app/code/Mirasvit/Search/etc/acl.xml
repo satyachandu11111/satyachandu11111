@@ -6,6 +6,7 @@
                 <resource id="Magento_Backend::system">
                     <resource id="Mirasvit_Search::search" title="Sphinx Search" sortOrder="20">
                         <resource id="Mirasvit_Search::search_index" title="Search Indexes" sortOrder="10"/>
+                        <resource id="Mirasvit_Search::search_score_rule" title="Score Boost Rules" sortOrder="15"/>
                         <resource id="Mirasvit_Search::search_synonym" title="Synonyms" sortOrder="20"/>
                         <resource id="Mirasvit_Search::search_stopword" title="Stopwords" sortOrder="30"/>
                         <resource id="Mirasvit_Search::search_settings" title="Settings" sortOrder="40"/>

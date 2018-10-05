@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search
- * @version   1.0.78
+ * @version   1.0.94
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -18,7 +18,6 @@
 namespace Mirasvit\Search\Model\Config\Source;
 
 use Magento\Framework\Option\ArrayInterface;
-use Mirasvit\Search\Api\Data\IndexInterface;
 use Mirasvit\Search\Api\Repository\IndexRepositoryInterface;
 
 class IndexTree implements ArrayInterface
@@ -40,9 +39,9 @@ class IndexTree implements ArrayInterface
     public function toOptionArray()
     {
         $options = [];
+
         foreach ($this->indexRepository->getList() as $instance) {
             $identifier = $instance->getIdentifier();
-
             $group = trim(explode('/', $instance->getName())[0]);
             $name = trim(explode('/', $instance->getName())[1]);
 

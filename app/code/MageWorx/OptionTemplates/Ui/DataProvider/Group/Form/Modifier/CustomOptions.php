@@ -3,6 +3,7 @@
  * Copyright © 2016 MageWorx. All rights reserved.
  * See LICENSE.txt for license details.
  */
+
 namespace MageWorx\OptionTemplates\Ui\DataProvider\Group\Form\Modifier;
 
 use Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\CustomOptions as OriginalCustomOptions;
@@ -12,9 +13,9 @@ class CustomOptions extends OriginalCustomOptions
 {
     const GROUP_CUSTOM_OPTIONS_SCOPE = 'data.mageworx_optiontemplates_group';
 
-    const FORM_NAME = 'mageworx_optiontemplates_group';
+    const FORM_NAME           = 'mageworx_optiontemplates_group';
     const DATA_SOURCE_DEFAULT = 'mageworx_optiontemplates_group';
-    const DATA_SCOPE_PRODUCT = 'data.mageworx_optiontemplates_group';
+    const DATA_SCOPE_PRODUCT  = 'data.mageworx_optiontemplates_group';
 
     /**
      * Adds option & values data
@@ -24,23 +25,23 @@ class CustomOptions extends OriginalCustomOptions
      */
     public function modifyData(array $data)
     {
-        $index = 0;
-        $options = [];
+        $index          = 0;
+        $options        = [];
         $productOptions = [];
         if ($this->locator->getProduct()->getOptions()) {
             $productOptions = $this->locator->getProduct()->getOptions();
         }
         /** @var \Magento\Catalog\Model\Product\Option $option */
         foreach ($productOptions as $option) {
-            $optionData = $option->getData();
+            $optionData      = $option->getData();
             $options[$index] = $this->formatPriceByPath(static::FIELD_PRICE_NAME, $optionData);
-            $values = [];
+            $values          = [];
             if ($option->getValues()) {
                 $values = $option->getValues();
             }
             /** @var \Magento\Catalog\Model\Product\Option $value */
             foreach ($values as $value) {
-                $valueData = $value->getData();
+                $valueData                                        = $value->getData();
                 $options[$index][static::GRID_TYPE_SELECT_NAME][] = $this->formatPriceByPath(
                     static::FIELD_PRICE_NAME,
                     $valueData
@@ -54,7 +55,7 @@ class CustomOptions extends OriginalCustomOptions
             [
                 $this->locator->getProduct()->getId() => [
                     static::DATA_SOURCE_DEFAULT => [
-                        static::FIELD_ENABLE => 1,
+                        static::FIELD_ENABLE      => 1,
                         static::GRID_OPTIONS_NAME => $options,
                     ],
                 ],
@@ -71,8 +72,8 @@ class CustomOptions extends OriginalCustomOptions
     {
         $customOptionsPanelChildren = [
             static::CONTAINER_HEADER_NAME => $this->getHeaderContainerConfig(10),
-            static::FIELD_ENABLE => $this->getEnableFieldConfig(20),
-            static::GRID_OPTIONS_NAME => $this->getOptionsGridConfig(30),
+            static::FIELD_ENABLE          => $this->getEnableFieldConfig(20),
+            static::GRID_OPTIONS_NAME     => $this->getOptionsGridConfig(30),
         ];
 
         $customOptionsPanel = [
@@ -80,15 +81,15 @@ class CustomOptions extends OriginalCustomOptions
                 'arguments' => [
                     'data' => [
                         'config' => [
-                            'label' => __('Customizable Options'),
+                            'label'         => __('Customizable Options'),
                             'componentType' => Fieldset::NAME,
-                            'dataScope' => static::GROUP_CUSTOM_OPTIONS_SCOPE,
-                            'collapsible' => true,
-                            'sortOrder' => static::GROUP_CUSTOM_OPTIONS_DEFAULT_SORT_ORDER
+                            'dataScope'     => static::GROUP_CUSTOM_OPTIONS_SCOPE,
+                            'collapsible'   => true,
+                            'sortOrder'     => static::GROUP_CUSTOM_OPTIONS_DEFAULT_SORT_ORDER
                         ],
                     ],
                 ],
-                'children' => $customOptionsPanelChildren,
+                'children'  => $customOptionsPanelChildren,
             ],
         ];
 
@@ -112,6 +113,7 @@ class CustomOptions extends OriginalCustomOptions
         if (!empty($result['children'][OriginalCustomOptions::BUTTON_IMPORT])) {
             unset($result['children'][OriginalCustomOptions::BUTTON_IMPORT]);
         }
+
         return $result;
     }
 }

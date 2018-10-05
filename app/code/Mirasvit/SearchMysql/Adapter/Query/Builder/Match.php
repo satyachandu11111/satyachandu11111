@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-mysql
- * @version   1.0.13
+ * @version   1.0.22
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -136,6 +136,7 @@ class Match extends \Magento\Framework\Search\Adapter\Mysql\Query\Builder\Match
     /**
      * @param array $columns
      * @param array $query
+     * @param bool $isNot
      * @return string
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
@@ -169,7 +170,6 @@ class Match extends \Magento\Framework\Search\Adapter\Mysql\Query\Builder\Match
                     break;
 
                 case '$term':
-
                     $phrase = $value['$phrase'];
 
                     switch ($value['$wildcard']) {
@@ -231,9 +231,12 @@ class Match extends \Magento\Framework\Search\Adapter\Mysql\Query\Builder\Match
 
         foreach ($words as $word) {
             foreach ($columns as $column) {
-                $e = '(LENGTH(' . $column . ')';
-                $e .= '- LOCATE("' . addslashes($word) . '", ' . $column . ')) / LENGTH(' . $column . ')';
+                $e = strlen($word) . ' * (';
+                $e .= '(' . strlen($word) . ' / LENGTH(' . $column . ')) + ';
+                $e .= '(1/(LENGTH(' . $column . ') - ( LENGTH(' . $column . ') 
+                    - LOCATE("' . addslashes($word) . '",' . $column . ')))))';
                 $locate = new \Zend_Db_Expr($e);
+
                 $cases[$locate->__toString()][] = $locate;
             }
         }
@@ -249,6 +252,8 @@ class Match extends \Magento\Framework\Search\Adapter\Mysql\Query\Builder\Match
         } else {
             $select = '0';
         }
+
+        $select = 'CASE WHEN search_weight > 1 THEN(' . $select . ') ELSE 0 END';
 
         return $select;
     }

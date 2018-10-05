@@ -12,7 +12,7 @@
             <argument name="optionValueCollection" xsi:type="object">MageWorx\OptionTemplates\Model\ResourceModel\Group\Option\Value\Collection</argument>
         </arguments>
     </type>
-    
+
     <virtualType name="MageWorxOptionTemplatesGroupGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
         <arguments>
             <argument name="collection" xsi:type="object" shared="false">MageWorx\OptionTemplates\Model\ResourceModel\Group\Collection</argument>
@@ -61,5 +61,13 @@
                 <item name="optiontemplates_install_schema_data" xsi:type="object">MageWorx\OptionTemplates\Model\InstallSchema</item>
             </argument>
         </arguments>
+    </type>
+
+    <!-- Plugins duplicate pager -->
+    <type name="Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\CustomOptions">
+        <plugin name="mageworx_optiontemplates_modifymeta"
+                type="MageWorx\OptionTemplates\Plugin\DuplicatePager"
+                sortOrder="10"
+                disabled="false"/>
     </type>
 </config>

@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-sphinx
- * @version   1.1.33
+ * @version   1.1.38
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -33,7 +33,6 @@ class Reset extends Command
             $this->engine->stop($note);
             $this->engine->reset($note);
             $message .= __('Done.');
-
         } catch (\Exception $e) {
             $message = $e->getMessage();
             $success = false;

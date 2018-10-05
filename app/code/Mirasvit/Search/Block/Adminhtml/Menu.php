@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search
- * @version   1.0.78
+ * @version   1.0.94
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -45,6 +45,10 @@ class Menu extends AbstractMenu
             'resource' => 'Mirasvit_Search::search_index',
             'title'    => __('Search Indexes'),
             'url'      => $this->urlBuilder->getUrl('search/index'),
+        ])->addItem([
+            'resource' => 'Mirasvit_Search::search_score_rule',
+            'title'    => __('Score Boost Rules'),
+            'url'      => $this->urlBuilder->getUrl('search/scoreRule'),
         ])->addItem([
             'resource' => 'Mirasvit_Search::search_synonym',
             'title'    => __('Manage Synonyms'),

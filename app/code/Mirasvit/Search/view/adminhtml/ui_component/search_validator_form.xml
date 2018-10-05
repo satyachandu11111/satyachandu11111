@@ -25,16 +25,6 @@
         </item>
     </argument>
     
-    <settings>
-        <buttons>
-            <button name="back" class="Magento\Customer\Block\Adminhtml\Edit\BackButton"/>
-        </buttons>
-        <layout>
-            <navContainerName>left</navContainerName>
-            <type>tabs</type>
-        </layout>
-    </settings>
-    
     <dataSource name="search_validator_form_data_source">
         <argument name="dataProvider" xsi:type="configurableObject">
             <argument name="class" xsi:type="string">Mirasvit\Search\Ui\Validator\DataProvider</argument>
@@ -50,9 +40,11 @@
     </dataSource>
 
     <fieldset name="general">
-       <settings>
-            <label translate="true">Base information</label>
-        </settings>
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string">Base information</item>
+            </item>
+        </argument>
 
         <field name="limit">            
             <argument name="data" xsi:type="array">
@@ -83,11 +75,12 @@
     </fieldset>
 
     <fieldset name="regular_speed">
-       <settings>
-            <label translate="true">Test Regular Search Speed</label>
-        </settings>
-
-         <container name="test_name">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string">Test Regular Search Speed</item>
+            </item>
+        </argument>
+        <container name="test_name">
             <argument name="data" xsi:type="array">
                 <item name="type" xsi:type="string">group</item>
                 <item name="config" xsi:type="array">
@@ -144,9 +137,11 @@
     </fieldset>
 
     <fieldset name="autocomplete_speed">
-        <settings>
-            <label translate="true">Test Autocomplete Search Speed</label>
-        </settings>
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string">Test Autocomplete Search Speed</item>
+            </item>
+        </argument>
 
          <container name="autocomplete_speed_container">
             <argument name="data" xsi:type="array">
@@ -205,9 +200,11 @@
     </fieldset>
 
     <fieldset name="results">
-        <settings>
-            <label translate="true">Validate Search Results</label>
-        </settings>
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string">Validate Search Results</item>
+            </item>
+        </argument>
 
         <field name="search_term">            
             <argument name="data" xsi:type="array">
@@ -298,16 +295,5 @@
                     </argument>
             </field>
     </fieldset>
-
-    <!-- <fieldset name="identifiers">
-       <settings>
-            <label translate="true">Validate Index Identifiers</label>
-        </settings>
-        <button name='validateIdentifiers'>
-            <settings>
-                <title>Validate Index Identifiers</title>
-            </settings>
-        </button>
-    </fieldset> -->
 
 </form>

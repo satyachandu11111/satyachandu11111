@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-sphinx
- * @version   1.1.33
+ * @version   1.1.38
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -140,10 +140,9 @@ class Engine
 
         $this->connection = new \Mirasvit\SearchSphinx\SphinxQL\Connection();
         $this->connection->setParams([
-                'host' => $this->host,
-                'port' => $this->port,
-            ]
-        );
+            'host' => $this->host,
+            'port' => $this->port,
+        ]);
 
         if (file_exists($this->absConfigFilePath . '.attr')) {
             $this->availableAttributes = json_decode(file_get_contents($this->absConfigFilePath . '.attr'), true);
@@ -161,6 +160,10 @@ class Engine
         $instance = $this->indexRepository->getInstance($index);
 
         foreach ($documents as $id => $document) {
+            if (empty($id)) {
+                continue;
+            }
+
             $query = $this->getQuery()->replace()
                 ->into($indexName)
                 ->value('id', $id);
@@ -195,14 +198,20 @@ class Engine
                 $query->value($attr, $value);
             }
 
-
             try {
                 $query->execute();
             } catch (\Exception $e) {
-                echo $e;
-                die();
+                if (strpos($e->getMessage(), 'no such index')) {
+                    if ($this->config->isSameServer()) {
+                        throw new \Exception(__('Please reset and restart your sphinx daemon to search by new index'));
+                    } else {
+                        throw new \Exception(__('Please generate a new configuration file and place it to your remote 
+                            server to search by new index'));
+                    }
+                } else {
+                    throw new \Exception($e->getMessage());
+                }
             }
-
         }
     }
 

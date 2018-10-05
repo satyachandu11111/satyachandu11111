@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-misspell
- * @version   1.0.24
+ * @version   1.0.27
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -38,12 +38,10 @@ class Recurring implements InstallSchemaInterface
             AdapterInterface::INDEX_TYPE_FULLTEXT
         );
 
-
         $indices = $installer->getConnection()->getIndexList($tableName);
 
         if (!key_exists($indexName, $indices)
             || $indices[$indexName]['type'] != AdapterInterface::INDEX_TYPE_FULLTEXT) {
-
             $installer->getConnection()->dropIndex($tableName, $indexName);
 
             $installer->getConnection()->addIndex(

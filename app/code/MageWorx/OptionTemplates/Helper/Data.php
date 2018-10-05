@@ -3,8 +3,10 @@
  * Copyright © 2016 MageWorx. All rights reserved.
  * See LICENSE.txt for license details.
  */
+
 namespace MageWorx\OptionTemplates\Helper;
 
+use Magento\Framework\App\Helper\Context;
 use Magento\Store\Model\ScopeInterface;
 
 class Data extends \Magento\Framework\App\Helper\AbstractHelper
@@ -50,6 +52,33 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     const XML_REAPPLY_ATTRIBUTE_EXCEPTIONS = 'mageworx_apo/optiontemplates/reapply_attribute_exceptions';
 
     /**
+     * @var \Magento\Framework\Component\ComponentRegistrarInterface
+     */
+    protected $componentRegistrar;
+
+    /**
+     * @var \Magento\Framework\Filesystem\Directory\ReadFactory
+     */
+    protected $readFactory;
+
+    /**
+     * Data constructor.
+     *
+     * @param Context $context
+     * @param \Magento\Framework\Component\ComponentRegistrarInterface $componentRegistrar
+     * @param \Magento\Framework\Filesystem\Directory\ReadFactory $readFactory
+     */
+    public function __construct(
+        Context $context,
+        \Magento\Framework\Component\ComponentRegistrarInterface $componentRegistrar,
+        \Magento\Framework\Filesystem\Directory\ReadFactory $readFactory
+    ) {
+        parent::__construct($context);
+        $this->componentRegistrar = $componentRegistrar;
+        $this->readFactory        = $readFactory;
+    }
+
+    /**
      * Get attribute keys that will not be overwritten on template reapply
      *
      * @param int $storeId
@@ -57,10 +86,31 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getReapplyExceptionAttributeKeys($storeId = null)
     {
-        return explode(',', $this->scopeConfig->getValue(
-            self::XML_REAPPLY_ATTRIBUTE_EXCEPTIONS,
-            ScopeInterface::SCOPE_STORE,
-            $storeId
-        ));
+        return explode(
+            ',',
+            $this->scopeConfig->getValue(
+                self::XML_REAPPLY_ATTRIBUTE_EXCEPTIONS,
+                ScopeInterface::SCOPE_STORE,
+                $storeId
+            )
+        );
+    }
+
+    /**
+     * @param string $moduleName
+     * @return int
+     * @throws \Magento\Framework\Exception\FileSystemException
+     */
+    public function getModuleVersion($moduleName)
+    {
+        $path             = $this->componentRegistrar->getPath(
+            \Magento\Framework\Component\ComponentRegistrar::MODULE,
+            $moduleName
+        );
+        $directoryRead    = $this->readFactory->create($path);
+        $composerJsonData = $directoryRead->readFile('composer.json');
+        $data             = json_decode($composerJsonData);
+
+        return !empty($data->version) ? $data->version : 0;
     }
 }

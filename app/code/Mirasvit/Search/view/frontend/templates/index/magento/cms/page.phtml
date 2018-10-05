@@ -6,18 +6,18 @@
 $pageHelper = $this->helper('Magento\Cms\Helper\Page');
 $filterProvider = $block->getObjectManager()->create('Magento\Cms\Model\Template\FilterProvider');
 ?>
-<div class="search__result-index search__index-magento-cms-page">
+<div class="mst-search__index mst-search__index-magento-cms-page">
     <?= $block->getPager() ?>
     <ul>
         <?php /** @var \Magento\Cms\Api\Data\PageInterface $page */ ?>
         <?php foreach ($block->getCollection() as $page) : ?>
             <li>
-                <div class="title">
+                <div class="mst-search__index-title">
                     <a href="<?= $pageHelper->getPageUrl($page->getIdentifier()) ?>">
                         <?= $page->getTitle() ?>
                     </a>
                 </div>
-                <div class="content">
+                <div class="mst-search__index-content">
                     <?= $block->truncate(
                         $block->stripTags(
                             $filterProvider->getPageFilter()->filter(

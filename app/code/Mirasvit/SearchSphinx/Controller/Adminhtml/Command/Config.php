@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-sphinx
- * @version   1.1.33
+ * @version   1.1.38
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -33,7 +33,6 @@ class Config extends Command
             $path = $this->engine->makeConfig();
             $message .= __('Configuration file was generated.');
             $note = __("Path to configuration file: \n%1", $path);
-
         } catch (\Exception $e) {
             $message = $e->getMessage();
             $success = false;

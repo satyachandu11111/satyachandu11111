@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-autocomplete
- * @version   1.1.48
+ * @version   1.1.58
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -47,8 +47,8 @@ class Attribute extends AbstractIndex
                 ->getUrl('catalogsearch/advanced/result', ['_query' => [$attr => $value->getValue()]]);
 
             $items[] = [
-                'title' => $value->getLabel(),
-                'url'   => $url,
+                'name' => $value->getLabel(),
+                'url'  => $url,
             ];
         }
 

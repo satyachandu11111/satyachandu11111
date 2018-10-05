@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search
- * @version   1.0.78
+ * @version   1.0.94
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -32,6 +32,8 @@ interface IndexInterface
 
     const STATUS_READY = 1;
     const STATUS_INVALID = 0;
+
+    const WHITELIST = ['magento_catalog_attribute'];
 
     /**
      * @return int

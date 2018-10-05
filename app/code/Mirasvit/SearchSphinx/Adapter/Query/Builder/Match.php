@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-sphinx
- * @version   1.1.33
+ * @version   1.1.38
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -63,7 +63,6 @@ class Match implements QueryInterface
             $column = $field->getColumn();
             $columns[$column] = $column;
         }
-
 
         $searchQuery = $this->queryService->build($query->getValue());
         $matchQuery = $this->compileQuery($searchQuery);

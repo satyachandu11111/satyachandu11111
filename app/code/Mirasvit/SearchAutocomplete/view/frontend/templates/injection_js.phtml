@@ -1,0 +1,72 @@
+<?php
+// @codingStandardsIgnoreFile
+
+/** @var \Mirasvit\SearchAutocomplete\Block\Injection $block */
+$config = $block->getJsConfig();
+?>
+    <script>
+        require([
+                'jquery',
+                'Mirasvit_SearchAutocomplete/js/autocomplete',
+                'Mirasvit_SearchAutocomplete/js/typeahead'
+            ], function ($, autocomplete, typeahead) {
+                const selector = 'input#search, input#mobile_search, .minisearch input[type="text"]';
+
+                $(document).ready(function () {
+                    var $body = $('body');
+                    var $input = $(selector);
+                    var $result = false;
+
+                    autocomplete.init(selector, <?=\Zend_Json::encode($config) ?>);
+
+                    <?php if ($config['isTypeaheadEnabled']): ?>
+                    typeahead.init(selector, <?=\Zend_Json::encode($config) ?>);
+
+                    $input.on('keyup', function (event) {
+                        if (event.key === 'ArrowRight' || event.keyCode === 39) {
+                            typeahead.completeQuery();
+                        }
+                    });
+                    <?php endif ?>
+
+                    $input.on('focus click', function () {
+                        if ($result) {
+                            $body.addClass('searchautocomplete__active');
+                            typeahead.suggest();
+                            $('.searchautocomplete__autocomplete').addClass('_active');
+                        } else {
+                            $result = autocomplete.search();
+                        }
+                    });
+
+                    $input.on('input', function () {
+                        typeahead.suggest();
+                        $body.addClass('searchautocomplete__active');
+
+                        $result = autocomplete.search();
+
+                        setTimeout(function () {
+                            if ($result) {
+                                $('.searchautocomplete__autocomplete').addClass('_active');
+                            } else {
+                                $('.searchautocomplete__autocomplete').removeClass('_active');
+                            }
+                        }, 200)
+                    });
+
+                    $(document).click(function (event) {
+                        if (!$(event.target).closest('#search_mini_form').length) {
+                            $body.removeClass('searchautocomplete__active');
+                            $('.searchautocomplete__autocomplete').removeClass('_active');
+
+                            $('#search_mini_form label').removeClass('active');
+                        }
+                    });
+                });
+            }
+        );
+    </script>
+
+<?php if ($block->getCssStyles() != ''): ?>
+    <style><?= $block->getCssStyles() ?></style>
+<?php endif ?>

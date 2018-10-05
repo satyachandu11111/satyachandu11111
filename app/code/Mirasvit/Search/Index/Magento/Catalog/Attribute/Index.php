@@ -9,9 +9,10 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search
- * @version   1.0.78
+ * @version   1.0.94
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
+
 
 
 namespace Mirasvit\Search\Index\Magento\Catalog\Attribute;
@@ -83,11 +84,16 @@ class Index extends AbstractIndex
      */
     public function buildSearchCollection()
     {
+        //        $this->setRecentId($this->getIndexId());
         $ids = $this->context->getSearcher()->getMatchedIds();
 
         $collection = new Collection(new EntityFactory($this->context->getObjectManager()));
 
-        $attribute = $this->eavConfig->getAttribute('catalog_product', $this->getModel()->getProperty('attribute'));
+        $attribute = $this->eavConfig->getAttribute(
+            'catalog_product',
+            $this->getModel()->getProperty('attribute')
+        );
+
         if ($attribute->usesSource()) {
             foreach ($attribute->getSource()->getAllOptions() as $option) {
                 if (in_array($option['value'], $ids)) {

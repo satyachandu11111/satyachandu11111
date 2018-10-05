@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-autocomplete
- * @version   1.1.48
+ * @version   1.1.58
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -30,8 +30,7 @@ class Page extends AbstractIndex
 
     public function __construct(
         PageHelper $pageHelper
-    )
-    {
+    ) {
         $this->pageHelper = $pageHelper;
     }
 
@@ -57,8 +56,8 @@ class Page extends AbstractIndex
     public function mapPage($page)
     {
         return [
-            'title' => $page->getTitle(),
-            'url'   => $this->pageHelper->getPageUrl($page->getIdentifier()),
+            'name' => $page->getTitle(),
+            'url'  => $this->pageHelper->getPageUrl($page->getIdentifier()),
         ];
     }
 
