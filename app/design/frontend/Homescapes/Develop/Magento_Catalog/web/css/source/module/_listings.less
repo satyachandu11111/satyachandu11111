@@ -22,6 +22,7 @@
 
 @product-price__muted__color: @color-gray40;
 @black:#333;
+@639: ~"only screen and (max-width:639px)";
 //
 //  Common
 //  _____________________________________________
@@ -70,6 +71,10 @@
                 .page-products & {
                     width: 240px;
 					position: relative;
+					
+					@media @639{
+						width: 100%;
+					}
                 }
             }
 
