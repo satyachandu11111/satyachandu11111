@@ -54,7 +54,13 @@
         <referenceBlock name="authorization-link-login" remove="true"/>
         <referenceBlock name="currency" remove="true"/>
 
-    
+    <referenceContainer name="head.additional">
+      <block class="Magento\Framework\View\Element\Template" name="custom_head_script" template="Magento_Theme::page/head_tags.phtml"/>
+    </referenceContainer>
+
+    <referenceContainer name="after.body.start">
+            <block class="Magento\Framework\View\Element\Template" name="frontuser" template="Magento_Theme::page/body_tags.phtml"/>
+    </referenceContainer>
     
     </body>		
 
