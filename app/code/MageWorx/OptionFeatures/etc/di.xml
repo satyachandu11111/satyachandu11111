@@ -18,7 +18,6 @@
         <arguments>
             <argument name="data" xsi:type="array">
                 <item name="one_time" xsi:type="object">MageWorx\OptionFeatures\Model\Attribute\Option\OneTime</item>
-                <item name="div_class" xsi:type="object">MageWorx\OptionFeatures\Model\Attribute\Option\DivClass</item>
                 <item name="qty_input" xsi:type="object">MageWorx\OptionFeatures\Model\Attribute\Option\QtyInput</item>
                 <item name="description" xsi:type="object">MageWorx\OptionFeatures\Model\Attribute\Option\Description</item>
                 <item name="gallery_display_mode" xsi:type="object">MageWorx\OptionFeatures\Model\Attribute\Option\GalleryDisplayMode</item>

@@ -1077,14 +1077,12 @@ define([
             this.showSpinner(true);
             this.getChildItems().forEach(function (data, index) {
                 this.addChild(data, this.startIndex + index);
-                if (this._elems.length > 0) {
-                    var recordScope = this._elems.last(); // get object of currently added row
-                    var object = this;
-                    // wait when currently added row was added and fill it with saved data
-                    jQuery.when(registry.promise(recordScope)).then(function (record) {
-                        object.restoreRecordId();
-                    });
-                }
+                var recordScope = this._elems.last(); // get object of currently added row
+                var object = this;
+                // wait when currently added row was added and fill it with saved data
+                jQuery.when(registry.promise(recordScope)).then(function (record) {
+                    object.restoreRecordId();
+                });
             }, this);
 
             return this;

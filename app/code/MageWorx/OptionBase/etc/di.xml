@@ -47,7 +47,7 @@
     <type name="Magento\Catalog\Block\Product\View\Options\Type\Select">
         <plugin name="mageworx_optionbase_around_option_values_html"
                 type="MageWorx\OptionBase\Plugin\AroundOptionValuesHtml"
-                sortOrder="10"
+                sortOrder="5"
                 disabled="false"/>
     </type>
     <type name="Magento\Catalog\Model\Product\Option\Type\DefaultType">

@@ -39,14 +39,20 @@ class Collection extends \Magento\Catalog\Model\ResourceModel\Product\Option\Val
             case parent::getTable('catalog_product_option'):
                 $tableName = 'mageworx_optiontemplates_group_option';
                 break;
-            case parent::getTable('catalog_product_option_type_price'):
-                $tableName = 'mageworx_optiontemplates_group_option_type_price';
+            case parent::getTable('catalog_product_option_title'):
+                $tableName = 'mageworx_optiontemplates_group_option_title';
+                break;
+            case parent::getTable('catalog_product_option_price'):
+                $tableName = 'mageworx_optiontemplates_group_option_price';
+                break;
+            case parent::getTable('catalog_product_option_type_value'):
+                $tableName = 'mageworx_optiontemplates_group_option_type_value';
                 break;
             case parent::getTable('catalog_product_option_type_title'):
                 $tableName = 'mageworx_optiontemplates_group_option_type_title';
                 break;
-            case parent::getTable('catalog_product_option_type_value'):
-                $tableName = 'mageworx_optiontemplates_group_option_type_value';
+            case parent::getTable('catalog_product_option_type_price'):
+                $tableName = 'mageworx_optiontemplates_group_option_type_price';
                 break;
             default:
                 $tableName = $origTableName;

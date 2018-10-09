@@ -259,7 +259,6 @@ class Features extends AbstractModifier implements ModifierInterface
                     'config' => [
                         'label'         => __('Disabled'),
                         'componentType' => Field::NAME,
-                        'component'     => 'MageWorx_OptionFeatures/js/element/option-type-dependent-checkbox',
                         'formElement'   => Checkbox::NAME,
                         'dataScope'     => Helper::KEY_DISABLED,
                         'dataType'      => Number::NAME,
@@ -376,8 +375,6 @@ class Features extends AbstractModifier implements ModifierInterface
             $fields[Helper::KEY_ONE_TIME] = $this->getOneTimeConfig(60);
         }
 
-        $fields[Helper::KEY_DIV_CLASS] = $this->getDivClassConfig(62);
-
         if ($this->helper->isQtyInputEnabled()) {
             $fields[Helper::KEY_QTY_INPUT] = $this->getQtyInputConfig(65);
         }
@@ -471,25 +468,6 @@ class Features extends AbstractModifier implements ModifierInterface
                             'true'  => Helper::ONE_TIME_TRUE,
                             'false' => Helper::ONE_TIME_FALSE,
                         ],
-                    ],
-                ],
-            ],
-        ];
-    }
-
-    protected function getDivClassConfig($sortOrder)
-    {
-        return [
-            'arguments' => [
-                'data' => [
-                    'config' => [
-                        'label' => __('Div CSS Class'),
-                        'componentType' => Input::NAME,
-                        'formElement' => Input::NAME,
-                        'dataScope' => Helper::KEY_DIV_CLASS,
-                        'dataType' => Text::NAME,
-                        'sortOrder' => $sortOrder,                                           
-                        
                     ],
                 ],
             ],

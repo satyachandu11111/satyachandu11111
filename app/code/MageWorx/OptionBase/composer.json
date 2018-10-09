@@ -6,7 +6,7 @@
         "magento/module-catalog": ">=101.0.0 <103"
     },
     "type": "magento2-module",
-    "version": "2.6.2",
+    "version": "2.6.3",
     "license": [
         "OSL-3.0",
         "AFL-3.0"

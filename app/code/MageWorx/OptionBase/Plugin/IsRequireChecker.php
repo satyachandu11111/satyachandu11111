@@ -47,6 +47,11 @@ class IsRequireChecker
         $options          = $product->getOptions();
         $isRequireOptions = false;
 
+        if (!$options) {
+            $this->dataSaver->updateValueIsRequire($product->getId(), (int)$isRequireOptions);
+            return $product;
+        }
+
         foreach ($options as $option) {
             if (!$option->getIsRequire()) {
                 continue;

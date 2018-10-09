@@ -70,4 +70,10 @@
                 sortOrder="10"
                 disabled="false"/>
     </type>
+    <type name="Magento\Catalog\Api\Data\ProductCustomOptionValuesInterfaceFactory">
+        <plugin name="mageworx_optiontemplates_option_value_factory_resolver"
+                type="MageWorx\OptionTemplates\Plugin\OptionValueFactoryResolver"
+                sortOrder="10"
+                disabled="false"/>
+    </type>
 </config>
