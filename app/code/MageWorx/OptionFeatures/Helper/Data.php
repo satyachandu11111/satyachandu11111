@@ -31,6 +31,7 @@ class Data extends AbstractHelper
     // Option attributes
     const KEY_QTY_INPUT          = 'qty_input';
     const KEY_ONE_TIME           = 'one_time';
+    const KEY_DIV_CLASS          = 'div_class';
     const KEY_OPTION_DESCRIPTION = 'description';
 
     // Product attributes

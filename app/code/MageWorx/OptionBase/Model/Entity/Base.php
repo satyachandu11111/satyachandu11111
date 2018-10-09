@@ -128,6 +128,7 @@ class Base extends AbstractModel
                 $result['file_extension'] = $option->getFileExtension();
                 $result['image_size_x'] = $option->getImageSizeX();
                 $result['image_size_y'] = $option->getImageSizeY();
+                $result['div_class'] = $option->getDivClass();
                 $result['values'] = null;
             }
 
