@@ -6,16 +6,32 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 {
       protected $_productloader;  
       protected $helper;
+      protected $order;
+      protected $quoteFactory;
+      protected $categoryFactory;
+      private $currencyCode;     
+      private $storeConfig;
+
+
 
       public function __construct(
         \Magento\Catalog\Model\ProductFactory $_productloader,
-        \Magento\Framework\Pricing\Helper\Data $helper
+        \Magento\Framework\Pricing\Helper\Data $helper,
+        \Magento\Sales\Api\Data\OrderInterface $order,
+        \Magento\Quote\Model\QuoteFactory $quoteFactory,
+        \Magento\Catalog\Model\CategoryFactory $categoryFactory,
+        \Magento\Directory\Model\CurrencyFactory  $currencyFactory,
+        \Magento\Store\Model\StoreManagerInterface $storeConfig
 
     ) {
 
         $this->helper = $helper;
-
         $this->_productloader = $_productloader;
+        $this->order = $order;
+        $this->quoteFactory = $quoteFactory;
+        $this->categoryFactory = $categoryFactory;
+        $this->currencyCode = $currencyFactory;
+        $this->storeConfig = $storeConfig;
     }
 
     public function isNew($product)
@@ -101,5 +117,40 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             }
             
             return $html;
+        }
+
+        public function loadOrderByIncrementById($incrementId)
+        {
+            $this->order->loadByIncrementId($incrementId);
+
+            return $this->order;            
+        }
+
+        public function loadQuoteById($quoteId){            
+
+            $quote = $this->quoteFactory->create()->load($quoteId);
+            
+            return $quote;
+        }
+
+        public function loadProduct($productId)
+        {
+            $product = $this->_productloader->create()->load($productId);
+
+            return $product;
+        }
+
+        public function loadCategory($categoryId)
+        {
+            $category = $this->categoryFactory->create()->load($categoryId);
+
+            return $category;
+        }
+
+        public function currentCurrencyCode()
+        {
+            $currentCurrency = $this->storeConfig->getStore()->getCurrentCurrencyCode();
+
+            return $currentCurrency;
         }
 }

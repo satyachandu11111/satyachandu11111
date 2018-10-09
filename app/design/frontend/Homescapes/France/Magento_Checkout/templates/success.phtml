@@ -1,0 +1,152 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php /** @var $block \Magento\Checkout\Block\Onepage\Success */ ?>
+<div class="checkout-success">    
+    <?php if ($block->getOrderId()):?>
+        <?php if ($block->getCanViewOrder()) :?>
+            <p><?= __('Your order number is: %1.', sprintf('<a href="%s" class="order-number"><strong>%s</strong></a>', $block->escapeHtml($block->getViewOrderUrl()), $block->escapeHtml($block->getOrderId()))) ?></p>
+        <?php  else :?>
+            <p><?= __('Your order # is: <span>%1</span>.', $block->escapeHtml($block->getOrderId())) ?></p>
+        <?php endif;?>
+            <p><?= /* @escapeNotVerified */ __('We\'ll email you an order confirmation with details and tracking info.') ?></p>
+    <?php endif;?>
+
+    <?= $block->getAdditionalInfoHtml() ?>
+
+    <div class="actions-toolbar">
+        <div class="primary">
+            <a class="action primary continue" href="<?= /* @escapeNotVerified */ $block->getContinueUrl() ?>"><span><?= /* @escapeNotVerified */ __('Continue Shopping') ?></span></a>
+        </div>
+    </div>
+
+       <?php $helper = $this->helper('Homescapes\General\Helper\Data');  
+         if ($block->getOrderId()){
+            
+            $order = $helper->loadOrderByIncrementById($block->getOrderId());
+
+            $quoteId = $order->getQuoteId();
+            $quote = $helper->loadQuoteById($quoteId);
+            $method = $quote->getCheckoutMethod();        
+
+            if ($method == 'login_in'){ 
+                 $CommissionGroupCode = 'Existing'; 
+            } elseif($method == 'guest') { 
+                 $CommissionGroupCode = 'New'; 
+            }
+            
+            $subtotal = $order->getSubtotal();
+            $gtotal = $order->getGrandTotal();   
+             
+
+            $total = $order->getGrandTotal();
+            $totalwithoutshipping = $order->getGrandTotal() - $order->getShippingAmount();
+            $totalwithoutshipping = $totalwithoutshipping / 1.2; 
+
+            $orderDetails = $order->getData();
+            $couponCode = $orderDetails['coupon_code'];
+            if($couponCode){
+              $coupon = $couponCode;
+              $CommissionGroupCode = 'Voucher'; //Andy added to give 'Voucher' as a comission group if voucher is used.
+            }else{
+              $coupon = ' ';
+            } 
+
+            $subtotal = $order->getSubtotal();
+            $gtotal = $order->getGrandTotal();
+
+            ?>
+           <?php 
+            $currency = $helper->currentCurrencyCode();
+            $date = date("d-m-Y");// current date
+            $shipdate = strtotime(date("Y-m-d", strtotime($date)) . " +1 day");
+            $deldate = strtotime(date("Y-m-d", strtotime($date)) . " +3 day");
+            $discountTotal = 0;
+            
+            /*echo "<pre>";
+            print_r($currency);
+            die('sdfljsdl');*/
+            foreach ($order->getAllItems() as $items1){
+                $discountTotal += $items1->getDiscountAmount();
+            }
+            ?> 
+
+            <!-- START Google Certified Shops Order -->
+            <div id="gts-order" style="display:none;" translate="no">
+
+              <!-- start order and merchant information -->
+              <span id="gts-o-id"><?php echo $this->getOrderId(); ?></span>
+              <span id="gts-o-email"><?php echo $order->getCustomerEmail(); ?></span>
+              <span id="gts-o-country">DE</span>
+              <span id="gts-o-currency"><?php echo $currency; ?></span>
+              <span id="gts-o-total"><?php echo round($totalwithoutshipping, 2); ?></span>
+              <span id="gts-o-discounts"><?php echo $discountTotal; ?></span>
+              <span id="gts-o-shipping-total"><?php echo round($order->getShippingAmount(),2); ?></span>
+              <span id="gts-o-tax-total"><?php echo round($order->getTaxAmount(),2); ?></span>
+              <span id="gts-o-est-ship-date"><?php echo date("Y-m-d",$shipdate); ?></span>
+              <span id="gts-o-est-delivery-date"><?php echo date("Y-m-d",$deldate); ?></span>
+              <span id="gts-o-has-preorder">N</span>
+              <span id="gts-o-has-digital">N</span>
+            <!-- end order and merchant information -->
+            <!-- start repeated item specific information -->
+              <!-- item example: this area repeated for each item in the order -->
+            <?php foreach($order->getAllItems() as $items) {
+                $productidd = $helper->loadProduct($items->getProductId());                
+                //$cats = $productidd->getCategoryId();
+                $cats = $productidd->getCategoryIds();
+                
+                $firstCategoryId = $cats[0];
+                
+                $category = $helper->loadCategory($firstCategoryId);
+                $categoryName = $category->getName();                
+               ?>
+               <?php
+                $ProductPriceWithoutVat = $items->getPrice();
+                $ProductPriceWithoutVat = $ProductPriceWithoutVat / 1.2;
+                ?>
+              <span class="gts-item">
+                <span class="gts-i-name"><?php echo $items->getName(); ?></span>                
+                <span class="gts-i-price"><?php echo $ProductPriceWithoutVat; ?></span>
+                <span class="gts-i-quantity"><?php echo $items->getQtyToShip(); ?></span>
+                <span class="gts-i-prodsearch-id"><?php echo $items->getSku(); ?></span>
+                <span class="gts-i-prodsearch-store-id">100635946</span>
+              </span>
+              <!-- end item 1 example -->
+              <!-- end repeated item specific information -->
+            <?php } ?>
+            </div>
+            <!-- END Google Certified Shops Order -->    
+
+
+            <!-- Facebook Pixel Code -->
+            <script type="text/javascript"> 
+              !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+              n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+              n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+              t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+              document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+              fbq('init', '302014193607787');
+              fbq('track', "PageView");
+            </script>
+
+            <noscript>
+              <img height="1" width="1" style="display:none"
+              src="https://www.facebook.com/tr?id=302014193607787&ev=PageView&noscript=1"
+              />
+            </noscript>
+
+            <script type="text/javascript"> 
+              fbq('track', 'Purchase', {value: '<?php echo $order->getGrandTotal(); ?>', currency:'EUR'});
+            </script>
+            <!-- End Facebook Pixel Code -->
+
+          <?php }?>
+
+</div>
