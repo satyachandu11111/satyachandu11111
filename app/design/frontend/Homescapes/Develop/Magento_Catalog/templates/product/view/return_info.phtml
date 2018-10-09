@@ -1,6 +1,11 @@
 <?php 
+
+$_product = $block->getProduct();
+
+$staticBlock = $_product->getAttributeText('returns_tab') ? $_product->getAttributeText('returns_tab') : 'returns';
+
 echo $this->getLayout()
           ->createBlock('Magento\Cms\Block\Block')
-          ->setBlockId('returns')
+          ->setBlockId($staticBlock)
           ->toHtml();
 ?>
