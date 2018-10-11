@@ -398,7 +398,8 @@ h6, .h6 {
 }
 .block-search{
 	@media @991{
-		top:19px;
+		top:16px;
+		width: 250px;
 	}
 	input{
 		height: 3.8rem;
@@ -8076,6 +8077,9 @@ transition: all 5ms ease-in-out 0s;
 }
 .furniture-quick-block{
 	
+	@media @991{
+		display: none;
+	}
 	margin-top: 1.5rem;
 	
 	span{
@@ -8569,6 +8573,12 @@ transition: all 5ms ease-in-out 0s;
 		@media @991{
 			width:100%;
 		}
+	}
+	select{
+		-webkit-appearance: menulist;
+		-moz-appearance: menulist;
+		-ms-appearance: menulist;
+		appearance: menulist;
 	}
 }
 .catalog-product-view {
