@@ -6,7 +6,7 @@ $helper = $this->helper('Homescapes\Ratings\Helper\Data');
 $average_ratings_count = array(1=>0,2=>0,3=>0,4=>0,5=>0);
 $votes = array();
 $review = array();
-$rating_code = array('price'=>0,'quality'=>0,'value'=>0,'delivery'=>0);
+$rating_code = array('price'=>0,'quality'=>0,'value'=>0);
 
 $based_recommendation = 0;
 foreach ($_items as $rating_review){
@@ -66,7 +66,7 @@ foreach ($_items as $rating_review){
 									<div class="rating" style="width:<?php echo round($_product->getRatingSummary()->getRatingSummary()) ?>%;"></div>
 								</div>
 							</div>
-							<p><?php echo round(($_product->getRatingSummary()->getRatingSummary())/20, 1) ?><span> / <?php echo __('5') ?></span> </p>
+							<p><?php echo round(($_product->getRatingSummary()->getRatingSummary())/20, 1) ?><span> / <?php echo '5'; ?></span> </p>
 							
 						</div>
 
