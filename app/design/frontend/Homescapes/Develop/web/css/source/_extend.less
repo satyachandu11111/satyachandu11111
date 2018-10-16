@@ -3,7 +3,7 @@
 /*--------------------------------------------------------------------------
 / Theme Colors
 --------------------------------------------------------------------------*/
-
+@logo-black: #5d5d5d;
 @black: #333;
 @light-black:#626166;
 @white:#ffffff;
@@ -8683,7 +8683,12 @@ transition: all 5ms ease-in-out 0s;
 	
 .custom-curtain-detail.product-shop #product-options-wrapper .custom-width-drop-group{
 	overflow: hidden;
-}  
+}
+
+.category-made-2-measure-curtains-collection .catalog-product-view .product-add-form .fieldset .field .label{
+	background: none;
+	padding: 0;
+}
 .catalog-product-view .product-add-form {
 	#product-options-wrapper{
 
@@ -8699,6 +8704,7 @@ transition: all 5ms ease-in-out 0s;
 					background: @f9light;
 					border-radius: .4rem;
 					padding: .8rem 1rem;
+					margin-bottom: .5rem;
 					
 					@media @991{
 						display: block;
@@ -8707,7 +8713,7 @@ transition: all 5ms ease-in-out 0s;
 							
 				
 				.main-label.show-content{
-					background: @black;
+					background: @logo-black;
 					color: @white;
 				}
 				
@@ -8726,6 +8732,10 @@ transition: all 5ms ease-in-out 0s;
 						padding-right: 5px;
 						font-weight: normal;
 						font-family: 'luma-icons';
+					}
+					&:hover{
+						background: @black;
+						color: @white;
 					}
 
 				}
