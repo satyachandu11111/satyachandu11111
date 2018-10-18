@@ -11,6 +11,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
       protected $categoryFactory;
       private $currencyCode;     
       private $storeConfig;
+      protected $_scopeConfig;
 
 
 
@@ -21,7 +22,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Quote\Model\QuoteFactory $quoteFactory,
         \Magento\Catalog\Model\CategoryFactory $categoryFactory,
         \Magento\Directory\Model\CurrencyFactory  $currencyFactory,
-        \Magento\Store\Model\StoreManagerInterface $storeConfig
+        \Magento\Store\Model\StoreManagerInterface $storeConfig,
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
 
     ) {
 
@@ -32,6 +34,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $this->categoryFactory = $categoryFactory;
         $this->currencyCode = $currencyFactory;
         $this->storeConfig = $storeConfig;
+        $this->_scopeConfig = $scopeConfig;
     }
 
     public function isNew($product)
@@ -152,5 +155,11 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             $currentCurrency = $this->storeConfig->getStore()->getCurrentCurrencyCode();
 
             return $currentCurrency;
+        }
+
+        public function getDisplayTimers(){
+     
+            return $this->_scopeConfig->getValue('homescapesGeneral/freeshipping/general_display_timer', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);           
+         
         }
 }

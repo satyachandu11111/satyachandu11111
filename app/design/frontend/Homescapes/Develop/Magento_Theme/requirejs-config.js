@@ -3,6 +3,7 @@ var config = {
             'bootstrap':'Magento_Theme/js/bootstrap.bundle',
             'owl_carousel':'Magento_Theme/js/owl.carousel',
             'owl_config':'Magento_Theme/js/owl.config',
+            'time_counter':'Magento_Theme/js/jquery.time-to',
     } ,
 	shim: {
         'bootstrap': {
@@ -13,7 +14,11 @@ var config = {
         },
 		'owl_config': {
             'deps': ['jquery','owl_carousel']
+        },
+        'time_counter': {
+            'deps': ['jquery']
         }
+
     }
 };
 

@@ -12,6 +12,10 @@
                     <label>Free shipping total:</label>
                     <comment>Free shipping message will display if subtotal is greater then above vlaue</comment>
                 </field>                
+                <field id="general_display_timer" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Display Timer:</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>                
             </group>
         </section>
     </system>
