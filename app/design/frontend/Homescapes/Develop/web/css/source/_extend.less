@@ -2134,10 +2134,7 @@ transition: all 5ms ease-in-out 0s;
 			border-bottom: 1px dashed @border-color;
 			padding:0 1rem;
 			line-height:4rem;
-			
-			:last-child{
-				border-bottom: none;
-			}
+		
 			
 			@media @768{
 				background: none;
@@ -2150,6 +2147,11 @@ transition: all 5ms ease-in-out 0s;
 				@media @768{
 					pointer-events: none;
 				}
+			}
+		}
+		#ffour > .card-header{
+			@media @767{
+				border-bottom: 0;
 			}
 		}
 		.card-body{
@@ -8686,7 +8688,7 @@ transition: all 5ms ease-in-out 0s;
 }
 
 .catalog-product-view .product-add-form .product-options-wrapper.m2m-custom-curtains .fieldset .field .admin__field-label{
-	background: none !;
+	background: none !important;
 	padding: 0 !important;
 	margin-bottom: 0 !important;
 }
@@ -8759,7 +8761,7 @@ transition: all 5ms ease-in-out 0s;
 			}
 			
 			.curtain-header-custom, .eyelet-material{
-				margin-top: 1rem;
+				margin-top: 0rem;
 				
 				.mageworx-swatch-option{
 					border: none;

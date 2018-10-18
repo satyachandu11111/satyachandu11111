@@ -174,7 +174,11 @@
         margin-bottom: 0;
     }
 }
-
+.toolbar-products{
+	@media @767{
+		display: none;
+	}
+}
 .media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
     .page-products {
         .columns {
