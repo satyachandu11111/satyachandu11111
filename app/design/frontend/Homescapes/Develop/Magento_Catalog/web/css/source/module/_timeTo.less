@@ -13,17 +13,24 @@
 	border-radius: .4rem;
 	
 	span{
-		width: 13.5rem;
+		width: auto;
 		float: left;
 		font-size: 2rem;
 	}
 	.timeTo {
 	  font-size: 2rem;
-	  height: 32px;
+	  height: auto;
 	  position: relative;
 	  width: auto;
 	  margin: 0 auto;
+		
+		figure {
+			display: inline-block;
+			margin: 0 1rem 0 0;
+			padding: 0;
+		}
 	}
+	
 	
 	.timeTo div {
 		position: relative;
@@ -43,9 +50,12 @@
 		text-align: center;
 		font-size: 12px !important;
 		line-height: 80%;
-		font-weight: 600l;
 		color: #444;
+		padding: 0 !important;
 		text-transform: uppercase;
 
 	}
+}
+.box-tocart + p{
+	margin-bottom: 0;
 }

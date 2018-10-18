@@ -64,11 +64,7 @@ figure, figcaption {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e17373',GradientType=0 ); /* IE6-9 */
 }
 
-.timeTo figure {
-	display: inline-block;
-	margin: 0;
-	padding: 0;
-}
+
 
 
 
