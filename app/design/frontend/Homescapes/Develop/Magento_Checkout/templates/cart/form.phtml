@@ -10,6 +10,20 @@
 ?>
 <?php $mergedCells = ($this->helper('Magento\Tax\Helper\Data')->displayCartBothPrices() ? 2 : 1); ?>
 <?= $block->getChildHtml('form_before') ?>
+<?php $freeUKNote = $this->helper('Homescapes\General\Helper\Data')->getFreeShippingText(); 
+    $r_amount = $freeUKNote['r_amount'];
+    $remainingAmount = $freeUKNote['remainingAmount'];
+    $freeShippingTotal = $freeUKNote['freeShippingTotal'];
+    if(!$freeUKNote['flag']){ ?>
+        <div class="free-UK-note">
+            <?php if($r_amount > 0){  ?>
+            <?php echo sprintf(__('Spend another <b>%s</b> and you will qualify <b>for free delivery</b> on this order'),$remainingAmount); ?>
+            <?php }else{
+                echo __('you have qualified for free standard UK delivery on this order');
+
+                } ?>
+        </div>
+    <?php } ?>
 <form action="<?= /* @escapeNotVerified */ $block->getUrl('checkout/cart/updatePost') ?>"
           method="post"
           id="form-validate"

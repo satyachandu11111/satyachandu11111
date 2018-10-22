@@ -12,6 +12,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
       private $currencyCode;     
       private $storeConfig;
       protected $_scopeConfig;
+      protected $checkoutSession;
 
 
 
@@ -23,7 +24,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Catalog\Model\CategoryFactory $categoryFactory,
         \Magento\Directory\Model\CurrencyFactory  $currencyFactory,
         \Magento\Store\Model\StoreManagerInterface $storeConfig,
-        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
+        \Magento\Checkout\Model\Session $checkoutSession
 
     ) {
 
@@ -32,9 +34,10 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $this->order = $order;
         $this->quoteFactory = $quoteFactory;
         $this->categoryFactory = $categoryFactory;
-        $this->currencyCode = $currencyFactory;
+        $this->currencyCode = $currencyFactory->create();
         $this->storeConfig = $storeConfig;
         $this->_scopeConfig = $scopeConfig;
+        $this->checkoutSession = $checkoutSession;
     }
 
     public function isNew($product)
@@ -162,4 +165,81 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             return $this->_scopeConfig->getValue('homescapesGeneral/freeshipping/general_display_timer', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);           
          
         }
+
+        public function getFreeShippingTotal()
+        {   
+            return $this->_scopeConfig->getValue('homescapesGeneral/freeshipping/freeshipping_total', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);           
+        }
+
+        public function getFreeShippingText()
+        {
+
+            $result = array();
+
+            $freeShippingTotal = $this->getFreeShippingTotal();
+        
+            $quote = $this->checkoutSession->getQuote();
+            $subTotal = $quote->getSubtotal();
+
+            $flag = $this->getCartItemIds($quote);
+            
+            $r_amount= 0;
+
+            $currentCurrency = $this->storeConfig->getStore()->getCurrentCurrencyCode();        
+
+            $currency = $this->currencyCode->load($currentCurrency);
+            $currencySymbol = $currency->getCurrencySymbol();
+            
+
+            $deliveryMessage = '';
+            $remaingAmount = '';
+            if(!$flag){
+
+                if($subTotal >= $freeShippingTotal){
+                    $deliveryMessage = 'you have qualified for free standard UK delivery on this order';
+                }else{
+
+                    $r_amount= $freeShippingTotal-$subTotal;
+                    $remaingAmount = $currencySymbol.$r_amount;
+
+                    $deliveryMessage = 'Spend another <b>'.$remaingAmount.'</b> and you will qualify <b>for free delivery</b> on this order';
+                }
+
+            }
+
+
+         $result['flag']  = $flag;
+         $result['freeShippingTotal']  = $freeShippingTotal;
+         $result['r_amount']  = $r_amount;
+         $result['remainingAmount'] = $remaingAmount;
+         return $result;   
+            
+
+        }
+
+        public function getCartItemIds($quote)
+    {
+        $excludeCategories = $this->_scopeConfig->getValue('homescapesGeneral/excl/categories_ids', \Magento\Store\Model\ScopeInterface::SCOPE_STORE); 
+
+        $excludeCategoriesArray = explode(',',$excludeCategories);  
+        $catIds = 0;
+
+        $visibleItems = $quote->getAllVisibleItems();       
+        
+        foreach ($visibleItems as $item) {
+               
+                $cats = $item->getProduct()->getCategoryIds();
+                //$logger->info($cats); 
+                foreach ($cats as $category_id) {   
+                    if (array_search($category_id, $excludeCategoriesArray))
+                    {                       
+                        $catIds = 1;
+                        break;
+                    }
+                }            
+            }
+
+        
+        return $catIds;
+    }
 }

@@ -3,4 +3,7 @@
     <type name="Magento\Checkout\Block\Checkout\DirectoryDataProcessor">
         <plugin name="restrictCountry" type="Homescapes\General\Block\Checkout\DirectoryDataProcessor" sortOrder="1" />
     </type>
+    <type name="Magento\Checkout\CustomerData\Cart">
+        <plugin name="my-custom-plugin" type="Homescapes\General\Plugin\CustomerData" sortOrder="1"/>
+    </type>
 </config>
