@@ -8976,10 +8976,14 @@ transition: all 5ms ease-in-out 0s;
 --------------------------------------------------------------------------*/
 .black-friday-landing{
 	#clockdiv {
-    background: url(../images/Black-Friday-slide.jpg) no-repeat;
+    	background: url(../images/Black-Friday-slide.jpg) no-repeat;
 		max-width: 100%;
 		height: 600px;
 		cursor: pointer;
+		
+		@media @767{
+			height: 25rem;
+		}
 	}
 	.timeTo {
 		font-size: 56px;
@@ -8991,6 +8995,11 @@ transition: all 5ms ease-in-out 0s;
 		left: 0;
 		width: 33%;
 		margin: 0 auto;
+		
+		@media @767{
+			top: 56%;
+			width: 57%;
+		}
 		
 		figure {
 			display: inline-block;
@@ -9025,6 +9034,10 @@ transition: all 5ms ease-in-out 0s;
 				line-height: 108%;
 				color:@white;
 				margin: 0;
+				
+				@media @767{
+					font-size: 2rem;
+				}
 			}
 		}
 		figcaption {
@@ -9046,7 +9059,5 @@ transition: all 5ms ease-in-out 0s;
 		border-radius: 5px;
 		-webkit-border-radius: 5px;
 		background: @black;
-		background: -moz-linear-gradient(top, #45484d 0%, @black 100%);
-		*/: ;
 	}
 }
