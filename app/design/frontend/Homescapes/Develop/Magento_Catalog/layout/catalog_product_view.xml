@@ -81,15 +81,15 @@
           </block>
         </referenceBlock>
         <!-- Recently view product -->
-        <referenceContainer name="content">
-		  <block class="Magento\Reports\Block\Product\Widget\Viewed" after="-" name="recently_viewed" cacheable="false" template="Magento_Reports::widget/viewed/content/viewed_grid.phtml">
+        <referenceContainer name="content.aside">
+		  <block class="Magento\Reports\Block\Product\Widget\Viewed" after="custom.reviews" name="recently_viewed" template="Magento_Reports::widget/viewed/content/viewed_grid.phtml">
 		    <action method="setPageSize">
 		       <argument name="page_size" xsi:type="number">5</argument>
 		    </action>
 		  </block>
 		</referenceContainer>
 		<!-- Recently view product -->
-		<move element="product.info.upsell" destination="content" before="recently_viewed" />
+		<move element="product.info.upsell" destination="content" before="custom.reviews" />
 		<!-- upsell  -->
 		<move element="DeliveryCountdown" destination="product.info.main" after="product.info.price"/>    <!--Delivery Countdown-->
 		
