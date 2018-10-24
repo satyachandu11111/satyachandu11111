@@ -357,6 +357,8 @@ class Carrier extends AbstractModel implements CarrierInterface, ImportExportEnt
             $methodsCollection->addCarrierFilter($this->getId());
             if ($storeId !== 0) {
                 $methodsCollection->addStoreFilter($storeId);
+            } else {
+                $methodsCollection->getSelect()->group('main_table.entity_id');    
             }
 
             $this->methodsByStoreId[$storeId] = $methodsCollection->getItems();

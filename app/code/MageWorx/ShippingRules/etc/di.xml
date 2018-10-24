@@ -375,4 +375,25 @@
                 sortOrder="10"
                 disabled="false"/>
     </type>
+    <!-- Serializable fields converter in recurring upgrade -->
+    <type name="MageWorx\ShippingRules\Setup\Recurring">
+        <arguments>
+            <argument name="serializableTablesData" xsi:type="array">
+                <item name="mageworx_shippingrules" xsi:type="array">
+                    <item name="conditions_serialized" xsi:type="string">conditions_serialized</item>
+                    <item name="actions_serialized" xsi:type="string">actions_serialized</item>
+                    <item name="amount" xsi:type="string">amount</item>
+                    <item name="action_type" xsi:type="string">action_type</item>
+                    <item name="shipping_methods" xsi:type="string">shipping_methods</item>
+                    <item name="disabled_shipping_methods" xsi:type="string">disabled_shipping_methods</item>
+                    <item name="enabled_shipping_methods" xsi:type="string">enabled_shipping_methods</item>
+                    <item name="store_errmsgs" xsi:type="string">store_errmsgs</item>
+                    <item name="changed_titles" xsi:type="string">changed_titles</item>
+                </item>
+                <item name="mageworx_shippingrules_zone" xsi:type="array">
+                    <item name="conditions_serialized" xsi:type="string">conditions_serialized</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
 </config>

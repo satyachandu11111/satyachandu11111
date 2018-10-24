@@ -10,7 +10,7 @@ use Magento\Backend\Block\Template\Context;
 
 /**
  * Class ImportExport
- * @package MageWorx\ShippingRules\Block\Adminhtml\ImportExport
+ *
  *
  * @method bool|null getIsReadonly()
  * @method ImportExport setUseContainer($bool)

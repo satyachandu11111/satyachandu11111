@@ -10,7 +10,7 @@ use MageWorx\ShippingRules\Api\Data\RegionInterface;
 
 /**
  * Class Region
- * @package MageWorx\ShippingRules\Model
+ *
  *
  * @method Region setIsActive($bool)
  * @method Region setIsCustom($bool)

@@ -7,6 +7,7 @@
 namespace MageWorx\ShippingRules\Model;
 
 use Magento\Checkout\Model\Session;
+use Magento\Quote\Model\Quote\Address\Rate;
 use Magento\Quote\Model\Quote\Address\RateResult\Method;
 
 class RulesApplier
@@ -59,12 +60,12 @@ class RulesApplier
     /**
      * Apply rules to current order item
      *
-     * @param Method $rate
+     * @param Rate|Method $rate
      * @param array|ResourceModel\Rule\Collection $rules
-     * @return array
+     * @return Rate|Method
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
-    public function applyRules(Method $rate, array $rules)
+    public function applyRules($rate, array $rules)
     {
         /** @var string $currentRate */
         $currentRate = Rule::getMethodCode($rate);
@@ -173,7 +174,7 @@ class RulesApplier
      * @param Method $rate
      * @return Method
      */
-    protected function overwriteCost(Rule $rule, Method $rate)
+    protected function overwriteCost(Rule $rule, $rate)
     {
         // Check what action is used in rule
         $actionsCommaSeparated = $rule->getSimpleAction();
@@ -257,7 +258,7 @@ class RulesApplier
      * @param Rule $rule
      * @return $this
      */
-    public function disableShippingMethod(Method $rate, Rule $rule)
+    public function disableShippingMethod($rate, Rule $rule)
     {
         $rate->setIsDisabled(true);
         $storeId = $this->session->getStoreId();

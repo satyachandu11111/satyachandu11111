@@ -12,7 +12,7 @@ use MageWorx\ShippingRules\Model\Rule;
 
 /**
  * Class Log
- * @package MageWorx\ShippingRules\Observer\Logger
+ *
  */
 class Log extends AbstractLoggerObserver
 {

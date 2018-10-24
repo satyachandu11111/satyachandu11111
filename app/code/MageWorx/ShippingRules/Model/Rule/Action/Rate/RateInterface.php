@@ -18,7 +18,7 @@ interface RateInterface
      * @param Quote $quote
      * @return Method
      */
-    public function calculate(Rule $rule, Method $rate, Quote $quote);
+    public function calculate(Rule $rule, $rate, Quote $quote);
 
     /**
      * Set method of calculation:
@@ -102,7 +102,7 @@ interface RateInterface
      * @param Method $rate
      * @return mixed
      */
-    public function setRate(Method $rate);
+    public function setRate($rate);
 
     /**
      * Get current active shipping method rate

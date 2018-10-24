@@ -10,7 +10,7 @@ use MageWorx\ShippingRules\Model\Zone as ZoneModel;
 
 /**
  * Class Collection
- * @package MageWorx\ShippingRules\Model\ResourceModel\Zone
+ *
  *
  * @method \MageWorx\ShippingRules\Model\ResourceModel\Zone getResource()
  */

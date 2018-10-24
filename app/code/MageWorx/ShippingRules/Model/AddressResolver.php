@@ -18,7 +18,7 @@ use MageWorx\ShippingRules\Api\AddressResolverInterface;
 
 /**
  * Class AddressResolver
- * @package MageWorx\ShippingRules\Model
+ *
  *
  * Used to resolve current customers address based on the selection in popup or on the geo ip database
  */

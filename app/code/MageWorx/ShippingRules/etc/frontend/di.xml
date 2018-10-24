@@ -12,6 +12,12 @@
                 sortOrder="10"
                 disabled="false"/>
     </type>
+    <type name="Magento\Multishipping\Block\Checkout\Shipping">
+        <plugin name="mageworx_shippingrules_update_rate_result_multishipping"
+                type="MageWorx\ShippingRules\Model\Plugin\Multishipping\Block\Checkout\Shipping"
+                sortOrder="10"
+                disabled="false"/>
+    </type>
     <!-- Prevent Full Page Caching -->
     <type name="Magento\Customer\CustomerData\SectionPoolInterface">
         <arguments>

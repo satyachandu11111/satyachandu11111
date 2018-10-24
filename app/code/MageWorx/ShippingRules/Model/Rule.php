@@ -7,6 +7,7 @@
 namespace MageWorx\ShippingRules\Model;
 
 use Magento\Quote\Model\Quote\Address;
+use Magento\Quote\Model\Quote\Address\Rate;
 use Magento\Quote\Model\Quote\Address\RateResult\Method;
 use MageWorx\ShippingRules\Api\Data\RuleInterface;
 use MageWorx\ShippingRules\Api\RuleEntityInterface;
@@ -160,13 +161,14 @@ class Rule extends \Magento\Rule\Model\AbstractModel implements RuleInterface, R
     }
 
     /**
-     * @param Method $rate
+     * @param Rate|Method $rate
      * @return string
      */
-    public static function getMethodCode(Method $rate)
+    public static function getMethodCode($rate)
     {
         /** @var string $methodCode */
         $methodCode = $rate->getCarrier() . '_' . $rate->getMethod();
+
         return $methodCode;
     }
 

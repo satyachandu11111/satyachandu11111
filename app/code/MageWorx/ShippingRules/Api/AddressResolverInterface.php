@@ -8,7 +8,7 @@ namespace MageWorx\ShippingRules\Api;
 
 /**
  * Interface AddressResolverInterface
- * @package MageWorx\ShippingRules\Api
+ *
  *
  * Inside we use a regular Zones (not an Pop-up Zones)
  */

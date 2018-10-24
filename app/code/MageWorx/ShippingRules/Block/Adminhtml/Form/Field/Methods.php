@@ -75,6 +75,9 @@ class Methods extends \Magento\Framework\View\Element\Html\Select
             }
 
             foreach ($carrierMethods as $methodCode => $methodTitle) {
+                if (is_array($methodTitle)) {
+                    continue;
+                }
                 $methods[$carrierCode . '_' . $methodCode] =
                     '[' . $carrierCode . '_' . $methodCode . '] ' . ($methodTitle ? $methodTitle : $methodCode);
             }

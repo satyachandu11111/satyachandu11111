@@ -8,6 +8,7 @@ namespace MageWorx\ShippingRules\Model;
 
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Quote\Model\Quote\Address;
+use Magento\Quote\Model\Quote\Address\Rate;
 use Magento\Quote\Model\Quote\Address\RateResult\Method;
 use Magento\Quote\Model\Quote\Item as QuoteItem;
 
@@ -50,6 +51,16 @@ class Validator extends \Magento\Framework\Model\AbstractModel
     protected $quote;
 
     /**
+     * @var \Magento\Framework\App\Request\Http
+     */
+    private $request;
+
+    /**
+     * @var \Magento\Quote\Model\Quote\Address
+     */
+    private $actualShippingAddress;
+
+    /**
      * @param \Magento\Framework\Model\Context $context
      * @param \Magento\Framework\Registry $registry
      * @param \MageWorx\ShippingRules\Model\ResourceModel\Rule\CollectionFactory $collectionFactory
@@ -73,6 +84,7 @@ class Validator extends \Magento\Framework\Model\AbstractModel
         \Magento\SalesRule\Model\Rule\Condition\Product $productCondition,
         \Magento\Quote\Model\QuoteRepository $quoteRepository,
         \Magento\Quote\Model\Quote $quote,
+        \Magento\Framework\App\Request\Http $request,
         \Magento\Framework\Model\ResourceModel\AbstractResource $resource = null,
         \Magento\Framework\Data\Collection\AbstractDb $resourceCollection = null,
         array $data = []
@@ -88,6 +100,7 @@ class Validator extends \Magento\Framework\Model\AbstractModel
         }
         $this->quoteRepository = $quoteRepository;
         $this->quote = $quote;
+        $this->request = $request;
         parent::__construct($context, $registry, $resource, $resourceCollection, $data);
     }
 
@@ -120,10 +133,11 @@ class Validator extends \Magento\Framework\Model\AbstractModel
     }
 
     /**
-     * @param Method $rate
+     * @param Rate|Method $rate
      * @return bool
+     * @throws NoSuchEntityException
      */
-    public function validate(Method $rate)
+    public function validate($rate)
     {
         /**
          * @important
@@ -135,13 +149,16 @@ class Validator extends \Magento\Framework\Model\AbstractModel
             $quote = $this->quoteRepository->getActive($this->session->getQuoteId());
         } catch (NoSuchEntityException $e) {
             $quote = $this->quote && $this->quote->getId() ? $this->quote : $this->session->getQuote();
+            if (!$quote->getId() && $this->request->getParam('quote_id')) {
+                $quote = $this->quoteRepository->get($this->request->getParam('quote_id'));
+            }
         }
         $this->quote = $quote;
 
         /** @var \Magento\Quote\Model\Quote\Address $address */
-        $address = $quote->getShippingAddress();
+        $address = $this->getActualShippingAddress() ?: $quote->getShippingAddress();
         /** @var array $quoteItems */
-        $quoteItems = $quote->getAllItems();
+        $quoteItems = $address->getAllItems();
         /** @var string $currentMethod */
         $currentMethod = Rule::getMethodCode($rate);
 
@@ -231,10 +248,10 @@ class Validator extends \Magento\Framework\Model\AbstractModel
     /**
      * Get available stored rules for $rate
      *
-     * @param Method $rate
+     * @param Rate|Method $rate
      * @return array
      */
-    public function getAvailableRulesForRate(Method $rate)
+    public function getAvailableRulesForRate($rate)
     {
         /** @var string $currentMethod */
         $currentMethod = Rule::getMethodCode($rate);
@@ -328,5 +345,28 @@ class Validator extends \Magento\Framework\Model\AbstractModel
         }
 
         return true;
+    }
+
+    /**
+     * Get actual address (multishipping)
+     *
+     * @return Address
+     */
+    private function getActualShippingAddress()
+    {
+        return $this->actualShippingAddress;
+    }
+
+    /**
+     * Set actual address (multishipping)
+     *
+     * @param Address $address
+     * @return $this
+     */
+    public function setActualShippingAddress(\Magento\Quote\Model\Quote\Address $address)
+    {
+        $this->actualShippingAddress = $address;
+
+        return $this;
     }
 }

@@ -8,7 +8,7 @@ namespace MageWorx\ShippingRules\Api;
 
 /**
  * Interface ExtendedZoneInterface
- * @package MageWorx\ShippingRules\Api
+ *
  * @see \MageWorx\ShippingRules\Model\ExtendedZone
  */
 interface ExtendedZoneInterface

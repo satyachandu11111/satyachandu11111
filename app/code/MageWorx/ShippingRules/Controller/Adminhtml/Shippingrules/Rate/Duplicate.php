@@ -3,11 +3,17 @@
  * Copyright © 2017 MageWorx. All rights reserved.
  * See LICENSE.txt for license details.
  */
+
 namespace MageWorx\ShippingRules\Controller\Adminhtml\Shippingrules\Rate;
 
 use MageWorx\ShippingRules\Controller\Adminhtml\Shippingrules\Rate as RateParentController;
 use MageWorx\ShippingRules\Model\Carrier\Method\Rate as RateModel;
 
+/**
+ * Class Duplicate
+ *
+ *
+ */
 class Duplicate extends RateParentController
 {
     /**
@@ -27,6 +33,7 @@ class Duplicate extends RateParentController
             $newRate->setId(null);
             $newRate->isObjectNew(true);
             $newRate->setData('active', 0);
+            $newRate->setData('rate_code', $newRate->getRateCode() . '-duplicate');
             $this->rateRepository->save($newRate);
             $this->messageManager->addSuccessMessage(__('You duplicated the rate.'));
             $resultRedirect->setPath('mageworx_shippingrules/*/edit', ['_current' => true, 'id' => $newRate->getId()]);

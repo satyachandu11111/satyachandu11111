@@ -9,7 +9,7 @@ use Magento\Store\Model\Store;
 
 /**
  * Class Collection
- * @package MageWorx\ShippingRules\Model\ResourceModel\Rule
+ *
  *
  * @method \MageWorx\ShippingRules\Model\ResourceModel\Rule getResource()
  */

@@ -127,7 +127,7 @@ abstract class AbstractRate implements RateInterface
      * @param Quote $quote
      * @return Method
      */
-    public function calculate(Rule $rule, Method $rate, Quote $quote)
+    public function calculate(Rule $rule, $rate, Quote $quote)
     {
         $this->setQuote($quote);
         $this->setRate($rate);
@@ -245,13 +245,6 @@ abstract class AbstractRate implements RateInterface
      */
     protected function convertPrice($amountValue)
     {
-        $currentCurrency = $this->storeManager->getStore()->getCurrentCurrency()->getCode();
-        $baseCurrency = $this->storeManager->getStore()->getBaseCurrency()->getCode();
-        if ($currentCurrency != $baseCurrency) {
-            $rate = $this->currencyFactory->create()->load($currentCurrency)->getAnyRate($baseCurrency);
-            $amountValue = (float)$amountValue * $rate;
-        }
-
         return (float)$amountValue;
     }
 
@@ -382,7 +375,7 @@ abstract class AbstractRate implements RateInterface
      * @param Method $rate
      * @return $this|mixed
      */
-    public function setRate(Method $rate)
+    public function setRate($rate)
     {
         $this->rate = $rate;
         return $this;

@@ -24,24 +24,32 @@ class GetAllRates
     protected $helper;
 
     /**
+     * @var \Magento\Framework\App\Request\Http
+     */
+    private $request;
+
+    /**
      * GetAllRates constructor.
      * @param \Magento\Quote\Model\Quote\Address\RateResult\ErrorFactory $errorFactory
      * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      * @param \MageWorx\ShippingRules\Helper\Data $helper
+     * @param \Magento\Framework\App\Request\Http $request
      */
     public function __construct(
         \Magento\Quote\Model\Quote\Address\RateResult\ErrorFactory $errorFactory,
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
-        \MageWorx\ShippingRules\Helper\Data $helper
+        \MageWorx\ShippingRules\Helper\Data $helper,
+        \Magento\Framework\App\Request\Http $request
     ) {
         $this->errorFactory = $errorFactory;
         $this->scopeConfig = $scopeConfig;
         $this->helper = $helper;
+        $this->request = $request;
     }
 
     /**
      * Disable the marked shipping rates. Rates disabling in the
-     * @see MageWorx\ShippingRules\Model\RulesApplier::disableShippingMethod()
+     * @see \MageWorx\ShippingRules\Model\RulesApplier::disableShippingMethod()
      *
      * NOTE: If you can not see some of the shipping rates, start debugging from here. At first, check 'is_disabled'
      * param in the shipping rate object.
@@ -52,6 +60,10 @@ class GetAllRates
      */
     public function afterGetAllRates($subject, $result)
     {
+        if ($this->request->getRouteName() == 'multishipping') {
+            return $result;
+        }
+
         /** @var \Magento\Quote\Model\Quote\Address\RateResult\Method[] $result */
         /**
          * @var int $key

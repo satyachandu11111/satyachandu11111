@@ -11,7 +11,7 @@ use MageWorx\ShippingRules\Api\AddressResolverInterface;
 
 /**
  * Class Location
- * @package MageWorx\ShippingRules\CustomerData
+ *
  *
  * Used to store and retrieve customers location data on the frontend.
  * @see MageWorx/ShippingRules/view/frontend/web/js/location.js
