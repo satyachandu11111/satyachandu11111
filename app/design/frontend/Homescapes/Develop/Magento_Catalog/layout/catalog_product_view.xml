@@ -103,13 +103,13 @@
 		
 		 <referenceBlock name="product.info.description"> <!--change details to description text-->
                 <action method="setTitle">
-                    <argument name="title" xsi:type="string">Product Description</argument>
+                    <argument name="title" translate="true" xsi:type="string">Product Description</argument>
                 </action>
  		</referenceBlock>
 		
 		<referenceBlock name="product.attributes"> <!--change info to specification text-->
                 <action method="setTitle">
-                    <argument name="title" xsi:type="string">Product Specifications</argument>
+                    <argument name="title" translate="true" xsi:type="string">Product Specifications</argument>
                 </action>
  		</referenceBlock>
 
