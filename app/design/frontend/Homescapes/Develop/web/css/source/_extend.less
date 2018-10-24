@@ -4980,6 +4980,18 @@ transition: all 5ms ease-in-out 0s;
 /*--------------------------------------------------------------------------
 |  Newsletter landing page
 --------------------------------------------------------------------------*/
+.black-friday-landing{
+	.terms-conditions{
+		ul{
+			margin-left:1.5rem;
+			list-style-type: disc;
+			line-height: @font24;
+				
+		}
+	}
+}
+
+
 .newsletter-landing{
 	
 	h3{
@@ -8978,12 +8990,22 @@ transition: all 5ms ease-in-out 0s;
 	#clockdiv {
     	background: url(../images/Black-Friday-slide.jpg) no-repeat;
 		max-width: 100%;
-		height: 600px;
+		height: 45rem;
 		cursor: pointer;
+		background-size: cover;
+		
+		@media @1100{
+			height: 37rem;
+		}
+		
+		@media @991{
+			height: 27.5rem;
+		}
 		
 		@media @767{
-			height: 25rem;
+			height: 15rem;
 		}
+		
 	}
 	.timeTo {
 		font-size: 56px;
@@ -8991,16 +9013,27 @@ transition: all 5ms ease-in-out 0s;
 		font-weight: bold;
 		height: 32px;
 		position: relative;
-		top: 66%;
+		top: 75%;
 		left: 0;
 		width: 33%;
 		margin: 0 auto;
 		
-		@media @767{
-			top: 56%;
-			width: 57%;
+		@media @1100{
+			width: 41%;
 		}
 		
+		@media @991{
+			width: 55%;
+		}
+		
+		@media @767{
+			width: 72%;
+			top: 55%;
+		}
+		@media @379{
+			width: 78%;
+			top: 42%;
+		}
 		figure {
 			display: inline-block;
 			margin: 0;
@@ -9019,6 +9052,11 @@ transition: all 5ms ease-in-out 0s;
 			border-right: 1px solid @black;
 			border-bottom: 1px solid @black;
 			overflow: hidden;
+			
+			@media @767{
+				height: 2.6rem;
+				width: 2.2rem;
+			}
 		}
 		ul {
 			list-style-type: none;
