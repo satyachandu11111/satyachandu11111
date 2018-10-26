@@ -96,20 +96,22 @@
             </a>
         </div>
     </div>
-    <if args="getCartParam('freeshippingflag') < 1">
-        <div class="free-deliver">
-        <!-- ko if: (getCartParam('freeshippingamount') > 0) -->
-        <span text="'Spend another '"/>        
-        <b text="getCartParam('freeshippingramount')" />        
-        <span translate="'and you will qualify '"/>        
-        <b translate="'for free delivery'" />         
-        <span translate="'on this order'"/>        
-        <!--/ko-->
-        <!-- ko if: (getCartParam('freeshippingamount') === 0) -->
-        <span translate="'you have qualified for free standard UK delivery on this order'"/>        
-        <!--/ko-->
-        </div>
-    </if>    
+    <if args="getCartParam('summary_count')">
+	    <if args="getCartParam('freeshippingflag') < 1">
+	        <div class="free-deliver">
+	        <!-- ko if: (getCartParam('freeshippingamount') > 0) -->
+	        <span text="'Spend another '"/>        
+	        <b text="getCartParam('freeshippingramount')" />        
+	        <span translate="'and you will qualify '"/>        
+	        <b translate="'for free delivery'" />         
+	        <span translate="'on this order'"/>        
+	        <!--/ko-->
+	        <!-- ko if: (getCartParam('freeshippingamount') === 0) -->
+	        <span translate="'you have qualified for free standard UK delivery on this order'"/>        
+	        <!--/ko-->
+	        </div>
+	    </if>    
+    </if>
     <div id="minicart-widgets" class="minicart-widgets">
         <each args="getRegion('promotion')" render=""/>
     </div>
