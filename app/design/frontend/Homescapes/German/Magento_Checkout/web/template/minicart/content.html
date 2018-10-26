@@ -50,12 +50,12 @@
                         data-action="close"
                         data-bind="
                             attr: {
-                                title: $t('Proceed to Checkout')
+                                title: $t('Zur Kasse gehen')
                             },
                             click: closeMinicart()
                         "
-                        translate="'Proceed to Checkout'"
-                />
+                ><span translate="'Zur Kasse gehen'"/>
+                </button>
                 <div data-bind="html: getCartParam('extra_actions')"></div>
             </div>
         </div>

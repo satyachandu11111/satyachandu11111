@@ -70,7 +70,7 @@ $helper = $this->helper(\Magento\Search\Helper\Data::class);
 				<span class="mobile-visible">|</span>
 				<li>
 					<a href="{{store url=''}}track-your-order">
-						<i class="fas fa-map-marker-alt"></i> Track Order
+						<i class="fas fa-map-marker-alt"></i><?php echo __('Track Order') ?> 
 					</a>
 				</li>
 
@@ -85,7 +85,7 @@ $helper = $this->helper(\Magento\Search\Helper\Data::class);
 				<ul class="quick-links">
 				    <li class="links-container">
 				        <i class="fa fa-user"></i>
-				        <span data-mage-init='{"dropdown":{}}' data-toggle="dropdown">My Account</span>
+				        <span data-mage-init='{"dropdown":{}}' data-toggle="dropdown"><?php echo __('My Account') ?></span>
 				        <div class="customer-menu" data-target="dropdown">
 				            <ul class="header links mobiledropdown">
 				                <li class="first"></li>
