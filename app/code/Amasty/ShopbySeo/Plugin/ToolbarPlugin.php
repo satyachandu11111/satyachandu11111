@@ -28,7 +28,11 @@ class ToolbarPlugin
     {
         $seo_parsed = $this->registry->registry('amasty_shopby_seo_parsed_params');
         if (is_array($seo_parsed)) {
-            $params = array_merge($seo_parsed, $params);
+			if (is_array($params)) {
+            	$params = array_merge($seo_parsed, $params);
+			} else {
+				$params = array_merge($seo_parsed, [$params]);
+			}
         }
         return [$params];
     }
