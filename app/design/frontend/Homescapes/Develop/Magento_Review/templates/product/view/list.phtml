@@ -21,11 +21,11 @@ foreach ($_items as $rating_review){
 
                  $cnt = count($rdata);
                  for($i=0;$i<$cnt;$i++){
-                    if($rdata[$i]['rating_code'] == 'Price'){
+                    if($rdata[$i]['rating_id'] == '3'){
                         $rating_code['price']=$rating_code['price']+$rdata[$i]['percent'];
-                    }elseif($rdata[$i]['rating_code'] == 'Value'){
+                    }elseif($rdata[$i]['rating_id'] == '2'){
                         $rating_code['value']=$rating_code['value']+$rdata[$i]['percent'];
-                    }elseif($rdata[$i]['rating_code'] == 'Quality'){
+                    }elseif($rdata[$i]['rating_id'] == '1'){
                         $rating_code['quality']=$rating_code['quality']+$rdata[$i]['percent'];
                     }elseif($rdata[$i]['rating_code'] == 'Delivery'){
                         $rating_code['delivery']=$rating_code['delivery']+$rdata[$i]['percent'];
