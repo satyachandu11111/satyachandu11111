@@ -4314,6 +4314,11 @@ transition: all 5ms ease-in-out 0s;
 /*--------------------------------------------------------------------------
 | cart Page 
 --------------------------------------------------------------------------*/
+
+.free-UK-note{
+	padding: 1rem;
+}
+
 .cart-container{
 	
 	@media @991{
@@ -4354,6 +4359,10 @@ transition: all 5ms ease-in-out 0s;
 	.cart-update{
 		margin-top: .5rem;
 		padding: .6rem 1rem;
+		
+		@media @479{
+			margin-top: -.4rem;
+		}
 	}
 	.cart-totals .grand strong, .opc-block-summary .table-totals .grand strong{
 		font-weight: normal;
@@ -4500,6 +4509,9 @@ transition: all 5ms ease-in-out 0s;
 			
 			@media @767{
 				margin-top: -2.8rem;
+			}
+			@media @479{
+				display: none;
 			}
 		}
 		.increaseQty{
