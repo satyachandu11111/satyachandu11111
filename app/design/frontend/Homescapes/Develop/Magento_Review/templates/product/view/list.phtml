@@ -70,7 +70,7 @@ foreach ($_items as $rating_review){
 							
 						</div>
 
-						<span><?php echo __('Based on '.$totalreivew.' ratings') ?></span>
+						<span><?php echo __('Based on %1 ratings',$totalreivew) ?></span>
 						<div class="overall-ratings">
 						<ul>
 					   <?php  foreach($rating_code as $label => $sumofratings){?>
@@ -112,7 +112,7 @@ foreach ($_items as $rating_review){
 							<p><?php echo round($br, 2)."%"?></p>
 							<span><?php echo __('recommend') ?></span>
 						</div>
-						<p><?php echo __('Based on '.$totalreivew.' recommendations') ?></p>
+						<p><?php echo __('Based on %1 recommendations',$totalreivew) ?></p>
 						<span><?php echo __('Would you recommend this item?') ?></span>
 						<div class="action">
 							<a class="yes fancybox review-popup" href="#inline1"><?php echo __('Yes')?></a>
@@ -121,7 +121,7 @@ foreach ($_items as $rating_review){
 					</li>
 
 					<li class="write-review">
-						<p>Have you purchased this </br> product?</p>
+						<p><?php echo __('Have you purchased this </br> product?'); ?></p>
 						<a href="#inline1" class="write-review fancybox review-popup"><?php echo __('Write a Review') ?></a>
 					</li>
 				</ul>
@@ -184,9 +184,9 @@ foreach ($_items as $rating_review){
 
 
 					<span class="review-meta">
-						<?php echo __('Review by '.($_review->getNickname())) ?>
+						<?php echo __('Review by (%1)',$_review->getNickname()) ?>
 						, 
-					   <label class="date"><?php echo __('Posted on '.date('d/m/Y', strtotime($_review->getCreatedAt()))); ?></label>
+					   <label class="date"><?php echo __('Posted on %1',date('d/m/Y', strtotime($_review->getCreatedAt()))); ?></label>
 					</span>
 
 

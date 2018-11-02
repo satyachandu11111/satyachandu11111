@@ -22,7 +22,7 @@
 			
 			
 			
-			<span class="text-center">How do you rate this product? *</span>
+			<span class="text-center"><?php echo __('How do you rate this product?') ?> *</span>
 		
 		</legend><br />
         <?php if ($block->getRatings() && $block->getRatings()->getSize()): ?>
@@ -86,8 +86,8 @@
         <div class="field review-field-recommend required">
             <label for="recommend_field" class="label"><span><?= $block->escapeHtml(__('Recommend')) ?></span></label>
             <div class="control">
-                <input type="radio" name="recommend" id="recommend_field" class="input-radio" data-validate="{required:true}" value="1"/>Yes
-                <input type="radio" name="recommend" id="recommend_field" class="input-radio" data-validate="{required:true}" value="0" />No
+                <input type="radio" name="recommend" id="recommend_field" class="input-radio" data-validate="{required:true}" value="1"/><?php echo __('Yes') ?>
+                <input type="radio" name="recommend" id="recommend_field" class="input-radio" data-validate="{required:true}" value="0" /><?php echo __('No') ?>
             </div>
         </div>  
 

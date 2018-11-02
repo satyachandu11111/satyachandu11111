@@ -165,7 +165,7 @@
             <?php /* Extensions placeholder */ ?>
             <?= $block->getChildHtml('customer.form.register.newsletter') ?>
         <?php endif ?>
-	<div class="terms-conditions">By creating an account you agree to the website terms and conditions and our <a href="{{store url=''}}info/website-privacy-and-cookies">privacy notice.</a></div>
+	<div class="terms-conditions"><?php echo __("By creating an account you agree to the website terms and conditions and our <a href='%1'>privacy notice.</a>",$this->getBaseUrl().'info/website-privacy-and-cookies') ?></div>
 	
     <div class="actions-toolbar">
         <div class="primary">

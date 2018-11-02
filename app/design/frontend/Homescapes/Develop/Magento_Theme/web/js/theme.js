@@ -33,7 +33,7 @@ define([
                         type: 'popup',
                         responsive: true,
                         innerScroll: true,
-                        title: 'Write Your Own Review',                      
+                        title: $.mage.__('Write Your Own Review'),                      
                     };
 
         $(document).ready(function(){
