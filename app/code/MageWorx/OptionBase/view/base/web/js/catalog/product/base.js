@@ -16,7 +16,7 @@ define([
         options: {
             optionConfig: {},
             productConfig: {},
-            productPriceInfoSelector: '.product-info-price',
+            productPriceInfoSelector: '.product-info-main .product-info-price',
             extendedOptionsConfig: {},
             priceHolderSelector: '.price-box',
             dateDropdownsSelector: '[data-role=calendar-dropdown]',
