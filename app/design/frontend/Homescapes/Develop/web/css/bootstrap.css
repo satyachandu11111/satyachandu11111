@@ -8,7 +8,7 @@
   box-sizing: border-box;
 }
 
-body {
+body, #customer-reviews .review-heading h2 {
   font-family: 'Roboto', sans-serif;
 }
 
