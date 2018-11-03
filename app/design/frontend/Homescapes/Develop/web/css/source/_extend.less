@@ -132,7 +132,11 @@ h1, h2, h3, h4, h5, h6, .wsmenu, .megamenu .title, .product.info.detailed .card-
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-
+p{
+	
+	line-height: 2.4rem;
+	font-size: 1.5rem;
+}
 .loading-mask{
 	background: none !important;
 }
@@ -828,7 +832,7 @@ transition: all 5ms ease-in-out 0s;
   padding: 9px 5px 9px 0px;
   font-size: @font15;
   color: @black;
-  font-weight: 500;
+  font-weight: 600;
   margin: 0px 0px 7px 0px;
   text-align: left;
   height: 39px;
@@ -1850,7 +1854,7 @@ transition: all 5ms ease-in-out 0s;
 	}
 	h1, h2, h3, h4{
 		font-size:@font18;
-		font-weight: 500;
+		font-weight: 600;
 	}
 }
 .bedding, .cms-page-heading{
@@ -1901,12 +1905,12 @@ transition: all 5ms ease-in-out 0s;
 	
 	h2{
 		font-size: @font18;
-		font-weight: 500;
+		font-weight: 600;
 		margin-bottom: 5px;
 	}
 	h3{
 		font-size:@font16;
-		font-weight: 500;
+		font-weight: 600;
 		margin-bottom: 10px;
 	}
 	p{
@@ -4838,8 +4842,9 @@ transition: all 5ms ease-in-out 0s;
 			padding: 1rem;
 			max-width: 16rem;
 			text-transform: capitalize;
-				background: @f9light;
+			background: @f9light;
 			border-bottom: 1px solid @white;
+			font-weight: 500;
 		}
 		tbody > tr > td{
 			padding-left: 2rem;
@@ -8927,7 +8932,6 @@ transition: all 5ms ease-in-out 0s;
 		position: absolute;
 		right: auto;
 		top: 0;
-		font-weight: 500;
 		color: @white;
 		z-index: 9;
 		word-wrap: break-word;
@@ -8935,8 +8939,8 @@ transition: all 5ms ease-in-out 0s;
 		padding: .3rem .7rem;
 		left: 0;
 		font-size: @base;
-		font-weight: 600;
-		text-transform: uppercase;
+		font-weight: 500;
+		text-transform: capitalize;
 		
 		&::after{
 			border-left: 0 solid transparent;
