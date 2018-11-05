@@ -15,5 +15,10 @@
             <?php if ($block->isDisabled()):?>disabled="disabled"<?php endif; ?>>
         <span><?= /* @escapeNotVerified */ __('Proceed to Checkout') ?></span>
     </button>
-	<p class="checkout-note"><span>Note:</span> Shipping and taxes are estimated and will be updated during checkout based on your billing and shipping information.</p>
+
+
+	<p class="checkout-note"><span><?php echo __('Note:') ?></span> <?php echo __('Shipping and taxes are estimated and will be updated during checkout based on your billing and shipping information.') ?></p>
+
+	
+
 <?php endif?>
