@@ -2118,10 +2118,12 @@ transition: all 5ms ease-in-out 0s;
 		}
 		h6{
 			margin-left: 10px;
-			
 			font-weight: 600;
-			
 			margin-bottom: 0;
+			
+			@media @767{
+				font-weight: 500;
+			}
 			
 		}
 		h5{
@@ -5420,6 +5422,9 @@ transition: all 5ms ease-in-out 0s;
 	
 	.guide-content{
 		
+		@media @639{
+			overflow:scroll;
+		}
 		
 		ul{
 			list-style-type: disc;
@@ -6216,8 +6221,8 @@ transition: all 5ms ease-in-out 0s;
 			.media-left {
 			  float: left;
 			  margin-right: 18px;
-			  height: 105px;
-			  width: 115px;
+			  height: 55px;
+			  width: 55px;
 			  overflow: hidden;
 			}
 			.media-body {
@@ -6266,7 +6271,7 @@ transition: all 5ms ease-in-out 0s;
 }
 .sample-view .rightdiv .swatch-policy .sample-heading {
   color: #073147;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 14px;
   margin-bottom: 5px;
   text-transform: capitalize;

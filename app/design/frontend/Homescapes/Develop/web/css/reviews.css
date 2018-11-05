@@ -578,19 +578,21 @@ background-size: 300px 1300px;
 	text-align: center;
 }
 #customer-reviews #showallreview:before {
-  content: "\f078";
+  content: "\e622";
   font-size: 12px;
-  font-family: "Font Awesome 5 Free";
+  font-family: 'luma-icons';
   color: #2b3959;
   margin-right: 8px;
+ font-weight: bold;
 }
 #customer-reviews #showallreview.reviewhide:before {
-  content: "\f077";
+  content: "\e621";
   font-size: 12px;
-  font-family: "Font Awesome 5 Free";
+  font-family: 'luma-icons';
 
   color: #2b3959;
   margin-right: 8px;
+ font-weight: bold;
 }
 
 .review-summary-table {
