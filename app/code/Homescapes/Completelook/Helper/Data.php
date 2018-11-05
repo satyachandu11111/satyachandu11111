@@ -5,6 +5,16 @@ namespace Homescapes\Completelook\Helper;
 class Data extends \Magento\Framework\App\Helper\AbstractHelper
 {
 
+    protected $_storeManagerInterface;
+
+    public function __construct(
+         \Magento\Store\Model\StoreManagerInterface $storeManagerInterface
+        )
+    {
+        $this->_storeManagerInterface = $storeManagerInterface;
+
+    }
+
     public function DisplayDiscount($_product)
     {
         $originalPrice = $_product->getPrice();
@@ -16,8 +26,22 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         }
 
         if ($percentage) {
-            return '{'.$percentage.'% Off}';
+            $storeId = $this->currentStoreId();
+            if($storeId ==3){  // fr percentage translate
+                return '{-'.$percentage.'%}';
+            }else{
+                return '{'.$percentage.'% Off}';
+            }
         }
 
+    }
+
+
+    public function currentStoreId()
+    {
+        $currentStore = $this->_storeManagerInterface->getStore();
+        $currentStoreId = $currentStore->getId();
+
+        return $currentStoreId;        
     }
 }
