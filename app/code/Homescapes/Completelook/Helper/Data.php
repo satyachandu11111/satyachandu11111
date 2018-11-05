@@ -27,7 +27,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
         if ($percentage) {
             $storeId = $this->currentStoreId();
-            if($storeId ==3){  // fr percentage translate
+            if($storeId ==3 || $storeId ==2){  // fr and de percentage translate
                 return '{-'.$percentage.'%}';
             }else{
                 return '{'.$percentage.'% Off}';
