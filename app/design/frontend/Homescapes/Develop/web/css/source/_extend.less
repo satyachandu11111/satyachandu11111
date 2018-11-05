@@ -145,8 +145,8 @@ p{
 	font-family: 'Roboto', sans-serif;
 }
 .action.primary, .action.primary:hover, .action.primary:focus, .action.primary:active{
-	background-color: @logo-black;
-	border-color: @logo-black;
+	background-color: @logo-black !important;
+	border-color: @logo-black !important;
 }
 .loading-mask{
 	background: none !important;
@@ -9143,36 +9143,34 @@ transition: all 5ms ease-in-out 0s;
 		background: @black;
 	}
 }
-.free-deliver{
+.free-UK-note::before{
 	
-	&::before{
-
-			  display: block;
-			  height: 28px;
-			  position: absolute;
-			  right: -14px;
-			  top: -14px;
-			  width: 28px;
-			  font-size: 0;
-			  background: url("../images/sprit-icon.svg") no-repeat -77px -591px;
-			  background-size: 300px 1300px;
-	}
+	background-image: url(../images/sprit-icon.svg);
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	background-size: 300px 1300px;
 }
-.free-UK-note{
-	&::before{
-
-			  display: block;
-			  height: 28px;
-			  position: absolute;
-			  right: -14px;
-			  top: -14px;
-			  width: 28px;
-			  font-size: 0;
-			  background: url("../images/sprit-icon.svg") no-repeat -77px -591px;
-			  background-size: 300px 1300px;
-	}
+.free-deliver::before{
+	background-image: url(../images/sprit-icon.svg);
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	background-size: 300px 1300px;
 }
 
-.cart.table-wrapper .col.price .price-including-tax .price, dt{
+.cart.table-wrapper .col.price .price-including-tax .price, dt, cart.table-wrapper .col.subtotal .price-including-tax .price{
 	font-weight: 500 !important;
+}
+.discount-form {
+	.checkout-payment-method .payment-option-inner{
+		float: left;
+		width: 60%;
+		margin-right: 2%;
+	}
+	
+	.actions-toolbar{
+		float: left !important;
+	}
+}
+.cart-totals .grand strong{
+	font-weight: 400 !important;
 }
