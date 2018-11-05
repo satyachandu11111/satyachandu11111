@@ -140,13 +140,15 @@ p{
 .fieldset > .field > .label, .fieldset > .fields > .field > .label{
 	font-weight: 500;
 }
+.action-primary:hover
 .action.primary{
 	font-weight: 400;
 	font-family: 'Roboto', sans-serif;
 }
-.action.primary, .action.primary:hover, .action.primary:focus, .action.primary:active{
-	background-color: @logo-black !important;
-	border-color: @logo-black !important;
+.action.primary, .action-primary:hover, .action.primary:focus, .action.primary:active{
+	background-color: @logo-black;
+	border-color: @logo-black ;
+	color: @white !important;
 }
 .loading-mask{
 	background: none !important;
@@ -9149,15 +9151,31 @@ transition: all 5ms ease-in-out 0s;
 	background-repeat: no-repeat;
 	background-position: 0px 0px;
 	background-size: 300px 1300px;
-}
+    display: inline-block;
+	height: 35px;
+	overflow: hidden;
+	position: absolute;
+	text-indent: -9999px;
+	vertical-align: middle;
+	white-space: nowrap;
+	width: 35px;
+
 .free-deliver::before{
 	background-image: url(../images/sprit-icon.svg);
 	background-repeat: no-repeat;
 	background-position: 0px 0px;
 	background-size: 300px 1300px;
+	display: inline-block;
+	height: 35px;
+	overflow: hidden;
+	position: absolute;
+	text-indent: -9999px;
+	vertical-align: middle;
+	white-space: nowrap;
+	width: 35px;
 }
 
-.cart.table-wrapper .col.price .price-including-tax .price, dt, cart.table-wrapper .col.subtotal .price-including-tax .price{
+.cart.table-wrapper .col.price .price-including-tax .price, dt, .cart.table-wrapper .col.subtotal .price-including-tax .price{
 	font-weight: 500 !important;
 }
 .discount-form {
