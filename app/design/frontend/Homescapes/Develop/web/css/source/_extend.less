@@ -3177,6 +3177,10 @@ transition: all 5ms ease-in-out 0s;
 -----------------------*/
 .product-info-main{
 	
+	.price-tier_price{
+		float: left;
+	}
+	
 	.row-tier-price, .prices-tier{
 		float: left;
 		width: 100%;
@@ -4614,7 +4618,7 @@ transition: all 5ms ease-in-out 0s;
 			width: 38%;
 			
 			.primary, .primary .action{
-				width: 100%;
+				width: 100% !important;
 			}
 			
 		}
@@ -4706,17 +4710,18 @@ transition: all 5ms ease-in-out 0s;
 }
 .start-creating-curtain{
 		
-	margin: 2rem 0;
+	margin: 2rem auto;
+	text-align: center;
 
 	.button{
-		background: @blue;
-		border: 1px solid @blue;
+		background: @logo-black;
+		border: 1px solid @logo-black;
 		color: @white;
 		padding: .8rem 2rem;
 		font-size: @font16;
 		margin: 1rem auto;
 		border-radius: .4rem;
-		font-weight: 500;
+		font-weight: 400;
 
 	}
 }
