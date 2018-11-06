@@ -127,6 +127,10 @@
 /*--------------------------------------------------------------------------
 |  Reset CSS
 --------------------------------------------------------------------------*/
+b,
+strong {
+  font-weight: 500;
+}
 
 h1, h2, h3, h4, h5, h6, .wsmenu, .megamenu .title, .product.info.detailed .card-header {
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -4597,7 +4601,7 @@ transition: all 5ms ease-in-out 0s;
 			}
 			.field{
 				float: left;
-				width: 74%;
+				width: 60%;
 				margin-bottom: 10px;
 			}
 		}
@@ -4607,6 +4611,7 @@ transition: all 5ms ease-in-out 0s;
 		.actions-toolbar{
 			float: left;
 			margin-left: 5px;
+			width: 38%;
 			
 		}
 		.actions-toolbar > .primary .action.primary:not(:focus){
@@ -8116,7 +8121,7 @@ transition: all 5ms ease-in-out 0s;
 				margin-bottom: 1rem;
 			}
 			.button{
-				background: @blue;
+				background: @logo-black;
 				display: inline-block;
 				padding: .6rem 1.8rem;
 				border: 0;
@@ -9154,12 +9159,13 @@ transition: all 5ms ease-in-out 0s;
 }
 .free-UK-note{
 	
-	background-position: -10px -1643px;
+	background-position: -244px -36px;
 	display: inline-block;
 	background-image: url(../images/sprit-icon.svg);
 	background-repeat: no-repeat;
 	background-size: 300px 1300px;
 	float: left;
+	padding-left: 6rem;
 
 }
 .free-deliver{
@@ -9173,7 +9179,7 @@ transition: all 5ms ease-in-out 0s;
 .cart.table-wrapper .col.price .price-including-tax .price, dt, .cart.table-wrapper .col.subtotal .price-including-tax .price{
 	font-weight: 500 !important;
 }
-.discount-form {
+#discount-form {
 	.checkout-payment-method .payment-option-inner{
 		float: left;
 		width: 60%;

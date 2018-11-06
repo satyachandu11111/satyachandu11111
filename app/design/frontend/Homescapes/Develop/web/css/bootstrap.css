@@ -87,10 +87,7 @@ dfn {
   font-style: italic;
 }
 
-b,
-strong {
-  font-weight: 500 !important;
-}
+
 
 small {
   font-size: 80%;
