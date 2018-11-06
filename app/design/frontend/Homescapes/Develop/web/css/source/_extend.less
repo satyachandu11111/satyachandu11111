@@ -4613,6 +4613,10 @@ transition: all 5ms ease-in-out 0s;
 			margin-left: 5px;
 			width: 38%;
 			
+			.primary, .primary .action{
+				width: 100%;
+			}
+			
 		}
 		.actions-toolbar > .primary .action.primary:not(:focus){
 			box-shadow: none;
@@ -4994,15 +4998,20 @@ transition: all 5ms ease-in-out 0s;
 		
 		.action{
 			
-			background: @white;
-			border:1px solid @light-black;
+			background: @white !important;
+			border:1px solid @light-black !important;
 			color: @black;
 			border-radius: .2rem;
+			font-weight: 500;
 		}
 	}
 	.block-title{
 		font-size: @font18;
 		margin-bottom: 1rem;
+		
+		strong{
+			font-weight: 400;
+		}
 	}
 	.actions-toolbar .primary{
 		
@@ -6100,7 +6109,7 @@ transition: all 5ms ease-in-out 0s;
 .sample-view {
 	
 	.btn-submit {
-	  background: #005dbd;
+	  background:@logo-black;
 	  border: medium none;
 	  border-radius: 3px;
 	  color: #fff;
@@ -7466,7 +7475,7 @@ transition: all 5ms ease-in-out 0s;
 			.pro-name{
 				font-size: @font22;
 				color: @black;
-				font-weight: 500;
+				font-weight: 400;
 				margin: 0 0 10px 0;
 				display: block;
 			}
@@ -8768,10 +8777,9 @@ transition: all 5ms ease-in-out 0s;
 				.label{
 					margin-bottom: 0;
 					text-align: left;
-					background: @f9light;
 					border-radius: .4rem;
-					padding: .8rem 1rem;
 					margin-bottom: .5rem;
+					font-size: 1.6rem;
 					
 					@media @991{
 						display: block;
@@ -9180,7 +9188,7 @@ transition: all 5ms ease-in-out 0s;
 	font-weight: 500 !important;
 }
 #discount-form {
-	.checkout-payment-method .payment-option-inner{
+	.payment-option-inner{
 		float: left;
 		width: 60%;
 		margin-right: 2%;
@@ -9190,6 +9198,6 @@ transition: all 5ms ease-in-out 0s;
 		float: left !important;
 	}
 }
-.cart-totals .grand strong{
+.cart-totals .grand strong, .opc-block-summary .table-totals .grand strong{
 	font-weight: 400 !important;
 }
