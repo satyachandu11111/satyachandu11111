@@ -104,7 +104,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                 }
                 else
                 {
-                    $html='<div class="price-box"><p class="old-price"><span class="price-range" id="old-price-'.$_id.'">'.$this->helper->currency($childPriceLowest,true,false).' - '.$this->helper->currency($childPriceHighest,true,false).'</span></p></div>';
+                    $html='<div class="price-box"><p class="price"><span class="price-range" id="old-price-'.$_id.'">'.$this->helper->currency($childPriceLowest,true,false).' - '.$this->helper->currency($childPriceHighest,true,false).'</span></p></div>';
                 }
                               
             }
