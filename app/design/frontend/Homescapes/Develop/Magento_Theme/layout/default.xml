@@ -62,6 +62,10 @@
             <block class="Magento\Framework\View\Element\Template" name="frontuser" template="Magento_Theme::page/body_tags.phtml"/>
     </referenceContainer>
     
+     <referenceContainer name="sidebar.additional">         
+         <referenceBlock name="wishlist_sidebar" remove="true"/>
+     </referenceContainer>
+
     </body>		
 
 </page>
