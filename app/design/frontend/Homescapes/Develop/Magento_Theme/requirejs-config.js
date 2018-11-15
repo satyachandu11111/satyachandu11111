@@ -4,6 +4,7 @@ var config = {
             'owl_carousel':'Magento_Theme/js/owl.carousel',
             'owl_config':'Magento_Theme/js/owl.config',
             'time_counter':'Magento_Theme/js/jquery.time-to',
+	        'slickd': 'Magento_Theme/js/slick.min'
     } ,
 	shim: {
         'bootstrap': {
@@ -17,7 +18,10 @@ var config = {
         },
         'time_counter': {
             'deps': ['jquery']
-        }
+        },
+    	'slickd': {
+                'deps': ['jquery']
+            }
 
     }
 };
