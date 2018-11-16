@@ -2,14 +2,13 @@
 
 // Default Variables
 
-@slick-font-path: "./fonts/";
-@slick-font-family: "slick";
+@slick-font-family:'Font Awesome 5 Free';
 @slick-loader-path: "./";
-@slick-arrow-color: #000000;
+@slick-arrow-color: #333;
 @slick-dot-color: black;
 @slick-dot-color-active: @slick-dot-color;
-@slick-prev-character: "←";
-@slick-next-character: "→";
+@slick-prev-character:"\f053";
+@slick-next-character:"\f054";
 @slick-dot-character: "•";
 @slick-dot-size: 6px;
 @slick-opacity-default: 0.75;
@@ -22,14 +21,6 @@
 }
 
 /* Icons */
-@font-face{
-    font-family: 'slick';
-    font-weight: normal;
-    font-style: normal;
-
-    src: url('./fonts/slick.eot');
-    src: url('./fonts/slick.eot?#iefix') format('embedded-opentype'), url('./fonts/slick.woff') format('woff'), url('./fonts/slick.ttf') format('truetype'), url('./fonts/slick.svg#slick') format('svg');
-}
 
 /* Arrows */
 
@@ -67,16 +58,20 @@
 
 .slick-prev:before, .slick-next:before {
     font-family: @slick-font-family;
-    font-size: 20px;
+    font-size: 15px;
     line-height: 1;
     color: @slick-arrow-color;
     opacity: @slick-opacity-default;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+	font-weight: 900;
+	padding: 5px 8px;
+	border: 1px solid #ccc;
 }
 
 .slick-prev {
-    left: -25px;
+	z-index: 1;
+    left: 0;
     &[dir="rtl"] {
         left: auto;
         right: -25px;
@@ -90,7 +85,8 @@
 }
 
 .slick-next {
-    right: -25px;
+	z-index: 1;
+    right: 0;
     &[dir="rtl"] {
         left: -25px;
         right: auto;
