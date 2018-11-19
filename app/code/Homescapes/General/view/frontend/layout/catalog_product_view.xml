@@ -8,6 +8,7 @@
         </referenceContainer>
         <referenceContainer name="product.info.main">
 		  <block class="Magento\Catalog\Block\Product\View"  name="m2m.readymade" template="Homescapes_General::catalog/product/view/m2m_readymade.phtml" after="-"  />
+          <block class="Magento\Catalog\Block\Product\View"  name="embroidery.link" template="Homescapes_General::catalog/product/view/embroidery_link.phtml" after="-"  />
 	 </referenceContainer>  	
          <referenceBlock name="view.addto.wishlist" remove="true"/>
  	</body> 
