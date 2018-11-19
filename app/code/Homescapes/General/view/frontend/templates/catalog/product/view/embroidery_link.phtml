@@ -1,0 +1,6 @@
+
+<?php 
+$_product = $block->getProduct(); 
+if($_product->getData('embroidery_link')){?>
+            <div class="custom-curtain-image"><a href="<?php echo $_product->getData('embroidery_link').".html"?>"> <img src="<?php echo $block->getViewFileUrl('images/made-to-measure-detailpage.jpg') ?>" /></a></div>
+            <?php }?>
