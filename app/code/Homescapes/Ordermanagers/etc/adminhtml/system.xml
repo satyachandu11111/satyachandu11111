@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="homescapes" translate="label" sortOrder="300">
+            <label>Homescapes</label>
+        </tab>
+        <section id="order_bulkexport" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Bulk Orders Export</label>
+            <tab>homescapes</tab>
+            <resource>Homescapes_Ordermanagers::ordermanagers_config</resource>
+            <group id="export_orders" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Bulk Orders Export</label>
+                <field id="orderlimit" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Orderlimit</label>
+                    <comment>Limited up to 25000 orders export</comment>
+                </field>
+                <field id="fromdate" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>From Date</label>
+                    <frontend_model>Homescapes\Ordermanagers\Block\DatePicker</frontend_model>
+                </field>
+                <field id="todate" translate="label" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>To Date</label>
+                    <frontend_model>Homescapes\Ordermanagers\Block\DatePicker</frontend_model>
+                </field>
+                <field id="dropdown" translate="label" type="select" sortOrder="15" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Select Website</label>
+                    <source_model>Magento\Store\Model\System\Store</source_model>
+                </field>
+                <field id="listbutton" translate="label" sortOrder="500" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Export</label>
+                    <frontend_model>Homescapes\Ordermanagers\Block\System\Config\Form\Button</frontend_model>
+                    <comment>Please save settings before export</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
