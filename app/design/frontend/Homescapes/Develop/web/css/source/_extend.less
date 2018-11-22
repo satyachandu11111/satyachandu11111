@@ -135,7 +135,9 @@ strong {
 h1, h2, h3, h4, h5, h6, .wsmenu, .megamenu .title, .product.info.detailed .card-header {
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+a{
+	color: @blue;
+}
 p{
 	
 	line-height: 2.4rem;
@@ -3788,11 +3790,12 @@ transition: all 5ms ease-in-out 0s;
 		float: right;
 		
 		@media @991{
-			float: left;
+			float: right;
 		}
 
 		@media @767{
 			width: 76%;
+			float: left;
 		}
 		@media @479{
 			width: 100%;
@@ -6466,7 +6469,7 @@ transition: all 5ms ease-in-out 0s;
 		line-height: 4rem;
 		font-weight: 500;
 		text-decoration: none;
-		background-position: -10px -1751px;
+		background-position: -9px -1651px;
 		display: inline-block;
 		padding: 0 16px 0 118px;
 		cursor: pointer;
@@ -6479,7 +6482,7 @@ transition: all 5ms ease-in-out 0s;
 		}
 		@media @1100{
 			
-			background-position: 0 -1703px;
+			background-position: 0 -1701px;
 			padding: 0 16px 0 45px;
 			line-height: 3rem;
 			font-size: @base;
