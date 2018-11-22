@@ -138,6 +138,9 @@ h1, h2, h3, h4, h5, h6, .wsmenu, .megamenu .title, .product.info.detailed .card-
 a{
 	color: @blue;
 }
+a:hover, .alink:hover{
+	text-decoration: none;
+}
 p{
 	
 	line-height: 2.4rem;
@@ -3479,6 +3482,11 @@ transition: all 5ms ease-in-out 0s;
 .control div.mage-error[generated]{
 	position: absolute;
 }
+
+
+
+
+
 /*---------------------------------
 |  complete the look
 ---------------------------------------*/
@@ -4133,6 +4141,10 @@ transition: all 5ms ease-in-out 0s;
 /*--------------------------------------------------------------------------
 |  Grouped product  Page 
 --------------------------------------------------------------------------*/
+.table.grouped .col.qty, .table.grouped .col.price, .table.grouped .col.item{
+	font-weight: 500;
+}
+
 
 .page-product-grouped{
 	
@@ -8551,7 +8563,11 @@ transition: all 5ms ease-in-out 0s;
  /*--------------------------------------------------------------------------
 | Personalised Embroidery 
 --------------------------------------------------------------------------*/
-
+.page-product-configurable{
+	.product-info-main .price-tier_price{
+		display: none;
+	}
+}
 .page-product-configurable.catalog-product-view .product-add-form .product-options-wrapper{
 	
 	margin-bottom: 1.5rem;
@@ -9093,12 +9109,12 @@ transition: all 5ms ease-in-out 0s;
 
 }
 .free-deliver{
-	background-position:-257px -1179px;
+	background-position:-214px -981px;
 	display: inline-block;
 	background-image: url(../images/sprit-icon.svg);
 	background-repeat: no-repeat;
-	background-size: 300px 1300px;
-	padding-left: 4.5rem;
+	background-size: 250px 1083px;
+	padding-left: 4rem;
 }
 
 .cart.table-wrapper .col.price .price-including-tax .price, dt, .cart.table-wrapper .col.subtotal .price-including-tax .price{
