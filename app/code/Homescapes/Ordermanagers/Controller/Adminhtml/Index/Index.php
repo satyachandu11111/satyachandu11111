@@ -219,32 +219,34 @@ class Index extends \Magento\Backend\App\Action
 
         // print_r($arrayToCsv);
         // die('-*-*-*-');
-        $finalFileName = "magento2_order_csv_".date("Ymd_His").'.csv';
-        $resultData = $this->generateCsv($arrayToCsv, $finalFileName);
+        $finalFileName = "order_export_".date("Ymd_His").'.csv';
+        $resultData = $this->generateCsv($arrayToCsv, $finalFileName);       
         
+
+
 
         if (empty($resultData)) {
             $this->_messageManager->addErrorMessage('Somthing Went Wrong!');
         } else {
-
             $this->_messageManager->addSuccessMessage($finalFileName.' File has been downloaded');
-            $this->_downloader->create(
-                $finalFileName,
-                @file_get_contents(
-                    $resultData
-                )
-            );        
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/octet-stream');
+            header('Content-Disposition: attachment; filename="'.$finalFileName.'"');
+            header('Content-Transfer-Encoding: binary');
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+            header('Pragma: public');
+            header('Content-Length: ' . filesize($resultData)); //Absolute URL
+            ob_clean();
+            flush();
+            readfile($resultData); //Absolute URL
+            exit();
         }
-    }
-
-    public function productData ($productId)
-    {
-        return $this->_productloader->create()->load($productId);
     }
 
     function generateCsv($data, $finalFileName, $delimiter = ',', $enclosure = '"') {
         $rootPath = $this->_dir->getRoot()."/";
-        $csvFileName = "var/importexport/custom_order_csv/".'order_export_'.$finalFileName;
+        $csvFileName = "var/importexport/custom_order_csv/".$finalFileName;
         $finaCsvPath = $rootPath.$csvFileName;
         $handle = fopen($finaCsvPath, 'w');
         foreach ($data as $line) {
@@ -256,6 +258,11 @@ class Index extends \Magento\Backend\App\Action
         }else{
             return false;
         }
+    }
+
+    public function productData ($productId)
+    {
+        return $this->_productloader->create()->load($productId);
     }
 
     public function getStoreName($storeId){
