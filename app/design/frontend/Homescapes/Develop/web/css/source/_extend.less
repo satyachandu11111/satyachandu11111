@@ -146,6 +146,9 @@ p{
 	line-height: 2.4rem;
 	font-size: 1.5rem;
 }
+.mageworx-swatch-option.selected, .mageworx-swatch-option.image:not(.disabled):hover, .mageworx-swatch-option.color:not(.disabled):hover{
+	outline: 2px solid @logo-black !important;
+}
 .fieldset > .field > .label, .fieldset > .fields > .field > .label{
 	font-weight: 500;
 }
@@ -3207,6 +3210,7 @@ transition: all 5ms ease-in-out 0s;
 			border:0;
 		}
 	}
+	
 }
 
 
@@ -3218,12 +3222,16 @@ transition: all 5ms ease-in-out 0s;
 	.product.alert{
 		margin-bottom: 1.5rem;
 		width: 100%;
+		border-right: 0;
+		margin-top: 0;
 	}
 	.g-discount{
 		color: @danger;
 		font-weight: 500;
 	}
-	
+	.unavailable + .towishlist{
+		display: none;
+	}
 	.rating-summary .rating-result > span::before{
 		color: @yellow;
 	}
@@ -4736,6 +4744,9 @@ transition: all 5ms ease-in-out 0s;
 		span{
 			margin: 2rem 0;
 			float: left;
+		}
+		h3{
+			font-weight: 600;
 		}
 	}
 
