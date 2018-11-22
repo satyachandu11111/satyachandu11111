@@ -135,11 +135,19 @@ strong {
 h1, h2, h3, h4, h5, h6, .wsmenu, .megamenu .title, .product.info.detailed .card-header {
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+a{
+	color: @blue;
+}
+a:hover, .alink:hover{
+	text-decoration: none;
+}
 p{
 	
 	line-height: 2.4rem;
 	font-size: 1.5rem;
+}
+.mageworx-swatch-option.selected, .mageworx-swatch-option.image:not(.disabled):hover, .mageworx-swatch-option.color:not(.disabled):hover{
+	outline: 2px solid @logo-black !important;
 }
 .fieldset > .field > .label, .fieldset > .fields > .field > .label{
 	font-weight: 500;
@@ -3202,6 +3210,7 @@ transition: all 5ms ease-in-out 0s;
 			border:0;
 		}
 	}
+	
 }
 
 
@@ -3213,12 +3222,16 @@ transition: all 5ms ease-in-out 0s;
 	.product.alert{
 		margin-bottom: 1.5rem;
 		width: 100%;
+		border-right: 0;
+		margin-top: 0;
 	}
 	.g-discount{
 		color: @danger;
 		font-weight: 500;
 	}
-	
+	.unavailable + .towishlist{
+		display: none;
+	}
 	.rating-summary .rating-result > span::before{
 		color: @yellow;
 	}
@@ -3477,6 +3490,11 @@ transition: all 5ms ease-in-out 0s;
 .control div.mage-error[generated]{
 	position: absolute;
 }
+
+
+
+
+
 /*---------------------------------
 |  complete the look
 ---------------------------------------*/
@@ -3786,9 +3804,14 @@ transition: all 5ms ease-in-out 0s;
 		display:grid;
 		width: 75%;
 		float: right;
+		
+		@media @991{
+			float: right;
+		}
 
 		@media @767{
 			width: 76%;
+			float: left;
 		}
 		@media @479{
 			width: 100%;
@@ -3801,6 +3824,9 @@ transition: all 5ms ease-in-out 0s;
 			
 			@media @991{
 				margin-left: 14rem;
+			}
+			@media @767{
+				margin-left: 0;
 			}
 		}
 		.actions .tocart{
@@ -4123,6 +4149,10 @@ transition: all 5ms ease-in-out 0s;
 /*--------------------------------------------------------------------------
 |  Grouped product  Page 
 --------------------------------------------------------------------------*/
+.table.grouped .col.qty, .table.grouped .col.price, .table.grouped .col.item{
+	font-weight: 500;
+}
+
 
 .page-product-grouped{
 	
@@ -4714,6 +4744,9 @@ transition: all 5ms ease-in-out 0s;
 		span{
 			margin: 2rem 0;
 			float: left;
+		}
+		h3{
+			font-weight: 600;
 		}
 	}
 
@@ -6459,7 +6492,7 @@ transition: all 5ms ease-in-out 0s;
 		line-height: 4rem;
 		font-weight: 500;
 		text-decoration: none;
-		background-position: -10px -1751px;
+		background-position: -9px -1651px;
 		display: inline-block;
 		padding: 0 16px 0 118px;
 		cursor: pointer;
@@ -6472,7 +6505,7 @@ transition: all 5ms ease-in-out 0s;
 		}
 		@media @1100{
 			
-			background-position: 0 -1703px;
+			background-position: 0 -1701px;
 			padding: 0 16px 0 45px;
 			line-height: 3rem;
 			font-size: @base;
@@ -8541,7 +8574,11 @@ transition: all 5ms ease-in-out 0s;
  /*--------------------------------------------------------------------------
 | Personalised Embroidery 
 --------------------------------------------------------------------------*/
-
+.page-product-configurable{
+	.product-info-main .price-tier_price{
+		display: none;
+	}
+}
 .page-product-configurable.catalog-product-view .product-add-form .product-options-wrapper{
 	
 	margin-bottom: 1.5rem;
@@ -9083,12 +9120,12 @@ transition: all 5ms ease-in-out 0s;
 
 }
 .free-deliver{
-	background-position:-257px -1179px;
+	background-position:-214px -981px;
 	display: inline-block;
 	background-image: url(../images/sprit-icon.svg);
 	background-repeat: no-repeat;
-	background-size: 300px 1300px;
-	padding-left: 4.5rem;
+	background-size: 250px 1083px;
+	padding-left: 4rem;
 }
 
 .cart.table-wrapper .col.price .price-including-tax .price, dt, .cart.table-wrapper .col.subtotal .price-including-tax .price{
