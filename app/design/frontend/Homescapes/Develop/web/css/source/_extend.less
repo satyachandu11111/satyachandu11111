@@ -3786,6 +3786,10 @@ transition: all 5ms ease-in-out 0s;
 		display:grid;
 		width: 75%;
 		float: right;
+		
+		@media @991{
+			float: left;
+		}
 
 		@media @767{
 			width: 76%;
@@ -3801,6 +3805,9 @@ transition: all 5ms ease-in-out 0s;
 			
 			@media @991{
 				margin-left: 14rem;
+			}
+			@media @767{
+				margin-left: 0;
 			}
 		}
 		.actions .tocart{
