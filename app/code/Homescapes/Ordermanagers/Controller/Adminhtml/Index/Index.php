@@ -23,7 +23,7 @@ class Index extends \Magento\Backend\App\Action
 
 
 	public function __construct(
-	    \Magento\Framework\App\Action\Context $context,
+	    \Magento\Backend\App\Action\Context $context,
 	    \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
 	    \Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory,
         \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
@@ -35,6 +35,7 @@ class Index extends \Magento\Backend\App\Action
         \Magento\ConfigurableProduct\Model\Product\Type\Configurable $configurableProduct,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Framework\Message\ManagerInterface $messageManager,
+        \Magento\Eav\Model\ResourceModel\Entity\Attribute\Set\CollectionFactory $entityAttributeSet,
         \Magento\Framework\App\Response\Http\FileFactory $fileFactory,
         \Magento\Eav\Api\AttributeSetRepositoryInterface $attributeSet
 	) { 
@@ -47,6 +48,7 @@ class Index extends \Magento\Backend\App\Action
         $this->_productloader = $_productloader;
         $this->_configurableProduct = $configurableProduct;
         $this->attributeSet = $attributeSet;
+        $this->_entityAttributeSet = $entityAttributeSet;
         $this->_messageManager = $messageManager;
         $this->_categoryFactory = $categoryFactory;
         $this->_storeManager = $storeManager;
@@ -140,7 +142,7 @@ class Index extends \Magento\Backend\App\Action
                         }
                     }
 
-                    $attributeSetRepository = $this->attributeSet->get($productData->getAttributeSetId());
+                    // $attributeSetRepository = $this->attributeSet->get($productData->getAttributeSetId());
                     
                     // print_r($shippingaddress);
 
@@ -151,6 +153,7 @@ class Index extends \Magento\Backend\App\Action
                         }
                     }
 
+
                     if ($skip !== 1) {
                         $arrayToCsv[] 
                             = array(
@@ -160,7 +163,11 @@ class Index extends \Magento\Backend\App\Action
 
                             $item->getName(),
                             $item->getSku(),
-                            $attributeSetRepository->getAttributeSetName(),
+                            // $attributeSetRepository->getAttributeSetName(),
+                            
+                            //$productData->getAttributeSetId(),
+
+                            $this->getAttributeSetNameCustom($productData->getAttributeSetId()),
                             $productData->getLinnworksCategory(),
                             $categoryName,
                             $item->getQtyOrdered(),
@@ -260,7 +267,7 @@ class Index extends \Magento\Backend\App\Action
         }
     }
 
-    public function productData ($productId)
+    public function productData($productId)
     {
         return $this->_productloader->create()->load($productId);
     }
@@ -276,6 +283,20 @@ class Index extends \Magento\Backend\App\Action
             }
            }
         return $storeName;
+    }
+
+    public function getAttributeSetNameCustom($attributeSetId){
+                    $attributeSetCollection = $this->_entityAttributeSet->create();
+                    $attributeSets = $attributeSetCollection->getItems();
+
+                    foreach ($attributeSets as $attributeSet) {
+                        $attributeSetArray[$attributeSet->getAttributeSetId()] =  $attributeSet->getAttributeSetName();
+                    }
+                    if(array_key_exists($attributeSetId, $attributeSetArray)){
+                        return $attributeSetArray[$attributeSetId];
+                    }else{
+                        return "Attribute Set not exist ->".$attributeSetId;
+                    }                    
     }
 
 }
