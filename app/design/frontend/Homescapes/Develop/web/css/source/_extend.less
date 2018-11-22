@@ -1865,6 +1865,10 @@ transition: all 5ms ease-in-out 0s;
 	h1, h2, h3, h4{
 		font-size:@font18;
 		font-weight: 600;
+		
+		@media @767{
+			font-weight: normal;
+		}
 	}
 }
 .bedding, .cms-page-heading{
@@ -1915,12 +1919,12 @@ transition: all 5ms ease-in-out 0s;
 	
 	h2{
 		font-size: @font18;
-		font-weight: 600;
+		font-weight: 500;
 		margin-bottom: 5px;
 	}
 	h3{
 		font-size:@font16;
-		font-weight: 600;
+		font-weight: 500;
 		margin-bottom: 10px;
 	}
 	p{
@@ -3372,6 +3376,13 @@ transition: all 5ms ease-in-out 0s;
 		width: 98%;
 		margin-bottom: 3rem;
 	}
+	
+	
+	.table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody > tr td[data-th]::before, .table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody > tr th[data-th]::before{
+		font-weight: 500;
+	}
+	
+	
 	.item.content{
 		border: none;
 		padding: @font20 0;
