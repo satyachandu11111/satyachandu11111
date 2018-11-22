@@ -84,7 +84,7 @@
         <referenceContainer name="content.aside">
 		  <block class="Magento\Reports\Block\Product\Widget\Viewed" after="custom.reviews" name="recently_viewed" template="Magento_Reports::widget/viewed/content/viewed_grid.phtml">
 		    <action method="setPageSize">
-		       <argument name="page_size" xsi:type="number">5</argument>
+		       <argument name="page_size" xsi:type="number">15</argument>
 		    </action>
 		  </block>
 		</referenceContainer>
