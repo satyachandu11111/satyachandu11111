@@ -3,7 +3,7 @@ type: xml
 xml:
   schema: |
     <?xml version="1.0" encoding="UTF-8"?>
-    <STORE URL="{{ context.store.base_url }}" DATE="{{ context.store | eval: 'date("d.m.Y")' }}" TIME="{{ context.store | eval: 'date("H:i:s")' }}" NAME="STORE">
+    <STORE URL="{{ context.store.base_url }}" DATE="{{ context.time | dateFormat: "d.m.Y" }}" TIME="{{ context.time | dateFormat: "H:i:s" }}" NAME="STORE">
       {% for category in context.categories %}
       <cat>
         <name><![CDATA[{{ category.name }}]]></name>

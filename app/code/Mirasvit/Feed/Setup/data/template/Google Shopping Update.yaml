@@ -11,7 +11,7 @@ xml:
         {% for product in context.products %}
         <item>
           <g:id><![CDATA[{{ product.sku }}]]></g:id>
-          <g:price>{{ product.price }}</g:price>
+          <g:price>{{ product.final_price }}</g:price>
           <g:availability>in stock</g:availability>
         </item>
         {% endfor %}

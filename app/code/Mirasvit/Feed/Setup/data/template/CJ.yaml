@@ -8,9 +8,9 @@ xml:
       <header>
         <cid></cid>
         <subid></subid>
-        <datefmt>{{ context.store | eval: 'date("d.m.Y H:i:s")' }}</datefmt>
+        <datefmt>{{context.time}}</datefmt>
         <processtype>OVERWRITE</processtype>
-        <aid>1643253</aid>
+        <aid></aid>
       </header>
       {% for product in context.products %}
       <product>

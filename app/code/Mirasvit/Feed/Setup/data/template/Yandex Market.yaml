@@ -22,7 +22,7 @@ xml:
           {% for product in context.products %}
           <offer id="{{ product.entity_id }}" available="true">
             <url><![CDATA[{{ product.url }}]]></url>
-            <price>{{ product.price }}</price>
+            <price>{{ product.final_price }}</price>
             <currencyId>RUR</currencyId>
             <categoryId>{{ product.category.id }}</categoryId>
             <picture>{{ product.image }}</picture>
@@ -31,7 +31,7 @@ xml:
             <delivery>false</delivery>
             <local_delivery_cost>300</local_delivery_cost>
             <name><![CDATA[{{ product.name }}]]></name>
-            <vendor>{{ product.manufacture }}</vendor>
+            <vendor>{{ product.manufacturer }}</vendor>
             <vendorCode>{{ product.sku }}</vendorCode>
             <description><![CDATA[{{ product.description | stripHtml }}]]></description>
             <sales_notes><![CDATA[{{ product.description | stripHtml }}]]></sales_notes>

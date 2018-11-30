@@ -1,19 +1,4 @@
 <?php
-/**
- * Mirasvit
- *
- * This source file is subject to the Mirasvit Software License, which is available at https://mirasvit.com/license/.
- * Do not edit or add to this file if you wish to upgrade the to newer versions in the future.
- * If you wish to customize this module for your needs.
- * Please refer to http://www.magentocommerce.com for more information.
- *
- * @category  Mirasvit
- * @package   mirasvit/module-feed
- * @version   1.0.82
- * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
- */
-
-
 
 namespace Mirasvit\Feed\Export\Resolver;
 
@@ -38,7 +23,6 @@ class ProductResolver extends AbstractResolver
 {
     /**
      * Cache of loaded products
-     *
      * @var array
      */
     private static $products = [];
@@ -104,14 +88,14 @@ class ProductResolver extends AbstractResolver
         Attribute $dynamicAttribute,
         $resolvers = []
     ) {
-        $this->stockRegistry = $stockRegistry;
-        $this->productRelation = $productRelation;
+        $this->stockRegistry              = $stockRegistry;
+        $this->productRelation            = $productRelation;
         $this->attributeCollectionFactory = $attributeCollectionFactory;
-        $this->productFactory = $productFactory;
-        $this->productMetadata = $productMetadata;
-        $this->resource = $resource;
-        $this->swatchesHelper = $swatchesHelper;
-        $this->dynamicAttribute = $dynamicAttribute;
+        $this->productFactory             = $productFactory;
+        $this->productMetadata            = $productMetadata;
+        $this->resource                   = $resource;
+        $this->swatchesHelper             = $swatchesHelper;
+        $this->dynamicAttribute           = $dynamicAttribute;
 
         $this->resolvers = $resolvers;
 
@@ -126,7 +110,9 @@ class ProductResolver extends AbstractResolver
         $result = [
             'entity_id'          => 'Product Id',
             'is_in_stock'        => 'Is In Stock',
+            'stock_status'       => 'Stock Status',
             'qty'                => 'Qty',
+            'qty_children'       => 'Qty of children in stock products',
             'image'              => 'Image',
             'url'                => 'Product Url',
             'category'           => 'Category Name',
@@ -161,30 +147,30 @@ class ProductResolver extends AbstractResolver
             }
         }
 
-        $mappingCollectionFactory =
-            $this->objectManager->create('Mirasvit\Feed\Model\ResourceModel\Dynamic\Category\CollectionFactory');
+        $mappingCollectionFactory
+            = $this->objectManager->create('Mirasvit\Feed\Model\ResourceModel\Dynamic\Category\CollectionFactory');
 
         /** @var \Mirasvit\Feed\Model\Dynamic\Category $mapping */
         foreach ($mappingCollectionFactory->create() as $mapping) {
-            $label = $mapping->getName();
+            $label                                  = $mapping->getName();
             $result['mapping:' . $mapping->getId()] = __('Category Mapping') . ': ' . $label;
         }
 
-        $dynamicCollectionFactory =
-            $this->objectManager->create('Mirasvit\Feed\Model\ResourceModel\Dynamic\Attribute\CollectionFactory');
+        $dynamicCollectionFactory
+            = $this->objectManager->create('Mirasvit\Feed\Model\ResourceModel\Dynamic\Attribute\CollectionFactory');
 
         /** @var \Mirasvit\Feed\Model\Dynamic\Attribute $attribute */
         foreach ($dynamicCollectionFactory->create() as $attribute) {
-            $label = $attribute->getName();
+            $label                                      = $attribute->getName();
             $result['dynamic:' . $attribute->getCode()] = __('Dynamic Attribute') . ': ' . $label;
         }
 
-        $dynamicVariableCollectionFactory =
-            $this->objectManager->create('Mirasvit\Feed\Model\ResourceModel\Dynamic\Variable\CollectionFactory');
+        $dynamicVariableCollectionFactory
+            = $this->objectManager->create('Mirasvit\Feed\Model\ResourceModel\Dynamic\Variable\CollectionFactory');
 
         /** @var \Mirasvit\Feed\Model\Dynamic\Variable $variable */
         foreach ($dynamicVariableCollectionFactory->create() as $variable) {
-            $label = $variable->getName();
+            $label                                      = $variable->getName();
             $result['variable:' . $variable->getCode()] = __('Dynamic Variable') . ': ' . $label;
         }
 
@@ -193,9 +179,7 @@ class ProductResolver extends AbstractResolver
 
     /**
      * Return full url for product
-     *
      * @param Product $product
-     *
      * @return string
      */
     public function getUrl($product)
@@ -240,10 +224,8 @@ class ProductResolver extends AbstractResolver
         return $url;
     }
 
-
     /**
      * Return product QTY
-     *
      * @param Product $product
      * @return int
      */
@@ -255,8 +237,30 @@ class ProductResolver extends AbstractResolver
     }
 
     /**
+     * Return QTY of in stock children products
+     * @param Product $product
+     * @return int
+     */
+    public function getQtyChildren($product)
+    {
+        if ($product->getTypeId() !== \Magento\Catalog\Model\Product\Type::TYPE_SIMPLE) {
+            $children = $this->getAssociatedProducts($product);
+            $stockQty = 0;
+            if (count($children) > 0) {
+                foreach ($children as $child) {
+                    if ($child->isSalable() === true) {
+                        $stockQty += $this->getQty($child);
+                    }
+                }
+                return $stockQty;
+            }
+        } else {
+            return $this->getQty($product);
+        }
+    }
+
+    /**
      * Return product stock status
-     *
      * @param Product $product
      * @return int
      */
@@ -266,8 +270,19 @@ class ProductResolver extends AbstractResolver
     }
 
     /**
+     * Return product "in stock" or "out of stock" stock status
+     * @param Product $product
+     * @return string
+     */
+    public function getStockStatus($product)
+    {
+        $stockItem = $this->stockRegistry->getStockItem($product->getId());
+
+        return $stockItem->getIsInStock() ? 'in stock' : 'out of stock';
+    }
+
+    /**
      * Attribute set name
-     *
      * @param Product $product
      * @return string
      */
@@ -281,33 +296,33 @@ class ProductResolver extends AbstractResolver
 
     /**
      * Parent product model or current product
-     *
      * @param Product $product
      * @return Product
      */
     public function getParent($product)
     {
         $magentoEdition = $this->productMetadata->getEdition();
-        $select = $this->productRelation->getConnection()->select()->from(
+        $select         = $this->productRelation->getConnection()->select()->from(
             $this->productRelation->getMainTable(),
             ['parent_id']
         )->where(
             'child_id = ?',
             $product->getId()
         );
-        $parentIds = $this->productRelation->getConnection()->fetchCol($select);
+        $parentIds      = $this->productRelation->getConnection()->fetchCol($select);
         if (count($parentIds)) {
             if ($magentoEdition == 'Enterprise') {
                 $parentRowId = $parentIds[0];
-                $select = $this->productRelation->getConnection()->select()->from(
+                $select      = $this->productRelation->getConnection()->select()->from(
                     $this->resource->getTableName('catalog_product_entity'),
                     ['entity_id']
                 )->where(
                     'row_id = ?',
                     $parentRowId
                 );
-                $parentIds = $this->productRelation->getConnection()->fetchCol($select);
+                $parentIds   = $this->productRelation->getConnection()->fetchCol($select);
             }
+
             return $this->productFactory->create()->load($parentIds[0]);
         } else {
             return $product;
@@ -316,7 +331,6 @@ class ProductResolver extends AbstractResolver
 
     /**
      * Parent product model ONLY
-     *
      * @param Product $product
      * @return Product | boolean
      */
@@ -332,7 +346,6 @@ class ProductResolver extends AbstractResolver
 
     /**
      * For simple products
-     *
      * @param Product $product
      * @return array
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
@@ -344,7 +357,6 @@ class ProductResolver extends AbstractResolver
 
     /**
      * Related products
-     *
      * @param Product $product
      * @return array
      */
@@ -355,7 +367,6 @@ class ProductResolver extends AbstractResolver
 
     /**
      * CrossSell products
-     *
      * @param Product $product
      * @return array
      */
@@ -366,7 +377,6 @@ class ProductResolver extends AbstractResolver
 
     /**
      * UpSell products
-     *
      * @param Product $product
      * @return array
      */
@@ -389,7 +399,6 @@ class ProductResolver extends AbstractResolver
 
     /**
      * Mapping model
-     *
      * @param Product $product
      * @param [] $args
      * @return string
@@ -408,7 +417,6 @@ class ProductResolver extends AbstractResolver
 
     /**
      * Dynamic attribute model
-     *
      * @param Product $product
      * @param [] $args
      * @return string
@@ -429,7 +437,6 @@ class ProductResolver extends AbstractResolver
 
     /**
      * Dynamic variable model
-     *
      * @param Product $product
      * @param [] $args
      * @return string
@@ -450,7 +457,6 @@ class ProductResolver extends AbstractResolver
 
     /**
      * Collection of mappings
-     *
      * @param Product $product
      * @param [] $args
      * @return array
@@ -472,8 +478,7 @@ class ProductResolver extends AbstractResolver
 
     /**
      * @param Product $object
-     * @param string $key
-     *
+     * @param string  $key
      * @return string
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
@@ -493,14 +498,13 @@ class ProductResolver extends AbstractResolver
 
         $exploded = explode(':', $key);
 
-        $key = $exploded[0];
+        $key      = $exploded[0];
         $modifier = count($exploded) == 2 ? $exploded[1] : "";
 
         $attribute = $this->getAttribute($key);
 
         if ($attribute && in_array($attribute->getFrontendInput(), ['select', 'multiselect'])) {
             if (is_scalar($product->getData($key))) {
-
                 if ($modifier == 'swatch') {
                     $value = $this->swatchesHelper->getSwatchesByOptionsId([$product->getData($key)]);
                     if ($value) {
@@ -532,7 +536,6 @@ class ProductResolver extends AbstractResolver
 
     /**
      * Return product attribute model by attribute code
-     *
      * @param string $code
      * @return \Magento\Eav\Model\Entity\Attribute|null
      */
@@ -554,15 +557,18 @@ class ProductResolver extends AbstractResolver
 
     /**
      * Load product model by object (from cache
-     *
      * @param Product $object
      * @return Product
      */
     protected function getProduct($object)
     {
         if (!isset(self::$products[$object->getId()])) {
+            if (count(self::$products) > 1000) {
+                self::$products = [];
+            }
             self::$products[$object->getId()] = $object->load($object->getId());
         }
+
         return self::$products[$object->getId()];
     }
 
@@ -575,10 +581,8 @@ class ProductResolver extends AbstractResolver
         return $this->getProduct($object);
     }
 
-
     /**
      * Get category for product
-     *
      * @param Product $product
      * @return Category
      */
@@ -589,14 +593,20 @@ class ProductResolver extends AbstractResolver
         /** @var \Magento\Catalog\Model\Category $category */
         $category = $collection->getFirstItem(); #default category
 
-        #get category with maximum level
-        $level = 0;
+        #get category with maximum level and lowest position
+        $level           = 0;
+        $category        = null;
+        $currentPosition = null;
+
         $rootCategory = $this->getFeed() ? $this->getFeed()->getStore()->getRootCategoryId() : 0;
         /** @var \Magento\Catalog\Model\Category $cat */
         foreach ($collection as $cat) {
-            if ($cat->getLevel() > $level && strpos($cat->getPath(), '/' . $rootCategory . '/') !== false) {
-                $level = $cat->getLevel();
-                $category = $cat;
+            if (strpos($cat->getPath(), '/' . $rootCategory . '/') !== false
+                && ($category === null || $cat->getLevel() >= $category->getLevel())
+                && ($currentPosition === null || $cat->getPosition() < $currentPosition)) {
+                $level           = $cat->getLevel();
+                $category        = $cat;
+                $currentPosition = $cat->getPosition();
             }
         }
 
@@ -605,13 +615,12 @@ class ProductResolver extends AbstractResolver
 
     /**
      * Get category collection for product (without root category)
-     *
      * @param Product $product
      * @return array
      */
     public function getCategoryCollection($product)
     {
-        $result = [];
+        $result     = [];
         $collection = $product->getCategoryCollection();
 
         /** @var \Magento\Catalog\Model\Category $category */

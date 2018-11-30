@@ -17,7 +17,7 @@ xml:
         <Original_Price>{{ product.price }}</Original_Price> 
         <Manufacturer><![CDATA[{{ product.manufacturer }}]]></Manufacturer>
         <Product_Description><![CDATA[{{ product.description | stripHtml }}]]></Product_Description>
-        <Category><![CDATA[{{ product.category_path }}]]></Category>
+        <Category><![CDATA[{{ product.category.path }}]]></Category>
         <Merchandising_Type>New</Merchandising_Type>
       </Product>
       {% endfor %}

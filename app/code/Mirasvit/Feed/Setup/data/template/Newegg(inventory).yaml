@@ -22,7 +22,7 @@ xml:
             <Currency>USD</Currency>
             <MSRP></MSRP>
             <NeweggItemNumber></NeweggItemNumber>
-            <MAP>{map}</MAP>
+            <MAP></MAP>
             <CheckoutMAP>False</CheckoutMAP>
           </Item>
           {% endfor %}

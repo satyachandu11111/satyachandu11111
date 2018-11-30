@@ -1,19 +1,4 @@
 <?php
-/**
- * Mirasvit
- *
- * This source file is subject to the Mirasvit Software License, which is available at https://mirasvit.com/license/.
- * Do not edit or add to this file if you wish to upgrade the to newer versions in the future.
- * If you wish to customize this module for your needs.
- * Please refer to http://www.magentocommerce.com for more information.
- *
- * @category  Mirasvit
- * @package   mirasvit/module-feed
- * @version   1.0.82
- * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
- */
-
-
 
 namespace Mirasvit\Feed\Export\Resolver;
 
@@ -22,6 +7,7 @@ use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory as ProductColl
 use Magento\Framework\App\ResourceConnection;
 use Magento\Framework\ObjectManagerInterface;
 use Magento\Review\Model\ResourceModel\Review\CollectionFactory as ReviewCollectionFactory;
+use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
 use Mirasvit\Feed\Export\Context;
 
 /**
@@ -45,6 +31,11 @@ class GeneralResolver extends AbstractResolver
     protected $reviewCollectionFactory;
 
     /**
+     * @var TimezoneInterface
+     */
+    protected $timezone;
+
+    /**
      * @var Pool
      */
     protected $pool;
@@ -59,6 +50,7 @@ class GeneralResolver extends AbstractResolver
         ProductCollectionFactory $productCollectionFactory,
         CategoryCollectionFactory $categoryCollectionFactory,
         ReviewCollectionFactory $reviewCollectionFactory,
+        TimezoneInterface $timezone,
         Pool $pool,
         Context $context,
         ObjectManagerInterface $objectManager
@@ -66,6 +58,7 @@ class GeneralResolver extends AbstractResolver
         $this->productCollectionFactory = $productCollectionFactory;
         $this->categoryCollectionFactory = $categoryCollectionFactory;
         $this->reviewCollectionFactory = $reviewCollectionFactory;
+        $this->timezone = $timezone;
         $this->pool = $pool;
         $this->resource = $resource;
 
@@ -95,7 +88,7 @@ class GeneralResolver extends AbstractResolver
      */
     public function getTime()
     {
-        return time();
+        return $this->timezone->date()->format("d.m.Y H:i:s");
     }
 
     /**

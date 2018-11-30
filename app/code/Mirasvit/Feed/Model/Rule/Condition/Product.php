@@ -1,19 +1,4 @@
 <?php
-/**
- * Mirasvit
- *
- * This source file is subject to the Mirasvit Software License, which is available at https://mirasvit.com/license/.
- * Do not edit or add to this file if you wish to upgrade the to newer versions in the future.
- * If you wish to customize this module for your needs.
- * Please refer to http://www.magentocommerce.com for more information.
- *
- * @category  Mirasvit
- * @package   mirasvit/module-feed
- * @version   1.0.82
- * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
- */
-
-
 
 namespace Mirasvit\Feed\Model\Rule\Condition;
 
@@ -194,6 +179,7 @@ class Product extends \Magento\Rule\Model\Condition\AbstractCondition
     protected function _addSpecialAttributes(array &$attributes)
     {
         $attributes = array_merge($attributes, [
+            'entity_id'        => __('Product ID'),
             'attribute_set_id' => __('Attribute Set'),
             'category_ids'     => __('Category'),
             'qty'              => __('Quantity'),
@@ -368,7 +354,7 @@ class Product extends \Magento\Rule\Model\Condition\AbstractCondition
     {
         $attribute = $this->getAttribute();
 
-        if (!in_array($attribute, ['category_ids', 'qty', 'final_price', 'children_count', 'php', 'is_in_stock', 'manage_stock', 'status_parent', 'is_salable'])) {
+        if (!in_array($attribute, ['entity_id','category_ids', 'qty', 'final_price', 'children_count', 'php', 'is_in_stock', 'manage_stock', 'status_parent', 'is_salable'])) {
             if ($attribute == 'image_size'
                 || $attribute == 'small_image_size'
                 || $attribute == 'thumbnail_size'
@@ -564,6 +550,12 @@ class Product extends \Magento\Rule\Model\Condition\AbstractCondition
         $attrCode = $this->getAttribute();
 
         switch ($attrCode) {
+            case 'entity_id':
+                $value = $object->getEntityId();
+
+                return $this->validateAttribute($value);
+                break;
+
             case 'is_salable':
                 $object = $this->productRepository->getById($object->getId());
                 if ($object->getVisibility() == \Magento\Catalog\Model\Product\Visibility::VISIBILITY_NOT_VISIBLE) {

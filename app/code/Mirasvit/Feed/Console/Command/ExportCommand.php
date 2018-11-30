@@ -1,19 +1,4 @@
 <?php
-/**
- * Mirasvit
- *
- * This source file is subject to the Mirasvit Software License, which is available at https://mirasvit.com/license/.
- * Do not edit or add to this file if you wish to upgrade the to newer versions in the future.
- * If you wish to customize this module for your needs.
- * Please refer to http://www.magentocommerce.com for more information.
- *
- * @category  Mirasvit
- * @package   mirasvit/module-feed
- * @version   1.0.82
- * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
- */
-
-
 
 namespace Mirasvit\Feed\Console\Command;
 
@@ -27,6 +12,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class ExportCommand extends AbstractCommand
 {
     const INPUT_FEED_ID = 'id';
+    const INPUT_FEED_STEP = 'step';
 
     /**
      * @var FeedFactory
@@ -68,6 +54,13 @@ class ExportCommand extends AbstractCommand
                 'Feed ID',
                 false
             ),
+            new InputOption(
+                self::INPUT_FEED_STEP,
+                null,
+                InputOption::VALUE_OPTIONAL,
+                'Feed Export Iteration Step',
+                false
+            ),
         ];
         $this->setName('mirasvit:feed:export')
             ->setDescription('Export Feed')
@@ -89,6 +82,7 @@ class ExportCommand extends AbstractCommand
         }
 
         $feedId = $input->getOption(self::INPUT_FEED_ID);
+        $feedStep = $input->getOption(self::INPUT_FEED_STEP);
         $verbose = $output->getVerbosity() >= 2 ? true : false;
 
         if ($feedId) {
@@ -98,6 +92,12 @@ class ExportCommand extends AbstractCommand
                 ->addFieldToFilter('is_active', ['eq' => 1])
                 ->getAllIds();
         }
+
+        if (!$feedStep) {
+            $feedStep = \Mirasvit\Feed\Export\Liquid\Tag\TagFor::DEFAULT_STEP;
+        }
+        $this->exporter->setProductExportStep($feedStep);
+
         foreach ($feedsIds as $feedId) {
             /** @var \Mirasvit\Feed\Model\Feed $feed */
             $feed = $this->feedFactory->create()->load($feedId);

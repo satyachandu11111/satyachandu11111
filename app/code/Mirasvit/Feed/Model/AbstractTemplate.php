@@ -1,19 +1,4 @@
 <?php
-/**
- * Mirasvit
- *
- * This source file is subject to the Mirasvit Software License, which is available at https://mirasvit.com/license/.
- * Do not edit or add to this file if you wish to upgrade the to newer versions in the future.
- * If you wish to customize this module for your needs.
- * Please refer to http://www.magentocommerce.com for more information.
- *
- * @category  Mirasvit
- * @package   mirasvit/module-feed
- * @version   1.0.82
- * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
- */
-
-
 namespace Mirasvit\Feed\Model;
 
 use Magento\Framework\Model\AbstractModel;
@@ -63,11 +48,11 @@ abstract class AbstractTemplate extends AbstractModel
     {
         if ($this->isCsv()) {
             if ($this->hasData('csv')) {
-                $this->setData('format_serialized', \Zend_Serializer::serialize($this->getData('csv')));
+                $this->setData('format_serialized', serialize($this->getData('csv')));
             }
         } else {
             if ($this->hasData('xml')) {
-                $this->setData('format_serialized', \Zend_Serializer::serialize($this->getData('xml')));
+                $this->setData('format_serialized', serialize($this->getData('xml')));
             }
         }
 
@@ -122,7 +107,7 @@ abstract class AbstractTemplate extends AbstractModel
     protected function extract()
     {
         try {
-            $data = \Zend_Serializer::unserialize($this->getData('format_serialized'));
+            $data = unserialize($this->getData('format_serialized'));
         } catch (\Exception $e) {
             $data = [];
         }

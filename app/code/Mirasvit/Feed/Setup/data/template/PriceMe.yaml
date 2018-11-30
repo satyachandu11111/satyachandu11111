@@ -12,8 +12,8 @@ xml:
         <Name><![CDATA[{{ product.name | truncate: '255' }}]]></Name>
         <Price>{{ product.final_price }}</Price> 
         <Product_URL><![CDATA[{{ product.url }}]]></Product_URL>
-        <Category><![CDATA[{{ product.category_path }}]]></Category>
-        <Manufacturer><![CDATA{{ product.category_path }}]]></Manufacturer>
+        <Category><![CDATA[{{ product.category.path }}]]></Category>
+        <Manufacturer><![CDATA{{ product.category.path }}]]></Manufacturer>
         <Stock_Status>Y</Stock_Status>
         <Condition>New</Condition>
         <Image_URL><![CDATA[{{ product.image }}]]></Image_URL>

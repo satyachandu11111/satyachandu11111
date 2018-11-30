@@ -6,7 +6,7 @@ xml:
     <AmazonEnvelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="amzn-envelope.xsd">
       <Header>
         <DocumentVersion>1.01</DocumentVersion>
-        <MerchantIdentifier>M_SELLER_354577</MerchantIdentifier>
+        <MerchantIdentifier>Set Your Merchant ID Here</MerchantIdentifier>
       </Header>
       <MessageType>Inventory</MessageType>
       {% for product in context.products %}

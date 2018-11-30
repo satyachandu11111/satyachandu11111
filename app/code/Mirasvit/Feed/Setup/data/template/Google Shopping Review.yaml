@@ -5,7 +5,8 @@ xml:
     <?xml version="1.0" encoding="UTF-8"?>
     <feed xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:noNamespaceSchemaLocation="http://www.google.com/shopping/reviews/schema/product/2.0/product_reviews.xsd">
+      xsi:noNamespaceSchemaLocation="http://www.google.com/shopping/reviews/schema/product/2.2/product_reviews.xsd">
+      <version>2.2</version>
       <aggregator>
         <name>Sample Reviews Aggregator</name>
       </aggregator>
@@ -20,7 +21,7 @@ xml:
           <reviewer>
             <name>{{ review.nickname }}</name>
           </reviewer>
-          <review_timestamp>{{ review.created_at }}</review_timestamp>
+          <review_timestamp>{{ review.created_at | dateFormat: 'Y-m-d\TH:i:sP'}}</review_timestamp>
           <title><![CDATA[{{ review.title }}]]></title>
           <content><![CDATA[{{ review.detail }}]]></content>
           <review_url type="singleton"><![CDATA[{{ review.product.url }}]]></review_url>
@@ -36,9 +37,6 @@ xml:
                 <skus>
                   <sku><![CDATA[{{ review.product.sku }}]]></sku>
                 </skus>
-                <brands>
-                  <brand><![CDATA[{{ review.product.manufacturer }}]]></brand>
-                </brands>
               </product_ids>
               <product_name><![CDATA[{{ review.product.name }}]]></product_name>
               <product_url><![CDATA[{{ review.product.url }}]]></product_url>

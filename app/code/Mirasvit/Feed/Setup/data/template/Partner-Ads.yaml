@@ -6,7 +6,7 @@ xml:
     <produkter>
       {% for product in context.products %}
       <produkt>
-        <kategorinavn><![CDATA[{{ product.category }}]]></kategorinavn>
+        <kategorinavn><![CDATA[{{ product.category.path }}]]></kategorinavn>
         <brand><![CDATA[{{ product.manufacturer }}]]></brand>
         <produktid><![CDATA[{{ product.entity_id }}]]></produktid>
         <produktnavn><![CDATA[{{ product.name }}]]></produktnavn>
