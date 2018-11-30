@@ -7,6 +7,13 @@
 //  Common
 //  _____________________________________________
 
+
+@991: ~"only screen and (max-width:991px)";
+
+@1100: ~"only screen and (max-width:1100px)";
+
+
+
 @logo-black: #5d5d5d;
 
 & when (@media-common = true) {
@@ -28,6 +35,10 @@
 			vertical-align: middle;
 			padding-top: 0.6rem;
 			padding-bottom: 0;
+			
+			@media @1100{
+				width: 27%;
+			}
         }
 		
 		.col.price {
@@ -38,6 +49,10 @@
         .col.qty {
             width: 24%;
 			text-align: center;
+			
+			@media @1100{
+				width: 27%;
+			}
 
             .control.qty {
                 .qty {
