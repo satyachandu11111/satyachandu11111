@@ -131,7 +131,9 @@ b,
 strong {
   font-weight: 500;
 }
-
+.abs-account-block-font-size, .block-balance-giftcard .block-content, .block-addresses-list address, .box-billing-address .box-content, .box-shipping-address .box-content, .box-address-billing .box-content, .box-address-shipping .box-content, .box-information .box-content, .block-reviews-dashboard .product-name{
+	font-size: @base;
+}
 h1, h2, h3, h4, h5, h6, .wsmenu, .megamenu .title, .product.info.detailed .card-header {
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
@@ -4550,6 +4552,10 @@ transition: all 5ms ease-in-out 0s;
 		background: @white;
 		z-index: 9;
 		
+		@media @1100{
+			width: 30%;
+		}
+		
 		@media @991{
 			width: 100%;
 			padding: 2%;
@@ -4562,6 +4568,10 @@ transition: all 5ms ease-in-out 0s;
 		}
 	}
 	.form-cart{
+		
+		@media @1100{
+			width: 70%;
+		}
 		
 		@media @991{
 			width: 100%;
