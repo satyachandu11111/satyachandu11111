@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2017 MageWorx. All rights reserved.
+ * Copyright © MageWorx. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -43,6 +43,9 @@ abstract class AbstractRate implements RateInterface
 
     /** @var float */
     protected $amountValue;
+
+    /** @var mixed */
+    protected $condition;
 
     /** @var array */
     protected $validItems = [];
@@ -137,6 +140,10 @@ abstract class AbstractRate implements RateInterface
         $amountType = $this->getAmountType();
         $this->log('value', $amount[$amountType]['value']);
         $this->log('sort_order', $amount[$amountType]['sort']);
+        if (isset($amount[$amountType]['condition'])) {
+            $this->log('condition', $amount[$amountType]['condition']);
+            $this->_setCondition($amount[$amountType]['condition']);
+        }
         if (!isset($amount[$amountType]['value'])) {
             return $this->getRate();
         }
@@ -268,6 +275,29 @@ abstract class AbstractRate implements RateInterface
     public function getAmountValue()
     {
         return (float)$this->amountValue;
+    }
+
+    /**
+     * Set current condition value
+     *
+     * @param mixed $value
+     * @return $this
+     */
+    protected function _setCondition($value)
+    {
+        $this->condition = $value;
+
+        return $this;
+    }
+
+    /**
+     * Return additional condition value
+     *
+     * @return mixed
+     */
+    public function getCondition()
+    {
+        return $this->condition;
     }
 
     /**

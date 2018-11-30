@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2018 MageWorx. All rights reserved.
+ * Copyright © MageWorx. All rights reserved.
  * See LICENSE.txt for license details.
  */
 

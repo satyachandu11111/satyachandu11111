@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2017 MageWorx. All rights reserved.
+ * Copyright © MageWorx. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -55,7 +55,11 @@ class PerUnitOfWeight extends AbstractRate
         $weight = 0;
         /** @var \Magento\Quote\Model\Quote\Item $item */
         foreach ($this->validItems as $item) {
-            $weight += (float)$item->getWeight() * (float)$item->getQty();
+            $qty = (float)$item->getQty();
+            if ($item->getParentItem() && $item->getParentItem()->getQty()) {
+                $qty *= (float)$item->getParentItem()->getQty();
+            }
+            $weight += (float)$item->getWeight() * $qty;
         }
 
         return (float)$weight;

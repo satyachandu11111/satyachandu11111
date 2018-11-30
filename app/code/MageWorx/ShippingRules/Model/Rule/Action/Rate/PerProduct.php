@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2017 MageWorx. All rights reserved.
+ * Copyright © MageWorx. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -20,7 +20,7 @@ class PerProduct extends AbstractRate
         /** @var \Magento\Quote\Model\Quote\Item $item */
         foreach ($this->validItems as $item) {
             if ($item->getParentItem()) {
-                $qty = (float)$item->getParentItem()->getQty();
+                $qty = (float)$item->getQty() * (float)$item->getParentItem()->getQty();
             } else {
                 $qty = (float)$item->getQty();
             }

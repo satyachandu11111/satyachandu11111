@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2017 MageWorx. All rights reserved.
+ * Copyright © MageWorx. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -94,6 +94,22 @@ class Artificial extends AbstractCarrier implements CarrierInterface
         $this->storeManager = $storeManager;
         $this->storeResolver = $storeResolver;
         parent::__construct($scopeConfig, $rateErrorFactory, $logger, $data);
+    }
+
+    /**
+     * Set _code when set id
+     *
+     * @param $id
+     * @return $this
+     */
+    public function setId($id)
+    {
+        $this->setData('id', $id);
+        if ($this->_code === null) {
+            $this->_code = $id;
+        }
+
+        return $this;
     }
 
     /**

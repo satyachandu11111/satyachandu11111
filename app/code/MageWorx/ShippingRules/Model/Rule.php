@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2017 MageWorx. All rights reserved.
+ * Copyright © MageWorx. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -51,8 +51,11 @@ class Rule extends \Magento\Rule\Model\AbstractModel implements RuleInterface, R
 
     const ACTION_TYPE_AMOUNT = 'amount';
     const ACTION_TYPE_PER_QTY_OF_ITEM = 'product'; // per Qty of Item
+    const ACTION_TYPE_PER_QTY_OF_ITEM_AFTER_X = 'xproduct'; // per Qty of Item after X items
     const ACTION_TYPE_PER_ITEM = 'item';
+    const ACTION_TYPE_PER_ITEM_AFTER_X = 'xitem';
     const ACTION_TYPE_PER_WEIGHT_UNIT = 'weight';
+    const ACTION_TYPE_PER_WEIGHT_UNIT_AFTER_X = 'xweight';
 
     const FREE_SHIPPING_CODE = 'freeshipping_freeshipping';
 
@@ -130,8 +133,11 @@ class Rule extends \Magento\Rule\Model\AbstractModel implements RuleInterface, R
         return [
             self::ACTION_TYPE_AMOUNT,
             self::ACTION_TYPE_PER_QTY_OF_ITEM,
+            self::ACTION_TYPE_PER_QTY_OF_ITEM_AFTER_X,
             self::ACTION_TYPE_PER_ITEM,
+            self::ACTION_TYPE_PER_ITEM_AFTER_X,
             self::ACTION_TYPE_PER_WEIGHT_UNIT,
+            self::ACTION_TYPE_PER_WEIGHT_UNIT_AFTER_X
         ];
     }
 
@@ -367,7 +373,9 @@ class Rule extends \Magento\Rule\Model\AbstractModel implements RuleInterface, R
         $disabledShippingMethods = !empty($this->getDisabledShippingMethods()) ?
             $this->getDisabledShippingMethods() :
             [];
-        $affectShippingMethods = array_merge($shippingMethods, $disabledShippingMethods);
+        $changeDataForShippingMethods = $this->getMethodsForWhichTitleShouldBeChanged();
+        $affectShippingMethods = array_merge($shippingMethods, $disabledShippingMethods, $changeDataForShippingMethods);
+        $affectShippingMethods = array_unique($affectShippingMethods);
 
         return $affectShippingMethods;
     }
@@ -721,5 +729,23 @@ class Rule extends \Magento\Rule\Model\AbstractModel implements RuleInterface, R
     public function getChangedTitles()
     {
         return $this->getData('changed_titles');
+    }
+
+    /**
+     * Returns all shipping methods for which this rule should change a title
+     *
+     * @return array
+     */
+    public function getMethodsForWhichTitleShouldBeChanged()
+    {
+        $changedTitlesData = $this->getChangedTitles();
+        $methods = [];
+        foreach ($changedTitlesData as $datum) {
+            if (!empty($datum['methods_id']) && !in_array($datum['methods_id'], $methods)) {
+                $methods[] = $datum['methods_id'];
+            }
+        }
+
+        return $methods;
     }
 }

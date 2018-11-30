@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2017 MageWorx. All rights reserved.
+ * Copyright © MageWorx. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -9,6 +9,9 @@ namespace MageWorx\ShippingRules\CustomerData;
 use Magento\Customer\CustomerData\SectionSourceInterface;
 use MageWorx\ShippingRules\Api\AddressResolverInterface;
 
+/**
+ * Class CheckoutData
+ */
 class CheckoutData implements SectionSourceInterface
 {
     /**
@@ -22,17 +25,25 @@ class CheckoutData implements SectionSourceInterface
     protected $customerSession;
 
     /**
+     * @var \MageWorx\ShippingRules\Helper\Data
+     */
+    private $helper;
+
+    /**
      * Location constructor.
      *
      * @param AddressResolverInterface $addressResolver
      * @param \Magento\Customer\Model\Session $customerSession
+     * @param \MageWorx\ShippingRules\Helper\Data $helper
      */
     public function __construct(
         AddressResolverInterface $addressResolver,
-        \Magento\Customer\Model\Session $customerSession
+        \Magento\Customer\Model\Session $customerSession,
+        \MageWorx\ShippingRules\Helper\Data $helper
     ) {
         $this->addressResolver = $addressResolver;
         $this->customerSession = $customerSession;
+        $this->helper = $helper;
     }
 
     /**
@@ -43,6 +54,11 @@ class CheckoutData implements SectionSourceInterface
      */
     public function getSectionData()
     {
+        // Do nothing with customers data when popup disabled
+        if (!$this->helper->isEnabledPopup()) {
+            return [];
+        }
+
         // Do not change data if customer logged in
         if ($this->customerSession->getCustomerId()) {
             if ($this->customerSession->getCustomer() &&

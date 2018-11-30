@@ -1,11 +1,12 @@
 "Shipping Method","Shipping Method"
 Title,Title
 "Add Title","Add Title"
+"Default Title","Default Title"
 Back,Back
 Save,Save
 "Save & New","Save & New"
-"Save & Close","Save & Close"
 "Store View Specific Labels","Store View Specific Labels"
+"Save & Close","Save & Close"
 "Save and Continue Edit","Save and Continue Edit"
 "Store View Specific Estimated Delivery Time Messages","Store View Specific Estimated Delivery Time Messages"
 "MageWorx Shipping Rules","MageWorx Shipping Rules"
@@ -32,8 +33,11 @@ Modifier,Modifier
                                 each valid items qty as multiplier (5 same products in one row and 2 same items in
                                 another row = 7 qty)."
 "Apply to Shipping Methods","Apply to Shipping Methods"
+"Change Shipping Method Data","Change Shipping Method Data"
+"Change Title","Change Title"
 "Rule's Action","Rule's Action"
 Type,Type
+"Change Data","Change Data"
 "Stop Further Processing","Stop Further Processing"
 Conditions,Conditions
 "Apply the rule only if the following conditions are met (leave blank for all products).","Apply the rule only if the following conditions are met (leave blank for all products)."
@@ -119,10 +123,12 @@ Catalog,Catalog
 "You deleted the rate %1.","You deleted the rate %1."
 "We can't delete the rate right now. Please review the log and try again.","We can't delete the rate right now. Please review the log and try again."
 "We can't find a rate to delete.","We can't find a rate to delete."
+"You duplicated the rate.","You duplicated the rate."
 "Edit Rate","Edit Rate"
 "New Rate","New Rate"
 "Shipping Rates","Shipping Rates"
 "Something went wrong while saving the rate.","Something went wrong while saving the rate."
+"You must create at least one shipping method before you are able to add new rate.","You must create at least one shipping method before you are able to add new rate."
 "You saved the rate.","You saved the rate."
 "Something went wrong while saving the rate data. Please review the error log.","Something went wrong while saving the rate data. Please review the error log."
 "You deleted the region","You deleted the region"
@@ -132,6 +138,8 @@ Catalog,Catalog
 "New Region","New Region"
 "Country Regions","Country Regions"
 "Something went wrong while saving the region.","Something went wrong while saving the region."
+"A total of %1 record(s) have been deactivated.","A total of %1 record(s) have been deactivated."
+"Something went wrong, nothing was deleted.","Something went wrong, nothing was deleted."
 "You saved the region.","You saved the region."
 "Something went wrong while saving the region data. Please review the error log.","Something went wrong while saving the region data. Please review the error log."
 "You deleted the location group.","You deleted the location group."
@@ -148,6 +156,7 @@ Catalog,Catalog
 "Price could not be a negative number","Price could not be a negative number"
 "Could not save the rate: %1","Could not save the rate: %1"
 "Rate with id ""%1"" does not exist.","Rate with id ""%1"" does not exist."
+"Rate with a code ""%1"" does not exist.","Rate with a code ""%1"" does not exist."
 "Could not delete the rate: %1","Could not delete the rate: %1"
 "Could not save the method: %1","Could not save the method: %1"
 "Method with id ""%1"" does not exist.","Method with id ""%1"" does not exist."
@@ -161,7 +170,6 @@ Catalog,Catalog
 "Days only (rounded)","Days only (rounded)"
 "Hours only","Hours only"
 "Days with Hours","Days with Hours"
-"Select Country","Select Country"
 Overwrite,Overwrite
 Sum,Sum
 "Use Rate with Max Priority","Use Rate with Max Priority"
@@ -172,26 +180,36 @@ Sum,Sum
 "Overwrite Amount (Fixed)","Overwrite Amount (Fixed)"
 "Overwrite Amount (Percent)","Overwrite Amount (Percent)"
 "Shipping Cost per Product","Shipping Cost per Product"
+"Shipping Cost per Product Qty after X Qty","Shipping Cost per Product Qty after X Qty"
 "Shipping Cost Per Item","Shipping Cost Per Item"
+"Shipping Cost Per Item after X Items","Shipping Cost Per Item after X Items"
 "Shipping Cost Per 1 Unit of Weight","Shipping Cost Per 1 Unit of Weight"
+"Shipping Cost Per 1 Unit of Weight after X Units of Weight","Shipping Cost Per 1 Unit of Weight after X Units of Weight"
 "Shipping Surcharge","Shipping Surcharge"
 "Add Surcharge (Fixed)","Add Surcharge (Fixed)"
 "Add Surcharge (Percent)","Add Surcharge (Percent)"
 "Shipping Surcharge per Product","Shipping Surcharge per Product"
+"Shipping Surcharge per Product after X Qty","Shipping Surcharge per Product after X Qty"
 "Shipping Surcharge per Item","Shipping Surcharge per Item"
+"Shipping Surcharge per Item after X Items","Shipping Surcharge per Item after X Items"
 "Shipping Surcharge per 1 Unit of Weight","Shipping Surcharge per 1 Unit of Weight"
+"Shipping Surcharge Per 1 Unit of Weight after X Units of Weight","Shipping Surcharge Per 1 Unit of Weight after X Units of Weight"
 "Shipping Discount","Shipping Discount"
 "Add Discount (Fixed)","Add Discount (Fixed)"
 "Add Discount (Percent)","Add Discount (Percent)"
 "Shipping Discount per Product","Shipping Discount per Product"
+"Shipping Discount per Product after X Qty","Shipping Discount per Product after X Qty"
 "Shipping Discount per Item","Shipping Discount per Item"
+"Shipping Discount per Item after X Items","Shipping Discount per Item after X Items"
 "Shipping Discount per 1 Unit of Weight","Shipping Discount per 1 Unit of Weight"
+"Shipping Discount Per 1 Unit of Weight after X Units of Weight","Shipping Discount Per 1 Unit of Weight after X Units of Weight"
 "Could not save the Pop-up Zone: %1","Could not save the Pop-up Zone: %1"
 "Pop-up Zone with id ""%1"" does not exist.","Pop-up Zone with id ""%1"" does not exist."
 "Could not delete the Pop-up Zone: %1","Could not delete the Pop-up Zone: %1"
 "IE Type","IE Type"
 "Invalid file upload attempt.","Invalid file upload attempt."
 "Unrecognized method %1","Unrecognized method %1"
+"Import row with index %1 fails because it cause the error: %2","Import row with index %1 fails because it cause the error: %2"
 "Carrier with the code %1 does not exists","Carrier with the code %1 does not exists"
 "Method with the code %1 does not exists","Method with the code %1 does not exists"
 "Sorry, but we can't deliver to the destination country with this shipping module.","Sorry, but we can't deliver to the destination country with this shipping module."
@@ -199,6 +217,11 @@ Sum,Sum
 "Region with id ""%1"" does not exist.","Region with id ""%1"" does not exist."
 "Could not delete the region: %1","Could not delete the region: %1"
 "There is no information about associated entity type ""%1"".","There is no information about associated entity type ""%1""."
+"Carrier Code is required","Carrier Code is required"
+"Method Code is required","Method Code is required"
+"Corresponding Carrier Code is required","Corresponding Carrier Code is required"
+"Rate Code is required","Rate Code is required"
+"Corresponding Method Code is required","Corresponding Method Code is required"
 "Subtotal (base)","Subtotal (base)"
 "Subtotal with Discount (base)","Subtotal with Discount (base)"
 "Discount (base)","Discount (base)"
@@ -225,6 +248,7 @@ FOUND,FOUND
 "NOT FOUND","NOT FOUND"
 "total quantity","total quantity"
 "total amount","total amount"
+"total weight","total weight"
 is,is
 "is not","is not"
 "greater than","greater than"
@@ -250,15 +274,16 @@ Edit,Edit
 Delete,Delete
 "Delete ""${ $.$data.name }""","Delete ""${ $.$data.name }"""
 "Are you sure you wan't to delete the carrier ""${ $.$data.name }"" ?","Are you sure you wan't to delete the carrier ""${ $.$data.name }"" ?"
+"Any Country","Any Country"
 "Are you sure you wan't to delete the zone ""${ $.$data.name }"" ?","Are you sure you wan't to delete the zone ""${ $.$data.name }"" ?"
 "Delete ""${ $.$data.title }""","Delete ""${ $.$data.title }"""
 "Are you sure you wan't to delete the method ""${ $.$data.title }"" ?","Are you sure you wan't to delete the method ""${ $.$data.title }"" ?"
 "Are you sure you wan't to delete the rate ""${ $.$data.title }"" ?","Are you sure you wan't to delete the rate ""${ $.$data.title }"" ?"
 "Are you sure you wan't to delete the region ""${ $.$data.name }"" ?","Are you sure you wan't to delete the region ""${ $.$data.name }"" ?"
+"Any Region","Any Region"
 "Are you sure you wan't to delete the rule ""${ $.$data.name }"" ?","Are you sure you wan't to delete the rule ""${ $.$data.name }"" ?"
 %1,%1
 Id,Id
-"Default Title","Default Title"
 "Is Active","Is Active"
 "System Name","System Name"
 "Carrier Code","Carrier Code"
@@ -275,8 +300,11 @@ Carrier,Carrier
 Method,Method
 Import,Import
 Export,Export
-"Export Example Data","Export Example Data"
+"Download example CSV file","Download example CSV file"
+Download,Download
 "Time Range: ","Time Range: "
+"Field ","Field "
+" is required."," is required."
 "Save Changes","Save Changes"
 "Shipping Zone","Shipping Zone"
 Country,Country
@@ -299,12 +327,18 @@ Enabled,Enabled
 "Advanced Postcode Validation: Is Enabled","Advanced Postcode Validation: Is Enabled"
 "Advanced Postcode Validation: excessive data means postcode is valid","Advanced Postcode Validation: excessive data means postcode is valid"
 "One and only one zone can be set for the address in one time (most prioritized zone from available)","One and only one zone can be set for the address in one time (most prioritized zone from available)"
+"Enable extended country select in the rule conditions","Enable extended country select in the rule conditions"
+"These settings adds geo regions to the country selection options.","These settings adds geo regions to the country selection options."
+"Enable advanced conditions for United Kingdom postcodes validation","Enable advanced conditions for United Kingdom postcodes validation"
+"In the Shipping Rules and Locations Groups these settings add next new conditions: incode, outcode, area, district, sector, unit. It is compatible with other postcode validation settings and features (like % or ? and compare ""part by part"").","In the Shipping Rules and Locations Groups these settings add next new conditions: incode, outcode, area, district, sector, unit. It is compatible with other postcode validation settings and features (like % or ? and compare ""part by part"")."
 "Shipping Methods Settings","Shipping Methods Settings"
 "Rename Shipping Methods","Rename Shipping Methods"
 "Display the Cheapest Shipping Method at the Top. Other methods will be displayed next ascending by price from low to high.","Display the Cheapest Shipping Method at the Top. Other methods will be displayed next ascending by price from low to high."
 "Popup Configuration","Popup Configuration"
 "Display Shipping Zones Popup","Display Shipping Zones Popup"
 "Display Only Country & Region Fields","Display Only Country & Region Fields"
+"Import/Export Configuration","Import/Export Configuration"
+"Use the ID field to bind fields during the import-export process","Use the ID field to bind fields during the import-export process"
 "Countries by Region Configuration","Countries by Region Configuration"
 Africa,Africa
 "North America","North America"
@@ -340,8 +374,10 @@ Europe,Europe
                     Warning: please, do not change anything in these settings in case you are not sure what these settings are designed to.","These settings are designed to make the search for the extension issues in your shop easier.
                     Warning: please, do not change anything in these settings in case you are not sure what these settings are designed to."
 "Resolve Address Parameters from API Request","Resolve Address Parameters from API Request"
+"Enable shipping rules logger","Enable shipping rules logger"
 Labels,Labels
 "Add New Carrier","Add New Carrier"
+Select...,Select...
 "Delete items","Delete items"
 "Are you sure you want to delete selected items?","Are you sure you want to delete selected items?"
 "Change Status","Change Status"
@@ -352,7 +388,6 @@ Code,Code
 "Pop-up Zone Information","Pop-up Zone Information"
 Name,Name
 "Add New Zone","Add New Zone"
-Select...,Select...
 "You really want to change the status of the chosen zones?","You really want to change the status of the chosen zones?"
 Image,Image
 Created,Created
@@ -501,7 +536,6 @@ Updated,Updated
 
                         {{min_days}} will output 5 hours 10 minutes {{max_days}} will output 6 {{min_hours}} will output nothing {{max_hours}} will output nothing
                     "
-Rates,Rates
 "Estimated Delivery Time Messages","Estimated Delivery Time Messages"
 "Add New Method","Add New Method"
 "You really want to change the status of the chosen methods?","You really want to change the status of the chosen methods?"
@@ -517,6 +551,7 @@ No,No
 "Replace Estimated Delivery Time","Replace Estimated Delivery Time"
 "You really want to change the status of the chosen rules?","You really want to change the status of the chosen rules?"
 "Rate Information","Rate Information"
+"Unique Code","Unique Code"
 "
                         The Rate with a max priority (e.g. 999)
                         will be applied first, then will be applied the Rate with a lower priority (e.g. 100).
@@ -535,8 +570,9 @@ No,No
                         resulted price of the rate.
                     "
 "Region (plain text)","Region (plain text)"
-"Zip From","Zip From"
-"Zip To","Zip To"
+"ZIP From","ZIP From"
+"If you want to add only specific ZIP codes please put them into ZIP From field and leave ZIP To field empty. Use comma to separate values. Use exclamation point to deny necessary zip codes. For example, !90210","If you want to add only specific ZIP codes please put them into ZIP From field and leave ZIP To field empty. Use comma to separate values. Use exclamation point to deny necessary zip codes. For example, !90210"
+"ZIP To","ZIP To"
 "Total Price From","Total Price From"
 "Total Price To","Total Price To"
 "Total Qty From","Total Qty From"

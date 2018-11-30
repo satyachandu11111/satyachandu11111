@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2017 MageWorx. All rights reserved.
+ * Copyright © MageWorx. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -66,6 +66,7 @@ abstract class AbstractCollection extends \Magento\Framework\Model\ResourceModel
                 $entityInfo['linked_table_id_field'],
                 []
             );
+            $this->getSelect()->distinct(true);
         }
     }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Copyright © 2017 MageWorx. All rights reserved.
+ * Copyright © MageWorx. All rights reserved.
  * See LICENSE.txt for license details.
  */
  -->
@@ -85,8 +85,11 @@
             <argument name="map" xsi:type="array">
                 <item name="amount" xsi:type="string">MageWorx\ShippingRules\Model\Rule\Action\Rate\Amount</item>
                 <item name="item" xsi:type="string">MageWorx\ShippingRules\Model\Rule\Action\Rate\PerItem</item>
+                <item name="xitem" xsi:type="string">MageWorx\ShippingRules\Model\Rule\Action\Rate\PerItemAfterX</item>
                 <item name="product" xsi:type="string">MageWorx\ShippingRules\Model\Rule\Action\Rate\PerProduct</item>
+                <item name="xproduct" xsi:type="string">MageWorx\ShippingRules\Model\Rule\Action\Rate\PerProductAfterX</item>
                 <item name="weight" xsi:type="string">MageWorx\ShippingRules\Model\Rule\Action\Rate\PerUnitOfWeight</item>
+                <item name="xweight" xsi:type="string">MageWorx\ShippingRules\Model\Rule\Action\Rate\PerUnitOfWeightAfterX</item>
                 <item name="selected" xsi:type="string">MageWorx\ShippingRules\Model\Rule\Action\Rate\PerSelectedItem</item>
             </argument>
         </arguments>

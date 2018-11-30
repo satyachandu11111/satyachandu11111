@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2017 MageWorx. All rights reserved.
+ * Copyright © MageWorx. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -131,6 +131,12 @@ class Actions extends \Magento\Backend\Block\Widget\Form\Generic implements
             $sortOrderKey = 'amount_' . $amountKey . '_sort';
             $sortOrderValue = (int)$amountData['sort'] * 1;
             $model->setData($sortOrderKey, $sortOrderValue);
+
+            if (isset($amountData['condition'])) {
+                $conditionKey = 'amount_' . $amountKey . '_condition';
+                $conditionValue = $amountData['condition'];
+                $model->setData($conditionKey, $conditionValue);
+            }
         }
 
         return $model;
@@ -164,6 +170,11 @@ class Actions extends \Magento\Backend\Block\Widget\Form\Generic implements
 
         $this->_eventManager->dispatch('adminhtml_block_shippingrules_actions_prepareform', ['form' => $form]);
 
+        /**
+         * If you cant see corresponding value in the form
+         * @see \MageWorx\ShippingRules\Block\Adminhtml\Shippingrules\Quote\Edit\Tab\Actions::_prepareModel()
+         * method for custom data processing
+         */
         $form->setValues($model->getData());
 
         $this->setForm($form);
@@ -557,6 +568,47 @@ class Actions extends \Magento\Backend\Block\Widget\Form\Generic implements
                         'label' => 'Sort order',
                     ]
                 );
+
+                $actionKeyParts = explode('_', $action['value']);
+                $actionType = array_pop($actionKeyParts);
+                if ($actionType === Rule::ACTION_TYPE_PER_WEIGHT_UNIT_AFTER_X) {
+                    $fieldset->addField(
+                        'amount_' . $action['value'] . '_condition',
+                        'text',
+                        [
+                            'name' => 'amount[' . $action['value'] . '][condition]',
+                            'required' => false,
+                            'class' => $class,
+                            'label' => 'After X Units',
+                        ]
+                    );
+                }
+
+                if ($actionType === Rule::ACTION_TYPE_PER_QTY_OF_ITEM_AFTER_X) {
+                    $fieldset->addField(
+                        'amount_' . $action['value'] . '_condition',
+                        'text',
+                        [
+                            'name' => 'amount[' . $action['value'] . '][condition]',
+                            'required' => false,
+                            'class' => $class,
+                            'label' => 'After X Qty (overall)',
+                        ]
+                    );
+                }
+
+                if ($actionType === Rule::ACTION_TYPE_PER_ITEM_AFTER_X) {
+                    $fieldset->addField(
+                        'amount_' . $action['value'] . '_condition',
+                        'text',
+                        [
+                            'name' => 'amount[' . $action['value'] . '][condition]',
+                            'required' => false,
+                            'class' => $class,
+                            'label' => 'After X Items',
+                        ]
+                    );
+                }
             }
         }
     }

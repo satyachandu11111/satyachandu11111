@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2017 MageWorx. All rights reserved.
+ * Copyright © MageWorx. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -24,13 +24,20 @@ class Location implements SectionSourceInterface
     protected $addressResolver;
 
     /**
+     * @var \MageWorx\ShippingRules\Helper\Data
+     */
+    private $helper;
+
+    /**
      * Location constructor.
      * @param AddressResolverInterface $addressResolver
      */
     public function __construct(
-        AddressResolverInterface $addressResolver
+        AddressResolverInterface $addressResolver,
+        \MageWorx\ShippingRules\Helper\Data $helper
     ) {
         $this->addressResolver = $addressResolver;
+        $this->helper = $helper;
     }
 
     /**
@@ -38,6 +45,11 @@ class Location implements SectionSourceInterface
      */
     public function getSectionData()
     {
+        // Do nothing with customers data when popup disabled
+        if (!$this->helper->isEnabledPopup()) {
+            return [];
+        }
+
         $data = [
             'country_code' => $this->addressResolver->getCountryId(),
             'country' => $this->addressResolver->getCountryName(),
