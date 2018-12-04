@@ -3798,7 +3798,7 @@ transition: all 5ms ease-in-out 0s;
 			padding: .2rem .8rem .2rem .8rem;
 			color:@white;
 			margin-top: .1rem;
-			background: @danger
+			background: @danger;
 		}
 	}
 	
@@ -3811,8 +3811,13 @@ transition: all 5ms ease-in-out 0s;
 		width: 75%;
 		float: right;
 		
+		@media @1100{
+			width: 69%;
+		}
+		
 		@media @991{
 			float: right;
+			width: 75%;
 		}
 
 		@media @767{
@@ -6196,6 +6201,11 @@ transition: all 5ms ease-in-out 0s;
 	  width: 425px;
 	  margin-bottom: 2rem;
 		
+		
+		@media @991{
+			width: 100%;
+		}
+		
 		h2 {
 		  color: #1c1c1c;
 		  font-weight: 500;
@@ -6276,6 +6286,17 @@ transition: all 5ms ease-in-out 0s;
 	  width: 62%;
 	  padding-top: 46px;
 		
+		@media @1100{
+			width: 52%;
+			padding-top: 2.8rem;
+		}
+		
+		@media @991{
+			width: 100%;
+			margin-bottom: 2rem;
+			padding-top: 0;
+		}
+		
 		
 		.sample-caption {
 		  background-position: 0 -1268px;
@@ -6304,6 +6325,18 @@ transition: all 5ms ease-in-out 0s;
 			  padding: 15px;
 			  width: 46%;
 			  position: relative;
+				
+				@media @1100{
+					width: 100%;
+				}
+				
+				@media @991{
+					width: 45%;
+				}
+				
+				@media @767{
+					width: 100%;
+				}
 			}
 			.media-left {
 			  float: left;
@@ -6316,6 +6349,14 @@ transition: all 5ms ease-in-out 0s;
 			  float: left;
 			  line-height: 18px;
 			  width: 52%;
+				
+				@media @1100{
+					width: 80%;
+				}
+				
+				@media @991{
+					width: 75%;
+				}
 			}
 			.media-body .sampleitem {
 			  font-weight: 500;

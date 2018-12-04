@@ -895,6 +895,20 @@ table > thead > tr > th, table > tbody > tr > th, table > tfoot > tr > th, table
 		width: 20%;
 	 }
 }
+
+
+@media only screen and (max-width: 1100px) {
+
+  .rating-review .rating-section ul li:nth-child(2) {
+	text-align: center;
+	padding-top: 40px;
+	width: 32%;
+  }
+	  .rating-review .rating-section ul li:nth-child(4) {
+	width: 19%;
+  }
+}
+
 @media only screen and (max-width: 991px) {
   #customer-reviews dl dt {
     width: 20%;
