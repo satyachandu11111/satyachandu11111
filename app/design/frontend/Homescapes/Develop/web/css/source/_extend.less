@@ -2343,7 +2343,9 @@ transition: all 5ms ease-in-out 0s;
     }
 	}
 }
-
+#ShopbyColor{
+	margin-bottom: 2rem;
+}
 @media (min-width: 768px) {
 	
 	#ShopbyColor{
@@ -7508,7 +7510,8 @@ transition: all 5ms ease-in-out 0s;
 		margin-bottom: 2.5rem;
 	}
 	@media @479{
-		max-width: 16rem;
+		max-width: 17rem;
+		margin-bottom: 2rem;
 	}
 	
 }
@@ -7532,6 +7535,10 @@ transition: all 5ms ease-in-out 0s;
 			background:@f5light;
 			margin-bottom: 1rem;
 			line-height: 0;
+			
+			@media @850{
+				margin-bottom: 2rem;
+			}
 
 			.pro-content {
 				display: inline-block;
@@ -7565,11 +7572,26 @@ transition: all 5ms ease-in-out 0s;
 		}
 	}
 
+	
+	
 	ul:nth-child(2) li {
 		margin-bottom: 1rem;
 		
+		@media @850{
+			margin-bottom: 2rem;
+		}
+		
 		.pro-content {
 			width: 55%;
+			
+			@media @850{
+				width: 70%;
+			}
+			
+			@media @639{
+				width: 94%;
+				margin: 3%;
+			}
 			
 			p{
 				line-height: 1.7;
@@ -7591,7 +7613,11 @@ transition: all 5ms ease-in-out 0s;
 			display: inline-block;
 			
 			@media @850{
-				width: 22%;
+				width: 18%;
+			}
+			
+			@media @639{
+				width: 100%;
 			}
 		}
 	}
@@ -7627,8 +7653,14 @@ transition: all 5ms ease-in-out 0s;
 		width: 100%;
 		margin: 0;
 		left: 0;
+		
+		@media @639{
+			padding: 1rem;
+		}
 	}
-
+	ul:nth-child(4) li{
+		margin-bottom: 0;
+	}
 }
 
 
@@ -7850,6 +7882,9 @@ transition: all 5ms ease-in-out 0s;
 				@media @991{
 					width: 56%;
 				}
+				@media @639{
+					width: 100%;
+				}
 			}
 			.links{
 				float: right;
@@ -7857,6 +7892,9 @@ transition: all 5ms ease-in-out 0s;
 				
 				@media @991{
 					width: 41%;
+				}
+				@media @639{
+					display: none;
 				}
 				
 				ul li{
@@ -8121,6 +8159,10 @@ transition: all 5ms ease-in-out 0s;
 	float: left;
 	width: 100%;
 	
+	@media @767{
+		margin-bottom: 1rem;
+	}
+	
 	h4{
 		font-size: @font26;
 	}
@@ -8144,15 +8186,11 @@ transition: all 5ms ease-in-out 0s;
 			text-align: center;
 			
 			@media @991{
-				width: 31%;
-				margin: 0 1% 2% 1%;
-				min-height: 40rem;
-			}
-			
-			@media @767{
 				width: 48%;
+				margin: 0 1% 2% 1%;
 				min-height: 43rem;
 			}
+			
 			@media @639{
 				width: 100%;
 				margin: 0 0 2% 0;
@@ -8164,8 +8202,12 @@ transition: all 5ms ease-in-out 0s;
 			}
 			h4{
 				font-size: @font16;
-				font-weight: 500;
+				font-weight: 600;
 				margin: 1rem 0;
+				
+				@media @767{
+					font-weight: 500;
+				}
 			}
 			p{
 				margin-bottom: 1rem;
@@ -9277,6 +9319,12 @@ transition: all 5ms ease-in-out 0s;
 --------------------------------------------------------------------------*/ 
 .bedding-quick-block{
 	margin: 2rem auto;
+	
+	@media @991{
+		margin-bottom: 0;
+	}
+	
+	
 	.deliveries {
 		display: block;
 		float: left;
