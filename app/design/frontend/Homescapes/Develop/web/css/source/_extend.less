@@ -543,7 +543,7 @@ h6, .h6 {
 			margin: auto;
 		}
 		@media @479{
-			max-width: 32.5rem;
+			max-width: 35.5rem;
 		}
 		
 		.block-content{
@@ -629,7 +629,7 @@ h6, .h6 {
 			@media @767{
 				float: none;
 				margin:auto;
-				width: 7.7rem;
+				width: 9.7rem;
 				cursor: pointer;
 				
 			}
@@ -971,6 +971,10 @@ transition: all 5ms ease-in-out 0s;
   width: 60%;
   right: auto !important;
   left: auto!important;
+	
+	@media @1100{
+		width: 75%;
+	}
 
 }
 .menu40L {
@@ -983,6 +987,10 @@ transition: all 5ms ease-in-out 0s;
   width: 20%;
   right: auto !important;
   left: auto!important;
+	
+	@media @1100{
+		width: 30%;
+	}
 
 }
 .menu75R {
@@ -1001,7 +1009,17 @@ transition: all 5ms ease-in-out 0s;
   width: 55%;
   right: 0 !important;
   left: auto !important;
+	
+	@media @1100{
+		width: 75%;
+	}
 }
+.menu20L, .menu40L, .menu60L{
+	@media @991{
+		width: 100%;
+	}
+}
+
 .menu55R, .menu85R, .menu75R, .menu75L{
 	@media @1100{
 		width: 100%;
