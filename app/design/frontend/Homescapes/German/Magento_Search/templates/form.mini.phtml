@@ -1,0 +1,121 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+?>
+<?php
+/** @var $block \Magento\Framework\View\Element\Template */
+/** @var $helper \Magento\Search\Helper\Data */
+$helper = $this->helper(\Magento\Search\Helper\Data::class);
+?>
+
+<div class="mobile-bar">
+<div class="block block-search">
+	
+	
+	
+
+	
+		<div class="block block-title"><strong><?= /* @escapeNotVerified */ __('Search') ?></strong></div>
+		<div class="block block-content">
+			<form class="form minisearch" id="search_mini_form" action="<?= /* @escapeNotVerified */ $helper->getResultUrl() ?>" method="get">
+				<div class="field search">
+					<label class="label" for="search" data-role="minisearch-label">
+						<span><?= /* @escapeNotVerified */ __('Search') ?></span>
+					</label>
+					<div class="control">
+						<input id="search"
+							   data-mage-init='{"quickSearch":{
+									"formSelector":"#search_mini_form",
+									"url":"<?= /* @escapeNotVerified */ $helper->getSuggestUrl()?>",
+									"destinationSelector":"#search_autocomplete"}
+							   }'
+							   type="text"
+							   name="<?= /* @escapeNotVerified */ $helper->getQueryParamName() ?>"
+							   value="<?= /* @escapeNotVerified */ $helper->getEscapedQueryText() ?>"
+							   placeholder="<?= /* @escapeNotVerified */ __('Search entire store here...') ?>"
+							   class="input-text"
+							   maxlength="<?= /* @escapeNotVerified */ $helper->getMaxQueryLength() ?>"
+							   role="combobox"
+							   aria-haspopup="false"
+							   aria-autocomplete="both"
+							   autocomplete="off"/>
+						<div id="search_autocomplete" class="search-autocomplete"></div>
+						<?= $block->getChildHtml() ?>
+					</div>
+				</div>
+				<div class="actions">
+					<button type="submit"
+							title="<?= $block->escapeHtml(__('Search')) ?>"
+							class="action search">
+						<span><?= /* @escapeNotVerified */ __('Search') ?></span>
+					</button>
+				</div>
+			</form>
+		</div>
+		
+		<span class="mobile-visible">|</span>
+	
+		<!--<div class="custom-links">
+			<ul class="mobile-visible">
+
+				<li>
+					<a href="{{store url=''}}blog">
+						<i class="fa fa-book"></i> Read Our Blog
+					</a>
+				</li>
+				<span class="mobile-visible">|</span>
+				<li>
+					<a href="{{store url=''}}track-your-order">
+						<i class="fas fa-map-marker-alt"></i> <?php echo __('Track Order') ?> 
+					</a>
+				</li>
+
+			</ul>
+		</div>
+	
+		<span class="mobile-visible">|</span>-->
+	
+		<div class="user-account">	
+			<ul class="mobile-visible">
+
+				<ul class="quick-links">
+				    <li class="links-container">
+				        <i class="fa fa-user"></i>
+				        <span data-mage-init='{"dropdown":{}}' data-toggle="dropdown"><?php echo __('My Account') ?></span>
+				        <div class="customer-menu" data-target="dropdown">
+				            <ul class="header links mobiledropdown">
+				                <li class="first"></li>
+				                <li class="second"></li>
+				            </ul>
+				        </div>
+				    </li>
+				</ul>
+
+			</ul>
+	
+		</div>
+	
+</div>
+</div>
+
+<script type="text/javascript">
+require(['jquery', 'jquery/ui'], function($){ 
+
+	if ($('.link.wishlist').length > 0) {
+
+		$('.header.links.mobiledropdown').html('<li class="first"><a href="<?php echo $block->getUrl('wishlist/'); ?>">My Wish List</a></li><li class="second"><a href="<?php echo $block->getUrl('customer/account/logout/'); ?>">Sign Out</a></li>');
+		
+	}else{
+
+		$('.header.links.mobiledropdown').html('<li class="first"><a href="<?php echo $block->getUrl('customer/account/login/'); ?>">Sign In</a></li><li class="second"><a href="<?php echo $block->getUrl('customer/account/create/'); ?>">Create an Account</a></li>');
+
+	}
+});
+
+</script>
+
+
