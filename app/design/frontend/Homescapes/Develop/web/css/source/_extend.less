@@ -1939,13 +1939,21 @@ transition: all 5ms ease-in-out 0s;
 	
 	h2{
 		font-size: @font18;
-		font-weight: 500;
+		font-weight: 600;
 		margin-bottom: 5px;
+		
+		@media @767{
+			font-weight: 500;
+		}
 	}
 	h3{
 		font-size:@font16;
-		font-weight: 500;
+		font-weight: 600;
 		margin-bottom: 10px;
+		
+		@media @767{
+			font-weight: 500;
+		}
 	}
 	p{
 		font-size: @font16;
@@ -4514,7 +4522,7 @@ transition: all 5ms ease-in-out 0s;
 		@media @479{
 			float: right;
 			width: 75%;
-			padding: 0rem;
+			padding: .5rem 0rem;
 			display: flex;
 		}
 		
@@ -4527,9 +4535,10 @@ transition: all 5ms ease-in-out 0s;
 	.cart.table-wrapper .col.qty::before, .cart.table-wrapper .col.price::before, .cart.table-wrapper .col.subtotal::before, .cart.table-wrapper .col.msrp::before {
 			
 		@media @479{
-			width: 7rem;
+			width: 12rem;
 			float: left;
 			text-align: left;
+			padding: 0;
 		}
 		
 	}
@@ -8527,6 +8536,10 @@ transition: all 5ms ease-in-out 0s;
 			width: 48.8%;
 			overflow: hidden;
 
+			
+			@media @767{
+				width: 100%;
+			}
 			
 			img{
 

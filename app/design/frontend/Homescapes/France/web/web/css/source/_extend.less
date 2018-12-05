@@ -1,0 +1,285 @@
+/* LESS Document */
+
+/*--------------------------------------------------------------------------
+/ Theme Colors
+--------------------------------------------------------------------------*/
+@logo-black: #5d5d5d;
+@black: #333;
+@light-black:#626166;
+@white:#ffffff;
+
+
+@light-grey:#707070;
+@f2light:#F2F2F2;
+@f5light:#F5F5F5;
+@f9light:#F9F9F9;
+@flight:#eeeeee;
+@dlight:#dddddd;
+
+@green:#0B8643;
+
+@border-color:#CCCCCC;
+
+
+
+@border:1px solid #ccc;
+@light-border:1px solid #eee;
+
+
+
+/*--------------------------------------------------------------------------
+|  Font-size
+--------------------------------------------------------------------------*/
+
+
+
+@font16:1.6rem;
+@font18:1.8rem;
+
+@font20:2rem;
+
+@font22:2.2rem;
+@font24:2.4rem;
+
+
+@font40:4rem;
+
+
+/*--------------------------------------------------------------------------
+|  Responsive Break points
+--------------------------------------------------------------------------*/
+
+
+
+@479: ~"only screen and (max-width:479px)";
+
+@480: ~"only screen and (min-width:480px)";
+
+@639: ~"only screen and (max-width:639px)";
+
+@767: ~"only screen and (max-width:767px)";
+
+@991: ~"only screen and (max-width:991px)";
+
+
+
+
+/*--------------------------------------------------------------------------
+|  Reset CSS
+--------------------------------------------------------------------------*/
+
+
+
+.page-header{
+	@media @767{
+		display: flex;
+		flex-direction: column;
+	}
+	
+	.laptop-visible{
+		display: inline-block;
+		
+		@media @991{
+			display: none;
+		}
+	}
+	li.links-container.active .customer-menu{
+		display: block;
+		position: absolute;
+		padding: 1rem 0rem;
+		text-align: left;
+		line-height: @font24;
+		right: 3rem;
+		background:@white;
+		box-shadow: 0px 4px 9px@border-color;
+		z-index: 99;
+		
+		ul li a{
+			display: block;
+			padding: .2rem 1rem;
+			
+		}
+		ul li a:hover{
+			background: @f9light;
+		}
+	}
+	li.links-container .customer-menu{
+		display: none;
+	}
+	.panel.wrapper{
+		
+		@media @767{
+			height: 0rem;
+		}
+	}
+	.minicart-wrapper{
+		
+		@media @767{
+			margin-top: 15px;
+		}
+		@media @479{
+			margin-top: 13px;
+		}
+		
+	}
+	.header.content{
+		@media @767{
+			display: flex;
+			flex-direction: column;
+		}
+	}
+	.mobile-bar{
+		margin-top: 1.3rem;
+		text-align: center;
+		background: @f9light;
+		
+		@media @639{
+			margin-top: 0;
+		}
+	}
+	.block-search{
+		
+		@media @767{
+			padding-top:0;
+			text-align: center;
+			line-height: @font40;
+			max-width: 46.5rem;
+			margin: auto;
+		}
+		@media @479{
+			max-width: 32.5rem;
+		}
+		
+		.block-content{
+			
+			@media @767{
+				padding: 0 1rem;
+				float: left;
+			}
+			@media @479{
+				padding: 0 .5rem;
+			}
+		}
+		.custom-links{
+			
+			display:inline-block;
+			max-width: 32rem;
+			margin: auto;
+			
+			@media @639{
+				display: none;
+			}
+			
+			span{
+				@media @479{
+					display: none;
+				}
+			}
+			
+			ul{
+				
+				margin-bottom: 0;
+				
+				li:first-child{
+					@media @479{
+						display: none;
+					}
+				}
+			}
+			
+			ul li{
+				display: inline-block;
+				
+				a{
+					color: @black;
+					text-decoration: none;
+					padding:1.2rem 1rem;
+				}
+				a:hover{
+					background: @f2light;
+					color: @black;
+				}
+			}
+			
+		}
+		.user-account{
+			display: inline-block;
+			float: right;
+			padding: 0 1rem;
+			
+			ul{
+				
+				margin-bottom: 0;
+			}
+			.links-container{
+				cursor: pointer;
+			}
+			a{
+					color: @black;
+					text-decoration: none;
+				}
+		}
+		.control{
+			@media @767{
+				margin: 0;
+				position: absolute !important;
+				left: 0;
+				right: 0;
+				top: 10.6rem;
+				z-index: 99;
+				border-top: 0;
+			}
+			@media @639{
+				top: 10.2rem
+			}
+		}
+		.label{
+			@media @767{
+				float: none;
+				margin:auto;
+				width: 7.7rem;
+				cursor: pointer;
+				
+			}
+			span{
+				@media @767{
+					clip:unset;
+					height: auto;
+					width: auto;
+					color: @black;
+					position: relative;
+					margin: 0;
+				}
+				
+			}
+		}
+		.logo{
+			@media @767{
+				margin-bottom: 0;
+			}
+			@media @639{
+				margin: 0;
+			}
+		}
+		.label::before{
+			@media @767{
+				font-size: @font16;
+				color: @black;
+				line-height: @font20;
+				margin-right: 2px;
+
+
+
+
+			}
+		}
+	}
+}
+
+
+
+
+
+
+
+
