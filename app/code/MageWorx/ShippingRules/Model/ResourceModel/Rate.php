@@ -13,6 +13,7 @@ use Magento\Framework\Model\ResourceModel\Db\Context;
 use Magento\Framework\Stdlib\StringUtils;
 use MageWorx\ShippingRules\Helper\Data as Helper;
 use Magento\Store\Model\StoreManagerInterface;
+use Magento\Store\Model\StoreResolver;
 
 class Rate extends AbstractResourceModel
 {
@@ -60,11 +61,18 @@ class Rate extends AbstractResourceModel
     ];
 
     /**
+     * @var StoreResolver
+     */
+    protected $storeResolver;
+
+    /**
      * Rate constructor.
+     *
      * @param Context $context
      * @param StringUtils $string
      * @param Helper $helper
      * @param StoreManagerInterface $storeManager
+     * @param StoreResolver $storeResolver
      * @param MethodRepositoryInterface $methodRepository
      * @param string|null $connectionName
      */
@@ -73,9 +81,11 @@ class Rate extends AbstractResourceModel
         StringUtils $string,
         Helper $helper,
         StoreManagerInterface $storeManager,
+        StoreResolver $storeResolver,
         MethodRepositoryInterface $methodRepository,
         $connectionName = null
     ) {
+        $this->storeResolver = $storeResolver;
         parent::__construct($context, $string, $helper, $storeManager, $connectionName);
         $this->methodRepository = $methodRepository;
     }
@@ -122,9 +132,15 @@ class Rate extends AbstractResourceModel
         /** @var \MageWorx\ShippingRules\Model\Carrier\Method\Rate $object */
         parent::_afterLoad($object);
 
-        $storeId = $this->storeManager->getStore()->getId();
-        $label = $object->getStoreLabel($storeId);
-        if ($label) {
+        $storeId = $this->storeResolver->getCurrentStoreId();
+
+        try {
+            $label = $object->getStoreLabel($storeId);
+        } catch (LocalizedException $localizedException) {
+            $label = null;
+        }
+
+        if (!empty($label)) {
             $object->setTitle($label);
         }
 

@@ -29,22 +29,31 @@ class GetAllRates
     private $request;
 
     /**
+     * @var \MageWorx\ShippingRules\Model\Plugin\CollectValidMethods
+     */
+    private $collectValidMethodsPlugin;
+
+    /**
      * GetAllRates constructor.
+     *
      * @param \Magento\Quote\Model\Quote\Address\RateResult\ErrorFactory $errorFactory
      * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      * @param \MageWorx\ShippingRules\Helper\Data $helper
      * @param \Magento\Framework\App\Request\Http $request
+     * @param \MageWorx\ShippingRules\Model\Plugin\CollectValidMethods $collectValidMethodsPlugin
      */
     public function __construct(
         \Magento\Quote\Model\Quote\Address\RateResult\ErrorFactory $errorFactory,
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \MageWorx\ShippingRules\Helper\Data $helper,
-        \Magento\Framework\App\Request\Http $request
+        \Magento\Framework\App\Request\Http $request,
+        \MageWorx\ShippingRules\Model\Plugin\CollectValidMethods $collectValidMethodsPlugin
     ) {
         $this->errorFactory = $errorFactory;
         $this->scopeConfig = $scopeConfig;
         $this->helper = $helper;
         $this->request = $request;
+        $this->collectValidMethodsPlugin = $collectValidMethodsPlugin;
     }
 
     /**
@@ -61,8 +70,13 @@ class GetAllRates
     public function afterGetAllRates($subject, $result)
     {
         if ($this->request->getRouteName() == 'multishipping') {
+            /**
+             * This plugin should work only on the regular checkout/cart
+             */
             return $result;
         }
+
+        $availableShippingMethods = $this->collectValidMethodsPlugin->getAvailableShippingMethods();
 
         /** @var \Magento\Quote\Model\Quote\Address\RateResult\Method[] $result */
         /**
@@ -70,7 +84,9 @@ class GetAllRates
          * @var \Magento\Quote\Model\Quote\Address\RateResult\Method $rate
          */
         foreach ($result as $key => $rate) {
-            if ($rate->getIsDisabled()) {
+            $code = \MageWorx\ShippingRules\Model\Rule::getMethodCode($rate);
+            $rateIsAvailable = \in_array($code, $availableShippingMethods);
+            if ($rate->getIsDisabled() || !$rateIsAvailable) {
                 if ($rate->getShowError()) {
                     /** @var \Magento\Quote\Model\Quote\Address\RateResult\Error $error */
                     $error = $this->errorFactory->create();

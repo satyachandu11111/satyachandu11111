@@ -9,7 +9,11 @@ namespace MageWorx\ShippingRules\Model\Plugin\Shipping\Rate\Result;
 use Magento\Checkout\Model\Session;
 use MageWorx\ShippingRules\Model\RulesApplier;
 use MageWorx\ShippingRules\Model\Validator;
+use Magento\Framework\App\Request\Http as HttpRequest;
 
+/**
+ * Class Append
+ */
 class Append
 {
     /** @var Validator */
@@ -21,7 +25,7 @@ class Append
     /** @var RulesApplier */
     protected $rulesApplier;
 
-    /** @var \Magento\Customer\Model\Session  */
+    /** @var \Magento\Customer\Model\Session */
     protected $customerSession;
 
     /**
@@ -35,6 +39,11 @@ class Append
      * @var int
      */
     protected $protectionIterator = 1;
+
+    /**
+     * @var HttpRequest
+     */
+    protected $request;
 
     /**
      * @param Validator $validator
@@ -53,9 +62,10 @@ class Append
         \Magento\Backend\Model\Session\Quote $backendQuoteSession,
         \Magento\Framework\App\State $state,
         \Magento\Customer\Model\Session $customerSession,
-        \Magento\Store\Model\StoreManagerInterface $storeManager
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        HttpRequest $request
     ) {
-        $this->validator = $validator;
+        $this->validator    = $validator;
         $this->rulesApplier = $rulesApplier;
         if ($state->getAreaCode() == \Magento\Framework\App\Area::AREA_ADMINHTML) {
             $this->session = $backendQuoteSession;
@@ -63,13 +73,15 @@ class Append
             $this->session = $checkoutSession;
         }
         $this->customerSession = $customerSession;
-        $this->storeManager = $storeManager;
+        $this->storeManager    = $storeManager;
+        $this->request         = $request;
     }
 
     /**
      * Validate each shipping method before append.
      * Apply the rules action if validation was successful.
      * Can mark some rules as disabled. The disabled rules will be removed in the class
+     *
      * @see \MageWorx\ShippingRules\Observer\Sales\Quote\Address\CollectTotalsAfter
      * by checking the value of this mark in the rate object.
      *
@@ -78,6 +90,7 @@ class Append
      * @param \Magento\Shipping\Model\Rate\Result $subject
      * @param \Magento\Quote\Model\Quote\Address\RateResult\AbstractResult|\Magento\Shipping\Model\Rate\Result $result
      * @return array
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function beforeAppend($subject, $result)
     {
@@ -93,12 +106,20 @@ class Append
             return [$result];
         }
 
+        // Do not calculate rates when it's on multishipping step
+        if ($this->request->getRouteName() == 'multishipping' &&
+            $this->request->getControllerName() == 'checkout' &&
+            $this->request->getActionName() == 'addressesPost') {
+
+            return [$result];
+        }
+
         // Increase iterator to check it later when this method called anew.
         // In normal case we decrease it in the end of method (+1-1 == no recursion, method completes successfully).
         $this->protectionIterator++;
 
         // This keys needed later to obtain desired shipping rules
-        $storeId = $this->session->getStoreId() ?
+        $storeId       = $this->session->getStoreId() ?
             $this->session->getStoreId() :
             $this->storeManager->getStore()->getId();
         $customerGroup = $this->customerSession->getCustomerGroupId();

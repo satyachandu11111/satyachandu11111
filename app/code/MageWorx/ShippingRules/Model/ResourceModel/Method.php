@@ -103,9 +103,15 @@ class Method extends AbstractResourceModel
         /** @var \MageWorx\ShippingRules\Model\Carrier\Method $object */
         parent::_afterLoad($object);
         $this->addRates($object);
-        $storeId = $this->storeManager->getStore()->getId();
-        $label = $object->getStoreLabel($storeId);
-        if ($label) {
+        $storeId = $this->storeResolver->getCurrentStoreId();
+
+        try {
+            $label = $object->getStoreLabel($storeId);
+        } catch (LocalizedException $localizedException) {
+            $label = null;
+        }
+
+        if (!empty($label)) {
             $object->setTitle($label);
         }
         $edtMessage = $object->getEdtStoreSpecificMessage($storeId);
@@ -119,6 +125,8 @@ class Method extends AbstractResourceModel
     /**
      * @param AbstractModel $object
      * @return $this
+     * @throws LocalizedException
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     protected function _beforeSave(AbstractModel $object)
     {

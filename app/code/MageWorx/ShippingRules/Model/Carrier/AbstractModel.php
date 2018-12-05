@@ -11,9 +11,13 @@ use Magento\Framework\Model\Context;
 use Magento\Framework\Model\ResourceModel\AbstractResource;
 use Magento\Framework\Registry;
 use Magento\Store\Model\StoreManagerInterface;
-use Magento\Framework\App\State;
 use Magento\Framework\App\Area;
+use Magento\Store\Model\StoreResolver;
+use MageWorx\ShippingRules\Helper\Data as Helper;
 
+/**
+ * Class AbstractModel
+ */
 abstract class AbstractModel extends \Magento\Framework\Model\AbstractModel
 {
     /**
@@ -22,11 +26,23 @@ abstract class AbstractModel extends \Magento\Framework\Model\AbstractModel
     protected $storeManager;
 
     /**
+     * @var StoreResolver
+     */
+    protected $storeResolver;
+
+    /**
+     * @var Helper
+     */
+    protected $helper;
+
+    /**
      * AbstractModel constructor.
      *
      * @param Context $context
      * @param Registry $registry
      * @param StoreManagerInterface $storeManager
+     * @param StoreResolver $storeResolver
+     * @param Helper $helper
      * @param AbstractResource|null $resource
      * @param AbstractDb|null $resourceCollection
      * @param array $data
@@ -35,11 +51,15 @@ abstract class AbstractModel extends \Magento\Framework\Model\AbstractModel
         Context $context,
         Registry $registry,
         StoreManagerInterface $storeManager,
+        StoreResolver $storeResolver,
+        Helper $helper,
         AbstractResource $resource = null,
         AbstractDb $resourceCollection = null,
         array $data = []
     ) {
         $this->storeManager = $storeManager;
+        $this->storeResolver = $storeResolver;
+        $this->helper = $helper;
         parent::__construct($context, $registry, $resource, $resourceCollection, $data);
     }
 
@@ -115,7 +135,7 @@ abstract class AbstractModel extends \Magento\Framework\Model\AbstractModel
             return false;
         }
 
-        $storeId = $this->storeManager->getStore($store)->getId();
+        $storeId = $this->resolveStoreId($store);
         $labels = (array)$this->getStoreLabels();
 
         if (isset($labels[$storeId])) {
@@ -125,5 +145,28 @@ abstract class AbstractModel extends \Magento\Framework\Model\AbstractModel
         }
 
         return false;
+    }
+
+    /**
+     * Resolves the current store id according an area where it was called or using $store argument
+     *
+     * @param null $store
+     * @return int|string|null
+     */
+    public function resolveStoreId($store = null)
+    {
+        try {
+            if (!$store) {
+                $storeId = $this->storeResolver->getCurrentStoreId();
+            } elseif ($store instanceof \Magento\Store\Api\Data\StoreInterface) {
+                $storeId = $store->getId();
+            } else {
+                $storeId = $this->storeManager->getStore($store)->getId();
+            }
+        } catch (\Magento\Framework\Exception\NoSuchEntityException $noSuchEntityException) {
+            $storeId = null;
+        }
+
+        return $storeId;
     }
 }

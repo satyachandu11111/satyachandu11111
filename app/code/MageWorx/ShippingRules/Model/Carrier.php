@@ -16,7 +16,8 @@ use MageWorx\ShippingRules\Api\Data\CarrierInterface;
 use MageWorx\ShippingRules\Api\ImportExportEntity;
 use MageWorx\ShippingRules\Model\ResourceModel\Carrier as CarrierResource;
 use Zend\Stdlib\DateTime;
-use Magento\Framework\App\State;
+use Magento\Store\Model\StoreResolver;
+use MageWorx\ShippingRules\Helper\Data as Helper;
 
 /**
  * Class Carrier
@@ -72,6 +73,8 @@ class Carrier extends AbstractModel implements CarrierInterface, ImportExportEnt
      * @param Context $context
      * @param Registry $registry
      * @param StoreManagerInterface $storeManager
+     * @param StoreResolver $storeResolver
+     * @param Helper $helper
      * @param AbstractResource|null $resource
      * @param AbstractDb|null $resourceCollection
      * @param array $data
@@ -80,6 +83,8 @@ class Carrier extends AbstractModel implements CarrierInterface, ImportExportEnt
         Context $context,
         Registry $registry,
         StoreManagerInterface $storeManager,
+        StoreResolver $storeResolver,
+        Helper $helper,
         AbstractResource $resource = null,
         AbstractDb $resourceCollection = null,
         array $data = []
@@ -88,6 +93,8 @@ class Carrier extends AbstractModel implements CarrierInterface, ImportExportEnt
             $context,
             $registry,
             $storeManager,
+            $storeResolver,
+            $helper,
             $resource,
             $resourceCollection,
             $data

@@ -1,9 +1,9 @@
 {
   "name": "mageworx/module-shippingrulesmeta",
-  "version": "2.3.1",
+  "version": "2.4.0",
   "type": "metapackage",
   "require": {
-    "mageworx/module-shippingrules": "2.3.1",
+    "mageworx/module-shippingrules": "2.4.0",
     "mageworx/module-geoip": "2.1.2"
   }
 }

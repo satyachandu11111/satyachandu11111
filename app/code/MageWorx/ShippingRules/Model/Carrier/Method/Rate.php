@@ -14,7 +14,8 @@ use Magento\Quote\Model\Quote\Address\RateRequest;
 use MageWorx\ShippingRules\Model\Config\Source\Locale\Country;
 use Magento\Directory\Model\RegionFactory;
 use MageWorx\ShippingRules\Model\ResourceModel\Rate as RateResource;
-use Magento\Framework\App\State;
+use Magento\Store\Model\StoreResolver;
+use MageWorx\ShippingRules\Helper\Data as Helper;
 
 /**
  * Class Rate
@@ -62,7 +63,7 @@ class Rate extends AbstractModel implements RateInterface, ImportExportEntity
     protected $preparedCountryIdsFlag = false;
 
     /**
-     * @var \MageWorx\ShippingRules\Helper\Data
+     * @var Helper
      */
     protected $helper;
 
@@ -95,7 +96,8 @@ class Rate extends AbstractModel implements RateInterface, ImportExportEntity
      * @param \Magento\Framework\Model\Context $context
      * @param \Magento\Framework\Registry $registry
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
-     * @param \MageWorx\ShippingRules\Helper\Data $helper
+     * @param StoreResolver $storeResolver
+     * @param Helper $helper
      * @param Country $countryList
      * @param RegionFactory $regionFactory
      * @param CountryInformationAcquirerInterface $countryInformationAcquirer
@@ -107,7 +109,8 @@ class Rate extends AbstractModel implements RateInterface, ImportExportEntity
         \Magento\Framework\Model\Context $context,
         \Magento\Framework\Registry $registry,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
-        \MageWorx\ShippingRules\Helper\Data $helper,
+        StoreResolver $storeResolver,
+        Helper $helper,
         Country $countryList,
         RegionFactory $regionFactory,
         CountryInformationAcquirerInterface $countryInformationAcquirer,
@@ -120,11 +123,12 @@ class Rate extends AbstractModel implements RateInterface, ImportExportEntity
             $context,
             $registry,
             $storeManager,
+            $storeResolver,
+            $helper,
             $resource,
             $resourceCollection,
             $data
         );
-        $this->helper = $helper;
         $this->countryList = $countryList;
         $this->regionFactory = $regionFactory;
         $this->countryInformationAcquirer = $countryInformationAcquirer;

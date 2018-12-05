@@ -18,6 +18,24 @@ define([
         'postcode'
     ];
 
+    var additionalRules = {
+        'postcode': {
+            'required': true
+        },
+        'country_id': {
+            'required': true
+        },
+        'region_id': {
+            'required': true
+        },
+        'region_id_input': {
+            'required': true
+        },
+        'city': {
+            'required': true
+        }
+    };
+
     return function (origRules) {
         origRules.getObservableFields = Wrapper.wrap(
             origRules.getObservableFields,
@@ -31,6 +49,16 @@ define([
                 });
 
                 return fields;
+            }
+        );
+
+        origRules.getRules = Wrapper.wrap(
+            origRules.getRules,
+            function (originalAction) {
+                var rules = originalAction();
+                rules['mageworx'] = additionalRules;
+
+                return rules;
             }
         );
 

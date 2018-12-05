@@ -15,6 +15,22 @@ use MageWorx\ShippingRules\Model\Region as RegionModel;
 class Uninstall implements UninstallInterface
 {
     /**
+     * @var \Magento\Eav\Setup\EavSetupFactory
+     */
+    private $eavSetupFactory;
+
+    /**
+     * Uninstall constructor.
+     *
+     * @param \Magento\Eav\Setup\EavSetupFactory $eavSetupFactory
+     */
+    public function __construct(
+        \Magento\Eav\Setup\EavSetupFactory $eavSetupFactory
+    ) {
+        $this->eavSetupFactory = $eavSetupFactory;
+    }
+
+    /**
      * Module uninstall code
      *
      * @param SchemaSetupInterface $setup
@@ -39,8 +55,9 @@ class Uninstall implements UninstallInterface
 
         $this->removeExtendedRegions($setup);
         $connection->dropTable($connection->getTableName(RegionModel::EXTENDED_REGIONS_TABLE_NAME));
+        $this->removeProductAttributes();
 
-        $setup->endSetup();
+        $setup->endSetup($setup);
     }
 
     /**
@@ -59,6 +76,23 @@ class Uninstall implements UninstallInterface
         }
         if (!empty($ids)) {
             $connection->delete($regionsTable, 'region_id IN (' . implode(',', $ids) . ')');
+        }
+    }
+
+    /**
+     * @param SchemaSetupInterface $setup
+     */
+    private function removeProductAttributes(SchemaSetupInterface $setup)
+    {
+        /** @var \Magento\Eav\Setup\EavSetup $eavSetup */
+        $eavSetup = $this->eavSetupFactory->create();
+
+        $availableShippingMethodsAttribute = $eavSetup->getAttribute(
+            \Magento\Catalog\Model\Product::ENTITY,
+            'available_shipping_methods'
+        );
+        if (!empty($availableShippingMethodsAttribute)) {
+            $eavSetup->removeAttribute(\Magento\Catalog\Model\Product::ENTITY, 'available_shipping_methods');
         }
     }
 }

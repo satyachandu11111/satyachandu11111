@@ -7,6 +7,9 @@ namespace MageWorx\ShippingRules\Block\Adminhtml\Form\Field;
 
 use Magento\Shipping\Model\Config as ShippingConfig;
 
+/**
+ * Class Methods
+ */
 class Methods extends \Magento\Framework\View\Element\Html\Select
 {
     /**
@@ -70,7 +73,7 @@ class Methods extends \Magento\Framework\View\Element\Html\Select
                 continue;
             }
             $carrierMethods = $carrierModel->getAllowedMethods();
-            if (!$carrierMethods) {
+            if (!$carrierMethods || !is_array($carrierMethods)) {
                 continue;
             }
 

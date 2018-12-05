@@ -12,6 +12,7 @@ use MageWorx\ShippingRules\Model\Carrier as CarrierModel;
 use Magento\Framework\Stdlib\StringUtils;
 use MageWorx\ShippingRules\Helper\Data as Helper;
 use Magento\Store\Model\StoreManagerInterface;
+use Magento\Store\Model\StoreResolver;
 
 class Carrier extends AbstractResourceModel
 {
@@ -34,10 +35,16 @@ class Carrier extends AbstractResourceModel
     protected $methodsCollectionFactory;
 
     /**
+     * @var StoreResolver
+     */
+    protected $storeResolver;
+
+    /**
      * @param Context $context
      * @param \Magento\Framework\Stdlib\StringUtils $string
      * @param \MageWorx\ShippingRules\Helper\Data $helper
      * @param StoreManagerInterface $storeManager
+     * @param StoreResolver $storeResolver
      * @param \MageWorx\ShippingRules\Model\ResourceModel\Method\CollectionFactory $methodsCollectionFactory
      * @param string|null $connectionName
      */
@@ -46,10 +53,12 @@ class Carrier extends AbstractResourceModel
         StringUtils $string,
         Helper $helper,
         StoreManagerInterface $storeManager,
+        StoreResolver $storeResolver,
         \MageWorx\ShippingRules\Model\ResourceModel\Method\CollectionFactory $methodsCollectionFactory,
         $connectionName = null
     ) {
         $this->methodsCollectionFactory = $methodsCollectionFactory;
+        $this->storeResolver = $storeResolver;
         parent::__construct($context, $string, $helper, $storeManager, $connectionName);
     }
 
@@ -74,9 +83,15 @@ class Carrier extends AbstractResourceModel
         /** @var \MageWorx\ShippingRules\Model\Carrier $object */
         parent::_afterLoad($object);
         $this->addMethods($object);
-        $storeId = $this->storeManager->getStore()->getId();
-        $label = $object->getStoreLabel($storeId);
-        if ($label) {
+        $storeId = $this->storeResolver->getCurrentStoreId();
+
+        try {
+            $label = $object->getStoreLabel($storeId);
+        } catch (LocalizedException $localizedException) {
+            $label = null;
+        }
+
+        if (!empty($label)) {
             $object->setTitle($label);
         }
 
@@ -86,6 +101,7 @@ class Carrier extends AbstractResourceModel
     /**
      * @param AbstractModel $object
      * @return $this
+     * @throws LocalizedException
      */
     public function _beforeSave(AbstractModel $object)
     {

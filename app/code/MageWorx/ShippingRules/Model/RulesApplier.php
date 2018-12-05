@@ -9,10 +9,13 @@ namespace MageWorx\ShippingRules\Model;
 use Magento\Checkout\Model\Session;
 use Magento\Quote\Model\Quote\Address\Rate;
 use Magento\Quote\Model\Quote\Address\RateResult\Method;
+use Magento\Quote\Model\Quote\Address as QuoteAddress;
 
+/**
+ * Class RulesApplier
+ */
 class RulesApplier
 {
-
     const SORT_MULTIPLIER = 1000;
 
     /** @var Session|\Magento\Backend\Model\Session\Quote */
@@ -24,10 +27,14 @@ class RulesApplier
     /** @var Rule\Action\RateFactory */
     protected $rateFactory;
 
+    /** @var array */
     protected $shippingMethods = [];
 
     /** @var \Magento\Framework\Event\ManagerInterface */
     protected $eventManager;
+
+    /** @var QuoteAddress */
+    protected $actualShippingAddress;
 
     /**
      * @param Rule\Action\RateFactory $rateFactory
@@ -62,13 +69,16 @@ class RulesApplier
      *
      * @param Rate|Method $rate
      * @param array|ResourceModel\Rule\Collection $rules
+     * @param QuoteAddress null $address
      * @return Rate|Method
-     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    public function applyRules($rate, array $rules)
+    public function applyRules($rate, array $rules, QuoteAddress $address = null)
     {
         /** @var string $currentRate */
         $currentRate = Rule::getMethodCode($rate);
+
+        $this->setActualShippingAddress($address);
 
         $this->eventManager->dispatch(
             'mwx_start_applying_rules_process',
@@ -129,7 +139,8 @@ class RulesApplier
                         }
                         break;
                     case Rule::ACTION_CHANGE_SM_DATA:
-                        $rule->changeShippingMethodData($rate);
+                        $storeId = $this->session->getStoreId();
+                        $rule->changeShippingMethodData($rate, $storeId);
                         $this->eventManager->dispatch(
                             'mwx_rule_method_changed',
                             [
@@ -192,13 +203,13 @@ class RulesApplier
             // Do not change price for the free shipping method
             $code = Rule::getMethodCode($rate);
             if ($code === Rule::FREE_SHIPPING_CODE) {
-                return $this;
+                return $rate;
             }
 
             // Create calculator for actual action & Calculate result
             $calculator = $this->rateFactory->create($action);
             /** @var \Magento\Quote\Model\Quote\Address\RateResult\Method $rate */
-            $rate = $calculator->calculate($rule, $rate, $quote);
+            $rate = $calculator->calculate($rule, $rate, $quote, $this->getActualShippingAddress());
             $this->eventManager->dispatch(
                 'mwx_log_detailed_action',
                 [
@@ -285,7 +296,7 @@ class RulesApplier
     protected function updateShippingMethodsAvailability()
     {
 
-        /** @var \Magento\Quote\Model\Quote\Address $address */
+        /** @var QuoteAddress $address */
         $address = $this->session->getQuote()->getShippingAddress();
         $existingMethods = $address->getShippingRulesMethods();
 
@@ -311,5 +322,24 @@ class RulesApplier
         );
 
         return $this;
+    }
+
+    /**
+     * @param QuoteAddress $address
+     * @return $this
+     */
+    public function setActualShippingAddress(QuoteAddress $address = null)
+    {
+        $this->actualShippingAddress = $address;
+
+        return $this;
+    }
+
+    /**
+     * @return QuoteAddress|null
+     */
+    public function getActualShippingAddress()
+    {
+        return $this->actualShippingAddress;
     }
 }

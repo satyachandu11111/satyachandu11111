@@ -3,8 +3,10 @@
  * Copyright © MageWorx. All rights reserved.
  * See LICENSE.txt for license details.
  */
+
 namespace MageWorx\ShippingRules\Setup;
 
+use Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface;
 use Magento\Framework\ObjectManagerInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
@@ -43,6 +45,11 @@ class UpgradeData implements UpgradeDataInterface
     private $jsonSerializer;
 
     /**
+     * @var \Magento\Eav\Setup\EavSetupFactory
+     */
+    private $eavSetupFactory;
+
+    /**
      * UpgradeData constructor.
      *
      * @param MetadataPool $metadataPool
@@ -51,14 +58,16 @@ class UpgradeData implements UpgradeDataInterface
     public function __construct(
         MetadataPool $metadataPool,
         ObjectManagerInterface $objectManager,
-        \Magento\Framework\App\ProductMetadata $productMetadata
+        \Magento\Framework\App\ProductMetadata $productMetadata,
+        \Magento\Eav\Setup\EavSetupFactory $eavSetupFactory
     ) {
         $this->productMetadata = $productMetadata;
-        $this->metadataPool = $metadataPool;
+        $this->metadataPool    = $metadataPool;
         if ($this->isUsedJsonSerializedValues()) {
             $this->aggregatedFieldConverter = $objectManager->get('Magento\Framework\DB\AggregatedFieldDataConverter');
-            $this->jsonSerializer = $objectManager->get('Magento\Framework\Serialize\Serializer\Json');
+            $this->jsonSerializer           = $objectManager->get('Magento\Framework\Serialize\Serializer\Json');
         }
+        $this->eavSetupFactory = $eavSetupFactory;
     }
 
     /**
@@ -96,6 +105,10 @@ class UpgradeData implements UpgradeDataInterface
             $this->createRatesCodesFromIds($setup);
         }
 
+        if (version_compare($context->getVersion(), '2.4.0', '<')) {
+            $this->addShippingPerProductAttributes();
+        }
+
         $setup->endSetup();
     }
 
@@ -108,11 +121,11 @@ class UpgradeData implements UpgradeDataInterface
      */
     protected function addDefaultValuesForDefaultRegions(ModuleDataSetupInterface $setup)
     {
-        $connection = $setup->getConnection();
-        $regionsTable = $setup->getTable('directory_country_region');
+        $connection           = $setup->getConnection();
+        $regionsTable         = $setup->getTable('directory_country_region');
         $extendedRegionsTable = $setup->getTable(RegionModel::EXTENDED_REGIONS_TABLE_NAME);
-        $select = $connection->select()->from($regionsTable, ['region_id']);
-        $query = $connection->insertFromSelect(
+        $select               = $connection->select()->from($regionsTable, ['region_id']);
+        $query                = $connection->insertFromSelect(
             $select,
             $extendedRegionsTable,
             ['region_id'],
@@ -128,6 +141,7 @@ class UpgradeData implements UpgradeDataInterface
      * @param ModuleDataSetupInterface $setup
      *
      * @return void
+     * @throws \Magento\Framework\DB\FieldDataConversionException
      */
     protected function convertRuleSerializedDataToJson(ModuleDataSetupInterface $setup)
     {
@@ -193,6 +207,7 @@ class UpgradeData implements UpgradeDataInterface
      * @param ModuleDataSetupInterface $setup
      *
      * @return void
+     * @throws \Magento\Framework\DB\FieldDataConversionException
      */
     protected function convertZoneSerializedDataToJson(ModuleDataSetupInterface $setup)
     {
@@ -219,9 +234,56 @@ class UpgradeData implements UpgradeDataInterface
     {
         $connection = $setup->getConnection();
         $ratesTable = $setup->getTable(Carrier::RATE_TABLE_NAME);
-        $rawQuery = "UPDATE `" . $ratesTable . "` 
-        SET `rate_code`=CONCAT('rate_',`rate_id`) 
-        WHERE `rate_code` IS NULL OR `rate_code` = ''";
-        $connection->query($rawQuery);
+        $connection->update(
+            $ratesTable,
+            ['rate_code' => new \Zend_Db_Expr("CONCAT('rate_',`rate_id`)")],
+            ["`rate_code` IS NULL OR `rate_code` = ''"]
+        );
+    }
+
+    /**
+     * Adds available_shipping_methods attribute to the product EAV-model
+     */
+    private function addShippingPerProductAttributes()
+    {
+        /** @var \Magento\Eav\Setup\EavSetup $eavSetup */
+        $eavSetup = $this->eavSetupFactory->create();
+
+        $availableShippingMethodsAttribute = $eavSetup->getAttribute(
+            \Magento\Catalog\Model\Product::ENTITY,
+            'available_shipping_methods'
+        );
+        if (empty($availableShippingMethodsAttribute)) {
+            $eavSetup->addAttribute(
+                \Magento\Catalog\Model\Product::ENTITY,
+                'available_shipping_methods',
+                [
+                    'group'                    => 'General',
+                    'type'                     => 'text',
+                    'label'                    => 'Available Shipping Methods',
+                    'input'                    => 'multiselect',
+                    'required'                 => false,
+                    'sort_order'               => 40,
+                    'global'                   => ScopedAttributeInterface::SCOPE_STORE,
+                    'is_used_in_grid'          => true,
+                    'is_visible_in_grid'       => true,
+                    'is_filterable_in_grid'    => true,
+                    'visible'                  => true,
+                    'is_html_allowed_on_front' => false,
+                    'visible_on_front'         => false,
+                    'system'                   => 0,
+                    // should be 0 to access this attribute everywhere
+                    'user_defined'             => false,
+                    // should be false to prevent deleting from admin-side interface
+                    'source'                   =>
+                        \MageWorx\ShippingRules\Model\Attribute\Source\AvailableShippingMethods::class,
+                    'frontend'                 =>
+                        \MageWorx\ShippingRules\Model\Attribute\Frontend\AvailableShippingMethods::class,
+                    'backend'                  =>
+                        \MageWorx\ShippingRules\Model\Attribute\Backend\AvailableShippingMethods::class,
+                    // Extends Magento\Eav\Model\Entity\Attribute\Backend\ArrayBackend
+                ]
+            );
+        }
     }
 }

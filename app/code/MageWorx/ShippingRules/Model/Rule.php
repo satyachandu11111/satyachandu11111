@@ -6,6 +6,7 @@
 
 namespace MageWorx\ShippingRules\Model;
 
+use Magento\Framework\DataObject;
 use Magento\Quote\Model\Quote\Address;
 use Magento\Quote\Model\Quote\Address\Rate;
 use Magento\Quote\Model\Quote\Address\RateResult\Method;
@@ -96,7 +97,7 @@ class Rule extends \Magento\Rule\Model\AbstractModel implements RuleInterface, R
     /** @var \Magento\Store\Model\StoreManagerInterface */
     protected $storeManager;
 
-    /** @var \Magento\Framework\DataObject */
+    /** @var DataObject */
     protected $logData;
 
     /** @var \Magento\Framework\DataObjectFactory */
@@ -381,10 +382,11 @@ class Rule extends \Magento\Rule\Model\AbstractModel implements RuleInterface, R
     }
 
     /**
-     * @param Method $rate
+     * @param Method|Rate $rate
      * @return void
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    public function changeShippingMethodData(\Magento\Quote\Model\Quote\Address\RateResult\Method $rate)
+    public function changeShippingMethodData(DataObject $rate, $storeId = null)
     {
         /** @var string $currentRate */
         $currentRate = static::getMethodCode($rate);
@@ -399,7 +401,10 @@ class Rule extends \Magento\Rule\Model\AbstractModel implements RuleInterface, R
                 continue;
             }
 
-            $storeId = $this->storeManager->getStore()->getId();
+            if ($storeId === null) {
+                $storeId = $this->storeManager->getStore()->getId();
+            }
+
             if (!empty($methodTitleData['title_' . $storeId])) {
                 $suitableTitle = $methodTitleData['title_' . $storeId];
             } elseif (!empty($methodTitleData['title_0'])) {
@@ -667,11 +672,12 @@ class Rule extends \Magento\Rule\Model\AbstractModel implements RuleInterface, R
     /**
      * Get store specific error message
      *
-     * @param \Magento\Quote\Model\Quote\Address\RateResult\Method $rate
+     * @param Method|Rate $rate
      * @param null $storeId
      * @return mixed
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    public function getStoreSpecificErrorMessage(Method $rate, $storeId = null)
+    public function getStoreSpecificErrorMessage(DataObject $rate, $storeId = null)
     {
         if (!$storeId) {
             $storeId = $this->storeManager->getStore()->getId();
