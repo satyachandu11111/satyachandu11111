@@ -528,6 +528,10 @@ h6, .h6 {
 		margin-top: 1.3rem;
 		text-align: center;
 		background: @f9light;
+		
+		@media @639{
+			margin-top: 0;
+		}
 	}
 	.block-search{
 		
@@ -2345,6 +2349,15 @@ transition: all 5ms ease-in-out 0s;
 }
 #ShopbyColor{
 	margin-bottom: 2rem;
+	
+	img{
+		@media @767{
+			width: 30%;
+		}
+		@media @639{
+			width: 50%;
+		}
+	}
 }
 @media (min-width: 768px) {
 	
@@ -2728,6 +2741,7 @@ transition: all 5ms ease-in-out 0s;
 
 .block-viewed-products-grid{
 	margin-top: 3rem;
+	margin-bottom: 0;
 	
 	.block-title{
 		text-align: center;
@@ -3896,10 +3910,10 @@ transition: all 5ms ease-in-out 0s;
 		margin-top: 1rem;
 		float: left;
 		width: 100%;
-		margin-bottom: 0;
+		margin-bottom: 1.5rem;
 		
 		@media @767{
-			margin: 1rem 0 0 0;
+			margin: 1rem 0 1.5rem 0;
 		}
 		
 		
@@ -4159,6 +4173,7 @@ transition: all 5ms ease-in-out 0s;
 .related, .upsell{
 	float: left;
 	width: 100%;
+	margin-bottom: 0;
 }
 .rlb{
 	clear: both;
