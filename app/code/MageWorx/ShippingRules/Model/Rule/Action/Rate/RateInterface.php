@@ -10,15 +10,21 @@ use Magento\Quote\Model\Quote;
 use Magento\Quote\Model\Quote\Address\RateResult\Method;
 use MageWorx\ShippingRules\Model\Rule;
 
+/**
+ * Interface RateInterface
+ *
+ * @package MageWorx\ShippingRules\Model\Rule\Action\Rate
+ */
 interface RateInterface
 {
     /**
      * @param Rule $rule
      * @param Method $rate
      * @param Quote $quote
+     * @param Quote\Address null $address
      * @return Method
      */
-    public function calculate(Rule $rule, $rate, Quote $quote);
+    public function calculate(Rule $rule, $rate, Quote $quote, Quote\Address $address = null);
 
     /**
      * Set method of calculation:
@@ -78,6 +84,21 @@ interface RateInterface
      * @return Quote
      */
     public function getQuote();
+
+    /**
+     * Returns active shipping address by which we do calculations
+     *
+     * @return Quote\Address
+     */
+    public function getShippingAddress();
+
+    /**
+     * Set active shipping address by which we do calculations
+     *
+     * @param Quote\Address $address
+     * @return RateInterface
+     */
+    public function setShippingAddress(Quote\Address $address);
 
     /**
      * Set full amount type.

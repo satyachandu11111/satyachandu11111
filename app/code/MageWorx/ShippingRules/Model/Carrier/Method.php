@@ -16,7 +16,8 @@ use MageWorx\ShippingRules\Api\MethodEntityInterface;
 use MageWorx\ShippingRules\Api\ImportExportEntity;
 use MageWorx\ShippingRules\Model\ResourceModel\Method as MethodResourceModel;
 use MageWorx\ShippingRules\Model\ResourceModel\Rate\Collection as RatesCollection;
-use Magento\Framework\App\State;
+use Magento\Store\Model\StoreResolver;
+use MageWorx\ShippingRules\Helper\Data as Helper;
 
 /**
  * Class Method
@@ -52,6 +53,8 @@ class Method extends AbstractModel implements MethodInterface, MethodEntityInter
      * @param Context $context
      * @param Registry $registry
      * @param StoreManagerInterface $storeManager
+     * @param StoreResolver $storeResolver
+     * @param Helper $helper
      * @param AbstractResource|null $resource
      * @param AbstractDb|null $resourceCollection
      * @param mixed[] $data
@@ -60,6 +63,8 @@ class Method extends AbstractModel implements MethodInterface, MethodEntityInter
         Context $context,
         Registry $registry,
         StoreManagerInterface $storeManager,
+        StoreResolver $storeResolver,
+        Helper $helper,
         AbstractResource $resource = null,
         AbstractDb $resourceCollection = null,
         array $data = []
@@ -68,6 +73,8 @@ class Method extends AbstractModel implements MethodInterface, MethodEntityInter
             $context,
             $registry,
             $storeManager,
+            $storeResolver,
+            $helper,
             $resource,
             $resourceCollection,
             $data

@@ -25,6 +25,16 @@ class Methods implements ArrayInterface
     protected $scopeConfig;
 
     /**
+     * @var array
+     */
+    private $methodsAsArray = [];
+
+    /**
+     * @var array
+     */
+    private $methodsAsOptionArray = [];
+
+    /**
      * @param ShippingConfig $shippingConfig
      * @param ScopeConfigInterface $scopeConfig
      */
@@ -46,13 +56,18 @@ class Methods implements ArrayInterface
      */
     public function toOptionArray($isActiveOnlyFlag = false)
     {
+        $intFlag = (int)$isActiveOnlyFlag;
+        if (!empty($this->methodsAsOptionArray[$intFlag])) {
+            return $this->methodsAsOptionArray[$intFlag];
+        }
+
         $carriers = $this->shippingConfig->getAllCarriers();
         foreach ($carriers as $carrierCode => $carrierModel) {
             if (!$carrierModel->isActive() && (bool)$isActiveOnlyFlag === true) {
                 continue;
             }
             $carrierMethods = $carrierModel->getAllowedMethods();
-            if (!$carrierMethods) {
+            if (!$carrierMethods || !is_array($carrierMethods)) {
                 continue;
             }
             $carrierTitle = $this->scopeConfig->getValue(
@@ -75,6 +90,40 @@ class Methods implements ArrayInterface
             ];
         }
 
-        return $methods;
+        $this->methodsAsOptionArray[$intFlag] = $methods;
+
+        return $this->methodsAsOptionArray[$intFlag];
+    }
+
+    /**
+     * @param bool $isActiveOnlyFlag
+     * @param bool $forceRenew
+     * @return array
+     */
+    public function toArray($isActiveOnlyFlag = false, $forceRenew = false)
+    {
+        $intFlag = (int)$isActiveOnlyFlag;
+        if (!empty($this->methodsAsArray[$intFlag]) && !$forceRenew) {
+            return $this->methodsAsArray[$intFlag];
+        }
+
+        $methodsAsOptionArray = $this->toOptionArray($isActiveOnlyFlag);
+        $methodsAsArray = [];
+        foreach ($methodsAsOptionArray as $carrier) {
+            if (empty($carrier['value'])) {
+                continue;
+            }
+            $carrierMethods = $carrier['value'];
+            foreach ($carrierMethods as $carrierMethod) {
+                if (empty($carrierMethod['value'])) {
+                    continue;
+                }
+                $methodsAsArray[] = $carrierMethod['value'];
+            }
+        }
+
+        $this->methodsAsArray[$intFlag] = $methodsAsArray;
+
+        return $this->methodsAsArray[$intFlag];
     }
 }

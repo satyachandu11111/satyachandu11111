@@ -183,8 +183,8 @@ class General extends AbstractModifier
                                 'dataType' => Text::NAME,
                                 'validation' => [
                                     'required-entry' => true,
-                                    'validate-code' => true,
-                                    'min_text_len‌​gth' => 1,
+                                    'validate-alphanum' => true,
+                                    'min_text_length' => 1,
                                     'max_text_length' => 19
                                 ],
                                 'sortOrder' => 40,

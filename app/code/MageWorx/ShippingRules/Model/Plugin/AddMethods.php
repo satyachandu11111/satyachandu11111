@@ -9,6 +9,9 @@ namespace MageWorx\ShippingRules\Model\Plugin;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Store\Model\StoreResolver;
 
+/**
+ * Class AddMethods
+ */
 class AddMethods
 {
     /**
@@ -65,6 +68,7 @@ class AddMethods
         $scopeCode = null
     ) {
         $returnValue = $proceed($path, $scope, $scopeCode);
+        $filterByStore = (int)($scopeCode !== null) || $scope !== ScopeConfigInterface::SCOPE_TYPE_DEFAULT;
         if (mb_stripos($path, 'carriers') === 0) {
             $pathParts = explode('/', $path);
             $partsCount = count($pathParts);
@@ -76,16 +80,16 @@ class AddMethods
 
             switch ($partsCount) {
                 case 1:
-                    $this->prepareCarriers();
-                    $returnValue = $this->addCarriers($returnValue);
+                    $this->prepareCarriers($filterByStore);
+                    $returnValue = $this->addCarriers($returnValue, $filterByStore);
                     break;
                 case 2:
-                    $this->prepareCarriers();
+                    $this->prepareCarriers($filterByStore);
                     $code = $pathParts[1];
                     $returnValue = $this->getSpecificCarrierData($code);
                     break;
                 case 3:
-                    $this->prepareCarriers();
+                    $this->prepareCarriers($filterByStore);
                     $code = $pathParts[1];
                     $param = $pathParts[2];
                     $returnValue = $param == '' ? null : $this->getSpecificCarrierData($code, $param);
@@ -122,11 +126,12 @@ class AddMethods
      * Add all available carriers to the result
      *
      * @param $returnValue
+     * @param int $filterByStore
      * @return mixed
      */
-    protected function addCarriers($returnValue)
+    protected function addCarriers($returnValue, $filterByStore)
     {
-        foreach ($this->loadedCarriers as $carrier) {
+        foreach ($this->loadedCarriers[$filterByStore] as $carrier) {
             $code = $carrier->getData('carrier_code');
             if (isset($returnValue[$code])) {
                 continue;
@@ -140,15 +145,21 @@ class AddMethods
 
     /**
      * Prepare carriers collection & load items
+     *
+     * @param int $filterByStore
      */
-    protected function prepareCarriers()
+    protected function prepareCarriers($filterByStore)
     {
-        if (empty($this->loadedCarriers)) {
+        if (empty($this->loadedCarriers[$filterByStore])) {
             /** @var \MageWorx\ShippingRules\Model\ResourceModel\Carrier\Collection $carriersCollection */
             $this->carriersCollection = $this->carrierCollectionFactory->create();
-            $storeId = $this->storeResolver->getCurrentStoreId();
-            $this->carriersCollection->addStoreFilter($storeId);
-            $this->loadedCarriers = $this->carriersCollection->getItems();
+            if ($filterByStore) {
+                $storeId = $this->storeResolver->getCurrentStoreId();
+                $this->carriersCollection->addStoreFilter($storeId);
+            }
+            $this->loadedCarriers[$filterByStore] = $this->carriersCollection->getItems();
         }
+
+        // In case you want to display a store specific labels for backend you can do it here
     }
 }

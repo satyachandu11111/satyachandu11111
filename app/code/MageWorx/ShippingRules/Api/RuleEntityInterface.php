@@ -11,12 +11,12 @@ interface RuleEntityInterface
     /**
      * Get store specific error message
      *
-     * @param \Magento\Quote\Model\Quote\Address\RateResult\Method $rate
+     * @param \Magento\Quote\Model\Quote\Address\RateResult\Method|\Magento\Quote\Model\Quote\Address\Rate $rate
      * @param null $storeId
      * @return mixed
      */
     public function getStoreSpecificErrorMessage(
-        \Magento\Quote\Model\Quote\Address\RateResult\Method $rate,
+        \Magento\Framework\DataObject $rate,
         $storeId = null
     );
 }

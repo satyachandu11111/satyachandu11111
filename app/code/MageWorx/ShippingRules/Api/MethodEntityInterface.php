@@ -18,7 +18,8 @@ interface MethodEntityInterface
     public function validateData(DataObject $dataObject);
 
     /**
-     * Get Method label by specified store
+     * Get Method label by specified store.
+     * The $force flag make it applicable in the adminhtml area.
      *
      * @param \Magento\Store\Model\Store|int|bool|null $store
      * @return string|bool

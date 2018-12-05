@@ -11,6 +11,12 @@
                 type="MageWorx\ShippingRules\Model\Plugin\Block\Cart\Shipping"
                 sortOrder="10"
                 disabled="false"/>
+        <!-- Add default values to address on cart page -->
+        <arguments>
+            <argument name="layoutProcessors" xsi:type="array">
+                <item name="defaultAddressValues" xsi:type="object">MageWorx\ShippingRules\Block\Cart\LayoutProcessor</item>
+            </argument>
+        </arguments>
     </type>
     <type name="Magento\Multishipping\Block\Checkout\Shipping">
         <plugin name="mageworx_shippingrules_update_rate_result_multishipping"
@@ -35,13 +41,5 @@
                 type="MageWorx\ShippingRules\Model\Plugin\RegionCollection"
                 sortOrder="10"
                 disabled="false"/>
-    </type>
-    <!-- Add default values to address on cart page -->
-    <type name="Magento\Checkout\Block\Cart\Shipping">
-        <arguments>
-            <argument name="layoutProcessors" xsi:type="array">
-                <item name="defaultAddressValues" xsi:type="object">MageWorx\ShippingRules\Block\Cart\LayoutProcessor</item>
-            </argument>
-        </arguments>
     </type>
 </config>

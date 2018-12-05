@@ -8,7 +8,10 @@ namespace MageWorx\ShippingRules\Model\Plugin\Multishipping\Block\Checkout;
 
 use Magento\Checkout\Model\Session;
 use Magento\Customer\Model\Session as CustomerSession;
+use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Store\Model\StoreManagerInterface;
+use MageWorx\ShippingRules\Model\Plugin\CollectValidMethodsFactory;
+use MageWorx\ShippingRules\Model\Plugin\CollectValidMethods;
 use MageWorx\ShippingRules\Model\RulesApplier;
 use MageWorx\ShippingRules\Model\Validator;
 use MageWorx\ShippingRules\Model\ValidatorFactory;
@@ -37,24 +40,41 @@ class Shipping
     private $validatorFactory;
 
     /**
+     * @var CollectValidMethods
+     */
+    private $collectValidMethodsPlugin;
+
+    /**
+     * @var ScopeConfigInterface
+     */
+    private $scopeConfig;
+
+    /**
      * @param ValidatorFactory $validatorFactory
      * @param RulesApplier $rulesApplier
      * @param Session $checkoutSession
      * @param CustomerSession $customerSession
      * @param StoreManagerInterface $storeManager
+     * @param CollectValidMethodsFactory $collectValidMethodsPluginFactory
+     * @param ScopeConfigInterface $scopeConfig
      */
     public function __construct(
         ValidatorFactory $validatorFactory,
         RulesApplier $rulesApplier,
         Session $checkoutSession,
         CustomerSession $customerSession,
-        StoreManagerInterface $storeManager
+        StoreManagerInterface $storeManager,
+        CollectValidMethodsFactory $collectValidMethodsPluginFactory,
+        ScopeConfigInterface $scopeConfig
     ) {
         $this->validatorFactory = $validatorFactory;
         $this->rulesApplier     = $rulesApplier;
         $this->session          = $checkoutSession;
         $this->customerSession  = $customerSession;
         $this->storeManager     = $storeManager;
+        $this->scopeConfig = $scopeConfig;
+
+        $this->collectValidMethodsPlugin = $collectValidMethodsPluginFactory->create();
     }
 
     /**
@@ -79,21 +99,35 @@ class Shipping
         $this->validator->init($storeId, $customerGroup);
         $this->validator->setActualShippingAddress($address);
 
+        $addressItems             = $address->getAllItems();
+        $availableShippingMethods = $this->collectValidMethodsPlugin
+            ->collectAvailableShippingMethodsForItems($addressItems);
+
         $groupedRates = [];
         /**
          * @var int $index
          * @var \Magento\Quote\Model\Quote\Address\Rate[] $methods
          */
         foreach ($result as $index => $methods) {
+            /**
+             * @var int $methodIndex
+             * @var \Magento\Quote\Model\Quote\Address\Rate $someRate
+             */
             foreach ($methods as $methodIndex => $someRate) {
-                // Validating the result by a conditions of the each rule
-                if ($this->validator->validate($someRate)) {
-                    // Obtaining valid rules from a storage
-                    $rules = $this->validator->getAvailableRulesForRate($someRate);
-                    // Applying the valid rules one-by-one using it's sort order from high to low
-                    $someRateProcessed = $this->rulesApplier->applyRules($someRate, $rules);
-                } else {
+                $rateCode = $someRate->getData('code');
+                if ($rateCode && !in_array($rateCode, $availableShippingMethods)) {
+                    $someRate->setIsDisabled(true);
                     $someRateProcessed = $someRate;
+                } else {
+                    // Validating the result by a conditions of the each rule
+                    if ($this->validator->validate($someRate)) {
+                        // Obtaining valid rules from a storage
+                        $rules = $this->validator->getAvailableRulesForRate($someRate);
+                        // Applying the valid rules one-by-one using it's sort order from high to low
+                        $someRateProcessed = $this->rulesApplier->applyRules($someRate, $rules, $address);
+                    } else {
+                        $someRateProcessed = $someRate;
+                    }
                 }
 
                 if ($someRate->getIsDisabled()) {
@@ -112,5 +146,16 @@ class Shipping
         }
 
         return $groupedRates;
+    }
+
+    /**
+     * @param string $carrierCode
+     * @return \Magento\Framework\Phrase|string
+     */
+    private function getDefaultErrorMessage($carrierCode)
+    {
+        return $this->scopeConfig->getValue('carriers/' . $carrierCode . '/specificerrmsg') ?
+            $this->scopeConfig->getValue('carriers/' . $carrierCode . '/specificerrmsg') :
+            __('Sorry, but we can\'t deliver to the destination country with this shipping module.');
     }
 }

@@ -80,6 +80,12 @@
                 sortOrder="10"
                 disabled="false"/>
     </type>
+    <type name="Magento\Shipping\Model\Shipping">
+        <plugin name="mageworx_shippingrules_collect_valid_methods"
+                type="MageWorx\ShippingRules\Model\Plugin\CollectValidMethods"
+                sortOrder="10"
+                disabled="false"/>
+    </type>
     <type name="MageWorx\ShippingRules\Model\Rule\Action\RateFactory">
         <arguments>
             <argument name="map" xsi:type="array">

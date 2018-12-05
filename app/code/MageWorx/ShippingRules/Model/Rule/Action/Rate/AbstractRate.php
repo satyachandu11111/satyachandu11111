@@ -8,6 +8,7 @@ namespace MageWorx\ShippingRules\Model\Rule\Action\Rate;
 
 use InvalidArgumentException;
 use Magento\Checkout\Model\Session;
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Pricing\PriceCurrencyInterface;
 use Magento\Quote\Model\Quote;
 use Magento\Quote\Model\Quote\Address\RateResult\Method;
@@ -62,6 +63,11 @@ abstract class AbstractRate implements RateInterface
      * @var \Magento\Directory\Model\CurrencyFactory
      */
     protected $currencyFactory;
+
+    /**
+     * @var \Magento\Quote\Model\Quote\Address
+     */
+    protected $shippingAddress;
 
     /**
      * @param Validator $validator
@@ -128,11 +134,16 @@ abstract class AbstractRate implements RateInterface
      * @param Rule $rule
      * @param Method $rate
      * @param Quote $quote
+     * @param Quote\Address|null $address
      * @return Method
+     * @throws LocalizedException
      */
-    public function calculate(Rule $rule, $rate, Quote $quote)
+    public function calculate(Rule $rule, $rate, Quote $quote, Quote\Address $address = null)
     {
         $this->setQuote($quote);
+        if ($address) {
+            $this->setShippingAddress($address);
+        }
         $this->setRate($rate);
         $this->prepareValidItems($rule);
 
@@ -161,12 +172,13 @@ abstract class AbstractRate implements RateInterface
      *
      * @param Rule $rule
      * @return $this
+     * @throws LocalizedException
      */
     protected function prepareValidItems(Rule $rule)
     {
         $logItems = [];
-        /** @var \Magento\Quote\Model\Quote\Item $item */
-        foreach ($this->getQuote()->getAllItems() as $item) {
+        /** @var \Magento\Quote\Model\Quote\Item|\Magento\Quote\Model\Quote\Address\Item $item */
+        foreach ($this->getShippingAddress()->getAllItems() as $item) {
             if (!$item->getChildren() && $this->validator->isValidItem($rule, $item)) {
                 $this->validItems[$item->getId()] = $item;
                 $logItems[$item->getId()] = [
@@ -397,6 +409,38 @@ abstract class AbstractRate implements RateInterface
         }
 
         return $this->quote;
+    }
+
+    /**
+     * Returns active shipping addresses based on which the calculation is made
+     *
+     * @return Quote\Address
+     * @throws LocalizedException
+     */
+    public function getShippingAddress()
+    {
+        if (!$this->shippingAddress) {
+            $quote = $this->getQuote();
+            if (!$quote) {
+                throw new LocalizedException(__('Unable to calculate a rate because the shipping address is not set!'));
+            }
+            $this->setShippingAddress($quote->getShippingAddress());
+        }
+
+        return $this->shippingAddress;
+    }
+
+    /**
+     * Set active shipping address by which we do calculations
+     *
+     * @param Quote\Address $address
+     * @return RateInterface
+     */
+    public function setShippingAddress(Quote\Address $address)
+    {
+        $this->shippingAddress = $address;
+
+        return $this;
     }
 
     /**

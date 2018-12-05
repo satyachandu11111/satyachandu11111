@@ -102,6 +102,10 @@ class Recurring implements InstallSchemaInterface
      */
     private function convertTableDataToJson(SchemaSetupInterface $setup, $tableName, $idColumnName)
     {
+        if (empty($this->serializableTablesData[$tableName])) {
+            return;
+        }
+
         $connection          = $setup->getConnection();
         $tableNameReal       = $setup->getTable($tableName);
         $select              = $connection->select();
