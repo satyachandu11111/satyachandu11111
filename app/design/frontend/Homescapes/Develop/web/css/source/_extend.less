@@ -899,6 +899,10 @@ transition: all 5ms ease-in-out 0s;
   background: @white;
   display: block;
   color: @black;
+	
+	@media @379{
+		white-space: normal;
+	}
 }
 .link-list li a.full-image{
 	background: @green;
@@ -1247,8 +1251,12 @@ transition: all 5ms ease-in-out 0s;
 		 margin-left: 700px;
 	 }
 	 @media @767{ 
+		margin-left: 320px;
+	 }
+	 @media @379{ 
 		margin-left: 280px;
 	 }
+	 
   }
   .wsmenu {
 	  @media @991{
@@ -1256,6 +1264,10 @@ transition: all 5ms ease-in-out 0s;
 		 left: -700px; 
 	  }
 	  @media @767{
+		 width: 320px;
+		 left: -320px; 
+	  }
+	  @media @379{
 		 width: 280px;
 		 left: -280px; 
 	  }
@@ -1266,9 +1278,12 @@ transition: all 5ms ease-in-out 0s;
 		  width: 37px;
 	  }
 	  @media @767{
-		 left: 280px;
+		 left: 320px;
 		  background: @white;
 		  border-radius: .2rem;
+	  }
+	   @media @379{
+		  left: 280px;
 	  }
  }
 
@@ -6804,6 +6819,13 @@ transition: all 5ms ease-in-out 0s;
 /*--------------------------------------------------------------------------
 |  checkout page css reset
 --------------------------------------------------------------------------*/
+.checkout-shipping-address .amazon-button-container{
+	@media @767{
+		display: none;
+	}
+}
+
+
 .checkout-index-index{
 	.page-header{
 		margin-bottom: 1.5rem;
@@ -7118,10 +7140,11 @@ transition: all 5ms ease-in-out 0s;
 		z-index: 998;
 		right: auto;
 		bottom: auto;
-		box-shadow: 0 0 .4rem @border-color;
+		box-shadow: 0 0 1rem @border-color;
 		margin-top: 1rem;
 		float: left;
-		padding-bottom: .8rem;
+		padding-bottom: 1rem;
+		padding-top: .4rem;
 		
 		
 		
@@ -7391,6 +7414,22 @@ transition: all 5ms ease-in-out 0s;
 	.columns .column.main{
 		@media @767{
 			padding-top: 1rem;
+		}
+		
+		.page-title-wrapper{
+			
+			@media @767{
+				margin-top: -5.3rem;
+				margin-bottom: 5rem;
+			}
+			
+		}
+	}
+	
+	.filter.block{
+		@media @767{
+			position: absolute;
+			width: 100%;
 		}
 	}
 	
