@@ -37,7 +37,7 @@ define([
                     };
 
         $(document).ready(function(){
-
+                $('.review-fieldset').css('display','block');
                 if ($(".block.review-add").length != 0) {
                     var popup = modal(options, $('.block.review-add'));
                     $(".reviews-actions > a.action.add , .review-popup").on('click',function(e){
