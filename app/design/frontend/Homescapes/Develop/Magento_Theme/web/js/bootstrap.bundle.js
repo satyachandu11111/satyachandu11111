@@ -6417,15 +6417,17 @@ $('#ProductCarousel').on('slide.bs.carousel', function (e) {
         $(".modal-profile").modal({show:true});
     });
 
+    // complete look and decription 
+    if ($('.complete-look').length <= 0) {
+        $('.product.info.detailed').css('width', '940px');
+      $('.product.info.detailed').css('float', 'none');
+      $('.product.info.detailed').css('margin', '0 auto 3rem auto');
+    }
+
   });					   
 							   
 	
-// complete look and decription 
-if ($('.complete-look').length <= 0) {
-    $('.product.info.detailed').css('width', '940px');
-	$('.product.info.detailed').css('float', 'none');
-	$('.product.info.detailed').css('margin', '0 auto 3rem auto');
-}
+
 
 // ---- ShopbyColor
 					   
