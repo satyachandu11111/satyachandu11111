@@ -30,7 +30,10 @@ if ($exist = ($block->getRecentlyViewedProducts() && $block->getRecentlyViewedPr
     $description = ($mode == 'list') ? true : false;
 }
 ?>
-<?php if ($exist):?>
+<?php // custom code
+ $custom_counter = $block->getRecentlyViewedProducts()->getSize(); ?>
+
+<?php if ($exist && $custom_counter > 1):?>
     <div class="block widget block-viewed-products-<?= /* @escapeNotVerified */ $mode ?>">
         <div class="block-title">
             <strong role="heading" aria-level="2"><?= /* @escapeNotVerified */ $title ?></strong>
@@ -41,6 +44,14 @@ if ($exist = ($block->getRecentlyViewedProducts() && $block->getRecentlyViewedPr
                 <ol class="product-items <?= /* @escapeNotVerified */ $type ?> recently-view-items">
                     <?php $iterator = 1; ?>
                     <?php foreach ($items as $_item): ?>
+                        <?php 
+                        // custom code for fix 
+                        if($iterator == 1)
+                        {   $iterator++ == 1;
+                            continue;
+                        }
+
+                        ?>
                         <?= /* @escapeNotVerified */ ($iterator++ == 1) ? '<li class="product-item">' : '</li><li class="product-item">' ?>
                         <div class="product-item-info">
                             <a href="<?= /* @escapeNotVerified */ $block->getProductUrl($_item) ?>" class="product-item-photo">
