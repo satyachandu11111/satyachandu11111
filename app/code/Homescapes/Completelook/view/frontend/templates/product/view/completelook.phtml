@@ -38,7 +38,13 @@ $buttonTitle = __('Add to Cart');
 						
 						
 						<div class="product-name-price">
-							<span class="name"><a href="<?php echo $_product->getProductUrl(); ?>"><?php echo $_product->getName(); ?></a></span>
+							<?php $product_url = $_product->getProductUrl();
+						           if(strpos($product_url, 'category')){
+						                if($_product->getUrlPath()){
+						                    $product_url = $this->getUrl().$_product->getUrlPath().'.html';
+						                }
+						            } ?>
+							<span class="name"><a href="<?php echo $product_url; ?>"><?php echo $_product->getName(); ?></a></span>
 							<div class="product-info-price">
 								<?php echo $block->getProductPrice($_product); ?>
                                                                 <span class="g-discount">

@@ -13,10 +13,17 @@ if(count($relatedProducts)){
         <a class="active-pro" href="#"><img src="<?php echo $block->getthumbnailImg($currentProduct); ?>" /></a>
     </li>    
     <?php  foreach($relatedProducts as $relatedProduct){ 
-           $_product = $block->getLoadProduct($relatedProduct->getId()); 
+           $_product = $block->getLoadProduct($relatedProduct->getId());
+           $product_url = $relatedProduct->getProductUrl();
+           if(strpos($product_url, 'category')){
+                if($_product->getUrlPath()){
+                    $product_url = $this->getUrl().$_product->getUrlPath().'.html';
+                }
+            }
+
         ?>         
     <li>    
-        <a href="<?php echo $_product->getProductUrl(); ?>"  ><img src="<?php echo $block->getthumbnailImg($_product); ?>" /></a>
+        <a href="<?php echo $product_url; ?>"  ><img src="<?php echo $block->getthumbnailImg($_product); ?>" /></a>
     </li>
     <?php  } ?>
     </ul>
