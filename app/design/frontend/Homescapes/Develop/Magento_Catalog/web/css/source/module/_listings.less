@@ -482,8 +482,15 @@
         &.page-layout-1column {
             .products-grid {
                 .product-item {
-                    margin-left: 0;
-                    width: 100%/5;
+					
+					
+					
+					margin-left: calc(~'(100% - 4 * 23%) / 3');
+					width: 23%;
+
+					&:nth-child(4n + 1) {
+						margin-left: 0;
+					}
                 }
             }
         }
