@@ -701,7 +701,6 @@ h6, .h6 {
   font-weight: normal;
   line-height: 18px;
 
-  font-family: Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: subpixel-antialiased;
   font-smoothing: antialiased;
   font-smooth: antialiased;
@@ -1743,8 +1742,22 @@ transition: all 5ms ease-in-out 0s;
 		}
 	}
 }
-
-
+.headeroffer{
+	
+	display: block;
+	
+	@media @991{
+		display: none;
+	}
+}
+#headeroffer{
+	
+	display: none;
+	
+	@media @991{
+		display: block;
+	}
+}
 
 
 
@@ -7109,7 +7122,7 @@ transition: all 5ms ease-in-out 0s;
 		box-shadow: none;
 	}
 }
-.products-grid ~ .toolbar-pager{
+.products-grid ~ .toolbar-pager, .products-grid ~ .toolbar-products{
 	display: none;
 }
 .toolbar select{
@@ -9459,7 +9472,7 @@ transition: all 5ms ease-in-out 0s;
 		margin-right: 1%;
 		border-right: 1px solid @dlight;
 		
-		@media @991{
+		@media @1100{
 			width: 49%;
 			border: 1px solid @dlight;
 			margin-bottom: 1rem;
@@ -9483,7 +9496,7 @@ transition: all 5ms ease-in-out 0s;
 		margin-right: 1%;
 		border-right: 1px solid @dlight;
 		
-		@media @991{
+		@media @1100{
 			width: 49%;
 			border: 1px solid @dlight;
 			margin-bottom: 1rem;
@@ -9503,7 +9516,7 @@ transition: all 5ms ease-in-out 0s;
 		margin-right: 1%;
 		border-right: 1px solid @dlight;
 		
-		@media @991{
+		@media @1100{
 			width: 49%;
 			border:1px solid @dlight;
 			padding: 1rem;
@@ -9522,7 +9535,7 @@ transition: all 5ms ease-in-out 0s;
 	.deliveries:nth-child(4) {
 		width: 21%;
 		
-		@media @991{
+		@media @1100{
 			width: 49%;
 			border:1px solid @dlight;
 			padding: 1rem;

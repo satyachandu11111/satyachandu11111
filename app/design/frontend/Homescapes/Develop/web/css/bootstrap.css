@@ -9,7 +9,7 @@
 }
 
 body, #customer-reviews .review-heading h2 {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', sans-serif !important;
 }
 
 @-ms-viewport {
@@ -71,7 +71,7 @@ ul ol {
 }
 
 dt {
-  font-weight: 700;
+  font-weight: 500;
 }
 
 dd {
