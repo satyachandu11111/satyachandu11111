@@ -81,7 +81,7 @@
             .lib-css(top, @checkout-progress-bar-item-element__width/2);
             .lib-css(transition, @checkout-progress-bar-item__transition);
             content: '';
-            height: 7px;
+            height: 5px;
             left: 0;
             position: absolute;
             width: 100%;
@@ -116,23 +116,23 @@
             &:after {
                 .lib-css(background, @checkout-progress-bar-item__background-color);
                 .lib-css(border, 1px solid @checkout-progress-bar-item-element-inner__border-color);
-                .lib-css(height, @checkout-progress-bar-item-element__height);
-                .lib-css(margin-left, -(@checkout-progress-bar-item-element__width/2));
+                height: 3.8rem;
+                margin-left: -19px;
                 .lib-css(transition, @checkout-progress-bar-item__transition);
-                .lib-css(width, @checkout-progress-bar-item-element__width);
+                width: 3.8rem;
                 border-radius: 50%;
                 content: '';
                 left: 50%;
                 position: absolute;
-                top: 0;
+                top: 1px;
             }
 
             &:after { // Item element inner
                 .lib-css(background, @checkout-progress-bar-item-element-inner__background-color);
-                .lib-css(height, @checkout-progress-bar-item-element-inner__height);
-                .lib-css(margin-left, -(@checkout-progress-bar-item-element-inner__width/2));
+                height: 2.8rem;
+                margin-left: -14px;
                 .lib-css(top, @checkout-progress-bar-item-element-outer-radius__width);
-                .lib-css(width, @checkout-progress-bar-item-element-inner__width);
+                width: 2.8rem;
                 content: counter(i);
                 counter-increment: i;
                 .lib-typography(

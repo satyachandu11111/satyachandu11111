@@ -36,7 +36,10 @@
 
 @checkout-shipping-method__border: @checkout-step-title__border;
 @checkout-shipping-method__padding: @indent__base;
+@dlight:#dddddd;
 
+
+@border-color:#CCCCCC;
 //
 //  Common
 //  _____________________________________________
@@ -44,11 +47,17 @@
 & when (@media-common = true) {
 
     .opc-wrapper {
-
+		.step-title{
+			border-bottom: 1px solid @border-color;
+		}
         //
         //  Shipping Address
         //  ---------------------------------------------
-
+		#checkout-shipping-method-load{
+			border:1px solid @dlight;
+			padding: 0 1rem;
+			margin-bottom: 2rem;
+		}
         .form-login,
         .form-shipping-address {
             .lib-css(margin-top, @checkout-shipping-address__margin-top);
