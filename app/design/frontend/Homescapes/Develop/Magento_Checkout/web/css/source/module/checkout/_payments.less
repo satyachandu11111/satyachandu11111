@@ -16,7 +16,7 @@
 @checkout-billing-address-details__line-height: 27px;
 @checkout-billing-address-details__padding: 0 0 0 23px;
 @checkout-billing-address-form__max-width: @checkout-shipping-address__max-width;
-
+@border-color:#CCCCCC;
 //
 //  Common
 //  _____________________________________________
@@ -42,7 +42,7 @@
 
             & + .payment-method {
                 .payment-method-title {
-                    .lib-css(border-top, @checkout-payment-method-title__border);
+                    border: 0;
                 }
             }
         }
@@ -62,6 +62,7 @@
         .payment-method-title {
             .lib-css(padding, @checkout-payment-method-title__padding 0);
             margin: 0;
+			border: 1px solid @border-color;
 
             .payment-icon {
                 display: inline-block;

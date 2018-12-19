@@ -15,7 +15,7 @@
 
 @checkout-summary-items__max-height: 370px;
 @checkout-summary-items__padding: 15px;
-
+@f9light:#F9F9F9;
 //
 //  Common
 //  _____________________________________________
@@ -27,7 +27,7 @@
     //  ---------------------------------------------
 
     .opc-block-summary {
-		border: 1px solid #ccc;
+		background: @f9light;
         .lib-css(margin, 0 0 @checkout-sidebar__margin);
 		padding: 1rem 2rem;
         &:extend(.abs-add-box-sizing all);
@@ -118,7 +118,7 @@
 
         //  Cart items
         .minicart-items-wrapper {
-            .lib-css(margin, 0 -(@checkout-summary-items__padding) 0 0);
+            .lib-css(margin, 0 0 1rem 0);
             .lib-css(max-height, @checkout-summary-items__max-height);
             .lib-css(padding, @checkout-summary-items__padding @checkout-summary-items__padding 0 0);
             border: 0;

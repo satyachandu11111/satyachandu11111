@@ -6887,8 +6887,19 @@ transition: all 5ms ease-in-out 0s;
 |  checkout page css reset
 --------------------------------------------------------------------------*/
 .checkout-shipping-address .amazon-button-container{
+	
+	width: 100%;
+	border-bottom: 1px solid @border-color;
+	padding-bottom: 2.5rem;
+	
 	@media @767{
 		display: none;
+	}
+	.amazon-button-container__cell{
+		float: left;
+	}
+	.field-tooltip{
+		margin: 0;
 	}
 }
 

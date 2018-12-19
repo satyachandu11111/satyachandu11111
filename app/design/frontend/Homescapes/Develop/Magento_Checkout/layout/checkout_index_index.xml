@@ -32,15 +32,10 @@
                                                     <item name="shipping-address-fieldset" xsi:type="array">
                                                         <item name="children" xsi:type="array">
                                                             <item name="company" xsi:type="array">
+																
                                                                 <item name="sortOrder" xsi:type="string">130</item>
 																
-																
-																<item name="visible" xsi:type="boolean">false</item>                                                                                                
-																<item name="validation" xsi:type="array">
-																	<item name="min_text_length" xsi:type="number">0</item>
-																</item>
-																
-																
+																<item name="visible" xsi:type="boolean">false</item> 
 																
                                                             </item>
 															
