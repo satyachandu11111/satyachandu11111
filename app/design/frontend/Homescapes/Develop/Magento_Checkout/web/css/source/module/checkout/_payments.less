@@ -42,7 +42,12 @@
 
             & + .payment-method {
                 .payment-method-title {
-                    border: 0;
+                    border: 1px solid @border-color;
+					border-top:0;
+					
+					&:last-child{
+						border-bottom: 0;
+					}
                 }
             }
         }
