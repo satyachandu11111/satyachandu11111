@@ -60,7 +60,9 @@
 @font20:2rem;
 
 @font22:2.2rem;
+@font23:2.3rem;
 @font24:2.4rem;
+@font25:2.5rem;
 @font26:2.6rem;
 @font28:2.8rem;
 
@@ -134,7 +136,7 @@ strong {
 .abs-account-block-font-size, .block-balance-giftcard .block-content, .block-addresses-list address, .box-billing-address .box-content, .box-shipping-address .box-content, .box-address-billing .box-content, .box-address-shipping .box-content, .box-information .box-content, .block-reviews-dashboard .product-name{
 	font-size: @base;
 }
-h1, h2, h3, h4, h5, h6, .wsmenu, .megamenu .title, .product.info.detailed .card-header, .section-title span{
+h1, h2, h3, h4, h5, h6, .wsmenu, .megamenu .title, .product.info.detailed .card-header, .section-title span, .filter-options-title{
   font-family: 'Poppins', sans-serif;
 }
 /*h1, h2, h3, h4, h5, h6, .wsmenu, .megamenu .title, .product.info.detailed .card-header {
@@ -335,7 +337,7 @@ ul > li, ol > li{
 --------------------------------------------------------------------------*/
 
 h1, .h1 {
-  font-size:@font24;
+  font-size:@font23;
   margin-bottom: 1.5rem;
 	
 	@media @767{
@@ -5312,7 +5314,7 @@ transition: all 5ms ease-in-out 0s;
 	line-height: @font24;
 	
 	h1{
-		font-size: @font28;
+		font-size: @font24;
 		margin-bottom: .5rem;
 	}
 	h1 + p{
@@ -5339,7 +5341,9 @@ transition: all 5ms ease-in-out 0s;
 			font-size: @font16;
 			display: flex;
 			max-width: 45rem;
-			margin: auto;
+			margin: auto !important;
+			line-height: @font24 !important;
+			list-style-type: none !important;
 			
 			a{
 				color: @black;
@@ -7491,6 +7495,7 @@ transition: all 5ms ease-in-out 0s;
 			margin-left: 1.5rem;
 		}
 	}
+	
 	
 }
 .page-layout-1column.page-with-filter .column.main, .page-layout-1column.page-products .columns{
