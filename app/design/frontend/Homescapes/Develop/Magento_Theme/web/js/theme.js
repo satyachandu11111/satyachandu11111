@@ -25,9 +25,7 @@ define([
         }
     }
 
-    $('.cart-summary').mage('sticky', {
-        container: '#maincontent'
-    });
+   
 
      var options = {    
                         type: 'popup',
