@@ -4,7 +4,6 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,500');
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,500');
 
-@import url('https://fonts.googleapis.com/css?family=Hind');
 *,
 *::before,
 *::after {
@@ -12,8 +11,6 @@
 }
 
 body, #customer-reviews  {
-	font-family: 'Hind', sans-serif;
-	font-size: 1.5rem !important;
 }
 
 @-ms-viewport {
