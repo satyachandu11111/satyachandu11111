@@ -5777,7 +5777,7 @@ button.close {
 .carousel-item.active,
 .carousel-item-next,
 .carousel-item-prev {
-  display: block;
+  display: block !important;
 }
 
 .carousel-item-next,

@@ -164,8 +164,8 @@ p{
 }
 .action.primary,
 .action-primary:hover,
-.action.primary:focus,
-.action.primary:active{
+.action-primary:focus,
+.action-primary:active{
 	background-color: @logo-black !important;
 	border-color: @logo-black !important;
 	color: @white !important;
@@ -3463,7 +3463,7 @@ transition: all 5ms ease-in-out 0s;
 		}
 	}
 	.stock-label{
-		font-weight: normal;
+		font-weight: 500;
 		color: @logo-black;
 		
 		@media @991{
@@ -4577,6 +4577,7 @@ transition: all 5ms ease-in-out 0s;
 			width: 90%;
 			font-weight: 500;
 			font-size: @font16;
+			display: none;
 		}
 	}
 	
@@ -5088,7 +5089,7 @@ transition: all 5ms ease-in-out 0s;
 			font-weight: 500;
 		}
 		tbody > tr > td{
-			padding-left: 2rem;
+			padding:1rem 2rem;
 		}
 		tr{
 			display: flex;
@@ -6430,7 +6431,7 @@ transition: all 5ms ease-in-out 0s;
 		.custom-select select {
 		  margin-top: 0;
 			font-size: @base;
-			height: @font32;
+			height: @font32 !important;
 		}
 	}
 	.rightdiv {
@@ -6519,6 +6520,12 @@ transition: all 5ms ease-in-out 0s;
 			  position: absolute;
 			  right: -10px;
 			  top: -10px;
+				
+				.fa{
+					@media @767{
+						font-size: @font20;
+					}
+				}
 			}
 		}
 	}
@@ -9463,6 +9470,13 @@ transition: all 5ms ease-in-out 0s;
 .cart.table-wrapper .col.price .price-including-tax .price, dt, .cart.table-wrapper .col.subtotal .price-including-tax .price{
 	font-weight: 500 !important;
 }
+
+.table-wrapper .table:not(.totals):not(.cart):not(.table-comparison).additional-attributes tbody td:last-child {
+    border: none;
+    padding:1rem;
+}
+
+
 #discount-form {
 	.payment-option-inner{
 		float: left;
