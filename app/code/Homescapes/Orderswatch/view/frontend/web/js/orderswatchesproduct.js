@@ -199,7 +199,7 @@ define([
                             $("#updatedswatches li:nth-child("+json.productnumber+")").remove();
                             console.log('---------remove label----------');
                             console.log('.view-swatch-label-'+productId);
-                            $('.view-swatch-label-'+productId).html("Free Fabric Sample Available - Click Here To Add");                            
+                            $('.view-swatch-label-'+productId).html("Order Free Sample Swatch");                            
                             $('ul#updatedswatches').append(json.html);
                             //$('.please-wait'+productId).hide();
                             if(samplecountdown==1)
@@ -249,7 +249,7 @@ define([
                             $("#updatedswatches li:nth-child("+json.productnumber+")").remove();
                             console.log('---------remove label----------');
                             console.log('.view-swatch-label-'+productId);
-                            $('.view-swatch-label-'+productId).html("Free Fabric Sample Available - Click Here To Add");                            
+                            $('.view-swatch-label-'+productId).html("Order Free Sample Swatch");                            
                             $('ul#updatedswatches').append(json.html);
                             //$('.please-wait'+productId).hide();
                             if(samplecountdown==1)

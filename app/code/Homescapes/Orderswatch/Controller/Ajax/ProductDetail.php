@@ -43,7 +43,7 @@ class ProductDetail extends \Magento\Framework\App\Action\Action
             $_product = $this->helper->getLoadProduct($productId);            
             
             $newcls='';
-            $sampletext= __('Free Fabric Sample Available - Click Here To Add');
+            $sampletext= __('Order Free Sample Swatch');
             $buttonevent=0;
             if($swatchsession!='')
             {
@@ -67,7 +67,7 @@ class ProductDetail extends \Magento\Framework\App\Action\Action
             $url = $this->url->getUrl('orderswatches/ajax/index');
             
             $html = '<input type="hidden" value="'.$buttonevent.'" id="swatchevent" />';
-            $html .= '<strong class="order-swatch '.$newcls.'" data-url="'.$url.'" data-name="'.$productName.'" data-img="'.$smallImage.'" data-id="'.$_product->getId().'"  title="Free Fabric Sample Available - Click Here To Add" type="button"><span class="view-swatch-label-'.$_product->getId().'">'.$sampletext.'</span></strong>';
+            $html .= '<strong class="order-swatch '.$newcls.'" data-url="'.$url.'" data-name="'.$productName.'" data-img="'.$smallImage.'" data-id="'.$_product->getId().'"  title="Order Free Sample Swatch" type="button"><span class="view-swatch-label-'.$_product->getId().'">'.$sampletext.'</span></strong>';
             $html .= '<p style="display:none" class="swatch-quantity-error" role="alert"><span class="swatch-quantity-error-message">You can only order up to 5 swatches</span></p>';
             $arrayjson=array('html'=>$html);
         
