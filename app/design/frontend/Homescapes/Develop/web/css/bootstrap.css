@@ -4,7 +4,6 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,500');
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,500');
 
-
 *,
 *::before,
 *::after {
@@ -12,7 +11,7 @@
 }
 
 body, #customer-reviews  {
-	font-family: 'Roboto', sans-serif !important;
+	font-family: 'Roboto', sans-serif;
 }
 
 @-ms-viewport {
