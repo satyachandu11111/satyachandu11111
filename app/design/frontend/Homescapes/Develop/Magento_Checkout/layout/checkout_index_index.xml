@@ -35,7 +35,7 @@
 																
                                                                 <item name="sortOrder" xsi:type="string">130</item>
 																
-																<item name="visible" xsi:type="boolean">false</item> 
+																<item name="visible" xsi:type="boolean">true</item> 
 																
                                                             </item>
 															
