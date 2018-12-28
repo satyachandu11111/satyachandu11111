@@ -11,6 +11,7 @@
 			<referenceBlock name="view.addto.compare" remove="true" /> <!--add to compare-->
 		 	<referenceBlock name="product.info.mailto" remove="true" />  <!--email-->
 		
+
 		
 			<!-- <move element="product.info.addto" destination="product.info.form.content" after="product.info.addtocart"/> --> <!--wishlist-->
 		
