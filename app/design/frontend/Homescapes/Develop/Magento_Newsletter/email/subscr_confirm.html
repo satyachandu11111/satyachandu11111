@@ -1,0 +1,41 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!--@subject {{trans "Newsletter subscription confirmation"}} @-->
+<!--@vars {
+"var customer.name":"Customer Name",
+"var subscriber.getConfirmationLink()":"Subscriber Confirmation URL"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<p class="greeting">{{trans "Thank you for subscribing to our newsletter."}}</p>
+<p>As a subscriber you will receive exclusive discounts and promotions.
+As a subscriber you will…</p>
+
+<p><strong>Receive additional discounts off our already irresistible prices<br>
+
+Early access to sales and promotions<br>
+
+Early Bird Offers, Competitions and Samples</strong></p>
+
+<br>
+<p>So if you’re looking to make a homeware purchase…why not wait until Friday and take advantage of our weekly offer!</p>
+
+<h3>Thanks again for subscribing.</h3>
+<br>
+<br>
+
+<p><strong>Why you receive this E-mail:</strong> This promotional email was sent to you because you have subscribed to receive information, promotions and offers from Homescapes. To ensure that your Homescapes emails get to your inbox, please add <a href="mailto:support@homescapesonline.com"></a>support@homescapesonline.com to your email address book or safe sender list.</p><br>
+<br>
+
+<p><strong>Privacy Policy:</strong> We would like to assure you that Homescapes do not share customer details with any other company. For your information you can view our <a href="https://www.homescapesonline.com/info/website-privacy-and-cookies"></a>Privacy Policy on our website.</p>
+
+
+<p>{{trans "To begin receiving the newsletter, you must first confirm your subscription by clicking on the following link:"}}</p>
+<p><a href="{{var subscriber.getConfirmationLink()}}">{{var subscriber.getConfirmationLink()}}</a></p>
+
+{{template config_path="design/email/footer_template"}}
