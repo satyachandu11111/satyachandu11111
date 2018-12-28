@@ -100,11 +100,11 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                 
                 if($childSpecialPriceLowest>0)
                 {
-                    $html='<div class="price-box"><p class="old-price"><span class="price" id="old-price-'.$_id.'">'.$this->helper->currency($childPriceLowest,true,false).' - '.$this->helper->currency($childPriceHighest,true,false).'</span></p><p class="special-price"><span class="price" id="product-price-'.$_id.'">'.$this->helper->currency($childSpecialPriceLowest,true,false).' - '.$this->helper->currency($childSpecialPriceHighest,true,false).'</span></p></div>';
+                    $html='<div class="price-box price-final_price" data-role="priceBox" data-product-id="'.$_id.'" data-price-box="product-id-'.$_id.'" ><p class="old-price"><span class="price" id="old-price-'.$_id.'">'.$this->helper->currency($childPriceLowest,true,false).' - '.$this->helper->currency($childPriceHighest,true,false).'</span></p><p class="special-price"><span class="price" id="product-price-'.$_id.'">'.$this->helper->currency($childSpecialPriceLowest,true,false).' - '.$this->helper->currency($childSpecialPriceHighest,true,false).'</span></p></div>';
                 }
                 else
                 {
-                    $html='<div class="price-box"><p class="price"><span class="price-range" id="old-price-'.$_id.'">'.$this->helper->currency($childPriceLowest,true,false).' - '.$this->helper->currency($childPriceHighest,true,false).'</span></p></div>';
+                    $html='<div class="price-box price-final_price" data-role="priceBox" data-product-id="'.$_id.'" data-price-box="product-id-'.$_id.'" ><p class="price"><span class="price-range" id="old-price-'.$_id.'">'.$this->helper->currency($childPriceLowest,true,false).' - '.$this->helper->currency($childPriceHighest,true,false).'</span></p></div>';
                 }
                               
             }
@@ -114,11 +114,11 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                 $childSpecialPricemain =  $_product->getSpecialPrice();
                 if($childSpecialPricemain>0)
                 {
-                    $html='<div class="price-box"><p class="old-price"><span class="price" id="old-price-'.$_id.'">'.$this->helper->currency($childPricemain,true,false).'</span></p><p class="special-price"><span class="price" id="product-price-'.$_id.'">'.$this->helper->currency($childSpecialPricemain,true,false).'</span></p></div>';
+                    $html='<div class="price-box price-final_price" data-role="priceBox" data-product-id="'.$_id.'" data-price-box="product-id-'.$_id.'" ><p class="old-price"><span class="price" id="old-price-'.$_id.'">'.$this->helper->currency($childPricemain,true,false).'</span></p><p class="special-price"><span class="price" id="product-price-'.$_id.'">'.$this->helper->currency($childSpecialPricemain,true,false).'</span></p></div>';
                 }
                 else
                 {
-                    $html='<div class="price-box"><p class="old-price"><span class="price" id="old-price-'.$_id.'">'.$this->helper->currency($childPricemain,true,false).'</span></p><</div>';
+                    $html='<div class="price-box price-final_price" data-role="priceBox" data-product-id="'.$_id.'" data-price-box="product-id-'.$_id.'" ><p class="old-price"><span class="price" id="old-price-'.$_id.'">'.$this->helper->currency($childPricemain,true,false).'</span></p><</div>';
                 }
             }
             
