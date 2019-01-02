@@ -201,7 +201,7 @@ p{
 		width: 33%;
 	}
 	@media @767{
-		order: 2;
+		order: 2 !important;
 	}
 }
 .page-layout-2columns-left .sidebar-additional{
@@ -7593,6 +7593,11 @@ transition: all 5ms ease-in-out 0s;
 		display: none;
 	}
 }
+.page-products .columns{
+	@media @767{
+		padding-top: 0 !important;
+	}
+}
 .page-layout-2columns-left.page-with-filter{
 	/*.columns .column.main{
 		@media @767{
@@ -7619,6 +7624,7 @@ transition: all 5ms ease-in-out 0s;
 		@media @767{
 			float: left;
 			width: 100%;
+			position: relative !important;
 			
 		}
 	}
