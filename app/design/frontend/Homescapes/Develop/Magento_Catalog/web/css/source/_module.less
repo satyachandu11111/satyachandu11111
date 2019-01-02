@@ -12,6 +12,7 @@
 @black: #333;
 @logo-black: #5d5d5d;
 @white:#ffffff;
+@767: ~"only screen and (max-width:767px)";
 //
 //  Variables
 //  _____________________________________________
@@ -87,6 +88,10 @@
     .category-description {
         margin-bottom: @indent__base;
 		float: left;
+		
+		@media @767{
+			order: 1;
+		}
     }
 
     //

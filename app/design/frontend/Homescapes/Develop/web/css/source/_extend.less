@@ -200,6 +200,9 @@ p{
 	@media @991{
 		width: 33%;
 	}
+	@media @767{
+		order: 2;
+	}
 }
 .page-layout-2columns-left .sidebar-additional{
 	.paypal{
@@ -233,6 +236,12 @@ option.image:not(.disabled):hover, .swatch-option.color:not(.disabled):hover{
 	}
 	@media @767{
 		width: 100%;
+		order: 3;
+	}
+	.page-title-wrapper{
+		@media @767{
+			order: 0;
+		}
 	}
 }
 .limiter-text{
@@ -7606,7 +7615,13 @@ transition: all 5ms ease-in-out 0s;
 			width: 100%;
 		}
 	}*/
-	
+	.filter-title strong{
+		@media @767{
+			float: left;
+			width: 100%;
+			
+		}
+	}
 	.filter-title strong::before {
 
 		-webkit-font-smoothing: antialiased;

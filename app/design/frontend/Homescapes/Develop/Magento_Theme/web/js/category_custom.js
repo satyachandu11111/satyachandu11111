@@ -4,7 +4,7 @@ define('jquery', function($) {
 
         		var $containerWidth = $(window).width();
         		
-        		if ($containerWidth <= 425) {
+        		if ($containerWidth <= 767) {
         			
         			if($('.column.main .category-image').length > 0){
 			        	$('.category-image').insertAfter('.column.main');
@@ -29,7 +29,7 @@ define('jquery', function($) {
         	});
 
         	var $containerWidth = $(window).width();        		
-        		if ($containerWidth <= 425) {
+        		if ($containerWidth <= 767) {
         			
         			if($('.column.main .category-image').length > 0){
 			        	$('.category-image').insertAfter('.column.main');
