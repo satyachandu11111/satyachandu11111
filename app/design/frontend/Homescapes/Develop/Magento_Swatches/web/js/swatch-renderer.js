@@ -968,6 +968,7 @@ define([
 
             _.each(displayPrices, function (price, code) {
                 if (newPrices[code]) {
+
                     displayPrices[code].amount = newPrices[code].amount - displayPrices[code].amount;
                 }
             });
