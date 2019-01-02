@@ -34,16 +34,16 @@ $buttonTitle = __('Add to Cart');
                 <div class="selection-product-price-<?php echo $_product->getId(); ?>" >
 					
 					<div class="product-info">
-						<div class="product-img"><a href="<?php echo $_product->getProductUrl(); ?>"><img src="<?php echo $block->getImageUrl($_product); ?>" title="<?php echo $_product->getName() ?>" /></a></div>
-						
-						
-						<div class="product-name-price">
-							<?php $product_url = $_product->getProductUrl();
+						<?php $product_url = $_product->getProductUrl();
 						           if(strpos($product_url, 'category')){
 						                if($_product->getUrlPath()){
 						                    $product_url = $this->getUrl().$_product->getUrlPath().'.html';
 						                }
 						            } ?>
+						<div class="product-img"><a href="<?php echo $product_url; ?>"><img src="<?php echo $block->getImageUrl($_product); ?>" title="<?php echo $_product->getName() ?>" /></a></div>
+						
+						
+						<div class="product-name-price">
 							<span class="name"><a href="<?php echo $product_url; ?>"><?php echo $_product->getName(); ?></a></span>
 							<div class="product-info-price">
 								<?php echo $block->getProductPrice($_product); ?>
