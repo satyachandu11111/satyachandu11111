@@ -15,7 +15,11 @@
 		
 		<move element="category.cms" destination="content" after="page.main.title"/>
 		
-        <referenceBlock name="wishlist_sidebar" remove="true" />		
+        <referenceBlock name="wishlist_sidebar" remove="true" />
+        <referenceContainer name="content">
+           <block class="Magento\Framework\View\Element\Template"
+               name="category_custom.js" as="category_custom_js" template="Magento_Catalog::category/custom_js.phtml"/>
+        </referenceContainer>		
 
     </body>
 </page>
