@@ -71,7 +71,7 @@ define([
     $.widget('mage.SwatchRendererTooltip', {
         options: {
             delay: 200,                             //how much ms before tooltip to show
-            tooltipClass: 'swatch-option-tooltip'  //configurable, but remember about css
+            tooltipClass: 'swatch-option-tooltip-null'  //configurable, but remember about css
         },
 
         /**

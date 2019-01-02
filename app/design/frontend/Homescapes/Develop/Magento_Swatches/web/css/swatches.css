@@ -236,7 +236,7 @@
 }
 
 .swatch-option-link-layered:hover > .swatch-option-tooltip-layered {
-    display: block;
+    display: none;
 }
 
 .swatch-attribute-options .swatch-option-tooltip-layered .title {
