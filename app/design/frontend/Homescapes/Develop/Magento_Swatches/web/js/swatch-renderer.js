@@ -913,7 +913,20 @@ define([
 
             if (typeof result != 'undefined' && result.oldPrice.amount !== result.finalPrice.amount) {
                 $(this.options.slyOldPriceSelector).show();
+
+                // added custom code for percentage display
+                var oldpricecus = result.oldPrice.amount;
+                var newpricecus = result.finalPrice.amount;
+                var dis = (oldpricecus - newpricecus);
+                var dis_per = ((100 * dis) / oldpricecus);
+                if(oldpricecus != "" && newpricecus != "") {
+                    $('.product-info-discount .g-discount').html('{ '+Math.round(dis_per)+' % Off }');
+                }else{
+                    $('.product-info-discount .g-discount').html('');
+                }
+                // added custom code for percentage display
             } else {
+                $('.product-info-discount .g-discount').html('');
                 $(this.options.slyOldPriceSelector).hide();
             }
 
