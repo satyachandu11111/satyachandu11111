@@ -415,8 +415,15 @@ h6, .h6 {
 .block-search .action.search::before{
 	color:@white !important;
 }
+.block-search .action.search:hover{
+	background: @logo-black;
+}
 .block-search .search .action.search[disabled]{
 	opacity:1;
+	
+	@media @767{
+		display: none;
+	}
 }
 .minicart-wrapper .action.showcart .fas{
 	color: @black;
@@ -619,7 +626,7 @@ h6, .h6 {
 			margin: auto;
 			
 			span{
-				@media @479{
+				@media @639{
 					display: none;
 				}
 			}
@@ -629,7 +636,7 @@ h6, .h6 {
 				margin-bottom: 0;
 				
 				li:first-child{
-					@media @479{
+					@media @639{
 						display: none;
 					}
 				}
@@ -1580,6 +1587,7 @@ transition: all 5ms ease-in-out 0s;
     padding: 7px 0px !important;
     border-bottom: @border;
     background-color: transparent !important;
+
   }
  .megamenu ul li.title a {
     line-height: 26px;
@@ -1592,6 +1600,7 @@ transition: all 5ms ease-in-out 0s;
 	 
 	 @media @991{
 		 padding: 0 !important;
+		 line-height: 17px;
 	 }
   }
 	
@@ -6330,6 +6339,11 @@ transition: all 5ms ease-in-out 0s;
 		color: @light-black;
 		padding-bottom: 0;
 		font-weight: 500;
+		
+		@media @767{
+			color: @black;
+			font-size: @font18;
+		}
 	}
 	fieldset > .field .field.choice{
 		display: flex;
@@ -6346,7 +6360,9 @@ transition: all 5ms ease-in-out 0s;
 	.modal-footer{
 		display: none;
 	}
-
+	.review-control-vote label::before{
+		color: @yellow;
+	}
 	.review-field-rating .control{
 		margin: 0;
 	}
@@ -6377,6 +6393,9 @@ transition: all 5ms ease-in-out 0s;
 	}
 	.review-add{
 		margin-bottom: 0;
+		@media @767{
+			margin-top: 1rem;
+		}
 	}
 	.review-field-recommend{
 		display: flex;
@@ -9185,6 +9204,11 @@ select{
 }
 .catalog-product-view .modal-popup .action-close{
 	padding: .8rem;
+	
+	@media @767{
+		right: 1rem;
+		top: .5rem;
+	}
 }
 
 

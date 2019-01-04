@@ -42,8 +42,6 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
                 </strong>
                 <span class="laptop-visible"><?php echo "SKU: ". $product->getSku(); ?></span>
 				
-				<br>
-
 
                 <?php $preOrderNote = $this->helper('Homescapes\Preorder\Helper\Data')->isPreOrderCart($product->getId());
                         if($preOrderNote){  ?>
