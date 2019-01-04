@@ -84,7 +84,7 @@ $buttonTitle = __('Add to Cart');
 								    <div class="card" id="one">
 										<div class="card-header " role="tab" id="headingOne">
 
-                                                                                    <a data-toggle="collapse"   href="#collapseOne-<?php echo $_product->getId(); ?>" aria-expanded="true" aria-controls="collapseOne-<?php echo $_product->getId(); ?>">
+                                             <a class="collapsed" data-toggle="collapse"   href="#collapseOne-<?php echo $_product->getId(); ?>" aria-expanded="false" aria-controls="collapseOne-<?php echo $_product->getId(); ?>">
 											  <h5>
 												  <?php echo __('Product Description') ?>
 
@@ -92,7 +92,7 @@ $buttonTitle = __('Add to Cart');
 											 </a> 
 										</div>
 
-										<div id="collapseOne-<?php echo $_product->getId(); ?>" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#caccordion">
+										<div id="collapseOne-<?php echo $_product->getId(); ?>" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#caccordion">
 											<div class="card-body">
 											
 												<?php echo $_product->getDescription(); ?>

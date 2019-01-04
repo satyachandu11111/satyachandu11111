@@ -40,7 +40,7 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
                         <?= $block->escapeHtml($block->getProductName()) ?>
                     <?php endif; ?>
                 </strong>
-                <?php echo "SKU: ". $product->getSku(); ?>
+                <span class="laptop-visible"><?php echo "SKU: ". $product->getSku(); ?></span>
 				
 				<br>
 

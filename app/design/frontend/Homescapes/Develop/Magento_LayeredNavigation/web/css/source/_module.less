@@ -321,6 +321,10 @@
         border: solid @border-color__base;
         border-width: 1px 0;
         margin: @indent__xs -@indent__s 0;
+		
+		@media @767{
+			border: none;
+		}
 
         .items {
             display: none;
@@ -340,7 +344,7 @@
 
             &:before {
                 position: absolute;
-                right: 10px;
+                right: 27px;
                 top: 10px;
             }
 

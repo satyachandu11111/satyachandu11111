@@ -928,6 +928,7 @@ transition: all 5ms ease-in-out 0s;
 .link-list li a.title-link:hover{
 	text-decoration: none !important;
   border-bottom: 0px solid @border-color;
+	text-decoration: none;
 }
 .wsmenu-list > li > a.menu-special{
 	background: @f9light;
@@ -1541,13 +1542,12 @@ transition: all 5ms ease-in-out 0s;
 	box-shadow: 0px 0px 6px @border-color;
 	  padding-bottom: 5px;
   }
-  .wsmenu-list li:hover .megamenu {
+  .wsmenu-list li:hover .megamenu{
     display: none;
     position: relative !important;
     top: 0px;
   }
   .megamenu .title {
-
     color: @light-black;
     font-size: 15px !important;
     padding: 10px 8px 10px 0px;
@@ -1589,6 +1589,10 @@ transition: all 5ms ease-in-out 0s;
     padding: 7px 0px !important;
     border-bottom:@border;
     background-color: transparent !important;
+	 
+	 @media @991{
+		 padding: 0 !important;
+	 }
   }
 	
   .halfdiv {
@@ -3137,7 +3141,19 @@ transition: all 5ms ease-in-out 0s;
 }
 .complete-look .conf-products .closebtn {
 	.fas{
-		font-size: @font18;
+		float: right;
+		margin-right: 1rem;
+		display: inline-block;
+		position: relative;
+		text-indent: -9999px;
+		vertical-align: middle;
+		white-space: nowrap;
+		width: 26px;
+		height: 20px;
+		background-image: url(../images/sprit-icon.svg);
+		background-repeat: no-repeat;
+		background-position: -142px -590px;
+		background-size: 300px 1300px;
 	}
 }
 @media screen and (max-height: 450px) {
@@ -3740,14 +3756,20 @@ transition: all 5ms ease-in-out 0s;
 	float: right;
 	width: 48%;
 	display: grid;
-	max-height: 103rem;
-	overflow: hidden;
-	overflow-y: auto;
 	margin-bottom: 3rem;
 	
 	@media @991{
 		width: 100%;
 	}
+	
+	
+	
+	.table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody > tr td[data-th]::before, .table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody > tr th[data-th]::before{
+		@media @767{
+			font-weight: 500;
+		}
+	}
+	
 	
 	.product-info-price .price-box .price-container .price-label{
 		display: none;
@@ -3789,6 +3811,9 @@ transition: all 5ms ease-in-out 0s;
 		}
 	}
 	.conf-products {
+		
+		max-height: 100rem;
+		overflow-y: scroll;
 		
 		.name{
 			font-size: @font16;
@@ -6585,7 +6610,9 @@ transition: all 5ms ease-in-out 0s;
 				}
 				
 				@media @767{
-					width: 100%;
+					width: auto;
+					margin: 0 1rem 1rem 0;
+					padding: .4rem;
 				}
 			}
 			.media-left {
@@ -6594,6 +6621,10 @@ transition: all 5ms ease-in-out 0s;
 			  height: 55px;
 			  width: 55px;
 			  overflow: hidden;
+				
+				@media @767{
+					margin-right: 0;
+				}
 			}
 			.media-body {
 			  float: left;
@@ -6606,6 +6637,9 @@ transition: all 5ms ease-in-out 0s;
 				
 				@media @991{
 					width: 75%;
+				}
+				@media @767{
+					display: none;
 				}
 			}
 			.media-body .sampleitem {
@@ -6652,6 +6686,10 @@ transition: all 5ms ease-in-out 0s;
   margin-top: 10px;
   padding: 15px 20px 15px 98px;
   width: 100%;
+	
+	@media @767{
+		margin-top: 0;
+	}
 }
 .sample-view .rightdiv .swatch-policy .sample-heading {
   color: #073147;
@@ -6771,7 +6809,9 @@ transition: all 5ms ease-in-out 0s;
 }
 .swatch-quantity-error{
 	border: 1px solid @dlight;
-	padding: 0 .5rem;
+	padding: .5rem .7rem;
+	line-height: 1.8rem;
+	border-radius: .3rem;
 }
 .vertical-swatch {
     position: fixed;

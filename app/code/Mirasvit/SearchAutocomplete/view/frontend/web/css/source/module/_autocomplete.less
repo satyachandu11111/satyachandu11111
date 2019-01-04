@@ -3,6 +3,7 @@
 //--------------------------------------
 @spinner-color-from: #D8D8D8;
 @spinner-color-to: #D8D8D8;
+@767: ~"only screen and (max-width:767px)";
 
 & when (@media-common = true) {
     .searchautocomplete__autocomplete {
@@ -91,6 +92,10 @@
                 .title {
                     font-weight: @font-weight__light;
 					color: #444;
+					
+					@media @767{
+						line-height: 1.8rem;
+					}
                 }
             }
         }
