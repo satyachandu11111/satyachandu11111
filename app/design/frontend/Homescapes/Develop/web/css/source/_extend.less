@@ -417,10 +417,19 @@ h6, .h6 {
 }
 .block-search .action.search:hover{
 	background: @logo-black;
+	
+	@media @767{
+		background:@f9light;
+	}
 }
 .block-search .search .action.search[disabled]{
 	opacity:1;
 	
+	@media @767{
+		display: none;
+	}
+}
+.block-search .action.search[disabled]{
 	@media @767{
 		display: none;
 	}
