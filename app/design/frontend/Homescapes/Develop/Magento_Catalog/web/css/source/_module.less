@@ -13,6 +13,7 @@
 @logo-black: #5d5d5d;
 @white:#ffffff;
 @767: ~"only screen and (max-width:767px)";
+@991: ~"only screen and (max-width:991px)";
 //
 //  Variables
 //  _____________________________________________
@@ -301,6 +302,10 @@
 			padding-right: 1rem;
 			border-right: 1px solid #ccc;
 			color:@logo-black;
+			
+			@media @991{
+				display: none;
+			}
 			
 			.fa-th-large{
 				margin-top: -3px;

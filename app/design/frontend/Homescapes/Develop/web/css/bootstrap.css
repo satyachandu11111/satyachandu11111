@@ -10,7 +10,7 @@
   box-sizing: border-box;
 }
 
-body, #customer-reviews  {
+body, #customer-reviews, input[type="text"], input[type="password"], input[type="url"], input[type="tel"], input[type="search"], input[type="number"], input[type="datetime"], input[type="email"]  {
 	font-family: 'Roboto', sans-serif;
 }
 
