@@ -6338,7 +6338,7 @@ transition: all 5ms ease-in-out 0s;
 .modals-wrapper{
 	
 	.modal-popup.modal-slide{
-		z-index: 9999 !important;
+		z-index: 999999 !important;
 		left: 0;
 	}
 	
@@ -7756,6 +7756,17 @@ transition: all 5ms ease-in-out 0s;
 	.filter.active .filter-title strong::after{
 		@media @767{
 			float: right;
+		}
+	}
+	.filter .filter-current{
+		@media @767{
+			border: none;
+		}
+	}
+	.block-content.filter-content{
+		@media @767{
+			width: 100%;
+			float: left;
 		}
 	}
 }
