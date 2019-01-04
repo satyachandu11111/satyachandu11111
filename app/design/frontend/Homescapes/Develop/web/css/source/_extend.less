@@ -1589,7 +1589,7 @@ transition: all 5ms ease-in-out 0s;
   }
 
   .megamenu ul li.title {
-    line-height: 26px;
+    line-height: 17px;
     color: @light-black;
     margin: 0px;
     font-size: 15px;
@@ -1599,18 +1599,14 @@ transition: all 5ms ease-in-out 0s;
 
   }
  .megamenu ul li.title a {
-    line-height: 26px;
+    line-height: 17px;
     color:@light-black;
     margin: 0px;
     font-size:@font15;
-    padding: 7px 0px !important;
+    padding: 0px !important;
     border-bottom:@border;
     background-color: transparent !important;
 	 
-	 @media @991{
-		 padding: 0 !important;
-		 line-height: 17px;
-	 }
   }
 	
   .halfdiv {
@@ -3601,7 +3597,7 @@ transition: all 5ms ease-in-out 0s;
 		content: '\f044';
 		font-size:1.3rem;
 		font-family: "Font Awesome 5 Free";
-		margin: -3px 3px 0 0;
+		margin: -4px 3px 0 0;
 		vertical-align: middle;
 		display: inline-block;
 		}
@@ -3622,9 +3618,9 @@ transition: all 5ms ease-in-out 0s;
 	}
 	.product.attribute.sku, .stock{
 		@media @479{
-			border: 0;
-			padding-right: 0;
-			margin-right: .5rem;
+			border-right: 0;
+			padding-right: 1rem;
+			margin-right: 1rem;
 		}
 	}
 	.rating-summary{
@@ -6341,6 +6337,11 @@ transition: all 5ms ease-in-out 0s;
 --------------------------------------------------------------------------*/
 .modals-wrapper{
 	
+	.modal-popup.modal-slide{
+		z-index: 9999 !important;
+		left: 0;
+	}
+	
 	.modal-popup .modal-title{
 		width: 100%;
 		text-align: center;
@@ -6380,6 +6381,13 @@ transition: all 5ms ease-in-out 0s;
 		border-bottom: 1px solid @f2light;
 		padding-bottom: 1rem;
 		text-align: center;
+		
+		strong{
+			@media @767{
+				font-size: @font16;
+				margin-bottom: 1rem;
+			}
+		}
 	}
 	.modal-popup .modal-header{
 		padding-top: 1rem;
