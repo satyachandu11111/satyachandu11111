@@ -1224,7 +1224,7 @@ transition: all 5ms ease-in-out 0s;
 | account Tab 
 --------------------------------------------------------------------------*/
 
-.block-collapsible-nav {
+.block-collapsible-nav.block  {
 	
 	
 	.item{
@@ -1236,7 +1236,7 @@ transition: all 5ms ease-in-out 0s;
 			width: 100%;
 		}
 	}
-	.block .title strong{
+	.title strong{
 		font-weight: 500;
 	}
 
@@ -1890,7 +1890,9 @@ transition: all 5ms ease-in-out 0s;
 }
 
 
-
+.text-center-md{
+	text-align: center;
+}
 .homescapes-key-points{
 	
 	
@@ -1913,6 +1915,11 @@ transition: all 5ms ease-in-out 0s;
 			padding: 18px 10px;
 			width: 24%;
 			min-height: 110px;
+			
+			@media @991{
+				width: 48%;
+				margin: .5rem;
+			}
 			
 			@media @639{
 				width: 100%;
@@ -2778,12 +2785,64 @@ transition: all 5ms ease-in-out 0s;
 	}
 	
 }
+.category-sale{
+	background: @danger;
+	color: @white;
+	float: left;
+	width: 100%;
+	padding: 1rem;
+	
+	span{
+		display: block;
+		font-size: @font20;
+		margin-bottom: 2rem;
+		text-transform: uppercase;
+	}
+	
+	.discount{
+		float: left;
+		width: 100%;
+		margin-bottom: 2rem;
+	}
+	
+	.dis-img, .dis-text{
+		width: 50%;
+		float: left;
+	}
+	
+	.dis-text{
+		font-size: @font20; 
+	}
+	
+	ul{
+		
+		li{
+			float: left;
+			width: 46%;
+			text-align: center;
+			border: 1px solid @white;
+			margin: 2%;
+			line-height: 4rem;
+			
+			a{
+				color: @white;
+				display: block;
+				font-size: @font16;
+				text-transform: uppercase;
+				letter-spacing: 1px;
+			}
+		}
+	}
+}
 
 .shop-by-listing-page{
 	border: 1px solid @dlight;
 	padding: @font10 @font20;
 	margin-top: 1rem;
 
+	@media @767{
+		margin-top: 0;
+	}
 	
 	h4{
 		font-size: @font22 !important;
@@ -5495,6 +5554,11 @@ transition: all 5ms ease-in-out 0s;
 	}
 	
 	iframe{
+		
+		@media @991{
+			margin: auto;
+		}
+		
 		@media @639{
 			width: 100%;
 			height: auto;
@@ -5982,7 +6046,10 @@ transition: all 5ms ease-in-out 0s;
 	
 	.guide-banner{
 		margin-bottom: 2rem;
-		height: auto !important;
+		
+		img{
+			align-self: center;
+		}
 
 
 	}
