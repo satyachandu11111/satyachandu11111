@@ -151,6 +151,12 @@ p{
 	line-height: 2.4rem;
 	font-size: 1.5rem;
 }
+
+.block-search .action.search{
+	@media @767{
+		display: none;
+	}
+}
 .mageworx-swatch-option.selected, .mageworx-swatch-option.image:not(.disabled):hover, .mageworx-swatch-option.color:not(.disabled):hover, .swatch-option.selected, .swatch-option.image:not(.disabled):hover, .swatch-option.color:not(.disabled):hover{
 	outline: 2px solid @logo-black !important;
 }
@@ -432,6 +438,11 @@ h6, .h6 {
 .block-search .action.search[disabled]{
 	@media @767{
 		display: none;
+	}
+}
+.block-search .action.search{
+	@media @767{
+		display: inline-block;
 	}
 }
 .minicart-wrapper .action.showcart .fas{
