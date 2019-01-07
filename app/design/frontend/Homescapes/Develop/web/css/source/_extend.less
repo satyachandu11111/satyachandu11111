@@ -421,9 +421,6 @@ h6, .h6 {
 .block-search .action.search:hover{
 	background: @logo-black;
 	
-	@media @767{
-		background:@f9light;
-	}
 }
 .block-search .search .action.search[disabled]{
 	opacity:1;
@@ -437,7 +434,12 @@ h6, .h6 {
 		display: none;
 	}
 }
-
+.block-search .action.search{
+	background: @logo-black;
+	color: @white;
+	height: 3.4rem;
+	padding: 1rem 1.3rem;
+}
 .minicart-wrapper .action.showcart .fas{
 	color: @black;
 	line-height: .9rem;
