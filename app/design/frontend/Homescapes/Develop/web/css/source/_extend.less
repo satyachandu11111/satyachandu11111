@@ -611,7 +611,7 @@ h6, .h6 {
 			padding-top:0;
 			text-align: center;
 			line-height: @font40;
-			max-width: 46.5rem;
+			max-width: 48.5rem;
 			margin: auto;
 		}
 		@media @479{
@@ -1220,6 +1220,45 @@ transition: all 5ms ease-in-out 0s;
 | Navigation Tab 
 --------------------------------------------------------------------------*/
 
+/*--------------------------------------------------------------------------
+| account Tab 
+--------------------------------------------------------------------------*/
+
+.block-collapsible-nav {
+	
+	
+	.item{
+
+		display: block;
+		
+		@media @767{
+			float: left;
+			width: 100%;
+		}
+	}
+	.block .title strong{
+		font-weight: 500;
+	}
+
+
+}
+.account .columns .sidebar-additional{
+	@media @767{
+		order: 4;
+	}
+}
+.account.page-layout-2columns-left .sidebar-main{
+	@media @767{
+		order:3;
+	}
+}
+
+
+
+/*--------------------------------------------------------------------------
+| account Tab ends
+--------------------------------------------------------------------------*/
+
 .furniture-menu{
 	@media @991{
 		display: flex;
@@ -1599,7 +1638,7 @@ transition: all 5ms ease-in-out 0s;
 
   }
  .megamenu ul li.title a {
-    line-height: 17px;
+    line-height: 26px;
     color:@light-black;
     margin: 0px;
     font-size:@font15;
@@ -2746,9 +2785,6 @@ transition: all 5ms ease-in-out 0s;
 	margin-top: 1rem;
 
 	
-	@media @991{
-		display: none;
-	}
 	h4{
 		font-size: @font22 !important;
 		margin:-2.7rem  auto 0 auto !important;
@@ -2768,6 +2804,10 @@ transition: all 5ms ease-in-out 0s;
 		}
 		.four-img img{
 			max-width: 20.8rem;
+			
+			@media @479{
+				max-width: 16.8rem;
+			}
 		}
 		.three-img img{
 			max-width: 28.4rem;
@@ -5942,6 +5982,7 @@ transition: all 5ms ease-in-out 0s;
 	
 	.guide-banner{
 		margin-bottom: 2rem;
+		height: auto !important;
 
 
 	}
@@ -6660,7 +6701,7 @@ transition: all 5ms ease-in-out 0s;
 			.media-body {
 			  float: left;
 			  line-height: 18px;
-			  width: 52%;
+			  width: 75%;
 				
 				@media @1100{
 					width: 80%;
@@ -6720,6 +6761,7 @@ transition: all 5ms ease-in-out 0s;
 	
 	@media @767{
 		margin-top: 0;
+		display: none;
 	}
 }
 .sample-view .rightdiv .swatch-policy .sample-heading {
