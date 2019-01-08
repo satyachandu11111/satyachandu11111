@@ -7936,6 +7936,11 @@ transition: all 5ms ease-in-out 0s;
 			float: left;
 		}
 	}
+	.wsmenucontainer, .wsmobileheader, .animated-arrow, .animated-arrow span, .animated-arrow span::before, .animated-arrow span::after{
+		@media @767{
+			transition: none;
+		}
+	}
 }
 
  /*--------------------------------------------------------------------------
