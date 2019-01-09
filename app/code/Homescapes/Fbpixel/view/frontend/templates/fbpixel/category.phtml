@@ -1,0 +1,27 @@
+<?php
+$products = $block->getLoadedProductCollection();
+if(count($products)){
+	$topProducts = array();
+	$i = 0;
+	foreach($products as $product){
+		if($i >= 5){
+			break;
+		}
+		$topProducts[] = '"'.$product->getSku().'"';
+		$i++;
+	}
+$topSkus = implode($topProducts,',');
+
+$category = $block->getLayer()->getCurrentCategory();
+$categoryName = $category->getName();
+
+?>
+<script type="text/javascript">
+	fbq('trackCustom', 'ViewCategory', {
+	  content_name: <?php  echo $categoryName ?>,
+	  content_category: <?php  echo $categoryName ?>,
+	  content_ids: [<?php echo $topSkus; ?>], 
+	  content_type: 'product'
+	});
+</script>
+<?php } ?>

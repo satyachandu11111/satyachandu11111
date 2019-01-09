@@ -1,0 +1,15 @@
+<?php
+$product = $block->getProduct();
+if($product){
+	$sku = '"'.$product->getSku().'"';
+	$price = $product->getFinalprice();
+	?>
+	<script type="text/javascript">
+		fbq('track', 'ViewContent', {
+		  content_ids: [<?php echo $sku; ?>],
+		  content_type: 'product',
+		  value: <?php echo round($price,2); ?>,
+		  currency: 'GBP'
+		});
+	</script>
+<?php } ?>
