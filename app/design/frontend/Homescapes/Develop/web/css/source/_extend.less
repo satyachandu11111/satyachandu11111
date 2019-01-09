@@ -10199,7 +10199,7 @@ select{
 		background: @f9light;
 		padding: 0;
 		
-		@media @767{
+		@media @991{
 			background: none;
 			margin-bottom: 2rem;
 			padding: 0 1rem;
@@ -10210,6 +10210,11 @@ select{
 			display: block;
 			width: 100%;
 			margin-right: -1px;
+			
+			@media @991{
+				width: 33.33%;
+				background: @f9light;
+			}
 			
 			@media @767{
 				width: 50%;
@@ -10224,7 +10229,7 @@ select{
 			z-index: 2;
 			color: @blue;
 			
-			@media @767{
+			@media @991{
 				border-right-color: @dlight;
 			}
 			
@@ -10246,11 +10251,11 @@ select{
 		float: left;
 		width: 100%;
 		
-		@media @767{
+		@media @991{
 			margin-left: 0;
 		}
 		.cms-pages{
-			@media @767{
+			@media @991{
 				padding: 0;
 			}
 		}
@@ -10258,7 +10263,7 @@ select{
 	.col-lg-9{
 		padding: 0;
 			
-		@media @767{
+		@media @991{
 			padding: 0 1rem;
 		}
 			
@@ -10267,9 +10272,19 @@ select{
 	.cmspage {
 		h5{
 			font-size: @font16;
+			
+			@media @991{
+				font-size: @font15;
+				line-height: 5rem;
+			}
 		}
 		.card-header > a::before{
 			font-size: @font16;
+		}
+		.card-header{
+			@media @991{
+				line-height: 5rem;
+			}
 		}
 	}
 
