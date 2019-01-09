@@ -10179,6 +10179,11 @@ select{
 /*--------------------------------------------------------------------------
 |  Faq page reset
 --------------------------------------------------------------------------*/
+.cms-page-view .columns .webfaq ul{
+	margin-left: 0;
+	list-style-type: none;
+}
+
 
 .webfaq{
 	
@@ -10187,7 +10192,9 @@ select{
 			border: none;
 		}
 	}
-	
+	.justify-content-md-center .col-md-12{
+		padding: 0;
+	}
 	.faq-tabs{
 		background: @f9light;
 		padding: 0;
@@ -10205,7 +10212,7 @@ select{
 			margin-right: -1px;
 			
 			@media @767{
-				width: 49%;
+				width: 50%;
 			}
 			
 			
@@ -10215,6 +10222,7 @@ select{
 			border-right-color: @white;
 			position: relative;
 			z-index: 2;
+			color: @blue;
 			
 			@media @767{
 				border-right-color: @dlight;
@@ -10225,19 +10233,26 @@ select{
 			border: 1px solid @dlight;
 			padding: 1rem;
 			font-weight: 500;
+			color: @black;
+			font-size: @font15;
 		}
 
 	}
 	.tab-content{
 		border: 1px solid @dlight;
 		margin-left: -1px;
-		min-height: 50rem;
-		padding: 2rem 0 3rem 0;
+		padding: 1.3rem 0 3rem 0;
 		height: 100%;
 		float: left;
+		width: 100%;
 		
 		@media @767{
 			margin-left: 0;
+		}
+		.cms-pages{
+			@media @767{
+				padding: 0;
+			}
 		}
 	}
 	.col-lg-9{
@@ -10247,6 +10262,15 @@ select{
 			padding: 0 1rem;
 		}
 			
+	}
+	
+	.cmspage {
+		h5{
+			font-size: @font16;
+		}
+		.card-header > a::before{
+			font-size: @font16;
+		}
 	}
 
 }
