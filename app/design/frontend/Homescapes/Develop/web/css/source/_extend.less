@@ -10175,3 +10175,78 @@ select{
 		content: "";
 		margin: 0 1rem 0 0;
 	}
+
+/*--------------------------------------------------------------------------
+|  Faq page reset
+--------------------------------------------------------------------------*/
+
+.webfaq{
+	
+	.nav-tabs{
+		@media @991{
+			border: none;
+		}
+	}
+	
+	.faq-tabs{
+		background: @f9light;
+		padding: 0;
+		
+		@media @767{
+			background: none;
+			margin-bottom: 2rem;
+			padding: 0 1rem;
+		}
+		
+		ul li{
+			float: left;
+			display: block;
+			width: 100%;
+			margin-right: -1px;
+			
+			@media @767{
+				width: 49%;
+			}
+			
+			
+		}
+		.nav-tabs .nav-link.active{
+			border-color: @dlight;
+			border-right-color: @white;
+			position: relative;
+			z-index: 2;
+			
+			@media @767{
+				border-right-color: @dlight;
+			}
+			
+		}
+		.nav-tabs .nav-link{
+			border: 1px solid @dlight;
+			padding: 1rem;
+			font-weight: 500;
+		}
+
+	}
+	.tab-content{
+		border: 1px solid @dlight;
+		margin-left: -1px;
+		min-height: 50rem;
+		padding: 2rem 0 3rem 0;
+		height: 100%;
+		float: left;
+		
+		@media @767{
+			margin-left: 0;
+		}
+	}
+	.col-lg-9{
+		padding: 0;
+			
+		@media @767{
+			padding: 0 1rem;
+		}
+			
+	}
+
+}
