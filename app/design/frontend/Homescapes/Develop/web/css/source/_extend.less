@@ -2875,10 +2875,25 @@ transition: all 5ms ease-in-out 0s;
 				width: 31.33%;
 				margin: 1%;
 			}
+			@media @639{
+				width: 48%;
+			}
+		}
+		span{
+			@media @479{
+				font-size: @font18;
+			}
 		}
 	}
 	.col-lg-5{
 		padding-left: 1.5rem;
+		
+		@media @991{
+			padding: 0 1.5rem;
+		}
+		@media @767{
+			padding: 0;
+		}
 	}
 	.col-lg-7{
 		padding-right: 1.5rem;
@@ -2886,9 +2901,6 @@ transition: all 5ms ease-in-out 0s;
 	ul li:first-child{
 		@media @991{
 			margin-right: 1%;
-		}
-		@media @767{
-			margin-right: 2%;
 		}
 	}
 }
