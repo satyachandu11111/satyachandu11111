@@ -15,11 +15,13 @@ $topSkus = implode($topProducts,',');
 $category = $block->getLayer()->getCurrentCategory();
 $categoryName = $category->getName();
 
+$parentCategoryName = $this->helper('Homescapes\Fbpixel\Helper\Data')->getParentCategoryName($category);
+
 ?>
 <script type="text/javascript">
 	fbq('trackCustom', 'ViewCategory', {
-	  content_name: <?php  echo $categoryName ?>,
-	  content_category: <?php  echo $categoryName ?>,
+	  content_name: '<?php  echo $categoryName ?>',
+	  content_category: '<?php  echo $parentCategoryName ?>',
 	  content_ids: [<?php echo $topSkus; ?>], 
 	  content_type: 'product'
 	});
