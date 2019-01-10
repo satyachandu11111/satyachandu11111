@@ -2057,7 +2057,7 @@ transition: all 5ms ease-in-out 0s;
 	margin-bottom: 48px;
 	
 	@media @991{
-		margin-bottom: 30px;
+		margin-bottom: 0px !important;
 	}
 }
 .mb-mobile-20{
@@ -8744,6 +8744,11 @@ transition: all 5ms ease-in-out 0s;
 			}
 			@media @767{
 				margin-top: 0;
+				width: 46%;
+				
+				&:first-child{
+					margin-right: 8%;
+				}
 			}
 		}
 	}
