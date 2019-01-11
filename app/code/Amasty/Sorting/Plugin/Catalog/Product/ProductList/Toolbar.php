@@ -8,6 +8,9 @@
 
 namespace Amasty\Sorting\Plugin\Catalog\Product\ProductList;
 
+use Amasty\Sorting\Helper\Data;
+use Magento\Framework\Registry;
+
 /**
  * Plugin Toolbar
  * plugin name: Amasty_Sorting::catalogToolbar
@@ -16,7 +19,7 @@ namespace Amasty\Sorting\Plugin\Catalog\Product\ProductList;
 class Toolbar
 {
     /**
-     * @var \Amasty\Sorting\Helper\Data
+     * @var Data
      */
     private $helper;
 
@@ -41,24 +44,24 @@ class Toolbar
     private $stockMethod;
 
     /**
-     * Toolbar constructor.
-     *
-     * @param \Amasty\Sorting\Helper\Data                        $helper
-     * @param \Amasty\Sorting\Model\MethodProvider               $methodProvider
-     * @param \Magento\Catalog\Model\Product\ProductList\Toolbar $toolbarModel
+     * @var Registry
      */
+    private $registry;
+
     public function __construct(
-        \Amasty\Sorting\Helper\Data $helper,
+        Data $helper,
         \Amasty\Sorting\Model\MethodProvider $methodProvider,
         \Magento\Catalog\Model\Product\ProductList\Toolbar $toolbarModel,
         \Amasty\Sorting\Model\ResourceModel\Method\Image $imageMethod,
-        \Amasty\Sorting\Model\ResourceModel\Method\Instock $stockMethod
+        \Amasty\Sorting\Model\ResourceModel\Method\Instock $stockMethod,
+        Registry $registry
     ) {
         $this->helper = $helper;
         $this->methodProvider = $methodProvider;
         $this->toolbarModel = $toolbarModel;
         $this->imageMethod = $imageMethod;
         $this->stockMethod = $stockMethod;
+        $this->registry = $registry;
     }
 
     /**
@@ -69,13 +72,10 @@ class Toolbar
      */
     public function afterGetCurrentDirection($subject, $dir)
     {
+        $defaultDir = $this->isDescDir($subject->getCurrentOrder()) ? 'desc' : 'asc';
+        $subject->setDefaultDirection($defaultDir);
         if (!$this->toolbarModel->getDirection()) {
-            if ($this->isNeedReverse($subject->getCurrentOrder())) {
-                $dir = 'desc';
-            } else {
-                $dir = 'asc';
-            }
-            $subject->setDefaultDirection($dir);
+            $dir = $defaultDir;
         }
 
         return $dir;
@@ -86,14 +86,18 @@ class Toolbar
      *
      * @return bool
      */
-    private function isNeedReverse($order)
+    private function isDescDir($order)
     {
+        $alwaysDesc = [
+            'price_desc',
+            'relevance'
+        ];
         $attributeCodes = $this->helper->getScopeValue('general/desc_attributes');
         if ($attributeCodes) {
-            return in_array($order, explode(',', $attributeCodes)) || $order == 'relevance';
+            $alwaysDesc = array_merge($alwaysDesc, explode(',', $attributeCodes));
         }
 
-        return false;
+        return in_array($order, $alwaysDesc);
     }
 
     /**
@@ -113,5 +117,37 @@ class Toolbar
         }
 
         return [$collection];
+    }
+
+    /**
+     * @param \Magento\Catalog\Block\Product\ProductList\Toolbar $subject
+     * @param \Magento\Catalog\Block\Product\ProductList\Toolbar $result
+     *
+     * @return \Magento\Catalog\Block\Product\ProductList\Toolbar
+     */
+    public function afterSetCollection($subject, $result)
+    {
+        $this->applyOrdersFromConfig($subject->getCollection());
+
+        return $result;
+    }
+
+    /**
+     * @param \Magento\Catalog\Model\ResourceModel\Product\Collection $collection
+     */
+    private function applyOrdersFromConfig($collection)
+    {
+        if ($this->registry->registry(Data::SEARCH_SORTING)) {
+            $defaultSortings = $this->helper->getSearchSorting();
+        } else {
+            $defaultSortings = $this->helper->getCategorySorting();
+        }
+        // first sorting must be setting by magento as default sorting
+        array_shift($defaultSortings);
+
+        foreach ($defaultSortings as $defaultSorting) {
+            $dir = $this->isDescDir($defaultSorting) ? 'desc' : 'asc';
+            $collection->setOrder($defaultSorting, $dir);
+        }
     }
 }

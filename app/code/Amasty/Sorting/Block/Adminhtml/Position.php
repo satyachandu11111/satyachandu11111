@@ -60,6 +60,12 @@ class Position extends Field
         $positions =  (array) $this->helper->getSortOrder();
         if ($positions === []) {
             $positions = $this->getOptionalArray();
+        } else {
+            $availableOptions = $this->getOptionalArray();
+            // delete disabled options
+            $positions = array_intersect($availableOptions, $positions);
+            $newOptions = array_diff($availableOptions, $positions);
+            $positions = array_merge($positions, $newOptions);
         }
 
         return $positions;
@@ -79,7 +85,7 @@ class Position extends Field
         $positions = [];
         $methods = $this->config->getAttributeUsedForSortByArray();
         foreach ($methods as $key => $methodObject) {
-            if (gettype($methodObject) == 'object') {
+            if (is_object($methodObject)) {
                 $positions[$key] = $methodObject->getText();
             } else {
                 $positions[$key] = $methodObject;

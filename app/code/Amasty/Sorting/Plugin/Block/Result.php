@@ -10,6 +10,7 @@ namespace Amasty\Sorting\Plugin\Block;
 
 use Amasty\Sorting\Helper\Data;
 use Magento\CatalogSearch\Block\Result as Subject;
+use Magento\Framework\Registry;
 
 class Result
 {
@@ -18,9 +19,15 @@ class Result
      */
     private $helper;
 
-    public function __construct(Data $helper)
+    /**
+     * @var Registry
+     */
+    private $registry;
+
+    public function __construct(Data $helper, Registry $registry)
     {
         $this->helper = $helper;
+        $this->registry = $registry;
     }
 
     /**
@@ -29,9 +36,14 @@ class Result
      */
     public function afterSetListOrders(Subject $result)
     {
+        $searchSortings = $this->helper->getSearchSorting();
+        // getting first default sorting
+        $sortBy = array_shift($searchSortings);
         $result->getListBlock()->setDefaultSortBy(
-            $this->helper->getSearchSorting()
+            $sortBy
         );
+        $this->registry->unregister(Data::SEARCH_SORTING);
+        $this->registry->register(Data::SEARCH_SORTING, true);
 
         return $this;
     }

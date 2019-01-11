@@ -133,7 +133,7 @@ class SortingAdapter extends \Magento\Framework\DataObject
     }
     
     /**
-     * @return bool 
+     * @return bool
      */
     public function usesSource()
     {

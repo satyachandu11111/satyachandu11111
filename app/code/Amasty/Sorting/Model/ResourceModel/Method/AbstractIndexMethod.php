@@ -4,6 +4,8 @@
  * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
  * @package Amasty_Sorting
  */
+
+
 namespace Amasty\Sorting\Model\ResourceModel\Method;
 
 use Amasty\Sorting\Api\IndexedMethodInterface;
@@ -16,7 +18,6 @@ use Magento\Framework\Exception\CouldNotDeleteException;
  */
 abstract class AbstractIndexMethod extends AbstractMethod implements IndexedMethodInterface
 {
-
     protected function _construct()
     {
         // product_id can be not unique
@@ -50,7 +51,9 @@ abstract class AbstractIndexMethod extends AbstractMethod implements IndexedMeth
         $this->beforeReindex();
 
         try {
-            $this->doReindex();
+            if ($this->indexConnection) {
+                $this->doReindex();
+            }
         } catch (\Exception $e) {
             $this->logger->critical(
                 $e,
@@ -95,13 +98,21 @@ abstract class AbstractIndexMethod extends AbstractMethod implements IndexedMeth
     }
 
     /**
+     * @return string
+     */
+    public function getAlias()
+    {
+        return $this->getMethodCode();
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function apply($collection, $direction)
     {
         try {
             $collection->joinField(
-                $this->getMethodCode(),        // alias
+                $this->getAlias(),        // alias
                 $this->getIndexTableName(),    // table
                 $this->getSortingColumnName(), // field
                 'product_id = entity_id',      // bind

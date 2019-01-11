@@ -9,15 +9,91 @@
 
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="Amasty\Sorting\Api\IndexMethodWrapperInterface" type="Amasty\Sorting\Model\IndexMethodWrapper"/>
+    <virtualType name="Amasty\Sorting\Model\Indexer\Wished\WishedIndexer" type="Amasty\Sorting\Model\Indexer\AbstractIndexer">
+        <arguments>
+            <argument name="indexBuilder" xsi:type="object">Amasty\Sorting\Model\ResourceModel\Method\Wished</argument>
+            <argument name="helper" xsi:type="object">Amasty\Sorting\Helper\Data</argument>
+            <argument name="cache" xsi:type="object">Magento\Framework\App\Cache\TypeListInterface</argument>
+            <argument name="cacheContext" xsi:type="object">Magento\Framework\Indexer\CacheContext</argument>
+            <argument name="eventManager" xsi:type="object">Magento\Framework\Event\ManagerInterface</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Amasty\Sorting\Model\Indexer\Wished\System\Config\WishedInvalidate" type="Amasty\Sorting\Model\Indexer\ConfigInvalidateAbstract">
+        <arguments>
+            <argument name="context" xsi:type="object">Magento\Framework\Model\Context</argument>
+            <argument name="registry" xsi:type="object">Magento\Framework\Registry</argument>
+            <argument name="config" xsi:type="object">Magento\Framework\App\Config\ScopeConfigInterface</argument>
+            <argument name="cacheTypeList" xsi:type="object">Magento\Framework\App\Cache\TypeListInterface</argument>
+            <argument name="indexProcessor" xsi:type="object">Amasty\Sorting\Model\Indexer\Wished\WishedProcessor</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Amasty\Sorting\Model\Indexer\Bestsellers\BestsellersIndexer" type="Amasty\Sorting\Model\Indexer\AbstractIndexer">
+        <arguments>
+            <argument name="indexBuilder" xsi:type="object">Amasty\Sorting\Model\ResourceModel\Method\Bestselling</argument>
+            <argument name="helper" xsi:type="object">Amasty\Sorting\Helper\Data</argument>
+            <argument name="cache" xsi:type="object">Magento\Framework\App\Cache\TypeListInterface</argument>
+            <argument name="cacheContext" xsi:type="object">Magento\Framework\Indexer\CacheContext</argument>
+            <argument name="eventManager" xsi:type="object">Magento\Framework\Event\ManagerInterface</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Amasty\Sorting\Model\Indexer\Bestsellers\System\Config\BestsellersInvalidate" type="Amasty\Sorting\Model\Indexer\ConfigInvalidateAbstract">
+        <arguments>
+            <argument name="context" xsi:type="object">Magento\Framework\Model\Context</argument>
+            <argument name="registry" xsi:type="object">Magento\Framework\Registry</argument>
+            <argument name="config" xsi:type="object">Magento\Framework\App\Config\ScopeConfigInterface</argument>
+            <argument name="cacheTypeList" xsi:type="object">Magento\Framework\App\Cache\TypeListInterface</argument>
+            <argument name="indexProcessor" xsi:type="object">Amasty\Sorting\Model\Indexer\Bestsellers\BestsellersProcessor</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Amasty\Sorting\Model\Indexer\TopRated\TopRatedIndexer" type="Amasty\Sorting\Model\Indexer\AbstractIndexer">
+        <arguments>
+            <argument name="indexBuilder" xsi:type="object">Amasty\Sorting\Model\ResourceModel\Method\Toprated</argument>
+            <argument name="helper" xsi:type="object">Amasty\Sorting\Helper\Data</argument>
+            <argument name="cache" xsi:type="object">Magento\Framework\App\Cache\TypeListInterface</argument>
+            <argument name="cacheContext" xsi:type="object">Magento\Framework\Indexer\CacheContext</argument>
+            <argument name="eventManager" xsi:type="object">Magento\Framework\Event\ManagerInterface</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Amasty\Sorting\Model\Indexer\TopRated\System\Config\TopRatedInvalidate" type="Amasty\Sorting\Model\Indexer\ConfigInvalidateAbstract">
+        <arguments>
+            <argument name="context" xsi:type="object">Magento\Framework\Model\Context</argument>
+            <argument name="registry" xsi:type="object">Magento\Framework\Registry</argument>
+            <argument name="config" xsi:type="object">Magento\Framework\App\Config\ScopeConfigInterface</argument>
+            <argument name="cacheTypeList" xsi:type="object">Magento\Framework\App\Cache\TypeListInterface</argument>
+            <argument name="indexProcessor" xsi:type="object">Amasty\Sorting\Model\Indexer\TopRated\TopRatedProcessor</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Amasty\Sorting\Model\Indexer\MostViewed\MostViewedIndexer" type="Amasty\Sorting\Model\Indexer\AbstractIndexer">
+        <arguments>
+            <argument name="indexBuilder" xsi:type="object">Amasty\Sorting\Model\ResourceModel\Method\MostViewed</argument>
+            <argument name="helper" xsi:type="object">Amasty\Sorting\Helper\Data</argument>
+            <argument name="cache" xsi:type="object">Magento\Framework\App\Cache\TypeListInterface</argument>
+            <argument name="cacheContext" xsi:type="object">Magento\Framework\Indexer\CacheContext</argument>
+            <argument name="eventManager" xsi:type="object">Magento\Framework\Event\ManagerInterface</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Amasty\Sorting\Model\Indexer\MostViewed\System\Config\MostViewedInvalidate" type="Amasty\Sorting\Model\Indexer\ConfigInvalidateAbstract">
+        <arguments>
+            <argument name="context" xsi:type="object">Magento\Framework\Model\Context</argument>
+            <argument name="registry" xsi:type="object">Magento\Framework\Registry</argument>
+            <argument name="config" xsi:type="object">Magento\Framework\App\Config\ScopeConfigInterface</argument>
+            <argument name="cacheTypeList" xsi:type="object">Magento\Framework\App\Cache\TypeListInterface</argument>
+            <argument name="indexProcessor" xsi:type="object">Amasty\Sorting\Model\Indexer\MostViewed\MostViewedProcessor</argument>
+        </arguments>
+    </virtualType>
     <!-- initialize sorting methods -->
     <type name="Amasty\Sorting\Model\ResourceModel\Method\Bestselling">
         <arguments>
             <argument name="methodCode" xsi:type="string">bestsellers</argument>
             <argument name="methodName" xsi:type="string">Best Sellers</argument>
-            <argument name="ignoredProductTypes" xsi:type="array">
-                <!--<item name="bundle" xsi:type="const">\Magento\Catalog\Model\Product\Type::TYPE_BUNDLE</item>-->
-                <!--<item name="grouped" xsi:type="const">Magento\GroupedProduct\Model\Product\Type\Grouped::TYPE_CODE</item>-->
-                <!--<item name="configurable" xsi:type="const">\Magento\ConfigurableProduct\Model\Product\Type\Configurable::TYPE_CODE</item>-->
+            <argument name="indexResource" xsi:type="object">\Magento\Sales\Model\ResourceModel\Order</argument>
+            <argument name="data" xsi:type="array">
+                <item name="ignoredProductTypes" xsi:type="array">
+                    <!--<item name="bundle" xsi:type="const">\Magento\Catalog\Model\Product\Type::TYPE_BUNDLE</item>-->
+                    <!--<item name="grouped" xsi:type="const">Magento\GroupedProduct\Model\Product\Type\Grouped::TYPE_CODE</item>-->
+                    <!--<item name="configurable" xsi:type="const">\Magento\ConfigurableProduct\Model\Product\Type\Configurable::TYPE_CODE</item>-->
+                </item>
+                <item name="orderItemCollectionFactory" xsi:type="object">\Magento\Sales\Model\ResourceModel\Order\Item\CollectionFactory</item>
             </argument>
         </arguments>
     </type>
@@ -37,12 +113,14 @@
         <arguments>
             <argument name="methodCode" xsi:type="string">most_viewed</argument>
             <argument name="methodName" xsi:type="string">Most Viewed</argument>
+            <argument name="indexResource" xsi:type="object">\Magento\Reports\Model\ResourceModel\Event</argument>
         </arguments>
     </type>
     <type name="Amasty\Sorting\Model\ResourceModel\Method\Wished">
         <arguments>
             <argument name="methodCode" xsi:type="string">wished</argument>
             <argument name="methodName" xsi:type="string">Now in Wishlists</argument>
+            <argument name="indexResource" xsi:type="object">\Magento\Wishlist\Model\ResourceModel\Item</argument>
         </arguments>
     </type>
     <type name="Amasty\Sorting\Model\ResourceModel\Method\Newest">
@@ -57,6 +135,18 @@
             <argument name="methodName" xsi:type="string">Biggest Saving</argument>
         </arguments>
     </type>
+    <virtualType name="Amasty\Sorting\Model\ResourceModel\Method\PriceAsc" type="Amasty\Sorting\Model\ResourceModel\Method\Price">
+        <arguments>
+            <argument name="methodCode" xsi:type="string">price_asc</argument>
+            <argument name="methodName" xsi:type="string">Price: low to high</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Amasty\Sorting\Model\ResourceModel\Method\PriceDesc" type="Amasty\Sorting\Model\ResourceModel\Method\Price">
+        <arguments>
+            <argument name="methodCode" xsi:type="string">price_desc</argument>
+            <argument name="methodName" xsi:type="string">Price: high to low</argument>
+        </arguments>
+    </virtualType>
     <!--initialize sorting methods with index-->
     <virtualType name="Amasty\Sorting\Model\BestsellersWrapper" type="Amasty\Sorting\Model\IndexMethodWrapper">
         <arguments>
@@ -99,11 +189,56 @@
                 <item name="rating_summary" xsi:type="object">Amasty\Sorting\Model\ResourceModel\Method\Toprated</item>
                 <item name="newest" xsi:type="object">Amasty\Sorting\Model\ResourceModel\Method\Newest</item>
                 <item name="saving" xsi:type="object">Amasty\Sorting\Model\ResourceModel\Method\Saving</item>
+                <item name="price_asc" xsi:type="object">Amasty\Sorting\Model\ResourceModel\Method\PriceAsc</item>
+                <item name="price_desc" xsi:type="object">Amasty\Sorting\Model\ResourceModel\Method\PriceDesc</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Catalog\Model\Config">
+        <plugin name="Amasty_Sorting::AddSortingMethods" type="Amasty\Sorting\Plugin\Catalog\Config"/>
+    </type>
+    <type name="Amasty\VisualMerch\Model\Product\Sorting\ImprovedSorting\MethodBuilder">
+        <arguments>
+            <argument name="methods" xsi:type="array">
+                <item name="rating_summary" xsi:type="array">
+                    <item name="method_instance" xsi:type="object">Amasty\Sorting\Model\ResourceModel\Method\Toprated</item>
+                    <item name="method_direction" xsi:type="string">DESC</item>
+                    <item name="sort_order" xsi:type="string">10</item>
+                </item>
+                <item name="most_viewed" xsi:type="array">
+                    <item name="method_instance" xsi:type="object">Amasty\Sorting\Model\ResourceModel\Method\MostViewed</item>
+                    <item name="method_direction" xsi:type="string">DESC</item>
+                    <item name="sort_order" xsi:type="string">20</item>
+                </item>
+                <item name="bestsellers" xsi:type="array">
+                    <item name="method_instance" xsi:type="object">Amasty\Sorting\Model\ResourceModel\Method\Bestselling</item>
+                    <item name="method_direction" xsi:type="string">DESC</item>
+                    <item name="sort_order" xsi:type="string">30</item>
+                </item>
+                <item name="saving" xsi:type="array">
+                    <item name="method_instance" xsi:type="object">Amasty\Sorting\Model\ResourceModel\Method\Saving</item>
+                    <item name="method_direction" xsi:type="string">DESC</item>
+                    <item name="sort_order" xsi:type="string">40</item>
+                </item>
+                <item name="reviews_count" xsi:type="array">
+                    <item name="method_instance" xsi:type="object">Amasty\Sorting\Model\ResourceModel\Method\Commented</item>
+                    <item name="method_direction" xsi:type="string">DESC</item>
+                    <item name="sort_order" xsi:type="string">50</item>
+                </item>
+                <item name="wished" xsi:type="array">
+                    <item name="method_instance" xsi:type="object">Amasty\Sorting\Model\ResourceModel\Method\Wished</item>
+                    <item name="method_direction" xsi:type="string">DESC</item>
+                    <item name="sort_order" xsi:type="string">60</item>
+                </item>
             </argument>
         </arguments>
     </type>
 
-    <type name="Magento\Catalog\Model\Config">
-        <plugin name="Amasty_Sorting::AddSortingMethods" type="Amasty\Sorting\Plugin\Catalog\Config"/>
+    <type name="Amasty\Sorting\Block\Adminhtml\System\Config\ILN">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="module_manager" xsi:type="object">Magento\Framework\Module\Manager</item>
+            </argument>
+        </arguments>
     </type>
 </config>

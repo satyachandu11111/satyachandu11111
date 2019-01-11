@@ -26,9 +26,6 @@ class Saving extends AbstractMethod
         return parent::getMethodLabel($store);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function apply($collection, $direction)
     {
         $connection = $this->getConnection();
@@ -49,11 +46,23 @@ class Saving extends AbstractMethod
             $saving = "($price - $minPrice)";
         }
 
-        $expr = new \Zend_Db_Expr($saving . ' ' . $direction);
+        $collection->getSelect()->columns([$this->getMethodCode() => new \Zend_Db_Expr($saving)]);
+        $collection->addExpressionAttributeToSelect($this->getMethodCode(), $this->getMethodCode(), []);
 
-        $collection->getSelect()->order($expr);
+        // remove last item from columns because e.saving from addExpressionAttributeToSelect not exist
+        $columns = $collection->getSelect()->getPart(\Zend_Db_Select::COLUMNS);
+        array_pop($columns);
+        $collection->getSelect()->setPart(\Zend_Db_Select::COLUMNS, $columns);
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAlias()
+    {
+        return $this->getMethodCode();
     }
 
     /**

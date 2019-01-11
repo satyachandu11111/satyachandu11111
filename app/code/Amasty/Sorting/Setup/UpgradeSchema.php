@@ -28,7 +28,6 @@ class UpgradeSchema implements UpgradeSchemaInterface
         $yotpoTable = $setup->getTable('amasty_sorting_yotpo');
 
         if ($context->getVersion() && version_compare($context->getVersion(), '2.0.0', '<')) {
-
             if (!$setup->getConnection()->isTableExists($bestsellersTable)) {
                 /**
                  * Create table 'amasty_sorting_bestsellers'
@@ -77,7 +76,8 @@ class UpgradeSchema implements UpgradeSchemaInterface
      * @param SchemaSetupInterface $setup
      * @param array $tables
      */
-    private function addPrimaryKeys(SchemaSetupInterface $setup, array $tables) {
+    private function addPrimaryKeys(SchemaSetupInterface $setup, array $tables)
+    {
         foreach ($tables as $table) {
             if ($setup->getConnection()->isTableExists($table)) {
                 $setup->getConnection()->changeColumn(

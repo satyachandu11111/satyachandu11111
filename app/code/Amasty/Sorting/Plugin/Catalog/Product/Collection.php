@@ -10,6 +10,7 @@ namespace Amasty\Sorting\Plugin\Catalog\Product;
 
 use Magento\Catalog\Model\ResourceModel\Product\Collection as ProductCollection;
 use Magento\Framework\DB\Select;
+use Magento\Framework\Search\Adapter\Mysql\TemporaryStorage;
 
 /**
  * Plugin Collection
@@ -48,15 +49,6 @@ class Collection
      */
     private $logger;
 
-    /**
-     * Collection constructor.
-     * @param \Amasty\Sorting\Helper\Data $helper
-     * @param \Amasty\Sorting\Model\MethodProvider $methodProvider
-     * @param \Amasty\Sorting\Model\ResourceModel\Method\Image $imageMethod
-     * @param \Amasty\Sorting\Model\ResourceModel\Method\Instock $stockMethod
-     * @param \Amasty\Sorting\Model\SortingAdapterFactory $adapterFactory
-     * @param \Amasty\Sorting\Model\Logger $logger
-     */
     public function __construct(
         \Amasty\Sorting\Helper\Data $helper,
         \Amasty\Sorting\Model\MethodProvider $methodProvider,
@@ -82,13 +74,19 @@ class Collection
      */
     public function beforeSetOrder($subject, $attribute, $dir = Select::SQL_DESC)
     {
-        $this->stockMethod->apply($subject, $dir);
-        $this->imageMethod->apply($subject, $dir);
+        $this->applyHighPriorityOrders($subject, $dir);
         $method = $this->methodProvider->getMethodByCode($attribute);
         if ($method && !$subject->getFlag($this->getFlagName($attribute))) {
             $subject->setFlag($this->getFlagName($attribute), true);
             $method->apply($subject, $dir);
+            $attribute = $method->getAlias();
             $this->logger->logCollectionQuery($subject);
+        } elseif ($attribute == 'price') {
+            $subject->addOrder($attribute, $dir);
+            $attribute = 'am_price_sorting';
+        } elseif ($attribute == 'relevance' && !$subject->getFlag($this->getFlagName('am_relevance'))) {
+            $this->addRelevanceSorting($subject, $dir);
+            $attribute = 'am_relevance';
         }
 
         return [$attribute, $dir];
@@ -101,5 +99,35 @@ class Collection
         }
 
         return 'amasty_sorting';
+    }
+
+    /**
+     * @param \Magento\Catalog\Model\ResourceModel\Product\Collection $collection
+     * @param string $dir
+     */
+    private function applyHighPriorityOrders($collection, $dir)
+    {
+        if (!$collection->getFlag($this->getFlagName('high'))) {
+            $this->stockMethod->apply($collection, $dir);
+            $this->imageMethod->apply($collection, $dir);
+            $collection->setFlag($this->getFlagName('high'), true);
+        }
+    }
+
+    /**
+     * @param \Magento\Catalog\Model\ResourceModel\Product\Collection $collection
+     */
+    private function addRelevanceSorting($collection)
+    {
+        $collection->getSelect()->columns(['am_relevance' => new \Zend_Db_Expr(
+            'search_result.'. TemporaryStorage::FIELD_SCORE
+        )]);
+        $collection->addExpressionAttributeToSelect('am_relevance', 'am_relevance', []);
+
+        // remove last item from columns because e.am_relevance from addExpressionAttributeToSelect not exist
+        $columns = $collection->getSelect()->getPart(\Zend_Db_Select::COLUMNS);
+        array_pop($columns);
+        $collection->getSelect()->setPart(\Zend_Db_Select::COLUMNS, $columns);
+        $collection->setFlag($this->getFlagName('am_relevance'), true);
     }
 }

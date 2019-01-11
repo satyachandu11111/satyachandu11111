@@ -4,16 +4,20 @@
  * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
  * @package Amasty_Sorting
  */
+
+
 namespace Amasty\Sorting\Model\ResourceModel\Method;
 
 use Amasty\Sorting\Api\MethodInterface;
+use Magento\Framework\DB\Adapter\AdapterInterface;
+use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 
 /**
  * Class AbstractMethod
  *
  * @package Amasty\Sorting\Model\Method
  */
-abstract class AbstractMethod extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb implements MethodInterface
+abstract class AbstractMethod extends AbstractDb implements MethodInterface
 {
     /**
      * @var bool
@@ -63,18 +67,22 @@ abstract class AbstractMethod extends \Magento\Framework\Model\ResourceModel\Db\
     protected $date;
 
     /**
-     * AbstractMethod constructor.
-     *
-     * @param Context $context
-     * @param string  $connectionName
-     * @param string  $methodCode
-     * @param string  $methodName
+     * @var AdapterInterface|null
      */
+    protected $indexConnection = null;
+
+    /**
+     * @var array
+     */
+    private $data;
+
     public function __construct(
         Context $context,
         $connectionName = null,
         $methodCode = '',
-        $methodName = ''
+        $methodName = '',
+        AbstractDb $indexResource = null,
+        $data = []
     ) {
         $this->scopeConfig      = $context->getScopeConfig();
         $this->request          = $context->getRequest();
@@ -84,12 +92,13 @@ abstract class AbstractMethod extends \Magento\Framework\Model\ResourceModel\Db\
         $this->date             = $context->getDate();
         $this->methodCode       = $methodCode;
         $this->methodName       = $methodName;
+        if ($indexResource) {
+            $this->indexConnection = $indexResource->getConnection();
+        }
+        $this->data = $data;
         parent::__construct($context, $connectionName);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function _construct()
     {
         // dummy
@@ -138,5 +147,20 @@ abstract class AbstractMethod extends \Magento\Framework\Model\ResourceModel\Db\
     public function getMethodLabel($store = null)
     {
         return __($this->getMethodName());
+    }
+
+    /**
+     * @param string $key
+     *
+     * @return mixed
+     */
+    protected function getAdditionalData($key)
+    {
+        $result = null;
+        if (isset($this->data[$key])) {
+            $result = $this->data[$key];
+        }
+
+        return $result;
     }
 }

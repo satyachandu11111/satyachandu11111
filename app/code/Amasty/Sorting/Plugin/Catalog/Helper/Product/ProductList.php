@@ -47,7 +47,9 @@ class ProductList
     public function afterGetDefaultSortField(Subject $subject, $sortBy)
     {
         if (in_array($this->request->getModuleName(), $this->searchModules)) {
-            $sortBy = $this->helper->getSearchSorting();
+            $searchSortings = $this->helper->getSearchSorting();
+            // getting first default sorting
+            $sortBy = array_shift($searchSortings);
         }
 
         return $sortBy;

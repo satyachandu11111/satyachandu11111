@@ -2,11 +2,11 @@
     "name": "amasty/sorting",
     "description": "Improved Sorting by Amasty",
     "require": {
-        "php": "~5.6.5|7.0.2|7.0.4|~7.0.6|~7.1.0",
-        "amasty/base": "*"
+        "php": "~5.6.5|7.0.2|7.0.4|~7.0.6|^7.1.0",
+        "amasty/base": ">=1.4.11"
     },
     "type": "magento2-module",
-    "version": "2.2.3",
+    "version": "2.5.1",
     "license": [
         "Commercial"
     ],

@@ -4,10 +4,9 @@
  * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
  * @package Amasty_Sorting
  */
-namespace Amasty\Sorting\Model\ResourceModel\Method;
 
-use Amasty\Sorting\Api\IndexedMethodInterface;
-use Magento\Reports\Model\ResourceModel\Product\Index\AbstractIndex;
+
+namespace Amasty\Sorting\Model\ResourceModel\Method;
 
 /**
  * Class Bestselling
@@ -16,46 +15,6 @@ use Magento\Reports\Model\ResourceModel\Product\Index\AbstractIndex;
  */
 class Bestselling extends AbstractIndexMethod
 {
-    /**
-     * @var bool
-     */
-    protected $isAllGrouped = false;
-
-    /**
-     * Ignored product types list
-     *
-     * @var array
-     */
-    private $ignoredProductTypes = [];
-
-    /**
-     * @var \Magento\Sales\Model\ResourceModel\Order\Item\CollectionFactory
-     */
-    private $orderItemCollectionFactory;
-
-    /**
-     * Bestselling constructor.
-     *
-     * @param Context                                                         $context
-     * @param \Magento\Sales\Model\ResourceModel\Order\Item\CollectionFactory $orderItemCollectionFactory
-     * @param string                                                          $connectionName
-     * @param string                                                          $methodCode
-     * @param string                                                          $methodName
-     * @param array                                                           $ignoredProductTypes
-     */
-    public function __construct(
-        Context $context,
-        \Magento\Sales\Model\ResourceModel\Order\Item\CollectionFactory $orderItemCollectionFactory,
-        $connectionName = null,
-        $methodCode = '',
-        $methodName = '',
-        $ignoredProductTypes = []
-    ) {
-        parent::__construct($context, $connectionName, $methodCode, $methodName);
-        $this->ignoredProductTypes = $ignoredProductTypes;
-        $this->orderItemCollectionFactory = $orderItemCollectionFactory;
-    }
-
     /**
      * {@inheritdoc}
      */
@@ -90,9 +49,7 @@ class Bestselling extends AbstractIndexMethod
      */
     public function doReindex()
     {
-        $connection = $this->getConnection();
-
-        $select = $connection->select();
+        $select = $this->indexConnection->select();
 
         $select->group(['source_table.store_id', 'order_item.product_id']);
 
@@ -122,10 +79,17 @@ class Bestselling extends AbstractIndexMethod
         $select->useStraightJoin();
         // important!
 
-        $insertQuery = $select->insertFromSelect($this->getMainTable(), array_keys($columns));
-        $connection->query($insertQuery);
+        $bestsellersInfo = $this->indexConnection->fetchAll($select);
 
-        if (!in_array(\Magento\GroupedProduct\Model\Product\Type\Grouped::TYPE_CODE, $this->ignoredProductTypes)) {
+        if ($bestsellersInfo) {
+            $this->getConnection()->insertArray($this->getMainTable(), array_keys($columns), $bestsellersInfo);
+        }
+
+        if (!in_array(
+            \Magento\GroupedProduct\Model\Product\Type\Grouped::TYPE_CODE,
+            $this->getAdditionalData('ignoredProductTypes')
+        )
+        ) {
             $this->calculateGrouped();
         }
     }
@@ -137,10 +101,10 @@ class Bestselling extends AbstractIndexMethod
      */
     private function addIgnoreProductTypes($select)
     {
-        if ($this->ignoredProductTypes) {
+        if ($this->getAdditionalData('ignoredProductTypes')) {
             $select->where(
                 'order_item.product_type NOT IN(?)',
-                $this->ignoredProductTypes
+                $this->getAdditionalData('ignoredProductTypes')
             );
             return true;
         }
@@ -192,7 +156,7 @@ class Bestselling extends AbstractIndexMethod
      */
     private function calculateGrouped()
     {
-        $collection = $this->orderItemCollectionFactory->create();
+        $collection = $this->getAdditionalData('orderItemCollectionFactory')->create();
         $collection->addFieldToFilter('product_type', \Magento\GroupedProduct\Model\Product\Type\Grouped::TYPE_CODE);
         $select = $collection->getSelect();
         $select->joinLeft(
@@ -219,7 +183,7 @@ class Bestselling extends AbstractIndexMethod
             $result[$storeId][$groupedId] += $item->getQtyOrdered();
         }
 
-        if (!count($result)) {
+        if (empty($result)) {
             return;
         }
 

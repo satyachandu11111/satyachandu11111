@@ -36,13 +36,6 @@ class MethodProvider
      */
     private $methods = [];
 
-    /**
-     * Method constructor.
-     *
-     * @param \Magento\Framework\App\Config\ScopeConfigInterface               $scopeConfig
-     * @param IndexMethodWrapperInterface[] $indexedMethods
-     * @param MethodInterface[]      $methods
-     */
     public function __construct(
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         $indexedMethods = [],
@@ -60,7 +53,7 @@ class MethodProvider
      *
      * @throws LocalizedException
      */
-    protected function initMethods($indexedMethods = [], $methods = [])
+    private function initMethods($indexedMethods = [], $methods = [])
     {
         foreach ($indexedMethods as $methodWrapper) {
             $this->indexedMethods[$methodWrapper->getSource()->getMethodCode()] = $methodWrapper;

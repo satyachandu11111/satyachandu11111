@@ -86,7 +86,7 @@ class Toprated extends AbstractIndexMethod
      */
     public function getSortingColumnName()
     {
-        return 'amrating_summary';
+        return 'rating_summary_field';
     }
 
     /**
@@ -95,6 +95,14 @@ class Toprated extends AbstractIndexMethod
     public function getSortingFieldName()
     {
         return 'rating_summary';
+    }
+
+    /**
+     * @return string
+     */
+    public function getAlias()
+    {
+        return $this->getSortingColumnName();
     }
 
     /**

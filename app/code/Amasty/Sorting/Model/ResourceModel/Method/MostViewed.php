@@ -47,8 +47,7 @@ class MostViewed extends AbstractIndexMethod
      */
     public function doReindex()
     {
-        $connection = $this->getConnection();
-        $select     = $connection->select();
+        $select = $this->indexConnection->select();
 
         $select->group(['source_table.store_id', 'source_table.object_id']);
 
@@ -70,13 +69,16 @@ class MostViewed extends AbstractIndexMethod
 
         $this->addFromDate($select);
 
-        $havingPart = $connection->prepareSqlCondition($viewsNumExpr, ['gt' => 0]);
+        $havingPart = $this->indexConnection->prepareSqlCondition($viewsNumExpr, ['gt' => 0]);
         $select->having($havingPart);
 
         $select->useStraightJoin();
 
-        $insertQuery = $select->insertFromSelect($this->getMainTable(), array_keys($columns));
-        $connection->query($insertQuery);
+        $viewedInfo = $this->indexConnection->fetchAll($select);
+
+        if ($viewedInfo) {
+            $this->getConnection()->insertArray($this->getMainTable(), array_keys($columns), $viewedInfo);
+        }
     }
 
     /**

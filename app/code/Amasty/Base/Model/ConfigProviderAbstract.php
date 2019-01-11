@@ -11,6 +11,9 @@ namespace Amasty\Base\Model;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Store\Model\ScopeInterface;
 
+/**
+ * @since 1.4.4
+ */
 abstract class ConfigProviderAbstract
 {
     /**

@@ -12,6 +12,7 @@ use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Framework\Setup\InstallDataInterface;
 use Magento\Indexer\Model\IndexerFactory;
+use Magento\Indexer\Model\Indexer;
 use Amasty\Sorting\Model\Indexer\Bestsellers\BestsellersProcessor;
 use Amasty\Sorting\Model\Indexer\MostViewed\MostViewedProcessor;
 use Amasty\Sorting\Model\Indexer\TopRated\TopRatedProcessor;
@@ -64,9 +65,18 @@ class InstallData implements InstallDataInterface
     public function reindexAll()
     {
         foreach ($this->indexerIds as $indexerId) {
-            $indexer = $this->indexer->create()
-                ->load($indexerId);
-            $indexer->reindexAll();
+            $this->loadIndexer($indexerId)->reindexAll();
         }
+    }
+
+    /**
+     * @param int $indexerId
+     *
+     * @return Indexer
+     */
+    private function loadIndexer($indexerId)
+    {
+        return $this->indexer->create()
+            ->load($indexerId);
     }
 }

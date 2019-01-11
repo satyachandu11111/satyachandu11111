@@ -110,7 +110,11 @@ class ApiClient extends AbstractHelper
         if ($this->yotpoClient) {
             foreach ($this->storeManager->getStores() as $store) {
                 $storeId = $store->getId();
-                $lastTime = $this->scopeConfig->getValue(self::LAST_TIME_UPDATED, ScopeInterface::SCOPE_STORE, $storeId);
+                $lastTime = $this->scopeConfig->getValue(
+                    self::LAST_TIME_UPDATED,
+                    ScopeInterface::SCOPE_STORE,
+                    $storeId
+                );
                 if ($lastTime) {
                     $firstLoad = false;
                     $this->fetchNewReviews($reviews, $lastTime, $storeId);

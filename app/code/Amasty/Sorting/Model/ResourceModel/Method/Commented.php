@@ -38,4 +38,12 @@ class Commented extends Toprated
 
         return $columnName;
     }
+
+    /**
+     * @return string
+     */
+    public function getSortingFieldName()
+    {
+        return 'reviews_count';
+    }
 }

@@ -37,14 +37,18 @@ class Newest extends AbstractMethod
     }
 
     /**
+     * @return string
+     */
+    public function getAlias()
+    {
+        return $this->getSortingColumnName();
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function apply($collection, $direction)
     {
-        $attributeCode = $this->getSortingColumnName();
-
-        $collection->addAttributeToSort($attributeCode, $direction);
-
         return $this;
     }
 }

@@ -10,6 +10,7 @@ namespace Amasty\Sorting\Helper;
 
 use Magento\CatalogInventory\Model\Configuration;
 use Amasty\Base\Model\Serializer;
+use Magento\Framework\Registry;
 
 /**
  * Class Data
@@ -17,18 +18,26 @@ use Amasty\Base\Model\Serializer;
 class Data extends \Magento\Framework\App\Helper\AbstractHelper
 {
     const CONFIG_SORT_ORDER = 'general/sort_order';
+    const SEARCH_SORTING = 'amsorting_search';
 
     /**
      * @var Serializer
      */
     private $serializer;
 
+    /**
+     * @var Registry
+     */
+    private $registry;
+
     public function __construct(
         \Amasty\Base\Model\Serializer $serializer,
+        Registry $registry,
         \Magento\Framework\App\Helper\Context $context
     ) {
         parent::__construct($context);
         $this->serializer = $serializer;
+        $this->registry = $registry;
     }
 
     /**
@@ -57,28 +66,38 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function isMethodDisabled($methodCode)
     {
-        $disabledMethods = $this->getScopeValue('general/disable_methods');
-        if (!$disabledMethods || empty($disabledMethods)) {
-            return false;
-        }
-        $disabledMethods = explode(',', $disabledMethods);
-        foreach ($disabledMethods as $disabledCode) {
-            if (trim($disabledCode) == $methodCode) {
-                return true;
+        $result = false;
+        if (!$this->registry->registry('sorting_all_attributes')) {
+            $disabledMethods = $this->getScopeValue('general/disable_methods');
+            if ($disabledMethods && !empty($disabledMethods)) {
+                $disabledMethods = explode(',', $disabledMethods);
+                foreach ($disabledMethods as $disabledCode) {
+                    if (trim($disabledCode) == $methodCode) {
+                        $result = true;
+                        break;
+                    }
+                }
             }
         }
 
-        return false;
+        return $result;
     }
 
     /**
      * Getting default sorting on search pages
      *
-     * @return string
+     * @return array
      */
     public function getSearchSorting()
     {
-        return $this->getScopeValue('general/default_search');
+        $defaultSorting = [];
+        foreach (['search_1', 'search_2', 'search_3'] as $path) {
+            if ($sort = $this->getScopeValue('default_sorting/' . $path)) {
+                $defaultSorting[] = $sort;
+            }
+        }
+
+        return $defaultSorting;
     }
 
     /**
@@ -111,5 +130,22 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         }
 
         return $value;
+    }
+
+    /**
+     * @param null|int $store
+     *
+     * @return array
+     */
+    public function getCategorySorting($store = null)
+    {
+        $defaultSorting = [];
+        foreach (['category_1', 'category_2', 'category_3'] as $path) {
+            if ($sort = $this->getScopeValue('default_sorting/' . $path, $store)) {
+                $defaultSorting[] = $sort;
+            }
+        }
+
+        return $defaultSorting;
     }
 }

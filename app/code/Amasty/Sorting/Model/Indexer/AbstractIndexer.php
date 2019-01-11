@@ -11,38 +11,48 @@ namespace Amasty\Sorting\Model\Indexer;
 use Magento\Framework\Mview\ActionInterface as MviewActionInterface;
 use Magento\Framework\Indexer\ActionInterface as IndexerActionInterface;
 use Magento\Framework\App\Cache\TypeListInterface as CacheTypeListInterface;
+use Magento\Framework\Indexer\CacheContext;
+use Magento\Framework\Event\ManagerInterface;
 
-abstract class AbstractIndexer implements IndexerActionInterface, MviewActionInterface
+class AbstractIndexer implements IndexerActionInterface, MviewActionInterface
 {
     /**
      * @var \Amasty\Sorting\Api\IndexedMethodInterface
      */
-    protected $indexBuilder;
+    private $indexBuilder;
 
     /**
      * @var \Amasty\Sorting\Helper\Data
      */
-    protected $helper;
+    private $helper;
 
     /**
      * @var CacheTypeListInterface
      */
-    protected $cache;
+    private $cache;
 
     /**
-     * AbstractIndexer constructor.
-     *
-     * @param \Amasty\Sorting\Api\IndexedMethodInterface $indexBuilder  for parent class
-     * @param \Amasty\Sorting\Helper\Data                $helper
+     * @var CacheContext
      */
+    private $cacheContext;
+
+    /**
+     * @var ManagerInterface
+     */
+    private $eventManager;
+
     public function __construct(
         \Amasty\Sorting\Api\IndexedMethodInterface $indexBuilder,
         \Amasty\Sorting\Helper\Data $helper,
-        CacheTypeListInterface $cache
+        CacheTypeListInterface $cache,
+        CacheContext $cacheContext,
+        ManagerInterface $eventManager
     ) {
         $this->indexBuilder = $indexBuilder;
         $this->helper = $helper;
         $this->cache = $cache;
+        $this->cacheContext = $cacheContext;
+        $this->eventManager = $eventManager;
     }
 
     /**
@@ -66,7 +76,10 @@ abstract class AbstractIndexer implements IndexerActionInterface, MviewActionInt
         // do full reindex if method is not disabled
         if (!$this->helper->isMethodDisabled($this->indexBuilder->getMethodCode())) {
             $this->indexBuilder->reindex();
-            $this->cache->invalidate('full_page');
+            $this->cacheContext->registerTags(
+                ['sorted_by_' . $this->indexBuilder->getMethodCode()]
+            );
+            $this->eventManager->dispatch('clean_cache_by_tags', ['object' => $this->cacheContext]);
         }
     }
 
@@ -106,7 +119,7 @@ abstract class AbstractIndexer implements IndexerActionInterface, MviewActionInt
      * @return void
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    protected function doExecuteRow($id)
+    private function doExecuteRow($id)
     {
         $this->executeFull();
     }

@@ -35,15 +35,22 @@ class Config
      */
     private $correctSortOrder;
 
+    /**
+     * @var \Magento\Framework\View\LayoutInterface
+     */
+    private $layout;
+
     public function __construct(
         \Amasty\Sorting\Helper\Data $helper,
         \Amasty\Sorting\Model\MethodProvider $methodProvider,
-        \Amasty\Sorting\Model\SortingAdapterFactory $adapterFactory
+        \Amasty\Sorting\Model\SortingAdapterFactory $adapterFactory,
+        \Magento\Framework\View\LayoutInterface $layout
     ) {
         $this->helper = $helper;
         $this->methodProvider = $methodProvider;
         $this->adapterFactory = $adapterFactory;
         $this->correctSortOrder = array_keys($this->helper->getSortOrder());
+        $this->layout = $layout;
     }
 
     /**
@@ -56,6 +63,12 @@ class Config
      */
     public function afterGetAttributesUsedForSortBy($subject, $options)
     {
+        foreach ($options as $key => $option) {
+            if ($this->helper->isMethodDisabled($key)) {
+                unset($options[$key]);
+            }
+        }
+
         return $this->addNewOptions($options);
     }
 
@@ -89,10 +102,15 @@ class Config
      */
     public function afterGetAttributeUsedForSortByArray($subject, $options)
     {
-        if ((bool)$this->helper->getScopeValue('general/hide_best_value')) {
+        if ($this->helper->isMethodDisabled('position')) {
             unset($options['position']);
         }
+
         $options = $this->sortOptions($options);
+
+        if (count($options) == 0 && !$this->layout->getBlock('search.result')) {
+            $options[] = '';
+        }
 
         return $options;
     }
@@ -103,7 +121,7 @@ class Config
      */
     private function sortOptions($options = [])
     {
-        uksort($options, array($this, "sortingRule"));
+        uksort($options, [$this, "sortingRule"]);
 
         return $options;
     }

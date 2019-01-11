@@ -27,4 +27,3 @@ class SearchSort extends ListSort
         return $options;
     }
 }
-

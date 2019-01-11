@@ -10,25 +10,13 @@ namespace Amasty\Sorting\Model\Indexer;
 
 use Magento\Framework\Indexer\AbstractProcessor;
 
-abstract class ConfigInvalidateAbstract extends \Magento\Framework\App\Config\Value
+class ConfigInvalidateAbstract extends \Magento\Framework\App\Config\Value
 {
     /**
      * @var AbstractProcessor
      */
-    protected $indexProcessor;
+    private $indexProcessor;
 
-    /**
-     * ConfigInvalidateAbstract constructor.
-     *
-     * @param \Magento\Framework\Model\Context                             $context
-     * @param \Magento\Framework\Registry                                  $registry
-     * @param \Magento\Framework\App\Config\ScopeConfigInterface           $config
-     * @param \Magento\Framework\App\Cache\TypeListInterface               $cacheTypeList
-     * @param AbstractProcessor                                            $indexProcessor
-     * @param \Magento\Framework\Model\ResourceModel\AbstractResource|null $resource
-     * @param \Magento\Framework\Data\Collection\AbstractDb|null           $resourceCollection
-     * @param array                                                        $data
-     */
     public function __construct(
         \Magento\Framework\Model\Context $context,
         \Magento\Framework\Registry $registry,

@@ -21,15 +21,22 @@ class Instock extends AbstractMethod
      */
     private $stockStatusResourceFactory;
 
+    /**
+     * @var \Magento\Framework\Module\Manager
+     */
+    private $moduleManager;
+
     public function __construct(
         Context $context,
         \Magento\CatalogInventory\Model\ResourceModel\Stock\StatusFactory $stockStatusResourceFactory,
+        \Magento\Framework\Module\Manager $moduleManager,
         $connectionName = null,
         $methodCode = '',
         $methodName = ''
     ) {
         parent::__construct($context, $connectionName, $methodCode, $methodName);
         $this->stockStatusResourceFactory = $stockStatusResourceFactory;
+        $this->moduleManager = $moduleManager;
     }
 
     /**
@@ -41,17 +48,37 @@ class Instock extends AbstractMethod
             return $this;
         }
 
+        if ($this->moduleManager->isEnabled('Magento_Inventory')) {
+            $qtyColumn = 'quantity';
+            $salableColumn = 'is_salable';
+        } else {
+            $qtyColumn = 'qty';
+            $salableColumn = 'stock_status';
+        }
+
         /**
          * join in @see \Magento\CatalogInventory\Model\AddStockStatusToCollection
          * so we don't need to process join, only add sorting
          */
         if ($this->helper->getScopeValue('general/out_of_stock_qty')) {
+            $ignoreTypes = [
+                '\'configurable\'',
+                '\'grouped\'',
+                '\'bundle\''
+            ];
             $collection->getSelect()->order(
                 /** IF(stock_status_index.qty > 0, 0, 1) */
-                $this->getConnection()->getCheckSql('stock_status_index.qty > ' . $this->helper->getQtyOutStock(), '0', '1')
+                $this->getConnection()->getCheckSql(
+                    'stock_status_index.' . $qtyColumn . ' > ' . $this->helper->getQtyOutStock() . ' OR e.type_id in (' . implode(
+                        ',',
+                        $ignoreTypes
+                    ) . ')',
+                    '0',
+                    '1'
+                )
             );
         } else {
-            $collection->getSelect()->order('stock_status_index.stock_status ' . $collection::SORT_ORDER_DESC);
+            $collection->getSelect()->order('stock_status_index.' . $salableColumn . ' ' . $collection::SORT_ORDER_DESC);
         }
 
         $orders = $collection->getSelect()->getPart(\Zend_Db_Select::ORDER);

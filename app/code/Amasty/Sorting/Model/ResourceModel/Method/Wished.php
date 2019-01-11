@@ -47,8 +47,7 @@ class Wished extends AbstractIndexMethod
      */
     public function doReindex()
     {
-        $connection = $this->getConnection();
-        $select     = $connection->select();
+        $select = $this->indexConnection->select();
 
         $select->group(['source_table.store_id', 'source_table.product_id']);
 
@@ -69,8 +68,11 @@ class Wished extends AbstractIndexMethod
 
         $select->useStraightJoin();
 
-        $insertQuery = $select->insertFromSelect($this->getMainTable(), array_keys($columns));
-        $connection->query($insertQuery);
+        $wishedInfo = $this->indexConnection->fetchAll($select);
+
+        if ($wishedInfo) {
+            $this->getConnection()->insertArray($this->getMainTable(), array_keys($columns), $wishedInfo);
+        }
     }
 
     /**

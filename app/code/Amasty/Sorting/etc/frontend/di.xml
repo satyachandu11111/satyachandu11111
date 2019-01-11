@@ -20,4 +20,11 @@
     <type name="Magento\Catalog\Helper\Product\ProductList">
         <plugin name="Amasty_Sorting::GetDefaultSortField" type="Amasty\Sorting\Plugin\Catalog\Helper\Product\ProductList"/>
     </type>
+    <type name="Magento\Catalog\Block\Product\ListProduct">
+        <plugin name="Amasty_Sorting::AddIdentities" type="Amasty\Sorting\Plugin\Catalog\Product\ListProduct"/>
+    </type>
+    <!-- fix magento quantity_and_stock_status bug with sorting by -->
+    <type name="Magento\CatalogInventory\Model\Source\Stock">
+        <plugin name="Amasty_Sorting::quantity_and_stock_status" type="Amasty\Sorting\Plugin\CatalogInventory\Model\Source\Stock"/>
+    </type>
 </config>
