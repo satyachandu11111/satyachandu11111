@@ -6353,7 +6353,25 @@ var Tab = function ($$$1) {
 // mega-menu js ends here
 	
 							   
-// back to top js 
+// menu fix on desktop
+							   
+							   
+window.onscroll = function() {myFunction()};
+
+var header = document.getElementById("myStickymenu");
+var sticky = header.offsetTop;
+
+function myFunction() {
+  if (window.pageYOffset > sticky) {
+    header.classList.add("stickymenu");
+  } else {
+    header.classList.remove("stickymenu");
+  }
+}
+							   
+							   
+							   
+							   
 							   
 // ===== Scroll to Top ==== 
 $(document).ready(function() {
