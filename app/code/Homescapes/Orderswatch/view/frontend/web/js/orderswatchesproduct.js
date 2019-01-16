@@ -199,7 +199,8 @@ define([
                             $("#updatedswatches li:nth-child("+json.productnumber+")").remove();
                             console.log('---------remove label----------');
                             console.log('.view-swatch-label-'+productId);
-                            $('.view-swatch-label-'+productId).html("Order Free Sample Swatch");                            
+                            var titleText = $('.order-swatch').attr('title');                                                   
+                            $('.view-swatch-label-'+productId).html(titleText);                            
                             $('ul#updatedswatches').append(json.html);
                             //$('.please-wait'+productId).hide();
                             if(samplecountdown==1)
@@ -249,7 +250,9 @@ define([
                             $("#updatedswatches li:nth-child("+json.productnumber+")").remove();
                             console.log('---------remove label----------');
                             console.log('.view-swatch-label-'+productId);
-                            $('.view-swatch-label-'+productId).html("Order Free Sample Swatch");                            
+                            var titleText = $('.order-swatch').attr('title');
+                            
+                            $('.view-swatch-label-'+productId).html(titleText);                            
                             $('ul#updatedswatches').append(json.html);
                             //$('.please-wait'+productId).hide();
                             if(samplecountdown==1)
