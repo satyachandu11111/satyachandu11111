@@ -82,6 +82,9 @@
 @font70:7rem;
 @font80:8rem;
 
+@semibold:500;
+@bold:600;
+
 /*--------------------------------------------------------------------------
 |  Responsive Break points
 --------------------------------------------------------------------------*/
@@ -132,7 +135,7 @@
 --------------------------------------------------------------------------*/
 b,
 strong {
-  font-weight: 500;
+  font-weight: @semibold;
 }
 .abs-account-block-font-size, .block-balance-giftcard .block-content, .block-addresses-list address, .box-billing-address .box-content, .box-shipping-address .box-content, .box-address-billing .box-content, .box-address-shipping .box-content, .box-information .box-content, .block-reviews-dashboard .product-name{
 	font-size: @base;
@@ -156,7 +159,7 @@ p{
 	outline: 2px solid @logo-black !important;
 }
 .fieldset > .field > .label, .fieldset > .fields > .field > .label{
-	font-weight: 500;
+	font-weight: @semibold;
 }
 
 .action.primary{
@@ -414,7 +417,7 @@ h6, .h6 {
 	}
 }
 .address-section .title{
-	font-weight: 500;
+	font-weight: @semibold;
 	min-width: 5rem;
 	display: inline-block;
 }
@@ -878,7 +881,7 @@ h6, .h6 {
 .wsmenu-list>li>a {
   display: block;
   color:@black;
-  font-weight: 500;
+  font-weight: @semibold;
   padding: 0px 14px;
   line-height: 35px;
   text-decoration: none;
@@ -940,7 +943,7 @@ transition: all 5ms ease-in-out 0s;
   padding: 9px 5px 9px 0px;
   font-size: @font15;
   color: @black;
-  font-weight: 500;
+  font-weight: @semibold;
   margin: 0px 0px 7px 0px;
   text-align: left;
   height: 39px;
@@ -1223,7 +1226,7 @@ transition: all 5ms ease-in-out 0s;
 	width: 100%;
 	
 	a{
-		font-weight: 500;
+		font-weight: @semibold;
 		font-size: @font16;
 		color: @danger !important;
 	}
@@ -1250,7 +1253,7 @@ transition: all 5ms ease-in-out 0s;
 		}
 	}
 	.title strong{
-		font-weight: 500;
+		font-weight: @semibold;
 	}
 
 
@@ -1809,7 +1812,7 @@ transition: all 5ms ease-in-out 0s;
 	
 	
 	label{
-		font-weight: 500;
+		font-weight: @semibold;
 	}
 	.menu-links li{
 		line-height: 30px;
@@ -1981,7 +1984,7 @@ transition: all 5ms ease-in-out 0s;
 			
 			h3{
 				font-size: @base;
-				font-weight: 500;
+				font-weight: @semibold;
 				margin: 0 0 4px;
 			}
 			p{
@@ -2100,7 +2103,7 @@ transition: all 5ms ease-in-out 0s;
 	}
 	h1, h2, h3, h4{
 		font-size:@font18;
-		font-weight: 500;
+		font-weight: @semibold;
 		
 		@media @767{
 			font-weight: normal;
@@ -2127,7 +2130,7 @@ transition: all 5ms ease-in-out 0s;
 			width: 100%;
 			margin-bottom: 25px;
 			font-size:@font20;
-			font-weight: 500;
+			font-weight: @semibold;
 			border-bottom: 0;
 		}
 		
@@ -2155,20 +2158,20 @@ transition: all 5ms ease-in-out 0s;
 	
 	h2{
 		font-size: @font18;
-		font-weight: 500;
+		font-weight: @semibold;
 		margin-bottom: 5px;
 		
 		@media @767{
-			font-weight: 500;
+			font-weight: @semibold;
 		}
 	}
 	h3{
 		font-size:@font16;
-		font-weight: 500;
+		font-weight: @semibold;
 		margin-bottom: 10px;
 		
 		@media @767{
-			font-weight: 500;
+			font-weight: @semibold;
 		}
 	}
 	p{
@@ -2213,7 +2216,7 @@ transition: all 5ms ease-in-out 0s;
 		}
 		.col-md-6 label{
 			font-size: @font16;
-			font-weight: 500;
+			font-weight: @semibold;
 		}
 	}
 	.widget.block{
@@ -2377,17 +2380,17 @@ transition: all 5ms ease-in-out 0s;
 		}
 		h6{
 			margin-left: 10px;
-			font-weight: 500;
+			font-weight: @semibold;
 			margin-bottom: 0;
 			
 			@media @767{
-				font-weight: 500;
+				font-weight: @semibold;
 			}
 			
 		}
 		h5{
 			
-			font-weight: 500;
+			font-weight: @semibold;
 			
 			@media @767{
 				font-weight: 400;
@@ -2663,7 +2666,7 @@ transition: all 5ms ease-in-out 0s;
 }
 .product-caption{
 	width: 100%;
-	font-weight: 500;
+	font-weight: @semibold;
 	font-size: @font16;
 	color: @black;
 	line-height: @font30;
@@ -3115,7 +3118,7 @@ transition: all 5ms ease-in-out 0s;
 	label{
 		width: 100%;
 		color: @danger;
-		font-weight: 500;
+		font-weight: @semibold;
 	}
 	.product-name{
 		font-size: @font20;
@@ -3139,7 +3142,7 @@ transition: all 5ms ease-in-out 0s;
 		clear: both;
 		float: left;
 		font-size: 15px;
-		font-weight: 500;
+		font-weight: @semibold;
 		padding: 0px 5px !important;
 		text-transform: uppercase;
 		z-index: 99;
@@ -3222,7 +3225,7 @@ transition: all 5ms ease-in-out 0s;
 		}
 	}
 	.head span{
-		font-weight: 500;
+		font-weight: @semibold;
 		font-size: 1.5rem;
 		
 		.fas{
@@ -3310,7 +3313,7 @@ transition: all 5ms ease-in-out 0s;
 		color: @black;
 		line-height: @font40;
 		margin-right: 3rem;
-		font-weight: 500;
+		font-weight: @semibold;
 		cursor: pointer;
 		
 		@media @991{
@@ -3404,7 +3407,7 @@ transition: all 5ms ease-in-out 0s;
     width: 100%;
 	margin-bottom: 1.5rem;
 	line-height: 3rem;
-	font-weight: 500;
+	font-weight: @semibold;
 	
 	@media @991{
 		line-height: @font24;
@@ -3473,7 +3476,7 @@ transition: all 5ms ease-in-out 0s;
 	clear: both;
 	width: 100%;
 	color: @green;
-	font-weight: 500;
+	font-weight: @semibold;
 	margin-bottom: 1.5rem;
 	font-size: @font16;
 }
@@ -3707,7 +3710,7 @@ transition: all 5ms ease-in-out 0s;
 	}
 	.g-discount{
 		color: @danger;
-		font-weight: 500;
+		font-weight: @semibold;
 	}
 	.unavailable + .towishlist{
 		display: none;
@@ -3741,7 +3744,7 @@ transition: all 5ms ease-in-out 0s;
 		
 		span{
 			font-size: @font16;
-			font-weight: 500;
+			font-weight: @semibold;
 			line-height: @font24;
 		}
 		.active{
@@ -3804,7 +3807,7 @@ transition: all 5ms ease-in-out 0s;
 		}
 	}
 	.stock-label{
-		font-weight: 500;
+		font-weight: @semibold;
 		color: @logo-black;
 		
 		@media @991{
@@ -3813,7 +3816,7 @@ transition: all 5ms ease-in-out 0s;
 	}
 	.reviews-actions .add{
 		color: @black;
-		font-weight: 500;
+		font-weight: @semibold;
 		text-decoration: none;
 		
 		&:before{
@@ -3877,7 +3880,7 @@ transition: all 5ms ease-in-out 0s;
 	
 	
 	.table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody > tr td[data-th]::before, .table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody > tr th[data-th]::before{
-		font-weight: 500;
+		font-weight: @semibold;
 	}
 	
 	
@@ -3893,7 +3896,7 @@ transition: all 5ms ease-in-out 0s;
 		border-left: 2px solid @f9light;
 		line-height: @font36;
 		background: @f9light;
-		font-weight: 500;
+		font-weight: @semibold;
 		color: @light-black;
 		border-right: 0;
 		
@@ -3954,7 +3957,7 @@ transition: all 5ms ease-in-out 0s;
 			td{
 				&:first-child{
 					@media @767{
-						font-weight: 500;
+						font-weight: @semibold;
 					}
 				}
 				&:last-child > p{
@@ -4003,7 +4006,7 @@ transition: all 5ms ease-in-out 0s;
 	
 	.table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody > tr td[data-th]::before, .table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody > tr th[data-th]::before{
 		@media @767{
-			font-weight: 500;
+			font-weight: @semibold;
 		}
 	}
 	
@@ -4015,7 +4018,7 @@ transition: all 5ms ease-in-out 0s;
 	
 	.conf-products .product-info-price .price-box .group-prod-price{
 		font-size: @font18;
-		font-weight: 500;
+		font-weight: @semibold;
 	}
 	
 	.table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) tbody > tr > td:first-child{
@@ -4055,7 +4058,7 @@ transition: all 5ms ease-in-out 0s;
 		.name{
 			font-size: @font16;
 			line-height: @font24;
-			font-weight: 500;
+			font-weight: @semibold;
 			
 			@media @767{
 				font-size: @base;
@@ -4095,7 +4098,7 @@ transition: all 5ms ease-in-out 0s;
 		
 		.price-wrapper .price{
 			font-size: @font18;
-			font-weight: 500;
+			font-weight: @semibold;
 			line-height:@base;
 			
 			@media @767{
@@ -4163,7 +4166,7 @@ transition: all 5ms ease-in-out 0s;
 		}
 		
 		.unavailable{
-			font-weight: 500;
+			font-weight: @semibold;
 			text-transform: capitalize;
 			border-radius: .3rem;
 			font-size: 1rem;
@@ -4174,7 +4177,7 @@ transition: all 5ms ease-in-out 0s;
 		}
 		.g-discount{
 				color: @danger;
-				font-weight: 500;
+				font-weight: @semibold;
 				margin-left: 1rem;
 				line-height: 2.5rem;
 			
@@ -4285,7 +4288,7 @@ transition: all 5ms ease-in-out 0s;
 		}
 		
 		.unavailable{
-			font-weight: 500;
+			font-weight: @semibold;
 			text-transform:capitalize;
 			border-radius: .3rem;
 			font-size: 1rem;
@@ -4478,7 +4481,7 @@ transition: all 5ms ease-in-out 0s;
 			}
 			.g-discount{
 				color: @danger;
-				font-weight: 500;
+				font-weight: @semibold;
 				line-height: 2rem;
 				
 				@media @479{
@@ -4488,7 +4491,7 @@ transition: all 5ms ease-in-out 0s;
 			}
 			
 			.unavailable{
-				font-weight: 500;
+				font-weight: @semibold;
 				text-transform:capitalize;
 				border-radius: .3rem;
 				font-size: 1rem;
@@ -4526,7 +4529,7 @@ transition: all 5ms ease-in-out 0s;
 
 			.col.item{
 				
-				font-weight: 500;
+				font-weight: @semibold;
 				width: 25%;
 
 				@media @1200{
@@ -4542,7 +4545,7 @@ transition: all 5ms ease-in-out 0s;
 			}
 			.col.price{
 				
-				font-weight: 500;
+				font-weight: @semibold;
 				
 				width: 35%;
 				
@@ -4563,7 +4566,7 @@ transition: all 5ms ease-in-out 0s;
 			}
 			.col.qty{
 				
-				font-weight: 500;
+				font-weight: @semibold;
 				
 				@media @991{
 					width: 23%;
@@ -4656,7 +4659,7 @@ transition: all 5ms ease-in-out 0s;
 |  Grouped product  Page 
 --------------------------------------------------------------------------*/
 .table.grouped .col.qty, .table.grouped .col.price, .table.grouped .col.item{
-	font-weight: 500;
+	font-weight: @semibold;
 }
 
 
@@ -4850,7 +4853,7 @@ transition: all 5ms ease-in-out 0s;
 		}
 		.g-discount{
 			color: @danger;
-			font-weight: 500;
+			font-weight: @semibold;
 		}
 	}
 		
@@ -4926,7 +4929,7 @@ transition: all 5ms ease-in-out 0s;
 			padding: 1.2rem;
 			background: @f9light;
 			width: 90%;
-			font-weight: 500;
+			font-weight: @semibold;
 			font-size: @font16;
 			display: none;
 		}
@@ -5268,7 +5271,7 @@ transition: all 5ms ease-in-out 0s;
 			float: left;
 		}
 		h3{
-			font-weight: 500;
+			font-weight: @semibold;
 		}
 	}
 
@@ -5322,7 +5325,7 @@ transition: all 5ms ease-in-out 0s;
 			
 			a{
 				color: @blue;
-				font-weight: 500;
+				font-weight: @semibold;
 			}
 		}
 		.how-do-content{
@@ -5339,7 +5342,7 @@ transition: all 5ms ease-in-out 0s;
 			
 			h5{
 				font-size: 1.4rem;
-				font-weight: 500;
+				font-weight: @semibold;
 				margin-bottom: .8rem;
 			}
 			
@@ -5381,7 +5384,7 @@ transition: all 5ms ease-in-out 0s;
 	
 	label{
 		float: left;
-		font-weight: 500;
+		font-weight: @semibold;
 		margin-bottom: 0;
 		
 		@media @991{
@@ -5437,7 +5440,7 @@ transition: all 5ms ease-in-out 0s;
 			text-transform: capitalize;
 			background: @f9light;
 			border-bottom: 1px solid @white;
-			font-weight: 500;
+			font-weight: @semibold;
 		}
 		tbody > tr > td{
 			padding:1rem 2rem;
@@ -5575,7 +5578,7 @@ transition: all 5ms ease-in-out 0s;
 			border:1px solid @light-black !important;
 			color: @black !important;
 			border-radius: .2rem;
-			font-weight: 500;
+			font-weight: @semibold;
 		}
 	}
 	.block-title{
@@ -5765,7 +5768,7 @@ transition: all 5ms ease-in-out 0s;
 		}
 		
 		h4 + span{
-			font-weight: 500;
+			font-weight: @semibold;
 
 		}
 		ul ~ strong{
@@ -5793,7 +5796,7 @@ transition: all 5ms ease-in-out 0s;
 			width: 2.5rem;
 		}
 		.head{
-			font-weight: 500;
+			font-weight: @semibold;
 			font-size: @font16;
 		}
 		#accordion p + ul{
@@ -5822,7 +5825,7 @@ transition: all 5ms ease-in-out 0s;
 	h5{
 		@media @767{
 			font-size: @font16;
-			font-weight: 500;
+			font-weight: @semibold;
 		}
 	}
 	.fas{
@@ -6453,7 +6456,7 @@ transition: all 5ms ease-in-out 0s;
 		h2{
 			background: @f2light;
 			font-size: @font16;
-			font-weight: 500;
+			font-weight: @semibold;
 			line-height: @font24;
 			padding: 1rem;
 			min-height: 6.8rem;
@@ -6483,7 +6486,7 @@ transition: all 5ms ease-in-out 0s;
 				padding: .3rem;
 				background: @f9light;
 				margin-bottom: 2rem;
-				font-weight: 500;
+				font-weight: @semibold;
 			}
 			.old-price{
 				display: inline-block;
@@ -6615,7 +6618,7 @@ transition: all 5ms ease-in-out 0s;
 		border: none;
 		color: @light-black;
 		padding-bottom: 0;
-		font-weight: 500;
+		font-weight: @semibold;
 		
 		@media @767{
 			color: @black;
@@ -6765,8 +6768,8 @@ transition: all 5ms ease-in-out 0s;
 	  background:@logo-black;
 	  border: medium none;
 	  border-radius: 3px;
-	  color: #fff;
-	  font-weight: 500;
+	  color: @white;
+	  font-weight: @semibold;
 	  font-size: 15px;
 	  margin-top: 20px;
 	  padding: 10px 20px;
@@ -6786,14 +6789,14 @@ transition: all 5ms ease-in-out 0s;
 		
 		h2 {
 		  color: #1c1c1c;
-		  font-weight: 500;
+		  font-weight: @semibold;
 		  font-size: 24px;
 		  text-transform: capitalize;
 		  margin: 0 0 22px;
 		}
 		.swatch-request {
 		  color: #1c1c1c;
-		  font-weight: 500;
+		  font-weight: @semibold;
 		  font-size: 16px;
 		}
 		em {
@@ -6879,7 +6882,7 @@ transition: all 5ms ease-in-out 0s;
 		.sample-caption {
 		  background-position: 0 -1268px;
 		  color: #1c1c1c;
-		  font-weight: 500;
+		  font-weight: @semibold;
 		  font-size: 16px;
 		  padding-left: 30px;
 		  line-height: 25px;
@@ -6946,7 +6949,7 @@ transition: all 5ms ease-in-out 0s;
 				}
 			}
 			.media-body .sampleitem {
-			  font-weight: 500;
+			  font-weight: @semibold;
 			  font-size: 12px;
 			  margin-top: 10px;
 			}
@@ -6974,8 +6977,8 @@ transition: all 5ms ease-in-out 0s;
 }
 .sample-view .rightdiv .inner-panel.swatches .swatch-message {
   background: #e06a6e;
-  color: #fff;
-  font-weight: 500;
+  color: @white;
+  font-weight: @semibold;
   margin-bottom: 10px;
   opacity: 0.7;
   padding: 5px 10px;
@@ -6997,7 +7000,7 @@ transition: all 5ms ease-in-out 0s;
 }
 .sample-view .rightdiv .swatch-policy .sample-heading {
   color: #073147;
-  font-weight: 500;
+  font-weight: @semibold;
   font-size: 14px;
   margin-bottom: 5px;
   text-transform: capitalize;
@@ -7086,8 +7089,8 @@ transition: all 5ms ease-in-out 0s;
 		  background: #005dbd none repeat scroll 0 0;
 		  border: medium none;
 		  border-radius: 3px;
-		  color: #fff;
-		  font-weight: 500;
+		  color: @white;
+		  font-weight: @semibold;
 		  font-size: 12px;
 		  padding: 3px 10px;
 		  text-transform: uppercase;
@@ -7100,7 +7103,7 @@ transition: all 5ms ease-in-out 0s;
 		  margin: 0 8px 0 0;
 		}
 		.btn-close {
-		  background: #e32a37;
+		  background: @danger;
 		}
     }
 	#remove-please-wait {
@@ -7171,7 +7174,7 @@ transition: all 5ms ease-in-out 0s;
 		font-size: @font16;
 		color: @black;
 		line-height: 4rem;
-		font-weight: 500;
+		font-weight: @semibold;
 		text-decoration: none;
 		background-position: -9px -1642px;
 		display: inline-block;
@@ -7272,7 +7275,7 @@ transition: all 5ms ease-in-out 0s;
 				border: none;
 			}
 			tbody > p:first-child{
-				font-weight: 500;
+				font-weight: @semibold;
 			}
 		}
 		
@@ -7285,7 +7288,7 @@ transition: all 5ms ease-in-out 0s;
 		a{
 			font-size: @base;
 			color: @blue;
-			font-weight: 500;
+			font-weight: @semibold;
 			padding: 0;
 		}
 		tr {
@@ -7300,7 +7303,7 @@ transition: all 5ms ease-in-out 0s;
 			background: @f9light;
 			border: none;
 			font-size: @base;
-			font-weight: 500;
+			font-weight: @semibold;
 		}
 		.review-heading  h2{
 			margin-top: 0;
@@ -7719,7 +7722,7 @@ transition: all 5ms ease-in-out 0s;
 			text-align: left;
 		}
 		.msg{
-			font-weight: 500;
+			font-weight: @semibold;
 			.name{
 				font-weight: normal;
 				font-size: @base;
@@ -7762,7 +7765,7 @@ transition: all 5ms ease-in-out 0s;
 			float: right;
 			color:@blue;
 			font-size:@base;
-			font-weight:500;
+			font-weight:@semibold;
 			padding:0;
 			margin:auto;
 			border-radius: .2rem;
@@ -7809,7 +7812,7 @@ transition: all 5ms ease-in-out 0s;
 		font-size: @font16;
 		margin: 1rem auto;
 		border-radius: .4rem;
-		font-weight: 500;
+		font-weight: @semibold;
 		
 		&:hover{
 			background: @light-black;
@@ -7959,7 +7962,7 @@ transition: all 5ms ease-in-out 0s;
 	h3{
 		font-size: @font18;
 		margin-bottom: 1rem;
-		font-weight: 500;
+		font-weight: @semibold;
 	}
 	.columns{
 		ul{
@@ -8074,7 +8077,7 @@ transition: all 5ms ease-in-out 0s;
 	
 	th{
 		background: @f5light;
-		font-weight: 500;
+		font-weight: @semibold;
 	}
 	td{
 		border-bottom: 1px solid @dlight;
@@ -8109,7 +8112,7 @@ transition: all 5ms ease-in-out 0s;
 		.pro-name, .shop-now{
 			font-size: @font16;
 			text-transform: uppercase;
-			font-weight: 500;
+			font-weight: @semibold;
 		}
 		.pro-name{
 			color: @black;
@@ -8251,7 +8254,7 @@ transition: all 5ms ease-in-out 0s;
 				font-size: 16px;
 				color: @black;
 				text-transform: uppercase;
-				font-weight: 500;
+				font-weight: @semibold;
 				margin: 40px 0 30px;
 				line-height: 1.7;
 			}
@@ -8331,7 +8334,7 @@ transition: all 5ms ease-in-out 0s;
 			.pro-name {
 				font-size: 21px;
 				color: @black;
-				font-weight: 500;
+				font-weight: @semibold;
 				margin: 0 0 1rem 0;
 				display: block;
 			}
@@ -8396,7 +8399,7 @@ transition: all 5ms ease-in-out 0s;
 			text-transform: uppercase;
 			padding: 1.8rem 1rem;
 			text-align: center;
-			font-weight: 500;
+			font-weight: @semibold;
 			
 			@media @1199{
 				width: 38%;
@@ -8429,7 +8432,7 @@ transition: all 5ms ease-in-out 0s;
 			
 			a{
 				font-size:@font16;;
-				font-weight: 500;
+				font-weight: @semibold;
 				color: @black;
 			}
 			.product-short-des {
@@ -8502,7 +8505,7 @@ transition: all 5ms ease-in-out 0s;
 			text-transform: uppercase;
 			padding: 1.8rem 1rem;
 			text-align: center;
-			font-weight: 500;
+			font-weight: @semibold;
 			
 			@media @1199{
 				width: 38%;
@@ -8534,7 +8537,7 @@ transition: all 5ms ease-in-out 0s;
 			
 			a{
 				font-size:@font16;;
-				font-weight: 500;
+				font-weight: @semibold;
 				color: @black;
 			}
 			.product-short-des {
@@ -8758,7 +8761,7 @@ transition: all 5ms ease-in-out 0s;
 						font-size: @font16;;
 						color: @black;
 						text-transform: uppercase;
-						font-weight: 500;
+						font-weight: @semibold;
 						margin: 4rem 0 3rem;
 						line-height: 1.7;
 						
@@ -8953,11 +8956,11 @@ transition: all 5ms ease-in-out 0s;
 			}
 			h4{
 				font-size: @font16;
-				font-weight: 500;
+				font-weight: @semibold;
 				margin: 1rem 0;
 				
 				@media @767{
-					font-weight: 500;
+					font-weight: @semibold;
 				}
 			}
 			p{
@@ -9135,7 +9138,7 @@ transition: all 5ms ease-in-out 0s;
 			text-transform: uppercase;
 			padding: 1.8rem 1rem;
 			text-align: center;
-			font-weight: 500;
+			font-weight: @semibold;
 
 			@media @1199{
 				width: 21%;
@@ -9162,7 +9165,7 @@ transition: all 5ms ease-in-out 0s;
 
 			a{
 				font-size:@font16;;
-				font-weight: 500;
+				font-weight: @semibold;
 				color: @black;
 			}
 			.product-short-des {
@@ -9195,7 +9198,7 @@ transition: all 5ms ease-in-out 0s;
 	h3 {
 		float: left;
 		font-size:@font22;
-		font-weight: 500;
+		font-weight: @semibold;
 		padding: 1.2rem 4rem 0 0;
 		
 		@media @1199{
@@ -9239,7 +9242,7 @@ transition: all 5ms ease-in-out 0s;
 
 		h4{
 			font-size: @font16;
-			font-weight: 500;
+			font-weight: @semibold;
 			margin: 1rem 0 0.5rem 0;
 			color:@black;
 			a{
@@ -9407,7 +9410,7 @@ transition: all 5ms ease-in-out 0s;
 	.amfaq_questions{
 		.am-title{
 			font-size: @font16;
-			font-weight: 500;
+			font-weight: @semibold;
 		}
 	}
 	.ask-question-form{
@@ -9454,7 +9457,7 @@ transition: all 5ms ease-in-out 0s;
 				float: right;
 				margin: .6rem .6rem 0 0;
 				border: 1px solid #aaa;
-				font-weight: 500;
+				font-weight: @semibold;
 				font-size: @font16;
 			}
 			h4{
@@ -9657,7 +9660,7 @@ select{
 					background: @f2light;
 					padding: 1rem;
 					border-radius: 2px 2px 0 0;
-					font-weight: 500;
+					font-weight: @semibold;
 					margin-bottom: .5rem;
 					cursor: pointer;
 					
@@ -9709,7 +9712,7 @@ select{
 				
 				label{
 					margin-bottom: .6rem !important;
-					font-weight: 500;
+					font-weight: @semibold;
 				}
 				
 			}
@@ -9719,7 +9722,7 @@ select{
 				
 				label{
 					margin-bottom: .6rem !important;
-					font-weight: 500;
+					font-weight: @semibold;
 				}
 			
 			}
@@ -9733,7 +9736,7 @@ select{
 			
 			.fieldset .field label{
 				margin-bottom: 1rem;
-				font-weight: 500;
+				font-weight: @semibold;
 			}
 		}
 		
@@ -9782,7 +9785,7 @@ select{
 			margin-right: 2rem;
 			color: @black;
 			text-decoration: none;
-			font-weight: 500;
+			font-weight: @semibold;
 			background: @f2light;
 			padding: 1rem 1.5rem;
 			border-radius: .4rem;
@@ -9831,7 +9834,7 @@ select{
 		padding: .3rem .7rem;
 		left: 0;
 		font-size: @base;
-		font-weight: 500;
+		font-weight: @semibold;
 		text-transform: capitalize;
 		
 		&::after{
@@ -9860,6 +9863,7 @@ select{
 	padding: 1rem;
 	border-radius: .4rem;
 	width: 100%;
+	font-weight: @semibold;
 
 }
 
@@ -9937,7 +9941,7 @@ select{
 	.timeTo {
 		font-size: 56px;
 		line-height: 108%;
-		font-weight: 500;
+		font-weight: @semibold;
 		height: 32px;
 		position: relative;
 		top: 75%;
@@ -9995,7 +9999,7 @@ select{
 			
 			li {
 				font-size: 56px;
-				font-weight: 500;
+				font-weight: @semibold;
 				line-height: 108%;
 				color:@white;
 				margin: 0;
@@ -10052,7 +10056,7 @@ select{
 }
 
 .cart.table-wrapper .col.price .price-including-tax .price, dt, .cart.table-wrapper .col.subtotal .price-including-tax .price{
-	font-weight: 500 !important;
+	font-weight: @semibold !important;
 }
 
 .table-wrapper .table:not(.totals):not(.cart):not(.table-comparison).additional-attributes tbody td:last-child {
@@ -10420,7 +10424,7 @@ select{
 		.nav-tabs .nav-link{
 			border: 1px solid @dlight;
 			padding: 1rem;
-			font-weight: 500;
+			font-weight: @semibold;
 			color: @black;
 			font-size: @font15;
 			font-family: 'Poppins', sans-serif;
