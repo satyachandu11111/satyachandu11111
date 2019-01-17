@@ -3262,19 +3262,19 @@ transition: all 5ms ease-in-out 0s;
 		background-size: 200px 867px;
 	}
 	.uks-free{
-		background-position:-168px -27px;
+		background-position:-162px -27px;
 	}
 	.uks-del{
-		background-position:-168px -68px;
+		background-position:-160px -68px;
 	}
 	.uks-express{
-		background-position:-164px -107px;
+		background-position:-160px -107px;
 	}
 	.uks-cc{
-		background-position:-166px -145px;
+		background-position:-160px -145px;
 	}
 	.inter{
-		background-position:-271px -429px;
+		background-position:-264px -429px;
 		background-size:300px 1300px !important;
 		height: 30px;
 	}
@@ -7150,6 +7150,23 @@ transition: all 5ms ease-in-out 0s;
 	float: left;
 	margin-bottom: 1.5rem;
 	
+	strong.Furniture{
+		background-position:-337px -1625px;
+		background-size: 400px 1733px;
+		padding: 0 16px 0 70px;
+
+		@media @1100{
+			
+			background-position: 0 -1693px;
+			padding: 0 16px 0 45px;
+			line-height: 3rem;
+			font-size: @base;
+		}
+		@media @379{
+			line-height: 2rem;
+		}
+	}
+	
 	strong{
 		font-size: @font16;
 		color: @black;
@@ -7179,34 +7196,7 @@ transition: all 5ms ease-in-out 0s;
 		}
 	}
 	
-	strong.Furniture{
-		font-size: @font16;
-		color: @black;
-		line-height: 4rem;
-		font-weight: 500;
-		text-decoration: none;
-		background-position: -9px -1642px;
-		display: inline-block;
-		padding: 0 16px 0 118px;
-		cursor: pointer;
-	 	background-image: url(../images/sprit-icon.svg);
-		background-repeat: no-repeat;
-		background-size: 400px 1733px;
-		
-		&:hover{
-			color: @blue;
-		}
-		@media @1100{
-			
-			background-position: 0 -1693px;
-			padding: 0 16px 0 45px;
-			line-height: 3rem;
-			font-size: @base;
-		}
-		@media @379{
-			line-height: 2rem;
-		}
-	}
+	
 	
 	strong.order-swatch.added {
 	  cursor: pointer;
