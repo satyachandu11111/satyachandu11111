@@ -256,7 +256,7 @@ option.image:not(.disabled):hover, .swatch-option.color:not(.disabled):hover{
 }
 
 button:not(.primary){
-	box-shadow: none;
+	box-shadow: none !important;
 }
 button{
 	padding: 1rem 2.5rem;
@@ -7178,6 +7178,36 @@ transition: all 5ms ease-in-out 0s;
 			line-height: 2rem;
 		}
 	}
+	
+	strong.Furniture{
+		font-size: @font16;
+		color: @black;
+		line-height: 4rem;
+		font-weight: 500;
+		text-decoration: none;
+		background-position: -9px -1642px;
+		display: inline-block;
+		padding: 0 16px 0 118px;
+		cursor: pointer;
+	 	background-image: url(../images/sprit-icon.svg);
+		background-repeat: no-repeat;
+		background-size: 400px 1733px;
+		
+		&:hover{
+			color: @blue;
+		}
+		@media @1100{
+			
+			background-position: 0 -1693px;
+			padding: 0 16px 0 45px;
+			line-height: 3rem;
+			font-size: @base;
+		}
+		@media @379{
+			line-height: 2rem;
+		}
+	}
+	
 	strong.order-swatch.added {
 	  cursor: pointer;
 		
