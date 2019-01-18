@@ -9,8 +9,8 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search
- * @version   1.0.94
- * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
+ * @version   1.0.117
+ * @copyright Copyright (C) 2019 Mirasvit (https://mirasvit.com/)
  */
 
 
@@ -186,6 +186,10 @@ class Index extends AbstractIndex
             $collection = $layer->getProductCollection();
         }
 
+        if ($this->getModel()->getProperty('out_of_stock_to_end')) {
+            $this->sortByStockStatus($collection);
+        }
+
         if (!$this->context->getRequest()->getParam(Toolbar::ORDER_PARAM_NAME)) {
             $field = 'relevance';
             $direction = 'desc';
@@ -195,10 +199,6 @@ class Index extends AbstractIndex
             }
 
             $collection->setOrder($field, $direction);
-        }
-
-        if ($this->getModel()->getProperty('out_of_stock_to_end')) {
-            $this->sortByStockStatus($collection);
         }
 
         return $collection;

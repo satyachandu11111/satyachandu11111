@@ -9,45 +9,25 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search
- * @version   1.0.94
- * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
+ * @version   1.0.117
+ * @copyright Copyright (C) 2019 Mirasvit (https://mirasvit.com/)
  */
 
 
 
 namespace Mirasvit\Search\Index\Magento\Cms\Page;
 
-use Magento\Framework\App\ObjectManager;
-use Magento\Store\Model\App\Emulation as AppEmulation;
 use Mirasvit\Search\Api\Data\Index\DataMapperInterface;
-use Magento\Cms\Model\Template\FilterProvider as CmsFilterProvider;
-use Magento\Email\Model\TemplateFactory as EmailTemplateFactory;
+use Mirasvit\Search\Service\ContentService;
 
 class DataMapper implements DataMapperInterface
 {
-    /**
-     * @var AppEmulation
-     */
-    private $emulation;
-
-    /**
-     * @var CmsFilterProvider
-     */
-    private $filterProvider;
-
-    /**
-     * @var EmailTemplateFactory
-     */
-    private $templateFactory;
+    private $contentService;
 
     public function __construct(
-        AppEmulation $emulation,
-        CmsFilterProvider $filterProvider,
-        EmailTemplateFactory $templateFactory
+        ContentService $contentService
     ) {
-        $this->emulation = $emulation;
-        $this->filterProvider = $filterProvider;
-        $this->templateFactory = $templateFactory;
+        $this->contentService = $contentService;
     }
 
     /**
@@ -57,23 +37,11 @@ class DataMapper implements DataMapperInterface
     {
         $storeId = current($dimensions)->getValue();
 
-        $this->emulation->startEnvironmentEmulation($storeId);
-
         foreach ($documents as $id => $doc) {
-            $template = $this->templateFactory->create();
-            $template->emulateDesign($storeId);
-
             foreach ($doc as $key => $value) {
-                $template->setTemplateText($value)
-                    ->setIsPlain(false);
-                $template->setTemplateFilter($this->filterProvider->getPageFilter());
-                $processed = $template->getProcessedTemplate([]);
-
-                $documents[$id][$key] .= $processed;
+                $documents[$id][$key] .= $this->contentService->processHtmlContent($storeId, $value);
             }
         }
-
-        $this->emulation->stopEnvironmentEmulation();
 
         return $documents;
     }

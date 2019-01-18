@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-autocomplete
- * @version   1.1.58
+ * @version   1.1.83
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 

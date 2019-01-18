@@ -9,8 +9,8 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-core
- * @version   1.2.72
- * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
+ * @version   1.2.76
+ * @copyright Copyright (C) 2019 Mirasvit (https://mirasvit.com/)
  */
 
 
@@ -23,7 +23,7 @@ use Magento\Framework\TestFramework\Unit\Helper\ObjectManager as ObjectManager;
 /**
  * @covers \Mirasvit\Core\Helper\UrlRewrite
  */
-class UrlrewriteTest extends \PHPUnit_Framework_TestCase
+class UrlrewriteTest extends  \PHPUnit\Framework\TestCase
 {
     /**
      * @var ObjectManager

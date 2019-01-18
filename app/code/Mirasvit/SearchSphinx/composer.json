@@ -2,12 +2,12 @@
   "name": "mirasvit/module-search-sphinx",
   "description": "Search Sphinx",
   "require": {
-    "magento/framework": "100.1.*|100.2.*|101.0.*",
-    "mirasvit/module-core": "^1.2",
-    "mirasvit/module-search": "1.0.*"
+    "magento/framework": "100.1.*|100.2.*|101.0.*|102.0.*",
+    "mirasvit/module-core": "dev-master|>=1.2.75",
+    "mirasvit/module-search": "dev-master|1.0.*"
   },
   "type": "magento2-module",
-  "version": "1.1.38",
+  "version": "1.1.42",
   "license": [
     "proprietary"
   ],

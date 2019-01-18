@@ -9,8 +9,8 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search
- * @version   1.0.94
- * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
+ * @version   1.0.117
+ * @copyright Copyright (C) 2019 Mirasvit (https://mirasvit.com/)
  */
 
 
@@ -21,6 +21,8 @@ use Magento\Framework\DataObject;
 use Mirasvit\Search\Api\Data\Index\DataMapperInterface;
 use Mirasvit\Search\Api\Data\Index\InstanceInterface;
 use Mirasvit\Search\Api\Data\IndexInterface;
+
+use Mirasvit\Search\Model\Config;
 
 /**
  * {@inheritdoc}
@@ -134,7 +136,7 @@ abstract class AbstractIndex extends DataObject implements InstanceInterface
 
         $storeId = $this->getData('store_id') ? $this->getData('store_id') : 0;
 
-        if (!isset($this->searchCollection[$storeId]) || in_array($this->getIdentifier(), IndexInterface::WHITELIST)) {
+        if (!isset($this->searchCollection[$storeId])) {
             $isEmulation = false;
             if ($storeId && $storeId != $storeManager->getStore()->getId()
             ) {
@@ -218,6 +220,8 @@ abstract class AbstractIndex extends DataObject implements InstanceInterface
      */
     public function getAttributeCode($attributeId)
     {
-        return array_keys($this->getAttributes())[$attributeId];
+        $keys = array_keys($this->getAttributes());
+
+        return isset($keys[$attributeId]) ? $keys[$attributeId] : 'option';
     }
 }

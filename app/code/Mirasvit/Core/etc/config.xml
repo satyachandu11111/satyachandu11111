@@ -9,9 +9,6 @@
             <logger>
                 <developer_ip>80.78.40.163</developer_ip>
             </logger>
-            <feedback>
-                <is_active>1</is_active>
-            </feedback>
         </mst_core>
     </default>
 </config>

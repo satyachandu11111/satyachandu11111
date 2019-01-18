@@ -9,8 +9,8 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-core
- * @version   1.2.72
- * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
+ * @version   1.2.76
+ * @copyright Copyright (C) 2019 Mirasvit (https://mirasvit.com/)
  */
 
 
@@ -364,9 +364,13 @@ class UrlRewrite extends AbstractHelper implements UrlRewriteHelperInterface
         }
         $configUrlSuffix = $this->scopeConfig->getValue('catalog/seo/product_url_suffix');
         if ($configUrlSuffix && $pathInfo == $this->getUrlKeyWithoutSuffix($pathInfo)) {
-            $result = new DataObject(['forwardUrl' => $this->getUrlKeyWithoutSuffix($pathInfo) . $configUrlSuffix]);
-
-            return $result;
+            // if suffix already included in path
+            if (preg_match('/'.preg_quote($configUrlSuffix, '/').'$/i', $pathInfo)) {
+                $configUrlSuffix = '';
+            } else {
+                $result = new DataObject(['forwardUrl' => $this->getUrlKeyWithoutSuffix($pathInfo) . $configUrlSuffix]);
+                return $result;
+            }
         }
         if ($pathInfo != $this->getUrlKeyWithoutSuffix($pathInfo) . $configUrlSuffix) {
             return false;

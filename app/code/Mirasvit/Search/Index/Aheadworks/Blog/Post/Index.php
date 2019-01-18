@@ -9,8 +9,8 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search
- * @version   1.0.94
- * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
+ * @version   1.0.117
+ * @copyright Copyright (C) 2019 Mirasvit (https://mirasvit.com/)
  */
 
 
@@ -48,6 +48,7 @@ class Index extends AbstractIndex
             'content'          => __('Content'),
             'meta_title'       => __('Meta Title'),
             'meta_description' => __('Meta Description'),
+            'tag_names'        => __('Tags'),
         ];
     }
 
@@ -64,7 +65,6 @@ class Index extends AbstractIndex
      */
     public function buildSearchCollection()
     {
-
         $collectionFactory = $this->context->getObjectManager()
             ->create('Aheadworks\Blog\Model\ResourceModel\Post\CollectionFactory');
 

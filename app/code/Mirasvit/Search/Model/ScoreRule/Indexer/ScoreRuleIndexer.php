@@ -9,8 +9,8 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search
- * @version   1.0.94
- * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
+ * @version   1.0.117
+ * @copyright Copyright (C) 2019 Mirasvit (https://mirasvit.com/)
  */
 
 
@@ -158,8 +158,8 @@ class ScoreRuleIndexer implements IndexerActionInterface
         // Product Search Weight
         $select = $connection->select()->from(
             [$this->resource->getTableName('catalog_product_entity')],
-            ['entity_id', 'search_weight']
-        )->where('(search_weight > 0 or search_weight < 0)');
+            ['entity_id', 'mst_search_weight']
+        )->where('(mst_search_weight > 0 or mst_search_weight < 0)');
         if ($productIds) {
             $select->where('entity_id IN(' . implode(',', $productIds) . ')');
         }
@@ -171,7 +171,7 @@ class ScoreRuleIndexer implements IndexerActionInterface
             $rows = [];
             for (; $idx < count($data); $idx++) {
                 $id = $data[$idx]['entity_id'];
-                $factor = $data[$idx]['search_weight'];
+                $factor = $data[$idx]['mst_search_weight'];
                 $row = [
                     self::RULE_ID      => 0,
                     self::STORE_ID     => 0,

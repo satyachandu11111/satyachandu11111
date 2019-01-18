@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-misspell
- * @version   1.0.27
+ * @version   1.0.28
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -138,7 +138,13 @@ class Text extends AbstractHelper
      */
     public function toUTF8($string)
     {
-        return @iconv("UTF-8", "UTF-8//IGNORE", $string);
+        $newString = @iconv("UTF-8", "UTF-8//IGNORE", $string);
+
+        if ($newString === false) {
+            return $string;
+        }
+
+        return $newString;
     }
 
     /**

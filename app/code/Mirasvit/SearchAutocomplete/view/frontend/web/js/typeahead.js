@@ -3,40 +3,65 @@ define([
     'underscore'
 ], function ($, _) {
     
-    "use strict";
+    var TypeAhead = function (input) {
+        this.$input = $(input);
+        this.minSearchLength = 3;
+        this.typeaheadUrl = '';
+        this.minSuggestLength = 2;
+        this.storage = false;
+        this.suggestKey = false;
+        this.placeholderHtml = '<input value="" class="input-text mst-search-autocomplete__typeahead-overlay" type="text" />';
+        this.$placeholder = $(this.placeholderHtml);
+    };
     
-    var storage = false;
-    var suggestKey;
-    var placeholderHtml = '<input value="" class="input-text mst-search-autocomplete__typeahead-overlay" type="text" />';
-    var $placeholder = $(placeholderHtml);
-    var $input = false;
-    
-    return {
-        config: {
-            minSearchLength:  3,
-            typeaheadUrl:     '',
-            minSuggestLength: 2
-        },
-        
-        init: function (selector, config) {
-            $input = $(selector);
+    TypeAhead.prototype = {
+        init: function (config) {
             this.config = _.defaults(config, this.config);
-            if ($input.val().length >= this.config.minSuggestLength) {
+            this.$input.prop('style','background:transparent!important');
+            if (this.$input.val().length >= this.config.minSuggestLength) {
                 this.retrieveTypeaheadStorage();
             }
+            
+            this.$input.on("keyup", function (event) {
+                this.keyupHandler(event)
+            }.bind(this));
+            
+            this.$input.on("click focus", function () {
+                this.clickHandler()
+            }.bind(this));
+            
+            this.$input.on("input", function () {
+                this.inputHandler()
+            }.bind(this));
+        },
+        
+        keyupHandler: function (event) {
+            if (event.key === 'ArrowRight' || event.keyCode === 39) {
+                this.completeQuery();
+            }
+        },
+        
+        clickHandler: function (event) {
+            this.suggest();
+            this.ensurePosition();
+        },
+        
+        inputHandler: function () {
+            this.suggest();
+            this.ensurePosition();
         },
         
         suggest: function () {
-            if (!$input) {
+            if (!this.$input) {
                 return false;
             }
             
-            $placeholder.val('');
-            $placeholder.remove();
+            this.$placeholder.val('');
+            this.$placeholder.remove();
             
-            var inputLength = $input.val().length;
-            var emptyStorage = storage.length === 0;
-            var suggestKeyMatches = $input.val().indexOf(suggestKey) === 0;
+            var inputLength = this.$input.val().length;
+            var emptyStorage = this.storage.length === 0;
+            var suggestKeyMatches = this.$input.val().indexOf(this.suggestKey) === 0;
             var moreOrEqualsMinSuggestLength = inputLength >= this.config.minSuggestLength;
             var moreOrEqualsMinSearchLength = inputLength >= this.config.minSearchLength;
             
@@ -57,20 +82,22 @@ define([
         },
         
         _doSuggest: function () {
-            $.each(JSON.parse(storage.replace("/", "")), function (i, item) {
-                $placeholder.remove();
-                if (item.indexOf($input.val().toLowerCase()) === 0) {
-                    $input.parent().after($placeholder);
-                    $placeholder.val(item.replace($input.val().toLowerCase(), $input.val()));
-                    return false;
+            $.each(JSON.parse(this.storage.replace("/", "")), function (i, item) {
+                this.$placeholder.remove();
+                if (typeof item === 'string' || item instanceof String) {
+                    if (item.indexOf(this.$input.val().toLowerCase()) === 0) {
+                        this.$input.parent().after(this.$placeholder);
+                        this.$placeholder.val(item.replace(this.$input.val().toLowerCase(), this.$input.val()));
+                        return false;
+                    }
                 }
-            });
+            }.bind(this));
         },
         
         completeQuery: function () {
-            if ($placeholder.val().length >= this.config.minSearchLength) {
-                $input.val($placeholder.val());
-                $input.trigger("input");
+            if (this.$placeholder.val().length >= this.config.minSearchLength) {
+                this.$input.val(this.$placeholder.val());
+                this.$input.trigger("input");
             }
         },
         
@@ -80,24 +107,26 @@ define([
                 dataType: 'json',
                 type:     'GET',
                 data:     {
-                    q: $input.val().toLowerCase()
+                    q: this.$input.val().toLowerCase()
                 },
                 success:  function (data) {
-                    storage = JSON.stringify(data);
-                    suggestKey = $input.val().substring(0, 2).toLowerCase();
-                }
+                    this.storage = JSON.stringify(data);
+                    this.suggestKey = this.$input.val().substring(0, 2).toLowerCase();
+                }.bind(this)
             });
         },
         
         ensurePosition: function () {
-            var position = $input.position();
-            var left = position.left + 1 + parseInt($input.css('marginLeft'), 10);
-            var top = position.top + parseInt($input.css('marginTop'), 10);
+            var position = this.$input.position();
+            var left = position.left + 1 + parseInt(this.$input.css('marginLeft'), 10);
+            var top = position.top + parseInt(this.$input.css('marginTop'), 10);
             
-            $placeholder
+            this.$placeholder
                 .css('top', top)
                 .css('left', left)
-                .css('width', $input.outerWidth());
+                .css('width', this.$input.outerWidth());
         }
-    }
+    };
+    
+    return TypeAhead;
 });

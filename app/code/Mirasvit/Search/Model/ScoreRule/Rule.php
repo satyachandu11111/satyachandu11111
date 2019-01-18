@@ -9,8 +9,8 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search
- * @version   1.0.94
- * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
+ * @version   1.0.117
+ * @copyright Copyright (C) 2019 Mirasvit (https://mirasvit.com/)
  */
 
 
@@ -41,7 +41,7 @@ class Rule extends AbstractModel
 
     private $iterator;
 
-    private $productIds;
+    private $productIds = [];
 
     /** @var \Magento\Rule\Model\Condition\Combine */
     private $_postConditions;

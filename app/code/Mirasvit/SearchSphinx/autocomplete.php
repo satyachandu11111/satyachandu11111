@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-sphinx
- * @version   1.1.38
+ * @version   1.1.42
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -22,7 +22,12 @@ if (php_sapi_name() == "cli") {
     return;
 }
 
-$configFile = BP . '/app/etc/autocomplete.json';
+$configFile = dirname(dirname(dirname(__DIR__))) . '/etc/autocomplete.json';
+
+if (stripos(__DIR__, 'vendor') != false) {
+    $configFile = dirname(dirname(dirname(dirname(dirname(__DIR__))))) . '/app/etc/autocomplete.json';
+}
+
 if (!file_exists($configFile)) {
     return;
 }
@@ -105,7 +110,7 @@ class SphinxAutocomplete
     {
         $weights = [];
         foreach ($this->config['indexes'][$identifier]['fields'] as $f => $w) {
-            $weights[$f] = pow(2, $w);
+            $weights['`'. $f .'`'] = pow(2, $w);
         }
 
         return $weights;

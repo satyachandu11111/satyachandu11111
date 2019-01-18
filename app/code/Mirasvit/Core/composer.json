@@ -2,10 +2,10 @@
   "name": "mirasvit/module-core",
   "description": "Mirasvit Core",
   "require": {
-    "magento/framework": "100.0.*|100.1.*|100.2.*|101.0.*"
+    "magento/framework": "100.0.*|100.1.*|100.2.*|101.0.*|102.0.*"
   },
   "type": "magento2-module",
-  "version": "1.2.72",
+  "version": "1.2.76",
   "license": [
     "proprietary"
   ],

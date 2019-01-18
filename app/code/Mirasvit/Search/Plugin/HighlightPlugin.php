@@ -9,27 +9,20 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search
- * @version   1.0.94
- * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
+ * @version   1.0.117
+ * @copyright Copyright (C) 2019 Mirasvit (https://mirasvit.com/)
  */
 
 
 
 namespace Mirasvit\Search\Plugin;
 
-use Mirasvit\Search\Block\Result;
 use Magento\Search\Model\QueryFactory;
+use Mirasvit\Search\Block\Result;
 use Mirasvit\Search\Model\Config;
 
 class HighlightPlugin
 {
-    /**
-     * @var array
-     */
-    private $conditions = [
-        ['(<a[^>]*>)', '(<\/a>)'],
-    ];
-
     /**
      * @var Config
      */
@@ -44,7 +37,7 @@ class HighlightPlugin
         Config $config,
         QueryFactory $queryFactory
     ) {
-        $this->config = $config;
+        $this->config       = $config;
         $this->queryFactory = $queryFactory;
     }
 
@@ -73,126 +66,47 @@ class HighlightPlugin
     /**
      * @param string $html
      * @param string $query
-     *
      * @return string
      */
     public function highlight($html, $query)
     {
+        if (strlen($query) < 3) {
+            return $html;
+        }
+
         $query = $this->removeSpecialChars($query);
-        $replacement = [];
-        $pattern = [];
+        preg_match_all("/[\$\/\|\-\w\d\s]*" . $query . "[\$\/\|\-\w\d\s]*<\s*\/\s*a/is", $html, $matches);
 
-        foreach ($this->conditions as $condition) {
-            $matches = $this->getMatches($condition[0], $condition[1], $html);
-            $pattern[] = $this->createPattern($condition[0], $condition[1], $matches);
-            $replacement[] = $this->createReplacement($query, $matches);
+        foreach ($matches[0] as $match) {
+            $html = $this->_highlight($html, $match, $query);
         }
-
-        $html = $this->_highlight($pattern, $replacement, $html);
 
         return $html;
     }
 
     /**
-     * @param string $open
-     * @param string $close
-     * @param string $subject
-     * @return array
-     */
-    private function getMatches($open, $close, $subject)
-    {
-        preg_match_all('/.' . $open . '([^<]*)' . $close . '/', $subject, $matches);
-
-        return $matches[2];
-    }
-
-    /**
-     * @param string $open
-     * @param string $close
-     * @param array $search
-     * @return array
-     */
-    private function createPattern($open, $close, $search)
-    {
-        foreach ($search as $i => $match) {
-            $match = '/' . $open . '(' . $this->escapeSpecialChars($match) . ')' . $close . '/';
-            $search[$i] = $match;
-        }
-
-        return $search;
-    }
-
-    /**
-     * @param string $pattern
-     * @param array $subject
-     * @return array
-     */
-    private function createReplacement($pattern, $subject)
-    {
-        $replacement = [];
-        $arrPattern = explode(' ', $pattern);
-        $replace = '${1}<span class="mst-search__highlight">${2}</span>${3}';
-        foreach ($arrPattern as $pattern) {
-            $pattern = trim($pattern);
-
-            if ($pattern) {
-                $pattern = $this->escapeSpecialChars($pattern);
-                $pattern = '/(.*)(' . $pattern . ')(?![^<>]*[>])(.*)/iU';
-                $replacement = preg_replace($pattern, $replace, $subject);
-                $subject = $replacement;
-            }
-        }
-
-        return $replacement;
-    }
-
-    /**
-     * @param array $pattern
-     * @param array $replacement
      * @param string $html
+     * @param string $match
+     * @param string $query
      * @return string
      */
-    private function _highlight($pattern, $replacement, $html)
+    private function _highlight($html, $match, $query)
     {
-        foreach ($replacement as $idx => $match) {
-            foreach ($match as $i => $el) {
-                $el = '${1}' . $el . '${3}';
-                $match[$i] = $el;
-            }
-            $replacement[$idx] = $match;
-        }
+        $replacement = substr_replace($match, '<span class="mst-search__highlight">', stripos($match, $query), 0);
+        $replacement = substr_replace($replacement, '</span>', stripos($replacement, $query) + strlen($query), 0);
 
-        foreach ($pattern as $i => $search) {
-            $html = preg_replace($search, $replacement[$i], $html);
-        }
-
-        return $html;
+        return str_replace($match, $replacement, $html);
     }
 
     /**
-     * Escape special chars in regex.
-     *
-     * @param string $chars
-     *
-     * @return string $chars
-     */
-    public function escapeSpecialChars($chars)
-    {
-        $search = ['\\', '/', '^', '[', ']', '-', ')', '(', '.', '?', '+', '*'];
-        $replace = ['\\\\', '\/', '\^', '\[', '\]', '\-', '\)', '\(', '\.', '\?', '\+', '\*'];
-
-        return str_replace($search, $replace, $chars);
-    }
-
-    /**
-     * @param string $chars
+     * @param string $query
      * @return string
      */
-    public function removeSpecialChars($chars)
+    public function removeSpecialChars($query)
     {
-        $search = ['&'];
-        $replace = [' '];
+        $pattern = '/(\+|-|\/|&&|\|\||!|\(|\)|\{|}|\[|]|\^|"|~|\*|\?|:|\\\)/';
+        $replace = ' ';
 
-        return str_replace($search, $replace, $chars);
+        return preg_replace($pattern, $replace, $query);
     }
 }

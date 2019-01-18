@@ -9,8 +9,8 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search
- * @version   1.0.94
- * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
+ * @version   1.0.117
+ * @copyright Copyright (C) 2019 Mirasvit (https://mirasvit.com/)
  */
 
 
@@ -25,6 +25,8 @@ use Mirasvit\Search\Api\Service\IndexServiceInterface;
 use Magento\Search\Model\QueryFactory;
 use Magento\Search\Model\ResourceModel\Query\CollectionFactory as QueryCollectionFactory;
 use Mirasvit\Search\Service\StemmingService;
+
+use Mirasvit\Search\Model\Config;
 
 class AutocompleteProvider
 {
@@ -106,7 +108,7 @@ class AutocompleteProvider
                 'properties' => $index->getProperties(),
             ]);
 
-            if (in_array($index->getIdentifier(), IndexInterface::WHITELIST)) {
+            if (in_array($index->getIdentifier(), Config::DISALLOWED_MULTIPLE)) {
                 $indexDataObject['index_id'] = $index->getIndexId();
             }
 
@@ -156,6 +158,7 @@ class AutocompleteProvider
                     ->setOrder('popularity')
                     ->distinct(true);
                 return $collection;
+
                 break;
 
             case 'magento_catalog_categoryproduct':
@@ -163,13 +166,14 @@ class AutocompleteProvider
                 break;
 
             default:
-                if (in_array($index->getIdentifier(), IndexInterface::WHITELIST)) {
-                    $index = $this->indexRepository->get($index->getIndexId());
+                if ($index->getId()) {
+                    $index = $this->indexRepository->get($index->getId());
                 } else {
                     $index = $this->indexRepository->get($index->getIdentifier());
                 }
                 break;
         }
+
         return $this->indexService->getSearchCollection($index);
     }
 

@@ -9,8 +9,8 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-core
- * @version   1.2.72
- * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
+ * @version   1.2.76
+ * @copyright Copyright (C) 2019 Mirasvit (https://mirasvit.com/)
  */
 
 
@@ -35,9 +35,8 @@ class Upgrade103 implements UpgradeInterface
     {
         $tableName = $installer->getTable('core_config_data');
         $configsToUpdate = [
-            'core/feedback/is_active'       => 1,
             'core/css/include_font_awesome' => 1,
-            'core/logger/developer_ip'      => '80.78.40.163'
+            'core/logger/developer_ip'      => '80.78.40.163',
         ];
 
         foreach ($configsToUpdate as $path => $default) {
@@ -53,7 +52,7 @@ class Upgrade103 implements UpgradeInterface
                 'path'     => self::NEW_PREFIX . $path,
                 'value'    => $value !== false ? $value : $default,
                 'scope'    => ScopeConfigInterface::SCOPE_TYPE_DEFAULT,
-                'scope_id' => 0
+                'scope_id' => 0,
             ]);
         }
     }

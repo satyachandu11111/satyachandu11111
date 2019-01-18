@@ -9,21 +9,20 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search
- * @version   1.0.94
- * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
+ * @version   1.0.117
+ * @copyright Copyright (C) 2019 Mirasvit (https://mirasvit.com/)
  */
 
 
 
 namespace Mirasvit\Search\Ui\Index\Form;
 
+use Magento\Framework\View\Element\UiComponent\ContextInterface;
 use Magento\Framework\View\Element\UiComponentFactory;
 use Magento\Framework\View\Element\UiComponentInterface;
 use Magento\Ui\DataProvider\AbstractDataProvider;
-use Mirasvit\Core\Service\CompatibilityService;
 use Mirasvit\Search\Api\Data\IndexInterface;
 use Mirasvit\Search\Api\Repository\IndexRepositoryInterface;
-use Magento\Framework\View\Element\UiComponent\ContextInterface;
 
 class DataProvider extends AbstractDataProvider
 {
@@ -46,7 +45,6 @@ class DataProvider extends AbstractDataProvider
         IndexRepositoryInterface $indexRepository,
         UiComponentFactory $uiComponentFactory,
         ContextInterface $context,
-        //        DataInterfaceFactory $configFactory,
         $name,
         $primaryFieldName,
         $requestFieldName,
@@ -54,11 +52,10 @@ class DataProvider extends AbstractDataProvider
         array $data = []
     ) {
         $this->uiComponentFactory = $uiComponentFactory;
-        $this->context = $context;
-//        $this->configFactory = $configFactory;
+        $this->context            = $context;
 
         $this->indexRepository = $indexRepository;
-        $this->collection = $this->indexRepository->getCollection();
+        $this->collection      = $this->indexRepository->getCollection();
 
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data);
     }
@@ -74,22 +71,18 @@ class DataProvider extends AbstractDataProvider
 
             $identifier = 'search_index_form_' . $index->getIdentifier();
 
-            if (CompatibilityService::is22()) {
-                $componentData = CompatibilityService::getObjectManager()
-                    ->create('Magento\Ui\Config\DataFactory')
-                    ->create(['componentName' => $identifier])->get($identifier);
-            } else {
-                $componentData = true;
+            if (in_array($identifier, [
+                'search_index_form_catalogsearch_fulltext',
+                'search_index_form_magento_catalog_attribute',
+                'search_index_form_magento_cms_page',
+                'search_index_form_external_wordpress_post',
+                'search_index_form_blackbird_contentmanager_content',
+            ])) {
+                $component = $this->uiComponentFactory->create($identifier);
+
+                return ['props' => $this->prepareComponent($component)];
             }
 
-            try {
-                if ($componentData) {
-                    $component = $this->uiComponentFactory->create($identifier);
-                    return ['props' => $this->prepareComponent($component)];
-                }
-            } catch (\Exception $e) {
-                //file not exist
-            }
         }
 
         return parent::getMeta();
@@ -119,7 +112,7 @@ class DataProvider extends AbstractDataProvider
         $result = [];
 
         foreach ($this->indexRepository->getCollection() as $index) {
-            $instance = $this->indexRepository->getInstance($index);
+            $instance   = $this->indexRepository->getInstance($index);
             $attributes = $instance->getAttributeWeights();
 
             if (count($attributes) == 0) {

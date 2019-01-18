@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-landing
- * @version   1.0.4
+ * @version   1.0.6
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 

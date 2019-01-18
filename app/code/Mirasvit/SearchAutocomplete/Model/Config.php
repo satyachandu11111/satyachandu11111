@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-autocomplete
- * @version   1.1.58
+ * @version   1.1.83
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -33,21 +33,16 @@ class Config
      */
     protected $queryCollectionFactory;
 
-    /**
-     * @param ScopeConfigInterface $scopeConfig
-     * @param QueryCollectionFactory $queryCollectionFactory
-     */
     public function __construct(
         ScopeConfigInterface $scopeConfig,
         QueryCollectionFactory $queryCollectionFactory
     ) {
-        $this->scopeConfig = $scopeConfig;
+        $this->scopeConfig            = $scopeConfig;
         $this->queryCollectionFactory = $queryCollectionFactory;
     }
 
     /**
      * Is show product image
-     *
      * @return bool
      */
     public function isShowImage()
@@ -57,7 +52,6 @@ class Config
 
     /**
      * Is show product rating
-     *
      * @return bool
      */
     public function isShowRating()
@@ -67,7 +61,6 @@ class Config
 
     /**
      * Is show product description
-     *
      * @return bool
      */
     public function isShowShortDescription()
@@ -85,7 +78,6 @@ class Config
 
     /**
      * Is show add to cart button
-     *
      * @return bool
      */
     public function isShowCartButton()
@@ -103,7 +95,6 @@ class Config
 
     /**
      * Product description length
-     *
      * @return int
      */
     public function getShortDescriptionLen()
@@ -113,7 +104,6 @@ class Config
 
     /**
      * Is show product price
-     *
      * @return bool
      */
     public function isShowPrice()
@@ -123,7 +113,6 @@ class Config
 
     /**
      * Delay before start search (miliseconds)
-     *
      * @return int
      */
     public function getDelay()
@@ -141,7 +130,6 @@ class Config
 
     /**
      * Minimum number of chars to start search
-     *
      * @return int
      */
     public function getMinChars()
@@ -151,15 +139,14 @@ class Config
 
     /**
      * Search indexes configuration
-     *
      * @return array
      */
     public function getIndicesConfig()
     {
-        if (!CompatibilityService::is22()) {
-            $indexes = unserialize($this->scopeConfig->getValue('searchautocomplete/general/index'));
-        } else {
+        if (CompatibilityService::is22() || CompatibilityService::is23()) {
             $indexes = \Zend_Json::decode($this->scopeConfig->getValue('searchautocomplete/general/index'));
+        } else {
+            $indexes = @unserialize($this->scopeConfig->getValue('searchautocomplete/general/index'));
         }
 
         return $indexes;
@@ -167,7 +154,6 @@ class Config
 
     /**
      * Additional (custom) css styles
-     *
      * @return string
      */
     public function getCssStyles()
@@ -190,7 +176,6 @@ class Config
 
     /**
      * Get search index option value
-     *
      * @param string $code
      * @param string $option
      * @return bool|string
@@ -256,7 +241,7 @@ class Config
 
             $collection = $this->queryCollectionFactory->create()
                 ->setPopularQueryFilter()
-                ->setPageSize($this->getPopularLimit());
+                ->setPageSize(20);
 
             /** @var \Magento\Search\Model\Query $query */
             foreach ($collection as $query) {
@@ -274,11 +259,12 @@ class Config
                 }
 
                 if (!$isIgnored) {
-                    $result[] = $text;
+                    $result[] = mb_strtolower($text);
                 }
             }
         }
 
+        $result = array_slice(array_unique($result), 0, $this->getPopularLimit());
         $result = array_map('ucfirst', $result);
 
         return $result;

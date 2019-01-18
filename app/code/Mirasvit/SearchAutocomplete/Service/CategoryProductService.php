@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-autocomplete
- * @version   1.1.58
+ * @version   1.1.83
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -134,6 +134,7 @@ class CategoryProductService implements CategoryProductInterface
             ->addNameToResult()
             ->addFieldToFilter('is_active', ['eq' => 1])
             ->addFieldToFilter('level', ['gt' => 1])
+            ->addFieldToFilter('path', ['like' => '%/'. $this->storeManager->getStore()->getRootCategoryId() .'/%'])
             ->addFieldToFilter('entity_id', ['in' => $categoryIds])
             ->setPageSize($index->getLimit());
 

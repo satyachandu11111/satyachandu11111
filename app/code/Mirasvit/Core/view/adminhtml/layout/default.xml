@@ -4,12 +4,9 @@
         <referenceContainer name="footer">
             <block class="Magento\Backend\Block\Template" name="mirasvit.utils" template="Mirasvit_Core::utils.phtml" />
         </referenceContainer>
+
         <referenceBlock name="page.title">
             <block class="Mirasvit\Core\Block\Adminhtml\Menu" name="mirasvit.menu" template="menu.phtml" />
         </referenceBlock>
-        <referenceContainer name="header.inner.right">
-            <block class="Mirasvit\Core\Block\Adminhtml\FeedbackButton" name="feedback.button" as="feedback" before="user"
-                   template="Mirasvit_Core::feedback_button.phtml"/>
-        </referenceContainer>
     </body>
 </page>

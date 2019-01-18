@@ -18,6 +18,7 @@
             </argument>
         </arguments>
     </type>
+
     <type name="Magento\CatalogSearch\Model\ResourceModel\EngineProvider">
         <arguments>
             <argument name="engines" xsi:type="array">
@@ -25,6 +26,15 @@
             </argument>
         </arguments>
     </type>
+
+    <type name="Magento\Search\Model\EngineResolver">
+        <arguments>
+            <argument name="engines" xsi:type="array">
+                <item name="mysql2" xsi:type="string">mysql2</item>
+            </argument>
+        </arguments>
+    </type>
+
     <type name="Magento\Search\Model\Adminhtml\System\Config\Source\Engine">
         <arguments>
             <argument name="engines" xsi:type="array">

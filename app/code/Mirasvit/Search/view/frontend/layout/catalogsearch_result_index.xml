@@ -1,16 +1,21 @@
 <?xml version="1.0"?>
-<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left"
-      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <attribute name="class" value="page-products"/>
 
         <!--blackbird content manager block-->
-        <referenceBlock name="search.content.result" remove="true" />
+        <referenceBlock name="search.content.result" remove="true"/>
 
         <move element="search.result" destination="searchindex.result" as="catalogsearch_fulltext"/>
+        <referenceBlock name="search.result" display="false"/>
 
         <referenceContainer name="content">
-            <block class="Mirasvit\Search\Block\Result" name="searchindex.result" template="result.phtml" cacheable="false">
+            <referenceBlock name="layer.category.products">
+                <action method="unsetChild" ifconfig="layered_navigation/general/enable">
+                    <argument name="block" xsi:type="string">layer.category.products</argument>
+                </action>
+            </referenceBlock>
+            <block class="Mirasvit\Search\Block\Result" name="searchindex.result" template="result.phtml">
                 <block class="Mirasvit\Search\Block\Suggestion"
                        ifconfig="search/advanced/show_related_terms"
                        name="suggestion"
@@ -72,18 +77,18 @@
 
                 <block class="Mirasvit\Search\Block\Index\Base"
                        name="aheadworks_blog_post"
-                       template="index/aheadworks/blog/post.phtml" />
+                       template="index/aheadworks/blog/post.phtml"/>
 
                 <block class="Mirasvit\Search\Block\Index\Base"
                        name="amasty_faq_question"
-                       template="index/amasty/faq/question.phtml" />
+                       template="index/amasty/faq/question.phtml"/>
                 <block class="Mirasvit\Search\Block\Index\Base"
                        name="amasty_blog_post"
-                       template="index/amasty/blog/post.phtml" />
+                       template="index/amasty/blog/post.phtml"/>
 
                 <block class="Mirasvit\Search\Block\Index\Base"
                        name="blackbird_contentmanager_content"
-                       template="index/blackbird/contentmanager/content.phtml" />
+                       template="index/blackbird/contentmanager/content.phtml"/>
             </block>
         </referenceContainer>
     </body>

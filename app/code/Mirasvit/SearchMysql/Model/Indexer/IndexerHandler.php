@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-mysql
- * @version   1.0.22
+ * @version   1.0.27
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -17,11 +17,11 @@
 
 namespace Mirasvit\SearchMysql\Model\Indexer;
 
+use Magento\CatalogSearch\Model\Indexer\IndexStructure;
 use Magento\Framework\App\ResourceConnection;
+use Magento\Framework\Indexer\SaveHandler\Batch;
 use Magento\Framework\Indexer\SaveHandler\IndexerInterface;
 use Magento\Framework\Search\Request\Dimension;
-use Magento\Framework\Indexer\SaveHandler\Batch;
-use Magento\CatalogSearch\Model\Indexer\IndexStructure;
 use Mirasvit\Core\Service\CompatibilityService;
 use Mirasvit\Search\Api\Repository\IndexRepositoryInterface;
 
@@ -73,10 +73,10 @@ class IndexerHandler implements IndexerInterface
         $this->indexRepository = $indexRepository;
 
         $this->indexStructure = $indexStructure;
-        $this->resource = $resource;
-        $this->batch = $batch;
-        $this->data = $data;
-        $this->batchSize = $batchSize;
+        $this->resource       = $resource;
+        $this->batch          = $batch;
+        $this->data           = $data;
+        $this->batchSize      = $batchSize;
 
         if (CompatibilityService::is22()) {
             $this->indexScopeResolver = CompatibilityService::getObjectManager()
@@ -127,7 +127,7 @@ class IndexerHandler implements IndexerInterface
     /**
      * {@inheritdoc}
      */
-    public function isAvailable()
+    public function isAvailable($dimensions = [])
     {
         return true;
     }
@@ -154,11 +154,13 @@ class IndexerHandler implements IndexerInterface
      */
     private function getIndexId()
     {
-        return isset($this->data['index_id']) ? $this->data['index_id'] : 1;
+        return isset($this->data['index_id'])
+            ? $this->data['index_id']
+            : $this->indexRepository->get('catalogsearch_fulltext')->getId();
     }
 
     /**
-     * @param array $documents
+     * @param array       $documents
      * @param Dimension[] $dimensions
      * @return void
      */

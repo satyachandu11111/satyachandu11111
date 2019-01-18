@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-misspell
- * @version   1.0.27
+ * @version   1.0.28
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 

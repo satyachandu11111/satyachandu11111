@@ -9,8 +9,8 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search
- * @version   1.0.94
- * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
+ * @version   1.0.117
+ * @copyright Copyright (C) 2019 Mirasvit (https://mirasvit.com/)
  */
 
 
@@ -20,6 +20,7 @@ namespace Mirasvit\Search\Service;
 use Mirasvit\Core\Service\AbstractValidator;
 use Magento\Framework\Module\Manager;
 use Magento\Framework\Module\ModuleListInterface;
+use Mirasvit\Search\Model\Config;
 
 class ValidationService extends AbstractValidator
 {
@@ -33,12 +34,19 @@ class ValidationService extends AbstractValidator
      */
     private $moduleList;
 
+    /**
+     * @var Config
+     */
+    private $config;
+
     public function __construct(
         Manager $moduleManager,
-        ModuleListInterface $moduleList
+        ModuleListInterface $moduleList,
+        Config $config
     ) {
         $this->moduleManager = $moduleManager;
         $this->moduleList = $moduleList;
+        $this->config = $config;
     }
 
     public function testKnownConflicts()
@@ -70,6 +78,14 @@ class ValidationService extends AbstractValidator
             if (stripos($moduleName, 'search') !== false && $this->moduleManager->isEnabled($moduleName)) {
                 $this->addWarning("Possible conflict with {0} module.", [$moduleName]);
             }
+        }
+    }
+
+    public function testSearchEngine()
+    {
+        if ($this->config->getEngine() != $this->config->getStoreEngine()) {
+            $this->addWarning("Your configuration contains different search engines .
+                Please check your core_config_data table and use catalog/search/engine the same as search/engine/engine");
         }
     }
 }

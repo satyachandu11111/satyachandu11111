@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-landing
- * @version   1.0.4
+ * @version   1.0.6
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -32,7 +32,7 @@ class Save extends Page
         $id = $this->getRequest()->getParam(PageInterface::ID);
         $resultRedirect = $this->resultRedirectFactory->create();
 
-        $data = $this->filterPostData($this->getRequest()->getParams());
+        $data = $this->filter($this->getRequest()->getParams());
 
         if ($data) {
             $model = $this->initModel();
@@ -43,7 +43,14 @@ class Save extends Page
                 return $resultRedirect->setPath('*/*/');
             }
 
-            $model->addData($data);
+            $model->setQueryText($data[PageInterface::QUERY_TEXT])
+                ->setUrlKey($data[PageInterface::URL_KEY])
+                ->setTitle($data[PageInterface::TITLE])
+                ->setMetaKeywords($data[PageInterface::META_KEYWORDS])
+                ->setMetaDescription($data[PageInterface::META_DESCRIPTION])
+                ->setLayoutUpdate($data[PageInterface::LAYOUT_UPDATE])
+                ->setStoreIds($data[PageInterface::STORE_IDS])
+                ->setIsActive($data[PageInterface::IS_ACTIVE]);
 
             try {
                 $this->pageRepository->save($model);
@@ -75,7 +82,7 @@ class Save extends Page
      * @param array $rawData
      * @return array
      */
-    private function filterPostData(array $rawData)
+    private function filter(array $rawData)
     {
         return $rawData;
     }

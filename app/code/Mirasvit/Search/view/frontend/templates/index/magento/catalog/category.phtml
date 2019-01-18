@@ -10,7 +10,7 @@ $collection = $this->getCollection();
             <?php $path = $block->getFullPath($item->getId()); ?>
             <li>
                 <div class="mst-search__index-image">
-                    <?= $this->getCategoryImage($item) ?>
+                    <a href="<?= $item->getUrl() ?>"><?= $this->getCategoryImage($item) ?></a>
                 </div>
 
                 <div class="mst-search__index-title">

@@ -28,6 +28,7 @@
                 <item name="ves_blog_post" xsi:type="object">Mirasvit\SearchAutocomplete\Index\Ves\Blog\Post</item>
                 <item name="magefan_blog_post" xsi:type="object">Mirasvit\SearchAutocomplete\Index\Magefan\Blog\Post</item>
                 <item name="amasty_blog_post" xsi:type="object">Mirasvit\SearchAutocomplete\Index\Amasty\Blog\Post</item>
+                <item name="aheadworks_blog_post" xsi:type="object">Mirasvit\SearchAutocomplete\Index\Aheadworks\Blog\Post</item>
             </argument>
         </arguments>
     </type>

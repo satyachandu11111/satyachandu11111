@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-sphinx
- * @version   1.1.38
+ * @version   1.1.42
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -195,7 +195,7 @@ class Engine
             }
 
             foreach ($doc as $attr => $value) {
-                $query->value($attr, $value);
+                $query->value('`'. $attr .'`', $value);
             }
 
             try {
@@ -235,6 +235,24 @@ class Engine
                 ->where('id', '=', $document)
                 ->execute();
         }
+    }
+
+    /**
+     * @param string $indexName
+     * @return void
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
+    public function cleanIndex($indexName)
+    {
+        if (!$this->status() && $this->config->isAutoRestartAllowed()) {
+            $this->start();
+        }
+
+        $this->getQuery()
+            ->delete()
+            ->from($indexName)
+            ->where('id', '>', 0)
+            ->execute();
     }
 
     /**

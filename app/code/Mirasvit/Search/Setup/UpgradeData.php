@@ -9,130 +9,48 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search
- * @version   1.0.94
- * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
+ * @version   1.0.117
+ * @copyright Copyright (C) 2019 Mirasvit (https://mirasvit.com/)
  */
+
 
 
 namespace Mirasvit\Search\Setup;
 
-use Magento\Catalog\Api\Data\ProductAttributeInterface;
-use Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface;
-use Magento\Framework\Setup\UpgradeDataInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
-use Magento\Eav\Setup\EavSetupFactory;
-use Magento\Cms\Api\BlockRepositoryInterface;
-use Magento\Cms\Api\Data\BlockInterfaceFactory;
+use Magento\Framework\Setup\UpgradeDataInterface;
 
-/**
- * Upgrade Data script
- * @codeCoverageIgnore
- */
 class UpgradeData implements UpgradeDataInterface
 {
     /**
-     * @var EavSetupFactory
+     * @var UpgradeDataInterface[]
      */
-    protected $eavSetupFactory;
+    private $pool;
 
-    /**
-     * @var BlockRepositoryInterface
-     */
-    protected $blockRepository;
-
-    /**
-     * @var BlockInterfaceFactory
-     */
-    protected $blockFactory;
-
-    /**
-     * UpgradeData constructor.
-     * @param EavSetupFactory $eavSetupFactory
-     */
     public function __construct(
-        EavSetupFactory $eavSetupFactory,
-        BlockRepositoryInterface $blockRepository,
-        BlockInterfaceFactory $blockFactory
+        UpgradeData\UpgradeData103 $upgrade103,
+        UpgradeData\UpgradeData104 $upgrade104,
+        UpgradeData\UpgradeData107 $upgrade107
     ) {
-        $this->eavSetupFactory = $eavSetupFactory;
-        $this->blockRepository = $blockRepository;
-        $this->blockFactory = $blockFactory;
+        $this->pool = [
+            '1.0.3' => $upgrade103,
+            '1.0.4' => $upgrade104,
+            '1.0.7' => $upgrade107,
+        ];
     }
 
     /**
      * {@inheritdoc}
-     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
     public function upgrade(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
     {
         $setup->startSetup();
-
-        if (version_compare($context->getVersion(), '1.0.3') < 0) {
-            /** @var \Magento\Eav\Setup\EavSetup $eavSetup */
-            $eavSetup = $this->eavSetupFactory->create(['setup' => $setup]);
-
-            $eavSetup->addAttribute(
-                ProductAttributeInterface::ENTITY_TYPE_CODE,
-                'search_weight',
-                [
-                    'type'                  => 'static',
-                    'label'                 => 'Search Weight',
-                    'input'                 => 'text',
-                    'required'              => false,
-                    'sort_order'            => 1000,
-                    'global'                => ScopedAttributeInterface::SCOPE_GLOBAL,
-                    'group'                 => 'Product Details',
-                    'is_used_in_grid'       => false,
-                    'is_visible_in_grid'    => false,
-                    'is_filterable_in_grid' => false
-                ]
-            );
+        foreach ($this->pool as $version => $upgrade) {
+            if (version_compare($context->getVersion(), $version) < 0) {
+                $upgrade->upgrade($setup, $context);
+            }
         }
-
-        if (version_compare($context->getVersion(), '1.0.4') < 0) {
-            /** @var \Magento\Cms\Api\Data\BlockInterface $block */
-            $block = $this->blockFactory->create();
-
-            $block->setIdentifier('no-results')
-                ->setTitle('Search: No Results Suggestions')
-                ->setContent($this->getBlockContent('no_results'))
-                ->setIsActive(true);
-
-            $this->blockRepository->save($block);
-        }
-
-        if (version_compare($context->getVersion(), '1.0.7') < 0) {
-            $eavSetup = $this->eavSetupFactory->create(['setup' => $setup]);
-            $eavSetup->addAttribute(
-                ProductAttributeInterface::ENTITY_TYPE_CODE,
-                'sold_qty',
-                [
-                    'type'                  => 'decimal',
-                    'label'                 => 'Sold QTY',
-                    'input'                 => 'text',
-                    'required'              => false,
-                    'sort_order'            => 1005,
-                    'global'                => ScopedAttributeInterface::SCOPE_STORE,
-                    'group'                 => false,
-                    'visible'               => false,
-                    'is_used_in_grid'       => false,
-                    'is_system'             => false,
-                    'is_visible_in_grid'    => false,
-                    'is_filterable_in_grid' => false
-                ]
-            );
-        }
-
         $setup->endSetup();
-    }
-
-    /**
-     * @param string $name
-     * @return string
-     */
-    protected function getBlockContent($name)
-    {
-        return file_get_contents(dirname(__FILE__) . "/data/$name.html");
     }
 }

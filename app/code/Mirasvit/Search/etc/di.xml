@@ -18,6 +18,8 @@
     <preference for="Mirasvit\Search\Api\Service\StemmingServiceInterface" type="Mirasvit\Search\Service\StemmingService"/>
     <preference for="Mirasvit\Search\Api\Service\CloudServiceInterface" type="Mirasvit\Search\Service\CloudService"/>
     <preference for="Magento\Framework\Search\Request\IndexScopeResolverInterface" type="Magento\Framework\Indexer\ScopeResolver\IndexScopeResolver" />
+    <preference for="TemplateMonster\AjaxCatalog\Plugin\CatalogSearch\Result"
+        type="Mirasvit\Search\Preference\TemplateMonster\AjaxCatalog\Plugin\CatalogSearch\Result" />
 
     <!-- register default data mapper for indexation -->
     <type name="Mirasvit\Search\Api\Data\Index\InstanceInterface">
@@ -40,6 +42,14 @@
         <arguments>
             <argument name="dataMappers" xsi:type="array">
                 <item name="0page" xsi:type="object">Mirasvit\Search\Index\Magento\Cms\Page\DataMapper</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Mirasvit\Search\Index\Aheadworks\Blog\Post\Index">
+        <arguments>
+            <argument name="dataMappers" xsi:type="array">
+                <item name="0post" xsi:type="object">Mirasvit\Search\Index\Aheadworks\Blog\Post\DataMapper</item>
             </argument>
         </arguments>
     </type>
@@ -71,6 +81,11 @@
 
     <type name="Magento\Framework\Search\Adapter\Mysql\TemporaryStorage">
         <plugin name="mstSearchScoreRule" type="Mirasvit\Search\Index\Magento\Catalog\Product\ScoreRulePlugin"/>
+    </type>
+
+    <!--Compatibility-->
+    <type name="Mageplaza\LayeredNavigation\Controller\Search\Result\Index">
+        <plugin name="mstMageplazaSearchResultIndex" type="Mirasvit\Search\Plugin\Mageplaza\LayeredNavigation\Controller\Search\Result\IndexPlugin"/>
     </type>
 
     <!--register index providers for NATIVE magento mysql search-->
@@ -242,5 +257,10 @@
     </type>
     <type name="Magento\Catalog\Model\Product\Action">
         <plugin name="mstSearchScoreRuleMassAction" type="Mirasvit\Search\Model\ScoreRule\Indexer\Plugin\ProductActionPlugin"/>
+    </type>
+
+    <type name="TemplateMonster\AjaxCatalog\Helper\Catalog\View\ContentAjaxResponse">
+        <plugin name="mstCompatibilityTemplateMonsterAjaxCatalog" 
+            type="Mirasvit\Search\Plugin\TemplateMonster\AjaxCatalog\Helper\Catalog\View\ContentAjaxResponse\GetAjaxSearchResult"/>
     </type>
 </config>

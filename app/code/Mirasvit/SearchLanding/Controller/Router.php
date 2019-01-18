@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-landing
- * @version   1.0.4
+ * @version   1.0.6
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -21,6 +21,7 @@ use Magento\Framework\App\ActionFactory;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\App\RouterInterface;
 use Magento\Framework\Url;
+use Magento\Store\Model\StoreManagerInterface;
 use Mirasvit\SearchLanding\Api\Data\PageInterface;
 use Mirasvit\SearchLanding\Api\Repository\PageRepositoryInterface;
 use Magento\Search\Model\QueryFactory;
@@ -33,15 +34,22 @@ class Router implements RouterInterface
     private $pageRepository;
 
     /**
+     * @var StoreManagerInterface
+     */
+    private $storeManager;
+
+    /**
      * @var ActionFactory
      */
     private $actionFactory;
 
     public function __construct(
         PageRepositoryInterface $pageRepository,
+        StoreManagerInterface $storeManager,
         ActionFactory $actionFactory
     ) {
         $this->pageRepository = $pageRepository;
+        $this->storeManager = $storeManager;
         $this->actionFactory = $actionFactory;
     }
 
@@ -55,7 +63,8 @@ class Router implements RouterInterface
 
         $collection = $this->pageRepository->getCollection();
         $collection->addFieldToFilter(PageInterface::IS_ACTIVE, true)
-            ->addFieldToFilter(PageInterface::URL_KEY, $identifier);
+            ->addFieldToFilter(PageInterface::URL_KEY, $identifier)
+            ->addStoreFilter($this->storeManager->getStore()->getId());
 
         if ($collection->count()) {
             /** @var PageInterface $page */

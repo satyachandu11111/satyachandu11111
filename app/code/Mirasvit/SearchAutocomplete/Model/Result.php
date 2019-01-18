@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-autocomplete
- * @version   1.1.58
+ * @version   1.1.83
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -65,10 +65,10 @@ class Result
         SearchHelper $searchHelper
     ) {
         $this->indexRepository = $indexRepository;
-        $this->layerResolver = $layerResolver;
-        $this->queryFactory = $queryFactory;
-        $this->config = $config;
-        $this->searchHelper = $searchHelper;
+        $this->layerResolver   = $layerResolver;
+        $this->queryFactory    = $queryFactory;
+        $this->config          = $config;
+        $this->searchHelper    = $searchHelper;
     }
 
     /**
@@ -89,7 +89,6 @@ class Result
 
     /**
      * Convert all results to array
-     *
      * @return array
      * @SuppressWarnings(PHPMD)
      */
@@ -127,7 +126,7 @@ class Result
                 ->setRepository($this->indexRepository);
 
             $items = $instance->getItems();
-            $size = $instance->getSize();
+            $size  = $instance->getSize();
 
             $result['indices'][] = [
                 'identifier'   => $identifier == 'catalogsearch_fulltext' ? 'magento_catalog_product' : $identifier,
@@ -146,7 +145,7 @@ class Result
             return $a['order'] - $b['order'];
         });
 
-        $result['textAll'] = __('Show all %1 results →', $result['totalItems']);
+        $result['textAll']   = __('Show all %1 results →', $result['totalItems']);
         $result['textEmpty'] = __('Sorry, nothing found for "%1".', $result['query']);
 
         $result['noResults'] = $result['totalItems'] ? false : true;

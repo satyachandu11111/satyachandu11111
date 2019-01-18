@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-mysql
- * @version   1.0.22
+ * @version   1.0.27
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -253,7 +253,7 @@ class Match extends \Magento\Framework\Search\Adapter\Mysql\Query\Builder\Match
             $select = '0';
         }
 
-        $select = 'CASE WHEN search_weight > 1 THEN(' . $select . ') ELSE 0 END';
+        $select = 'CASE WHEN cea.search_weight > 1 THEN(' . $select . ') ELSE 0 END';
 
         return $select;
     }

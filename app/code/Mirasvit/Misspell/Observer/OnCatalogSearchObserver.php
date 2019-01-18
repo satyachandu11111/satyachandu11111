@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-misspell
- * @version   1.0.27
+ * @version   1.0.28
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -62,9 +62,9 @@ class OnCatalogSearchObserver implements ObserverInterface
      */
     public function execute(EventObserver $observer)
     {
-        // if not set yet OR zero OR zero from db (string)
-        if ($this->queryHelper->getNumResults() === null
-            || $this->queryHelper->getNumResults() === 0
+        //$this->queryHelper->getNumResults() === null
+        // if zero OR zero from db (string)
+        if ($this->queryHelper->getNumResults() === 0
             || $this->queryHelper->getNumResults() === '0'
         ) {
             if ($this->config->isMisspellEnabled()) {

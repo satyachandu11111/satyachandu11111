@@ -9,8 +9,8 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-core
- * @version   1.2.72
- * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
+ * @version   1.2.76
+ * @copyright Copyright (C) 2019 Mirasvit (https://mirasvit.com/)
  */
 
 
@@ -40,6 +40,13 @@ class CompatibilityService
         list($a, $b,) = explode('.', self::getVersion());
 
         return $a == 2 && $b == 2;
+    }
+
+    public static function is23()
+    {
+        list($a, $b,) = explode('.', self::getVersion());
+
+        return $a == 2 && $b == 3;
     }
 
     public static function getVersion()

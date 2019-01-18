@@ -9,7 +9,7 @@ $list = $this->getLayout()->createBlock('Aheadworks\Blog\Block\PostList');
     <div class="blog-posts">
         <?php /** @var \Aheadworks\Blog\Model\Post $post */ ?>
         <?php foreach ($block->getCollection() as $post): ?>
-            <?= $list->getItemHtml($post) ?>
+            <?= $list->getItemHtml($post); ?>
         <?php endforeach ?>
     </div>
 </div>

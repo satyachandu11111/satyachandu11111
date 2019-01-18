@@ -3,7 +3,6 @@
 /** @var \Mirasvit\Search\Block\Result $block */
 
 $indices = $block->getIndices();
-$currentContent = $block->getCurrentContent();
 $minCollectionSize = $block->getMinCollectionSize();
 $lessThanMinIndexes = [];
 $tabsCnt = 0;
@@ -69,7 +68,7 @@ $totalCnt = 0;
 <?php endif ?>
 
 
-<?= $currentContent ?>
+<?= $block->getCurrentContent() ?>
 
 <?php if ($totalCnt == 0): ?>
     <?= $block->getChildHtml("search.no_results") ?>

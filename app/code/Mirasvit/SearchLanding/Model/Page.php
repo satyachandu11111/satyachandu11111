@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-landing
- * @version   1.0.4
+ * @version   1.0.6
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -27,7 +27,7 @@ class Page extends AbstractModel implements PageInterface
      */
     protected function _construct()
     {
-        $this->_init('Mirasvit\SearchLanding\Model\ResourceModel\Page');
+        $this->_init(ResourceModel\Page::class);
     }
 
     /**
@@ -139,7 +139,7 @@ class Page extends AbstractModel implements PageInterface
      */
     public function getStoreIds()
     {
-        return $this->getData(self::STORE_IDS);
+        return array_filter(explode(',', $this->getData(self::STORE_IDS)));
     }
 
     /**
@@ -147,6 +147,10 @@ class Page extends AbstractModel implements PageInterface
      */
     public function setStoreIds($value)
     {
+        if (is_array($value)) {
+            $value = implode(',', $value);
+        }
+
         return $this->setData(self::STORE_IDS, $value);
     }
 

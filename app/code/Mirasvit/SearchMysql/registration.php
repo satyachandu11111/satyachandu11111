@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-mysql
- * @version   1.0.22
+ * @version   1.0.27
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 

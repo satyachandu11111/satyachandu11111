@@ -1,29 +1,13 @@
 //
-//    Common
-//--------------------------------------
-
-& when (@media-common = true) {
-  .block-search {
-    transition: width .05s ease-out;
-  }
-}
-
-//
 //    Desktop
 //--------------------------------------
-.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
-  body.searchautocomplete__active .block-search {
-   
-  }
-}
-
-#search_autocomplete {
-  display: none !important;
-  height: 0 !important;
-  overflow: hidden !important;;
+#search_autocomplete, .search-autocomplete, #searchbox_autocomplete {
+    display: none !important;
+    height: 0 !important;
+    overflow: hidden !important;;
 }
 
 // compatibility with porto theme
 .block-search {
-  z-index: 10000;
+    z-index: 10000;
 }

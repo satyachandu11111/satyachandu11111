@@ -9,8 +9,8 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search
- * @version   1.0.94
- * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
+ * @version   1.0.117
+ * @copyright Copyright (C) 2019 Mirasvit (https://mirasvit.com/)
  */
 
 
@@ -35,6 +35,8 @@ class Config
     const MATCH_MODE_OR = 'or';
 
     const MIN_COLLECTION_SIZE = 5;
+
+    const DISALLOWED_MULTIPLE = ['catalogsearch_fulltext'];
 
     /**
      * @var ScopeConfigInterface
@@ -68,6 +70,16 @@ class Config
     public function getEngine()
     {
         return $this->scopeConfig->getValue('search/engine/engine', ScopeInterface::SCOPE_STORE);
+    }
+
+    /**
+     * Store Search engine
+     *
+     * @return string
+     */
+    public function getStoreEngine()
+    {
+        return $this->scopeConfig->getValue('catalog/search/engine', ScopeInterface::SCOPE_STORE);
     }
 
     /**

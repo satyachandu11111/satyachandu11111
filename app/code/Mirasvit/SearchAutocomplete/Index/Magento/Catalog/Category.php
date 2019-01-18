@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-autocomplete
- * @version   1.1.58
+ * @version   1.1.83
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -17,11 +17,11 @@
 
 namespace Mirasvit\SearchAutocomplete\Index\Magento\Catalog;
 
-use Magento\Catalog\Api\Data\CategoryInterface;
-use Mirasvit\SearchAutocomplete\Index\AbstractIndex;
-use Magento\Store\Model\StoreManagerInterface;
 use Magento\Catalog\Api\CategoryRepositoryInterface;
+use Magento\Catalog\Api\Data\CategoryInterface;
 use Magento\Framework\App\ObjectManager;
+use Magento\Store\Model\StoreManagerInterface;
+use Mirasvit\SearchAutocomplete\Index\AbstractIndex;
 
 class Category extends AbstractIndex
 {
@@ -38,9 +38,8 @@ class Category extends AbstractIndex
     public function __construct(
         StoreManagerInterface $storeManager,
         CategoryRepositoryInterface $categoryRepository
-    )
-    {
-        $this->storeManager = $storeManager;
+    ) {
+        $this->storeManager       = $storeManager;
         $this->categoryRepository = $categoryRepository;
     }
 
@@ -73,13 +72,12 @@ class Category extends AbstractIndex
 
     /**
      * List of parent categories
-     *
      * @param CategoryInterface $category
      * @return string
      */
     public function getFullPath(CategoryInterface $category)
     {
-        $store = $this->storeManager->getStore();
+        $store  = $this->storeManager->getStore();
         $rootId = $store->getRootCategoryId();
 
         $result = [
@@ -103,16 +101,16 @@ class Category extends AbstractIndex
 
         $result = array_reverse($result);
 
-        return implode(' > ', $result);
+        return implode('<i>›</i>', $result);
     }
 
     public function map($data)
     {
         foreach ($data as $entityId => $itm) {
-            $om = ObjectManager::getInstance();
+            $om     = ObjectManager::getInstance();
             $entity = $om->create('Magento\Catalog\Model\Category')->load($entityId);
 
-            $map = $this->mapCategory($entity);
+            $map                             = $this->mapCategory($entity);
             $data[$entityId]['autocomplete'] = $map;
         }
 

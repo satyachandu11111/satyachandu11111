@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-mysql
- * @version   1.0.22
+ * @version   1.0.27
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -33,14 +33,12 @@ class Adapter implements AdapterInterface
 {
     /**
      * Mapper instance
-     *
      * @var Mapper
      */
     protected $mapper;
 
     /**
      * Response Factory
-     *
      * @var ResponseFactory
      */
     protected $responseFactory;
@@ -73,12 +71,12 @@ class Adapter implements AdapterInterface
         TemporaryStorageFactory $temporaryStorageFactory,
         SearchConfig $searchConfig
     ) {
-        $this->mapper = $mapper;
-        $this->responseFactory = $responseFactory;
-        $this->resource = $resource;
-        $this->aggregationBuilder = $aggregationBuilder;
+        $this->mapper                  = $mapper;
+        $this->responseFactory         = $responseFactory;
+        $this->resource                = $resource;
+        $this->aggregationBuilder      = $aggregationBuilder;
         $this->temporaryStorageFactory = $temporaryStorageFactory;
-        $this->searchConfig = $searchConfig;
+        $this->searchConfig            = $searchConfig;
     }
 
     /**
@@ -94,14 +92,7 @@ class Adapter implements AdapterInterface
             $query->limit($this->searchConfig->getResultsLimit());
 
             //ability to search by 0 attribute (options)
-            $from = $query->getPart('FROM');
-            foreach (array_keys($from) as $k) {
-                $from[$k]['tableName'] = new \Zend_Db_Expr('(' . str_replace(
-                    'search_index.attribute_id = cea.attribute_id',
-                    'search_index.attribute_id = cea.attribute_id or search_index.attribute_id = 0',
-                    $from[$k]['tableName']
-                ) . ')');
-            }
+            $from = $this->processFromPart($query->getPart('FROM'));
             $query->setPart('FROM', $from);
         }
 
@@ -121,7 +112,6 @@ class Adapter implements AdapterInterface
 
     /**
      * Executes query and return raw response
-     *
      * @param Table $table
      * @return array
      * @throws \Zend_Db_Exception
@@ -129,7 +119,7 @@ class Adapter implements AdapterInterface
     private function getDocuments(Table $table)
     {
         $connection = $this->getConnection();
-        $select = $connection->select();
+        $select     = $connection->select();
         $select->from($table->getName(), ['entity_id', 'score']);
 
         return $connection->fetchAssoc($select);
@@ -141,5 +131,23 @@ class Adapter implements AdapterInterface
     private function getConnection()
     {
         return $this->resource->getConnection();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    private function processFromPart($from)
+    {
+        foreach (array_keys($from) as $k) {
+            $fromConditions = explode('INNER JOIN', $from[$k]['tableName']);
+            foreach ($fromConditions as $key => $condition) {
+                if (strpos($condition, 'search_index.attribute_id = cea.attribute_id') !== false) {
+                    $from[$k]['tableName'] = str_replace('INNER JOIN' . $condition, 'LEFT JOIN' . $condition, $from[$k]['tableName']);
+                    $from[$k]['tableName'] = new \Zend_Db_Expr('(' . $from[$k]['tableName'] . ')');
+                }
+            }
+        }
+
+        return $from;
     }
 }

@@ -6,74 +6,155 @@ define([
     'Magento_Catalog/js/price-utils',
     'Magento_Catalog/js/catalog-add-to-cart'
 ], function ($, ko, _, $t, priceUtils) {
-    "use strict";
     
-    var $input;
-    var isVisible = false;
-    var isShowAll = true;
-    var loading = false;
-    
-    ko.bindingHandlers.highlight = {
-        init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
-            var needle      = bindingContext.$parents[2].result.query,
-                haystack    = $(element).html(),
-                regEx       = new RegExp(needle, "ig"),
-                replaceMask = '<span class="searchautocomplete__highlight">' + needle.charAt(0) + needle.slice(1) + '</span>';
-            
-            $(element).html(haystack.replace(regEx, replaceMask));
-        }
+    var Autocomplete = function (input) {
+        this.$input = $(input);
+        this.isVisible = false;
+        this.isShowAll = true;
+        this.loading = false;
+        this.config = [];
+        this.result = false
     };
     
-    ko.bindingHandlers.price = {
-        init: function (element) {
-            $(element).html(priceUtils.formatPrice($(element).html(), window.priceFormat));
-        }
-    };
-    
-    return {
-        placeholderSelector: '.searchautocomplete__autocomplete',
-        wrapperSelector:     '.wrapper',
-        
-        xhr: null,
-        
-        config: {
-            query:           '',
-            priceFormat:     {},
-            minSearchLength: 3,
-            url:             '',
-            delay:           300,
-            popularSearches: []
-        },
-        
-        init: function (selector, config) {
-            $input = $(selector);
-            
-            this.config = _.defaults(config, this.config);
-            
+    Autocomplete.prototype = {
+        init: function (config) {
+            this.config = _.defaults(config, this.defaults);
             window.priceFormat = this.config.priceFormat;
             
             this.doSearch = _.debounce(this._doSearch, this.config.delay);
             
-            $($('#searchAutocompletePlaceholder').html()).appendTo($input.parent());
+            this.$input.after($('#searchAutocompletePlaceholder').html());
+            
+            this.placeholderSelector = '.mst-searchautocomplete__autocomplete';
+            
+            this.wrapperSelector = '.mst-searchautocomplete__wrapper';
+            
+            this.xhr = null;
+            
+            this.$input.on("keyup", function (event) {
+                this.clickHandler(event)
+            }.bind(this));
+            
+            this.$input.on("click focus", function () {
+                this.clickHandler()
+            }.bind(this));
+            
+            this.$input.on("input", function () {
+                this.inputHandler()
+            }.bind(this));
+            
+            $(document).click(function (event) {
+                this.clickHandler(event)
+            }.bind(this));
+            
+            ko.bindingHandlers.highlight = {
+                init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+                    var arQuery = bindingContext.$parents[2].result.query.split(' ');
+                    var arSpecialChars = [
+                        {'key': 'a', 'value': '(à|â|ą|a)'},
+                        {'key': 'c', 'value': '(ç|č|c)'},
+                        {'key': 'e', 'value': '(è|é|ė|ê|ë|ę|e)'},
+                        {'key': 'i', 'value': '(î|ï|į|i)'},
+                        {'key': 'o', 'value': '(ô|o)'},
+                        {'key': 's', 'value': '(š|s)'},
+                        {'key': 'u', 'value': '(ù|ü|û|ū|ų|u)'}
+                    ];
+                    var html = $(element).text();
+                    
+                    arQuery.forEach(function (word, key) {
+                        if ($.trim(word)) {
+                            word = word.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, '\\$&');
+                            arSpecialChars.forEach(function (match, idx) {
+                                word = word.replace(new RegExp(match.key, 'g'), match.value);
+                            });
+                            
+                            if ("span".indexOf(word.toLowerCase()) == -1) {
+                                html = html.replace(new RegExp('(' + word + '(?![^<>]*>))', 'ig'), function ($1, match) {
+                                    return '<span class="mst-searchautocomplete__highlight">' + match + '</span>';
+                                });
+                            }
+                        }
+                    });
+                    $(element).html(html);
+                }
+            };
+            
+            ko.bindingHandlers.price = {
+                init: function (element) {
+                    $(element).html(priceUtils.formatPrice($(element).html(), window.priceFormat));
+                }
+            }
+        },
+        
+        clickHandler: function (event) {
+            if (!event) {
+                if (this.result) {
+                    $('body').addClass('searchautocomplete__active');
+                    this.$input.addClass('searchautocomplete__active');
+                    this.$placeholder().addClass('_active');
+                    this.ensurePosition();
+                    
+                    setInterval(function () {
+                        this.ensurePosition();
+                    }.bind(this), 10);
+                } else {
+                    this.result = this.search();
+                }
+            } else {
+                if (event.keyCode == 13) {
+                    $(event.target).closest('form').submit();
+                }
+                
+                if ($(event.target)[0] != this.$input[0] && !$(event.target).closest(this.$placeholder()).length) {
+                    /* @mirasvit fix start*/
+					$('.searchautocomplete__active').closest('form').find('.active').removeClass('active');
+					/* @mirasvit fix end*/
+                    $('body').removeClass('searchautocomplete__active');
+                    this.$placeholder().removeClass('_active');
+                }
+                
+                if ($(event.target).hasClass("mst-searchautocomplete__close")) {
+                    $('body').removeClass('searchautocomplete__active');
+                    this.$placeholder().removeClass('_active');
+                }
+            }
+            
+        },
+        
+        inputHandler: function () {
+            $('body').addClass('searchautocomplete__active');
+            
+            this.result = this.search();
+            
+            setTimeout(function () {
+                if (this.result) {
+                    this.$placeholder().addClass('_active');
+                    this.ensurePosition();
+                } else {
+                    this.$placeholder().removeClass('_active');
+                }
+            }.bind(this), 200);
+            
+            this.ensurePosition();
         },
         
         $spinner: function () {
-            return $(".searchautocomplete__spinner");
+            return this.$placeholder().find(".mst-searchautocomplete__spinner");
         },
         
         search: function () {
             this.ensurePosition();
             
-            $input.off("keydown");
-            $input.off("blur");
+            this.$input.off("keydown");
+            this.$input.off("blur");
             
             if (this.xhr != null) {
                 this.xhr.abort();
                 this.xhr = null;
             }
             
-            if ($input.val().length >= this.config.minSearchLength) {
-                this.doSearch();
+            if (this.$input.val().length >= this.config.minSearchLength) {
+                this.doSearch(this.$input.val());
             } else {
                 return this.doPopular();
             }
@@ -81,8 +162,8 @@ define([
             return true;
         },
         
-        _doSearch: function () {
-            isVisible = true;
+        _doSearch: function (query) {
+            this.isVisible = true;
             
             this.$spinner().show();
             
@@ -91,7 +172,7 @@ define([
                 dataType: 'json',
                 type:     'GET',
                 data:     {
-                    q:   $input.val(),
+                    q:   query,
                     cat: false
                 },
                 success:  function (data) {
@@ -142,10 +223,10 @@ define([
                 }.bind(this)
             };
             
-            model.isVisible = isVisible;
-            model.loading = loading;
+            model.isVisible = this.isVisible;
+            model.loading = this.loading;
             model.result = data;
-            model.result.isShowAll = isShowAll;
+            model.result.isShowAll = this.isShowAll;
             model.form_key = $.cookie('form_key');
             
             return model;
@@ -160,11 +241,12 @@ define([
         },
         
         pasteToSearchString: function (searchTerm) {
-            $input.val(searchTerm);
+            this.$input.val(searchTerm);
             this.search();
         },
         
         doPopular: function () {
+            this.$spinner().hide();
             if (this.config.popularSearches.length) {
                 this.processApplyBinding(this._showQueries(this.config.popularSearches));
                 
@@ -175,21 +257,29 @@ define([
         },
         
         processApplyBinding: function (data) {
-            if ($(this.wrapperSelector, this.placeholderSelector).length > 0) {
-                if (!!ko.dataFor($(this.wrapperSelector, this.placeholderSelector)[0])) {
-                    ko.cleanNode($(this.wrapperSelector, this.placeholderSelector)[0]);
+            if (this.$wrapper().length > 0) {
+                if (!!ko.dataFor(this.$wrapper())) {
+                    ko.cleanNode(this.$wrapper());
                 }
             }
             
-            $(this.wrapperSelector, this.placeholderSelector).remove();
+            this.$wrapper().remove();
             
             var wrapper = $('#searchAutocompleteWrapper').html();
             
-            $(this.placeholderSelector).append(wrapper);
+            this.$placeholder().append(wrapper);
             
-            ko.applyBindings(this.viewModel(data), $(this.wrapperSelector, this.placeholderSelector)[0]);
+            ko.applyBindings(this.viewModel(data), this.$wrapper()[0]);
             
             this.ensurePosition();
+        },
+        
+        $placeholder: function () {
+            return $(this.$input.next(this.placeholderSelector));
+        },
+        
+        $wrapper: function () {
+            return $(this.$input.next(this.placeholderSelector).find(this.wrapperSelector));
         },
         
         _showQueries: function (data) {
@@ -200,20 +290,18 @@ define([
             var result, index;
             
             _.each(queries, function (query, idx) {
-                if (idx < 5) {
-                    item = {};
-                    item.query = query;
-                    item.enter = function () {
-                        self.query = query;
-                    };
-                    
-                    items.push(item);
-                }
+                item = {};
+                item.query = query;
+                item.enter = function () {
+                    self.query = query;
+                };
+                
+                items.push(item);
             }, this);
             
             result = {
                 totalItems: items.length,
-                query:      $input.val(),
+                query:      this.$input.val(),
                 indices:    [],
                 isShowAll:  false
             };
@@ -232,15 +320,17 @@ define([
         },
         
         ensurePosition: function () {
-            var position = $input.position();
-            var left = position.left + parseInt($input.css('marginLeft'), 10);
-            var top = position.top + parseInt($input.css('marginTop'), 10);
+            var position = this.$input.position();
+            var width = this.$placeholder().outerWidth();
+            var left = position.left + parseInt(this.$input.css('marginLeft'), 10) + this.$input.outerWidth() - width;
+            var top = position.top + parseInt(this.$input.css('marginTop'), 10);
             
             $(this.placeholderSelector)
-                .css('top', $input.outerHeight() - 1 + top)
+                .css('top', this.$input.outerHeight() - 1 + top)
                 .css('left', left)
-                .css('width', $input.outerWidth());
+                .css('width', this.$input.outerWidth());
         }
-    }
+    };
+    
+    return Autocomplete;
 });
-

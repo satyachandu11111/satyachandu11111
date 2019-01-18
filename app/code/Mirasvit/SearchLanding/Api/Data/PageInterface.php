@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-landing
- * @version   1.0.4
+ * @version   1.0.6
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -19,6 +19,8 @@ namespace Mirasvit\SearchLanding\Api\Data;
 
 interface PageInterface
 {
+    const TABLE_NAME = 'mst_search_landing_page';
+
     const ID = 'page_id';
     const QUERY_TEXT = 'query_text';
     const URL_KEY = 'url_key';

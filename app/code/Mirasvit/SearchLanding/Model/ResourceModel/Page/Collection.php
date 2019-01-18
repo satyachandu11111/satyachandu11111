@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-landing
- * @version   1.0.4
+ * @version   1.0.6
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -27,5 +27,15 @@ class Collection extends AbstractCollection
     protected function _construct()
     {
         $this->_init('Mirasvit\SearchLanding\Model\Page', 'Mirasvit\SearchLanding\Model\ResourceModel\Page');
+    }
+
+    public function addStoreFilter($storeId)
+    {
+        $id = intval($storeId);
+
+        $this->getSelect()->where('(FIND_IN_SET (' . $id . ', main_table.store_ids)
+            OR FIND_IN_SET (0, main_table.store_ids))');
+
+        return $this;
     }
 }

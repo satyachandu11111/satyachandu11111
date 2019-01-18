@@ -9,18 +9,19 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search
- * @version   1.0.94
- * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
+ * @version   1.0.117
+ * @copyright Copyright (C) 2019 Mirasvit (https://mirasvit.com/)
  */
 
 
 
 namespace Mirasvit\Search\Block;
 
+use Magento\Framework\Encryption\UrlCoder;
+use Magento\Framework\Registry;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
 use Magento\Search\Model\QueryFactory;
-use Magento\Framework\Registry;
 use Mirasvit\Search\Api\Data\IndexInterface;
 use Mirasvit\Search\Api\Repository\IndexRepositoryInterface;
 use Mirasvit\Search\Api\Service\IndexServiceInterface;
@@ -57,8 +58,12 @@ class Result extends Template
     /**
      * @var Registry
      */
-
     private $registry;
+
+    /**
+     * @var UrlCoder
+     */
+    private $urlCoder;
 
     public function __construct(
         Context $context,
@@ -66,20 +71,21 @@ class Result extends Template
         IndexServiceInterface $indexService,
         QueryFactory $queryFactory,
         Config $config,
-        Registry $registry
+        Registry $registry,
+        UrlCoder $urlCoder
     ) {
-        $this->indexRepository = $indexRepository;
-        $this->indexService = $indexService;
-        $this->config = $config;
+        $this->indexRepository    = $indexRepository;
+        $this->indexService       = $indexService;
+        $this->config             = $config;
         $this->searchQueryFactory = $queryFactory;
-        $this->registry = $registry;
+        $this->registry           = $registry;
+        $this->urlCoder           = $urlCoder;
 
         parent::__construct($context);
     }
 
     /**
      * List of enabled indexes
-     *
      * @return IndexInterface[]
      */
     public function getIndices()
@@ -130,13 +136,12 @@ class Result extends Template
 
     /**
      * Current content
-     *
      * @return string
      */
     public function getCurrentContent()
     {
         $index = $this->getCurrentIndex();
-        $html = $this->getContentBlock($index)->toHtml();
+        $html  = $this->getContentBlock($index)->toHtml();
 
         return $html;
     }
@@ -145,12 +150,18 @@ class Result extends Template
      * Block for index model
      *
      * @param IndexInterface $index
+     *
      * @return \Magento\Framework\View\Element\AbstractBlock
      * @throws \Exception
      */
     public function getContentBlock($index)
     {
+        /** @var \Magento\Framework\View\Element\Template $block */
         $block = $this->getChildBlock($index->getIdentifier());
+
+        if ($index->getIdentifier() == 'catalogsearch_fulltext') {
+            $block = $this->_layout->getBlock('search.result');
+        }
 
         if (!$block) {
             throw new \Exception(__('Child block %1 not exists', $index->getIdentifier()));
@@ -163,7 +174,6 @@ class Result extends Template
 
     /**
      * First matched index model
-     *
      * @return IndexInterface
      */
     public function getFirstMatchedIndex()
@@ -181,7 +191,6 @@ class Result extends Template
 
     /**
      * Current index model
-     *
      * @return IndexInterface
      */
     public function getCurrentIndex()
@@ -201,7 +210,6 @@ class Result extends Template
 
     /**
      * Current index size
-     *
      * @return int
      */
     public function getCurrentIndexSize()
@@ -211,6 +219,7 @@ class Result extends Template
 
     /**
      * @param IndexInterface $index
+     *
      * @return \Magento\Framework\Data\Collection
      */
     public function getSearchCollection(IndexInterface $index)
@@ -232,12 +241,34 @@ class Result extends Template
             'p'     => null,
         ];
 
-        if ($index->hasData('store_id')
-            && $index->getData('store_id') != $this->getCurrentStore()->getId()
-        ) {
+        /** @var \Magento\Store\Model\Store $store */
+        $store = $this->getCurrentStore();
+
+        if ($index->hasData('store_id') && $index->getData('store_id') != $store->getId()) {
+            $query['q']             = $this->getRequest()->getParam('q');
+            $query['___store']      = $this->getRequest()->getParam('q');
+            $query['___from_store'] = $store->getCode();
+
+            /** @var \Magento\Store\Model\Store $requestedStore */
+            $requestedStore = $this->_storeManager->getStore($index->getData('store_id'));
+
+            $uenc = $requestedStore->getUrl('catalogsearch/result', [
+                '_query' => $query,
+            ]);
+
+            if ($store->getBaseUrl() !== $requestedStore->getBaseUrl()) {
+                return $requestedStore->getUrl('catalogsearch/result', [
+                    '_query' => [
+                        'q' => $this->getRequest()->getParam('q'),
+                    ],
+                ]);
+            }
+
             return $this->getUrl('stores/store/switch', [
                 '_query' => [
-                    '___store' => $index->getData('store_code'),
+                    '___store'      => $index->getData('store_code'),
+                    '___from_store' => $store->getCode(),
+                    'uenc'          => $this->urlCoder->encode($uenc),
                 ],
             ]);
         }
@@ -282,6 +313,6 @@ class Result extends Template
      */
     public function getMinCollectionSize()
     {
-        return (int) $this->config::MIN_COLLECTION_SIZE;
+        return (int)Config::MIN_COLLECTION_SIZE;
     }
 }

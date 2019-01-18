@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-sphinx
- * @version   1.1.38
+ * @version   1.1.42
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -118,12 +118,14 @@ class IndexerHandler implements IndexerInterface
      */
     public function cleanIndex($dimensions)
     {
+        $indexName = $this->indexScopeResolver->resolve($this->getIndexName(), $dimensions);
+        $this->engine->cleanIndex($indexName);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function isAvailable()
+    public function isAvailable($dimensions = [])
     {
         return true;
     }
@@ -141,6 +143,8 @@ class IndexerHandler implements IndexerInterface
      */
     private function getIndexId()
     {
-        return isset($this->data['index_id']) ? $this->data['index_id'] : 1;
+        return isset($this->data['index_id'])
+            ? $this->data['index_id'] :
+            $this->indexRepository->get('catalogsearch_fulltext')->getId();
     }
 }

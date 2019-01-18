@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-sphinx
- * @version   1.1.38
+ * @version   1.1.42
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 

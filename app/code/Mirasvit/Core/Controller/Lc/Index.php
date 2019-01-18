@@ -9,8 +9,8 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-core
- * @version   1.2.72
- * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
+ * @version   1.2.76
+ * @copyright Copyright (C) 2019 Mirasvit (https://mirasvit.com/)
  */
 
 
@@ -21,6 +21,8 @@ use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use Mirasvit\Core\Model\ModuleFactory;
 use Mirasvit\Core\Model\LicenseFactory;
+use Magento\Framework\App\Cache\TypeListInterface as CacheTypeListInterface;
+use Magento\Framework\App\Cache\Frontend\Pool as CachePool;
 
 class Index extends Action
 {
@@ -34,13 +36,21 @@ class Index extends Action
      */
     private $licenseFactory;
 
+    private $cacheTypeList;
+
+    private $cachePool;
+
     public function __construct(
         ModuleFactory $moduleFactory,
         LicenseFactory $licenseFactory,
+        CacheTypeListInterface $cacheTypeList,
+        CachePool $cachePool,
         Context $context
     ) {
-        $this->moduleFactory = $moduleFactory;
+        $this->moduleFactory  = $moduleFactory;
         $this->licenseFactory = $licenseFactory;
+        $this->cacheTypeList  = $cacheTypeList;
+        $this->cachePool      = $cachePool;
 
         parent::__construct($context);
     }
@@ -52,6 +62,7 @@ class Index extends Action
     public function execute()
     {
         echo '<pre>';
+
         $module = $this->moduleFactory->create();
         foreach ($module->getInstalledModules() as $moduleName) {
             $moduleName = str_replace('Mirasvit_', '', $moduleName);
@@ -73,6 +84,30 @@ class Index extends Action
 
             echo PHP_EOL;
         }
+
+        $types = [
+            'config',
+            'layout',
+            'block_html',
+            'collections',
+            'reflection',
+            'db_ddl',
+            'eav',
+            'config_integration',
+            'config_integration_api',
+            'full_page',
+            'translate',
+            'config_webservice',
+        ];
+        echo 'Cache...';
+        foreach ($types as $type) {
+            $this->cacheTypeList->cleanType($type);
+        }
+        foreach ($this->cachePool as $cache) {
+            $cache->getBackend()->clean();
+        }
+        echo 'ok';
+
 
         exit;
     }

@@ -60,9 +60,11 @@ define([
             
             _.bindAll(this, 'handleAdd', 'handleDelete', 'synchronize');
             
-            _.each(this.index().attributes, function (weight, attribute) {
-                this.weights.push(new SearchableAttribute(attribute, weight));
-            }.bind(this));
+            if (this.index()) {
+                _.each(this.index().attributes, function (weight, attribute) {
+                    this.weights.push(new SearchableAttribute(attribute, weight));
+                }.bind(this));
+            }
             
             for (i = 1; i <= 10; i++) {
                 this.weightSource.push({
@@ -95,7 +97,7 @@ define([
         },
         
         handleAdd: function () {
-            this.weights.push(new SearchableAttribute('', 1));
+            this.weights.push(new SearchableAttribute('empty', 1));
         },
         
         handleDelete: function ($data) {
@@ -103,6 +105,10 @@ define([
         },
         
         handleIndexChange: function () {
+            if (!this.index()) {
+                return;
+            }
+            
             var attributes = this.instances[this.index()['identifier']];
             
             if (attributes) {
@@ -126,6 +132,7 @@ define([
             });
             
             index.attributes = attributes;
+            
             this.index(index);
         },
         
@@ -136,20 +143,42 @@ define([
                 }
             };
             
-            config['Magento_Ui/js/core/app']['components'][$data.guid] = {
-                component:     'Magento_Ui/js/form/element/ui-select',
-                template:      'ui/form/field',
-                elementTmpl:   'ui/grid/filters/elements/ui-select',
-                componentType: 'field',
-                formElement:   'select',
-                labelVisible:  false,
-                filterOptions: true,
-                showCheckbox:  false,
-                disableLabel:  true,
-                multiple:      false,
-                options:       this.attributes(),
-                value:         $data.attribute
-            };
+            if (this.attributes().length < 100) {
+                config['Magento_Ui/js/core/app']['components'][$data.guid] = {
+                    component:     'Magento_Ui/js/form/element/ui-select',
+                    template:      'ui/form/field',
+                    elementTmpl:   'ui/grid/filters/elements/ui-select',
+                    componentType: 'field',
+                    formElement:   'select',
+                    labelVisible:  false,
+                    filterOptions: true,
+                    showCheckbox:  false,
+                    disableLabel:  true,
+                    multiple:      false,
+                    options:       this.attributes(),
+                    value:         $data.attribute,
+                    ignoreTmpls:   {
+                        value: false
+                    }
+                };
+            } else {
+                config['Magento_Ui/js/core/app']['components'][$data.guid] = {
+                    component:     'Magento_Ui/js/form/element/select',
+                    template:      'ui/form/field',
+                    componentType: 'field',
+                    formElement:   'select',
+                    labelVisible:  false,
+                    filterOptions: true,
+                    showCheckbox:  false,
+                    disableLabel:  true,
+                    multiple:      false,
+                    options:       this.attributes(),
+                    value:         $data.attribute,
+                    ignoreTmpls:   {
+                        value: false
+                    }
+                };
+            }
             
             return config;
         }

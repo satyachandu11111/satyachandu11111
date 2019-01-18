@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-autocomplete
- * @version   1.1.58
+ * @version   1.1.83
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -19,7 +19,11 @@ if (php_sapi_name() == "cli") {
     return;
 }
 
-$configFile = BP . '/app/etc/typeahead.json';
+$configFile = dirname(dirname(dirname(__DIR__))) . '/etc/typeahead.json';
+
+if (stripos(__DIR__, 'vendor') != false) {
+    $configFile = dirname(dirname(dirname(dirname(dirname(__DIR__))))) . '/app/etc/typeahead.json';
+}
 
 if (!file_exists($configFile)) {
     echo \Zend_Json::encode([]);
@@ -42,7 +46,7 @@ class TypeAheadAutocomplete
     {
         $query = $this->getQueryText();
         $query = substr($query, 0, 2);
-        return $this->config[$query];
+        return isset($this->config[$query])?$this->config[$query]:'';
     }
 
     private function getQueryText()

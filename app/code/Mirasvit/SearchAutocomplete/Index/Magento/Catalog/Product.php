@@ -9,7 +9,7 @@
  *
  * @category  Mirasvit
  * @package   mirasvit/module-search-autocomplete
- * @version   1.1.58
+ * @version   1.1.83
  * @copyright Copyright (C) 2018 Mirasvit (https://mirasvit.com/)
  */
 
@@ -18,16 +18,18 @@
 namespace Mirasvit\SearchAutocomplete\Index\Magento\Catalog;
 
 use Magento\Catalog\Block\Product\ReviewRendererInterface;
+use Magento\Catalog\Helper\Data as CatalogHelper;
 use Magento\Catalog\Helper\Image as ImageHelper;
+use Magento\CatalogInventory\Api\StockRegistryInterface;
+use Magento\Framework\App\ObjectManager;
 use Magento\Framework\App\RequestInterface;
+use Magento\Framework\Pricing\Helper\Data as PricingHelper;
 use Magento\Review\Block\Product\ReviewRenderer;
 use Magento\Review\Model\ReviewFactory;
-use Mirasvit\SearchAutocomplete\Model\Config;
 use Magento\Tax\Model\Config as TaxConfig;
+use Magento\Theme\Model\View\Design;
 use Mirasvit\SearchAutocomplete\Index\AbstractIndex;
-use Magento\Catalog\Helper\Data as CatalogHelper;
-use Magento\Framework\Pricing\Helper\Data as PricingHelper;
-use Magento\Framework\App\ObjectManager;
+use Mirasvit\SearchAutocomplete\Model\Config;
 
 /**
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
@@ -70,9 +72,19 @@ class Product extends AbstractIndex
     protected $request;
 
     /**
+     * @var design
+     */
+    protected $design;
+
+    /**
      * @var TaxConfig
      */
     private $taxConfig;
+
+    /**
+     * @var StockRegistryInterface
+     */
+    private $stock;
 
     public function __construct(
         TaxConfig $taxConfig,
@@ -82,16 +94,20 @@ class Product extends AbstractIndex
         ImageHelper $imageHelper,
         CatalogHelper $catalogHelper,
         PricingHelper $pricingHelper,
-        RequestInterface $request
+        RequestInterface $request,
+        Design $design,
+        StockRegistryInterface $stock
     ) {
-        $this->config = $config;
-        $this->reviewFactory = $reviewFactory;
+        $this->config         = $config;
+        $this->reviewFactory  = $reviewFactory;
         $this->reviewRenderer = $reviewRenderer;
-        $this->imageHelper = $imageHelper;
-        $this->catalogHelper = $catalogHelper;
-        $this->pricingHelper = $pricingHelper;
-        $this->request = $request;
-        $this->taxConfig = $taxConfig;
+        $this->imageHelper    = $imageHelper;
+        $this->catalogHelper  = $catalogHelper;
+        $this->pricingHelper  = $pricingHelper;
+        $this->request        = $request;
+        $this->taxConfig      = $taxConfig;
+        $this->design         = $design;
+        $this->stock          = $stock;
     }
 
     /**
@@ -99,7 +115,7 @@ class Product extends AbstractIndex
      */
     public function getItems()
     {
-        $items = [];
+        $items      = [];
         $categoryId = intval($this->request->getParam('cat'));
 
         $collection = $this->getCollection();
@@ -111,7 +127,7 @@ class Product extends AbstractIndex
         $this->collection->getSelect()->order('score desc');
 
         if ($categoryId) {
-            $om = ObjectManager::getInstance();
+            $om       = ObjectManager::getInstance();
             $category = $om->create('Magento\Catalog\Model\Category')->load($categoryId);
             $collection->addCategoryFilter($category);
         }
@@ -121,7 +137,10 @@ class Product extends AbstractIndex
         }
         /** @var \Magento\Catalog\Model\Product $product */
         foreach ($collection as $product) {
-            $items[] = $this->mapProduct($product);
+            $map = $this->mapProduct($product);
+            if ($map) {
+                $items[] = $map;
+            }
         }
 
         return $items;
@@ -129,12 +148,17 @@ class Product extends AbstractIndex
 
     /**
      * @param \Magento\Catalog\Model\Product $product
-     * @param int $storeId
+     * @param int                            $storeId
      * @return array
      * @SuppressWarnings(PHPMD)
      */
     public function mapProduct($product, $storeId = 1)
     {
+        $productStock = $this->stock->getStockItem($product->getId());
+        if (!$productStock->getIsInStock()) {
+            return false;
+        }
+
         $item = [
             'name'        => $product->getName(),
             'url'         => $product->getProductUrl(),
@@ -158,18 +182,34 @@ class Product extends AbstractIndex
             );
         }
 
-        $image = false;
-        if ($product->getImage() && $product->getImage() != 'no_selection') {
-            $image = $product->getImage();
-        } elseif ($product->getSmallImage() && $product->getSmallImage() != 'no_selection') {
-            $image = $product->getSmallImage();
-        }
-
         if ($this->config->isShowImage()) {
-            $item['image'] = $this->imageHelper->init($product, 'product_page_image_small')
-                ->setImageFile($image)
-                ->resize(65 * 2, 80 * 2)
-                ->getUrl();
+            $image = false;
+
+            if ($product->getImage() && $product->getImage() != 'no_selection') {
+                $image = $product->getImage();
+            } elseif ($product->getSmallImage() && $product->getSmallImage() != 'no_selection') {
+                $image = $product->getSmallImage();
+            }
+
+            if ($image) {
+                $image = $this->imageHelper->init($product, 'product_page_image_small')
+                    ->setImageFile($image)
+                    ->resize(65 * 2, 80 * 2)
+                    ->getUrl();
+
+                if (strpos($image, '/.') !== false) {
+                    // wrong url was generated (image doesn't present in file system)
+                    $image = false;
+                }
+            }
+
+            if (!$image) {
+                $this->design->setDesignTheme('Magento/backend', 'adminhtml');
+
+                $image = $this->imageHelper->getDefaultPlaceholderUrl('thumbnail');
+            }
+
+            $item['image'] = $image;
         }
 
         if ($this->config->isShowPrice()) {
@@ -178,11 +218,15 @@ class Product extends AbstractIndex
                 $includingTax = false;
             }
 
-            if ($product->getFinalPrice() == 0) {
-                $product->setData('final_price', null);
+            $price = $product->getMinimalPrice();
+
+            if ($price == 0 && $product->getFinalPrice() > 0) {
+                $price = $product->getFinalPrice();
+            } else {
+                $price = $product->getMinPrice();
             }
 
-            $item['price'] = $this->catalogHelper->getTaxPrice($product, $product->getFinalPrice(), $includingTax);
+            $item['price'] = $this->catalogHelper->getTaxPrice($product, $price, $includingTax);
             $item['price'] = $this->pricingHelper->currency($item['price'], false, false);
         }
 
@@ -219,7 +263,7 @@ class Product extends AbstractIndex
     }
 
     /**
-     * @param array $documents
+     * @param array                                         $documents
      * @param \Magento\Framework\Search\Request\Dimension[] $dimensions
      * @return mixed
      */
@@ -230,7 +274,7 @@ class Product extends AbstractIndex
         }
 
         $dimension = current($dimensions);
-        $storeId = $dimension->getValue();
+        $storeId   = $dimension->getValue();
 
         $om = ObjectManager::getInstance();
 
@@ -260,8 +304,8 @@ class Product extends AbstractIndex
         $reviewFactory->create()->appendSummary($collection);
 
         foreach ($collection as $product) {
-            $entityId = $product->getId();
-            $map = $this->mapProduct($product, $storeId);
+            $entityId                             = $product->getId();
+            $map                                  = $this->mapProduct($product, $storeId);
             $documents[$entityId]['autocomplete'] = $map;
         }
 
