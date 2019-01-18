@@ -1,0 +1,218 @@
+<?php
+
+$storeName = $this->getRetailerHelper()->getStoreName();
+// Change to your postcode / country.
+$zipcode = $this->getRequest()->getParam('user_postcode');
+
+// Find if our shipping has been included.
+$rates = $this->getShippingRates();
+$getCheckoutAuto = $this->getAutoCheckoutStatus();
+// Getting currency symbol of store.
+$objectManager  = \Magento\Framework\App\ObjectManager::getInstance();
+$currencysymbol = $objectManager->get('Magento\Directory\Model\Currency')->getCurrencySymbol();
+$priceHelper    = $this->getPriceHelper();
+$no_shiping_product = $this->getPhysicalProductStatus();
+//to get the shipping method from quote
+$checkoutSession = $this->getCheckoutSession();
+$quote           = $checkoutSession->getQuote();
+$shippingData    = $checkoutSession->getShipping();
+
+// Checking for existing session for DivideBuy checkout.
+$dividebuyCheckoutSession = $checkoutSession->getDividebuyCheckoutSession();
+
+$quoteShipMethod = $quote->getShippingAddress()->getShippingMethod();
+$auto_checkout=0;
+if($getCheckoutAuto == 1 && $no_shiping_product == 1)
+{
+    $auto_checkout = 1;
+}
+$i                   = 0;
+$shippingMethodCount = 0;
+$shippingChanged     = "false";
+
+
+if(!empty($rates))
+{
+
+    if($dividebuyCheckoutSession == "no"){ ?>
+        <!-- Adding user email field in popup. -->
+        <div class="dividebuy-postcode dividebuy-postcode-pos">
+            
+                  
+                        <div class="label-divide">
+                            <label for="user_email" class="custom-label pull-left user-email"><?php echo __( "Please enter customer's email:" ); ?></label>
+                        </div>
+                          <input type="text" name="userEmail" class="required-entry form-control" id="user_email"/>
+                                <div class="validation-advice" id="email_error"></div>
+                        
+              
+
+               
+                <div class="clearfix"></div>
+            </div>
+       
+        <div class="clearfix"></div>
+    <?php
+    } ?>
+
+    <h4 tabindex="0" class="blue-text shipping-m-title" ><?php echo __('Please select delivery option:'); ?></h4>
+    <form method="post" class="estimate-page-area" id="shipping_list_form">
+        <div class="wrap-h estimate-page">
+            <?php
+echo "<div class='left-h' >";
+echo "<div class='cs-scroll'>";
+foreach ($rates as $carrier) {
+    echo '<div class="shipping_methods_list">';
+    echo '<strong class="shipping-m-title-1">' . __($carrier[0]->getCarrierTitle()) . '</strong>';
+    foreach ($carrier as $rate) {
+        echo "<div class='method-points row'>";
+        echo "<div class='col-sm-8 col-xs-8 shipping-method' >";
+        echo "<label class='control control--radio'>" . __($rate->getMethodTitle());
+        echo '<input type="radio" name="shipping" id="s_modal_' . $rate->getCode() . '" value="' . $rate->getCode() . '" ' . (($quoteShipMethod == $rate->getCode()) ? "checked='checked'" : "") . '/><div class="control__indicator"></div>';
+        echo "</label>";
+        echo "</div>";
+        echo "<div class='col-sm-4 col-xs-4 text-right' >";
+        echo '<span class="price">' . $currencysymbol . $rate->getPrice() . '</span>';
+        echo "</div>";
+        echo "</div>";
+        echo "<div class='clearfix'></div>";
+        $shippingMethodCount++;
+
+        // Checking if shipping method is already selected or not.   
+
+        //checking the possiblities
+        if ($rate->getCode() == $quoteShipMethod) {
+            if ($priceHelper->currency($shippingData[1]) !== $priceHelper->currency($rate->getPrice())) {
+                $shippingChanged = "true";
+            } else {
+                $shippingChanged = "false";
+            }
+        }
+    }
+    echo "</div>";
+}
+
+
+
+echo "</div>";
+echo "</div>";
+
+echo "<div class='right-h' tabindex='0'>
+            <input type='submit' class='btn-checkout-modal' name='dividebuy_checkout_btn' id='dividebuy_checkout_btn' value='Click to redirect to Checkout'/></div>";
+
+?>
+        </div>
+    </form>
+<?php 
+}   
+?>
+    <div id="checkout-loader" class="loader-set" style="margin:0;display:none;">
+        <div id="loader"></div>
+    </div>
+
+    <script>
+       jQuery(document).ready(function(){
+            var shippingMethodCount = '<?php echo $shippingMethodCount; ?>';
+            var url = '<?php echo $this->geturl('dividebuy/order/create'); ?>';
+            var zipcode = '<?php echo $zipcode; ?>';
+            var shippingChanged = '<?php echo $shippingChanged; ?>';
+            var autocheckout = '<?php echo $auto_checkout; ?>';
+            var dividebuyCheckoutSession = '<?php echo $dividebuyCheckoutSession;?>';
+            var retailerName = "<?php echo addslashes($storeName);?>";
+
+            <?php if (!$checkoutSession->getCheckoutPage()): ?>
+                jQuery('#scroll').click(function() {
+                    jQuery('html,body').animate({
+                        scrollTop: jQuery('#test').css('top')
+                    }, 800, function() {
+
+                        jQuery('html, body').animate({
+                            scrollTop: 0
+                        }, 800);
+
+                    });
+                });
+            <?php endif;?>
+
+            jQuery('.cs-scroll').mCustomScrollbar({
+                theme:"dark-3"
+            });
+            
+            // If shipping method has been changed then stop user from redirecting to DivideBuy checkout.
+            if(shippingChanged === "true")
+            {
+                jQuery(".shipping_note").html("Your shipping methods have been changed, please select from the updated methods displayed below.");
+            }
+
+            // Checking if user is not allowed to checkout.
+            if(dividebuyCheckoutSession == "no"){
+                placePosOrder();
+                return false;
+            }
+
+            // Checking if there is only one shipping method is available.
+            if(shippingMethodCount === "1")
+            {
+                jQuery('input:radio[name=shipping]')[0].checked = true;
+                var shippingMethod = jQuery('input:radio[name="shipping"]:checked').val();
+                jQuery("#shipping-loader").show();
+                placeNewOrder(zipcode, shippingMethod, url, "", retailerName);
+            }
+            else if(shippingChanged === "false" && jQuery('input:radio[name="shipping"]:checked').length !== 0)
+            {
+                jQuery(".shipping_note").html("");
+                var shippingMethod = jQuery('input:radio[name="shipping"]:checked').val();
+                jQuery("#shipping-loader").show();
+                placeNewOrder(zipcode, shippingMethod, url, "", retailerName);
+            }
+
+            jQuery("#dividebuy_checkout_btn").click(function(){
+                ga('send', 'event', 'Checkout button press', 'click', 'Checkout button');
+                var shippingMethod = jQuery('input:radio[name="shipping"]:checked').val();
+                if(jQuery('input:radio[name="shipping"]:checked').length === 0){
+                    jQuery(".shipping-error").remove();
+                    jQuery("#all_shipping_methods").append("<span role='alert' class='shipping-error'>Please select shipping method</span>");
+                    return false;
+                }
+                jQuery("#shipping-loader").show();
+                placeNewOrder(zipcode, shippingMethod, url, "", retailerName);
+                return false;
+            });
+
+            if(autocheckout == 1)
+            {
+                jQuery('.shipping-m-title').hide();
+                jQuery('#shipping_list_form').hide();
+                jQuery('.remove_method').hide();
+                var shippingMethodCount = "";
+                jQuery("#shipping-loader").show();
+                placeNewOrder(zipcode, shippingMethod, url, "", retailerName);    
+            }
+
+            // Function for placing POS order.
+            function placePosOrder(){
+                jQuery(document).on("click","#dividebuy_checkout_btn", function(){
+                    var userEmail = jQuery('#user_email').val();
+                    var shippingMethod = jQuery('input:radio[name="shipping"]:checked').val();
+                    if(jQuery('input:radio[name="shipping"]:checked').length === 0){
+                        jQuery(".shipping-error").remove();
+                        jQuery(".all_shipping_methods").append("<span class='shipping-error'>Please select shipping method</span>");
+                        return false;
+                    }
+                    if(jQuery('#user_email').val() === ""){
+                        jQuery("#email_error").html("Customer's email must be entered.");
+                        return false;
+                    }else if(!validateEmail(jQuery('#user_email').val())){
+                        jQuery("#email_error").html("The email address entered is incorrect.");
+                        return false;
+                    }else{
+                        jQuery("#email_error").html("");
+                    }
+                    jQuery("#checkout-loader").show();
+                    placeNewOrder(zipcode, shippingMethod, url, userEmail, retailerName);
+                });
+                return false;
+            }
+
+        });
+    </script>

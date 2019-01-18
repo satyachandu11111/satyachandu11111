@@ -1,0 +1,87 @@
+<?php
+$checkCart              = $this->getCheckoutConfigBlock()->getItemArray();
+$checkMinimumOrder      = $this->getCheckoutConfigBlock()->checkMinOrderAmount();
+$objectManager          = \Magento\Framework\App\ObjectManager::getInstance();
+$currencysymbol         = $objectManager->get('Magento\Directory\Model\Currency')->getCurrencySymbol();
+$checkoutWithCouponFlag = $this->getCheckoutConfigBlock()->checkoutWithCouponCode();
+?>
+
+<script type="text/javascript">
+
+    require([
+        "jquery",
+        "dividebuy",
+    ],
+    function($) {
+        $(document).ready(function() {
+
+            // Code for when to checked and unchecked the dbpayment radio button
+            $(document).bind('DOMNodeInserted', function(event) {
+                if(jQuery('.modal-popup').hasClass('_show') || jQuery(".loader-set").is(":visible"))
+                {
+                    $("#dbpayment").prop("checked", true);
+                }
+                else
+                {
+                    $("#dbpayment").prop("checked", false);
+                }
+            });
+
+            /* Code to disabled the dbpayment radio button and display tooltip
+            if order is below minimum order */
+            <?php if (!$checkMinimumOrder): ?>
+
+                $(document).bind('DOMNodeInserted', function(event) {
+                  $("#dbpayment").attr("disabled", "disabled");
+                  $(".dbpayment").css("opacity", "0.6");
+                });
+                $(document).on('mousemove', "#dbpayment" , function(e) {
+                    mousemovebtn(e, this)
+                });
+                $(document).on('mousemove', ".dbpayment" , function(e) {
+                    mousemovebtn(e, this)
+                });
+                $(document).on({
+                    mouseenter: function () {
+                        // Hover code
+                        var content = "<div class='slip_tooltip_container grey'><div class='slip_tooltip_content'><span class='tooltip-box'><span class='blue'>DivideBuy - The easy Interest-Free Checkout.</span> Spend <?php echo $currencysymbol . $this->getCheckoutConfigBlock()->getMinOrderAmount(); ?> in total to be eligible to Spread the Cost, Interest-Free using our <span class='blue'>secure platform</span> to fill out our <span class='blue'>60 second application</span>. With us you'll get an <span class='blue'>instant decision. 96% acceptance rate</span> and a <span class='blue'>choice of instalment options</span> to suit you.</span></div></div>"
+                        if (!($('body').find('.slip_tooltip_container').length)) {
+                            $(content).appendTo('body').fadeIn('slow');
+                        }
+                    },
+                    mouseleave: function () {
+                        // Hover out code
+                        $('.slip_tooltip_container').remove();
+                    }
+                }, '#dbpayment, .dbpayment');
+            <?php elseif (!$checkoutWithCouponFlag) : ?>
+                $(document).bind('DOMNodeInserted', function(event) {
+                  $("#dbpayment").attr("disabled", "disabled");
+                  $(".dbpayment").css("opacity", "0.6");
+                });
+                $(document).on('mousemove', "#dbpayment" , function(e) {
+                    mousemovebtn(e, this)
+                });
+                $(document).on('mousemove', ".dbpayment" , function(e) {
+                    mousemovebtn(e, this)
+                });
+                $(document).on({
+                    mouseenter: function () {
+                        // Hover code
+                        var content = "<div class='slip_tooltip_container coupon-box'><div class='slip_tooltip_content'><span class='tooltip-box'>This coupon code cannot be used in conjunction with Interest-Free Credit.</span></div></div>";
+                        if (!($('body').find('.slip_tooltip_container').length)) {
+                            $(content).appendTo('body').fadeIn('slow');
+                        }
+                    },
+                    mouseleave: function () {
+                        // Hover out code
+                        $('.slip_tooltip_container').remove();
+                    }
+                }, '#dbpayment, .dbpayment');
+            <?php endif;?>
+
+        });
+    });
+</script>
+<!-- Adding modal.phtml as child html -->
+<?php echo $this->getChildHtml('dividebuy.checkout.modal'); ?>

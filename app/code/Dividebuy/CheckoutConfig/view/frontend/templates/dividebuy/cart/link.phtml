@@ -1,0 +1,64 @@
+<?php
+$data      = $this->getCartLinkData();
+$checkCart = $this->getItemArray();
+?>
+<?php if ($checkCart['dividebuy'] > 0): ?>
+<img src="<?php echo $data['button_image'] ?>" class="buttonImage" />
+<div id="instalment-details"></div>
+<?php endif;?>
+<!-- Modal Content -->
+<div id="dividebuy-modal" class="modal-body">
+    <div id="dividebuy-modal-container"></div>
+    <div id="all_shipping_methods"></div>
+</div>
+<!-- Modal Content Ends -->
+
+<script type="text/javascript">
+    // Used to initialize the modal
+    require(
+        [
+            'jquery',
+            'Magento_Ui/js/modal/modal',
+            'text!Dividebuy_CheckoutConfig/templates/modal/modal-popup.html',
+            'dividebuy',
+            'jsPostcodes',
+        ],
+
+        function($,modal,popupTpl) {
+            var options = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: false,
+                title: false,
+                buttons: [],
+                responsiveClass: '',
+                popupTpl: popupTpl,
+            };
+            var popup = modal(options, jQuery('#dividebuy-modal'));
+            jQuery(".buttonImage").on("click",function(){
+                var url = '<?php echo $this->getUrl("checkoutconfig/index/continuetocheckout"); ?>';
+                displayDividebuyModal(url);
+                return false;
+            });
+
+            $(document).on("mouseenter", ".buttonImage", function(e) {
+                var price = "<?php echo $this->getDivideBuyTotal(); ?>";
+                var url = '<?php echo $this->getUrl("dbconfig/index/getInstalments"); ?>';
+
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: {price:price},
+                    success: function(response) {
+                        $("#instalment-details").html('');
+                        $("#instalment-details").html(response);
+                    }
+                });
+            });
+
+            $(document).on("mouseleave", ".buttonImage", function(e) {
+                $("#instalment-details").html('');
+            });
+        }
+    );
+</script>

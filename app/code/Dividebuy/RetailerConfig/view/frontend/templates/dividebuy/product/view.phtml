@@ -1,0 +1,90 @@
+<?php
+$objectManager  = \Magento\Framework\App\ObjectManager::getInstance();
+$currencysymbol = $objectManager->get('Magento\Directory\Model\Currency')->getCurrencySymbol();
+?>
+<?php if ($this->checkDivideBuy()): ?>
+    <?php $data = $this->checkDivideBuy();?>
+
+    <?php if ($data['status'] && $data['dividebuy_enable']): ?>
+    <div class="dividebuy_logo_section tooltip-logo" tabindex="0">
+    	<div class="tool-tip-postion-left">
+    		<div id="dividebuy_image_after_cart" class="tooltip-width pull-left">
+		        <span style="<?php echo $data['custom_css']; ?>" class="span_product_tool">
+		            <img src="<?php echo $data['banner_image']; ?>" class="buttonImage tooltip1 pull-left" id="product_dividebuy_banner" alt="Spread the cost choose DivideBuy at the checkout link"/>
+		        </span>
+	        </div>
+	        <div class="clearfix"></div>
+        	<div id="tooltip1" class="product_page_instalments tooltip-db">
+        		<div class="tooltip-db-1 dnone">
+                    <div class="instalment-details">
+                    </div>
+                     <div id="instalment-loader"></div>
+                    <div class="hover-instalment instalment-5">
+                        <div class="highlights-instalments-text">
+                            0% APR Representative Credit. example subject to status and minimum order value.
+                        </div>
+                        <div class="tooltip-logo-right"> 
+                            <img src="<?php echo $this->getViewFileUrl('Dividebuy_CheckoutConfig::images/dividebuy_instalment_banner.png'); ?>" width="100px"/>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+        	</div>
+        </div>
+    </div>
+    <?php endif;?>
+<?php endif;?>
+<script type="text/javascript">
+	require(
+        [
+            'jquery',
+            'dividebuy'
+        ],
+        function($) {
+        	$(document).on("mouseover", "#product_dividebuy_banner", function(e) {
+        		showDevideByTP = true;
+        		jQuery(".tooltip-db-1").removeClass("dnone");
+		    	// jQuery(".product_page_instalments").html("<img src=''>");
+                jQuery(".instalment-details").html("");
+        		if($(".product-info-price .special-price .price").html() !== undefined)
+                {
+                    var price = $(".product-info-price .special-price .price").html();
+                }
+                else if($(".product-info-price .price-box .price").html() !== undefined)
+                {
+                    var price = $(".product-info-price .price-box .price").html();
+                }
+                else
+                {
+                    var price = $(".product-info-price .price-to .price").html();
+                }
+
+				var url = '<?php echo $this->getUrl("dbconfig/index/getInstalments"); ?>';
+
+				if(price === undefined)
+				{
+					price = $(".special-price .price").html();
+				}
+
+				if(price === undefined)
+				{
+					var priceCollection = $( ".grouped > table > tbody" ).find(".price-wrapper");
+					var amount = [];
+					$.each(priceCollection, function(i, item) {
+						amount.push($(item).attr("data-price-amount"));
+					});
+					price = "<?php echo $currencysymbol; ?>" + parseFloat(Math.max.apply(Math,amount)).toFixed(2);
+				}
+
+				if(price !== undefined)
+				{
+					getInstalments(price, url, showTooltip);
+				}
+			});
+
+			$(document).on("mouseleave touchend", "#product_dividebuy_banner", function(e) {
+                showDevideByTP = false;
+            });
+        }
+    );
+</script>

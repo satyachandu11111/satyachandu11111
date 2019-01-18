@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <!-- <css src="Dividebuy_CheckoutConfig::css/bootstrap.min.css"/> -->
+        <css src="Dividebuy_CheckoutConfig::css/customscrollbar.min.css"/>
+        <css src="Dividebuy_CheckoutConfig::css/dividebuy-style.css"/>
+        <css src="Dividebuy_CheckoutConfig::js/analytics.min.js"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <referenceBlock name="checkout.cart.methods.onepage.bottom">
+                <action method="setTemplate">
+                    <argument name="template" xsi:type="string">Dividebuy_CheckoutConfig::dividebuy/onepage/link.phtml</argument>
+                </action>
+                <block class="Dividebuy\CheckoutConfig\Block\Cart" name="dividebuy.checkout.before" template="Dividebuy_CheckoutConfig::dividebuy/cart/link-before.phtml"/>
+                <block class="Dividebuy\CheckoutConfig\Block\Cart" name="dividebuy.checkout.after" template="Dividebuy_CheckoutConfig::dividebuy/cart/link-after.phtml">
+                    <block class="Dividebuy\CheckoutConfig\Block\Cart" name="dividebuy.checkout.modal" template="Dividebuy_CheckoutConfig::dividebuy/cart/modal.phtml"/>
+                </block>
+            </referenceBlock>
+         </referenceContainer>
+         <referenceContainer name="after.body.start">
+            <block class="Dividebuy\CheckoutConfig\Block\Cart" name="dividebuy.checkout.loader" template="Dividebuy_CheckoutConfig::dividebuy/cart/loader.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

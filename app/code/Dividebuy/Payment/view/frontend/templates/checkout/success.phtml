@@ -1,0 +1,27 @@
+<?php /** @var $block \Magento\Checkout\Block\Onepage\Success */?>
+<div class="checkout-success">
+    <?php if ($this->getOrderId()): ?>
+        <?php if ($this->getCanViewOrder()): ?>
+            <p><?php echo __('Your order number is: %1.', sprintf('<a href="%s" class="order-number"><strong>%s</strong></a>', $this->escapeHtml($this->getViewOrderUrl()), $this->escapeHtml($this->getOrderIncrementId()))) ?></p>
+        <?php else: ?>
+            <p><?php echo __('Your order # is: <span>%1</span>.', $this->escapeHtml($this->getOrderIncrementId())) ?></p>
+        <?php endif;?>
+            <p><?php /* @escapeNotVerified */echo __('We\'ll email you an order confirmation with details and tracking info.') ?></p>
+    <?php endif;?>
+
+    <?php //echo $this->getAdditionalInfoHtml() ?>
+    <?php $this->getCheckoutSession()->unsDividebuyOrderId();?>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <a class="action primary continue" href="<?php /* @escapeNotVerified */echo $this->getUrl() ?>"><span><?php /* @escapeNotVerified */echo __('Continue Shopping') ?></span></a>
+        </div>
+    </div>
+</div>
+<script>
+    require([
+        'Magento_Customer/js/customer-data'
+    ], function (customerData) {
+        var sections = ['cart'];
+        customerData.invalidate(sections);
+    });
+</script>

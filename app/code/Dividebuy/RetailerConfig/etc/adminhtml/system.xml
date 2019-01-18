@@ -1,0 +1,182 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="dividebuy" translate="label" sortOrder="200">
+            <label>DivideBuy</label>
+        </tab>
+        <section id="dividebuy" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Configuration</label>
+            <tab>dividebuy</tab>
+            <resource>Dividebuy_RetailerConfig::config</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="1">
+                <label>General</label>
+                <field id="store_name" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Store Name</label>
+                    <comment>This text will be displayed in cart page modal window</comment>                    
+                </field>
+                <field id="token_number" translate="label" type="text" sortOrder="2" showInDefault="0" showInWebsite="0" showInStore="1">
+                    <label>Token Number</label>
+                    <validate>required-entry</validate>
+                    <comment>Dividebuy will provide you the token number.</comment>
+                    <backend_model>Dividebuy\RetailerConfig\Model\Config\Backend\StoreUpdate</backend_model>
+                </field>
+                <field id="auth_number" translate="label" type="text" sortOrder="3" showInDefault="0" showInWebsite="0" showInStore="1">
+                    <label>Authentication</label>
+                    <backend_model>Dividebuy\RetailerConfig\Model\Config\Backend\StoreUpdate</backend_model>
+                    <validate>required-entry</validate>
+                    <comment>Dividebuy will provide you the token number.</comment>
+                </field>
+                <field id="environment" translate="label" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Environment</label>
+                    <source_model>Dividebuy\RetailerConfig\Model\Config\Source\General\Environment</source_model>
+                    <validate>required-entry</validate>
+                    <comment>Dividebuy Environment</comment>
+                    <backend_model>Dividebuy\RetailerConfig\Model\Config\Backend\StoreUpdate</backend_model>
+                </field>
+                <field id="domain_url_prefix" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Domain URL Prefix</label>
+                    <validate>required-entry</validate>
+                    <comment>This will be set as a prefix of redirect url.</comment>
+                </field>
+                <field id="retailer_image" translate="label" type="image" sortOrder="6" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Retailer Logo Image</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">dividebuy</upload_dir>
+                    <base_url type="media" scope_info="1">dividebuy</base_url>
+                    <comment><![CDATA[Allowed file types: jpeg, gif, png.]]></comment>
+                </field>
+                <field id="allowed_ip" translate="label" type="text" sortOrder="7" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Allowed IPs</label>
+                    <comment>Enter IPs seperated by coma(,) which are allowed to see DivideBuy functionality.</comment>
+                </field>
+                <field id="allow_checkout_with_coupon" translate="label" type="select" sortOrder="7" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Allow checkout with Coupon code</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Select 'YES' if you want to allow user to checkout with DivideBuy with Coupon code.</comment>
+                </field>
+                <field id="product_dividebuy_default" translate="label" type="select" sortOrder="8" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Set new products to shop with DivideBuy</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>If you set this to yes, all new products will be enabled to shop with DivideBuy.</comment>
+                </field>
+                <field id="allow_error_log" translate="label" type="select" sortOrder="8" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Allow to have error log</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Select 'YES' if you want to allow to have error log on your server.</comment>
+                </field>
+                <field id="google_analytics_unique_id" translate="label" type="text" sortOrder="9" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Google Analytics Unique ID</label>
+                    <comment>Enter Google Analytics unique id.</comment>
+                </field>
+                <field id="extension_status" translate="label" type="select" sortOrder="10" showInDefault="0" showInWebsite="0" showInStore="1">
+                    <label>Activate/Deactivte DivideBuy</label>
+                    <source_model>Dividebuy\RetailerConfig\Model\Config\Source\General\RetailerStatus</source_model>
+                    <comment>Select "Activate" to activate the DivideBuy Extension.</comment>
+                </field>
+            </group>
+             <group id="product" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="1">
+                <label>Product</label>
+                 <field id="enabled" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>                    
+                    <comment>Display DivideBuy banner on product page</comment>
+                </field>                
+                <field id="banner_image" translate="label" type="image" sortOrder="2" showInDefault="1" showInWebsite="0" showInStore="1" canRestore="1">
+                    <label>Banner Image</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">dividebuy</upload_dir>
+                    <base_url type="media" scope_info="1">dividebuy</base_url>
+                    <comment><![CDATA[Allowed file types: jpeg, gif, png.]]></comment>
+                    <depends>
+                        <field id="*/*/enabled">1</field>
+                    </depends>
+                </field>
+                <field id="customcss" translate="label" type="textarea" sortOrder="3" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Custom Css</label>                    
+                    <comment>custom css for banner image</comment>
+                    <depends>
+                        <field id="*/*/enabled">1</field>
+                    </depends>
+                </field>
+             </group>
+            <group id="cart" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="1">
+                <label>Shopping Cart</label>                
+                 <field id="enabled" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>                    
+                    <comment>Display DivideBuy button on cart page</comment>
+                </field>
+                 <field id="position" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Where you want to show</label>
+                    <source_model>Dividebuy\RetailerConfig\Model\Config\Source\Product\Position</source_model>
+                    <comment>Position of DivideBuy button</comment>
+                     <depends>
+                        <field id="*/*/enabled">1</field>
+                    </depends>
+                </field>                
+                <field id="button_image" translate="label" type="image" sortOrder="3" showInDefault="1" showInWebsite="0" showInStore="1" canRestore="1">
+                    <label>Button Image</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">dividebuy</upload_dir>
+                    <base_url type="media" scope_info="1">dividebuy</base_url>
+                    <comment><![CDATA[Allowed file types: jpeg, gif, png.]]></comment>
+                    <depends>
+                        <field id="*/*/enabled">1</field>
+                    </depends>
+                </field>
+                <field id="button_image_hover" translate="label" type="image" sortOrder="4" showInDefault="1" showInWebsite="0" showInStore="1" canRestore="1">
+                    <label>Button Image</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">dividebuy</upload_dir>
+                    <base_url type="media" scope_info="1">dividebuy</base_url>
+                    <comment><![CDATA[Allowed file types: jpeg, gif, png.]]></comment>
+                    <depends>
+                        <field id="*/*/enabled">1</field>
+                    </depends>
+                </field>
+                <field id="customcss" translate="label" type="textarea" sortOrder="5" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Custom Css</label>                    
+                    <comment>custom css for button</comment>
+                    <depends>
+                        <field id="*/*/enabled">1</field>
+                    </depends>
+                </field>
+                <field id="btnprefixlbl" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="0" showInStore="1" canRestore="1">
+                    <label>Button Prefix Label</label>
+                    <comment>Label before DivideBuy button (e.g. OR)</comment>
+                     <depends>
+                        <field id="*/*/enabled">1</field>
+                    </depends>
+                </field>
+                <field id="btnprefixcss" translate="label" type="text" sortOrder="7" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Button Prefix Css</label>
+                    <comment>CSS before DivideBuy button (e.g. margin-left: 10px;)</comment>
+                     <depends>
+                        <field id="*/*/enabled">1</field>
+                    </depends>
+                </field>
+                <field id="btnsuffixlbl" translate="label" type="text" sortOrder="8" showInDefault="1" showInWebsite="0" showInStore="1" canRestore="1">
+                    <label>Button Suffix Label</label>
+                    <comment>Label after DivideBuy button (e.g. OR)</comment>
+                     <depends>
+                        <field id="*/*/enabled">1</field>
+                    </depends>
+                </field>
+                <field id="btnsuffixcss" translate="label" type="text" sortOrder="9" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Button Suffix Css</label>
+                    <comment>CSS after DivideBuy button (e.g. margin-left: 10px;)</comment>
+                     <depends>
+                        <field id="*/*/enabled">1</field>
+                    </depends>
+                </field>               
+            </group>
+        </section>
+    </system>
+</config>

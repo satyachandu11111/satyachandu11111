@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+	<default>
+		<dividebuy>
+			<general>
+				<store_name>Store</store_name>
+				<retailer_image>retailer.png</retailer_image>
+				<environment>production</environment>
+				<extension_status>1</extension_status>
+			</general>
+			<product>
+ 				<banner_image>product-default-banner.png</banner_image> 				
+ 			</product>
+ 			<cart>
+ 				<position>after</position>
+ 				<button_image>cart-default-button.png</button_image>
+ 				<button_image_hover>cart-default-button-hover.png</button_image_hover>
+ 				<btnprefixlbl>-OR-</btnprefixlbl> 				
+ 			</cart>	
+		</dividebuy>
+	</default>
+</config>

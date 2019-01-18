@@ -1,0 +1,140 @@
+<?php
+$linkData               = $this->getCartLinkData();
+$checkCart              = $this->getItemArray();
+$objectManager          = \Magento\Framework\App\ObjectManager::getInstance();
+$currencysymbol         = $objectManager->get('Magento\Directory\Model\Currency')->getCurrencySymbol();
+$checkoutWithCouponFlag = $this->checkoutWithCouponCode();
+?>
+<?php if ($linkData['status'] == 1): ?>
+    <?php if ($linkData['position'] == "before" && $checkCart['dividebuy']): ?>
+        <?php if (isset($linkData['prefix_label']) && $linkData['prefix_label'] != ""): ?>
+                <span class="or-class" style="<?php echo $linkData['prefix_css']; ?>"><?php echo $linkData['prefix_label'] ?></span>
+                <br>
+            <?php endif;?>
+            <?php if (!$this->checkMinOrderAmount()): ?>
+                <span style="<?php echo $linkData['custom_css']; ?>;opacity:0.5;" class="span_dividebuymin">
+                        <?php echo $this->checkMinOrderAmount(); ?>
+                        <img src="<?php echo $linkData['button_image']; ?>" class="buttonImage"/>
+                </span>
+                <script>
+                require(
+                    [
+                        'jquery'
+                    ],
+                    function() {
+                        jQuery(document).on('mousemove', ".span_dividebuymin" , function(e) {
+                            mousemovebtn(e, this)
+                        });
+                        jQuery(document).on({
+                            mouseenter: function () {
+                                // Hover code
+                                 var content = "<div class='slip_tooltip_container grey'><div class='slip_tooltip_content'><span class='tooltip-box'><span class='blue'>DivideBuy - The easy Interest-Free Checkout.</span> Spend <?php echo $currencysymbol . $this->getMinOrderAmount(); ?> in total to be eligible to Spread the Cost, Interest-Free using our <span class='blue'>secure platform</span> to fill out our <span class='blue'>60 second application</span>. With us you'll get an <span class='blue'>instant decision. 96% acceptance rate</span> and a <span class='blue'>choice of instalment options</span> to suit you.</span></div></div>";
+                                if (!(jQuery('body').find('.slip_tooltip_container').length)) {
+                                    jQuery(content).appendTo('body').fadeIn('slow');
+                                }
+                            },
+                            mouseleave: function () {
+                                // Hover out code
+                                jQuery('.slip_tooltip_container').remove();
+                            }
+                        }, '.span_dividebuymin');
+                    });
+
+                </script>
+            <?php elseif(!$checkoutWithCouponFlag) : ?>
+                <span style="<?php echo $linkData['custom_css']; ?>;opacity:0.5;" class="span_dividebuymin">
+                        <img src="<?php echo $linkData['button_image']; ?>" class="buttonImage"/>
+                </span>
+                <script>
+                require(
+                    [
+                        'jquery'
+                    ],
+                    function() {
+                        jQuery(document).on('mousemove', ".span_dividebuymin" , function(e) {
+                            mousemovebtn(e, this)
+                        });
+                        jQuery(document).on({
+                            mouseenter: function () {
+                                // Hover code
+                                var content = "<div class='slip_tooltip_container coupon-box'><div class='slip_tooltip_content'><span class='tooltip-box'>This coupon code cannot be used in conjunction with Interest-Free Credit.</span></div></div>";
+                                if (!(jQuery('body').find('.slip_tooltip_container').length)) {
+                                    jQuery(content).appendTo('body').fadeIn('slow');
+                                }
+                            },
+                            mouseleave: function () {
+                                // Hover out code
+                                jQuery('.slip_tooltip_container').remove();
+                            }
+                        }, '.span_dividebuymin');
+                    });
+
+                </script>
+            <?php else: ?>
+                <div class="tooltip-logo-cart">
+                    <div class="tooltip-center">
+                        <span class="or-divider-prefix" style="<?php echo $linkData['custom_css']; ?>" class=""></span>
+                        <div id="dividebuy_image_after_cart" class="relative">
+                            <a href="#" id="divide-buy-modal">
+                                <img src="<?php echo $linkData['button_image']; ?>"
+                                onmouseover="this.src='<?php echo $linkData['button_hover_image']; ?>'"
+                                onmouseout="this.src='<?php echo $linkData['button_image']; ?>'" class="buttonImage tooltip1 tooltip-image-width img-responsive"/>
+                            </a>
+                            <div class="clearfix"></div>
+                            <div id="tooltip1" class="product_page_instalments tooltip-db">
+                                <div class="tooltip-db-1 dnone">
+                                    <div class="instalment-details">
+                                    </div>
+                                     <div id="instalment-loader"></div>
+                                    <div class="hover-instalment instalment-5">
+                                        <div class="highlights-instalments-text">
+                                            O% APR Representative Credit. example subject to status and minimum order value.
+                                        </div>
+                                        <div class="tooltip-logo-right">
+                                            <img src="<?php echo $this->getViewFileUrl('Dividebuy_CheckoutConfig::images/dividebuy_instalment_banner.png'); ?>" width="100px"/>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endif;?>
+            <?php if (isset($linkData['suffix_label']) && $linkData['suffix_label'] != ""): ?>
+                <br>
+                <span class="or-class" style="<?php echo $linkData['suffix_css']; ?>"><?php echo $linkData['suffix_label']; ?></span>
+            <?php endif;?>
+    <?php endif;?>
+<?php endif;?>
+
+<?php echo $this->getChildHtml('dividebuy.checkout.modal'); ?>
+
+<script type="text/javascript">
+    // Used to initialize the modal
+    require(
+        [
+            'jquery',
+            'dividebuy',
+        ],
+
+        function($) {
+            $(document).on("mouseenter", "#divide-buy-modal", function(e) {
+                showDevideByTP = true;
+                var price = "<?php echo $this->getDivideBuyTotal(); ?>";
+                <?php if (!empty($currencysymbol)): ?>
+                    price = "<?php echo $currencysymbol; ?>" + parseFloat(price).toFixed(2);
+                <?php endif;?>
+                var url = '<?php echo $this->getUrl("dbconfig/index/getInstalments"); ?>';
+                jQuery(".tooltip-db-1").removeClass("dnone");
+                // jQuery(".product_page_instalments").html("<img src=''>");
+                jQuery(".instalment-details").html("");
+                getInstalments(price, url, showTooltip);
+            });
+
+            $(document).on("mouseleave touchend", "#divide-buy-modal", function(e) {
+                showDevideByTP = false;
+            });
+        }
+    );
+</script>

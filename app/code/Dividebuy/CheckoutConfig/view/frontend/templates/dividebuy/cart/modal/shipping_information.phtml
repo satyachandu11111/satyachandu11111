@@ -1,0 +1,99 @@
+<?php
+//code to get shipping post code
+$quote           = $this->getCheckoutSession()->getQuote();
+$postCode        = $quote->getShippingAddress()->getPostcode();
+$checkoutSession = $this->getCheckoutSession();
+$storeName = $this->getRetailerHelper()->getStoreName();
+?>
+
+<div class="shipping_information clearfix">
+    <div class="shipping_code_form">
+     <span tabindex="0" class="option-note blue-text"><?php echo __('Enter your postcode to view delivery options'); ?></span>
+        <div class="">
+        <div class="dividebuy-postcode">
+       <div class="label-divide"> <label class="custom-label" for="user_postcode">
+            <?php echo __('Your postcode:'); ?>
+        </label></div>
+        <input aria-label="Postcode" type="text" name="userPostcode" class="required-entry" value="<?php echo $postCode; ?>" id="userPostcode"/>   <a href="javascript:void(0)" class="btn-blue ship-estimation mrg-b-0" id="get_shipping_estimate">View options</a></div>
+        </div>
+
+        <div aria-live="assertive" class="validation-advice" id="postcode_error"></div>
+    </div>
+    <div id="shipping-note" tabindex="0" class="shipping_note blue-text mrg-b-15"><strong>Please check that the postcode you enter is correct. Shipping is calculated using your postcode and cannot be changed later without cancelling your order and starting again.</strong></div>
+
+</div>
+
+
+<script>
+    jQuery(document).ready(function(){
+        var retailerName = "<?php echo addslashes($storeName);?>";
+        <?php if (!$checkoutSession->getCheckoutPage()): ?>
+            jQuery('#close-dividebuy-modal').on('click', function () {
+                jQuery(".loader-set").show();
+                setTimeout(function() { location.reload(); }, 5000);
+            });
+            jQuery('#close-dividebuy-modal').click(function() {
+                jQuery('html,body').animate({
+                    scrollTop: jQuery('#test').css('top')
+                }, 800, function() {
+
+                    jQuery('html, body').animate({
+                        scrollTop: 0
+                    }, 800);
+
+                });
+            });
+        <?php endif;?>
+
+        /**** for formatting the postcode starts ****/
+        if(jQuery("#userPostcode").val().length !== 0 ){
+            loadShippingMethod();
+        }
+
+        jQuery("#userPostcode").keyup(function () {
+            var newPostCode = checkPostCode(document.getElementById('userPostcode').value);
+            if (newPostCode) {
+                document.getElementById('userPostcode').value = newPostCode;
+                jQuery("#postcode_error").html("");
+            }
+        });
+        /**** formatting postcode ends ****/
+        <?php if (!$this->getCheckoutSession()->getCheckoutPage()): ?>
+            jQuery('#dividebuy-modal').on('hidden.bs.modal', function () {
+                jQuery(".loader-set").show();
+                setTimeout(function() { location.reload(); }, 5000);
+            });
+            jQuery('#scroll').click(function() {
+                jQuery('html,body').animate({
+                    scrollTop: jQuery('#test').css('top')
+                }, 800, function() {
+
+                    jQuery('html, body').animate({
+                        scrollTop: 0
+                    }, 800);
+
+                });
+            });
+        <?php endif;?>
+
+        // Get the shipping Estimate
+        jQuery(document).on("click", "#get_shipping_estimate", function(){
+            ga('send', 'event', 'Postcode input and view options', 'click', 'View options');
+            var url = '<?php echo $this->getUrl("checkoutconfig/index/getshippingmethods"); ?>';
+            var postcode = jQuery('#userPostcode').val();
+
+            getShippingEstimate(postcode.trim(), url, retailerName);
+        });
+
+        function loadShippingMethod(){
+            var newPostCode = checkPostCode(document.getElementById('userPostcode').value);
+            if (newPostCode) {
+                document.getElementById('userPostcode').value = newPostCode;
+            }
+            var url = '<?php echo $this->getUrl("checkoutconfig/index/getshippingmethods"); ?>';
+                var postcode = jQuery('#userPostcode').val();
+            getShippingEstimate(postcode.trim(), url, retailerName);
+        }
+
+    });
+</script>

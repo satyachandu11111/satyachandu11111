@@ -1,0 +1,29 @@
+<!--
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<aside class="custom-modal modal-<%= data.type %> <%= data.modalClass %>
+           <% if(data.responsive){ %><%= data.responsiveClass %><% } %>
+           <% if(data.innerScroll){ %><%= data.innerScrollClass %><% } %>" data-role="modal" data-type="<%= data.type %>"  aria-labelledby="h11" >
+    
+    <div tabindex="0" id="dividebuy_modal" class="modal-dialog modal-inner-wrap" data-role="focusable-scope">
+        <div tabindex="0" class="modal-content" data-role="content">
+            <header  class="modal-header">      
+                <label tabindex="0" class="sr-only" aria-live="assertive" id="modalopen">Modal is open now</label>
+                <button aria-label="close" class="close" aria id="close-dividebuy-modal" data-role="closeBtn" type="button">
+                    &times;
+                </button>
+            </header>
+        </div>
+        <% if(data.buttons.length > 0){ %>
+        <footer class="modal-footer">
+            <% _.each(data.buttons, function(button) { %>
+            <button class="<%= button.class %>" type="button" data-role="action"><span><%= button.text %></span></button>
+            <% }); %>
+        </footer>
+        <% } %>
+    </div>
+    
+</aside>

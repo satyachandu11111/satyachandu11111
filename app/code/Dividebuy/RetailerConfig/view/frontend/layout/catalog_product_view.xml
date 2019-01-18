@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+        <css src="Dividebuy_CheckoutConfig::css/dividebuy-style.css"/>
+        <css src="Dividebuy_CheckoutConfig::js/analytics.min.js"/>
+    </head>
+      <body>
+        <!-- For Simple, Group and Downloadable Product display banner -->
+        <referenceBlock name="product.info.addtocart">
+          <container name="dividebuy.product.banner" label="DivideBuy Product Banner" htmlTag="div" htmlClass="dividebuy-product-banner">
+            <block class="Dividebuy\RetailerConfig\Block\Product\View" name="product.view.dividebuy" template="Dividebuy_RetailerConfig::dividebuy/product/view.phtml"/>  
+          </container>          
+        </referenceBlock>
+        <!-- For Configurable Product display banner -->
+        <referenceBlock name="product.info.options.wrapper.bottom">
+          <container name="dividebuy.product.banner.additional" label="DivideBuy Product Banner" htmlTag="div" htmlClass="dividebuy-product-banner">
+            <block class="Dividebuy\RetailerConfig\Block\Product\View" after="product.info.addtocart.additional" name="product.view.dividebuy.additional" template="Dividebuy_RetailerConfig::dividebuy/product/view.phtml"/>  
+          </container>
+        </referenceBlock>  
+      </body>
+</page>

@@ -1,0 +1,92 @@
+<?php $checkCart = $this->getItemArray();?>
+<?php $linkData  = $this->getCartLinkData();?>
+<?php $storeName = $linkData['store_name'];?>
+<?php if (!$storeName): ?>
+<?php $storeName = 'Store';?>
+<?php endif;?>
+<?php
+$priceHelper     = $this->getPriceHelper(); // Instance of Pricing Helper
+$checkoutSession = $this->getCheckoutSession();
+?>
+<?php/** Code for popup **/?>
+
+<div>
+  <div class="">
+    <p tabindex="0" class="text-left blue-text cart-heading"> <?php echo __('The following products in your basket are currently eligible for Interest-Free Credit:') ?> </p>
+    <div class="col-sm-7">
+      <div class="row">
+        <div class="shoppingcartTable">
+          <div class="shopping-scroll">
+            <div class="shopping-height"> <?php echo $this->getDivideBuyContent(); ?> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4 side-content col-sm-offset-1">
+      <div class="row">
+        <p tabindex="0" class=""><?php echo __('To Spread the Cost Interest-Free on these products, please click the button below:'); ?>
+          <?php //echo $telephone; ?>
+        </p>
+        <p>
+        <div class="sp-methods-divide"> <a href="#" id="btn_proceed_to_shipping" class="btn-blue">Continue</a> <span tabindex="0" style="<?php echo $linkData['custom_css']; ?>" class="blue-text grand-total"><?php echo __('Grand Total') ?>: <?php echo $priceHelper->currency($this->getDivideBuyTotal(), true, false); ?></span></div>
+        </p>
+      </div>
+    </div>
+    <div class="col-md-12 col-sm-12 clearfix">
+      <div class="row">
+        <div class="shoppingcartTable">
+          <div tabindex="0" class="text-left text-details"> <?php echo __('The remaining products in your basket are not available for Interest-Free Credit. You can purchase them directly through ' . $storeName . '. '); ?> </div>
+          <div class="col-sm-7"><div class="row"><div class="shopping-scroll">
+            <div class="shopping-height"> <?php echo $this->getNonDivideBuyContent(); ?> </div>
+          </div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</div>
+</div>
+<div id="splitcost_cover"></div>
+<script>
+require(
+        [
+            'jquery',
+            'dividebuy',
+            'scrollbarmin',
+        ],
+
+        function(){
+            jQuery(document).ready(function(){
+              var retailerName = "<?php echo addslashes($storeName);?>";
+                <?php if (!$checkoutSession->getCheckoutPage()): ?>
+                    jQuery('#close-dividebuy-modal').on('click', function () {
+                        jQuery(".loader-set").show();
+                        setTimeout(function() { location.reload(); }, 5000);
+                    });
+                    jQuery('#close-dividebuy-modal').click(function() {
+                        jQuery('html,body').animate({
+                            scrollTop: jQuery('#test').css('top')
+                        }, 800, function() {
+
+                            jQuery('html, body').animate({
+                                scrollTop: 0
+                            }, 800);
+
+                        });
+                    });
+                <?php endif;?>
+                jQuery("#btn_proceed_to_shipping").click(function(){
+                    jQuery("#shipping-loader").show();
+                    var startTime = new Date();
+                    var url = '<?php echo $this->getUrl("checkoutconfig/index/shippingmodal"); ?>';
+                    displayShippingModal(url, startTime, retailerName);
+                    return false;
+                });
+
+                jQuery('.shopping-scroll').mCustomScrollbar({
+                    theme:"dark-3"
+                });
+            });
+        });
+
+</script>

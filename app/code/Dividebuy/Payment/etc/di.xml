@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Sales\Block\Order\Recent" type="Dividebuy\Payment\Block\Sales\Order\Recent" />
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<plugin name="sales_order_dividebuy_grid_collection" type="Dividebuy\Payment\Plugins\DbSalesOrderGridCollection" sortOrder="100" disabled="false" />
+	</type>
+	<type name="Magento\Sales\Block\Order\History">
+		<plugin name="customer_order_history" type="Dividebuy\Payment\Plugins\CustomerOrderHistory" sortOrder="100" disabled="false" />
+	</type>
+
+	<virtualType name="Magento\Sales\Model\ResourceModel\Order\Grid">
+        <arguments>
+            <argument name="columns" xsi:type="array">
+                <item name="hide_dividebuy" xsi:type="string">
+                     sales_order.hide_dividebuy
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+</config>

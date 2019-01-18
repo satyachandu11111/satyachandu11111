@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Backend\Block\Dashboard\Orders\Grid" type="Dividebuy\RetailerConfig\Block\Dashboard\Orders\Grid" />
+    <type name="Dividebuy\RetailerConfig\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Dividebuy\RetailerConfig\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">DividebuyLogger</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">Dividebuy\RetailerConfig\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Reports\Model\ResourceModel\Order\Collection">
+        <plugin name="dashboard_graph_reports_order_tab" type="Dividebuy\RetailerConfig\Plugins\DashboardGraphOrderReports" sortOrder="100" disabled="false" />
+    </type>
+
+    <type name="Magento\Reports\Model\ResourceModel\Order\CollectionFactory">
+        <plugin name="dashboard_graph_reports_quantity_tab" type="Dividebuy\RetailerConfig\Plugins\DashboardGraphQuantityReports" sortOrder="100" disabled="false" />
+    </type>
+
+    <type name="Magento\Reports\Model\ResourceModel\Customer\Totals\Collection">
+        <plugin name="customer_totals_reports" type="Dividebuy\RetailerConfig\Plugins\CustomerTotalsReport" sortOrder="100" disabled="false" />
+    </type>
+
+    <type name="Magento\Reports\Model\ResourceModel\Customer\Orders\Collection">
+        <plugin name="customer_orders_reports" type="Dividebuy\RetailerConfig\Plugins\CustomerOrdersReport" sortOrder="100" disabled="false" />
+    </type>
+
+    <type name="Magento\Reports\Model\ResourceModel\Product\Sold\Collection">
+        <plugin name="product_sold_report" type="Dividebuy\RetailerConfig\Plugins\ProductSoldReport" sortOrder="100" disabled="false" />
+    </type>
+
+    <!-- For Sales order Report Created At -->
+    <preference for="Magento\Sales\Model\ResourceModel\Report\Order\Createdat" type="Dividebuy\RetailerConfig\Model\ResourceModel\Report\Order\Createdat" />
+
+    <!-- For Sales order Report Updated At -->
+    <preference for="Magento\Sales\Model\ResourceModel\Report\Order\Updatedat" type="Dividebuy\RetailerConfig\Model\ResourceModel\Report\Order\Updatedat" />
+
+    <!-- For Dashboard Tab New Customers -->
+    <preference for="Magento\Reports\Model\ResourceModel\Customer\Collection" type="Dividebuy\RetailerConfig\Model\ResourceModel\Customer\Collection" />
+
+    <!-- For BestSeller -->
+    <preference for="Magento\Sales\Model\ResourceModel\Report\Bestsellers" type="Dividebuy\RetailerConfig\Model\ResourceModel\Report\Bestsellers" />
+</config>

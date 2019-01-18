@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_order_shipment_save_after">
+        <observer name="dividebuy_shipment_save_after" instance="Dividebuy\CheckoutConfig\Observer\ProcessShipment"/>
+    </event>
+    <event name="sales_order_shipment_track_delete_after">
+        <observer name="dividebuy_shipment_track_delete_after" instance="Dividebuy\CheckoutConfig\Observer\DeleteDbShipment"/>
+    </event>
+    <event name="sales_order_shipment_track_save_after">
+        <observer name="dividebuy_shipment_track_add_after" instance="Dividebuy\CheckoutConfig\Observer\AddDbTracking"/>
+    </event>
+</config> 

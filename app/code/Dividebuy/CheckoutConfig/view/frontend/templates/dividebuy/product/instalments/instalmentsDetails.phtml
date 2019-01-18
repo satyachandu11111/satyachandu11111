@@ -1,0 +1,25 @@
+
+<?php
+$priceHelper       = $this->getPriceHelper();
+$data              = $instalment;
+$instalmentDetails = $data[0];
+foreach ($instalmentDetails as $instalmentDetail) {
+    if ($instalmentDetail['available'] == "yes") {
+        echo '<div class="hover-instalment">';
+        echo '<div class="highlights-instalments blue-text">' . $instalmentDetail['months'] . ' </div>';
+        echo '<div class="monthly-instalments">monthly instalments of </div> ';
+        echo '<div class="highlights-amt blue-text">' . $instalmentDetail['value'] . ' = </div>';
+        echo '<div class="highlights-amt green-text">' . $data[1] . '</div>';
+        echo '<div class="clearfix"></div>';
+        echo '</div>';
+    } else {
+        echo '<div class="hover-instalment hover-disable">';
+        echo '<div class="highlights-instalments blue-text">' . $instalmentDetail['months'] . ' </div>';
+        echo '<div class="monthly-instalments">monthly instalments of </div> ';
+        echo '<div class="highlights-amt blue-text">' . $instalmentDetail['value'] . ' = </div>';
+        echo '<div class="highlights-amt green-text">' . $data[1] . '</div>';
+        echo '<div class="clearfix"></div>';
+        echo '</div>';
+    }
+}
+?>

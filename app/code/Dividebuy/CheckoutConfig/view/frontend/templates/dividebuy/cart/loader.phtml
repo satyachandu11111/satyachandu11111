@@ -1,0 +1,11 @@
+<div class="loader-set">
+<div id="loader"></div>
+</div>
+<script>
+    require([
+        'Magento_Customer/js/customer-data'
+    ], function (customerData) {
+        var sections = ['cart'];
+        customerData.invalidate(sections);
+    });
+</script>

@@ -1,0 +1,93 @@
+<?php
+$storeUrl       = $this->getCheckoutConfigHelper()->getStoreUrl();
+$storeName      = $this->getRetailerHelper()->getStoreName();
+$data           = $this->getCartLinkData();
+$guestCheckout  = $this->getRetailerHelper()->isGuestCheckoutEnabled($this->getRetailerHelper()->getStoreId());
+?>
+
+<div class="row">
+    <div class="col-sm-4">
+        <div tabindex="0" class="logo-img">
+            <img src="<?php echo $data['retailer_image']; ?>" alt="Retailer Logo"/>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix"></div>
+<div class="row">
+    <div class="col-md-6 col-sm-6">
+        <?php if($guestCheckout) :?>
+            <h4 tabindex="0" class="checkout-titile"><?php echo __("Checkout as a " . $data['store_name'] . " guest"); ?></h4>
+             <p  tabindex="0"class="continue-text">By continuing to the DivideBuy checkout,<br />
+ you agree to DivideBuy's <a href="https://dividebuy.co.uk/terms-condition" target="_blank" class="blue-text">Terms &amp; Conditions.</a></p>
+                <button tabindex="0" class="btn-grey" id="btn_continue_guest">Continue</button>
+                <button tabindex="0" class="btn-lightgrey button_cancel close"  id="close-dividebuy-modal">Cancel</button>
+        <?php else : ?>
+            <div class="text-center">
+                <img src="<?php echo $this->getUrl('pub/media')."dividebuy/default/dividebuy_guest_image.png"; ?>">
+            </div>
+        <?php endif ; ?>
+    </div>
+    <div class="col-md-6 col-sm-6">
+        <div class="modal-heading">
+            <h4 tabindex="0" class="mrg-0  modal-heading-title"><?php echo __("Returning " . $data['store_name'] . " Customer"); ?></h4>
+            <small tabindex="0" class="text-grey">Log in to <?php echo $data['store_name']; ?></small>
+        </div>
+
+        <form id="user_login_form" method=  "post">
+            <div class="form-group">
+                <label class="custom-label">
+                    Email address <span class="mandatory_field">*</span>
+                </label>
+                <input aria-label="Email address" tabindex="0"  type="text" name="userEmail" class="required-entry validate-email form-control" id="userEmail"/>
+            </div>
+
+            <div class="form-group">
+                <label class="custom-label">
+                    Password <span class="mandatory_field">*</span>
+                </label>
+                <input tabindex="0"  type="password" name="userPassword" class="required-entry form-control" id="userPassword"/>
+
+                <div aria-live="assertive" class="validation-advice" id="inputValidationMsg" style=""></div>
+            </div>
+
+            <div class="logo-text">
+                <span tabindex="0" class="login-message"><?php echo __('Once you have logged in to ' . $data['store_name'] . ', you will be redirected to DivideBuy to complete your purchase using Interest-Free Credit.'); ?>
+                </span>
+            </div>
+ <p tabindex="0" class="continue-text">By continuing to the DivideBuy checkout, you agree to DivideBuy's <a href="https://dividebuy.co.uk/terms-condition" class="blue-text" target="_blank">Terms &amp; Conditions.</a></p>
+            <div class="custom-login">
+                <input type="submit" class="btn-grey" id="btn_user_login" value="Login"/>
+                 <input type="button" class="btn-lightgrey button_cancel" value="Cancel"/>
+            </div>
+        </form>
+    </div>
+    
+     <div class="action-link blue-text"><a href="https://dividebuy.co.uk/privacy-policy" target="_blank">Privacy Policy</a> | <a target="_blank" href="https://dividebuy.co.uk/cookies-policy" id="cookie">Cookie Policy</a></div>
+</div>
+
+<script>
+    jQuery(document).ready(function(){
+        var retailerName = "<?php echo addslashes($storeName);?>";
+        jQuery("#btn_continue_guest").click(function(){
+
+            var url = '<?php echo $this->getUrl("checkoutconfig/index/continueguest"); ?>';
+            guestLogin(url, retailerName);
+        });
+		
+		jQuery(".button_cancel").click(function(){
+			jQuery(".custom-modal").css("display", "none");
+			jQuery(".modals-overlay").css("display", "none");
+			location.reload(true);
+        });
+
+        jQuery("#btn_user_login").click(function(){
+
+            var email = jQuery("#userEmail").val();
+            var password = jQuery("#userPassword").val();
+            var url = '<?php echo $this->getUrl("checkoutconfig/index/userLogin"); ?>';
+            userLogin(email.trim(), password.trim(), url, retailerName);
+            return false;
+        });
+    });
+</script>

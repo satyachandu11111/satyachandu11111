@@ -1,0 +1,120 @@
+<?php
+$storeName = $this->getRetailerHelper()->getStoreName();
+$checkCart = array();
+if (!empty($this->getCheckoutConfigBlock())) {
+    $checkCart = $this->getCheckoutConfigBlock()->getItemArray();
+}
+?>
+<!-- Modal Content -->
+<div id="dividebuy-modal" class="modal-body clearfix" tabindex="0">
+    <div id="dividebuy-modal-container"></div>
+    <div id="shipping-loader" class="loader-set" style="margin:0;display: none" role="alert" aria-label="Please wait">
+        <div id="loader"></div>
+    </div>
+    <div id="all_shipping_methods"></div>
+</div>
+<!-- Modal Content Ends -->
+
+<script type="text/javascript">
+    // Used to initialize the modal
+    require(
+        [
+            'jquery',
+            'Magento_Ui/js/modal/modal',
+            'text!Dividebuy_CheckoutConfig/templates/modal/modal-popup.html',
+            'dividebuy',
+            'jsPostcodes',
+            'scrollbarmin'
+        ],
+
+        function($,modal,popupTpl) {
+
+            <?php if($this->getRetailerHelper()->getGoogleAnalyticUniqueKey($this->getRetailerHelper()->getStoreId()) != ""): ?>
+                ga('create', '<?php echo $this->getRetailerHelper()->getGoogleAnalyticUniqueKey($this->getRetailerHelper()->getStoreId()); ?>', 'auto');
+            <?php endif; ?>
+            var options = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: false,
+                title: false,
+                buttons: [],
+                responsiveClass: '',
+                showLoader: false,
+                popupTpl: popupTpl,
+                keyEventHandlers: {
+                    /**
+                     * Escape key press handler
+                     */
+                    escapeKey: function () {}
+                }
+            };
+
+            var popup = modal(options, jQuery('#dividebuy-modal'));
+            var retailerName = "<?php echo addslashes($storeName);?>";
+            jQuery("#divide-buy-modal").on("click",function(){
+                ga('send', 'event', 'Spread the Cost with DivideBuy', 'click', 'Spread the Cost with DivideBuy');
+                document.querySelector('.product_page_instalments').style.display = 'none';
+                var url = '<?php echo $this->getUrl("checkoutconfig/index/continuetocheckout"); ?>';
+                displayDividebuyModal(url, retailerName);
+                return false;
+            });
+
+            function DbuyPlaceOrder(){
+                var url = '<?php echo $this->getUrl("dividebuy/order/getorderdata"); ?>';
+                jQuery(".loader-set").show();
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    success: function(result) {
+                        // jQuery(".loader-set").hide();
+                        var result = $.parseJSON(result);
+                        var zipcode = checkPostCode(result.zipcode);
+                        var shippingMethod = result.shippingMethod;
+                        if(!zipcode || shippingMethod != '' ){
+                            var redirectUrl = '<?php echo $this->getUrl("checkoutconfig/index/continuetocheckout"); ?>';
+                            displayDividebuyModal(redirectUrl, retailerName);
+                            return false;
+                        }
+                        var url = '<?php echo $this->getUrl('dividebuy/order/create'); ?>';
+                        placeNewOrder(zipcode, shippingMethod, url, '', retailerName);
+                        return false;
+                    },
+                    error: function () {
+                        displayErrorMessage(retailerName);
+                    }
+                });
+
+            }
+
+            function inValidatePostCode(){
+                setTimeout(function() {
+                    jQuery(".loader-set").css('display','none');
+                }, 5000);
+                
+                jQuery(".dividebuy-error").remove();
+                jQuery("ul.dividebuy-messages ").append('<li class="error-msg dividebuy-error"><ul><li><span>Please enter valid postcode </span></li></ul></li>');
+                jQuery('html, body').animate({
+                    scrollTop: jQuery(".dividebuy-messages").offset().top
+                }, 1000);
+            }
+
+            function initPopup(){
+                jQuery('#scroll').prop("disabled", false);
+                var url = '<?php echo $this->getUrl('checkoutconfig/index/continuetocheckout'); ?>';
+                displayDividebuyModal(url, retailerName);
+                //$(this).attr("checked", "checked");
+                return false;
+            }
+            
+            $(document).on("click", "#dbpayment", function() {
+                $("#dbpayment").prop("checked", true);
+                <?php if (isset($checkCart['nodividebuy']) && $checkCart['nodividebuy'] <= 0): ?>
+                    // jQuery(".loader-set").css('display','block');
+                    DbuyPlaceOrder();
+                <?php else: ?>
+                    initPopup();
+                <?php endif;?>
+            });
+        }
+    );
+</script>

@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <!-- <css src="Dividebuy_CheckoutConfig::css/bootstrap.min.css"/> -->
+        <css src="Dividebuy_CheckoutConfig::css/customscrollbar.min.css"/>
+        <css src="Dividebuy_CheckoutConfig::css/dividebuy-style.css"/>
+        <css src="Dividebuy_CheckoutConfig::js/analytics.min.js"/>
+    </head>
+    <body>
+        <referenceBlock name="checkout.root">
+            <arguments>
+                <argument name="jsLayout" xsi:type="array">
+                    <item name="components" xsi:type="array">
+                        <item name="checkout" xsi:type="array">
+                            <item name="children" xsi:type="array">
+                                <item name="steps" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                        <item name="billing-step" xsi:type="array">
+                                            <item name="children" xsi:type="array">
+                                                <item name="payment" xsi:type="array">
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="renders" xsi:type="array">
+                                                            <!-- merge payment method renders here -->
+                                                            <item name="children" xsi:type="array">
+                                                                <item name="dbpayment-payments" xsi:type="array">
+                                                                    <item name="component" xsi:type="string">Dividebuy_Payment/js/view/payment/dbpayment-payments</item>
+                                                                    <item name="methods" xsi:type="array">
+                                                                        <item name="dbpayment" xsi:type="array">
+                                                                            <item name="isBillingAddressRequired" xsi:type="boolean">true</item>
+                                                                        </item>
+                                                                    </item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+        <referenceContainer name="content">
+                <block class="Dividebuy\Payment\Block\Payment" name="dividebuy.payment" template="Dividebuy_Payment::payment.phtml">
+                    <block class="Dividebuy\Payment\Block\Payment" name="dividebuy.checkout.modal" template="Dividebuy_CheckoutConfig::dividebuy/cart/modal.phtml"/>
+                </block>
+         </referenceContainer>
+         <referenceContainer name="after.body.start">
+            <block class="Dividebuy\CheckoutConfig\Block\Cart" name="dividebuy.checkout.loader" template="Dividebuy_CheckoutConfig::dividebuy/cart/loader.phtml"/>
+        </referenceContainer>
+    </body>
+</page>
