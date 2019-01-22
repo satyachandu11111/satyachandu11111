@@ -77,7 +77,8 @@ class Index extends \Magento\Backend\App\Action
         $fromDate = date('Y-m-d G:i:s', strtotime(str_replace('/', '-', $fromDate)));
         $toDate = date('Y-m-d G:i:s', strtotime(str_replace('/', '-', $toDate)));      
 
-        $arrayToCsv[] = array('Order #','Purchased From','Purchased On','Product Name','SKU','Attribute Set','Linnworks Category','Category','Qty','Bill to Name','Ship to Name','Bill to Company','Ship to Company','Bill to Street','Ship to Street','Bill to City','Ship to City','Bill to State','Ship to State','Bill to Country','Ship to Country','Billing Postcode','Shipping Postcode','Billing Telephone','Shipping Telephone','Shipping Method','Shipped','Customer Email','Payment Method','Coupon Code','Discount Amount','G.T. (Base)','G.T. (Purchased)','order Status','Shipping Amount','Subtotal','Row Total');
+        //$arrayToCsv[] = array('Order #','Purchased From','Purchased On','Product Name','SKU','Attribute Set','Linnworks Category','Category','Qty','Bill to Name','Ship to Name','Bill to Company','Ship to Company','Bill to Street','Ship to Street','Bill to City','Ship to City','Bill to State','Ship to State','Bill to Country','Ship to Country','Billing Postcode','Shipping Postcode','Billing Telephone','Shipping Telephone','Shipping Method','Shipped','Customer Email','Payment Method','Coupon Code','Discount Amount','G.T. (Base)','G.T. (Purchased)','order Status','Shipping Amount','Subtotal','Row Total');
+        $arrayToCsv[] = array('Order #','Purchased From','Purchased On','Product Name','SKU','Attribute Set','Qty','Bill to Name','Bill to Company','Bill to State','Bill to Country','Billing Postcode','Shipping Telephone','Shipping Method','Customer Email','Payment Method','Coupon Code','order Status','Shipping Amount','Subtotal','Row Total');
 
 
         // echo "<pre>";
@@ -127,7 +128,9 @@ class Index extends \Magento\Backend\App\Action
                     
                     
                     $productData = $this->productData($item->getProductId());
-                    $cats = $productData->getCategoryIds();
+                    
+                    // get Category name 
+                    /*$cats = $productData->getCategoryIds();
                     $categoryCount = count($cats);
                     if($categoryCount){
                         $count = 1;
@@ -140,7 +143,7 @@ class Index extends \Magento\Backend\App\Action
                             }
                             $count++;
                         }
-                    }
+                    }*/
 
                     // $attributeSetRepository = $this->attributeSet->get($productData->getAttributeSetId());
                     
@@ -168,37 +171,37 @@ class Index extends \Magento\Backend\App\Action
                             //$productData->getAttributeSetId(),
 
                             $this->getAttributeSetNameCustom($productData->getAttributeSetId()),
-                            $productData->getLinnworksCategory(),
-                            $categoryName,
+                            //$productData->getLinnworksCategory(),
+                            //$categoryName,
                             $item->getQtyOrdered(),
 
                             $billingAddress->getData('firstname')." ".$billingAddress->getData('middlename')." ".$billingAddress->getData('lastname'),
-                            $shippingAddress->getData('firstname')." ".$shippingAddress->getData('middlename')." ".$shippingAddress->getData('lastname'),
+                            //$shippingAddress->getData('firstname')." ".$shippingAddress->getData('middlename')." ".$shippingAddress->getData('lastname'),
 
                             $billingAddress->getData('company'),
-                            $shippingAddress->getData('company'),
+                            //$shippingAddress->getData('company'),
 
-                            $billingAddress->getData('street'),
-                            $shippingAddress->getData('street'),
+                            //$billingAddress->getData('street'),
+                            //$shippingAddress->getData('street'),
 
-                            $billingAddress->getData('city'),
-                            $shippingAddress->getData('city'),
+                            //$billingAddress->getData('city'),
+                            //$shippingAddress->getData('city'),
 
                             $billingAddress->getData('region'),
-                            $shippingAddress->getData('region'),
+                            //$shippingAddress->getData('region'),
 
-                            $billingCountry->getName(),
+                            //$billingCountry->getName(),
                             $shippingCountry->getName(),
 
                             $billingAddress->getData('postcode'),
-                            $shippingAddress->getData('postcode'),
+                            //$shippingAddress->getData('postcode'),
 
-                            $billingAddress->getData('telephone'),
+                            //$billingAddress->getData('telephone'),
                             $shippingAddress->getData('telephone'),
 
                             $order->getShippingMethod(),
 
-                            $shipped,
+                            //$shipped,
 
                             $order->getCustomerEmail(),
 
@@ -206,10 +209,10 @@ class Index extends \Magento\Backend\App\Action
 
                             $order->getCouponCode(),
 
-                            $this->_priceHelper->currency($order->getDiscountAmount(), true, false),
+                            //$this->_priceHelper->currency($order->getDiscountAmount(), true, false),
 
-                            $this->_priceHelper->currency($item->getOriginalPrice(), true, false),
-                            $this->_priceHelper->currency($item->getBaseOriginalPrice(), true, false),
+                            //$this->_priceHelper->currency($item->getOriginalPrice(), true, false),
+                            //$this->_priceHelper->currency($item->getBaseOriginalPrice(), true, false),
 
                             $order->getStatus(),
 
