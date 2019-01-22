@@ -3,7 +3,7 @@
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
     	 <referenceBlock name="after.body.start">
-            <block class="Magento\Catalog\Block\Product\ListProduct" name="homescapes.fbpixel.cart" before="-"
+            <block class="Magento\Catalog\Block\Category\View" name="homescapes.fbpixel.cart" before="-"
                    template="Homescapes_Fbpixel::fbpixel/category.phtml">
                
             </block>
