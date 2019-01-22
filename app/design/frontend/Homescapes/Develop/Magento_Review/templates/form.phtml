@@ -22,7 +22,7 @@
 			
 			
 			
-			<span class="text-center"><?php echo __('How do you rate this product?') ?> *</span>
+			<!--<span class="text-center"><?php echo __('How do you rate this product?') ?> *</span>-->
 		
 		</legend><br />
         <?php if ($block->getRatings() && $block->getRatings()->getSize()): ?>
@@ -65,15 +65,9 @@
 		
     <?php endif ?>
         <div class="field review-field-nickname required">
-            <label for="nickname_field" class="label"><span><?= $block->escapeHtml(__('Nickname')) ?></span></label>
+            <label for="nickname_field" class="label"><span><?= $block->escapeHtml(__('Name')) ?></span></label>
             <div class="control">
                 <input type="text" name="nickname" id="nickname_field" class="input-text" data-validate="{required:true}" data-bind="value: nickname()" />
-            </div>
-        </div>
-        <div class="field review-field-summary required">
-            <label for="summary_field" class="label"><span><?= $block->escapeHtml(__('Summary')) ?></span></label>
-            <div class="control">
-                <input type="text" name="title" id="summary_field" class="input-text" data-validate="{required:true}" data-bind="value: review().title" />
             </div>
         </div>
 		<div class="field review-field-email required">
@@ -81,15 +75,13 @@
 			<div class="control">
 				<input type="text" name="email" id="email_field" class="input-text" data-validate="{required:true,'validate-email':true}"/>
 			</div>
-		</div>	
-
-        <div class="field review-field-recommend required">
-            <label for="recommend_field" class="label"><span><?= $block->escapeHtml(__('Recommend')) ?></span></label>
+		</div>
+        <div class="field review-field-summary required">
+            <label for="summary_field" class="label"><span><?= $block->escapeHtml(__('Review Title')) ?></span></label>
             <div class="control">
-                <input type="radio" name="recommend" id="recommend_field" class="input-radio" data-validate="{required:true}" value="1"/><?php echo __('Yes') ?>
-                <input type="radio" name="recommend" id="recommend_field" class="input-radio" data-validate="{required:true}" value="0" /><?php echo __('No') ?>
+                <input type="text" name="title" id="summary_field" class="input-text" data-validate="{required:true}" data-bind="value: review().title" />
             </div>
-        </div>  
+        </div>	 
 
         <div class="field review-field-text required">
             <label for="review_field" class="label"><span><?= $block->escapeHtml(__('Review')) ?></span></label>
@@ -97,6 +89,15 @@
                 <textarea name="detail" id="review_field" cols="5" rows="3" data-validate="{required:true}" data-bind="value: review().detail"></textarea>
             </div>
         </div>
+
+        <div class="field review-field-recommend required">
+            <label for="recommend_field" class="label"><span><?= $block->escapeHtml(__('Recommend')) ?></span></label>
+            <div class="control">
+                <input type="radio" name="recommend" id="recommend_field" class="input-radio" data-validate="{required:true}" value="1"/><?php echo __('Yes') ?>
+                <input type="radio" name="recommend" id="recommend_field" class="input-radio" data-validate="{required:true}" value="0" /><?php echo __('No') ?>
+            </div>
+        </div> 
+		
     </fieldset>
     <div class="actions-toolbar review-form-actions">
         <div class="primary actions-primary">

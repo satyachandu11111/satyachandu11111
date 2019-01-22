@@ -6616,9 +6616,9 @@ transition: all 5ms ease-in-out 0s;
 		width: 100%;
 		text-align: center;
 		border: none;
+		font-size: @font24;
 		color: @light-black;
 		padding-bottom: 0;
-		font-weight: @semibold;
 		
 		@media @767{
 			color: @black;
@@ -6653,9 +6653,15 @@ transition: all 5ms ease-in-out 0s;
 		text-align: center;
 		
 		strong{
+			
+			
+			font-weight: normal;
+			margin-bottom: 5px;
+			
 			@media @767{
 				font-size: @font16;
 				margin-bottom: 1rem;
+				font-weight: normal;
 			}
 		}
 	}
@@ -6666,7 +6672,7 @@ transition: all 5ms ease-in-out 0s;
 		border-radius: .2rem;
 	}
 	.fieldset{
-		margin-bottom: 2rem;
+		margin-bottom: 1rem;
 	}
 	.review-form .actions-toolbar .actions-primary{
 		width: 100%;
@@ -6677,6 +6683,7 @@ transition: all 5ms ease-in-out 0s;
 		background: @blue;
 		color: @white;
 		padding: 1.2rem;
+		font-size: @font18;
 	}
 	.review-add{
 		margin-bottom: 0;
@@ -6690,6 +6697,13 @@ transition: all 5ms ease-in-out 0s;
 		
 		.control{
 			margin-left: 1rem;
+			margin-top: -3px;
+			
+			input{
+				
+				margin-left:.5rem; 
+				
+			}
 		}
 	}
 }
