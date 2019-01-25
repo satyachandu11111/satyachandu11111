@@ -2882,6 +2882,10 @@ transition: all 5ms ease-in-out 0s;
 		span{
 			font-size:@font24 !important;
 		}
+		ul li a:hover{
+			color: @slider-color;
+			background: @white;
+		}
 	}
 }
 
@@ -6254,11 +6258,12 @@ transition: all 5ms ease-in-out 0s;
 	}
 	.pricing{
 		
-		pointer-events: auto;
+		pointer-events:none;
 		
 		@media @767{
 			padding-left: 4.5rem;
 			margin-bottom: 0;
+			pointer-events: auto;
 		}
 		
 		.fas{
