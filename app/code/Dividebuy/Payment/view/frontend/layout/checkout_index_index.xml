@@ -9,7 +9,8 @@
     <head>
         <!-- <css src="Dividebuy_CheckoutConfig::css/bootstrap.min.css"/> -->
         <css src="Dividebuy_CheckoutConfig::css/customscrollbar.min.css"/>
-        <css src="Dividebuy_CheckoutConfig::css/dividebuy-style.css"/>
+        <css src="Dividebuy_CheckoutConfig::css/dividebuy-styles.css"/>
+        <css src="Dividebuy_CheckoutConfig::css/homescapes-dividebuy-styles.css"/>
         <css src="Dividebuy_CheckoutConfig::js/analytics.min.js"/>
     </head>
     <body>

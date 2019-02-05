@@ -3,6 +3,7 @@
     <body>
     	<referenceContainer name="content">
             <block class="Dividebuy\Payment\Block\OrderSuccess" name="checkout.success" template="Dividebuy_Payment::checkout/success.phtml" />
+            <block class="Magento\Checkout\Block\Registration" name="checkout.registration" template="Magento_Checkout::registration.phtml" cacheable="false"/>
         </referenceContainer>
     </body>
 </page>

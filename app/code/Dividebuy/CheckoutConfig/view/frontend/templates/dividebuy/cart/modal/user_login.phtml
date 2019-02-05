@@ -19,7 +19,7 @@ $guestCheckout  = $this->getRetailerHelper()->isGuestCheckoutEnabled($this->getR
         <?php if($guestCheckout) :?>
             <h4 tabindex="0" class="checkout-titile"><?php echo __("Checkout as a " . $data['store_name'] . " guest"); ?></h4>
              <p  tabindex="0"class="continue-text">By continuing to the DivideBuy checkout,<br />
- you agree to DivideBuy's <a href="https://dividebuy.co.uk/terms-condition" target="_blank" class="blue-text">Terms &amp; Conditions.</a></p>
+ you agree to DivideBuy's <a href="https://dividebuy.co.uk/terms-conditions" target="_blank" class="blue-text">Terms &amp; Conditions.</a></p>
                 <button tabindex="0" class="btn-grey" id="btn_continue_guest">Continue</button>
                 <button tabindex="0" class="btn-lightgrey button_cancel close"  id="close-dividebuy-modal">Cancel</button>
         <?php else : ?>
@@ -55,7 +55,7 @@ $guestCheckout  = $this->getRetailerHelper()->isGuestCheckoutEnabled($this->getR
                 <span tabindex="0" class="login-message"><?php echo __('Once you have logged in to ' . $data['store_name'] . ', you will be redirected to DivideBuy to complete your purchase using Interest-Free Credit.'); ?>
                 </span>
             </div>
- <p tabindex="0" class="continue-text">By continuing to the DivideBuy checkout, you agree to DivideBuy's <a href="https://dividebuy.co.uk/terms-condition" class="blue-text" target="_blank">Terms &amp; Conditions.</a></p>
+ <p tabindex="0" class="continue-text">By continuing to the DivideBuy checkout, you agree to DivideBuy's <a href="https://dividebuy.co.uk/terms-conditions" class="blue-text" target="_blank">Terms &amp; Conditions.</a></p>
             <div class="custom-login">
                 <input type="submit" class="btn-grey" id="btn_user_login" value="Login"/>
                  <input type="button" class="btn-lightgrey button_cancel" value="Cancel"/>

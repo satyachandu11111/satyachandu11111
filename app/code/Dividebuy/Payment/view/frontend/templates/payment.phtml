@@ -16,7 +16,7 @@ $checkoutWithCouponFlag = $this->getCheckoutConfigBlock()->checkoutWithCouponCod
         $(document).ready(function() {
 
             // Code for when to checked and unchecked the dbpayment radio button
-            $(document).bind('DOMNodeInserted', function(event) {
+            //$(document).bind('DOMNodeInserted', function(event) {
                 if(jQuery('.modal-popup').hasClass('_show') || jQuery(".loader-set").is(":visible"))
                 {
                     $("#dbpayment").prop("checked", true);
@@ -25,7 +25,7 @@ $checkoutWithCouponFlag = $this->getCheckoutConfigBlock()->checkoutWithCouponCod
                 {
                     $("#dbpayment").prop("checked", false);
                 }
-            });
+            //});
 
             /* Code to disabled the dbpayment radio button and display tooltip
             if order is below minimum order */

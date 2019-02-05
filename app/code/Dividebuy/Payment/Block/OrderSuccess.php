@@ -78,7 +78,7 @@ class OrderSuccess extends \Magento\Checkout\Block\Onepage\Success
      */
     protected function prepareBlockData()
     {
-        $orderId = $this->_checkoutSession->getDividebuyOrderId();
+        $orderId = $this->_checkoutSession->getLastOrderId();
         $order   = $this->_orderModel->load($orderId);
         $this->addData(
             [
@@ -131,7 +131,9 @@ class OrderSuccess extends \Magento\Checkout\Block\Onepage\Success
      */
     public function getOrderId()
     {
-        return $this->_checkoutSession->getDividebuyOrderId();
+        $orderId = $this->_checkoutSession->getLastOrderId();
+        $order = $this->_orderModel->load($orderId);
+        return $order->getIncrementId();
     }
 
     /**
@@ -141,7 +143,7 @@ class OrderSuccess extends \Magento\Checkout\Block\Onepage\Success
      */
     public function getOrderIncrementId()
     {
-        $orderId = $this->_checkoutSession->getDividebuyOrderId();
+        $orderId = $this->_checkoutSession->getLastOrderId();
         $order = $this->_orderModel->load($orderId);
         return $order->getIncrementId();
     }

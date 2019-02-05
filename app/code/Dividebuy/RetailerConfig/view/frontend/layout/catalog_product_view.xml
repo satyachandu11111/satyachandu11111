@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
 <page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
 	<head>
-        <css src="Dividebuy_CheckoutConfig::css/dividebuy-style.css"/>
+        <css src="Dividebuy_CheckoutConfig::css/dividebuy-styles-2.css"/>
+        <css src="Dividebuy_CheckoutConfig::css/homescapes-dividebuy-styles-1.css"/>
         <css src="Dividebuy_CheckoutConfig::js/analytics.min.js"/>
     </head>
       <body>

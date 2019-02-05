@@ -64,7 +64,7 @@ class Dbpayment extends \Magento\Payment\Model\Method\AbstractMethod
     public function isAvailable(\Magento\Quote\Api\Data\CartInterface $quote = null)
     {
         // Checking if quote is null.
-        if (isset($quote) && $quote != null) {
+        if (empty($quote)) {
             return false;
         }
 

@@ -3,11 +3,11 @@ namespace Dividebuy\RetailerConfig\Helper;
 
 class RetailerConfiguration extends \Magento\Framework\App\Helper\AbstractHelper
 {
-    const DIVIDEBUY_API_URL_STAGING       = 'http://192.192.11.1/dev_laravel/public/';
-    const DIVIDEBUY_ORDER_URL_STAGING     = '192.192.11.36/#/login';
+    const DIVIDEBUY_API_URL_STAGING       = 'https://api.dividebuysandbox.co.uk/';
+    const DIVIDEBUY_ORDER_URL_STAGING     = 'dividebuysandbox.co.uk/#/login';
     const DIVIDEBUY_PORTAL_URL_STAGING    = 'https://portal.dividebuysandbox.co.uk/?adminToken=';
-    const DIVIDEBUY_API_URL_PRODUCTION    = 'http://192.192.11.1/dev_laravel/public/';
-    const DIVIDEBUY_ORDER_URL_PRODUCTION  = '192.192.11.36/#/login';
+    const DIVIDEBUY_API_URL_PRODUCTION    = 'https://api.dividebuy.co.uk/';
+    const DIVIDEBUY_ORDER_URL_PRODUCTION  = 'dividebuy.co.uk/#/login';
     const DIVIDEBUY_PORTAL_URL_PRODUCTION = 'https://portal.dividebuy.co.uk/?adminToken=';
 
     /**

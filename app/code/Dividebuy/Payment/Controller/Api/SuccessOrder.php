@@ -76,7 +76,9 @@ class SuccessOrder extends \Magento\Framework\App\Action\Action
         $customerEmail    = $postData['customer_email'];
         $orderTime        = $postData['orderTime'];
         $orderReferenceId = $postData['laravel_order_ref_id'];
-        $isPhoneOrderEnabled = $postData['is_phone_order_enabled'];
+        if (isset($postData['is_phone_order_enabled']) && $postData['is_phone_order_enabled'] != null) {
+            $isPhoneOrderEnabled = $postData['is_phone_order_enabled'];
+        }
 
         $street1 = $address['house_number'] . ' ' . $address['house_name'] . ', ' . $address['street'];
         $street1 = ltrim($street1, ", ");
@@ -110,7 +112,7 @@ class SuccessOrder extends \Magento\Framework\App\Action\Action
                 $orderEmail->setHideDividebuy(0);
 
                 // Checking if order is placed via phone order.
-                if($isPhoneOrderEnabled == 1){
+                if(isset($isPhoneOrderEnabled) && $isPhoneOrderEnabled == 1){
                     $orderEmail->addStatusHistoryComment('DivideBuy order authenticated via phone order. Transaction ID : "'. $orderReferenceId.'"', \Magento\Sales\Model\Order::STATE_PROCESSING);
                 }else{
                     $orderEmail->addStatusHistoryComment('DivideBuy order authenticated. Transaction ID : "'. $orderReferenceId.'"', \Magento\Sales\Model\Order::STATE_PROCESSING);
