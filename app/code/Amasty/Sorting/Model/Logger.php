@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Sorting
  */
 
@@ -18,7 +18,7 @@ class Logger
     const DEBUG_REQUEST_VAR = 'amdebug';
     
     /**
-     * @var \Magento\Framework\Logger
+     * @var \Amasty\Base\Debug\VarDump
      */
     private $logger;
 
@@ -32,14 +32,8 @@ class Logger
      */
     private $request;
 
-    /**
-     * Logger constructor.
-     * @param \Psr\Log\LoggerInterface $logger
-     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
-     * @param \Magento\Framework\App\RequestInterface $request
-     */
     public function __construct(
-        \Psr\Log\LoggerInterface $logger,
+        \Amasty\Base\Debug\VarDump $logger,
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \Magento\Framework\App\RequestInterface $request
     ) {
@@ -57,7 +51,7 @@ class Logger
         if ($this->scopeConfig->isSetFlag(self::DEBUG_CONFIG_PATH)
             && $this->request->getParam(self::DEBUG_REQUEST_VAR, false)
         ) {
-            $this->logger->log(\Monolog\Logger::INFO, $collection->getSelect()->__toString());
+            $this->logger->amastyEcho($collection->getSelect()->__toString());
         }
         return $this;
     }

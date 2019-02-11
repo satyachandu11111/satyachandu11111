@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Sorting
  */
 
@@ -15,6 +15,16 @@ use Magento\Framework\DB\Ddl\Table;
 class UpgradeSchema implements UpgradeSchemaInterface
 {
     use TableInitTrate;
+
+    /**
+     * @var Operation\RenameLabelsField
+     */
+    private $renameLabelsField;
+
+    public function __construct(Operation\RenameLabelsField $renameLabelsField)
+    {
+        $this->renameLabelsField = $renameLabelsField;
+    }
 
     /**
      * {@inheritdoc}
@@ -65,6 +75,10 @@ class UpgradeSchema implements UpgradeSchemaInterface
 
         if ($context->getVersion() && version_compare($context->getVersion(), '2.1.0', '<')) {
             $this->createYotpo($setup, $yotpoTable);
+        }
+
+        if ($context->getVersion() && version_compare($context->getVersion(), '2.5.2', '<')) {
+            $this->renameLabelsField->execute($setup);
         }
 
         $setup->endSetup();

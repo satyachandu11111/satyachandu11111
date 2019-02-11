@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Base
  */
 
@@ -14,6 +14,7 @@ use Magento\Framework\Event\ObserverInterface;
 class GenerateInformationTab implements ObserverInterface
 {
     const SEO_PARAMS = '?utm_source=extension&utm_medium=backend&utm_campaign=';
+
     const MAGENTO_VERSION = '_m2';
 
     /**
@@ -48,14 +49,21 @@ class GenerateInformationTab implements ObserverInterface
      */
     private $assetRepo;
 
+    /**
+     * @var \Magento\Config\Model\Config\Structure
+     */
+    private $configStructure;
+
     public function __construct(
         Module $moduleHelper,
         \Magento\Framework\Module\Manager $moduleManager,
-        \Magento\Framework\View\Asset\Repository $assetRepo
+        \Magento\Framework\View\Asset\Repository $assetRepo,
+        \Magento\Config\Model\Config\Structure $configStructure
     ) {
         $this->moduleHelper = $moduleHelper;
         $this->moduleManager = $moduleManager;
         $this->assetRepo = $assetRepo;
+        $this->configStructure = $configStructure;
     }
 
     /**
@@ -119,7 +127,7 @@ class GenerateInformationTab implements ObserverInterface
                 if (isset($message['type']) && isset($message['text'])) {
                     $html .= '<div class="amasty-additional-content"><span class="message ' . $message['type'] . '">'
                         . $message['text']
-                        .'</span></div>';
+                        . '</span></div>';
                 }
             }
         }
@@ -204,7 +212,7 @@ class GenerateInformationTab implements ObserverInterface
             . __(
                 'Need help with the settings?'
                 . '  Please  consult the <a target="_blank" href="%1">user guide</a>'
-                .' to configure the extension properly.',
+                . ' to configure the extension properly.',
                 $this->getUserGuideLink()
             )
             . '</span></div>';
@@ -218,7 +226,7 @@ class GenerateInformationTab implements ObserverInterface
         if ($link) {
             $seoLink = $this->getSeoparams();
             if (strpos($link, '?') !== false) {
-                $seoLink =str_replace('?', '&', $seoLink);
+                $seoLink = str_replace('?', '&', $seoLink);
             }
 
             $link .= $seoLink . 'userguide_' . $this->getModuleCode();
@@ -237,6 +245,7 @@ class GenerateInformationTab implements ObserverInterface
 
     /**
      * @param $currentVer
+     *
      * @return bool
      */
     private function isLastVersion($currentVer)
@@ -254,13 +263,62 @@ class GenerateInformationTab implements ObserverInterface
         return $result;
     }
 
+    /**
+     * @return string
+     */
     private function getModuleName()
     {
-        $result = __('Extension');
-        $module = $this->getFeedModuleData();
-        if ($module && isset($module['name'])) {
-            $result = $module['name'];
-            $result = str_replace(' for Magento 2', '', $result);
+        $result = '';
+
+        $configTabs = $this->configStructure->getTabs();
+        if ($name = $this->findResourceName($configTabs)) {
+            $result = $name;
+        }
+
+        if (!$result) {
+            $module = $this->getFeedModuleData();
+
+            if ($module && isset($module['name'])) {
+                $result = $module['name'];
+                $result = str_replace(' for Magento 2', '', $result);
+            }
+        }
+
+        if (!$result) {
+            $result = __('Extension');
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param $config
+     *
+     * @return string
+     */
+    private function findResourceName($config)
+    {
+        $result = '';
+        $currentNode = null;
+        foreach ($config as $key => $node) {
+            if ($node->getId() == 'amasty') {
+                $currentNode = $node;
+                break;
+            }
+        }
+
+        if ($currentNode) {
+            foreach ($currentNode->getChildren() as $item) {
+                $data = $item->getData('resource');
+                if (isset($data['label'])
+                    && isset($data['resource'])
+                    && $data['resource']
+                    && strpos($data['resource'], $this->getModuleCode()) !== false
+                ) {
+                    $result = $data['label'];
+                    break;
+                }
+            }
         }
 
         return $result;
@@ -288,6 +346,7 @@ class GenerateInformationTab implements ObserverInterface
 
     /**
      * @param $currentVer
+     *
      * @return string
      */
     private function getModuleLink()

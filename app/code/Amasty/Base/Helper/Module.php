@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Base
  */
 
@@ -18,7 +18,8 @@ use Magento\Framework\Json\DecoderInterface;
 class Module extends AbstractHelper
 {
     const EXTENSIONS_PATH = 'ambase_extensions';
-    const URL_EXTENSIONS  = 'http://amasty.com/feed-extensions-m2.xml';
+
+    const URL_EXTENSIONS = 'http://amasty.com/feed-extensions-m2.xml';
 
     /**
      * @var \Amasty\Base\Model\Serializer
@@ -34,6 +35,11 @@ class Module extends AbstractHelper
      * @var \Magento\Framework\App\CacheInterface
      */
     protected $cache;
+
+    /**
+     * @var array|null
+     */
+    private $modulesData = null;
 
     /**
      * @var array
@@ -79,6 +85,7 @@ class Module extends AbstractHelper
 
     /**
      * Get array with info about all Amasty Magento2 Extensions
+     *
      * @return bool|mixed
      */
     public function getAllExtensions()
@@ -96,7 +103,7 @@ class Module extends AbstractHelper
     /**
      * Save extensions data to magento cache
      */
-    protected function reload()
+    public function reload()
     {
         $feedData = [];
         $feedXml = $this->getFeedData();
@@ -109,10 +116,11 @@ class Module extends AbstractHelper
                 }
 
                 $feedData[$code][(string)$item->title] = [
-                    'name'    => (string)$item->title,
-                    'url'     => (string)$item->link,
-                    'version' => (string)$item->version,
+                    'name'               => (string)$item->title,
+                    'url'                => (string)$item->link,
+                    'version'            => (string)$item->version,
                     'conflictExtensions' => (string)$item->conflictExtensions,
+                    'guide'              => (string)$item->guide,
                 ];
             }
 
@@ -124,6 +132,7 @@ class Module extends AbstractHelper
 
     /**
      * Read data from xml file with curl
+     *
      * @return bool|SimpleXMLElement
      */
     protected function getFeedData()
@@ -134,9 +143,11 @@ class Module extends AbstractHelper
             $location = self::URL_EXTENSIONS;
             $uri = new HttpUri($location);
 
-            $curlClient->setOptions([
-                'timeout'   => 8
-            ]);
+            $curlClient->setOptions(
+                [
+                    'timeout' => 8
+                ]
+            );
 
             $curlClient->connect($uri->getHost(), $uri->getPort());
             $curlClient->write('GET', $uri, 1.0);
@@ -144,7 +155,7 @@ class Module extends AbstractHelper
 
             $curlClient->close();
 
-            $xml  = new SimpleXMLElement($data->getContent());
+            $xml = new SimpleXMLElement($data->getContent());
         } catch (\Exception $e) {
             return false;
         }
@@ -181,7 +192,9 @@ class Module extends AbstractHelper
 
     /**
      * Read info about extension from composer json file
+     *
      * @param $moduleCode
+     *
      * @return mixed
      * @throws \Magento\Framework\Exception\FileSystemException
      */
@@ -198,5 +211,29 @@ class Module extends AbstractHelper
         }
 
         return $json;
+    }
+
+    /**
+     * @param $moduleCode
+     *
+     * @return array
+     */
+    public function getFeedModuleData($moduleCode)
+    {
+        $moduleData = [];
+        if ($this->modulesData === null || $this->modulesData === false) {
+            $this->modulesData = $this->getAllExtensions();
+        }
+
+        if ($this->modulesData && isset($this->modulesData[$moduleCode])) {
+            $module = $this->modulesData[$moduleCode];
+            if ($module && is_array($module)) {
+                $module = array_shift($module);
+            }
+
+            $moduleData = $module;
+        }
+
+        return $moduleData;
     }
 }

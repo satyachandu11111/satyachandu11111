@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Sorting
  */
 
@@ -44,25 +44,18 @@ class Collection
      */
     private $stockMethod;
 
-    /**
-     * @var \Amasty\Sorting\Model\Logger
-     */
-    private $logger;
-
     public function __construct(
         \Amasty\Sorting\Helper\Data $helper,
         \Amasty\Sorting\Model\MethodProvider $methodProvider,
         \Amasty\Sorting\Model\ResourceModel\Method\Image $imageMethod,
         \Amasty\Sorting\Model\ResourceModel\Method\Instock $stockMethod,
-        \Amasty\Sorting\Model\SortingAdapterFactory $adapterFactory,
-        \Amasty\Sorting\Model\Logger $logger
+        \Amasty\Sorting\Model\SortingAdapterFactory $adapterFactory
     ) {
         $this->helper         = $helper;
         $this->methodProvider = $methodProvider;
         $this->adapterFactory = $adapterFactory;
         $this->imageMethod    = $imageMethod;
         $this->stockMethod    = $stockMethod;
-        $this->logger         = $logger;
     }
 
     /**
@@ -75,18 +68,24 @@ class Collection
     public function beforeSetOrder($subject, $attribute, $dir = Select::SQL_DESC)
     {
         $this->applyHighPriorityOrders($subject, $dir);
-        $method = $this->methodProvider->getMethodByCode($attribute);
-        if ($method && !$subject->getFlag($this->getFlagName($attribute))) {
-            $subject->setFlag($this->getFlagName($attribute), true);
-            $method->apply($subject, $dir);
-            $attribute = $method->getAlias();
-            $this->logger->logCollectionQuery($subject);
-        } elseif ($attribute == 'price') {
-            $subject->addOrder($attribute, $dir);
-            $attribute = 'am_price_sorting';
-        } elseif ($attribute == 'relevance' && !$subject->getFlag($this->getFlagName('am_relevance'))) {
-            $this->addRelevanceSorting($subject, $dir);
-            $attribute = 'am_relevance';
+        $flagName = $this->getFlagName($attribute);
+        if ($subject->getFlag($flagName)) {
+            // attribute already used in sorting; disable double sorting by renaming attribute into not existing
+            $attribute .= '_ignore';
+        } else {
+            $method = $this->methodProvider->getMethodByCode($attribute);
+            if ($method) {
+                $method->apply($subject, $dir);
+                $attribute = $method->getAlias();
+            } elseif ($attribute == 'relevance' && !$subject->getFlag($this->getFlagName('am_relevance'))) {
+                $this->addRelevanceSorting($subject, $dir);
+                $attribute = 'am_relevance';
+            }
+            if ($attribute == 'price') {
+                $subject->addOrder($attribute, $dir);
+                $attribute .= '_ignore';
+            }
+            $subject->setFlag($flagName, true);
         }
 
         return [$attribute, $dir];
@@ -94,6 +93,9 @@ class Collection
 
     private function getFlagName($attribute)
     {
+        if ($attribute == 'price_asc' || $attribute == 'price_desc') {
+            $attribute = 'price';
+        }
         if (is_string($attribute)) {
             return 'sorted_by_' . $attribute;
         }

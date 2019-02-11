@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Sorting
  */
 
@@ -19,19 +19,6 @@ class MostViewed extends AbstractIndexMethod
     public function getIndexTableName()
     {
         return 'amasty_sorting_most_viewed';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getMethodLabel($store = null)
-    {
-        $storeLabel = $this->helper->getScopeValue('most_viewed/label', $store);
-        if ($storeLabel) {
-            return $storeLabel;
-        }
-
-        return parent::getMethodLabel($store);
     }
 
     /**

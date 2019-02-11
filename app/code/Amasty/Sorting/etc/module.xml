@@ -2,12 +2,12 @@
 <!--
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Sorting
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
-    <module name="Amasty_Sorting" setup_version="2.1.0">
+    <module name="Amasty_Sorting" setup_version="2.5.2">
     </module>
 </config>

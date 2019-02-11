@@ -2,7 +2,7 @@
 <!--
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Sorting
  */
 -->
@@ -125,7 +125,7 @@
     </type>
     <type name="Amasty\Sorting\Model\ResourceModel\Method\Newest">
         <arguments>
-            <argument name="methodCode" xsi:type="string">created_at</argument>
+            <argument name="methodCode" xsi:type="string">new</argument>
             <argument name="methodName" xsi:type="string">New</argument>
         </arguments>
     </type>

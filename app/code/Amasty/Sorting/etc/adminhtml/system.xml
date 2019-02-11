@@ -2,7 +2,7 @@
 <!--
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Sorting
  */
 -->
@@ -104,6 +104,7 @@
                 <field id="label" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Label</label>
                     <comment>Rename sorting option to match your own vision.</comment>
+                    <backend_model>Amasty\Sorting\Model\Config\Backend\SimpleText</backend_model>
                 </field>
                 <field id="new_attr" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Attribute Code for the Newest Sorting</label>
@@ -117,6 +118,7 @@
                 <field id="label" translate="label comment" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Label</label>
                     <comment>Rename sorting option to match your own vision.</comment>
+                    <backend_model>Amasty\Sorting\Model\Config\Backend\SimpleText</backend_model>
                 </field>
                 <field id="best_period" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
                     <frontend_class>validate-digits</frontend_class>
@@ -143,6 +145,7 @@
                 <field id="label" translate="label comment" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Label</label>
                     <comment>Rename sorting option to match your own vision.</comment>
+                    <backend_model>Amasty\Sorting\Model\Config\Backend\SimpleText</backend_model>
                 </field>
                 <field id="viewed_period" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>Most Viewed Period (days)</label>
@@ -157,11 +160,12 @@
                 </field>
             </group>
 
-            <group id="biggest_saving" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="saving" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Biggest Saving</label>
                 <field id="label" translate="label comment" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Label</label>
                     <comment>Rename sorting option to match your own vision.</comment>
+                    <backend_model>Amasty\Sorting\Model\Config\Backend\SimpleText</backend_model>
                 </field>
                 <field id="saving" translate="label comment" type="select" sortOrder="45" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Use Percentage for Biggest Saving Sorting</label>
@@ -174,6 +178,7 @@
                 <field id="label" translate="label comment" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Label</label>
                     <comment>Rename sorting option to match your own vision.</comment>
+                    <backend_model>Amasty\Sorting\Model\Config\Backend\SimpleText</backend_model>
                 </field>
                 <field id="wished_period" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>Added to wishlist Period (days)</label>
@@ -188,6 +193,7 @@
                 <field id="label" translate="label comment" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Label</label>
                     <comment>Rename sorting option to match your own vision.</comment>
+                    <backend_model>Amasty\Sorting\Model\Config\Backend\SimpleText</backend_model>
                 </field>
                 <field id="yotpo" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Use Yotpo Reviews instead of Magento Reviews</label>
@@ -201,10 +207,29 @@
                 <field id="label" translate="label comment" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Label</label>
                     <comment>Rename sorting option to match your own vision.</comment>
+                    <backend_model>Amasty\Sorting\Model\Config\Backend\SimpleText</backend_model>
                 </field>
             </group>
 
-            <group id="iln" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="price_desc" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Price: high to low</label>
+                <field id="label" translate="label comment" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Label</label>
+                    <comment>Rename sorting option to match your own vision.</comment>
+                    <backend_model>Amasty\Sorting\Model\Config\Backend\SimpleText</backend_model>
+                </field>
+            </group>
+
+            <group id="price_asc" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Price: low to high</label>
+                <field id="label" translate="label comment" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Label</label>
+                    <comment>Rename sorting option to match your own vision.</comment>
+                    <backend_model>Amasty\Sorting\Model\Config\Backend\SimpleText</backend_model>
+                </field>
+            </group>
+
+            <group id="iln" translate="label" type="text" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Improved Layered Navigation</label>
                 <field id="label" translate="label comment" type="label" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Status</label>

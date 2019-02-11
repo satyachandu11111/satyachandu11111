@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Sorting
  */
 
@@ -76,8 +76,14 @@ abstract class AbstractMethod extends AbstractDb implements MethodInterface
      */
     private $data;
 
+    /**
+     * @var \Magento\Framework\Escaper
+     */
+    private $escaper;
+
     public function __construct(
         Context $context,
+        \Magento\Framework\Escaper $escaper,
         $connectionName = null,
         $methodCode = '',
         $methodName = '',
@@ -97,6 +103,7 @@ abstract class AbstractMethod extends AbstractDb implements MethodInterface
         }
         $this->data = $data;
         parent::__construct($context, $connectionName);
+        $this->escaper = $escaper;
     }
 
     protected function _construct()
@@ -146,7 +153,12 @@ abstract class AbstractMethod extends AbstractDb implements MethodInterface
      */
     public function getMethodLabel($store = null)
     {
-        return __($this->getMethodName());
+        $label = $this->helper->getScopeValue($this->getMethodCode() . '/label', $store);
+        if (!$label) {
+            $label = __($this->getMethodName());
+        }
+
+        return $this->escaper->escapeHtml($label);
     }
 
     /**

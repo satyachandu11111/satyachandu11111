@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Sorting
  */
 
@@ -50,6 +50,7 @@ class Toprated extends AbstractIndexMethod
 
     public function __construct(
         Context $context,
+        \Magento\Framework\Escaper $escaper,
         \Magento\Review\Model\ResourceModel\Review $reviewResource,
         ApiClient $yotpoClient,
         TopratedModel $toprated,
@@ -58,24 +59,11 @@ class Toprated extends AbstractIndexMethod
         $methodCode = '',
         $methodName = ''
     ) {
-        parent::__construct($context, $connectionName, $methodCode, $methodName);
+        parent::__construct($context, $escaper, $connectionName, $methodCode, $methodName);
         $this->reviewResource = $reviewResource;
         $this->yotpoClient = $yotpoClient;
         $this->toprated = $toprated;
         $this->topratedCollectionFatory = $topratedCollectionFatory;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getMethodLabel($store = null)
-    {
-        $storeLabel = $this->helper->getScopeValue('rating_summary/label', $store);
-        if ($storeLabel) {
-            return $storeLabel;
-        }
-
-        return parent::getMethodLabel($store);
     }
 
     /**

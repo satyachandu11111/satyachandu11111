@@ -1,16 +1,18 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Sorting
  */
 
 
 namespace Amasty\Sorting\Plugin\Catalog\Product;
 
+use Amasty\Sorting\Model\Logger as AmastyLogger;
 use Amasty\Sorting\Model\MethodProvider;
 use Magento\Catalog\Block\Product\ListProduct as NativeList;
 use Magento\Catalog\Block\Product\ProductList\Toolbar;
+use Magento\Eav\Model\Entity\Collection\AbstractCollection;
 
 class ListProduct
 {
@@ -19,9 +21,15 @@ class ListProduct
      */
     private $methodProvider;
 
-    public function __construct(MethodProvider $methodProvider)
+    /**
+     * @var AmastyLogger
+     */
+    private $logger;
+
+    public function __construct(MethodProvider $methodProvider, AmastyLogger $logger)
     {
         $this->methodProvider = $methodProvider;
+        $this->logger = $logger;
     }
 
     /**
@@ -44,5 +52,18 @@ class ListProduct
         }
 
         return $identities;
+    }
+
+    /**
+     * @param NativeList $subject
+     * @param AbstractCollection $result
+     *
+     * @return AbstractCollection
+     */
+    public function afterGetLoadedProductCollection(NativeList $subject, $result)
+    {
+        $this->logger->logCollectionQuery($result);
+
+        return $result;
     }
 }

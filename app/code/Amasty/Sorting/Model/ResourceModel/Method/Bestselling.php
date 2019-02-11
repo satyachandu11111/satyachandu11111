@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Amasty Team
- * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
  * @package Amasty_Sorting
  */
 
@@ -21,19 +21,6 @@ class Bestselling extends AbstractIndexMethod
     public function getIndexTableName()
     {
         return 'amasty_sorting_bestsellers';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getMethodLabel($store = null)
-    {
-        $storeLabel = $this->helper->getScopeValue('bestsellers/label', $store);
-        if ($storeLabel) {
-            return $storeLabel;
-        }
-
-        return parent::getMethodLabel($store);
     }
 
     /**
