@@ -2082,11 +2082,25 @@ transition: all 5ms ease-in-out 0s;
 }
 .mb-60{
 	margin-bottom:6rem;
+	
+	@media @991{
+		margin-bottom: 3rem;
+	}
 }
 
 .mb-30{
 	margin-bottom: @font30;
 }
+
+.mb-30-mobile{
+	
+	@media @991{
+		margin-bottom: @font30;
+	}
+	
+}
+
+
 .mb-20{
 	margin-bottom: @font20;
 }
@@ -2095,9 +2109,17 @@ transition: all 5ms ease-in-out 0s;
 }
 .mbt-80{
 	margin-top:8rem;
+	
+	@media @991{
+		margin-top: 2rem;
+	}
 }
 .mbt-50{
 	margin-top:5rem;
+	
+	@media @991{
+		margin-top:  2rem;
+	}
 }
 .mbt-40{
 	margin-top:4rem;
@@ -4497,7 +4519,8 @@ transition: all 5ms ease-in-out 0s;
 
 			.price-box{
 				width: auto;
-				float: left;
+				float: none;
+				display: inline-block;
 				
 				@media @479{
 					width: 12rem;
@@ -4883,7 +4906,8 @@ transition: all 5ms ease-in-out 0s;
 		
 		.price-box{
 			width: auto;
-			float: left;
+			float: none;
+			display: inline-block;
 		}
 		.special-price .price{
 			font-size: @font16;
@@ -10589,6 +10613,10 @@ select{
 	.our-mission{
 		background: @f9light;
 		padding: 6rem 2rem;
+		
+		@media @991{
+			padding: 2rem;
+		}
 	}
 	.mission-statement{
 		background: @logo-black;
@@ -10603,6 +10631,12 @@ select{
 			float: none;
 			font-size: 5rem;
 			line-height: 1rem;
+		}
+	}
+	
+	.container{
+		@media @767{
+			padding: 0
 		}
 	}
 }
