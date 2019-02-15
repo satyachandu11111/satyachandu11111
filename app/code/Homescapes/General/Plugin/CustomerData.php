@@ -62,7 +62,7 @@ class CustomerData {
 		$currentCurrency = $this->storeConfig->getStore()->getCurrentCurrencyCode();		
         $currency = $this->currencyCode->load($currentCurrency);
         $currencySymbol = $currency->getCurrencySymbol();
-        $remaingAmount = $currencySymbol.$r_amount;
+        $remaingAmount = $currencySymbol.round($r_amount,2);
         
 
         // Append variable        
