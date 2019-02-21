@@ -1030,6 +1030,7 @@ table > thead > tr > th, table > tbody > tr > th, table > tfoot > tr > th, table
 	}
 	#customer-reviews .review-heading h2{
 		float: none;
+		margin-bottom: 0;
 	}
 	.title-box td{
 		width: 100%;
