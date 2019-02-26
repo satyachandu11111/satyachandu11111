@@ -63,14 +63,6 @@ define([
                     }
                 );
             }
-        },
-        /**
-         * Get the Gfs Logo
-         * @return string
-         */
-        getGfsLogoSrc : function()
-        {
-            return window.gfsLogoSrc;
         }
     };
 

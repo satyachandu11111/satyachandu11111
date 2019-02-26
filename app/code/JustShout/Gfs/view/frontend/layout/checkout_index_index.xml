@@ -46,11 +46,6 @@
                                         </item>
                                     </item>
                                 </item>
-                                <item name="sidebar" xsi:type="array">
-                                    <item name="config" xsi:type="array">
-                                        <item name="template" xsi:type="string">JustShout_Gfs/sidebar</item>
-                                    </item>
-                                </item>
                             </item>
                         </item>
                     </item>

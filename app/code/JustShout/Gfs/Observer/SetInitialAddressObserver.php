@@ -154,6 +154,10 @@ class SetInitialAddressObserver implements ObserverInterface
     {
         try {
             $customerAddress = $this->_accountManagement->getDefaultShippingAddress($customerId);
+            if (!$customerAddress) {
+                throw new \Exception();
+            }
+
             $address = $this->_addressFactory->create();
             $address->setCustomerAddressData($customerAddress);
             $address->setCustomerAddressId($customerAddress->getId());

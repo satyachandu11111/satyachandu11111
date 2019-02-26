@@ -5,6 +5,7 @@ define([
     'uiComponent',
     'Magento_Checkout/js/model/quote',
     'Magento_Checkout/js/model/shipping-service',
+    'Magento_Checkout/js/model/shipping-rate-registry',
     'mage/template',
     'mage/storage'
 ], function (
@@ -14,6 +15,7 @@ define([
     Component,
     quote,
     shippingService,
+    rateRegistry,
     mageTemplate,
     storage
 ) {
@@ -49,7 +51,20 @@ define([
                 }
             });
 
+            this._initialReload();
+
             return this;
+        },
+        _initialReload: function()
+        {
+            var address = quote.shippingAddress();
+            if (!address) {
+                return;
+            }
+            address.trigger_reload = new Date().getTime();
+            rateRegistry.set(address.getKey(), null);
+            rateRegistry.set(address.getCacheKey(), null);
+            quote.shippingAddress(address);
         },
         /**
          * This method will generate the Gfs Checkout Widget
@@ -64,7 +79,6 @@ define([
             storage.get('gfs/data/generate').done(function (response) {
                 if (response.data) {
                     $(self.checkoutWidgetContainer).html(self.generateGfsWidgetHtml(response));
-                    $('.gfs-shipping-information-content').html(self.generateGfsAddressWidgetHtml(response));
                     self.bindGfsEvents();
                 }
                 self.triggerProcessStop();
@@ -124,24 +138,6 @@ define([
             });
         },
         /**
-         * This method will generate the delivery address widget
-         *
-         * @param {Object} response
-         *
-         * @return string
-         */
-        generateGfsAddressWidgetHtml: function(response)
-        {
-            var initialAddress = response.initial_address,
-                gfsWidgetTemplate = mageTemplate('#gfs-delivery-address-template');
-
-            return gfsWidgetTemplate({
-                data: {
-                    'address': initialAddress
-                }
-            });
-        },
-        /**
          * Bind events from gfs checkout widget to callbacks
          *
          * @return void
@@ -194,6 +190,14 @@ define([
         triggerProcessStop : function()
         {
             $('body').trigger('processStop');
+        },
+        /**
+         * Get the Gfs Logo
+         * @return string
+         */
+        getGfsLogoSrc : function()
+        {
+            return window.gfsLogoSrc;
         }
     });
 });

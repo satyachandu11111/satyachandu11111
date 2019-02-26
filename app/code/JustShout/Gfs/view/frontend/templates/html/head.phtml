@@ -3,7 +3,6 @@
 <!-- GFS HEAD START -->
 <script src="<?= $block->getViewFileUrl('JustShout_Gfs::gfs-checkout/webcomponentsjs/webcomponents-lite.js') ?>"></script>
 <link rel="import" href="<?= $block->getViewFileUrl('JustShout_Gfs::gfs-checkout/gfs-checkout-widget/gfs-checkout-widget.html') ?>">
-<link rel="import" href="<?= $block->getViewFileUrl('JustShout_Gfs::gfs-checkout/gfs-delivery-address/gfs-delivery-address.html') ?>">
 
 <script>
     var gfsData = {
@@ -55,12 +54,6 @@
             default-min-delivery-time="<%- data.default_min_delivery_time %>"
             default-max-delivery-time="<%- data.default_max_delivery_time %>">
     </gfs-checkout>
-</script>
-
-<script id="gfs-delivery-address-template" type="text/x-magento-template">
-    <gfs-delivery-address
-            default-street-address="<%- data.address %>">
-    </gfs-delivery-address>
 </script>
 
 <script>

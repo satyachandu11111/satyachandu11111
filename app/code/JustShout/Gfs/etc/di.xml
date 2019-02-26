@@ -39,4 +39,6 @@
         <plugin name="setCreditMemoPdfDetails" type="JustShout\Gfs\Plugin\Sales\Model\Order\Pdf\CreditmemoPlugin"/>
     </type>
     <preference for="Magento\Email\Model\Template\Filter" type="JustShout\Gfs\Model\Email\Filter"/>
+    <preference for="Magento\Quote\Model\Quote\Address" type="JustShout\Gfs\Model\Quote\Address"/>
+    <preference for="Magento\Quote\Model\Quote\Address\Total\Shipping" type="JustShout\Gfs\Model\Quote\Address\Total\Shipping"/>
 </config>
