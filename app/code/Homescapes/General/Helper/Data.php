@@ -200,7 +200,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                 }else{
 
                     $r_amount= $freeShippingTotal-$subTotal;
-                    $remaingAmount = $currencySymbol.$r_amount;
+                    $remaingAmount = $currencySymbol.round($r_amount,2);
 
                     $deliveryMessage = 'Spend another <b>'.$remaingAmount.'</b> and you will qualify <b>for free delivery</b> on this order';
                 }
