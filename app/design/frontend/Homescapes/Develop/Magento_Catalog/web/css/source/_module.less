@@ -14,6 +14,9 @@
 @white:#ffffff;
 @767: ~"only screen and (max-width:767px)";
 @991: ~"only screen and (max-width:991px)";
+
+@semibold:600;
+@bold:600;
 //
 //  Variables
 //  _____________________________________________
@@ -63,7 +66,7 @@
     }
 
     .actual-price {
-        font-weight: 500;
+        font-weight: @semibold;
     }
 
     .product.name a {
@@ -223,7 +226,7 @@
                 .lib-font-size(14);
                 .price {
                     .lib-font-size(14);
-                    font-weight: 500;
+                    font-weight: @semibold;
                     line-height: 16px;
                 }
             }
@@ -237,7 +240,7 @@
             .old-price {
                 .price-wrapper .price {
                     .lib-font-size(20);
-					font-weight:500;
+					font-weight:@semibold;
 					color: #8A8A8A;
 					text-decoration: line-through;
                 }
@@ -284,7 +287,7 @@
 
             .available,
             .unavailable {
-                font-weight:500;
+                font-weight:@semibold;
                 text-transform:capitalize;
 				border-radius: .3rem;
 				font-size: 1rem;
@@ -325,7 +328,7 @@
             &.attribute {
                 &.sku {
                     .type {
-                        font-weight:500;
+                        font-weight:@semibold;
                         margin-right:.2rem;
 
                         &:after {
@@ -334,7 +337,7 @@
                     }
 
                     .value {
-                        font-weight:500;
+                        font-weight:@semibold;
                         display: inline-block;
                     }
                 }
@@ -370,7 +373,7 @@
     .product-options-wrapper {
         .fieldset-product-options-inner {
             .legend {
-                .lib-css(font-weight, 500);
+                .lib-css(font-weight, @semibold);
                 .lib-font-size(14px);
                 border: none;
                 display: inline-block;
@@ -443,7 +446,7 @@
 
             .price {
                 font-size: 28px;
-                font-weight: 500;
+                font-weight: @semibold;
                 line-height: 22px;
             }
 
@@ -455,7 +458,7 @@
 
                 .price {
                     .lib-font-size(12);
-                    font-weight: 500;
+                    font-weight: @semibold;
                 }
             }
         }
