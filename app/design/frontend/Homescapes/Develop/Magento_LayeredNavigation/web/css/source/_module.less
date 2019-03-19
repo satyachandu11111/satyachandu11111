@@ -7,6 +7,11 @@
 //  Common
 //  _____________________________________________
 @f2light:#F2F2F2;
+
+@semibold:600;
+@bold:600;
+
+
 @f9light:#F9F9F9;
 @flight:#eeeeee;
 @767: ~"only screen and (max-width:767px)";
@@ -37,7 +42,7 @@
 				@media @767{
 					right: 0;
 					text-align: left;
-					font-weight: 500;
+					font-weight: @semibold;
 					font-size: 1.6rem;
 					padding: @indent__s;
 					border: none;
@@ -65,7 +70,7 @@
         .block-subtitle {
             border-bottom: @border-width__base solid @border-color__base;
             font-size: @font-size__base;
-            font-weight: 500;
+            font-weight: @semibold;
             line-height: 1em;
             padding: @indent__s @indent__s @indent__base;
 			display: none;
@@ -108,7 +113,7 @@
         }
 
         &-label {
-            font-weight:500;
+            font-weight:@semibold;
 
             &:after {
                 content: ': ';
@@ -130,7 +135,7 @@
 
             &-title {
                 cursor: pointer;
-                font-weight:500;
+                font-weight:@semibold;
                 margin: 0;
                 overflow: hidden;
                 padding: @indent__s @indent__s + 30px @indent__s @indent__s;
