@@ -10,11 +10,8 @@
   box-sizing: border-box;
 }
 
-/*#customer-reviews, input[type="text"], input[type="password"], input[type="url"], input[type="tel"], input[type="search"], input[type="number"], input[type="datetime"], input[type="email"]  {
-	font-family: 'Nunito', sans-serif;
-}*/
 
-body {
+body, .tooltip, input[type="text"], input[type="password"], input[type="url"], input[type="tel"], input[type="search"], input[type="number"], input[type="datetime"], input[type="email"] {
 	font-family: 'Nunito', sans-serif;
 }
 

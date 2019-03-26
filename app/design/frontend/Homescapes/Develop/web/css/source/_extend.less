@@ -165,7 +165,6 @@ p{
 
 .action.primary{
 	font-weight: 400;
-	font-family: 'Roboto', sans-serif;
 }
 .action.primary,
 .action-primary:hover,
@@ -350,6 +349,10 @@ ul > li, ol > li{
 |  heading  CSS
 
 --------------------------------------------------------------------------*/
+
+h1, h2, h3, h4, h5, h6{
+	text-transform: capitalize;
+}
 
 h1, .h1 {
   font-size:@font23;
@@ -8205,7 +8208,7 @@ transition: all 5ms ease-in-out 0s;
 		
 		.pro-name, .shop-now{
 			font-size: @font16;
-			text-transform: uppercase;
+			text-transform: capitalize;
 			font-weight: @semibold;
 		}
 		.pro-name{
@@ -8355,7 +8358,7 @@ transition: all 5ms ease-in-out 0s;
 				width: 100%;
 				font-size: 16px;
 				color: @black;
-				text-transform: uppercase;
+				text-transform: capitalize;
 				font-weight: @semibold;
 				margin: 40px 0 30px;
 				line-height: 1.7;
@@ -8862,7 +8865,7 @@ transition: all 5ms ease-in-out 0s;
 						width: 100%;
 						font-size: @font16;;
 						color: @black;
-						text-transform: uppercase;
+						text-transform: capitalize;
 						font-weight: @semibold;
 						margin: 4rem 0 3rem;
 						line-height: 1.7;
