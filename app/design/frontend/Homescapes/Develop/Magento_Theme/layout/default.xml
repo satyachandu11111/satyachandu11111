@@ -10,7 +10,7 @@
     <body>
         <referenceContainer name="header.panel">
             <block class="Magento\Framework\View\Element\Html\Links" name="header.links">
-                <arguments>
+			<arguments>
                     <argument name="css_class" xsi:type="string">header links</argument>
                 </arguments>
             </block>            
