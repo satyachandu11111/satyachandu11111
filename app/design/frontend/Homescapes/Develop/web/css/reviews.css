@@ -96,7 +96,7 @@ background-size: 300px 1300px;
   text-transform: capitalize;
   font-size: 14px;
   color: #1c1c1c;
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 0px;
 }
 .rating-review li.average-ratings .dyn-rating .ratings {
@@ -107,7 +107,7 @@ background-size: 300px 1300px;
 }
 .rating-review li.average-ratings .dyn-rating p {
   color: #2f2f2f;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 34px;
   line-height: 30px;
 }
@@ -229,7 +229,7 @@ background-size: 300px 1300px;
 
 .rating-review .recommends-items .dyn-rating p {
   color: #2f2f2f;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 24px;
   line-height: 18px;
 }
@@ -300,7 +300,7 @@ background-size: 300px 1300px;
   margin-top: 10px;
   padding: 8px 40px;
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
 }
 .rating-review .write-review .write-review:hover {
   background: #2f2f2f;
@@ -496,7 +496,7 @@ background-size: 300px 1300px;
 #customer-reviews dl dd p.title {
   color: #444444;
   float: left;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 16px;
   margin-bottom: 2px;
   width: 100%;
@@ -568,7 +568,7 @@ background-size: 300px 1300px;
   border-radius: 4px;
   color: #2f2f2f;
   float: left;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 15px;
   padding: 15px 24px 15px 15px;
   text-transform: unset;
@@ -612,7 +612,7 @@ background-size: 300px 1300px;
 }
 .review-summary-table ul li:nth-child(1) {
   color: #444444;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 12px;
   text-transform: uppercase;
   padding: 2px 0 10px;
@@ -823,7 +823,7 @@ table > thead > tr > th, table > tbody > tr > th, table > tfoot > tr > th, table
 
 .form-add h2 {
   color: #686868;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 34px;
   margin-bottom: 20px;
   text-align: center;
@@ -832,7 +832,7 @@ table > thead > tr > th, table > tbody > tr > th, table > tfoot > tr > th, table
 
 #review-form h3 {
   color: #1c1c1c;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 21px;
   text-align: center;
   text-transform: capitalize;
@@ -854,7 +854,7 @@ table > thead > tr > th, table > tbody > tr > th, table > tfoot > tr > th, table
 #review-form .buttons-set button.button {
   float: left;
   border-radius: 3px;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 15px;
   padding: 10px 15px;
 }

@@ -9,6 +9,10 @@
 
 @review-ratings-left: 280px;
 @991: ~"only screen and (max-width:991px)";
+
+
+@semibold:600;
+@bold:600;
 //
 //  Common
 //  _____________________________________________
@@ -118,13 +122,13 @@
 
             strong {
                 display: block;
-                font-weight: 500;
+                font-weight: @semibold;
             }
         }
 
         .fieldset &-field-ratings {
             > .label {
-                font-weight: 500;
+                font-weight: @semibold;
                 margin-bottom: @indent__s;
                 padding: 0;
             }
@@ -140,7 +144,7 @@
 
         &-field-rating {
             .label {
-                font-weight: 500;
+                font-weight: @semibold;
             }
 
             .control {
@@ -454,7 +458,7 @@
             .review-title {
 				margin:0 0 1rem 0;
 				font-size: 1.6rem;
-				font-weight:500;
+				font-weight:@semibold;
             }
 
             .review-content {
