@@ -93,3 +93,4 @@ The minimum delivery time in days of the default service to be offered to the cu
 Default Max Delivery Time,Default Max Delivery Time
 The maximum delivery time in days of the default service to be offered to the customer in the event that the widget cannot contact the GFS Checkout server.,The maximum delivery time in days of the default service to be offered to the customer in the event that the widget cannot contact the GFS Checkout server.
 GFS Shipping Details,GFS Shipping Details
+There are no services available on this day,There are no services available on this day

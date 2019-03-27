@@ -3,6 +3,7 @@
 namespace JustShout\Gfs\Observer;
 
 use JustShout\Gfs\Logger\Logger;
+use JustShout\Gfs\Model\Gfs\Cookie;
 use Magento\Customer\Api\AccountManagementInterface;
 use Magento\Customer\Model\Customer;
 use Magento\Customer\Model\Session as CustomerSession;
@@ -11,6 +12,7 @@ use Magento\Checkout\Model\Session as CheckoutSession;
 use Magento\Checkout\Model\SessionFactory as CheckoutSessionFactory;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
+use Magento\Framework\Serialize\Serializer\Json;
 use Magento\Quote\Api\CartRepositoryInterface;
 use Magento\Quote\Model\Quote;
 
@@ -49,6 +51,20 @@ class SetInitialAddressObserver implements ObserverInterface
     protected $_quoteRepository;
 
     /**
+     * Json
+     *
+     * @var Json
+     */
+    protected $_json;
+
+    /**
+     * Gfs Address Cookie
+     *
+     * @var Cookie\Address
+     */
+    protected $_addressCookie;
+
+    /**
      * @var Logger
      */
     protected $_logger;
@@ -61,6 +77,8 @@ class SetInitialAddressObserver implements ObserverInterface
      * @param AccountManagementInterface $accountManagement
      * @param Quote\AddressFactory       $addressFactory
      * @param CartRepositoryInterface    $quoteRepository
+     * @param Json                       $json
+     * @param Cookie\Address             $addressCookie
      * @param Logger                     $logger
      */
     public function __construct(
@@ -69,6 +87,8 @@ class SetInitialAddressObserver implements ObserverInterface
         AccountManagementInterface $accountManagement,
         Quote\AddressFactory       $addressFactory,
         CartRepositoryInterface    $quoteRepository,
+        Json                       $json,
+        Cookie\Address             $addressCookie,
         Logger                     $logger
     ) {
         $this->_customerSessionFactory = $customerSessionFactory;
@@ -76,6 +96,8 @@ class SetInitialAddressObserver implements ObserverInterface
         $this->_accountManagement = $accountManagement;
         $this->_addressFactory = $addressFactory;
         $this->_quoteRepository = $quoteRepository;
+        $this->_json = $json;
+        $this->_addressCookie = $addressCookie;
         $this->_logger = $logger;
     }
 
@@ -95,20 +117,29 @@ class SetInitialAddressObserver implements ObserverInterface
             }
 
             $quote = $this->_getQuote();
-            if (!$quote->getId()) {
+            if (!$quoteId = $quote->getId()) {
                 return $this;
             }
 
-            $postCode = $quote->getShippingAddress()->getPostcode();
+            $shippingAddress = $quote->getShippingAddress();
+            $postCode = $shippingAddress->getPostcode();
             if ($postCode) {
-                return $this;
-            }
+                $sessionAddress = $this->_json->serialize($shippingAddress->getData());
+                $this->_addressCookie->set($sessionAddress);
 
-            $address = $this->_getDefaultAddress((int)$customer->getId());
-            if ($address) {
-                $quote->setShippingAddress($address)
-                    ->setBillingAddress($address)->save();
-                $this->_quoteRepository->save($quote);
+                return $this;
+            } else {
+                $address = $this->_getDefaultAddress((int) $customer->getId());
+
+                if ($address) {
+                    $quote->setShippingAddress($address)
+                        ->setBillingAddress($address)->save();
+                    $this->_quoteRepository->save($quote);
+                    /** @var Quote $updatedQuote */
+                    $updatedQuote = $this->_quoteRepository->get((int) $quoteId);
+                    $sessionAddress = $this->_json->serialize($updatedQuote->getShippingAddress()->getData());
+                    $this->_addressCookie->set($sessionAddress);
+                }
             }
         } catch (\Exception $e) {
             $this->_logger->info($e->getMessage());

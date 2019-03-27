@@ -29,6 +29,10 @@
                 <color_primary><![CDATA[#B20000]]]></color_primary>
                 <color_secondary><![CDATA[#FFFFFF]]]></color_secondary>
                 <color_tertiary><![CDATA[#000000]]]></color_tertiary>
+                <show_calendar_no_services>0</show_calendar_no_services>
+                <calendar_no_services><![CDATA[There are no services available on this day]]]></calendar_no_services>
+                <disable_prev_days>0</disable_prev_days>
+                <disable_next_days>0</disable_next_days>
             </gfs>
         </carriers>
     </default>

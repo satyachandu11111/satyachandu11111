@@ -245,6 +245,69 @@
                         <field id="carriers/gfs/active">1</field>
                     </depends>
                 </field>
+                <field id="show_calendar_no_services" translate="label" type="select" sortOrder="27" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Show Calendar No Services</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Enables a message if no services for selected day. Default set to No.]]></comment>
+                    <depends>
+                        <field id="carriers/gfs/active">1</field>
+                    </depends>
+                </field>
+                <field id="calendar_no_services" translate="label comment" type="text" sortOrder="28" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Calendar No Services</label>
+                    <comment><![CDATA[Sets a notification messages if no services on selected date. Default set to "There are no services available on this day".]]></comment>
+                    <depends>
+                        <field id="carriers/gfs/active">1</field>
+                        <field id="carriers/gfs/show_calendar_no_services">1</field>
+                    </depends>
+                </field>
+                <field id="day_labels" translate="label comment" sortOrder="29" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Day Labels</label>
+                    <frontend_model>JustShout\Gfs\Block\Adminhtml\System\Config\DayLabels</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                    <depends>
+                        <field id="carriers/gfs/active">1</field>
+                    </depends>
+                    <comment>
+                        <![CDATA[Sets the calendar week days. Can also be used to localize the days. Default set to day-labels='["Su","Mo","Tu","We","Th","Fr","Sa"]'. Order must remain as it is.]]>
+                    </comment>
+                </field>
+                <field id="month_labels" translate="label comment" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Month Labels</label>
+                    <frontend_model>JustShout\Gfs\Block\Adminhtml\System\Config\MonthLabels</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                    <depends>
+                        <field id="carriers/gfs/active">1</field>
+                    </depends>
+                    <comment>
+                        <![CDATA[Sets the calendar months. Can also be used to localize the months. Default set to month-labels='["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]'. Order must remain as it is.]]>
+                    </comment>
+                </field>
+                <field id="disabled_dates" translate="label" type="multiselect" sortOrder="31" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Disabled Dates</label>
+                    <comment><![CDATA[Disable specific dates. ex. disabled-dates="[4, 10, 12, 19, 30]". A day that have available services will override this.]]></comment>
+                    <source_model>JustShout\Gfs\Model\Config\Source\DisabledDates</source_model>
+                    <can_be_empty>1</can_be_empty>
+                    <depends>
+                        <field id="carriers/gfs/active">1</field>
+                    </depends>
+                </field>
+                <field id="disable_prev_days" translate="label" type="select" sortOrder="32" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Disabled Previous Days</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Disable previous visible month days. ex.: disable-prev-days="true". Default set to false.]]></comment>
+                    <depends>
+                        <field id="carriers/gfs/active">1</field>
+                    </depends>
+                </field>
+                <field id="disable_next_days" translate="label" type="select" sortOrder="33" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Disabled Next Days</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Disable next visible month days.  Default set to false.]]></comment>
+                    <depends>
+                        <field id="carriers/gfs/active">1</field>
+                    </depends>
+                </field>
             </group>
         </section>
     </system>

@@ -354,11 +354,9 @@ class Data
             }
 
             $fields[] = [
-                'CustomFieldDTO' => [
-                    'FieldName'  => $fieldNumber,
-                    'FieldType'  => $type,
-                    'FieldValue' => $value,
-                ]
+                'FieldName'  => $fieldNumber,
+                'FieldType'  => $type,
+                'FieldValue' => $value,
             ];
 
             $fieldNumber++;

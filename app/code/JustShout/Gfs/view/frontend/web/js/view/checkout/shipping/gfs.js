@@ -132,6 +132,13 @@ define([
                     'default_price': window.gfsData.default_price,
                     'default_min_delivery_time': window.gfsData.default_min_delivery_time,
                     'default_max_delivery_time': window.gfsData.default_max_delivery_time,
+                    'show_calendar_no_services': window.gfsData.show_calendar_no_services,
+                    'calendar_no_services': window.gfsData.calendar_no_services,
+                    'day_labels': window.gfsData.day_labels,
+                    'month_labels': window.gfsData.month_labels,
+                    'disabled_dates': window.gfsData.disabled_dates,
+                    'disable_prev_days': window.gfsData.disable_prev_days,
+                    'disable_next_days': window.gfsData.disable_next_days,
                     'gfs_data': gfsData,
                     'initial_address': initialAddress
                 }

@@ -22,7 +22,14 @@
         'default_carrier_code': '<?= $block->getDefaultCarrierCode() ?>',
         'default_price': '<?= $block->getDefaultPrice() ?>',
         'default_min_delivery_time': '<?= $block->getDefaultMinDeliveryTime() ?>',
-        'default_max_delivery_time': '<?= $block->getDefaultMaxDeliveryTime() ?>'
+        'default_max_delivery_time': '<?= $block->getDefaultMaxDeliveryTime() ?>',
+        'show_calendar_no_services': '<?= $block->getShowCalendarNoService() ?>',
+        'calendar_no_services': '<?= $block->getCalendarNoService() ?>',
+        'day_labels': '<?= $block->getDayLabels() ?>',
+        'month_labels': '<?= $block->getMonthLabels() ?>',
+        'disabled_dates': '<?= $block->getDisabledDates() ?>',
+        'disable_prev_days': '<?= $block->getDisabledPrevDays() ?>',
+        'disable_next_days': '<?= $block->getDisabledNextDays() ?>'
     };
     var gfsLogoSrc = '<?= $block->getGfsLogoSrc() ?>';
 </script>
@@ -52,7 +59,14 @@
             default-carrier-code="<%- data.default_carrier_code %>"
             default-price="<%- data.default_price %>"
             default-min-delivery-time="<%- data.default_min_delivery_time %>"
-            default-max-delivery-time="<%- data.default_max_delivery_time %>">
+            default-max-delivery-time="<%- data.default_max_delivery_time %>"
+            show-calendar-no-services="<%- data.show_calendar_no_services %>"
+            calendar-no-services="<%- data.calendar_no_services %>"
+            day-labels='<%- data.day_labels %>'
+            month-labels='<%- data.month_labels %>'
+            disabled-dates='<%- data.disabled_dates %>'
+            disable-prev-days="<%- data.disable_prev_days %>"
+            disable-next-days="<%- data.disable_next_days %>">
     </gfs-checkout>
 </script>
 

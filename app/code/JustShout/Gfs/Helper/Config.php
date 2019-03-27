@@ -159,6 +159,41 @@ class Config extends Data
     const CONFIG_DEFAULT_MAX_DELIVERY_TIME = 'carriers/gfs/default_max_delivery_time';
 
     /**
+     * Calendar Show No Service
+     */
+    const CONFIG_SHOW_CALENDAR_NO_SERVICES = 'carriers/gfs/show_calendar_no_services';
+
+    /**
+     * Calendar No Service Message
+     */
+    const CONFIG_CALENDAR_NO_SERVICES = 'carriers/gfs/calendar_no_services';
+
+    /**
+     * Day Labels
+     */
+    const CONFIG_DAY_LABELS = 'carriers/gfs/day_labels';
+
+    /**
+     * Month Labels
+     */
+    const CONFIG_MONTH_LABELS = 'carriers/gfs/month_labels';
+
+    /**
+     * Disabled Dates
+     */
+    const CONFIG_DISABLED_DATES = 'carriers/gfs/disabled_dates';
+
+    /**
+     * Disable Prev Days
+     */
+    const CONFIG_DISABLE_PREV_DAYS = 'carriers/gfs/disable_prev_days';
+
+    /**
+     * Disable Next Days
+     */
+    const CONFIG_DISABLE_NEXT_DAYS = 'carriers/gfs/disable_next_days';
+
+    /**
      * Encryptor
      *
      * @var EncryptorInterface
@@ -239,9 +274,9 @@ class Config extends Data
      */
     public function getMethodTitle()
     {
-        $title = $this->scopeConfig->getValue(self::CONFIG_METHOD_TITLE, ScopeInterface::SCOPE_STORE);
+        $title = trim($this->scopeConfig->getValue(self::CONFIG_METHOD_TITLE, ScopeInterface::SCOPE_STORE));
         if (!$title) {
-            $title = __('Just Shout GFS Delivery');
+            $title = __('GFS Delivery');
         }
 
         return $title;
@@ -254,9 +289,9 @@ class Config extends Data
      */
     public function getMethodName()
     {
-        $name = $this->scopeConfig->getValue(self::CONFIG_METHOD_NAME, ScopeInterface::SCOPE_STORE);
+        $name = trim($this->scopeConfig->getValue(self::CONFIG_METHOD_NAME, ScopeInterface::SCOPE_STORE));
         if (!$name) {
-            $name = __('Just Shout GFS Delivery');
+            $name = __('GFS Delivery');
         }
 
         return $name;
@@ -601,5 +636,188 @@ class Config extends Data
     public function getDefaultMaxDeliveryTime()
     {
         return (int) $this->scopeConfig->getValue(self::CONFIG_DEFAULT_MAX_DELIVERY_TIME, ScopeInterface::SCOPE_STORE);
+    }
+
+    /**
+     * Show Calendar No Service
+     *
+     * @return bool
+     */
+    public function getShowCalendarNoService()
+    {
+        return (bool) $this->scopeConfig->getValue(self::CONFIG_SHOW_CALENDAR_NO_SERVICES, ScopeInterface::SCOPE_STORE);
+    }
+
+    /**
+     * Calendar No Service Message
+     *
+     * @return string
+     */
+    public function getCalendarNoService()
+    {
+        return $this->scopeConfig->getValue(self::CONFIG_CALENDAR_NO_SERVICES, ScopeInterface::SCOPE_STORE);
+    }
+
+    /**
+     * Get Day Labels
+     *
+     * @return array
+     */
+    public function getDayLabels()
+    {
+        $labels = [
+            'Su' => 'Su',
+            'Mo' => 'Mo',
+            'Tu' => 'Tu',
+            'We' => 'We',
+            'Th' => 'Th',
+            'Fr' => 'Fr',
+            'Sa' => 'Sa',
+        ];
+
+        try {
+            $days = $this->_getDayLabels();
+            if (empty($labels)) {
+                return array_values($labels);
+            }
+            foreach ($days as $key => $value) {
+                if (!isset($labels[$key])) {
+                    continue;
+                }
+                $labels[$key] = $value;
+            }
+        } catch (\InvalidArgumentException $e) {
+            $this->_logger->debug('Issue retrieving day labels. Please resolve.');
+        } catch (\Exception $e) {
+            $this->_logger->debug('Issue retrieving day labels. Please resolve.');
+        }
+
+        return array_values($labels);
+    }
+
+    /**
+     * Get Day Labels
+     *
+     * @return array
+     *
+     * @throws \Exception
+     */
+    protected function _getDayLabels()
+    {
+        $labels = [];
+        $value = $this->scopeConfig->getValue(self::CONFIG_DAY_LABELS, ScopeInterface::SCOPE_STORE);
+        if (!$value) {
+            throw new \Exception();
+        }
+        $days = $this->_json->unserialize($value);
+        foreach ($days as $day) {
+            if (!$day['day'] || !$day['label']) {
+                continue;
+            }
+            $labels[$day['day']] = $day['label'];
+        }
+
+        return $labels;
+    }
+
+    /**
+     * Get Month Labels
+     *
+     * @return array
+     */
+    public function getMonthLabels()
+    {
+        $labels = [
+            'January'   => 'January',
+            'February'  => 'February',
+            'March'     => 'March',
+            'April'     => 'April',
+            'May'       => 'May',
+            'June'      => 'May',
+            'July'      => 'July',
+            'August'    => 'August',
+            'September' => 'September',
+            'October'   => 'October',
+            'November'  => 'November',
+            'December'  => 'December',
+        ];
+
+        try {
+            $days = $this->_getMonthLabels();
+            if (empty($labels)) {
+                return array_values($labels);
+            }
+            foreach ($days as $key => $value) {
+                if (!isset($labels[$key])) {
+                    continue;
+                }
+                $labels[$key] = $value;
+            }
+        } catch (\InvalidArgumentException $e) {
+            $this->_logger->debug('Issue retrieving month labels. Please resolve.');
+        } catch (\Exception $e) {
+            $this->_logger->debug('Issue retrieving month labels. Please resolve.');
+        }
+
+        return array_values($labels);
+    }
+
+    /**
+     * Get Day Labels
+     *
+     * @return array
+     *
+     * @throws \Exception
+     */
+    protected function _getMonthLabels()
+    {
+        $labels = [];
+        $value = $this->scopeConfig->getValue(self::CONFIG_MONTH_LABELS, ScopeInterface::SCOPE_STORE);
+        if (!$value) {
+            throw new \Exception();
+        }
+        $months = $this->_json->unserialize($value);
+        foreach ($months as $month) {
+            if (!$month['month'] || !$month['label']) {
+                continue;
+            }
+            $labels[$month['month']] = $month['label'];
+        }
+
+        return $labels;
+    }
+
+    /**
+     * Get Disabled Dates
+     *
+     * @return array
+     */
+    public function getDisabledDates()
+    {
+        $disabledDates = $this->scopeConfig->getValue(self::CONFIG_DISABLED_DATES, ScopeInterface::SCOPE_STORE);
+        $disabledDates = explode(',', $disabledDates);
+        $disabledDates = array_filter($disabledDates);
+
+        return $disabledDates;
+    }
+
+    /**
+     * Get Disabled Prev Days
+     *
+     * @return bool
+     */
+    public function getDisabledPrevDays()
+    {
+        return (bool) $this->scopeConfig->getValue(self::CONFIG_DISABLE_PREV_DAYS, ScopeInterface::SCOPE_STORE);
+    }
+
+    /**
+     * Get Disabled Next Days
+     *
+     * @return bool
+     */
+    public function getDisabledNextDays()
+    {
+        return (bool) $this->scopeConfig->getValue(self::CONFIG_DISABLE_NEXT_DAYS, ScopeInterface::SCOPE_STORE);
     }
 }

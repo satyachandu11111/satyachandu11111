@@ -287,6 +287,84 @@ class Head extends Template
     }
 
     /**
+     * Show Calendar No Service
+     *
+     * @return string
+     */
+    public function getShowCalendarNoService()
+    {
+        return $this->_config->getShowCalendarNoService() ? 'true' : 'false';
+    }
+
+    /**
+     * Calendar No Service Message
+     *
+     * @return string
+     */
+    public function getCalendarNoService()
+    {
+        return $this->_config->getCalendarNoService();
+    }
+
+    /**
+     * Get Day Labels
+     *
+     * @return string
+     */
+    public function getDayLabels()
+    {
+        $labels = $this->_config->getDayLabels();
+
+        return '[' . implode(',', array_map(function($string) {
+            return '"' . $string . '"';
+        }, $labels)) . ']';
+    }
+
+    /**
+     * Get Month Labels
+     *
+     * @return string
+     */
+    public function getMonthLabels()
+    {
+        $labels = $this->_config->getMonthLabels();
+
+        return '[' . implode(',', array_map(function($string) {
+            return '"' . $string . '"';
+        }, $labels)) . ']';
+    }
+
+    /**
+     * Get Disabled Dates
+     *
+     * @return string
+     */
+    public function getDisabledDates()
+    {
+        return '[' . implode(',', $this->_config->getDisabledDates()) . ']';
+    }
+
+    /**
+     * Get Disabled Prev Days
+     *
+     * @return string
+     */
+    public function getDisabledPrevDays()
+    {
+        return $this->_config->getDisabledPrevDays() ? 'true' : 'false';
+    }
+
+    /**
+     * Get Disabled Next Days
+     *
+     * @return string
+     */
+    public function getDisabledNextDays()
+    {
+        return $this->_config->getDisabledNextDays() ? 'true' : 'false';
+    }
+
+    /**
      * Get Gfs Logo Url
      *
      * @return string
