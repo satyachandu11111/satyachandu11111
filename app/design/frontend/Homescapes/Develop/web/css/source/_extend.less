@@ -3,12 +3,14 @@
 /*--------------------------------------------------------------------------
 / Theme Colors
 --------------------------------------------------------------------------*/
-@logo-black: #5d5d5d;
-@black: #555;
+
+@black:#555555;
 @light-black:#626166;
 @white:#ffffff;
 @yellow:#f5ba00;
 @slider-color:#171626;
+
+@logo-black:#5d5d5d;
 
 @light-grey:#707070;
 @f2light:#F2F2F2;
@@ -44,6 +46,17 @@
 @pinterest:#c51825;
 @blog:#e78838;
 
+@lightbtn:#e2e6ea;
+
+/* rugs color */
+
+@grey:#797979;
+@yellow:#ffd800;
+@brown:#673e0f;
+@cream:#f8ebd8;
+@pink:#d65cb1;
+@orange:#ff4800;
+@purple:#95349e;
 /*--------------------------------------------------------------------------
 |  Font-size
 --------------------------------------------------------------------------*/
@@ -413,6 +426,9 @@ h6, .h6 {
 			
 			.label{
 				float: left;
+
+
+
 			}
 			.price-container{
 				float: left;
@@ -1971,6 +1987,7 @@ transition: all 5ms ease-in-out 0s;
 				background-position: 6px -210px;
 				float: left;
 				height: 64px;
+
 				margin-right: 5px;
 				width: 64px;
 			}	
@@ -2133,7 +2150,7 @@ transition: all 5ms ease-in-out 0s;
 	margin-top:4rem;
 }
 .mbt-30{
-	margin-top:4rem;
+	margin-top:3rem;
 }
 .mbt-20{
 	margin-top: @font20;
@@ -2656,6 +2673,7 @@ transition: all 5ms ease-in-out 0s;
     .carousel-inner .active + .carousel-item + .carousel-item + .carousel-item,
     .carousel-inner .active + .carousel-item + .carousel-item + .carousel-item + .carousel-item,
     .carousel-inner .active + .carousel-item + .carousel-item + .carousel-item + .carousel-item + .carousel-item  {
+
         display: block;
 
     }
@@ -2804,12 +2822,13 @@ transition: all 5ms ease-in-out 0s;
 |  Category CMS pages.
 --------------------------------------------------------------------------*/
 .category-curtains .popular-category{
-	margin: 0;
+	margin: 1rem 0 3rem 0;
 }
 .popular-category{
 	background: @f9light;
 	padding: @font20 @font30;
 	margin: @font40 0;
+	float: left;
 	
 	@media @991{
 		margin-bottom: 1rem;
@@ -2867,6 +2886,27 @@ transition: all 5ms ease-in-out 0s;
 	
 	.col-lg-5, .col-lg-7{
 		padding: 0;
+	}
+	
+	
+	.mattress{
+		background: @f9light;
+		float: left;
+		width: 100%;
+		padding: 2rem;
+		color: @black;
+		
+		ul{
+			margin-left: @font20;
+		}
+		
+		ul li{
+			display: list-item;
+			line-height: @font30;
+			width: 100%;
+			font-size: 1.5rem;
+			list-style-type: disc;
+		}
 	}
 	
 	.category-sale{
@@ -3079,6 +3119,7 @@ transition: all 5ms ease-in-out 0s;
 	
 	margin-bottom: @font40;
 	padding: 0;
+	float: 	left;
 	
 	@media @991{
 		margin-bottom:1rem;
@@ -3281,6 +3322,7 @@ transition: all 5ms ease-in-out 0s;
 	float: left;
 	margin-bottom: 4rem;
 	width: 100%;
+
 	
 	.head {
 		
@@ -4012,6 +4054,7 @@ transition: all 5ms ease-in-out 0s;
 				}
 				
 				
+
 			}
 
 		}
@@ -4522,6 +4565,7 @@ transition: all 5ms ease-in-out 0s;
 			
 			@media @479{
 				float: left;
+
 				display: block !important;
 				width: 100%;
 			}
@@ -6020,6 +6064,7 @@ transition: all 5ms ease-in-out 0s;
 			background-position:-162px -324px;
 		}
 		@media @767 and (min--moz-device-pixel-ratio:0) {
+
 			background-position:-162px -278px;
 		}
 	}
@@ -6103,6 +6148,8 @@ transition: all 5ms ease-in-out 0s;
 		padding: 1rem 0;
 		border-radius: .2rem;
 		
+		max-width: 21%;
+		
 		display: none;
 		
 		@media @992{
@@ -6146,8 +6193,20 @@ transition: all 5ms ease-in-out 0s;
 	
 	.guide-content{
 		
+		flex: 0 0 79%;
+		max-width: 100%;
+		
+		@media @991{
+			flex: 0 0 100%;
+		}
+		
+		
 		@media @639{
 			overflow:scroll;
+		}
+		
+		h5{
+			margin-bottom: .2rem;
 		}
 		
 		ul{
@@ -6173,6 +6232,14 @@ transition: all 5ms ease-in-out 0s;
 		.choose-p{
 			max-width: 63rem;
 		}
+		
+		.guide-grid.g1{
+			li{
+				width: 33%;
+				text-align: right;
+			}
+		}
+		
 		.guide-grid{
 			
 			list-style-type: none;
@@ -6181,6 +6248,8 @@ transition: all 5ms ease-in-out 0s;
 			
 			@media @767{
 				display: block;
+				width: 100%;
+				float: left;
 			}
 			
 			li{
@@ -6193,9 +6262,7 @@ transition: all 5ms ease-in-out 0s;
 					margin: 1rem;
 				}
 				@media @639{
-					width: 85%;
-					margin: 1rem auto;
-					float: none;
+					width: 44%;
 				}
 				
 				img{
@@ -6206,14 +6273,8 @@ transition: all 5ms ease-in-out 0s;
 			.grey-box{
 				background:@f9light;
 				padding: 10px;
-				min-height: 30.8rem;
+				line-height: @font20;
 				
-				@media @767{
-					min-height: 22rem;
-				}
-				@media @639{
-					min-height: auto;
-				}
 			}
 		}
 		.button{
@@ -6253,6 +6314,7 @@ transition: all 5ms ease-in-out 0s;
 				&:nth-child(2n) {
 					margin-right: 2%;
 				}
+				
 			}
 			
 		}
@@ -6283,6 +6345,7 @@ transition: all 5ms ease-in-out 0s;
 				background: @f9light;
 				border: 4px solid @white;
 				padding: .75rem 1.5rem;
+				font-weight: @semibold;
 			}
 		}
 	}
@@ -6525,6 +6588,7 @@ transition: all 5ms ease-in-out 0s;
 			}
 		}
 		
+
 		li.item:nth-child(3n+1){
 			margin: 0 0 2% 0;
 			
@@ -6979,6 +7043,7 @@ transition: all 5ms ease-in-out 0s;
 		  color: #1c1c1c;
 		  font-weight: @semibold;
 		  font-size: 16px;
+
 		  padding-left: 30px;
 		  line-height: 25px;
 		  text-transform: capitalize;
@@ -8494,6 +8559,8 @@ transition: all 5ms ease-in-out 0s;
 		margin: .5rem 0 0 0;
 		
 		.offer-tag {
+			
+			display: none;
 			float: left;
 			width: 25%;
 			margin-right:@font16;
@@ -8522,10 +8589,10 @@ transition: all 5ms ease-in-out 0s;
 		}
 		.product-content {
 			float: left;
-			width: 70%;
+			width: 100%;
 			text-align: left;
 			
-			@media @1199{
+			/*@media @1199{
 				width: 54%;
 			}
 			@media @1100{
@@ -8534,7 +8601,7 @@ transition: all 5ms ease-in-out 0s;
 			
 			@media @639{
 				width: 70%;
-			}
+			}*/
 			
 			a{
 				font-size:@font16;;
@@ -9028,7 +9095,31 @@ transition: all 5ms ease-in-out 0s;
 	}
 }
 
+.f-highlight{
+	background-color:transparent;
+	float: left;
+	width: 100%;
+	background-image: url(../images/f-banner.jpg);
 
+	@media @767{
+		background-color: @f5light;
+		background-image: none;
+	}
+	
+	.text{
+		position: relative;
+		padding: 4rem;
+		
+		ul{
+			list-style-type: disc;
+			margin-left: 2rem;
+			line-height: 3rem;
+		}
+	}
+}
+.f2-blocks{
+	float: left;
+}
 .shop-furniture-by-range{
 
 	ul{
@@ -9048,13 +9139,13 @@ transition: all 5ms ease-in-out 0s;
 			@media @991{
 				width: 48%;
 				margin: 0 1% 2% 1%;
-				min-height: 43rem;
+				min-height: auto;
 			}
 			
 			@media @639{
 				width: 100%;
 				margin: 0 0 2% 0;
-				min-height: auto;
+				
 			}
 			
 			a{
@@ -9063,7 +9154,7 @@ transition: all 5ms ease-in-out 0s;
 			h4{
 				font-size: @font16;
 				font-weight: @semibold;
-				margin: 1rem 0;
+				margin: 1rem 0 0 0;
 				
 				@media @767{
 					font-weight: @semibold;
@@ -9778,6 +9869,7 @@ select{
 						font-weight: normal;
 						font-family: 'luma-icons';
 					}
+
 					&:hover{
 						background: @logo-black;
 						color: @white;
@@ -10476,6 +10568,7 @@ select{
 .cms-page-view .columns .webfaq ul{
 	margin-left: 0;
 	list-style-type: none;
+	background: @f9light;
 }
 
 
@@ -10491,7 +10584,7 @@ select{
 		padding: 0;
 	}
 	.faq-tabs{
-		background: @f9light;
+		
 		padding: 0;
 		
 		@media @991{
@@ -10535,7 +10628,6 @@ select{
 			font-weight: @semibold;
 			color: @black;
 			font-size: @font15;
-			font-family: 'Poppins', sans-serif;
 		}
 
 	}
@@ -10741,4 +10833,354 @@ select{
 	right: 0;
 	text-align: center;
 	font-size:@font30;
+}
+
+/*--------------------------------------------------------------------------
+|  listing page product hover image change 
+--------------------------------------------------------------------------*/
+.products-grid li {
+	
+	.product-item-info{
+		
+		.product-item-photo{
+		display: block;
+		opacity: 1;
+		overflow: hidden;
+		transform: scale(1);
+		transition: opacity 0.4s ease 0s, transform 0.2s ease 0s;
+		visibility: visible;
+		min-height: 28.1rem;
+			
+			
+			@media @991{
+				min-height: auto;
+					
+			}
+			
+		}
+		
+		&:hover{
+			box-shadow: none;
+			padding: 0;
+		}
+		.product-item-photo.hover{
+			display: none;
+		}
+
+	}
+	.product-item-info:hover .product-item-photo{
+		display: none;
+	}
+	
+	
+	
+	
+	.product-item-info:hover .product-item-photo.hover{
+		
+		display: block;
+		opacity: 1;
+		position: relative;
+		text-align: center;
+		transform: scale(1);
+		transition: opacity 0.4s ease 0s, transform 0.2s ease 0s
+	}
+	
+}
+
+/*--------------------------------------------------------------------------
+|  widget product grid
+--------------------------------------------------------------------------*/
+
+.widget.block-products-list{
+	.block-title{
+		@media @639{
+			text-align: center;
+			font-weight: @semibold;
+		}
+	}
+	
+	.products-grid{
+		 .product-item {
+			 
+			 display: inline-block;
+			 
+			 @media @991{
+				width: 30%;
+				float: left;
+				min-height: 38rem;
+			 }
+			 
+			 @media @639{
+				width: 44%;
+				min-height: 32rem;
+				 padding: 0;
+			 }
+		}
+	}
+}
+
+.page-layout-1column .block.widget .products-grid .product-item{
+	
+	width: 18%;
+	
+	@media @991{
+		width: 30%;
+		float: left;
+		min-height: 38rem;
+	}
+}
+
+/*--------------------------------------------------------------------------
+| Shop by color with hover effects
+--------------------------------------------------------------------------*/
+
+.shopbycolor{
+	
+	text-align: center;
+	float: left;
+	background: @f5light;
+	padding: 4rem 5rem;
+	
+	a{
+		background: @white;
+		display: block;
+		padding: 1rem 3rem;
+	}
+
+	.color{
+		width: 5rem;
+		border-radius: 100%;
+		height: 5rem;
+		margin: 1rem auto;
+		
+		&:hover{
+			transform: scale(1.15);
+			box-shadow: 0px 0px 4px #ccc;
+		}
+	}
+	h4{
+		font-size: @font16;
+		font-weight: @semibold;
+		color: @black;
+		margin-bottom: .5rem;
+	}
+	.r-blk{
+		background: @black;
+	}
+	.r-grn{
+		background: @green;
+	}
+	.r-gry{
+		background: @grey;
+	}
+	.r-yellow{
+		background: @yellow;
+	}
+	.r-brn{
+		background: @brown;
+	}
+	.r-blu{
+		background: @blue;
+	}
+	.r-crm{
+		background: @cream;
+	}
+	.r-pnk{
+		background: @pink;
+	}
+	.r-orn{
+		background: @orange;
+	}
+	.r-prp{
+		background: @purple;
+	}
+	
+}
+
+
+
+/*--------------------------------------------------------------------------
+|  shop by size rugs
+--------------------------------------------------------------------------*/
+.shopbysize{
+	
+	text-align: center;
+	float: left;
+	padding: 4rem 5rem;
+	background: @f5light;
+	
+	a{
+		background: @white;
+		display: block;
+		padding: 4rem 3rem;
+		font-size: @font20;
+		color: @black;
+		font-weight: @semibold;
+		border:1px solid @dlight;
+		
+		&:hover{
+			background: @f9light;
+			transform: scale(1.05);
+		}
+		
+		span{
+			font-size: @font16;
+			padding: 1rem 0;
+			display: block;
+			font-weight: normal;
+		}
+	}
+}
+/*--------------------------------------------------------------------------
+|  hover effects
+--------------------------------------------------------------------------*/
+
+.category-cms .f2-blocks  h4{
+	font-size: @font16;
+	margin: 1.5rem 0 0 0;
+	text-align: center;
+	font-weight: @semibold;
+	color: @black;
+}
+
+.f2-blocks {
+	
+	.btn{
+		min-width: 20rem;
+		padding: 1rem 3rem;
+		font-size: @font20;
+		text-transform: capitalize;
+		background-color: @lightbtn;
+	}
+	
+	.view1{
+		padding: 6rem 4rem 2rem 4rem;
+		
+		h2{
+			line-height: 4rem;
+		}
+	}
+
+	.view {
+	   width: 100%;
+	   height: auto;
+	   margin: 1rem 0;
+	   float: left;
+	   border: 10px solid #fff;
+	   overflow: hidden;
+	   position: relative;
+	   text-align: center;
+	   -webkit-box-shadow: 1px 1px 2px #e6e6e6;
+	   -moz-box-shadow: 1px 1px 2px #e6e6e6;
+	   box-shadow: 1px 1px 2px #e6e6e6;
+	   cursor: default;
+	   background: #fff url(../images/bgimg.jpg) no-repeat center center;
+		
+		
+		span{
+			font-size: @font15;
+			color: @logo-black;
+			display: block;
+			margin-top: .5rem;
+		}
+	}
+	.view .mask{
+		height: 100% !important;
+	}
+	.view .mask,.view .content {
+	   width: 100%;
+	   height: auto;
+	   position: absolute;
+	   overflow: hidden;
+	   top: 0;
+	   left: 0;
+	}
+	.view img {
+	   display: block;
+	   position: relative;
+	}
+	.view h2 {
+	   text-transform:c;
+	   color: #fff;
+	   text-align: center;
+	   position: relative;
+	   padding: 10px;
+	   background: rgba(0, 0, 0, 0.8);
+	   margin: 20px 0 0 0;
+	}
+
+	.view a.info {
+	   display: inline-block;
+	   text-decoration: none;
+	   padding: 7px 14px;
+	   background: #000;
+	   color: #fff;
+	   text-transform: capitalize;
+	   -webkit-box-shadow: 0 0 1px #000;
+	   -moz-box-shadow: 0 0 1px #000;
+	   box-shadow: 0 0 1px #000;
+	}
+
+	/*fifth style *****/
+
+	.view-fifth img {
+	   -webkit-transition: all 0.3s ease-in-out;
+	   -moz-transition: all 0.3s ease-in-out;
+	   -o-transition: all 0.3s ease-in-out;
+	   -ms-transition: all 0.3s ease-in-out;
+	   transition: all 0.3s ease-in-out;
+	}
+	.view-fifth .mask {
+	   background-color: rgba(146,96,91,0.3);
+	   -webkit-transform: translateX(-300px);
+	   -moz-transform: translateX(-300px);
+	   -o-transform: translateX(-300px);
+	   -ms-transform: translateX(-300px);
+	   transform: translateX(-700px);
+	   -ms-filter: "progid: DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	   filter: alpha(opacity=100);
+	   opacity: 1;
+	   -webkit-transition: all 0.3s ease-in-out;
+	   -moz-transition: all 0.3s ease-in-out;
+	   -o-transition: all 0.3s ease-in-out;
+	   -ms-transition: all 0.3s ease-in-out;
+	   transition: all 0.3s ease-in-out;
+	}
+	.view-fifth h2 {
+	   background: rgba(255, 255, 255, 0.5);
+	   color: #000;
+	   -webkit-box-shadow: 0px 1px 3px rgba(159, 141, 140, 0.5);
+	   -moz-box-shadow: 0px 1px 3px rgba(159, 141, 140, 0.5);
+	   box-shadow: 0px 1px 3px rgba(159, 141, 140, 0.5);
+	}
+	.view-fifth p {
+	   -ms-filter: "progid: DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	   filter: alpha(opacity=0);
+	   opacity: 0;
+	   color: #333;
+	   -webkit-transition: all 0.2s linear;
+	   -moz-transition: all 0.2s linear;
+	   -o-transition: all 0.2s linear;
+	   -ms-transition: all 0.2s linear;
+	   transition: all 0.2s linear;
+	}
+	.view-fifth:hover .mask {
+	   -webkit-transform: translateX(0px);
+	   -moz-transform: translateX(0px);
+	   -o-transform: translateX(0px);
+	   -ms-transform: translateX(0px);
+	   transform: translateX(0px);
+	}
+	.view-fifth:hover img {
+	   -webkit-transform: translateX(300px);
+	   -moz-transform: translateX(300px);
+	   -o-transform: translateX(300px);
+	   -ms-transform: translateX(300px);
+	   transform: translateX(700px);
+	}
+	.view-fifth:hover p {
+	   -ms-filter: "progid: DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	   filter: alpha(opacity=100);
+	   opacity: 1;
+	}
 }
