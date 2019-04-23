@@ -2,7 +2,8 @@
  * Bootstrap v4.0.0 (https://getbootstrap.com)
  */
 
-@import url('https://fonts.googleapis.com/css?family=Nunito:400,600');
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,600');
+@import url('https://fonts.googleapis.com/css?family=Nunito+Sans:400,600');
 
 *,
 *::before,
@@ -12,7 +13,7 @@
 
 
 body, .tooltip, input[type="text"], input[type="password"], input[type="url"], input[type="tel"], input[type="search"], input[type="number"], input[type="datetime"], input[type="email"] {
-	font-family: 'Nunito', sans-serif;
+	font-family: 'Nunito Sans', sans-serif;
 }
 
 @-ms-viewport {

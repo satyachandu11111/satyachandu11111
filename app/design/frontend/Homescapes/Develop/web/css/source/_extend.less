@@ -4,7 +4,7 @@
 / Theme Colors
 --------------------------------------------------------------------------*/
 
-@black:#555555;
+@black:#333;
 @light-black:#626166;
 @white:#ffffff;
 @yellow:#f5ba00;
@@ -57,6 +57,9 @@
 @pink:#d65cb1;
 @orange:#ff4800;
 @purple:#95349e;
+@teal:#004047;
+@pastel:#b28e9a;
+@auber:#5b284b;
 /*--------------------------------------------------------------------------
 |  Font-size
 --------------------------------------------------------------------------*/
@@ -155,7 +158,7 @@ strong {
 	font-size: @base;
 }
 /*h1, h2, h3, h4, h5, h6, .wsmenu, .megamenu .title, .product.info.detailed .card-header, .widget .block-title strong, .section-title span, .filter-options-title, .hs-about .select-by-range .product-name {
-
+	font-family: 'Raleway', sans-serif;
 }*/
 
 a{
@@ -806,6 +809,7 @@ h6, .h6 {
   -webkit-font-smoothing: subpixel-antialiased !important;
   font-smoothing: subpixel-antialiased !important;
   font-smooth: subpixel-antialiased;
+
 }
 
 .wsmenu .cl {
@@ -1012,10 +1016,8 @@ transition: all 5ms ease-in-out 0s;
   background: @white;
   display: block;
   color: @black;
-	
-	@media @379{
-		white-space: normal;
-	}
+  font-size: @base;
+
 }
 .link-list li a.full-image{
 	background: @green;
@@ -2197,7 +2199,8 @@ transition: all 5ms ease-in-out 0s;
 	.home-heading-title{
 		border-bottom: 0px solid @black;
 		width: 60%;
-		margin: 8px auto 35px auto;
+		margin: 20px auto 50px auto;
+		font-size: @font30;
 		
 		@media @991{
 			width: 70%;
@@ -2233,18 +2236,20 @@ transition: all 5ms ease-in-out 0s;
 	margin-top:@font30;
 	
 	h2{
-		font-size: @font18;
+		font-size: @font24;
 		font-weight: @semibold;
 		margin-bottom: 5px;
 		
 		@media @767{
 			font-weight: @semibold;
 		}
+
+
 	}
 	h3{
-		font-size:@font16;
+		font-size:@font18;
 		font-weight: @semibold;
-		margin-bottom: 10px;
+		margin-bottom: @font20;
 		
 		@media @767{
 			font-weight: @semibold;
@@ -2252,7 +2257,7 @@ transition: all 5ms ease-in-out 0s;
 	}
 	p{
 		font-size: 1.5rem;
-		color: @light-black;
+		color: @black;
 	}
 }
 
@@ -2882,6 +2887,41 @@ transition: all 5ms ease-in-out 0s;
 	}
 	
 }
+
+.cate-dm-text{
+	.category-sale{
+		background: @f9light;
+		color: @black;
+		float: left;
+		width: 100%;
+		padding: 3rem 2rem 2rem 2rem;
+	}
+	
+	ul{
+
+			li{
+				float: left;
+				width: 22%;
+				border: 1px solid @black;
+				margin: 1.5%;
+				line-height: 4rem;
+
+				a{
+					color: @black;
+					display: block;
+					font-size: @font16;
+					text-transform: capitalize;
+					font-weight: @semibold;
+				}
+			}
+		}
+		ul li a:hover{
+			color: @white;
+			background: @logo-black;
+		}
+}
+
+
 .category-dm{
 	
 	.col-lg-5, .col-lg-7{
@@ -3150,25 +3190,11 @@ transition: all 5ms ease-in-out 0s;
 		}
 	}
 	.details{
-		margin-top: @font30;
-		
 
-		@media @991{
-			margin-bottom: @font20;
-			margin-top: @font20;
-		}
-		
-		@media @992{
-			margin-top: @font10;
-		}
-		
-		@media @1200{
-			margin-top: @font30;
-		}
 		
 		img{
-			max-width: 13rem;
-			margin: 1rem 0;
+			max-width: 27rem;
+			margin: 0rem 0 1rem 0;
 			
 			@media @360{
 				max-width: 16rem;
@@ -3179,7 +3205,7 @@ transition: all 5ms ease-in-out 0s;
 			}
 			
 			@media @768{
-				max-width: 9rem;
+				max-width: 33rem;
 			}
 			
 			@media @992{
@@ -3188,12 +3214,17 @@ transition: all 5ms ease-in-out 0s;
 			
 			@media @1200{
 				
-			max-width: 13rem;
+			max-width: 27rem;
 			}
 		
 		}
 		a{
 			color: @black;
+			font-size: 2rem;
+		}
+		span{
+			display: block;
+			margin-bottom: 2rem;
 		}
 	}
 	.icon{
@@ -3203,6 +3234,11 @@ transition: all 5ms ease-in-out 0s;
 			margin: auto;
 		}
 		
+	}
+	.home-heading-title{
+		@media @991{
+			margin-top: 2rem;
+		}
 	}
 	
 }
@@ -3323,6 +3359,9 @@ transition: all 5ms ease-in-out 0s;
 	margin-bottom: 4rem;
 	width: 100%;
 
+	table > tbody > tr > td{
+		padding: 1.5rem 1rem;
+	}
 	
 	.head {
 		
@@ -3338,7 +3377,6 @@ transition: all 5ms ease-in-out 0s;
 		}
 	}
 	.head span{
-		font-weight: @semibold;
 		font-size: 1.5rem;
 		
 		.fas{
@@ -3550,6 +3588,7 @@ transition: all 5ms ease-in-out 0s;
 	speak: none;
 	text-align: center;
 	float: left;
+
 }
 .catalog-product-view{
 
@@ -5324,6 +5363,7 @@ transition: all 5ms ease-in-out 0s;
 /*--------------------------------------------------------------------------
 |  cms page accordian
 --------------------------------------------------------------------------*/
+
 .cmspage{
 	
 	line-height: @font24;
@@ -5727,7 +5767,11 @@ transition: all 5ms ease-in-out 0s;
 /*--------------------------------------------------------------------------
 |  Newsletter landing page
 --------------------------------------------------------------------------*/
-
+.newsletter{
+	h5{
+		text-transform: none;
+	}
+}
 .terms-condition{
 	ul{
 		margin-left:1.7rem;
@@ -6854,8 +6898,55 @@ transition: all 5ms ease-in-out 0s;
 }
 
 /*--------------------------------------------------------------------------
+| career page top tabbing
+--------------------------------------------------------------------------*/
+.cms-page-view .columns .webfaq.career{
+	.faq-tabs ul li{
+		width: auto;
+		margin-bottom: -1px;
+		background: @f5light;
+		
+		a{
+			padding: 1rem 3rem;
+		}
+	}
+	ul{
+		background: none;
+	}
+	.col-lg-12, .col-lg-8{
+		padding: 0;
+	}
+	.tab-content{
+		margin-top: -1px;
+		margin-left: auto;
+		padding: 2rem 3rem;
+	}
+	.faq-tabs .nav-tabs .nav-link.active{
+		border-bottom-color: @white;
+		border-right-color: @dlight;
+	}
+}
+
+/*--------------------------------------------------------------------------
 | career page
 --------------------------------------------------------------------------*/
+
+.cms-page-view .columns .webfaq.career .tab-content{
+	ul{
+		margin-left: 2rem;
+		list-style-type: disc;
+		line-height: 3rem;
+		background: none;
+	}
+	.btn{
+		background: @logo-black;
+		color: @white;
+		padding: 1rem 3rem;
+		font-size: @font16;
+	}
+}
+
+
 .career-page-box{
 	
 	background: @f9light;
@@ -7044,7 +7135,7 @@ transition: all 5ms ease-in-out 0s;
 		  font-weight: @semibold;
 		  font-size: 16px;
 
-		  padding-left: 30px;
+		  padding-left: 36px;
 		  line-height: 25px;
 		  text-transform: capitalize;
 		  background-image: url(../images/sprit-icon.svg);
@@ -7233,6 +7324,7 @@ transition: all 5ms ease-in-out 0s;
      }
 	 ul li.blankswatch .emptydesc {
 		  border: 1px dashed #ccc;
+
 		  color: #bbb;
 		  padding: 11px 0 12px;
 		  text-align: center;
@@ -9027,6 +9119,20 @@ transition: all 5ms ease-in-out 0s;
 
 .bedding{
 	
+	a{
+		color: @black;
+		
+		span{
+			font-size: 2rem;
+		}
+	}
+	
+	h4{
+		margin: 1rem 0 0.5rem 0;
+		font-weight: @semibold;
+	}
+	
+	
 	ul {
 		li{
 			@media @991{
@@ -9144,7 +9250,7 @@ transition: all 5ms ease-in-out 0s;
 			
 			@media @639{
 				width: 100%;
-				margin: 0 0 2% 0;
+				margin: 0 0 3rem 0;
 				
 			}
 			
@@ -10083,8 +10189,8 @@ select{
 	font-weight: normal;
 	padding: 6px 10px;
 	position: absolute;
-	width: 25rem;;
-	top: -1.5rem;
+	width: 25rem;
+	top: .3rem;
 	z-index: 99;
 	border-radius: .2rem;
 	
@@ -10705,6 +10811,8 @@ select{
 
 
 .hs-about{
+	font-size: 1.5rem;
+	
 	.select-by-range {
 		.product{
 			background: none;
@@ -10723,6 +10831,7 @@ select{
 	}
 	span{
 		float: left;
+		font-size: 1.5rem;
 	}
 	.our-mission{
 		background: @f9light;
@@ -10941,6 +11050,24 @@ select{
 	background: @f5light;
 	padding: 4rem 5rem;
 	
+	@media @639{
+		padding-bottom: 1rem;
+	}
+	.col-md-3{
+		padding: 1.5rem;
+	}
+	.col-6{
+		@media @639{
+			padding: 2rem;
+		}
+	}
+	
+	.mb-30, .mb-20{
+		@media @991{
+			margin-bottom: 0;
+		}
+	}
+	
 	a{
 		background: @white;
 		display: block;
@@ -10994,7 +11121,31 @@ select{
 	.r-prp{
 		background: @purple;
 	}
-	
+	.r-red{
+		background: @danger;
+	}
+	.r-teal{
+		background: @teal;
+	}
+	.r-pst{
+		background: @pastel;
+	}
+	.r-abr{
+		background: @auber;
+	}
+}
+
+
+/*--------------------------------------------------------------------------
+|  shop by size curtains
+--------------------------------------------------------------------------*/
+
+.shopbysize {
+	.curtain{
+		a{
+			padding: 3rem 2rem;
+		}
+	}
 }
 
 
@@ -11002,12 +11153,20 @@ select{
 /*--------------------------------------------------------------------------
 |  shop by size rugs
 --------------------------------------------------------------------------*/
+
+
+
+
 .shopbysize{
 	
 	text-align: center;
 	float: left;
 	padding: 4rem 5rem;
 	background: @f5light;
+	
+	@media @639{
+		padding-bottom: 0;
+	}
 	
 	a{
 		background: @white;
@@ -11022,7 +11181,9 @@ select{
 			background: @f9light;
 			transform: scale(1.05);
 		}
-		
+		@media @767{
+			padding: 2rem;
+		}
 		span{
 			font-size: @font16;
 			padding: 1rem 0;
@@ -11050,11 +11211,31 @@ select{
 		padding: 1rem 3rem;
 		font-size: @font20;
 		text-transform: capitalize;
-		background-color: @lightbtn;
+		background-color: @white;
+		color: @black;
+		border:2px solid @logo-black;
+		
+		@media @639{
+			width: 100%;
+			margin: 1rem auto;
+		}
+		
+		&:hover{
+			background: @logo-black;
+			color: @white;
+		}
+		
+		
 	}
+	
 	
 	.view1{
 		padding: 6rem 4rem 2rem 4rem;
+		
+		
+		@media @991{
+			padding: 3rem 0rem 0rem 0rem;
+		}
 		
 		h2{
 			line-height: 4rem;
