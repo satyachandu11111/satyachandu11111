@@ -8,5 +8,7 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
          <move element="product.info.addto" destination="product.info.options.wrapper.bottom" after="product.info.addtocart"/>
+		
+		<move element="product.delivery" destination="content" before="product.info.details"/> <!--delivery block-->
     </body>
 </page>

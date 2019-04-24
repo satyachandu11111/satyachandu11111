@@ -181,7 +181,7 @@ p{
 
 .action.primary{
 	font-weight: 400;
-	font-family: 'Nunito', sans-serif !important;
+	font-family: 'Nunito Sans', sans-serif;
 }
 .action.primary,
 .action-primary:hover,
@@ -3374,6 +3374,7 @@ transition: all 5ms ease-in-out 0s;
 		
 		.title{
 			padding-left: 4.5rem;
+			font-weight: @semibold;
 		}
 	}
 	.head span{
@@ -6448,6 +6449,13 @@ transition: all 5ms ease-in-out 0s;
 			pointer-events: auto;
 		}
 		
+		.print-label{
+			@media @992{
+				margin-top: 28rem;
+				float: left;
+			}
+		}
+		
 		.fas{
 			font-size: @base;
 			position: relative;
@@ -6488,6 +6496,11 @@ transition: all 5ms ease-in-out 0s;
 		
 		@media @768{
 			pointer-events: none;
+		}
+	}
+	.pricing a{
+		@media @768{
+			pointer-events: auto;
 		}
 	}
 	.card{
@@ -6534,7 +6547,7 @@ transition: all 5ms ease-in-out 0s;
 		}
 		
 		@media @1200{
-			max-width: 66rem;
+			max-width: 74rem;
 		}
 	}
 	.collapse.show, .collapse{
@@ -7426,12 +7439,14 @@ transition: all 5ms ease-in-out 0s;
 	strong{
 		font-size: @font16;
 		color: @black;
-		line-height: 4rem;
+		line-height: 3rem;
 		font-weight: @semibold;
 		text-decoration: none;
-		background-position: -9px -1642px;
+		/*background-position: -9px -1642px;*/
+		background-position: -9px -1694px;
 		display: inline-block;
-		padding: 0 16px 0 118px;
+		/*padding: 0 16px 0 118px;*/
+		padding: 0 16px 0 45px;
 		cursor: pointer;
 	 	background-image: url(../images/sprit-icon.svg);
 		background-repeat: no-repeat;
@@ -7440,13 +7455,13 @@ transition: all 5ms ease-in-out 0s;
 		&:hover{
 			color: @blue;
 		}
-		@media @1100{
+		/*@media @1100{
 			
 			background-position: 0 -1694px;
 			padding: 0 16px 0 45px;
 			line-height: 3rem;
 			font-size: @base;
-		}
+		}*/
 		@media @379{
 			line-height: 2rem;
 		}
@@ -11365,3 +11380,4 @@ select{
 	   opacity: 1;
 	}
 }
+

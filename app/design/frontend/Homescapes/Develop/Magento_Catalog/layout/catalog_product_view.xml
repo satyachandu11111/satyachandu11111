@@ -49,7 +49,7 @@
 		</referenceContainer>-->
 
 		<referenceContainer name="product.info.main">		<!-- Sale Vaid For block -->
-		  <block class="Magento\Catalog\Block\Product\View" name="product.sale.valid" template="Magento_Catalog::sale_valid_block.phtml" after="product.sizing.video"/>
+		  <block class="Magento\Catalog\Block\Product\View" name="product.sale.valid" template="Magento_Catalog::sale_valid_block.phtml" after="product.offers"/>
 		</referenceContainer>
 		
 		<referenceContainer name="product.info.main">		<!-- product instalment -->
@@ -91,7 +91,7 @@
 		<!-- Recently view product -->
 		<move element="product.info.upsell" destination="content" before="custom.reviews" />
 		<!-- upsell  -->
-		<move element="DeliveryCountdown" destination="product.info.main" after="product.info.price"/>    <!--Delivery Countdown-->
+		<move element="DeliveryCountdown" destination="product.info.main" after="product.info.price"/>    <!--shipping/Delivery Countdown time-->
 		
 		<!-- product.info.addtocart -->
 		<!-- <move element="product.info.addto" destination="product.info.form.content"/>      -->
