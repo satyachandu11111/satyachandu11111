@@ -48,14 +48,15 @@
 }
 
 .swatch-option.text {
-    background: #F0F0F0;
-    color: #686868;
-    font-size: 12px;
-    font-weight: 700;
+    background: #F9f9f9;
+    color: #444;
+    font-size: 14px;
+    font-weight: 600;
     line-height: 20px;
-    padding: 4px 8px;
+    padding: 8px;
     min-width: 22px;
-    margin-right: 7px;
+    margin-right: 10px;
+    margin-bottom: 10px;
 }
 
 .swatch-option.selected {
@@ -77,8 +78,8 @@
 }
 
 .swatch-attribute.size .swatch-option, .swatch-attribute.manufacturer .swatch-option {
-    background: rgb(240, 240, 240);
-    color: rgb(148, 148, 148);
+    background:#f9f9f9;
+    color: #444;
 }
 
 .swatch-attribute.size .swatch-option.selected, .swatch-attribute.manufacturer .swatch-option.selected {
