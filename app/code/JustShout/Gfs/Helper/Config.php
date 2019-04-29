@@ -79,6 +79,26 @@ class Config extends Data
     const CONFIG_CUSTOM_FIELDS_ITEMS = 'carriers/gfs/custom_fields_items';
 
     /**
+     * Height Attribute
+     */
+    const CONFIG_HEIGHT_ATTRIBUTE = 'carriers/gfs/height_attribute';
+
+    /**
+     * Width Attribute
+     */
+    const CONFIG_WIDTH_ATTRIBUTE = 'carriers/gfs/width_attribute';
+
+    /**
+     * Length Attribute
+     */
+    const CONFIG_LENGTH_ATTRIBUTE = 'carriers/gfs/length_attribute';
+
+    /**
+     * Metric Dimension Unit
+     */
+    const CONFIG_METRIC_DIMENSION_UNIT = 'carriers/gfs/metric_dimensions_unit';
+
+    /**
      * Get Standard Delivery Title
      */
     const CONFIG_STANDARD_DELIVERY_TITLE = 'carriers/gfs/standard_delivery_title';
@@ -819,5 +839,60 @@ class Config extends Data
     public function getDisabledNextDays()
     {
         return (bool) $this->scopeConfig->getValue(self::CONFIG_DISABLE_NEXT_DAYS, ScopeInterface::SCOPE_STORE);
+    }
+
+    /**
+     * Get Weight unit type (default is lbs)
+     *
+     * @return string
+     */
+    public function getWeightUnit()
+    {
+        return $this->scopeConfig->getValue('general/locale/weight_unit', ScopeInterface::SCOPE_STORE);
+    }
+
+    /**
+     * Get Height Attribute
+     *
+     * @return string
+     */
+    public function getHeightAttribute()
+    {
+        return $this->scopeConfig->getValue(self::CONFIG_HEIGHT_ATTRIBUTE, ScopeInterface::SCOPE_STORE);
+    }
+
+    /**
+     * Get Width Attribute
+     *
+     * @return string
+     */
+    public function getWidthAttribute()
+    {
+        return $this->scopeConfig->getValue(self::CONFIG_WIDTH_ATTRIBUTE, ScopeInterface::SCOPE_STORE);
+    }
+
+    /**
+     * Get Length Attribute
+     *
+     * @return string
+     */
+    public function getLengthAttribute()
+    {
+        return $this->scopeConfig->getValue(self::CONFIG_LENGTH_ATTRIBUTE, ScopeInterface::SCOPE_STORE);
+    }
+
+    /**
+     * Get Metric Dimension Unit
+     *
+     * @return string
+     */
+    public function getMetricDimensionUnit()
+    {
+        $unit = $this->scopeConfig->getValue(self::CONFIG_METRIC_DIMENSION_UNIT, ScopeInterface::SCOPE_STORE);
+        if (!$unit) {
+            $unit = Source\DimensionUnits::METERS;
+        }
+
+        return $unit;
     }
 }

@@ -212,6 +212,10 @@ class Data
                 'ProductCode' => $item->getSku(),
                 'Quantity'    => $item->getQty()
             ];
+            $dimensions = $this->_getItemDimensions($item);
+            if (!empty($dimensions)) {
+                $itemData = array_merge($itemData, $dimensions);
+            }
             $customFields = $this->_getItemCustomFields($item);
             if (!empty($customFields)) {
                 $itemData['customItemFields'] = $customFields;
@@ -327,6 +331,160 @@ class Data
     }
 
     /**
+     * @param Quote\Item $item
+     *
+     * @return array
+     */
+    protected function _getItemDimensions($item)
+    {
+        $weight = (float) $item->getWeight();
+        if (!$weight) {
+            return [];
+        }
+
+        switch ($this->_config->getWeightUnit()) {
+            case 'kgs':
+                return $this->_getItemDimensionsMetric($item);
+                break;
+            case 'lbs':
+                return $this->_getItemDimensionsImperial($item);
+                break;
+            default:
+                return [];
+        }
+    }
+
+    /**
+     * Get the dimensions if the store is set to metric (kgs)
+     *
+     * @param Quote\Item $item
+     *
+     * @return array
+     */
+    protected function _getItemDimensionsMetric($item)
+    {
+        $dimensions = [
+            'metricDimensions' => [
+                'weight' => [
+                    'scale' => 'wiKilograms',
+                    'value' => (float) $item->getWeight(),
+                ],
+            ],
+        ];
+
+        $height = $this->_getItemHeight($item);
+        if ($height) {
+            $dimensions['metricDimensions']['height'] = $height;
+        }
+
+        $width = $this->_getItemWidth($item);
+        if ($width) {
+            $dimensions['metricDimensions']['width'] = $width;
+        }
+
+        $length = $this->_getItemLength($item);
+        if ($length) {
+            $dimensions['metricDimensions']['length'] = $length;
+        }
+
+        if ($height || $width || $length) {
+            $dimensions['metricDimensions']['scale'] = $this->_config->getMetricDimensionUnit();
+        }
+
+        return $dimensions;
+    }
+
+    /**
+     * Get the dimensions if the store is set to imperial (lbs)
+     *
+     * @param Quote\Item $item
+     *
+     * @return array
+     */
+    protected function _getItemDimensionsImperial($item)
+    {
+        $dimensions = [
+            'imperialDimensions' => [
+                'weight' => [
+                    'pounds' => (float) $item->getWeight(),
+                    'ounces' => (float) ($item->getWeight() * 16),
+                ],
+            ],
+        ];
+
+        $height = $this->_getItemHeight($item);
+        if ($height) {
+            $dimensions['imperialDimensions']['height']['inches'] = $height;
+            $dimensions['imperialDimensions']['height']['sixteenths'] = $height * 16;
+        }
+
+        $width = $this->_getItemWidth($item);
+        if ($width) {
+            $dimensions['imperialDimensions']['width']['inches'] = $width;
+            $dimensions['imperialDimensions']['width']['sixteenths'] = $width * 16;
+        }
+
+        $length = $this->_getItemLength($item);
+        if ($length) {
+            $dimensions['imperialDimensions']['length']['inches'] = $length;
+            $dimensions['imperialDimensions']['length']['sixteenths'] = $length * 16;
+        }
+
+        return $dimensions;
+    }
+
+    /**
+     * Get Item Height
+     *
+     * @param Quote\Item $item
+     *
+     * @return float
+     */
+    protected function _getItemHeight($item)
+    {
+        $attr = $this->_config->getHeightAttribute();
+        if (!$attr) {
+            return 0.00;
+        }
+
+        return (float) $this->_getProductAttributeValue($item->getProduct()->getId(), $attr, 'double');
+    }
+
+    /**
+     * Get Item Width
+     *
+     * @param Quote\Item $item
+     *
+     * @return float
+     */
+    protected function _getItemWidth($item)
+    {
+        $attr = $this->_config->getWidthAttribute();
+        if (!$attr) {
+            return 0.00;
+        }
+
+        return (float) $this->_getProductAttributeValue($item->getProduct()->getId(), $attr, 'double');
+    }
+
+    /**
+     * Get Item Length
+     *
+     * @param Quote\Item $item
+     *
+     * @return float
+     */
+    protected function _getItemLength($item)
+    {
+        $attr = $this->_config->getLengthAttribute();
+        if (!$attr) {
+            return 0.00;
+        }
+
+        return (float) $this->_getProductAttributeValue($item->getProduct()->getId(), $attr, 'double');
+    }
+
+    /**
      * This method will get the custom fields object per item
      *
      * @param Quote\Item $item
@@ -354,9 +512,11 @@ class Data
             }
 
             $fields[] = [
-                'FieldName'  => $fieldNumber,
-                'FieldType'  => $type,
-                'FieldValue' => $value,
+                'CustomFieldDTO' => [
+                    'FieldName'  => $fieldNumber,
+                    'FieldType'  => $type,
+                    'FieldValue' => $value,
+                ]
             ];
 
             $fieldNumber++;
