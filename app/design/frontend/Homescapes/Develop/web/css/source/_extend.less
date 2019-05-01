@@ -2315,10 +2315,11 @@ transition: all 5ms ease-in-out 0s;
 		position: relative;
 		float: left;
 		width: 100%;
-		border-bottom: 10px solid @white;
+		background: @logo-black;
+		color: @white;
+		padding-top: @font15;
 		
 		@media @767{
-			background: @f9light;
 			border-bottom: 0;
 			margin: 0;
 		}
@@ -2997,8 +2998,7 @@ transition: all 5ms ease-in-out 0s;
 					color: @white;
 					display: block;
 					font-size: @font16;
-					text-transform: uppercase;
-					letter-spacing: 1px;
+					text-transform: capitalize;
 				}
 			}
 		}
@@ -3292,7 +3292,7 @@ transition: all 5ms ease-in-out 0s;
 		font-size: 15px;
 		font-weight: @semibold;
 		padding: 0px 5px !important;
-		text-transform: uppercase;
+		text-transform:capitalize;
 		z-index: 99;
 		
 		&:after{
@@ -7439,14 +7439,12 @@ transition: all 5ms ease-in-out 0s;
 	strong{
 		font-size: @font16;
 		color: @black;
-		line-height: 3rem;
+		line-height: 4rem;
 		font-weight: @semibold;
 		text-decoration: none;
-		/*background-position: -9px -1642px;*/
-		background-position: -9px -1694px;
+		background-position: -9px -1690px;
 		display: inline-block;
-		/*padding: 0 16px 0 118px;*/
-		padding: 0 16px 0 45px;
+		padding: 0 16px 0 63px;
 		cursor: pointer;
 	 	background-image: url(../images/sprit-icon.svg);
 		background-repeat: no-repeat;
@@ -9133,6 +9131,8 @@ transition: all 5ms ease-in-out 0s;
 --------------------------------------------------------------------------*/
 
 .bedding{
+	float: left;
+	width: 100%;
 	
 	a{
 		color: @black;
@@ -9240,6 +9240,7 @@ transition: all 5ms ease-in-out 0s;
 }
 .f2-blocks{
 	float: left;
+	width: 100%;
 }
 .shop-furniture-by-range{
 
@@ -11228,7 +11229,7 @@ select{
 		text-transform: capitalize;
 		background-color: @white;
 		color: @black;
-		border:2px solid @logo-black;
+		border:1px solid @logo-black;
 		
 		@media @639{
 			width: 100%;
@@ -11238,6 +11239,9 @@ select{
 		&:hover{
 			background: @logo-black;
 			color: @white;
+		}
+		.fas{
+			font-size: @font15;
 		}
 		
 		
@@ -11381,3 +11385,12 @@ select{
 	}
 }
 
+
+.bg-lightf9{
+	background: @f9light;
+	
+	p{
+		font-size: @font18;
+		line-height: @font30;
+	}
+}

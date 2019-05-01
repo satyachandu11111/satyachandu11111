@@ -328,7 +328,7 @@ background-size: 300px 1300px;
  * ============================================ */
 #customer-reviews {
   width: auto;
-  float: none;
+  float: left;
 	margin-bottom: 2rem;
 }
 #customer-reviews .review-heading {
