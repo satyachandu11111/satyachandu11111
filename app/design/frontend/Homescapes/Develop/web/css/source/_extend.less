@@ -524,6 +524,12 @@ h6, .h6 {
 	white-space: nowrap;
 	width: 40px;
 }
+
+.checkout-onepage-success .page-title{
+	text-transform: inherit;
+}
+
+
 .customer-welcome{
 	.customer-menu .fas{
 		display: none;
@@ -10178,9 +10184,8 @@ select{
 }
 
 .sale-validity-text{
-	background: @f2light;
+	background: @f9light;
 	float: left;
-	margin-bottom: 2rem;
 	padding: 1rem;
 	border-radius: .4rem;
 	width: 100%;
@@ -11392,5 +11397,113 @@ select{
 	p{
 		font-size: @font18;
 		line-height: @font30;
+	}
+}
+
+
+/*--------------------------------------------------------------------------
+/ GFS checkout CSS reset 
+--------------------------------------------------------------------------*/
+
+.checkout-shipping-method .form{
+	.gfs-checkout-0 .header.gfs-checkout span.gfs-checkout h3.gfs-checkout{
+		font-size: @font18;
+		text-shadow: none;
+	}
+	.header.gfs-checkout{
+		line-height: @font20;
+		padding: 1rem 2rem;
+		border-color: @border-color;
+	}
+	.gfs-checkout-0 #standardDeliveryPanel.gfs-checkout, .gfs-checkout-0 #calendarPanel.gfs-checkout, .gfs-checkout-0 #dropPointPanel.gfs-checkout, .gfs-checkout-0 #storePanel.gfs-checkout{
+		border-color: @border-color;
+		border-bottom-width: 1px;
+		margin: 0;
+		padding: 1rem 2rem;
+	}
+	.gfs-checkout-0 .toggle-content.gfs-checkout, .gfs-checkout-0 #calendar-delivery-options.gfs-checkout{
+		border-top: 0;
+	}
+	.gfs-checkout-0 ul.separated.gfs-checkout li.gfs-checkout{
+		border: none;
+	}
+	.gfs-checkout-0 ul.separated.gfs-checkout li.gfs-checkout label.gfs-checkout{
+		padding: 0;
+		background-color: none;
+		left: 4rem;
+	}
+	.gfs-checkout-0 ul.separated.gfs-checkout input[type="radio"].gfs-checkout:checked + label.gfs-checkout{
+		background: none;
+	}
+	.gfs-notice{
+		display: none;
+	}
+	.gfs-checkout-0 i.arrow.gfs-checkout{
+		margin-top: 4px;
+	}
+	.gfs-checkout-0 i.arrow.gfs-checkout::before, .gfs-checkout-0 i.arrow.gfs-checkout::after, .gfs-checkout-0 i.arrow.less.gfs-checkout::before, .gfs-checkout-0 i.arrow.less.gfs-checkout::after{
+		height: 10px;
+		background-color: @white;
+	}
+	.gfs-checkout-0 i.arrow.less.gfs-checkout::before {
+		transform: translate(-1px, 0) rotate(45deg);
+	}
+	.gfs-checkout-0 i.arrow.gfs-checkout::before {
+		transform: translate(1px, 0) rotate(45deg);
+	}
+	.gfs-checkout-0 #calendar-delivery-options.gfs-checkout h4.gfs-checkout, .gfs-checkout-0 #droppoint-delivery-options.gfs-checkout h4.gfs-checkout{
+		font-size: @font16;
+	}
+	.gfs-checkout-0 ul.separated.gfs-checkout input[type="radio"].gfs-checkout{
+		opacity: 1;
+		top: @font15;
+		margin-right: -2rem;
+	}
+}
+
+/*--------------------------------------------------------------------------
+/ sale time count down
+--------------------------------------------------------------------------*/
+
+.product-info-main .timer-label{
+	
+	padding:0rem 1rem 0rem 12px !important;
+	
+	
+	span{
+		line-height: @font15;
+		margin-left: .5rem;
+		margin-right: 1rem;
+		float: none;
+		color: @black;
+	}
+	.timeTo figure{
+		
+		margin: 0;
+		
+		div{
+			float: left;
+			background-color: transparent;
+			color: @black;
+			font-size: @font15;
+			font-weight: @semibold;
+			width: 1rem;
+			margin: -5px 3px 0 -3px;;
+				
+		}
+		ul{
+			left: -3px;
+		}
+		figcaption{
+			float: left;
+			text-transform: capitalize;
+			font-size: @base !important;
+			margin-right: 5px;
+			line-height: @font20;
+			margin-left: 0;
+		}
+		div.first{
+			border-left: 0;
+		}
 	}
 }

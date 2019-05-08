@@ -2,3 +2,12 @@
 <?php if($_product->getSaleValidity()){?>
 	<div class="sale-validity-text"><?php echo  $_product->getSaleValidity() ?></div>
 <?php }?>
+<?php 
+$getDisplayTimers = $this->helper('Homescapes\General\Helper\Data')->getDisplayTimers();
+if($_product->getDisplayTimer() && $getDisplayTimers){?>
+<div class="timer-label"><!--<span ><?php // echo __('Sale ending in') ?></span>--><div id="countdown-3">&nbsp;</div></div>
+<?php }?>
+<?php // check Display Timer is enable 
+    if($_product->getDisplayTimer() && $getDisplayTimers){      
+            echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('uk-product-timer')->toHtml();
+}
