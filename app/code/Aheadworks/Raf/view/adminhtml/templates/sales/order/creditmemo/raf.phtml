@@ -1,0 +1,18 @@
+<?php
+// @codingStandardsIgnoreFile
+
+/* @var $block \Aheadworks\Raf\Block\Adminhtml\Sales\Order\Creditmemo\Raf */
+?>
+<?php if ($block->canRefund()): ?>
+    <div class="admin__field admin__field-option field-refund-to-reward-points">
+        <input type="checkbox" class="admin__control-checkbox"
+               id="creditmemo_refund_to_aw_raf_enable"
+               name="creditmemo[refund_to_aw_raf_enable]"
+               value="1"
+               checked="checked" />
+        <label for="creditmemo_refund_to_aw_raf_enable" class="admin__field-label">
+            <span><?= $block->escapeHtml(__('Return Referral Discount Back to The Advocate Balance')) ?></span>
+            <span><?= /* @noEscape */ $block->getRefundToRaf() ?></span>
+        </label>
+    </div>
+<?php endif; ?>

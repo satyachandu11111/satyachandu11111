@@ -1,0 +1,163 @@
+<?php
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category   BSS
+ * @package    Bss_ProductImagesByCustomer
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2017-2018 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+// @codingStandardsIgnoreFile
+
+/** @var $block Bss\ProductImagesByCustomer\Block\Adminhtml\Image\Edit\Tab\Images */
+$elementName =  'bss-productimagesbycustomer[images]';
+$formName = $block->getFormName();
+?>
+
+<?php
+
+$elementToggleCode = 'toggleValueElements(this, this.parentNode.parentNode.parentNode)';
+
+?>
+
+<div id="<?php  echo $block->getHtmlId(); ?>"
+     class="gallery"
+     data-mage-init='{"openVideoModal":{}}'
+     data-parent-component="<?php echo $block->escapeHtml($block->getData('config/parentComponent')) ?>"
+     data-images="<?php echo $block->escapeHtml($block->getImagesJson()) ?>"
+     data-types="<?php echo $block->escapeHtml(
+         $block->getDataHelper()->jsonEncode($block->getImageTypes())
+     ) ?>"
+>
+    <div class="image image-placeholder">
+        <div id="<?php echo $block->getHtmlId() ?>" class="uploader"
+             data-mage-init='{
+                     "Bss_ProductImagesByCustomer/js/media-uploader" : {
+                         "maxWidth":<?php /* @escapeNotVerified */ echo
+             \Magento\Framework\File\Uploader::MAX_IMAGE_WIDTH ?> ,
+                         "maxHeight": <?php /* @escapeNotVerified */ echo \Magento\Framework\File\Uploader::MAX_IMAGE_HEIGHT ?>
+                     }
+                 }'
+        >
+
+            <?php if (!$block->getRequest()->getParam('bss_image_customer_upload_id')) {?>
+                <div class="fileinput-button form-buttons button">
+                    <span><?php /* @escapeNotVerified */ echo __('Browse Files...') ?></span>
+                    <input id="fileupload" type="file" name="image"
+                           data-url="<?php echo $block->getUrl('bss_productimagesbycustomer_admin/image_gallery/upload'); ?>"
+                           multiple="multiple" />
+                </div>
+            <?php } ?>
+            <div class="clear"></div>
+            <script id="<?php echo $block->getHtmlId() ?>-template" type="text/x-magento-template" data-template="uploader">
+                <div id="<%- data.id %>" class="file-row">
+                    <span class="file-info"><%- data.name %> (<%- data.size %>)</span>
+                    <div class="progressbar-container">
+                        <div class="progressbar upload-progress" style="width: 0%;"></div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </script>
+        </div>
+        <?php if (!$block->getRequest()->getParam('bss_image_customer_upload_id')) {?>
+            <div class="product-image-wrapper">
+                <p class="image-placeholder-text">
+                    <?php echo $block->escapeHtml(
+                        __('Browse to find or drag image here')
+                    ); ?>
+                </p>
+            </div>
+        <?php } ?>
+
+    </div>
+    <?php /* @escapeNotVerified */ echo $block->getChildHtml('additional_buttons'); ?>
+    <?php
+    foreach ($block->getImageTypes() as $typeData):
+        ?>
+        <input name="<?php echo $block->escapeHtml($typeData['name']) ?>"
+               data-form-part="<?php /* @escapeNotVerified */ echo $formName ?>"
+               class="image-<?php echo $block->escapeHtml($typeData['code']) ?>"
+               type="hidden"
+               value="<?php echo $block->escapeHtml($typeData['value']) ?>"/>
+        <?php
+    endforeach;
+    ?>
+    <script id="<?php /* @escapeNotVerified */ echo $block->getHtmlId() ?>-template" data-template="image" type="text/x-magento-template">
+        <div class="image item"
+             data-role="image">
+            <input type="hidden"
+                   name="<?php /* @escapeNotVerified */ echo $elementName ?>[<%- data.file_id %>][media_type]"
+                   data-form-part="<?php /* @escapeNotVerified */ echo $formName ?>"
+                   value="image"/>
+            <input type="hidden"
+                   name="<?php /* @escapeNotVerified */ echo $elementName ?>[<%- data.file_id %>][file]"
+                   value="<%- data.file %>"
+                   data-form-part="<?php /* @escapeNotVerified */ echo $formName ?>"/>
+            <input type="hidden"
+                   name="<?php /* @escapeNotVerified */ echo $elementName ?>[<%- data.file_id %>][value_id]"
+                   value="<%- data.value_id %>"
+                   data-form-part="<?php /* @escapeNotVerified */ echo $formName ?>"/>
+            <input type="hidden"
+                   name="<?php /* @escapeNotVerified */ echo $elementName ?>[<%- data.file_id %>][removed]"
+                   value="" class="is-removed"
+                   data-form-part="<?php /* @escapeNotVerified */ echo $formName ?>"/>
+
+            <div class="product-image-wrapper">
+                <img class="product-image"
+                     data-role="image-element"
+                     src="<%- data.url %>"
+                     />
+                <div class="image-fade"><span><?php echo $block->escapeHtml(
+                            __('Hidden')
+                        ); ?></span></div>
+            </div>
+
+        </div>
+    </script>
+
+    <script data-role="img-dialog-container-tmpl" type="text/x-magento-template">
+        <div class="image-panel" data-role="dialog">
+        </div>
+    </script>
+
+    <script data-role="img-dialog-tmpl" type="text/x-magento-template">
+        <div class="image-panel-preview">
+            <img src="<%- data.url %>" />
+        </div>
+        <div class="image-panel-controls">
+
+            <fieldset class="admin__fieldset fieldset-image-panel">
+                <div class="admin__field admin__field-inline field-image-size" data-role="size">
+                    <label class="admin__field-label">
+                        <span><?php /* @escapeNotVerified */ echo __('Image Size') ?></span>
+                    </label>
+                    <div class="admin__field-value" data-message="<?php /* @escapeNotVerified */ echo __('{size}') ?>"></div>
+                </div>
+
+                <div class="admin__field admin__field-inline field-image-resolution" data-role="resolution">
+                    <label class="admin__field-label">
+                        <span><?php /* @escapeNotVerified */ echo __('Image Resolution') ?></span>
+                    </label>
+                    <div class="admin__field-value" data-message="<?php /* @escapeNotVerified */ echo __('{width}^{height} px') ?>"></div>
+                </div>
+            </fieldset>
+        </div>
+    </script>
+</div>
+<script type="text/x-magento-init">
+    {
+        "*" : {
+            "Bss_ProductImagesByCustomer/js/bssGallery":{
+
+            }
+        }
+    }
+</script>

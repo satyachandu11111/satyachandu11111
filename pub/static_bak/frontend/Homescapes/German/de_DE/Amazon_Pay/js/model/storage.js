@@ -1,0 +1,1 @@
+/var/www/html/homescapesonlineM2/app/code/Amazon/Pay/view/frontend/web/js/model/storage.js

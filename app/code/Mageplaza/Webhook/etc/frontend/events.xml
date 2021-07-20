@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="new_customer_verification_send_response">
+        <observer name="new_customer_verification_response" instance="Mageplaza\Webhook\Observer\NewCustomerVerification" />
+    </event>
+</config>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <body>
+        <referenceBlock name="customer_account_navigation">
+            <action method="setActive">
+                <argument name="path" xsi:type="string">aw_raf/advocate</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <block class="Aheadworks\Raf\Block\Advocate\Info" name="aw-raf.advocate.info" template="Aheadworks_Raf::advocate/info.phtml" cacheable="false">
+                <block class="Aheadworks\Raf\Block\Advocate\Info\Rule" name="aw-raf.advocate.info.rule" as="info_rule"/>
+                <block class="Magento\Framework\View\Element\Template" name="aw-raf.advocate.info.share" as="info_share" template="Aheadworks_Raf::advocate/info/share.phtml"/>
+                <block class="Aheadworks\Raf\Block\Advocate\Info\ReferralUrl" name="aw-raf.advocate.info.referral_url" as="info_referral_url"/>
+                <block class="Aheadworks\Raf\Block\Advocate\Info\EmailForm" name="aw-raf.advocate.info.email_form" as="info_email_form"/>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

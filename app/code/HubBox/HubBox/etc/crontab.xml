@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+	<group id="hubbox_hubbox">
+		<job instance="HubBox\HubBox\Cron\SyncOrder" method="execute" name="hubbox_syncorder">
+			<schedule>0 * * * *</schedule>
+		</job>
+		<job instance="HubBox\HubBox\Cron\RefreshToken" method="execute" name="hubbox_refreshtoken">
+			<schedule>0 */6 * * *</schedule>
+		</job>
+	</group>
+</config>

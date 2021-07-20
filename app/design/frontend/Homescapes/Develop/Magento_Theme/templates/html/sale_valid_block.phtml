@@ -1,0 +1,6 @@
+<?php // check Display Timer is enable 
+	$getDisplayTimers = $this->helper('Homescapes\General\Helper\Data')->getDisplayTimers();
+    if($getDisplayTimers){      
+    	echo $this->helper('Homescapes\General\Helper\Data')->getTimerScript();
+	}
+?>

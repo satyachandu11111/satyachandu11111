@@ -1,0 +1,12 @@
+<!--@subject Customer Product Images @-->
+{{template config_path="design/email/header_template"}}
+<h1>A customer has uploaded image(s) to your website.</h1>
+<table>
+    <tr>{{trans "Customer Name: %nameCustomer ." nameCustomer=$nameCustomer}}</tr>
+    <tr>{{trans "Customer Email: %email ." email=$varEmail}}</tr>
+    <tr>{{trans "Product Code: %productCode." productCode=$productCode}}</tr>
+    <tr>{{trans "Time send: %time ." time=$time}}</tr>
+    <tr>Please go to the admin panel to approve/ not approve.</tr>
+    <tr>Thank you!</tr>
+</table>
+{{template config_path="design/email/footer_template"}}

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category   BSS
+ * @package    Bss_ProductImagesByCustomer
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2017-2018 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Bss_ProductImagesByCustomer::js/fancybox/dist/jquery.fancybox.css" />
+        <css src="Bss_ProductImagesByCustomer::js/OwlCarousel2-2.2.1/dist/assets/owl.carousel.css" />
+        <css src="Bss_ProductImagesByCustomer::js/OwlCarousel2-2.2.1/dist/assets/owl.theme.default.css" />
+    </head>
+    <body>
+        <referenceBlock name="product.info.details">
+            <block class="Bss\ProductImagesByCustomer\Block\SliderTabProduct" ifconfig="bss_product_image_by_customer/bss_product_image_by_customer_general/enable" name="bss_productimagesbycustomer_tab" template="Bss_ProductImagesByCustomer::SliderTabProduct.phtml" group="detailed_info"/>
+        </referenceBlock>
+		
+		<move element="bss_productimagesbycustomer_tab" destination="content.aside" before="-" />
+    </body>
+</page>

@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <preference for="HubBox\HubBox\Model\CollectableInterface" type="HubBox\HubBox\Model\Collectable" />
+
+    <type name="Magento\Quote\Model\Quote\Address\RateResult\Method">
+        <plugin disabled="false" name="HubBox_HubBox_Plugin_Magento_Quote_Model_Quote_Address_RateResult_MethodPlugin" sortOrder="100" type="HubBox\HubBox\Plugin\Magento\Quote\Model\Quote\Address\RateResult\MethodPlugin"/>
+    </type>
+
+    <type name="Magento\Quote\Model\ShippingMethodManagement">
+        <plugin disabled="false" name="hubbox_hubbox_shipping_method_management" type="HubBox\HubBox\Plugin\Magento\Quote\Model\Quote\ShippingMethodManagementPlugin"/>
+    </type>
+
+    <type name="Magento\Quote\Model\GuestCart\GuestShippingMethodManagement">
+        <plugin disabled="false" name="hubbox_hubbox_guest_shipping_method_management" type="HubBox\HubBox\Plugin\Magento\Quote\Model\Quote\GuestShippingMethodManagementPlugin"/>
+    </type>
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="hubbox_hubbox_command_refreshtokens" xsi:type="object">HubBox\HubBox\Command\RefreshTokens</item>
+                <item name="hubbox_hubbox_command_syncorders" xsi:type="object">HubBox\HubBox\Command\SyncOrders</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="HubBox\HubBox\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="HubBox\HubBox\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">hubBoxLogger</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">HubBox\HubBox\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+
+</config>

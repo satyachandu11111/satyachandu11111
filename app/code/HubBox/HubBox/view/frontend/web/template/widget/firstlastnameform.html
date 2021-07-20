@@ -1,0 +1,26 @@
+<div data-bind="if: show">
+    <br>
+    <form id="hb-checkout-form" class="form hbCheckoutForm" name="hbCheckoutForm" data-bind="attr: {'data-hasrequired': $t('* Required Fields')}, submit: onSubmit">
+        <fieldset class="fieldset">
+            <div class="field required">
+                <label class="label" for="firstname">
+                    <span>First Name</span>
+                </label>
+                <div class="control">
+                    <input class="input-text" type="text" data-bind="
+                            mageInit: {'mage/trim-input':{}}" name="hubboxAdditional[firstname]" data-validate="{required:true}" id="firstname" aria-required="true">
+                </div>
+            </div>
+
+            <div class="field required">
+                <label class="label" for="lastname">
+                    <span>Last Name</span>
+                </label>
+                <div class="control">
+                    <input class="input-text" type="text" data-bind="
+                            mageInit: {'mage/trim-input':{}}" name="hubboxAdditional[lastname]" data-validate="{required:true}" id="lastname" aria-required="true">
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

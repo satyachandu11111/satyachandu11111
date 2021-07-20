@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <aw_raf>
+            <general>
+                <who_can_invite_friends>all_customers</who_can_invite_friends>
+                <customer_groups_to_join_raf_program>1</customer_groups_to_join_raf_program>
+                <order_status_to_allow_invitation>complete</order_status_to_allow_invitation>
+                <holding_period_in_days>0</holding_period_in_days>
+                <order_status_to_give_advocate_reward>complete</order_status_to_give_advocate_reward>
+                <subsequent_discounts_allowed>1</subsequent_discounts_allowed>
+                <static_block_for_welcome_popup>0</static_block_for_welcome_popup>
+                <sandbox_mode>0</sandbox_mode>
+            </general>
+            <email>
+                <sender>general</sender>
+                <new_friend_notification_template>aw_raf_email_new_friend_notification_template</new_friend_notification_template>
+                <expiration_reminder_template>aw_raf_email_expiration_reminder_template</expiration_reminder_template>
+                <expiration_template>aw_raf_email_expiration_template</expiration_template>
+            </email>
+        </aw_raf>
+    </default>
+</config>

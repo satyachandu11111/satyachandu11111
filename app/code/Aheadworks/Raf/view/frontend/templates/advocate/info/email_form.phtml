@@ -1,0 +1,24 @@
+<?php
+// @codingStandardsIgnoreFile
+
+/* @var $block \Aheadworks\Raf\Block\Advocate\Info\EmailForm */
+?>
+<form class="form subscription save"
+      action="<?= $block->escapeUrl($block->getUrl('*/*/saveEmailSubscription')) ?>"
+      method="post">
+    <div class="field subscription">
+        <input type="checkbox"
+               name="aw_raf_is_new_reward_notification_subscribed"
+               id="aw_raf_new_reward_subscription"
+               class="checkbox"
+               <?php if ($block->getNewRewardSubscriptionStatus()): ?> checked="checked"<?php endif; ?>
+        />
+        <label class="label" for="aw_raf_new_reward_subscription"><span><?= $block->escapeHtml(__('Send me an email when I get a new reward!')) ?></span></label>
+    </div>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit" class="action submit primary"><span><?= $block->escapeHtml(__('Save')) ?></span></button>
+        </div>
+    </div>
+    <?php /* @noEscape */ echo $block->getBlockHtml('formkey') ?>
+</form>

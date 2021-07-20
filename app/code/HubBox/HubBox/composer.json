@@ -1,0 +1,22 @@
+{
+    "name": "hubbox/magento2",
+    "description": "HubBox Click and Collect",
+    "license": "Proprietary",
+    "version": "2.6.0",
+    "authors": [
+        {
+            "email": "jon.pawley@hub-box.com",
+            "name": "Jon Pawley"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "HubBox\\HubBox\\": ""
+        }
+    }
+}

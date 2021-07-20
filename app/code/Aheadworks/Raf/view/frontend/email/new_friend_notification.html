@@ -1,0 +1,24 @@
+<!--@subject {{trans 'You\'ve got a new reward for a friend\'s purchase!'}}@-->
+{{template config_path="design/email/header_template"}}
+
+<p>{{trans 'Hello, %customer_name.' customer_name=$advocateSummary.getCustomerName()}}</p>
+<p>
+    {{trans 'One of your friends just made a purchase and you\'ve got a %amount reward for it.'
+        amount=$amountFormatted
+    }}
+</p>
+<p>
+    {{trans 'Your total balance is now %total_amount.'
+        total_amount=$totalAmountFormatted
+    }}
+    {{depend expiredInDays}}
+        {{trans 'Expires in %expired_in_days days.' expired_in_days=$expiredInDays}}
+    {{/depend}}
+</p>
+<p>
+    {{trans 'Click <a href="%store_url">here</a> to spend it on our site and invite more friends!'
+        store_url=$storeUrl |raw
+    }}
+</p>
+
+{{template config_path="design/email/footer_template"}}

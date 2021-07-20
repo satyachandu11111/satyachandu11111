@@ -1,0 +1,58 @@
+<?php
+	$viewModel = $block->getViewModel();
+	$customerEmail=$viewModel->getCustomerEmail();
+	$helper = $this->helper('Homescapes\General\Helper\Data');  
+	$_product = $block->getProduct();
+	$cats = $_product->getCategoryIds();
+	$firstCategoryId = $cats[0];
+    $category = $helper->loadCategory($firstCategoryId);
+    $categoryName = $category->getName(); 
+    //$finalPrice = $_product->getPrice();
+    $productData=$helper->getpricePinteterest($_product);
+
+    $finalPrice=@$productData['finalprice'];
+    $lineItem='[';
+    $lineItem.='{';
+    $lineItem.="product_name: '".$_product->getName()."',";
+	$lineItem.="product_id: '".$_product->getSku()."',";
+	$lineItem.="product_category: '".$categoryName."',";
+    $lineItem.="product_price: '".@$productData['finalprice']."'";
+    //$productData['associated_product']='';
+    if(isset($productData['associated_product'])){
+    	$lineItem.='},';
+    	$j=0;
+    	$totalAssociated=count($productData['associated_product']);
+    	foreach ($productData['associated_product'] as $key => $associatedProduct) {
+    		$j++;
+    		$lineItem.='{';
+    		$lineItem.="product_name: '".@$associatedProduct['product_name']."',";
+    		$lineItem.="product_id: '".@$associatedProduct['product_sku']."',";
+    		$lineItem.="product_category: '".$categoryName."',";
+    		$lineItem.="product_price: '".@$associatedProduct['child_price']."'";
+    		if($j==$totalAssociated){
+    			$lineItem.='}';
+    		}else{
+    			$lineItem.='},';
+    		}
+    				
+    	}
+    	
+    }else{
+    	$lineItem.='}';
+    }
+
+    //$lineItem.='}';
+    
+    
+    
+
+    $lineItem.=']';
+  ?>
+  <!-- pinterest code -->
+<script>
+pintrk('track', 'pagevisit', {
+value: <?php echo $finalPrice ?>,
+currency: '<?php echo $helper->currentCurrencyCode(); ?>',
+line_items: <?php echo $lineItem ?>
+});
+</script>

@@ -1,0 +1,13 @@
+<?php
+/**
+ * Copyright © 2018 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+$_product = $block->getProduct();
+
+$staticBlock = $_product->getAttributeText('product_bullet_points') ? $_product->getAttributeText('product_bullet_points') : '' ;
+?>
+
+<?php if (!empty($staticBlock)) :?>
+<?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId($staticBlock)->toHtml();?>
+<?php endif; ?>

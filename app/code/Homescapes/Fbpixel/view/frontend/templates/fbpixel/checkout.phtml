@@ -1,0 +1,22 @@
+<?php $items =$block->getItems(); 
+	if(count($items)){
+		$cartSkus = array();
+		$subTotal = 0;
+			foreach ($items as $item) {
+				$cartSkus[] = '"'.$item->getSku().'"';
+				$subTotal += $item->getRowTotal();		
+			}
+		$cartSkus=array_unique($cartSkus);  
+		$finalpurchaseskufbpixel=implode(",",$cartSkus);	
+?>
+
+
+	<script>
+	fbq('track', 'viewcheckout', {
+	  content_ids: [<?php echo $finalpurchaseskufbpixel; ?>],
+	  content_type: 'product',
+	  value: <?php  echo round($subTotal,2); ?>,
+	  currency: 'GBP'
+	});
+	</script>
+<?php } ?>

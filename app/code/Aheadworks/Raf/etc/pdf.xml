@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Sales:etc/pdf_file.xsd">
+    <renderers>
+        <page type="invoice">
+            <renderer product_type="default">Magento\Sales\Model\Order\Pdf\Items\Invoice\DefaultInvoice</renderer>
+        </page>
+    </renderers>
+    <totals>
+        <total name="aw_raf">
+            <title translate="true">Referral Discount</title>
+            <source_field>aw_raf_amount</source_field>
+            <amount_prefix>-</amount_prefix>
+            <font_size>7</font_size>
+            <display_zero>false</display_zero>
+            <sort_order>160</sort_order>
+        </total>
+    </totals>
+</config>

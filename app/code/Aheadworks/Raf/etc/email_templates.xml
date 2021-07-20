@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="aw_raf_email_new_friend_notification_template" label="AW Refer a Friend - New Friend Notification Template"
+              file="new_friend_notification.html" type="html" module="Aheadworks_Raf" area="frontend"/>
+    <template id="aw_raf_email_expiration_reminder_template" label="AW Refer a Friend - Expiration Reminder Template"
+              file="expiration_reminder.html" type="html" module="Aheadworks_Raf" area="frontend"/>
+    <template id="aw_raf_email_expiration_template" label="AW Refer a Friend - Expiration Template"
+              file="expiration.html" type="html" module="Aheadworks_Raf" area="frontend"/>
+</config>

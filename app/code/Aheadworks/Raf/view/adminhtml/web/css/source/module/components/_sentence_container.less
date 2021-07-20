@@ -1,0 +1,48 @@
+//
+//  Sentence container
+//  _____________________________________________
+
+.aw-raf__sentence-container {
+  width: calc(100% * 0.5);
+  min-width: 650px;
+  margin: 0 auto;
+
+  .aw-raf__sentence {
+    margin-bottom: 17px;
+
+    .admin__field {
+      display: inline-block;
+
+      &+.admin__field {
+        margin-top: 0px;
+      }
+
+      .preview-label {
+        font-size: 14px;
+        font-weight: 600;
+        color: #000;
+        cursor: pointer;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      .admin__field-error {
+        position: absolute;
+        padding: .1rem 1rem;
+      }
+    }
+  }
+
+  .admin__field-tooltip {
+    margin-top: 0px;
+
+    .admin__field-tooltip-action {
+      margin-left: 0.5rem;
+    }
+    .admin__field-tooltip-content {
+      right: -5.5rem;
+    }
+  }
+}

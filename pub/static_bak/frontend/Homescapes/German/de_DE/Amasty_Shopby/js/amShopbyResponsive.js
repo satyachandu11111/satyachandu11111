@@ -1,0 +1,1 @@
+/var/www/html/homescapesonlineM2/app/code/Amasty/Shopby/view/frontend/web/js/amShopbyResponsive.js

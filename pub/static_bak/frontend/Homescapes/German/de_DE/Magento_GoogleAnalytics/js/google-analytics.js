@@ -1,0 +1,1 @@
+/var/www/html/homescapesonlineM2/vendor/magento/module-google-analytics/view/frontend/web/js/google-analytics.js

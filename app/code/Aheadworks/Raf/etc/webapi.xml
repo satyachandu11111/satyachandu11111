@@ -1,0 +1,189 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <!-- Managing RAF Rule -->
+    <route url="/V1/awRafRule/:ruleId" method="GET">
+        <service class="Aheadworks\Raf\Api\RuleRepositoryInterface" method="get"/>
+        <resources>
+            <resource ref="Aheadworks_Raf::rules"/>
+        </resources>
+    </route>
+    <route url="/V1/awRafRule" method="POST">
+        <service class="Aheadworks\Raf\Api\RuleRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Aheadworks_Raf::rules"/>
+        </resources>
+    </route>
+    <route url="/V1/awRafRule" method="PUT">
+        <service class="Aheadworks\Raf\Api\RuleRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Aheadworks_Raf::rules"/>
+        </resources>
+    </route>
+    <route url="/V1/awRafRule" method="GET">
+        <service class="Aheadworks\Raf\Api\RuleRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="Aheadworks_Raf::rules"/>
+        </resources>
+    </route>
+    <route url="/V1/awRafRule/:ruleId" method="DELETE">
+        <service class="Aheadworks\Raf\Api\RuleRepositoryInterface" method="deleteById"/>
+        <resources>
+            <resource ref="Aheadworks_Raf::rules"/>
+        </resources>
+    </route>
+    <route url="/V1/awRafRule" method="DELETE">
+        <service class="Aheadworks\Raf\Api\RuleRepositoryInterface" method="delete"/>
+        <resources>
+            <resource ref="Aheadworks_Raf::rules"/>
+        </resources>
+    </route>
+    <route url="/V1/awRafRule/getActiveRule" method="GET">
+        <service class="Aheadworks\Raf\Api\RuleManagementInterface" method="getActiveRule"/>
+        <resources>
+            <resource ref="Aheadworks_Raf::rules"/>
+        </resources>
+    </route>
+
+    <!-- Managing RAF Transaction -->
+    <route url="/V1/awRafTransaction/:transactionId" method="GET">
+        <service class="Aheadworks\Raf\Api\TransactionRepositoryInterface" method="get"/>
+        <resources>
+            <resource ref="Aheadworks_Raf::advocates"/>
+        </resources>
+    </route>
+    <route url="/V1/awRafTransaction" method="GET">
+        <service class="Aheadworks\Raf\Api\TransactionRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="Aheadworks_Raf::advocates"/>
+        </resources>
+    </route>
+    <route url="/V1/awRafTransaction" method="POST">
+        <service class="Aheadworks\Raf\Api\TransactionManagementInterface" method="createTransaction"/>
+        <resources>
+            <resource ref="Aheadworks_Raf::advocates"/>
+        </resources>
+    </route>
+
+    <!-- Managing RAF Quote -->
+    <route url="/V1/awRafQuote" method="PUT">
+        <service class="Aheadworks\Raf\Api\QuoteManagementInterface" method="updateReferralLink"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+    </route>
+
+    <!-- Managing Guest RAF Quote -->
+    <route url="/V1/awRafGuestQuote" method="PUT">
+        <service class="Aheadworks\Raf\Api\GuestQuoteManagementInterface" method="updateReferralLink"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <!-- Managing RAF Friend -->
+    <route url="/V1/awRafFriend/canApplyDiscount" method="POST">
+        <service class="Aheadworks\Raf\Api\FriendManagementInterface" method="canApplyDiscount"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <!-- Managing RAF Advocate -->
+    <route url="/V1/awRafAdvocate/:advocateSummaryItemId" method="GET">
+        <service class="Aheadworks\Raf\Api\AdvocateSummaryRepositoryInterface" method="get"/>
+        <resources>
+            <resource ref="Aheadworks_Raf::advocates"/>
+        </resources>
+    </route>
+    <route url="/V1/awRafAdvocate/getByCustomerId" method="GET">
+        <service class="Aheadworks\Raf\Api\AdvocateSummaryRepositoryInterface" method="getByCustomerId"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+    </route>
+    <route url="/V1/awRafAdvocate/getByReferralLink" method="GET">
+        <service class="Aheadworks\Raf\Api\AdvocateSummaryRepositoryInterface" method="getByReferralLink"/>
+        <resources>
+            <resource ref="Aheadworks_Raf::advocates"/>
+        </resources>
+    </route>
+    <route url="/V1/awRafAdvocate" method="POST">
+        <service class="Aheadworks\Raf\Api\AdvocateManagementInterface" method="createReferralLink"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+    </route>
+    <route url="/V1/awRafAdvocate" method="GET">
+        <service class="Aheadworks\Raf\Api\AdvocateSummaryRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="Aheadworks_Raf::advocates"/>
+        </resources>
+    </route>
+    <route url="/V1/awRafAdvocate/giveRewardForFriendPurchase" method="POST">
+        <service class="Aheadworks\Raf\Api\AdvocateRewardManagementInterface" method="giveRewardForFriendPurchase"/>
+        <resources>
+            <resource ref="Aheadworks_Raf::advocates"/>
+        </resources>
+    </route>
+    <route url="/V1/awRafAdvocate/canParticipateInReferralProgram" method="POST">
+        <service class="Aheadworks\Raf\Api\AdvocateManagementInterface" method="canParticipateInReferralProgram"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+    </route>
+    <route url="/V1/awRafAdvocate/canUseReferralProgramAndSpend" method="POST">
+        <service class="Aheadworks\Raf\Api\AdvocateManagementInterface" method="canUseReferralProgramAndSpend"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+    </route>
+    <route url="/V1/awRafAdvocate/isParticipantOfReferralProgram" method="POST">
+        <service class="Aheadworks\Raf\Api\AdvocateManagementInterface" method="isParticipantOfReferralProgram"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+    </route>
+    <route url="/V1/awRafAdvocate/getReferralUrl" method="GET">
+        <service class="Aheadworks\Raf\Api\AdvocateManagementInterface" method="getReferralUrl"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+    </route>
+    <route url="/V1/awRafAdvocate/updateNewRewardSubscriptionStatus" method="PUT">
+        <service class="Aheadworks\Raf\Api\AdvocateManagementInterface" method="updateNewRewardSubscriptionStatus"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+    </route>
+    <route url="/V1/awRafAdvocate/spendDiscountOnCheckout" method="POST">
+        <service class="Aheadworks\Raf\Api\AdvocateManagementInterface" method="spendDiscountOnCheckout"/>
+        <resources>
+            <resource ref="Aheadworks_Raf::advocates"/>
+        </resources>
+    </route>
+    <route url="/V1/awRafAdvocate/refundReferralDiscountForCanceledOrder" method="POST">
+        <service class="Aheadworks\Raf\Api\AdvocateManagementInterface" method="refundReferralDiscountForCanceledOrder"/>
+        <resources>
+            <resource ref="Aheadworks_Raf::advocates"/>
+        </resources>
+    </route>
+    <route url="/V1/awRafAdvocate/refundReferralDiscountForCreditmemo" method="POST">
+        <service class="Aheadworks\Raf\Api\AdvocateManagementInterface" method="refundReferralDiscountForCreditmemo"/>
+        <resources>
+            <resource ref="Aheadworks_Raf::advocates"/>
+        </resources>
+    </route>
+    <route url="/V1/awRafAdvocate/expireBalance" method="POST">
+        <service class="Aheadworks\Raf\Api\AdvocateExpirationManagementInterface" method="expireBalance"/>
+        <resources>
+            <resource ref="Aheadworks_Raf::advocates"/>
+        </resources>
+    </route>
+    <route url="/V1/awRafAdvocate/sendExpirationReminder" method="POST">
+        <service class="Aheadworks\Raf\Api\AdvocateExpirationManagementInterface" method="sendExpirationReminder"/>
+        <resources>
+            <resource ref="Aheadworks_Raf::advocates"/>
+        </resources>
+    </route>
+</routes>

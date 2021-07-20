@@ -1,0 +1,15 @@
+<!--@subject {{trans 'Your reward expired!'}}@-->
+{{template config_path="design/email/header_template"}}
+
+<p>{{trans 'Hello, %customer_name' customer_name=$advocateSummary.getCustomerName()}}</p>
+<p>
+    {{trans 'Your %amount reward for inviting the friends has expired!'
+        amount=$amountFormatted
+    }}
+</p>
+<p>
+    {{trans 'Click <a href="%store_url">here</a> to spend it on our site and invite more friends!'
+        store_url=$storeUrl |raw
+    }}
+</p>
+{{template config_path="design/email/footer_template"}}

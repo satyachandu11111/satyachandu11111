@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_order_place_after">
+        <observer name="hubbox_hubbox_sales_order_after" instance="HubBox\HubBox\Observer\Sales\Order\After"/>
+    </event>
+    <event name="hubbox_recalculate">
+        <observer name="hubbox_hubbox_observer_recalculate" instance="HubBox\HubBox\Observer\Recalculate"/>
+    </event>
+    <event name="order_cancel_after">
+        <observer name="hubbox_hubbox_sales_order_cancel_after" instance="HubBox\HubBox\Observer\Sales\Order\Cancel\After"/>
+    </event>
+</config>

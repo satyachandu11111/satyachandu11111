@@ -1,0 +1,16 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php /* @var $block \Magento\ProductAlert\Block\Product\View */?>
+<div class="stock product-detail-stock-notify">
+	
+    <a href="<?= $block->escapeUrl($block->getSignupUrl()) ?>"
+       title="<?= $block->escapeHtmlAttr(__($block->getSignupLabel())) ?>" class="action alert">
+       <i class="fas fa-envelope"></i>
+        <?= $block->escapeHtml(__($block->getSignupLabel())) ?>
+    </a>
+</div>
+	

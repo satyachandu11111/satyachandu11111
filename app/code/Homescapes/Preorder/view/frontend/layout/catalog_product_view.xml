@@ -1,0 +1,9 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_layout.xsd">
+	<body>       
+	   <!-- Pre order label above media -->
+    <referenceContainer name="product.info.media">
+        <block class="Magento\Catalog\Block\Product\View" name="product.info.preorderend" template="Homescapes_Preorder::catalog/product/view/preorder-media.phtml" before="-" /> 
+    </referenceContainer>
+
+ 	</body> 
+</page>

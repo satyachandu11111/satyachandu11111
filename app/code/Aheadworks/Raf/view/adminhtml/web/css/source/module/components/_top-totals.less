@@ -1,0 +1,57 @@
+.aw-raf__top-totals-list-wrap {
+    width: 100%;
+    display: inline-table;
+    list-style: none none;
+    text-align:center;
+    margin-bottom: 1rem;
+    padding: 0 0 4rem;
+
+    .summary-title {
+        text-align: center;
+        margin-bottom: 3rem;
+        font-weight: 600;
+        font-size: 2.5rem;
+    }
+
+    .total-item {
+        display: inline-block;
+        font-weight: normal;
+        margin: 0.5rem 3.5rem;
+        text-align: left;
+
+        &.advocate-name {
+            .admin__field {
+                + .admin__field {
+                    margin-top: 0;
+                }
+            }
+            .admin__field-control {
+                font-size: 1.3rem;
+            }
+            .admin__field-label {
+                text-align: left;
+            }
+        }
+
+        .advocate-email {
+            .admin__field-label {
+                display: none;
+            }
+        }
+
+        .title, .admin__field-label {
+            font-size: 1.5rem;
+            letter-spacing: -0.2px;
+            color: #41362f;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .total, .admin__field-control {
+            font-size: 2.7rem;
+            font-weight: normal;
+            color: #eb5202;
+            margin-right: 5px;
+        }
+    }
+}

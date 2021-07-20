@@ -1,0 +1,58 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="HubBox_HubBox::css/hubbox.css"/>
+        <css src="https://fonts.googleapis.com/icon?family=Material+Icons" src_type="url" />
+    </head>
+    <body>
+        <referenceBlock name="checkout.root">
+            <arguments>
+                <argument name="jsLayout" xsi:type="array">
+                    <item name="components" xsi:type="array">
+                        <item name="checkout" xsi:type="array">
+                            <item name="children" xsi:type="array">
+                                <item name="steps" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                        <item name="shipping-step" xsi:type="array">
+                                            <item name="children" xsi:type="array">
+                                                <item name="shippingAddress" xsi:type="array">
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="widget" xsi:type="array">
+                                                            <item name="component" xsi:type="string">HubBox_HubBox/js/view/widget</item>
+                                                            <item name="displayArea" xsi:type="string">widget</item>
+                                                            <item name="children" xsi:type="array">
+                                                                <item name="info" xsi:type="array">
+                                                                    <item name="component" xsi:type="string">HubBox_HubBox/js/view/widget/info</item>
+                                                                    <item name="displayArea" xsi:type="string">info</item>
+                                                                </item>
+                                                                <item name="explore" xsi:type="array">
+                                                                    <item name="component" xsi:type="string">HubBox_HubBox/js/view/widget/explore</item>
+                                                                    <item name="displayArea" xsi:type="string">explore</item>
+                                                                </item>
+                                                                <item name="confirm" xsi:type="array">
+                                                                    <item name="component" xsi:type="string">HubBox_HubBox/js/view/widget/confirm</item>
+                                                                    <item name="displayArea" xsi:type="string">confirm</item>
+                                                                </item>
+                                                                <item name="summary" xsi:type="array">
+                                                                    <item name="component" xsi:type="string">HubBox_HubBox/js/view/widget/summary</item>
+                                                                    <item name="displayArea" xsi:type="string">summary</item>
+                                                                </item>
+                                                                <item name="firstlastnameform" xsi:type="array">
+                                                                    <item name="component" xsi:type="string">HubBox_HubBox/js/view/widget/firstlastnameform</item>
+                                                                    <item name="displayArea" xsi:type="string">firstlastnameform</item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

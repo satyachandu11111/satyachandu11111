@@ -1,0 +1,1 @@
+/var/www/html/homescapesonlineM2/app/code/MagicToolbox/MagicZoomPlus/view/frontend/web/js/swatch-renderer-mixin.js

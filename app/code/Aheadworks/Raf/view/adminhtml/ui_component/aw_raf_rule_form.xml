@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">aw_raf_rule_form.aw_raf_rule_form_data_source</item>
+            <item name="deps" xsi:type="string">aw_raf_rule_form.aw_raf_rule_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Rule</item>
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+            <item name="namespace" xsi:type="string">aw_raf_rule_form</item>
+        </item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="string">Aheadworks\Raf\Block\Adminhtml\Rule\Edit\Button\Back</item>
+            <item name="delete" xsi:type="string">Aheadworks\Raf\Block\Adminhtml\Rule\Edit\Button\Delete</item>
+            <item name="reset" xsi:type="string">Aheadworks\Raf\Block\Adminhtml\Rule\Edit\Button\Reset</item>
+            <item name="save" xsi:type="string">Aheadworks\Raf\Block\Adminhtml\Rule\Edit\Button\Save</item>
+            <item name="save_and_continue" xsi:type="string">Aheadworks\Raf\Block\Adminhtml\Rule\Edit\Button\SaveAndContinue</item>
+        </item>
+    </argument>
+    <dataSource name="aw_raf_rule_form_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Aheadworks\Raf\Ui\DataProvider\Rule\FormDataProvider</argument>
+            <argument name="name" xsi:type="string">aw_raf_rule_form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="submit_url" xsi:type="url" path="aw_raf/rule/save"/>
+                </item>
+            </argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+    <fieldset name="general_information">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">General Information</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="opened" xsi:type="boolean">true</item>
+            </item>
+        </argument>
+        <field name="id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">rule</item>
+                    <item name="dataScope" xsi:type="string">id</item>
+                </item>
+            </argument>
+        </field>
+        <field name="name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Rule Name</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">rule</item>
+                    <item name="dataScope" xsi:type="string">name</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="status">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Aheadworks\Raf\Model\Source\Rule\Status</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Rule Status</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">rule</item>
+                    <item name="dataScope" xsi:type="string">status</item>
+                    <item name="default" xsi:type="string">1</item>
+                </item>
+            </argument>
+        </field>
+        <field name="website_ids">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Aheadworks\Raf\Model\Source\System\Website</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">number</item>
+                    <item name="label" xsi:type="string" translate="true">Website</item>
+                    <item name="formElement" xsi:type="string">multiselect</item>
+                    <item name="source" xsi:type="string">rule</item>
+                    <item name="dataScope" xsi:type="string">website_ids</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="apply_to_shipping">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/form/element/single-checkbox-toggle-notice</item>
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="source" xsi:type="string">rule</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="notices" xsi:type="array">
+                        <item name="0" xsi:type="string" translate="true">Discount amount is applied to subtotal only. This option applies to both parties.</item>
+                        <item name="1" xsi:type="string" translate="true">Discount amount is applied to subtotal and shipping amount. This option applies to both parties.</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                    <item name="label" xsi:type="string" translate="true">Apply to Shipping Amount</item>
+                </item>
+            </argument>
+        </field>
+        <container name="sentence_container">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="template" xsi:type="string">Aheadworks_Raf/ui/form/rule/sentence-container</item>
+                    <item name="sortOrder" xsi:type="number">40</item>
+                </item>
+            </argument>
+            <container name="registration_sentence">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="textBefore" xsi:type="string" translate="true">Friend's registration on the site</item>
+                        <item name="textAfter" xsi:type="string" translate="true">mandatory to get a reward towards purchase.</item>
+                        <item name="template" xsi:type="string">Aheadworks_Raf/ui/form/rule/sentence-with-tooltip</item>
+                        <item name="component" xsi:type="string">Aheadworks_Raf/js/ui/form/rule/preview-action</item>
+                        <item name="tooltipTpl" xsi:type="string">ui/form/element/helper/tooltip</item>
+                        <item name="tooltip" xsi:type="array">
+                            <item name="description" xsi:type="string" translate="true">
+                                If the registration is not mandatory, there is a chance that the same friend will get a discount several times if they will use different browsers.
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+                <field name="registration_required">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">number</item>
+                            <item name="formElement" xsi:type="string">select</item>
+                            <item name="source" xsi:type="string">rule</item>
+                            <item name="dataScope" xsi:type="string">registration_required</item>
+                            <item name="template" xsi:type="string">Aheadworks_Raf/ui/form/rule/preview-field</item>
+                            <item name="elementTmpl" xsi:type="string">Aheadworks_Raf/ui/form/rule/preview-element/select</item>
+                            <item name="default" xsi:type="string">1</item>
+                        </item>
+                        <item name="options" xsi:type="array">
+                            <item name="1" xsi:type="array">
+                                <item name="value" xsi:type="number">1</item>
+                                <item name="label" xsi:type="string" translate="true">is</item>
+                            </item>
+                            <item name="0" xsi:type="array">
+                                <item name="value" xsi:type="number">0</item>
+                                <item name="label" xsi:type="string" translate="true">is not</item>
+                            </item>
+                        </item>
+                    </argument>
+                </field>
+            </container>
+            <container name="friend_off_sentence">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="textBefore" xsi:type="string" translate="true">Every friend gets</item>
+                        <item name="textAfter" xsi:type="string" translate="true">off on their first purchase.</item>
+                        <item name="component" xsi:type="string">Aheadworks_Raf/js/ui/form/rule/preview-action</item>
+                        <item name="template" xsi:type="string">Aheadworks_Raf/ui/form/rule/sentence</item>
+                    </item>
+                </argument>
+                <field name="friend_off">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="source" xsi:type="string">rule</item>
+                            <item name="dataScope" xsi:type="string">friend_off</item>
+                            <item name="template" xsi:type="string">Aheadworks_Raf/ui/form/rule/preview-field</item>
+                            <item name="elementTmpl" xsi:type="string">Aheadworks_Raf/ui/form/rule/preview-element/input</item>
+                            <item name="component" xsi:type="string">Aheadworks_Raf/js/ui/form/rule/field-with-preview</item>
+                            <item name="validation" xsi:type="array">
+                                <item name="required-entry" xsi:type="boolean">true</item>
+                                <item name="validate-number" xsi:type="boolean">true</item>
+                                <item name="validate-greater-than-zero" xsi:type="boolean">true</item>
+                            </item>
+                        </item>
+                    </argument>
+                </field>
+                <field name="friend_off_type">
+                    <argument name="data" xsi:type="array">
+                        <item name="options" xsi:type="object">Aheadworks\Raf\Model\Source\Rule\FriendOffType</item>
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">number</item>
+                            <item name="formElement" xsi:type="string">select</item>
+                            <item name="source" xsi:type="string">rule</item>
+                            <item name="dataScope" xsi:type="string">friend_off_type</item>
+                            <item name="elementTmpl" xsi:type="string">Aheadworks_Raf/ui/form/rule/preview-element/select</item>
+                            <item name="template" xsi:type="string">Aheadworks_Raf/ui/form/rule/preview-field</item>
+                        </item>
+                    </argument>
+                </field>
+            </container>
+            <container name="advocate_off_sentence">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="textBefore" xsi:type="string" translate="true">For every friend's first purchase, advocate gets</item>
+                        <item name="textAfter" xsi:type="string" translate="true">off on their next order.</item>
+                        <item name="component" xsi:type="string">Aheadworks_Raf/js/ui/form/rule/preview-action</item>
+                        <item name="template" xsi:type="string">Aheadworks_Raf/ui/form/rule/sentence</item>
+                    </item>
+                </argument>
+                <field name="advocate_off">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="source" xsi:type="string">rule</item>
+                            <item name="dataScope" xsi:type="string">advocate_off</item>
+                            <item name="template" xsi:type="string">Aheadworks_Raf/ui/form/rule/preview-field</item>
+                            <item name="elementTmpl" xsi:type="string">Aheadworks_Raf/ui/form/rule/preview-element/input</item>
+                            <item name="component" xsi:type="string">Aheadworks_Raf/js/ui/form/rule/field-with-preview</item>
+                            <item name="validation" xsi:type="array">
+                                <item name="required-entry" xsi:type="boolean">true</item>
+                                <item name="validate-number" xsi:type="boolean">true</item>
+                                <item name="validate-greater-than-zero" xsi:type="boolean">true</item>
+                            </item>
+                        </item>
+                    </argument>
+                </field>
+                <field name="advocate_off_type">
+                    <argument name="data" xsi:type="array">
+                        <item name="options" xsi:type="object">Aheadworks\Raf\Model\Source\Rule\AdvocateOffType</item>
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">number</item>
+                            <item name="formElement" xsi:type="string">select</item>
+                            <item name="source" xsi:type="string">rule</item>
+                            <item name="dataScope" xsi:type="string">advocate_off_type</item>
+                            <item name="elementTmpl" xsi:type="string">Aheadworks_Raf/ui/form/rule/preview-element/select</item>
+                            <item name="template" xsi:type="string">Aheadworks_Raf/ui/form/rule/preview-field</item>
+                        </item>
+                    </argument>
+                </field>
+            </container>
+            <container name="advocate_earn_type_sentence">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="textBefore" xsi:type="string" translate="true">The discount earned by an advocate is cumulative.</item>
+                        <item name="template" xsi:type="string">Aheadworks_Raf/ui/form/rule/sentence</item>
+                    </item>
+                </argument>
+            </container>
+        </container>
+    </fieldset>
+</form>

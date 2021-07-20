@@ -1,0 +1,18 @@
+<?php
+
+$count = 0;
+$myBlock = \Magento\Framework\App\ObjectManager::getInstance()->get('Homescapes\ProductCount\Block\ProductCount');
+
+// print current category data
+if ($currentCategory = $myBlock->getCurrentCategory()) {  
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance(); 
+	$cateinstance = $objectManager->create('Magento\Catalog\Model\CategoryFactory');
+	$allcategoryproduct = $cateinstance->create()->load($currentCategory->getId())->getProductCollection()->addAttributeToSelect('*')->addAttributeToFilter('visibility', \Magento\Catalog\Model\Product\Visibility::VISIBILITY_BOTH)->addAttributeToFilter('status', \Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_ENABLED);
+	$count = $allcategoryproduct->count();        
+}
+
+?>
+
+<?php if ($myBlock->getCurrentCategory()->getDisplayMode() !== 'PAGE') :?>
+<span class="prouduct-count">(<?= $count ?>)</span>
+<?php endif; ?>

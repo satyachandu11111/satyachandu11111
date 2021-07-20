@@ -1,0 +1,1 @@
+/var/www/html/homescapesonlineM2/app/code/Amasty/Scroll/view/frontend/web/js/amscroll.js

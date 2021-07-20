@@ -1,0 +1,10 @@
+<?php
+$_product = $block->getProduct();
+if ($_product->isAvailable()): ?>
+	<?php 
+	if($this->helper('Homescapes\Preorder\Helper\Data')->isPreOrder($_product)){ ?>	
+	<div class="media-pre-order-label">
+			 <span class="available pre-load"> <?= /* @escapeNotVerified */ __('Pre-Order') ?></span>
+	</div>
+	<?php } ?>
+<?php endif; ?>

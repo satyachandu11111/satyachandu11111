@@ -1,0 +1,33 @@
+<?php
+	$_product = $block->getProduct();
+	$magazine_images=$_product->getData('magazine_images');
+	if($magazine_images!='')
+	{
+		$helper=$this->helper('Homescapes\MagazineImages\Helper\Data');
+		$imagePath =$helper->getMagazinImage($magazine_images);?>
+		<?php 
+		if($imagePath!='')
+		{ ?>
+			<div class="product-magazine-images">
+			<img src="<?php echo $imagePath ?>" alt="<?php echo $_product->getName(); ?>" >
+			</div>
+		<?php
+		}
+	}
+
+
+	$festive_images=$_product->getData('festive_images');
+	if($festive_images!='')
+	{
+		$helper=$this->helper('Homescapes\MagazineImages\Helper\Data');
+		$imagePath =$helper->getMagazinImage($festive_images);?>
+		<?php 
+		if($imagePath!='')
+		{ ?>
+			<div class="festive-image-label">
+			<img src="<?php echo $imagePath ?>" alt="<?php echo $_product->getName(); ?>" >
+			</div>
+		<?php
+		}
+	} 
+ ?>

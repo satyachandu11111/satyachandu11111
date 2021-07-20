@@ -1,0 +1,29 @@
+<?php
+// @codingStandardsIgnoreFile
+
+/* @var $block \Aheadworks\Raf\Block\Friend\Invited */
+$welcomeHtmlContent = $block->getStaticBlockHtmlForWelcomePopup();
+$isSetPopupContent = !empty($welcomeHtmlContent);
+?>
+<?php if ($isSetPopupContent): ?>
+    <div data-role="aw-raf-friend-popup-content" style="display: none">
+        <?= /* @noEscape */ $welcomeHtmlContent ?>
+    </div>
+<?php endif; ?>
+<div data-role="aw-raf-friend-invited" data-bind="scope: 'friendInvited'">
+
+</div>
+<script type="text/x-magento-init">
+    {
+        "[data-role=aw-raf-friend-invited]": {
+            "Magento_Ui/js/core/app": {
+                "components":{
+                    "friendInvited":{
+                        "component":"Aheadworks_Raf/js/view/friend/invited",
+                        "isSetPopupContent": <?= /* @noEscape */ \Zend_Json::encode($isSetPopupContent) ?>
+                    }
+                }
+            }
+        }
+    }
+</script>

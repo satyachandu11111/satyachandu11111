@@ -1,0 +1,83 @@
+{
+   "channelOrderId":"250648",
+   "latestShipDate":null,
+   "latestDeliveryDate":null,
+   "currencyCode":"GBP",
+   "shippingAddress":{
+      "firstName":"vivek",
+      "lastName":"parmar",
+      "phoneNumber":"01",
+      "company":null,
+      "countryCode":"GB",
+      "provinceCode":null,
+      "provinceName":null,
+      "street":"test",
+      "city":"test",
+      "postcode":"AB12 3CD",
+      "addressLine2":null,
+      "addressLine3":null
+   },
+   "billingAddress":{
+      "firstName":"vivek",
+      "lastName":"parmar",
+      "phoneNumber":"01",
+      "company":null,
+      "countryCode":"GB",
+      "provinceCode":null,
+      "provinceName":null,
+      "street":"test",
+      "city":"test",
+      "postcode":"AB12 3CD",
+      "addressLine2":null,
+      "addressLine3":null
+   },
+   "payments":[
+
+   ],
+   "orderTotalAmount":139,
+   "checkoutCompletedAt":"2020-08-04 10:19:39",
+   "number":"250648",
+   "notes":null,
+   "createdAt":"2020-08-04 10:19:39",
+   "updatedAt":"2020-08-04 10:19:39",
+   "items":[
+      {
+         "channelItemId":"510065",
+         "sku":"FR1381",
+         "channelProductId":"7235",
+         "title":"Silver Metal Maxwell Bar Chair with Back Rest, 110cm High",
+         "conditionId":null,
+         "conditionSubTypeId":null,
+         "conditionNote":null,
+         "itemAmount":null,
+         "imageUrl":"https:\/\/dev.homescapesonline.com\/media\/catalog\/product\/h\/t\/httpsimages.vikkit.co.ukamazon-newbar-stoolsfr1381stool-maxwell-silver-grey-main-image.jpg",
+         "quantity":2,
+         "unitPrice":69,
+         "total":139,
+         "taxAmount":0,
+         "discountAmount":7,
+         "adjustments":[
+
+         ]
+      }
+   ],
+   "creditMemos":[
+
+   ],
+   "shipments":[
+
+   ],
+   "adjustments":[
+      {
+         "orderId":250648,
+         "orderItemId":null,
+         "type":"shipping",
+         "label":null,
+         "originCode":null,
+         "amount":"+5.99"
+      }
+   ],
+   "itemsTotal":0,
+   "shippingAmount":5,
+   "state":"pending"
+}

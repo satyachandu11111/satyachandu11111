@@ -1,0 +1,1 @@
+/var/www/html/homescapesonlineM2/app/code/Homescapes/Ajaxcart/view/frontend/web/js/catalog-add-to-cart.js

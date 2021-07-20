@@ -1,0 +1,1 @@
+/var/www/html/homescapesonlineM2/app/design/frontend/Homescapes/German/Magento_ConfigurableProduct/web/js/configurable.js

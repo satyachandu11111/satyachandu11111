@@ -1,0 +1,76 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Magento\Cookie\Block\Html\Notices $block */
+?>
+<?php if ($this->helper(\Magento\Cookie\Helper\Cookie::class)->isCookieRestrictionModeEnabled()): ?>
+    <div role="alertdialog"
+         tabindex="-1"
+         class="message global cookie"
+         id="notice-cookie-block"
+         style="display: none;">
+        <div role="document" class="content" tabindex="0">
+			
+			<p>
+                <span>
+				<?= $block->escapeHtml(__('Wir verwenden Cookies auf unserer Website, um Ihr Shopping-Erlebnis zu optimieren und attraktiv zu gestalten. Cookies helfen uns auch, für Sie relevante personalisierte Inhalte und Ads anzuzeigen. Wenn Sie auf')) ?>  <?= __(' <a class=" close-overlay--cookie" style="text-decoration:none;" href="javascript:void(0);" title="Close overlay" id="btn-cookie-allow">“Zustimmen
+
+
+”</a>, klicken, stimmen Sie der Verwendung von Cookies auf unserer Website zu.  <a href="%1">Klicken Sie hier, um mehr darüber zu erfahren.  
+Zustimmen</a>',$block->getUrl('cookies-policy')) ?>
+				</span>
+				
+				<a class="btn-default close-overlay--cookie" href="javascript:void(0);" title="Close overlay" id="btn-cookie-allow">Zustimmen
+
+
+</a>
+
+           
+
+            </p>
+
+           
+        </div>
+    </div>
+    
+    <script type="text/x-magento-init">
+        {
+            "#notice-cookie-block": {
+                "cookieNotices": {
+                    "cookieAllowButtonSelector": "#btn-cookie-allow",
+                    "cookieName": "<?= /* @noEscape */ \Magento\Cookie\Helper\Cookie::IS_USER_ALLOWED_SAVE_COOKIE ?>",
+                    "cookieValue": <?= /* @noEscape */ $this->helper(\Magento\Cookie\Helper\Cookie::class)->getAcceptedSaveCookiesWebsiteIds() ?>,
+                    "cookieLifetime": <?= /* @noEscape */ $this->helper(\Magento\Cookie\Helper\Cookie::class)->getCookieRestrictionLifetime() ?>,
+                    "noCookiesUrl": "<?= $block->escapeJs($block->escapeUrl($block->getUrl('cookie/index/noCookies'))) ?>"
+                }
+            }
+        }
+    </script>
+
+    <script type="text/javascript">
+    require([
+        'jquery',
+        'jquery/jquery.cookie'
+    ], function ($) {
+        $(document).ready(function () {
+            
+            var cookieName = '<?= \Magento\Cookie\Helper\Cookie::IS_USER_ALLOWED_SAVE_COOKIE ?>';
+            var cookieValue = '<?= $this->helper(\Magento\Cookie\Helper\Cookie::class)->getAcceptedSaveCookiesWebsiteIds() ?>';
+            var cookieLifetime = '<?= $this->helper(\Magento\Cookie\Helper\Cookie::class)->getCookieRestrictionLifetime() ?>';
+            var cookieExpires = new Date(new Date().getTime() + cookieLifetime * 1000);
+            
+            var check_cookie = $.cookie('homescapes_use_cookie');
+            if(check_cookie){
+                 $.cookie(cookieName, cookieValue, {expires: cookieExpires});
+            }
+            $.cookie('homescapes_use_cookie', 'homescapes_use_cookie', {expires: cookieExpires}); 
+        });
+    });
+</script>
+
+<?php endif; ?>

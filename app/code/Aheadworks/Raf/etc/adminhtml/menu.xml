@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Aheadworks_Raf::home" 
+             title="Refer a Friend by Aheadworks"
+             module="Aheadworks_Raf" 
+             sortOrder="100" 
+             parent="Magento_Backend::marketing"
+             resource="Aheadworks_Raf::home"/>
+        <add id="Aheadworks_Raf::rules"
+             title="Rules"
+             module="Aheadworks_Raf" 
+             sortOrder="10" 
+             parent="Aheadworks_Raf::home" 
+             action="aw_raf/rule/index"
+             resource="Aheadworks_Raf::rules"/>
+        <add id="Aheadworks_Raf::advocates"
+             title="Advocates"
+             module="Aheadworks_Raf"
+             sortOrder="20"
+             parent="Aheadworks_Raf::home"
+             action="aw_raf/advocate/index"
+             resource="Aheadworks_Raf::advocates"/>
+    </menu>
+</config>

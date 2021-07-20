@@ -1,0 +1,9 @@
+<a if="getUrl()"
+   href="#"
+   class="aw-raf-admin-control-label"
+   data-bind="attr: {href: getUrl()}, text: getLabel()">
+</a>
+<label ifnot="getUrl()"
+       class="aw-raf-admin-control-label"
+       text="getLabel()"
+/>

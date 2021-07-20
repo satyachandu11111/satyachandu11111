@@ -1,0 +1,369 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Aheadworks\Raf\Api\AdvocateSummaryRepositoryInterface" type="Aheadworks\Raf\Model\AdvocateSummaryRepository" />
+    <preference for="Aheadworks\Raf\Api\Data\AdvocateSummarySearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
+    <preference for="Aheadworks\Raf\Api\AdvocateManagementInterface" type="Aheadworks\Raf\Model\Service\AdvocateService" />
+    <preference for="Aheadworks\Raf\Api\QuoteManagementInterface" type="Aheadworks\Raf\Model\Service\QuoteService" />
+    <preference for="Aheadworks\Raf\Api\GuestQuoteManagementInterface" type="Aheadworks\Raf\Model\Service\GuestQuoteService" />
+    <preference for="Aheadworks\Raf\Api\AdvocateBalanceManagementInterface" type="Aheadworks\Raf\Model\Service\AdvocateBalanceService" />
+    <preference for="Aheadworks\Raf\Api\AdvocateRewardManagementInterface" type="Aheadworks\Raf\Model\Service\AdvocateRewardService" />
+    <preference for="Aheadworks\Raf\Api\AdvocateExpirationManagementInterface" type="Aheadworks\Raf\Model\Service\AdvocateExpirationService" />
+    <preference for="Aheadworks\Raf\Api\TransactionHoldingPeriodManagementInterface" type="Aheadworks\Raf\Model\Service\TransactionHoldingPeriodService" />
+    <preference for="Aheadworks\Raf\Api\TransactionManagementInterface" type="Aheadworks\Raf\Model\Service\TransactionService" />
+    <preference for="Aheadworks\Raf\Api\RuleManagementInterface" type="Aheadworks\Raf\Model\Service\RuleService" />
+    <preference for="Aheadworks\Raf\Api\FriendManagementInterface" type="Aheadworks\Raf\Model\Service\FriendService" />
+    <preference for="Aheadworks\Raf\Api\Data\AdvocateSummaryInterface" type="Aheadworks\Raf\Model\AdvocateSummary" />
+    <preference for="Aheadworks\Raf\Api\Data\FriendMetadataInterface" type="Aheadworks\Raf\Model\Metadata\Friend" />
+    <preference for="Aheadworks\Raf\Api\RuleRepositoryInterface" type="Aheadworks\Raf\Model\RuleRepository" />
+    <preference for="Aheadworks\Raf\Api\Data\RuleInterface" type="Aheadworks\Raf\Model\Rule" />
+    <preference for="Aheadworks\Raf\Api\Data\RuleSearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
+    <preference for="Aheadworks\Raf\Api\TransactionRepositoryInterface" type="Aheadworks\Raf\Model\TransactionRepository" />
+    <preference for="Aheadworks\Raf\Api\Data\TransactionInterface" type="Aheadworks\Raf\Model\Transaction" />
+    <preference for="Aheadworks\Raf\Api\Data\TransactionSearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
+    <preference for="Aheadworks\Raf\Api\Data\TransactionEntityInterface" type="Aheadworks\Raf\Model\TransactionEntity" />
+    <preference for="Aheadworks\Raf\Model\Transaction\Comment\Metadata\CommentMetadataInterface" type="Aheadworks\Raf\Model\Transaction\Comment\Metadata\CommentMetadata" />
+    <preference for="Aheadworks\Raf\Model\Email\EmailMetadataInterface" type="Aheadworks\Raf\Model\Email\EmailMetadata" />
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="Aheadworks\Raf\Api\Data\AdvocateSummaryInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="string">aw_raf_summary</item>
+                    <item name="identifierField" xsi:type="string">id</item>
+                </item>
+                <item name="Aheadworks\Raf\Api\Data\RuleInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="string">aw_raf_rule</item>
+                    <item name="identifierField" xsi:type="string">id</item>
+                </item>
+                <item name="Aheadworks\Raf\Api\Data\TransactionInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="string">aw_raf_transaction</item>
+                    <item name="identifierField" xsi:type="string">id</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Aheadworks\Raf\Model\Transaction\Processor\Pool">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="base_processor" xsi:type="object">Aheadworks\Raf\Model\Transaction\Processor\BaseProcessor</item>
+                <item name="advocate_earned_for_friend_order" xsi:type="object">Aheadworks\Raf\Model\Transaction\Processor\EarnedForFriendOrderProcessor</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Aheadworks\Raf\Model\Transaction\Comment\Metadata\CommentMetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="advocate_earned_for_friend_order" xsi:type="array">
+                    <item name="type" xsi:type="const">Aheadworks\Raf\Model\Source\Transaction\Action::ADVOCATE_EARNED_FOR_FRIEND_ORDER</item>
+                    <item name="placeholder" xsi:type="string">Reward for friend's order %order_id</item>
+                </item>
+                <item name="advocate_spent_discount_on_order" xsi:type="array">
+                    <item name="type" xsi:type="const">Aheadworks\Raf\Model\Source\Transaction\Action::ADVOCATE_SPENT_DISCOUNT_ON_ORDER</item>
+                    <item name="placeholder" xsi:type="string">Spent referral discount on order %order_id</item>
+                </item>
+                <item name="expired" xsi:type="array">
+                    <item name="type" xsi:type="const">Aheadworks\Raf\Model\Source\Transaction\Action::EXPIRED</item>
+                    <item name="placeholder" xsi:type="string">Balance expired</item>
+                </item>
+                <item name="advocate_refund_discount_for_canceled_order" xsi:type="array">
+                    <item name="type" xsi:type="const">Aheadworks\Raf\Model\Source\Transaction\Action::ADVOCATE_REFUND_DISCOUNT_FOR_CANCELED_ORDER</item>
+                    <item name="placeholder" xsi:type="string">Refund referral discount from canceled order %order_id</item>
+                </item>
+                <item name="advocate_refund_discount_for_creditmemo" xsi:type="array">
+                    <item name="type" xsi:type="const">Aheadworks\Raf\Model\Source\Transaction\Action::ADVOCATE_REFUND_DISCOUNT_FOR_CREDITMEMO</item>
+                    <item name="placeholder" xsi:type="string">Refund referral discount from credit memo %creditmemo_id, order %order_id</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Aheadworks\Raf\Model\Transaction\Comment\Processor">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="orderProcessor" xsi:type="object">Aheadworks\Raf\Model\Transaction\Comment\Processor\OrderProcessor</item>
+                <item name="creditmemoProcessor" xsi:type="object">Aheadworks\Raf\Model\Transaction\Comment\Processor\CreditmemoProcessor</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\Operation\ExtensionPool">
+        <arguments>
+            <argument name="extensionActions" xsi:type="array">
+                <item name="Aheadworks\Raf\Api\Data\RuleInterface" xsi:type="array">
+                    <item name="create" xsi:type="array">
+                        <item name="websiteCreator" xsi:type="string">Aheadworks\Raf\Model\ResourceModel\Rule\Relation\Website\SaveHandler</item>
+                    </item>
+                    <item name="read" xsi:type="array">
+                        <item name="websiteReader" xsi:type="string">Aheadworks\Raf\Model\ResourceModel\Rule\Relation\Website\ReadHandler</item>
+                    </item>
+                    <item name="update" xsi:type="array">
+                        <item name="websiteUpdater" xsi:type="string">Aheadworks\Raf\Model\ResourceModel\Rule\Relation\Website\SaveHandler</item>
+                    </item>
+                </item>
+                <item name="Aheadworks\Raf\Api\Data\TransactionInterface" xsi:type="array">
+                    <item name="create" xsi:type="array">
+                        <item name="entityCreator" xsi:type="string">Aheadworks\Raf\Model\ResourceModel\Transaction\Relation\Entity\SaveHandler</item>
+                    </item>
+                    <item name="read" xsi:type="array">
+                        <item name="entityReader" xsi:type="string">Aheadworks\Raf\Model\ResourceModel\Transaction\Relation\Entity\ReadHandler</item>
+                    </item>
+                    <item name="update" xsi:type="array">
+                        <item name="entityUpdater" xsi:type="string">Aheadworks\Raf\Model\ResourceModel\Transaction\Relation\Entity\SaveHandler</item>
+                    </item>
+                </item>
+                <item name="Aheadworks\Raf\Api\Data\AdvocateSummaryInterface" xsi:type="array">
+                    <item name="read" xsi:type="array">
+                        <item name="entityReader" xsi:type="string">Aheadworks\Raf\Model\ResourceModel\AdvocateSummary\Relation\Customer\ReadHandler</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Aheadworks\Raf\Model\Advocate\Email\Processor\VariableProcessor\Composite">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="storeUrl" xsi:type="object">Aheadworks\Raf\Model\Advocate\Email\Processor\VariableProcessor\StoreUrl</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Aheadworks\Raf\Model\Advocate\Email\Processor\Amount\VariableProcessor\Composite" type="Aheadworks\Raf\Model\Advocate\Email\Processor\VariableProcessor\Composite">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="totalAmount" xsi:type="object">Aheadworks\Raf\Model\Advocate\Email\Processor\Amount\VariableProcessor\TotalAmount</item>
+                <item name="amount" xsi:type="object">Aheadworks\Raf\Model\Advocate\Email\Processor\Amount\VariableProcessor\Amount</item>
+                <item name="expiredInDays" xsi:type="object">Aheadworks\Raf\Model\Advocate\Email\Processor\Amount\VariableProcessor\ExpiredInDays</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Aheadworks\Raf\Model\Advocate\Email\Processor\Amount\VariableProcessor\ExpirationComposite" type="Aheadworks\Raf\Model\Advocate\Email\Processor\VariableProcessor\Composite">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="amount" xsi:type="object">Aheadworks\Raf\Model\Advocate\Email\Processor\Amount\VariableProcessor\Amount</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Aheadworks\Raf\Model\Advocate\Email\Processor\Amount\NewFriendProcessor">
+        <arguments>
+            <argument name="variableProcessorComposite" xsi:type="object">Aheadworks\Raf\Model\Advocate\Email\Processor\Amount\VariableProcessor\Composite</argument>
+        </arguments>
+    </type>
+    <type name="Aheadworks\Raf\Model\Advocate\Email\Processor\Amount\ExpirationProcessor">
+        <arguments>
+            <argument name="variableProcessorComposite" xsi:type="object">Aheadworks\Raf\Model\Advocate\Email\Processor\Amount\VariableProcessor\ExpirationComposite</argument>
+        </arguments>
+    </type>
+    <type name="Aheadworks\Raf\Model\Advocate\Email\Processor\Amount\ExpirationReminderProcessor">
+        <arguments>
+            <argument name="variableProcessorComposite" xsi:type="object">Aheadworks\Raf\Model\Advocate\Email\Processor\Amount\VariableProcessor\Composite</argument>
+        </arguments>
+    </type>
+    <type name="Aheadworks\Raf\Model\Advocate\Email\Processor\Amount\Pool">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="newFriend" xsi:type="object">Aheadworks\Raf\Model\Advocate\Email\Processor\Amount\NewFriendProcessor</item>
+                <item name="expiration" xsi:type="object">Aheadworks\Raf\Model\Advocate\Email\Processor\Amount\ExpirationProcessor</item>
+                <item name="expiration_reminder" xsi:type="object">Aheadworks\Raf\Model\Advocate\Email\Processor\Amount\ExpirationReminderProcessor</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Aheadworks\Raf\Model\Rule\Validator\Composite">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="common" xsi:type="object">Aheadworks\Raf\Model\Rule\Validator\Common</item>
+                <item name="website" xsi:type="object">Aheadworks\Raf\Model\Rule\Validator\Website</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Aheadworks\Raf\Model\Api\SearchCriteria\CollectionProcessor\AdvocateSummaryFilterProcessor" type="Magento\Framework\Api\SearchCriteria\CollectionProcessor\FilterProcessor">
+        <arguments>
+            <argument name="customFilters" xsi:type="array">
+                <item name="expired" xsi:type="object">Aheadworks\Raf\Model\Api\SearchCriteria\CollectionProcessor\FilterProcessor\AdvocateSummary\ExpireFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Aheadworks\Raf\Model\Api\SearchCriteria\AdvocateSummaryCollectionProcessor" type="Magento\Framework\Api\SearchCriteria\CollectionProcessor">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="filters" xsi:type="object">Aheadworks\Raf\Model\Api\SearchCriteria\CollectionProcessor\AdvocateSummaryFilterProcessor</item>
+                <item name="sorting" xsi:type="object">Magento\Framework\Api\SearchCriteria\CollectionProcessor\SortingProcessor</item>
+                <item name="pagination" xsi:type="object">Magento\Framework\Api\SearchCriteria\CollectionProcessor\PaginationProcessor</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Aheadworks\Raf\Model\AdvocateSummaryRepository">
+        <arguments>
+            <argument name="collectionProcessor" xsi:type="object">Aheadworks\Raf\Model\Api\SearchCriteria\AdvocateSummaryCollectionProcessor</argument>
+        </arguments>
+    </type>
+    <virtualType name="Aheadworks\Raf\Model\Api\SearchCriteria\RuleCollectionProcessor" type="Magento\Framework\Api\SearchCriteria\CollectionProcessor">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="filters" xsi:type="object">Magento\Framework\Api\SearchCriteria\CollectionProcessor\FilterProcessor</item>
+                <item name="sorting" xsi:type="object">Magento\Framework\Api\SearchCriteria\CollectionProcessor\SortingProcessor</item>
+                <item name="pagination" xsi:type="object">Magento\Framework\Api\SearchCriteria\CollectionProcessor\PaginationProcessor</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Aheadworks\Raf\Model\RuleRepository">
+        <arguments>
+            <argument name="collectionProcessor" xsi:type="object">Aheadworks\Raf\Model\Api\SearchCriteria\RuleCollectionProcessor</argument>
+        </arguments>
+    </type>
+    <virtualType name="Aheadworks\Raf\Model\Api\SearchCriteria\TransactionCollectionProcessor" type="Magento\Framework\Api\SearchCriteria\CollectionProcessor">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="filters" xsi:type="object">Magento\Framework\Api\SearchCriteria\CollectionProcessor\FilterProcessor</item>
+                <item name="sorting" xsi:type="object">Magento\Framework\Api\SearchCriteria\CollectionProcessor\SortingProcessor</item>
+                <item name="pagination" xsi:type="object">Magento\Framework\Api\SearchCriteria\CollectionProcessor\PaginationProcessor</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Aheadworks\Raf\Model\TransactionRepository">
+        <arguments>
+            <argument name="collectionProcessor" xsi:type="object">Aheadworks\Raf\Model\Api\SearchCriteria\TransactionCollectionProcessor</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="AwRafRuleGridFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AwRafRuleGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Aheadworks\Raf\Model\ResourceModel\Rule\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">AwRafRuleGridFilterPool</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="aw_raf_rule_listing_data_source" xsi:type="string">Aheadworks\Raf\Model\ResourceModel\Rule\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Aheadworks\Raf\Model\ResourceModel\Rule\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">aw_raf_rule</argument>
+            <argument name="eventPrefix" xsi:type="string">aw_raf_rule_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">rule_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Aheadworks\Raf\Model\ResourceModel\Rule</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="AwRafAdvocateGridFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AwRafAdvocateGridDataProvider" type="Aheadworks\Raf\Ui\DataProvider\Advocate\ListingDataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Aheadworks\Raf\Model\ResourceModel\AdvocateSummary\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">AwRafAdvocateGridFilterPool</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="aw_raf_advocate_listing_data_source" xsi:type="string">Aheadworks\Raf\Model\ResourceModel\AdvocateSummary\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Aheadworks\Raf\Model\ResourceModel\AdvocateSummary\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">aw_raf_summary</argument>
+            <argument name="eventPrefix" xsi:type="string">aw_raf_advocate_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">advocate_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Aheadworks\Raf\Model\ResourceModel\AdvocateSummary</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="AwRafTransactionGridFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AwRafTransactionGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Aheadworks\Raf\Model\ResourceModel\Transaction\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">AwRafTransactionGridFilterPool</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="aw_raf_transaction_listing_data_source" xsi:type="string">Aheadworks\Raf\Model\ResourceModel\Transaction\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Aheadworks\Raf\Model\ResourceModel\Transaction\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">aw_raf_transaction</argument>
+            <argument name="eventPrefix" xsi:type="string">aw_raf_transaction_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">transaction_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Aheadworks\Raf\Model\ResourceModel\Transaction</argument>
+        </arguments>
+    </type>
+
+    <type name="Aheadworks\Raf\Model\Rule\Discount\Calculator\Pool">
+        <arguments>
+            <argument name="calculators" xsi:type="array">
+                <item name="fixed" xsi:type="object">Aheadworks\Raf\Model\Rule\Discount\Calculator\CartByFixed</item>
+                <item name="percent" xsi:type="object">Aheadworks\Raf\Model\Rule\Discount\Calculator\ByPercent</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Tax\Model\Sales\Total\Quote\CommonTaxCollector">
+        <plugin name="awRaf" type="Aheadworks\Raf\Plugin\Model\Tax\Total\Quote\CommonTaxCollectorPlugin" />
+    </type>
+    <type name="Magento\Quote\Model\Quote\Item\ToOrderItem">
+        <plugin name="awRaf" type="Aheadworks\Raf\Plugin\Model\Quote\ConvertQuoteItemToOrderItemPlugin" />
+    </type>
+    <type name="Magento\Quote\Model\Quote\Address\ToOrder">
+        <plugin name="awRaf" type="Aheadworks\Raf\Plugin\Model\Quote\ConvertQuoteAddressToOrderPlugin" />
+    </type>
+    <type name="Magento\Sales\Block\Adminhtml\Order\View\Items\Renderer\DefaultRenderer">
+        <plugin name="awRaf" type="Aheadworks\Raf\Plugin\Block\Items\DefaultRendererPlugin" />
+    </type>
+    <type name="Magento\Sales\Block\Adminhtml\Order\View\Items">
+        <plugin name="awRaf" type="Aheadworks\Raf\Plugin\Block\Sales\Order\ItemsPlugin" />
+    </type>
+    <type name="Magento\Tax\Block\Item\Price\Renderer">
+        <plugin name="awRaf" type="Aheadworks\Raf\Plugin\Block\Tax\Item\PriceRendererPlugin" />
+    </type>
+    <type name="Magento\Sales\Model\ResourceModel\Order">
+        <plugin name="awRaf" type="Aheadworks\Raf\Plugin\Model\ResourceModel\OrderPlugin" />
+    </type>
+    <type name="Magento\Sales\Model\Service\OrderService">
+        <plugin name="awRaf" type="Aheadworks\Raf\Plugin\Model\Service\OrderServicePlugin"/>
+    </type>
+    <type name="Magento\Sales\Model\Service\CreditmemoService">
+        <plugin name="awRaf" type="Aheadworks\Raf\Plugin\Model\Service\CreditmemoServicePlugin"/>
+    </type>
+    <type name="Magento\SalesRule\Model\Quote\Discount">
+        <plugin name="awRaf" type="Aheadworks\Raf\Plugin\Model\Quote\Total\DiscountPlugin"/>
+    </type>
+    <type name="Aheadworks\RewardPoints\Model\Total\Quote\RewardPoints">
+        <plugin name="awRaf" type="Aheadworks\Raf\Plugin\Model\Quote\Total\AwRewardPointsPlugin"/>
+    </type>
+    <type name="Magento\Reward\Model\Total\Quote\Reward">
+        <plugin name="awRaf" type="Aheadworks\Raf\Plugin\Model\Quote\Total\EnterpriseRewardPointsPlugin"/>
+    </type>
+    <type name="Magento\Quote\Api\CartRepositoryInterface">
+        <plugin name="awRaf" type="Aheadworks\Raf\Plugin\Model\Quote\QuoteRepositoryPlugin"/>
+    </type>
+    <type name="Magento\Customer\Model\AccountManagement">
+        <plugin name="awRaf" type="Aheadworks\Raf\Plugin\Model\Account\AccountManagementPlugin"/>
+    </type>
+    <virtualType name="KpAwRafItemOrderLine" type="Aheadworks\Raf\Model\Checkout\Klarna\Orderline\RafItem">
+        <arguments>
+            <argument name="klarnaConfig" xsi:type="object">KpKlarnaConfig</argument>
+        </arguments>
+    </virtualType>
+</config>

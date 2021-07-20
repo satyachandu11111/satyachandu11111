@@ -1,0 +1,24 @@
+<!--
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!-- ko if: (visible()) -->
+    <!-- ko text: address().prefix --><!-- /ko --> <!-- ko text: address().firstname --><!-- /ko -->
+    <!-- ko text: address().lastname --><!-- /ko --> <!-- ko text: address().suffix --><!-- /ko --><br/>
+    <!-- ko if: address().company -->
+        <!-- ko text: address().company --><!-- /ko --><br/>
+    <!-- /ko -->
+    <!-- ko if: address().street[0] -->
+    <!-- ko text: address().street[0] --><!-- /ko --><br/>
+    <!-- /ko -->
+    <!-- ko if: address().street[1] -->
+    <!-- ko text: address().street[1] --><!-- /ko --><br/>
+    <!-- /ko -->
+    <!-- ko text: address().city --><!-- /ko -->, <!-- ko text: address().region --><!-- /ko --> <!-- ko text: address().postcode --><!-- /ko --><br/>
+    <!-- ko if: getCountryName(address().countryId) -->
+        <!-- ko text: getCountryName(address().countryId) --><!-- /ko --><br/>
+    <!-- /ko -->
+    <!-- ko text: address().telephone --><!-- /ko --><br/>
+<!-- /ko -->

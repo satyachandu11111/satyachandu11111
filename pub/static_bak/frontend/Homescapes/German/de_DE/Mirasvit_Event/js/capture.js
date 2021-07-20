@@ -1,0 +1,1 @@
+/var/www/html/homescapesonlineM2/app/code/Mirasvit/Event/view/frontend/web/js/capture.js

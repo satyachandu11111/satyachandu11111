@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <hubbox>
+            <general>
+                <enable>1</enable>
+                <environment>sandbox</environment>
+                <private>0</private>
+            </general>
+            <api>
+                <username>demo</username>
+                <api_key>apikey</api_key>
+            </api>
+            <ui>
+                <distance>25</distance>
+                <limit>20</limit>
+                <private>0</private>
+                <private_slug></private_slug>
+                <private_message>Your private collection message, configure this via your admin</private_message>
+                <private_boost>0</private_boost>
+                <private_distance>50</private_distance>
+            </ui>
+            <pricing>
+                <free>1</free>
+            </pricing>
+            <label>
+                <append>first_replace</append>
+            </label>
+        </hubbox>
+        <carriers>
+            <privatecollect>
+                <active>0</active>
+                <sallowspecific>0</sallowspecific>
+                <model>HubBox\HubBox\Model\Carrier\PrivateCollect</model>
+                <name>Free In-store Collection</name>
+                <price>0.00</price>
+                <title>Free In-store Collection</title>
+                <type>I</type>
+                <specificerrmsg>In store collection within X days</specificerrmsg>
+            </privatecollect>
+        </carriers>
+    </default>
+</config>

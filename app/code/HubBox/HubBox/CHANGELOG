@@ -1,0 +1,130 @@
+# Change Log
+## [2.6.0] - 2019-07-23
+- Added HUBBOX-2948 - Boost Private CP
+- FIX   HUBBOX-2922 & HUBBOX-2931 - Show/Hide Firstname / Lastname fields in checkout after Hub-box Confirmation
+
+## [2.5.0] - 2019-07-11
+- Added UPS branded pin
+- FIX HUBBOX-2880 and HUBBOX-2881 Amazon pay Address List management + this bug
+- FIX HUBBOX-2911 Amasty template reference bug
+
+## [2.4.0] - 2019-06-24
+- UPS Access Point support added
+- HubBox instore added
+- FIX : HUBBOX-2870 - area code in commands bug reported by Vaimo
+
+## [2.3.5] - 2019-03-13
+### Changed
+- `isHubBoxAddress` function so that it sets `hubbox-address` even when `custom_attributes` is an array
+
+## [2.3.4] - 2019-02-26
+### Changed
+- Changed Base URLs
+
+## [2.3.3] - 2019-01-25
+### Added
+- First Name 'replace' for default HubBox Id label position
+
+## [2.3.2] - 2018-07-06
+### Added
+- Shipping method to parcel push
+### Fixed
+- Some Aheadworks front end issues
+
+## [2.3.0] - 2018-06-18
+### Added
+- Amazon Pay support
+
+## [2.2.0] - 2018-05-11
+### Changed
+- Altered method in which HubBox address data is placed on the quote to avoid ugly validation issues
+### Fixed
+- Cron errors when calling refresh token
+
+## [2.1.1] - 2018-03-29
+### Added
+- Collectable Interface for Docs
+
+## [2.1.0] - 2018-03-29
+### Added
+- Aheadworks One Step Compatibility
+
+## [2.0.2] - 2018-03-21
+### Changed
+- Reduce set shipping to checkout data calls to stop radio disables
+### Fixed
+- refresh shipping rates only ofter HubBox has been set to ensure correct rates are pulling through
+
+## [2.0.0] - 2018-02-19
+### Changed
+- Front-end UX upgrade
+
+## [1.2.4] - 2018-01-17
+### Changed
+- Only append HubBox to company line if hubbox cp type
+
+## [1.2.3] - 2018-01-16
+### Fixed
+- removed remaining references to previously removed component
+
+## [1.2.2] - 2018-01-12
+### Fixed
+- removed reference to missing component
+
+## [1.2.1] - 2018-01-04
+### Fixed
+- ampersand in company name issue where setting hubbox failed due to bad GET
+
+## [1.2.0] - 2017-12-21
+### Added
+- Complete address override if we think its a hubbox order
+- Company line to shipping address on payment step
+### Fixed
+- Removed map of missing template causing checkout lockup
+- Checkout bug here hubbox location can be selected but if a user immediately backs out to the site again and returns
+  hubbox is still selected but the user is shown home delivery, now unset if the address is not in sync.
+- Checkout bug where refresh on payment allowed the option to set billing as shipping,
+  hubbox is deselected when this occurs to stop orders getting processed anyway.
+- Fixed missing customer data on refresh as referenced here: https://github.com/magento/magento2/issues/12312
+
+## [1.1.4] - 2017-11-14
+### Fixed
+- Issue with methods not updating after hubbox deselect on onepage
+
+## [1.1.3] - 2017-11-14
+### Added
+- In store collection shipping method
+- Filter alternative shipping rates if private collect point selected
+
+## [1.1.1] - 2017-11-09
+### Changed
+- When private cp selected, do not pass on the cost
+
+## [1.1.0] - 2017-11-08
+### Added
+- Choose where hubbox id is appended to shipping address in config
+- Private collect points
+
+## [1.0.9] - 2017-10-04
+### Added
+- Added token validity check before api requests so we aren't waiting for the cron
+
+## [1.0.8] - 2017-10-03
+### Fixed
+- Pass environment url down to checkout for correct endpoint when fetching collect points
+
+## [1.0.7] - 2017-10-03
+### Fixed
+- Minor issue with pins not being removed from map when searching a second time
+- Api request chunk issue causing json_decode issues
+
+## [1.0.6] - 2017-08-23
+### Removed
+- Template Processor
+- Staging Env from admin
+### Changed
+- Basket 'cut off' in config, so we can apply cost depending on that not hard coded value
+- Make sure frontend isn't broken when turned off
+### Added
+- isCollectable Setting and google API key hubbox frontend settings
+- Hide additional data with mixin on hb shipping address summary (payment section

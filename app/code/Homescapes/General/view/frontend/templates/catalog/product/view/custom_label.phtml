@@ -1,0 +1,26 @@
+<?php  $_product = $block->getProduct(); ?>
+<?php
+	if ($_product->isAvailable())
+	{ 
+		$newLabel = $this->helper('Homescapes\General\Helper\Data')->isNew($_product);
+        if($newLabel){?>                
+	        <div class="product-label">
+	            <span class="new"><?php echo __('New') ?></span>
+	        </div>
+        <?php } 
+	} ?>
+<?php 
+
+// Product Image Label Sale
+if($_product->getProductLabelSale()){?>                
+<div class="product-label">
+    <span class="sale-label"><?php echo __($_product->getProductLabelSale()) ?></span>
+</div>
+<?php }  ?> 
+
+<?php       //Delivery for Christmas
+if($_product->getInTimeXmas()){?>                
+<div class="product-christmas-label">
+    <span class="christmas-label"><?php echo __($_product->getInTimeXmas()) ?></span>
+</div>
+<?php }  ?> 

@@ -1,0 +1,175 @@
+
+
+    <?php
+    if ( $block->checkCustomerLogined() || $block->getHelperConfigAdmin()->configGuestUploadImage()) {
+        ?>
+        <div class="bssWrapperForm">
+			
+			<!--Customer images banner-->
+			
+			<div class="row">
+			
+				<div class="col-md">
+				
+					<?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('customer-images')->toHtml();?>
+				
+				</div>
+			
+			</div>
+			
+			<!--header-->
+			
+			<div class="row mt-5">
+			
+				<div class="col-md">
+				
+					<?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('customer-images-header')->toHtml();?>
+
+
+				
+				</div>
+			
+			</div>
+			
+			<!--picture of the month-->
+			
+			<div class="row mt-5">
+			
+				<div class="col-md-6">
+				
+					<?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('picture-of-month')->toHtml();?>
+				
+				</div>
+				
+				<div class="col-md-6">
+				
+					<?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('before-after-project')->toHtml();?>
+				
+				</div>
+			
+			</div>
+			
+			<!--form-->
+			
+			<div class="row mt-5">
+			
+				<div class="col-md text-center">
+					
+					<div style="margin: auto; width: 100%; max-width: 500px;">
+				
+						<form id="bssFormSubmit" method="POST" enctype="multipart/form-data" id="bssFormUploadImages" action="<?php echo $block->getBaseUrl().'productimages/index/saveimages';?>" data-mage-init='{"validation":{}}'>
+							<table class="bssUploadImageForm">
+								<tr>
+									<td><?php echo __("Upload Images");?></td>
+								</tr>
+								<tr>
+									<td><?php echo __("Your name");?> <span class="bssRedColor">*</span></td>
+								</tr>
+								<tr>
+									<td><input class="bssUploadInput" requied name="bssCustomerName" required type="text"></td>
+								</tr>
+								<?php
+								if (!$block->checkCustomerLogined()) {
+									?>
+									<tr>
+										<td><?php echo __("Your email");?> <?php echo ($block->getHelperConfigAdmin()->configEmailRequired())?"<span class='bssRedColor'>*</span>":"";?></td>
+									</tr>
+									<tr>
+										<td>
+											<input class="bssUploadInput" id="bssCustomerEmail"
+												<?php echo ($block->getHelperConfigAdmin()->configEmailRequired())?"required":"";?> name="bssCustomerEmail" type="email"
+											>
+										</td>
+									</tr>
+									<?php
+								}
+								?>
+								 <tr>
+										<td><?php echo __("Message");?></td>
+								 </tr>
+								<tr>
+									<td>
+										<?php // maxlength="150" ?>
+										<textarea class="bssUploadInput" style="height: 78px !important;"  requied name="bssCustomerMessage" ></textarea>
+									</td>
+								</tr>
+								<tr class="bssRowFile" id="bssRowFileId0">
+									<td>
+										<div><?php echo __("Choose Image");?> <span class="bssRedColor">*</span></div>
+										<div class="bssDivFileField">
+											<label for="bssUploadImage0"><img src=<?php echo $block->getIconSlider('uploadIcon.png')?>></label>
+											<img id="bssImageDisplay0" class="bssImageDisplayFileClass"><span id="bssWarning0" class="bssWarning"><?php echo __("No image chosen");?></span>
+											<input class="checkFile" required type="file" id="bssUploadImage0" name="bssUploadImage0" accept="image/jpg,image/png,image/gif,image/jpeg"/>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td><p id="buttonMoreBss"><img src=<?php echo $block->getIconSlider('addIcon.png')?>> <?php echo __("Add more image");?></p></td>
+								</tr>
+								<tr>
+									<td>
+										<button id="buttonBssUploadFile">
+											<img src="<?php echo $block->getIconSlider('uploadIconButton.png')?>"><span><?php echo __("upload");?></span>
+										</button>
+									</td>
+								</tr>
+							</table>
+							<input class="bssUploadInput" id="numberFileUpload" name="numberFileUpload" type="hidden" value="1">
+							<input class="bssUploadInput" id="skuProductImages" name="skuProductImages" type="hidden" value="000">
+
+							<input class="bssUploadInput" id="bssFormKey" name="form_key" type="hidden" value="<?php echo $block->getFormKey();?>"/>
+						</form>
+					</div>
+				
+				</div>
+				
+				
+				
+				
+				
+			</div>
+			
+			
+			
+			<!--terms-->
+			
+			<div class="row mt-5">
+			
+				<div class="col-md">
+				
+					<?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('customer-images-terms')->toHtml();?>
+
+
+				
+				</div>
+			
+			</div>
+        </div>
+        <?php
+    }
+    ?>
+
+
+<script type="text/x-magento-init">
+     {
+         "*":
+            {
+                "Bss_ProductImagesByCustomer/js/bssForm": {
+                    "numberFileUploadOnce" : <?php echo $block->getHelperConfigAdmin()->configNumberUploadImageUploadOnce()?>,
+                    "uploadMaxFileSize" : <?php echo $block->getUploadMaxFileSize();?>
+                }
+            }
+     }
+</script>
+<script id="bssFormMageTemplate" type="text/x-magento-template">
+    <tr class="bssRowFile" id="<%- data.id %>">
+        <td>
+            <div><?php echo __("Choose Image");?></div>
+            <div class="bssDivFileField">
+                <label for="<%- data.idInput %>"><img src=<?php echo $block->getIconSlider('uploadIcon.png')?>></label>
+                <img id="<%- data.idImg %>" class="bssImageDisplayFileClass"><span id="<%- data.idSpan %>" class="bssWarning"><?php echo __("No image chosen");?></span>
+                <input class="checkFile" type="file" id="<%- data.idInput %>" name="<%- data.idInput %>" accept="image/jpg,image/png,image/gif,image/jpeg"/>
+            </div>
+        </td>
+    </tr>
+</script>

@@ -1,0 +1,61 @@
+<?php
+// @codingStandardsIgnoreFile
+
+/* @var $block \Aheadworks\Raf\Block\Advocate\Info */
+?>
+<?php if ($block->isAvailableCreateReferralLink()): ?>
+    <div class="referral-text"><?= $block->escapeHtml(__('This is dummy Referral Program content.')) ?></div>
+
+	<?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('create-ref-link')->toHtml();?>
+
+    <form class="aw-rma__create-referral-link"
+          action="<?= $block->escapeUrl($block->getCreateReferralLinkUrl()) ?>"
+          method="post">
+        <?php echo $block->getBlockHtml('formkey')?>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button type="submit"
+                        class="action create-referral-link primary"
+                        title="<?= $block->escapeHtml(__('Create Referral Link')) ?>">
+                    <span><?= $block->escapeHtml(__('Create Referral Link')) ?></span>
+                </button>
+            </div>
+        </div>
+    </form>
+<?php else: ?>
+    <div class="block aw-raf__advocate-info-block">
+        <div class="block-content">
+            <?php if ($block->isInvitationSectionVisible()): ?>
+                <div class="aw-raf__advocate-info-rule">
+                    <?php /* @noEscape */ echo $block->getChildHtml('info_rule'); ?>
+                </div>
+            <?php endif; ?>
+            <div class="aw-raf__advocate-info-summary">
+                <p><?= /* @noEscape */ __('Total friends referred') ?>
+                    <span><?= /* @noEscape */ $block->getAdvocateInvitedFriendsCount() ?></span>
+                </p>
+                <p><?= /* @noEscape */ __('Current reward balance') ?>
+                    <span><?= /* @noEscape */ $block->getAdvocateCumulativeBalance() ?></span>
+                </p>
+                <p><?= /* @noEscape */ __('Expiration date') ?>
+                    <span><?= /* @noEscape */ $block->getAdvocateBalanceExpired() ?>
+                </p>
+            </div>
+            <?php if ($block->isInvitationSectionVisible()): ?>
+                <div class="aw-raf__advocate-info-reward-message">
+                    <p><?php /* @noEscape */ echo $block->getRewardMessage() ?></p>
+                </div>
+                <div class="aw-raf__advocate-info-share">
+                    <?php /* @noEscape */ echo $block->getChildHtml('info_share'); ?>
+                </div>
+                <div class="aw-raf__advocate-info-referral-url">
+                    <?php /* @noEscape */ echo $block->getChildHtml('info_referral_url'); ?>
+                </div>
+                <div class="aw-raf__advocate-info-email">
+                    <?php /* @noEscape */ echo $block->getChildHtml('info_email_form'); ?>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+<?php endif; ?>
+

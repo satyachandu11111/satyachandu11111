@@ -1,0 +1,11 @@
+<?php $isUserVerified = $block->isUserVerified(); ?>
+<fieldset class="fieldset">
+    <legend class="legend"><span><?php echo __('Connected App')?></span></legend><br>
+    <div class="field choice">
+        <?php if($isUserVerified): ?>
+        	<label class="label"><span><?php echo __('Smart Parcel Box connected on ')?><?php echo $block->getConnectedAppTime(); ?></span></label> <span class="disconnect-app"><a href="<?php echo $this->getUrl().'emailverification/customer/disconnectapp'?>"><?php echo __('Disconnect App')?></a></span>
+        <?php else: ?>
+        	<label class="label"><span><?php echo __('To connect to SPB download app from google play and registered there. Google Play/ IOS')?></span></label>
+        <?php endif; ?>
+    </div>
+</fieldset>

@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<klarna xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Klarna_Core:etc/klarna.xsd">
+    <order_lines id="payments">
+        <line id="aw_raf_item" class="KpAwRafItemOrderLine"/>
+    </order_lines>
+</klarna>

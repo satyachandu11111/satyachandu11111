@@ -1,0 +1,54 @@
+
+<div class="card-content" id="hubbox-info" data-bind="css: { hidden: !show() } ">
+    <div class="hubbox-map" id="hubbox-map-info"
+         style="background: url(https://s3-eu-west-1.amazonaws.com/hub-box-assets/production/widget/images/maps/map-central-london.jpg); background-size: cover;">
+    </div>
+
+    <div class="card info">
+        <img class="info-logo" src="https://s3-eu-west-1.amazonaws.com/hub-box-assets/production/widget/images/logos/pink-inline.png" />
+        <h2 class="info-title">Select a Collect Point from thousands nationwide</h2>
+        <div class="card search search-info" id="hubbox-search-info">
+            <input type="text" class="search-term" data-bind="value: searchQuery, returnAction: searchClick, hasFocus: show" placeholder="Enter a postcode or location" id="hubbox-search-input-info" />
+            <button type="submit" class="search-button" id="hubbox-search-button-info" data-bind="click: searchClick"><i class="material-icons">search</i></button>
+        </div>
+
+        <!--<div class="my-location">
+            <i class="material-icons" style="display:inline">gps_fixed</i> <a data-bind="click: locationClick">Search with my location</a>
+        </div>-->
+        <div class="timeline-horizontal">
+            <div class="timeline-base">
+                <div class="timeline-origin" style="left: 16.66%;">
+                    <div class="timeline-handle" data-handle="0" style="z-index: 4;">
+                        <i class="material-icons" style="">search</i>
+                    </div>
+                </div>
+                <div class="timeline-connect" style="left: 16.66%; right: 50%;"></div>
+                <div class="timeline-origin" style="left: 50%;">
+                    <div class="timeline-handle" data-handle="1" style="z-index: 4;">
+                        <i class="material-icons" style="">touch_app</i>
+                    </div>
+                </div>
+                <div class="timeline-connect" style="left: 50%; right: 16.66%;"></div>
+                <div class="timeline-origin" style="left: 83.33%;">
+                    <div class="timeline-handle" data-handle="1" style="z-index: 4;">
+                        <i class="material-icons" style="">phone_iphone</i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="info-container">
+            <div class="card">
+                <p class="info-title-card">SEARCH</p>
+                <p class="description">for a local Collect Point</p>
+            </div>
+            <div class="card">
+                <p class="info-title-card">SELECT</p>
+                <p class="description">your preferred location</p>
+            </div>
+            <div class="card">
+                <p class="info-title-card">COLLECT</p>
+                <p class="description">at your convenience</p>
+            </div>
+        </div>
+    </div>
+</div>

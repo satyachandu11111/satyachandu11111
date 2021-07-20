@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category   BSS
+ * @package    Bss_ProductImagesByCustomer
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2017-2018 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="BssProductImagesByCustomerFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="BssProductImagesByCustomerGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Bss\ProductImagesByCustomer\Model\ResourceModel\Image\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">BssProductImagesByCustomerGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+    <!-- <type name="Bss\ProductImagesByCustomer\Model\ResourceModel\Image\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">bss_images_customer_upload</argument>
+            <argument name="eventPrefix" xsi:type="string">bss_productimagesbycustomer_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">productimagesbycustomer_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Bss\ProductImagesByCustomer\Model\ResourceModel\Image</argument>
+        </arguments>
+    </type> -->
+    <virtualType name="Bss\ProductImagesByCustomer\Model\ResourceModel\Image\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+    <arguments>
+        <argument name="mainTable" xsi:type="string">bss_images_customer_upload</argument>
+        <argument name="resourceModel" xsi:type="string">Bss\ProductImagesByCustomer\Model\ResourceModel\Image</argument>
+    </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="bss_productimagesbycustomer_image_data_source" xsi:type="string">Bss\ProductImagesByCustomer\Model\ResourceModel\Image\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+     <type name="Magento\Ui\Model\Export\MetadataProvider">
+        <plugin name="cusotmer_image_export" type="Bss\ProductImagesByCustomer\Plugin\ModifyExportPlugin" sortOrder="1" disabled="false"/>
+    </type>
+</config>

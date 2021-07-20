@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Sales:etc/sales.xsd">
+    <section name="quote">
+        <group name="totals">
+            <item name="aw_raf_friend" instance="Aheadworks\Raf\Model\Total\Quote\Friend" sort_order="448"/>
+            <item name="aw_raf_advocate" instance="Aheadworks\Raf\Model\Total\Quote\Advocate" sort_order="449"/>
+        </group>
+    </section>
+    <section name="order_invoice">
+        <group name="totals">
+            <item name="aw_raf" instance="Aheadworks\Raf\Model\Total\Invoice\Raf" sort_order="450"/>
+        </group>
+    </section>
+    <section name="order_creditmemo">
+        <group name="totals">
+            <item name="aw_raf" instance="Aheadworks\Raf\Model\Total\Creditmemo\Raf" sort_order="449"/>
+        </group>
+    </section>
+</config>

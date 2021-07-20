@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_Xnotif
+ */
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="customer_account_navigation">
+            <block class="Magento\Framework\View\Element\Html\Link\Current"
+                   name="customer-account-navigation-price-subscriptions-link"
+                   ifconfig="catalog/productalert/allow_price">
+                <arguments>
+                    <argument name="path" xsi:type="string">xnotif/price/index</argument>
+                    <argument name="label" xsi:type="string" translate="true">Price Subscriptions</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Framework\View\Element\Html\Link\Current"
+                   name="customer-account-navigation-stock-subscriptions-link"
+                   ifconfig="catalog/productalert/allow_stock">
+                <arguments>
+                    <argument name="path" xsi:type="string">xnotif/stock/index</argument>
+                    <argument name="label" xsi:type="string" translate="true">Back in Stock Subscriptions</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+
+        <move element="customer-account-navigation-price-subscriptions-link"
+              destination="customer_account_navigation"
+              after="customer-account-navigation-newsletter-subscriptions-link"/>
+        <move element="customer-account-navigation-stock-subscriptions-link"
+              destination="customer_account_navigation"
+              after="customer-account-navigation-newsletter-subscriptions-link"/>
+    </body>
+</page>

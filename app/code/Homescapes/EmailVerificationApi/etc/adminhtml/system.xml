@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="email_verification" translate="label" sortOrder="300">           
+            <label>Email Verification</label>
+        </tab>
+        <section id="email_verification" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Email Verification</label>
+            <tab>email_verification</tab>
+            <resource>Homescapes_EmailVerificationApi::config_emaildemo</resource>
+            <group id="demo" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Please Choose Your Email Template</label>
+                <field id="template" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Verification Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <comment>Email template is chosen based on theme fallback when "Default" option is selected.</comment>
+                </field>
+
+                <field id="template_notvalid" translate="label" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Verification Not Valid Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+
+                <field id="template_email_verified" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Verified Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                
+                <field id="name" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0" >
+                    <label>Name</label>
+                </field>
+
+                <field id="email" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0" >
+                    <label>Email</label>
+                </field>
+
+                <field id="url" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0" >
+                    <label>Url</label>
+                </field>
+
+                <field id="path" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0" >
+                    <label>Api Path</label>
+                </field>
+
+                <field id="username" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0" >
+                    <label>Username</label>
+                </field>
+
+                <field id="password" translate="label" type="password" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0" >
+                    <label>Password</label>
+                </field>
+
+                <field id="time_interval" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0" >
+                    <label>Send Email Verification Again After Time(minutes)</label>
+                </field>
+
+                <field id="bulk_orders_days" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0" >
+                    <label>Bulk Orders Days</label>
+                </field>
+
+                         
+            </group>
+        </section>
+    </system>
+</config>

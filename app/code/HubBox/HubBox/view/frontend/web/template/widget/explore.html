@@ -1,0 +1,47 @@
+<div class="card-content hidden" id="hubbox-exploration" data-bind="css: { hidden: !show() } ">
+    <div class="modal-info" id="hubbox-what-is-hubbox" data-bind="click: viewInfo()">
+        <i class="material-icons">info_outline</i>
+    </div>
+    <div class="card modal-message" id="hubbox-message" data-bind="visible: messageShowing(), css: { warn: messageTypeWarning(), 'more-info' : messageTypeInfo()  } ">
+        <span class="modal-message-text" data-bind="html: messageText()"></span>
+    </div>
+
+    <div class="hubbox-map">
+        <div id="hubbox-map-exploration" style="height:100%; width:100%">
+        </div>
+    </div>
+    <div class="card search search-explore" id="hubbox-search-exploration" data-bind="css: { translucent: translucent() } ">
+        <input type="text" class="search-term" data-bind="textInput: searchQuery, returnAction: searchClick" placeholder="Enter a postcode or location" id="hubbox-search-input-exploration" />
+        <button type="submit" class="search-button" id="hubbox-search-button-exploration" data-bind="click: searchClick"><i class="material-icons">search</i></button>
+    </div>
+
+    <div class="card locations" id="hubbox-locations-exploration" data-bind="css: { translucent: translucent(), open: drawerOpen()}">
+        <span class="locations-list-toggle btn btn-secondary" id="locations-list-toggle" data-bind="click: drawerClick">
+          <i class="material-icons">keyboard_arrow_up</i><span>Show list</span>
+        </span>
+        <span class="locations-list-fadebar"> </span>
+        <div class="locations-list" id="hubbox-locations-list">
+
+            <!--ko foreach: { data: collectPoints(), as: 'collectPoint'}-->
+            <div class="card collect-point collect-point-explore" data-bind="click: $parent.cpSelect, css: { highlight : collectPoint.closest } ">
+                <div class="pair icon">
+                    <span class="label"><b style="font-size: 1.2em;"><span data-bind="text: $index() +1"></span>.</b></span>
+                    <span class="value"><b style="color: #ef286b; font-weight: bold;">
+                        <span data-bind="html: collectPoint.shortName"></span>
+                    </b></span>
+                </div>
+                <div class="pair icon">
+                    <span class="label"><i class="material-icons">directions_walk</i></span>
+                    <span class="value"><span data-bind="html: collectPoint.distanceRounded"></span> away</span>
+                </div>
+                <div class="pair icon">
+                    <span class="label"><i class="material-icons">location_on</i></span>
+                    <span class="value"><span data-bind="html: collectPoint.address.street1"></span>,
+                        <br /><span data-bind="html: collectPoint.address.postcode"></span></span>
+                </div>
+            </div>
+            <!-- /ko -->
+
+        </div>
+    </div>
+</div>

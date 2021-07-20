@@ -1,0 +1,95 @@
+{
+   "channelOrderId":"250646",
+   "latestShipDate":null,
+   "latestDeliveryDate":null,
+   "currencyCode":"GBP",
+   "shippingAddress":{
+      "firstName":"vivek",
+      "lastName":"parmar",
+      "phoneNumber":"01",
+      "company":null,
+      "countryCode":"GB",
+      "provinceCode":null,
+      "provinceName":null,
+      "street":"test",
+      "city":"test",
+      "postcode":"AB12 3CD",
+      "addressLine2":null,
+      "addressLine3":null
+   },
+   "billingAddress":{
+      "firstName":"vivek",
+      "lastName":"parmar",
+      "phoneNumber":"01",
+      "company":null,
+      "countryCode":"GB",
+      "provinceCode":null,
+      "provinceName":null,
+      "street":"test",
+      "city":"test",
+      "postcode":"AB12 3CD",
+      "addressLine2":null,
+      "addressLine3":null
+   },
+   "payments":[
+
+   ],
+   "orderTotalAmount":111,
+   "checkoutCompletedAt":"2020-08-04 10:02:08",
+   "number":"250646",
+   "notes":null,
+   "createdAt":"2020-08-04 10:02:08",
+   "updatedAt":"2020-08-04 10:02:08",
+   "items":[
+      {
+         "channelItemId":"510062",
+         "sku":"BT1167D",
+         "channelProductId":"4866",
+         "title":"Turkish Cotton Sage Green Bath Sheet",
+         "conditionId":null,
+         "conditionSubTypeId":null,
+         "conditionNote":null,
+         "itemAmount":null,
+         "imageUrl":"https:\/\/dev.homescapesonline.com\/media\/catalog\/product\/h\/t\/httpsimages.vikkit.co.ukamazon-newbathtowelsbt1167bt1167d-image-2.jpg",
+         "quantity":1,
+         "unitPrice":11,
+         "total":0,
+         "taxAmount":0,
+         "discountAmount":0,
+         "adjustments":[
+
+         ]
+      },
+      {
+         "channelItemId":"510063",
+         "sku":"FR1160",
+         "channelProductId":"6312",
+         "title":"Dakota Large Mirror Dark Shade",
+         "conditionId":null,
+         "conditionSubTypeId":null,
+         "conditionNote":null,
+         "itemAmount":null,
+         "imageUrl":"https:\/\/dev.homescapesonline.com\/media\/catalog\/product\/d\/a\/dakota-large-mirror-dark_1.jpg",
+         "quantity":1,
+         "unitPrice":99,
+         "total":99,
+         "taxAmount":0,
+         "discountAmount":0,
+         "adjustments":[
+
+         ]
+      }
+   ],
+   "creditMemos":[
+
+   ],
+   "shipments":[
+
+   ],
+   "adjustments":[
+
+   ],
+   "itemsTotal":0,
+   "shippingAmount":0,
+   "state":"pending"
+}

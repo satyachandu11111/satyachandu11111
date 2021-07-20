@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <!-- Add your css and js file tag here-->  
+         <css src="Bss_ProductImagesByCustomer::js/fancybox/dist/jquery.fancybox.css" />
+        <css src="Bss_ProductImagesByCustomer::js/OwlCarousel2-2.2.1/dist/assets/owl.carousel.css" />
+        <css src="Bss_ProductImagesByCustomer::js/OwlCarousel2-2.2.1/dist/assets/owl.theme.default.css" /> 
+    </head> 
+    <body>
+            <!-- Add your reference container, ref block etc. here -->
+             <referenceContainer name="content">
+            <block class="Bss\ProductImagesByCustomer\Block\SliderTabProduct" ifconfig="bss_product_image_by_customer/bss_product_image_by_customer_general/enable" name="bss_productimagesbycustomer_cms" template="Bss_ProductImagesByCustomer::customerImages.phtml" />
+        </referenceContainer>
+    </body>
+</page>

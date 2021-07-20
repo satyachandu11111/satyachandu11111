@@ -1,0 +1,39 @@
+<?php 
+$helper = $this->helper('Homescapes\General\Helper\Data');  
+
+$items=$block->getCartItems();
+
+$linItem="[";
+$i=0;
+$itemCount=count($items);
+foreach ($items as $key => $value) {
+	$i++;
+	$linItem.="{";
+	$linItem.="product_name: '".$value['product_name']."',";
+	$linItem.="product_id: '".$value['product_sku']."',";
+	$linItem.="product_category: '".$value['category_name']."',";
+	$linItem.="product_price: '".@$value['product_price']."'";
+    if($i==$itemCount){
+    	$linItem.="}";
+    }else{
+    	$linItem.="},";
+    }
+
+ 	
+}
+$linItem.="]";
+//print_r($items);
+
+$quote=$block->getCurrentOrderDetails();
+$couponcode=$quote->getCouponCode();
+$grandTotal = $quote->getGrandTotal();
+?>
+<script>
+pintrk('track', 'addtocart', {
+value: <?php echo $grandTotal ?>,
+order_quantity: 1,
+currency: '<?php echo $helper->currentCurrencyCode() ?>',
+promo_code: '<?php echo $couponcode ?>',
+line_items: <?php echo $linItem; ?>
+});
+</script>

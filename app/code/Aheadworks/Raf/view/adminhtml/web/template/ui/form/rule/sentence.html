@@ -1,0 +1,9 @@
+<div class="aw-raf__sentence">
+    <span class="aw-raf__sentence_text_before" if="$data.textBefore" text="textBefore"/>
+
+    <each args="data: elems, as: 'element'">
+        <render if="hasTemplate()"/>
+    </each>
+
+    <span class="aw-raf__sentence_text_after" if="$data.textAfter" text="textAfter"/>
+</div>

@@ -1,0 +1,46 @@
+
+<div class="hubbox-widget hubbox-widget-custom" data-bind="css: { open: show() } " id="hubbox-widget">
+    <div class="modal">
+        <div class="modal-backdrop" data-bind="click: $parent.homeDelivery.bind($parent)"></div>
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-close" id="hubbox-close-modal" data-bind="click: $parent.homeDelivery.bind($parent)">
+                    <i class="material-icons">close</i>
+                </div>
+
+                <div class="modal-loading" id="hubbox-loading" data-bind="visible:loading()">
+                    <div class="spinner">
+                        <div class="cube1"></div>
+                        <div class="cube2"></div>
+                    </div>
+                </div>
+
+                <div class="card card-plain">
+
+                    <!-- ko foreach: getRegion('info') -->
+                    <!-- ko template: getTemplate() --><!-- /ko -->
+                    <!--/ko-->
+
+                    <!-- ko foreach: getRegion('explore') -->
+                    <!-- ko template: getTemplate() --><!-- /ko -->
+                    <!--/ko-->
+
+                    <!-- ko foreach: getRegion('confirm') -->
+                    <!-- ko template: getTemplate() --><!-- /ko -->
+                    <!--/ko-->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ko foreach: getRegion('summary') -->
+<!-- ko template: getTemplate() --><!-- /ko -->
+<!--/ko-->
+
+<!-- ko foreach: getRegion('firstlastnameform') -->
+<!-- ko template: getTemplate() --><!-- /ko -->
+<!--/ko-->

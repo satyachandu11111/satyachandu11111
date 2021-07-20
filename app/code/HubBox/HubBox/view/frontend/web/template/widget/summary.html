@@ -1,0 +1,14 @@
+<form class="form hubbox-extra-details-form" id="hubbox-form" data-mage-init='{"validation": {}}' data-bind="css: {hidden: !show()}">
+    <h4>Your parcel will be delivered to:</h4>
+    <p data-bind="text: collectPoint() ? collectPoint().shortName:''"></p>
+    <p data-bind="text: collectPoint() ? collectPoint().address.street1:''"></p>
+    <p data-bind="text: collectPoint() ? collectPoint().address.city:''"></p>
+    <p data-bind="text: collectPoint() ? collectPoint().address.postcode:''"></p>
+    <br />
+    <p><a id="hubbox-back-button" href="#" class="hubbox-back-button" data-bind="click: confirmedBack">Choose another Collect Point</a></p>
+
+    <h4 class="name"><!-- ko i18n: 'What happens next?'--><!-- /ko --></h4>
+    <p class="private-pickup-message" data-bind="html: getPrivatePickupMessage(), css: {hidden: isHubBox()}"></p>
+    <p class="hubbox-pickup-message" data-bind="css: {hidden: !isHubBox()}"><!-- ko i18n: 'HubBox will notify you via email when your parcel arrives. This will include a Collection Code for secure hassle-free collection.'--><!-- /ko --></p>
+
+</form>

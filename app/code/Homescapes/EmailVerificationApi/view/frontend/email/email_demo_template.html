@@ -1,0 +1,9 @@
+<!--@subject {{trans "Email Verification Link "}}  @-->
+
+{{template config_path="design/email/header_template"}}
+<table>
+    <tr>Hello,</tr>
+    <tr>Thanks For Subscribing, Please click on below link for verification</tr>
+    <tr>{{trans '<a href="%verificationCode" target="_blank">Click Here</a>' verificationCode=$verificationCode |raw}}</tr>
+</table>
+{{template config_path="design/email/footer_template"}}

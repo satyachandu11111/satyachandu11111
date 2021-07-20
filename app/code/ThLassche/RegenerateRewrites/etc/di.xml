@@ -1,0 +1,19 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- COMMAND LINE -->
+     <type name="Magento\Framework\Console\CommandList">
+         <arguments>
+             <argument name="commands" xsi:type="array">
+                 <item name="thlassche_regenerate_urls" xsi:type="object">ThLassche\RegenerateRewrites\Console\Command\RegenerateUrls</item>
+             </argument>
+         </arguments>
+     </type>
+    <type name="Magento\CatalogUrlRewrite\Model\ProductScopeRewriteGenerator">
+        <plugin name="regenerate_rewrites_plugin" type="ThLassche\RegenerateRewrites\Plugin\ProductScopeRewriteGenerator" sortOrder="50" />
+    </type>
+    <type name="Magento\CatalogUrlRewrite\Model\ProductUrlRewriteGenerator">
+        <plugin name="generate_rewrites_plugin" type="ThLassche\RegenerateRewrites\Plugin\ProductUrlRewriteGenerator" sortOrder="50" />
+    </type>
+    <type name="Magento\CatalogUrlRewrite\Model\ProductUrlPathGenerator">
+        <plugin name="generate_rewrites_plugin_path" type="ThLassche\RegenerateRewrites\Plugin\ProductUrlPathGenerator" sortOrder="50" />
+    </type>
+</config>

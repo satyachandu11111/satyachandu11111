@@ -1,0 +1,8 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_layout.xsd">
+	<body>       
+	   <!-- Magazine Image above media -->
+    <referenceContainer name="product.info.media">
+        <block class="Magento\Catalog\Block\Product\View" name="product.magazin.images" template="Homescapes_MagazineImages::catalog/product/view/magazine_images.phtml" before="-" />                
+    </referenceContainer>
+ 	</body> 
+</page>

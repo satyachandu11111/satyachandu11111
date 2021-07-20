@@ -1,0 +1,19 @@
+<h2>Please select a delivery type</h2>
+<div class="hubbox-toggle-buttons hubbox-toggle-buttons-custom">
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="button" class="btn hubbox-toggle-button" data-bind="click: homeDelivery, css: { selected: !showClickAndCollect()}" id="home-delivery">Home Delivery</button>
+            <button type="button" class="btn hubbox-toggle-button" data-bind="click: clickAndCollect, css: { selected: showClickAndCollect()}" id="click-and-collect">Click and Collect</button>
+            <span class="hubbox-candc-info">
+                Collect from thousands of <span>HubBox</span> locations nationwide (UK only).<br />
+                <a href="#" id="what-is-hubbox" data-bind="click: whatIsHubBox">What is HubBox?</a>
+            </span>
+        </div>
+    </div>
+</div>
+
+<!-- ko if: showClickAndCollect() -->
+    <!-- ko foreach: getRegion('widget') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+    <!--/ko-->
+<!--/ko-->

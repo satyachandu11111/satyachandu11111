@@ -1,0 +1,6 @@
+<?php $query_string=$this->getRequest()->getParam('q'); ?>
+<script>
+pintrk('track', 'search', {
+"search_query":"<?php echo $query_string ?>"
+});
+</script>

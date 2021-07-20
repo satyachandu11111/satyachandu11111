@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <email_verification>
+            <demo>
+                <template_notvalid>email_verification_demo_template_notvalid</template_notvalid>
+                <template_email_verified>email_verification_demo_template_email_verified</template_email_verified>
+                <bulk_orders_days>30</bulk_orders_days>
+            </demo>
+        </email_verification>
+    </default>
+</config>

@@ -1,0 +1,165 @@
+<?php
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category   BSS
+ * @package    Bss_ProductImagesByCustomer
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2017-2018 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+// @codingStandardsIgnoreFile
+
+/**
+ * @var  Bss\ProductImagesByCustomer\Block\SliderTabProduct $block
+ */
+
+//Set title tab information
+$block->setData('title', $block->getHelperConfigAdmin()->configTitleTab());
+?>
+<div class="bssDescriptionTab">
+    <?php echo $block->getHelperConfigAdmin()->configDescriptionTab();?>
+</div>
+<style>
+    .owl-carousel .item{
+        width: <?php echo $block->getHelperConfigAdmin()->configHorizontalImageInSlide();?>px;
+        height: <?php echo $block->getHelperConfigAdmin()->configVerticalImageInSlide();?>px;
+        border: solid 1px #555;
+        background-color: #fff;
+        -moz-box-shadow: 0 0 10px  rgba(0,0,0,0.6);
+        -webkit-box-shadow: 0 0 10px  rgba(0,0,0,0.6);
+        -o-box-shadow: 0 0 10px  rgba(0,0,0,0.6);
+    }
+    .owl-item:last-child {
+        margin-right: 0px !important;
+    }
+</style>
+<div class="bssContainerSliderAndForm">
+    <?php
+    $arrayImagesInSlide = $block->getImagesInSlide();
+
+    if ( !empty($arrayImagesInSlide) ) {
+        ?>
+        <ul class="bss_product_images_slider owl-carousel owl-theme">
+            <?php foreach ($arrayImagesInSlide as $image): ?>
+                <li class="item">
+                    <div class="gallery-category-item">
+                        <a href="<?php echo $block->editSrcImageInSlide($image['link_image'], 2) ?>"
+                           data-width="<?php echo $block->getHelperConfigAdmin()->configHorizontalImageClick()?>"
+                           data-height="<?php echo $block->getHelperConfigAdmin()->configVerticalImageClick()?>"
+                           data-fancybox="images"
+                        >
+                            <img src="<?php echo $block->editSrcImageInSlide($image['link_image'], 1) ?>"/>
+                        </a>
+                    </div>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+        <script type="text/x-magento-init">
+            {
+            "*":
+                {
+                    "Bss_ProductImagesByCustomer/js/bssPopup": {},
+                    "Bss_ProductImagesByCustomer/js/bssSlider": {
+                        "bssSpeedSlider" : <?php echo $block->getHelperConfigAdmin()->configSpeedSlider();?>,
+                        "bssWidthAItem" : <?php echo $block->getHelperConfigAdmin()->configHorizontalImageInSlide();?>,
+                        "bssNumberImages" : <?php echo $block->getHelperConfigAdmin()->configImagePerSlide();?>,
+                        "bssNumberImagesApprove" : <?php echo count($arrayImagesInSlide);?>
+                    }
+                }
+            }
+        </script>
+        <?php
+    }
+    ?>
+    <?php
+    if ( $block->checkCustomerLogined() || $block->getHelperConfigAdmin()->configGuestUploadImage()) {
+        ?>
+        <div class="bssWrapperForm">
+            <form id="bssFormSubmit" method="POST" enctype="multipart/form-data" id="bssFormUploadImages" action="<?php echo $block->getBaseUrl().'productimages/index/saveimages';?>" data-mage-init='{"validation":{}}'>
+                <table class="bssUploadImageForm">
+                    <tr>
+                        <td><?php echo __("Upload Images");?></td>
+                    </tr>
+                    <tr>
+                        <td><?php echo __("Your name");?> <span class="bssRedColor">*</span></td>
+                    </tr>
+                    <tr>
+                        <td><input class="bssUploadInput" requied name="bssCustomerName" required type="text"></td>
+                    </tr>
+                    <?php
+                    if (!$block->checkCustomerLogined()) {
+                        ?>
+                        <tr>
+                            <td><?php echo __("Your Email");?> <?php echo ($block->getHelperConfigAdmin()->configEmailRequired())?"<span class='bssRedColor'>*</span>":"";?></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input class="bssUploadInput" id="bssCustomerEmail"
+                                    <?php echo ($block->getHelperConfigAdmin()->configEmailRequired())?"required":"";?> name="bssCustomerEmail" type="email"
+                                >
+                            </td>
+                        </tr>
+                        <?php
+                    }
+                    ?>
+                    <tr class="bssRowFile" id="bssRowFileId0">
+                        <td>
+                            <div><?php echo __("Choose Image");?> <span class="bssRedColor">*</span></div>
+                            <div class="bssDivFileField">
+                                <label for="bssUploadImage0"><img src=<?php echo $block->getIconSlider('uploadIcon.png')?>></label>
+                                <img id="bssImageDisplay0" class="bssImageDisplayFileClass"><span id="bssWarning0" class="bssWarning"><?php echo __("No image chosen");?></span>
+                                <input class="checkFile" required type="file" id="bssUploadImage0" name="bssUploadImage0" accept="image/jpg,image/png,image/gif,image/jpeg"/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><p id="buttonMoreBss"><img src=<?php echo $block->getIconSlider('addIcon.png')?>> <?php echo __("Add more image");?></p></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button id="buttonBssUploadFile">
+                                <img src="<?php echo $block->getIconSlider('uploadIconButton.png')?>"><span><?php echo __("upload");?></span>
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+                <input class="bssUploadInput" id="numberFileUpload" name="numberFileUpload" type="hidden" value="1">
+                <input class="bssUploadInput" id="skuProductImages" name="skuProductImages" type="hidden" value="<?php echo $block->getProduct()->getSku(); ?>">
+                <input class="bssUploadInput" id="bssFormKey" name="form_key" type="hidden" value="<?php echo $block->getFormKey();?>"/>
+            </form>
+        </div>
+        <?php
+    }
+    ?>
+</div>
+<script type="text/x-magento-init">
+     {
+         "*":
+            {
+                "Bss_ProductImagesByCustomer/js/bssForm": {
+                    "numberFileUploadOnce" : <?php echo $block->getHelperConfigAdmin()->configNumberUploadImageUploadOnce()?>,
+                    "uploadMaxFileSize" : <?php echo $block->getUploadMaxFileSize();?>
+                }
+            }
+     }
+</script>
+<script id="bssFormMageTemplate" type="text/x-magento-template">
+    <tr class="bssRowFile" id="<%- data.id %>">
+        <td>
+            <div><?php echo __("Choose Image");?></div>
+            <div class="bssDivFileField">
+                <label for="<%- data.idInput %>"><img src=<?php echo $block->getIconSlider('uploadIcon.png')?>></label>
+                <img id="<%- data.idImg %>" class="bssImageDisplayFileClass"><span id="<%- data.idSpan %>" class="bssWarning"><?php echo __("No image chosen");?></span>
+                <input class="checkFile" type="file" id="<%- data.idInput %>" name="<%- data.idInput %>" accept="image/jpg,image/png,image/gif,image/jpeg"/>
+            </div>
+        </td>
+    </tr>
+</script>

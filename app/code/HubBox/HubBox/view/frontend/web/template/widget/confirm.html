@@ -1,0 +1,59 @@
+<div class="card-content hidden" id="hubbox-confirm" data-bind="css: { hidden: !show() } ">
+    <div class="modal-back" id="hubbox-back-button" data-bind="click: confirmBack">
+        <i class="material-icons">arrow_back</i> <span>Back to map</span>
+    </div>
+    <div class="hubbox-map">
+        <div id="hubbox-map-confirm" style="height:100%; width:100%"></div>
+    </div>
+    <div class="card confirm" id="hubbox-collect-point-confirm-wrapper" data-bind="css: {translucent: isTranslucent() }" >
+        <div class="collect-point collect-point-confirm" id="hubbox-collect-point-confirm">
+
+            <div class="collect-point-name">
+                <h3><strong data-bind="text: collectPoint() ? collectPoint().shortName:''"></strong></h3>
+            </div>
+            <div class="collect-point-address">
+                <div class="pair icon">
+                    <span class="label"><i class="material-icons">directions_walk</i></span>
+                    <span class="value" data-bind="text: collectPoint() ? collectPoint().distanceRounded:''"></span>
+                </div>
+                <div class="pair icon">
+                    <span class="label"><i class="material-icons">location_on</i></span>
+                    <span class="value">
+                        <span data-bind="text: collectPoint() ? collectPoint().address.street1:''"></span>,
+                        <br /><span data-bind="text: collectPoint() ? collectPoint().address.city:''"></span>,
+                        <br /><span data-bind="text: collectPoint() ? collectPoint().address.postcode:''"></span>
+                        <br />
+                    </span>
+                </div>
+            </div>
+            <div class="collect-point-hours">
+                <div data-bind="if:collectPoint()">
+                    <div data-bind="foreach: collectPoint().openingHoursReduced">
+                        <div class="pair hours">
+                            <span class="label" data-bind="text: friendly()"></span>
+                            <span class="value" data-bind="text: range()"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="collect-point-extra">
+                <div data-bind="if:collectPoint()">
+                    <div data-bind="if:collectPoint().openingHours.warning">
+                        <div class="pair">
+                            <span class="label"><i class="material-icons">info_outline</i></span>
+                            <span class="value">Extra information</span>
+                        </div>
+                        <div class="pair">
+                            <span class="label"></span>
+                            <span class="value" data-bind="text: collectPoint().openingHours.warning">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <span class="btn" id="hubbox-confirm-collect-point" data-bind="click: confirmCollectPoint">
+                    Confirm <br />Collect Point
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

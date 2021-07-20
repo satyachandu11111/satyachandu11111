@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job name="aw_raf_expire_advocate_balance" instance="Aheadworks\Raf\Cron\Advocate\ExpireBalance" method="execute">
+            <schedule>0 0 * * *</schedule>
+        </job>
+        <job name="aw_raf_advocate_expiration_reminder" instance="Aheadworks\Raf\Cron\Advocate\ExpirationReminder" method="execute">
+            <schedule>0 20 * * *</schedule>
+        </job>
+        <job name="aw_raf_advocate_transaction_processor" instance="Aheadworks\Raf\Cron\Advocate\TransactionProcessor" method="execute">
+            <schedule>0 */1 * * *</schedule>
+        </job>
+    </group>
+</config>

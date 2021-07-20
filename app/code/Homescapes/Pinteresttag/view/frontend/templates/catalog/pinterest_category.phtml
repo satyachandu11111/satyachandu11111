@@ -1,0 +1,17 @@
+<?php
+/** @var $viewModel \Homescapes\Pinteresttag\ViewModel\MyNewViewModel */
+
+$viewModel = $block->getViewModel();
+
+?>
+<?php  $categorytitle=$viewModel->getCategoryName(); ?></h1>
+<!-- Pinterest Code for category page-->
+<script>
+pintrk('track', 'viewcategory', {
+line_items: [
+{
+product_category: '<?php echo $categorytitle; ?>'
+}
+]
+});
+</script>

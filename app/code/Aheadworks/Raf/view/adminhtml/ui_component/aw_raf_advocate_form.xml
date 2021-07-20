@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">aw_raf_advocate_form.aw_raf_advocate_form_data_source</item>
+            <item name="deps" xsi:type="string">aw_raf_advocate_form.aw_raf_advocate_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Advocate</item>
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+            <item name="namespace" xsi:type="string">aw_raf_advocate_form</item>
+        </item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="string">Aheadworks\Raf\Block\Adminhtml\Advocate\View\Button\Back</item>
+            <item name="save" xsi:type="string">Aheadworks\Raf\Block\Adminhtml\Advocate\View\Button\Save</item>
+            <item name="save_and_continue" xsi:type="string">Aheadworks\Raf\Block\Adminhtml\Advocate\View\Button\SaveAndContinue</item>
+        </item>
+    </argument>
+    <dataSource name="aw_raf_advocate_form_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Aheadworks\Raf\Ui\DataProvider\Advocate\FormDataProvider</argument>
+            <argument name="name" xsi:type="string">aw_raf_advocate_form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="submit_url" xsi:type="url" path="aw_raf/advocate/saveTransaction"/>
+                </item>
+            </argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+    <fieldset name="summary">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Summary</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="opened" xsi:type="boolean">true</item>
+                <item name="sortOrder" xsi:type="number">10</item>
+            </item>
+        </argument>
+        <container name="summary_wrapper">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="template" xsi:type="string">Aheadworks_Raf/ui/form/advocate/summary-wrapper</item>
+                </item>
+            </argument>
+            <container name="customer_summary_item">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="template" xsi:type="string">Aheadworks_Raf/ui/form/advocate/summary-item</item>
+                        <item name="additionalClasses" xsi:type="string">advocate-name</item>
+                    </item>
+                </argument>
+                <field name="customer_name" class="Aheadworks\Raf\Ui\Component\Form\Advocate\CustomerInfo">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="label" xsi:type="string" translate="true">Name</item>
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="source" xsi:type="string">advocate</item>
+                            <item name="dataScope" xsi:type="string">customer</item>
+                            <item name="component" xsi:type="string">Aheadworks_Raf/js/ui/form/advocate/label-url</item>
+                        </item>
+                    </argument>
+                </field>
+                <field name="customer_email">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="source" xsi:type="string">advocate</item>
+                            <item name="additionalClasses" xsi:type="string">advocate-email</item>
+                            <item name="dataScope" xsi:type="string">customer</item>
+                            <item name="component" xsi:type="string">Aheadworks_Raf/js/ui/form/advocate/label-url</item>
+                        </item>
+                    </argument>
+                </field>
+            </container>
+            <container name="invited_friends_summary_item">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="template" xsi:type="string">Aheadworks_Raf/ui/form/advocate/summary-item</item>
+                        <item name="additionalClasses" xsi:type="string"/>
+                    </item>
+                </argument>
+                <field name="invited_friends">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="label" xsi:type="string" translate="true">Invited Friends</item>
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="source" xsi:type="string">advocate</item>
+                            <item name="dataScope" xsi:type="string">customer</item>
+                            <item name="component" xsi:type="string">Aheadworks_Raf/js/ui/form/advocate/label-url</item>
+                        </item>
+                    </argument>
+                </field>
+            </container>
+            <container name="balance_summary_item">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="template" xsi:type="string">Aheadworks_Raf/ui/form/advocate/summary-item</item>
+                        <item name="additionalClasses" xsi:type="string"/>
+                    </item>
+                </argument>
+                <field name="cumulative_amount" class="Aheadworks\Raf\Ui\Component\Form\Advocate\Price">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="label" xsi:type="string" translate="true">Current Rewards</item>
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="source" xsi:type="string">advocate</item>
+                            <item name="dataScope" xsi:type="string">cumulative_amount</item>
+                            <item name="component" xsi:type="string">Aheadworks_Raf/js/ui/form/advocate/label-url</item>
+                        </item>
+                    </argument>
+                </field>
+            </container>
+            <container name="percent_balance_summary_item">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="template" xsi:type="string">Aheadworks_Raf/ui/form/advocate/summary-item</item>
+                        <item name="additionalClasses" xsi:type="string"/>
+                    </item>
+                </argument>
+                <field name="cumulative_percent_amount" class="Aheadworks\Raf\Ui\Component\Form\Advocate\PercentPrice">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="label" xsi:type="string" translate="true">Current Rewards (Percent)</item>
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="source" xsi:type="string">advocate</item>
+                            <item name="dataScope" xsi:type="string">cumulative_percent_amount</item>
+                            <item name="component" xsi:type="string">Aheadworks_Raf/js/ui/form/advocate/label-url</item>
+                        </item>
+                    </argument>
+                </field>
+            </container>
+            <container name="expiration_date_summary_item">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="template" xsi:type="string">Aheadworks_Raf/ui/form/advocate/summary-item</item>
+                        <item name="additionalClasses" xsi:type="string"/>
+                    </item>
+                </argument>
+                <field name="expiration_date" class="Aheadworks\Raf\Ui\Component\Form\Advocate\ExpirationDate">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="label" xsi:type="string" translate="true">Nearest Expiration Date</item>
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="source" xsi:type="string">advocate</item>
+                            <item name="dataScope" xsi:type="string">customer</item>
+                            <item name="component" xsi:type="string">Aheadworks_Raf/js/ui/form/advocate/label-url</item>
+                        </item>
+                    </argument>
+                </field>
+            </container>
+        </container>
+    </fieldset>
+    <fieldset name="transactions_history">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Transactions History</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="opened" xsi:type="boolean">true</item>
+                <item name="sortOrder" xsi:type="number">20</item>
+            </item>
+        </argument>
+        <field name="transaction_amount">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Add transaction</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="dataScope" xsi:type="string">transaction_amount</item>
+                    <item name="notice" xsi:type="string" translate="true">Enter a negative number to subtract from the customer's balance</item>
+                    <item name="additionalClasses" xsi:type="string">admin__field-transaction</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="validate-number" xsi:type="boolean">true</item>
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="transaction_admin_comment">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Admin comment</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="dataScope" xsi:type="string">transaction_admin_comment</item>
+                    <item name="notice" xsi:type="string" translate="true">Visible to admin only</item>
+                    <item name="additionalClasses" xsi:type="string">admin__field-transaction</item>
+                </item>
+            </argument>
+        </field>
+        <insertListing name="aw_raf_transaction_listing">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="cssclass" xsi:type="string">aw_raf_transaction_listing</item>
+                    <item name="autoRender" xsi:type="boolean">true</item>
+                    <item name="dataScope" xsi:type="string">aw_raf_transaction_listing</item>
+                    <item name="externalProvider" xsi:type="string">${ $.ns }.aw_raf_transaction_listing_data_source</item>
+                    <item name="ns" xsi:type="string">aw_raf_transaction_listing</item>
+                    <item name="loading" xsi:type="boolean">false</item>
+                    <item name="imports" xsi:type="array">
+                        <item name="id" xsi:type="string">${ $.provider }:data.id</item>
+                    </item>
+                    <item name="exports" xsi:type="array">
+                        <item name="id" xsi:type="string">${ $.externalProvider }:params.summary_id</item>
+                    </item>
+                </item>
+            </argument>
+        </insertListing>
+    </fieldset>
+</form>

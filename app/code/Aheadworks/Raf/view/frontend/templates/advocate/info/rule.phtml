@@ -1,0 +1,13 @@
+<?php
+// @codingStandardsIgnoreFile
+
+/* @var $block \Aheadworks\Raf\Block\Advocate\Info\Rule */
+?>
+<p class="aw-raf-title"><?= $block->escapeHtml(__('Conditions:')) ?></p>
+<div class="rule-text">
+    <?php if ($block->checkIfRegistrationIsRequired()): ?>
+        <p><?php /* @noEscape */ echo __("Friend's registration on the site is mandatory to get a reward towards purchase.") ?></p>
+    <?php endif; ?>
+    <p><?php /* @noEscape */ echo __('Every friend gets <b>%1</b> off on their first purchase.', $block->getFriendOff()); ?></p>
+    <p><?php /* @noEscape */ echo __("For every friend's first purchase, you get <b>%1</b> off.", $block->getAdvocateOff()); ?></p>
+</div>

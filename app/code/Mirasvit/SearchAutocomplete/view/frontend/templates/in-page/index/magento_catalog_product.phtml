@@ -1,0 +1,42 @@
+<div class="mstInPage__item magento_catalog_product">
+    <!-- ko if: image -->
+    <div class="mst__product-image">
+        <a rel="noreferrer" data-bind="attr: {href: url}">
+            <img data-bind="attr: {src: image}"/>
+        </a>
+    </div>
+    <!-- /ko -->
+
+    <div class="mst__product-meta">
+
+        <a rel="noreferrer" class="mst__title" data-bind="html: name, attr: {href: url}, highlight"/>
+
+        <!-- ko if: sku -->
+        <div class="mst__sku" data-bind="text: sku, highlight"/>
+        <!-- /ko -->
+
+        <!-- ko if: description -->
+        <div class="mst__description" data-bind="text: description, highlight"/>
+        <!-- /ko -->
+
+        <!-- ko if: rating -->
+        <div class="mst__rating" data-bind="html: rating"/>
+        <!-- /ko -->
+
+        <div class="mst__product-cart">
+            <form data-role="tocart-form" class="to-cart"
+                  data-bind="visible: cart.visible, attr:{action: cart.params.action}, afterRender: $parents[2].afterRender"
+                  method="post">
+                <input type="hidden" name="product" data-bind="value: cart.params.data.product">
+                <input type="hidden" name="uenc" data-bind="value: cart.params.data.uenc">
+                <input type="hidden" name="form_key" data-bind="value: $parents[2].form_key"/>
+                <button type="submit" class="action tocart primary">
+                    <span data-bind="html: cart.label,event: { mousedown: $parents[2].onSubmit }"></span>
+                </button>
+            </form>
+            <div class="store">
+                <div data-bind="html: price" class="price"/>
+            </div>
+        </div>
+    </div>
+</div>

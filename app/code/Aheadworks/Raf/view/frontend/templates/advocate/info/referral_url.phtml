@@ -1,0 +1,12 @@
+<?php
+// @codingStandardsIgnoreFile
+
+/* @var $block \Aheadworks\Raf\Block\Advocate\Info\ReferralUrl */
+?>
+<div class="field referral-url">
+    <label class="label aw-raf-title" for="referral-url"><span><?= $block->escapeHtml(__('Or just copy & paste this link anywhere you want!')) ?></span></label>
+    <div class="control">
+        <input type="text" data-role="referral-url-text" value="<?= $block->escapeHtmlAttr($block->getAdvocateReferralUrl()) ?>" class="input-text" readonly />
+        <button data-mage-init='{"awRafCopyToClipboard":{}}' id="copy-to-clipboard" class="action copy"><span><?= $block->escapeHtml(__('Copy link to clipboard')) ?></span></button>
+    </div>
+</div>

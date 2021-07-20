@@ -1,0 +1,127 @@
+<?php
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category   BSS
+ * @package    Bss_ProductImagesByCustomer
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2017-2018 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+// @codingStandardsIgnoreFile
+
+/** @var $block Bss\ProductImagesByCustomer\Block\Adminhtml\Image\Edit\Tab\Images */
+$elementName = 'bss-productimagesbycustomer[images]';
+
+?>
+<div id="<?php /* @escapeNotVerified */ echo $block->getHtmlId() ?>"
+     class='gallery'
+     data-mage-init='{"productGallery":{"template":"#<?php
+     /* @escapeNotVerified */ echo $block->getHtmlId() ?>-template"}}'
+     data-images="<?php /* @escapeNotVerified */ echo $block->escapeHtml($block->getImagesJson()) ?>"
+     data-types="<?php /* @escapeNotVerified */ echo $block->escapeHtml(
+         $block->getDataHelper()->jsonEncode($block->getImageTypes())
+     ) ?>"
+>
+    <?php if (!$block->getRequest()->getParam('bss_image_customer_upload_id')) {?>
+        <div class="image image-placeholder">
+            <?php /* @escapeNotVerified */ echo $block->getUploaderHtml();
+            ?>
+            <img class="spacer"
+                 src="<?php /* @escapeNotVerified */ echo $block->getViewFileUrl('images/spacer.gif')?>"/>
+            <p class="image-placeholder-text">
+                <?php /* @escapeNotVerified */ echo __('Click here or drag and drop to add images.');
+                ?></p>
+        </div>
+        <?php /* @escapeNotVerified */ echo $block->getChildHtml('additional_buttons'); ?>
+    <?php } ?>
+    <?php
+    foreach ($block->getImageTypes() as $typeData) {
+        ?>
+        <input name="<?php /* @escapeNotVerified */ echo $block->escapeHtml($typeData['name']) ?>"
+               class="image-<?php /* @escapeNotVerified */ echo $block->escapeHtml($typeData['code']) ?>"
+               type="hidden"
+               value="<?php /* @escapeNotVerified */ echo $block->escapeHtml($typeData['value']) ?>"/>
+        <?php
+    }
+    ?>
+    <script id="<?php /* @escapeNotVerified */ echo $block->getHtmlId() ?>-template" type="text/x-magento-template">
+        <div class="image item <% if (data.disabled == 1) { %>hidden-for-front<% } %>"
+             data-role="image">
+            <input type="hidden"
+                   name="<?php /* @escapeNotVerified */ echo $elementName ?>[<%- data.file_id %>][position]"
+                   value="<%- data.position %>"
+                   class="position"/>
+            <input type="hidden"
+                   name="<?php /* @escapeNotVerified */ echo $elementName ?>[<%- data.file_id %>][media_type]"
+                   value="<%- data.media_type %>"/>
+            <input type="hidden"
+                   name="<?php /* @escapeNotVerified */ echo $elementName ?>[<%- data.file_id %>][file]"
+                   value="<%- data.file %>"/>
+            <ul class="type-labels" style="display: none">
+                <?php
+                foreach ($block->getImageTypes() as $typeData) {
+                    ?>
+                    <li class="type-<?php /* @escapeNotVerified */ echo $block->escapeHtml(
+                        $typeData['code']
+                    ) ?>"><?php /* @escapeNotVerified */ echo $block->escapeHtml($typeData['label']) ?></li>
+                    <?php
+                }
+                ?>
+            </ul>
+            <img class="spacer"
+                 src="<?php /* @escapeNotVerified */ echo $block->getViewFileUrl('images/spacer.gif')?>"/>
+            <img class="product-image" src="<%- data.url %>" alt="<%- data.label %>"/>
+
+            <div class="image-label"></div>
+            <div class="image-fade"><span><?php /* @escapeNotVerified */ echo __('Hidden') ?></span></div>
+        </div>
+    </script>
+    <script class="dialog-template" type="text/x-magento-template"  data-title="Image Options">
+        <div class="image-panel admin__scope-old ui-tabs-panel ui-widget-content ui-corner-bottom"
+             data-role="dialog"
+             style="display: block">
+            <div class="image-panel-preview">
+                <img src="<%- data.url %>" alt="<%- data.label %>" />
+            </div>
+            <div class="image-panel-controls">
+                <strong class="image-name"><%- data.label %></strong>
+
+                <fieldset class="fieldset fieldset-image-panel">
+                    <div class="field field-image-description">
+                        <label class="label" for="image-description">
+                            <span><?php /* @escapeNotVerified */ echo __('Alt Text')?></span>
+                        </label>
+                        <div class="control">
+                                <textarea id="image-description"
+                                          rows="3"
+                                          name="<?php /* @escapeNotVerified */
+                                          echo $elementName
+                                          ?>[<%- data.file_id %>][label]"><%- data.label %></textarea>
+                        </div>
+                    </div>
+
+                    <div class="field field-image-hide">
+                        <label class="label">
+                            <input type="checkbox"
+                                   data-role="visibility-trigger"
+                                   value="1"
+                                   name="<?php /* @escapeNotVerified */
+                                   echo $elementName
+                                   ?>[<%- data.file_id %>][disabled]"
+                            <% if (data.disabled == 1) { %>checked="checked"<% } %> />
+                            <span><?php /* @escapeNotVerified */ echo __('Hide from Product Page')?></span>
+                        </label>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </script>
+</div>

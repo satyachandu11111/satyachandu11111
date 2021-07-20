@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="before.body.end">
+            <block class="Aheadworks\Raf\Block\Friend\Invited" name="aw-raf.friend.invited"
+                   template="Aheadworks_Raf::friend/invited.phtml" />
+        </referenceContainer>
+        <referenceBlock name="head.additional">
+            <block class="Aheadworks\Raf\Block\Advocate\ShareService" name="aw-raf.advocate.share_service"
+                   template="Aheadworks_Raf::advocate/share-service.phtml">
+                <arguments>
+                    <argument name="jsLayout" xsi:type="array">
+                        <item name="types" xsi:type="array"/>
+                        <item name="components" xsi:type="array">
+                            <item name="aw_raf_share_service" xsi:type="array">
+                                <item name="component" xsi:type="string">Aheadworks_Raf/js/view/advocate/share-service</item>
+                                <item name="deps" xsi:type="array">
+                                    <item name="0" xsi:type="string">awRafShareDataProvider</item>
+                                </item>
+                                <item name="children" xsi:type="array">
+                                    <item name="addthis_service" xsi:type="array">
+                                        <item name="component" xsi:type="string">Aheadworks_Raf/js/view/advocate/share/add-this</item>
+                                        <item name="config" xsi:type="array">
+                                            <item name="enabled" xsi:type="boolean">true</item>
+                                        </item>
+                                    </item>
+                                    <item name="sharethis_service" xsi:type="array">
+                                        <item name="component" xsi:type="string">Aheadworks_Raf/js/view/advocate/share/share-this</item>
+                                        <item name="config" xsi:type="array">
+                                            <item name="enabled" xsi:type="boolean">true</item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item>
+                            <item name="awRafShareDataProvider" xsi:type="array">
+                                <item name="component" xsi:type="string">Aheadworks_Raf/js/view/advocate/share/share-data-provider</item>
+                                <item name="deps" xsi:type="array">
+                                    <item name="0" xsi:type="string">awRafMessageConfigProvider</item>
+                                </item>
+                            </item>
+                            <item name="awRafMessageConfigProvider" xsi:type="array">
+                                <item name="component" xsi:type="string">Aheadworks_Raf/js/view/advocate/share/provider</item>
+                            </item>
+                        </item>
+                    </argument>
+                </arguments>
+                <block class="Magento\Framework\View\Element\Template" name="aw-raf.advocate.share_service.share_this" as="share_service.share_this"
+                       template="Aheadworks_Raf::advocate/share-service/share-this.phtml"/>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

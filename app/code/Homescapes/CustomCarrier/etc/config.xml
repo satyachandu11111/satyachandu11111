@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <carriers>
+            <yodel>
+                <active>0</active>
+                <title>Yodel Domestic</title>
+                <name></name>
+                <shipping_cost>10</shipping_cost>
+                <sallowspecific>0</sallowspecific>
+                <sort_order>15</sort_order>
+                <model>Homescapes\CustomCarrier\Model\Carrier\Customcarrier</model>
+            </yodel>
+            <dpd>
+                <active>0</active>
+                <title>DPD</title>
+                <name></name>
+                <shipping_cost>10</shipping_cost>
+                <sallowspecific>0</sallowspecific>
+                <sort_order>15</sort_order>
+                <model>Homescapes\CustomCarrier\Model\Carrier\CustomcarrierTwo</model>
+            </dpd>
+            <panther>
+                <active>0</active>
+                <title>PANTHER</title>
+                <name></name>
+                <shipping_cost>10</shipping_cost>
+                <sallowspecific>0</sallowspecific>
+                <sort_order>15</sort_order>
+                <model>Homescapes\CustomCarrier\Model\Carrier\CustomcarrierPanther</model>
+            </panther>
+        </carriers>
+    </default>
+</config>

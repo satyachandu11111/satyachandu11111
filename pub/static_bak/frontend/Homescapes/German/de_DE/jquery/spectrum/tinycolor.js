@@ -1,0 +1,1 @@
+/var/www/html/homescapesonlineM2/lib/web/jquery/spectrum/tinycolor.js

@@ -1,0 +1,1 @@
+/var/www/html/homescapesonlineM2/app/code/MagicToolbox/MagicScroll/view/frontend/web/js/swatch-renderer.js

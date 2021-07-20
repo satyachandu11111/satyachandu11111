@@ -1,0 +1,119 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Xnotif
+ */
+?>
+<?php
+// @codingStandardsIgnoreStart
+/** @var Magento\Framework\Url\Helper\Data $urlHelper */
+$urlHelper = $this->helper(\Magento\Framework\Url\Helper\Data::class);
+/** @var Amasty\Xnotif\Helper\Data $helper */
+$helper = $this->helper(\Amasty\Xnotif\Helper\Data::class);
+// @codingStandardsIgnoreEnd
+
+$productId = (int)$helper->getOriginalProduct($block)->getId();
+$parentId = (int)$block->getData('parent_product_id');
+$url = $block->escapeHtml($helper->getEmailUrl('stock'));
+$backUrl=$block->getBackUrl();
+$enCodebackUrl=$urlHelper->getEncodedUrl($backUrl);
+
+?>
+<?php if($helper->isLoggedIn()){
+
+?>
+<div class="product-detail-stock-notify" >
+        <i class="fas fa-envelope"></i>
+    <a href="<?php echo $url ?>product_id/<?php echo $productId ?>/uenc/<?php echo $enCodebackUrl ?>/" title="<?= /* @noEscape */ __("Temporarily out of stock. Notify me when it's back in stock") ?>" class="action alert product-detail-notify">
+      <?= /* @noEscape */ __("Temporarily out of stock. Notify me when it's back in stock") ?></a>
+</div>
+<?php }else { ?>
+
+<div class="product-detail-stock-notify" >
+				<i class="fas fa-envelope"></i>
+                    <a class="product-detail-notify" href="javascript:void(0)" data-id="<?php echo $productId ?>" id=product-detail-notification-container-<?php echo $productId ?>"><?= /* @escapeNotVerified */ __("Temporarily out of stock. Notify me when it's back in stock") ?></a>
+                    </div>
+<div class="category amxnotif-block subscribe-popup" id=product-detail-notification-box-<?php echo $productId ?> style="display: none;">  
+<div class="subscribe-popup">
+  <a href="javascript:void(0)" data-id="<?php echo $productId ?>" class="product-close close">X</a>
+    <div class="amxnotif-block"  data-action="<?= /* @noEscape */ $url; ?>">
+        <form id="form-validate-stock" method="post" action="<?= /* @noEscape */ $url; ?>">
+            <label for="notification-container-<?= /* @noEscape */ $productId ?>">
+                <?= /* @noEscape */ __('Get notified via email when this product is back in stock') ?>
+            </label>
+            <div class="notification-container" id="notification-container-<?= /* @noEscape */ $productId ?>">
+                <div class="input-fields fieldset">
+                    <input name="guest_email"
+                           class="input-text amxnotif-guest-email"
+                           id="amxnotif-guest-email-<?= /* @noEscape */ $productId ?>"
+                           size="30"
+                           type="email"
+                           data-validate="{required:true, 'validate-email':true}"
+                           placeholder="<?= $block->escapeHtml($helper->getPlaceholder()) ?>"
+                    />
+                    <input type="hidden" name="product_id"
+                           value="<?= /* @noEscape */ $productId ?>"/>
+                    <input type="hidden" name="type" value="email"/>
+
+                    <?php if ($parentId):?>
+                    <input type="hidden" name="parent_id"
+                           value="<?= /* @noEscape */ $parentId ?>"/>
+                    <?php endif; ?>
+
+                    <input type="hidden" name="form_key" value="<?= $block->escapeHtmlAttr($helper->getFormKey()) ?>">
+                    <input type="hidden"
+                           name="<?= /* @noEscape */ \Magento\Framework\App\Action\Action::PARAM_NAME_URL_ENCODED ?>"
+                           value="<?= /* @noEscape */ $enCodebackUrl; ?>"/>
+                    <?php if ($helper->isGDRPEnabled()): ?>
+                        <div class="field required">
+                            <input type="checkbox"
+                                   name="gdrp"
+                                   id="amxnotif-stock-gdrp-<?= /* @noEscape */ $productId ?>"
+                                   title="<?= $block->escapeHtml(__('GDRP')); ?>"
+                                   data-validate="{required:true}"
+                                   value="1">
+                            <label class="label" for="amxnotif-stock-gdrp-<?= /* @noEscape */ $productId ?>">
+                                <?= /* @noEscape */ $helper->getGDRPText(); ?>
+                            </label>
+                        </div>
+                    <?php endif; ?>
+                </div>
+
+                <div class="actions-toolbar amxnotif_guest_action">
+                    <div class="primary">
+                        <button type="submit" class="action submit primary">
+                            <span><?= $block->escapeHtml(__('Subscribe')); ?></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+    require([
+        'jquery',
+        "mage/mage",
+        "mage/validation"
+    ], function ($) {
+        "use strict";
+        $('#form-validate-stock').mage('validation');
+    });
+
+</script>
+<script type="text/javascript">
+     require(["jquery","domReady!"], function ($) {
+            $('.product-detail-notify').on("click",function(){
+              var usersid =  $(this).data("id");
+              $('#product-detail-notification-box-'+usersid).show();  
+            })
+            $('.product-close').on("click",function(){
+                var closeusersid =  $(this).data("id");
+              $('#product-detail-notification-box-'+closeusersid).hide();  
+            })
+            
+        });
+</script>
+<?php } ?>

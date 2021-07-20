@@ -1,0 +1,1 @@
+/var/www/html/homescapesonlineM2/app/code/Amasty/Xnotif/view/frontend/web/js/amnotification.js

@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="emailverification_send_response">
+        <observer name="email_verify_response" instance="Homescapes\EmailVerificationApi\Observer\VerificationResponse" />
+    </event>
+</config>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:DataObject/etc/fieldset.xsd">
+    <scope id="global">
+        <fieldset id="sales_convert_quote">
+            <field name="aw_raf_is_friend_discount">
+                <aspect name="to_order" />
+            </field>
+            <field name="aw_raf_referral_link">
+                <aspect name="to_order" />
+            </field>
+            <field name="aw_raf_percent_amount">
+                <aspect name="to_order" />
+            </field>
+            <field name="aw_raf_amount_type">
+                <aspect name="to_order" />
+            </field>
+            <field name="aw_raf_amount">
+                <aspect name="to_order" />
+            </field>
+            <field name="base_aw_raf_amount">
+                <aspect name="to_order" />
+            </field>
+        </fieldset>
+        <fieldset id="sales_convert_quote_address">
+            <field name="aw_raf_amount">
+                <aspect name="to_order" />
+            </field>
+            <field name="base_aw_raf_amount">
+                <aspect name="to_order" />
+            </field>
+            <field name="aw_raf_shipping_percent">
+                <aspect name="to_order" />
+            </field>
+            <field name="aw_raf_shipping_amount">
+                <aspect name="to_order" />
+            </field>
+            <field name="base_aw_raf_shipping_amount">
+                <aspect name="to_order" />
+            </field>
+        </fieldset>
+        <fieldset id="quote_convert_item">
+            <field name="aw_raf_percent">
+                <aspect name="to_order_item" />
+            </field>
+            <field name="aw_raf_rule_ids">
+                <aspect name="to_order_item" />
+            </field>
+            <field name="aw_raf_amount">
+                <aspect name="to_order_item" />
+            </field>
+            <field name="base_aw_raf_amount">
+                <aspect name="to_order_item" />
+            </field>
+        </fieldset>
+    </scope>
+</config>      
