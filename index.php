@@ -18,6 +18,7 @@
  * See COPYING.txt for license details.
  */
 
+/* test */
 try {
     require __DIR__ . '/app/bootstrap.php';
 } catch (\Exception $e) {
